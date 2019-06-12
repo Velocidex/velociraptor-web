@@ -1,0 +1,2623 @@
+<!DOCTYPE html>
+<html lang="en" class="js csstransforms3d">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="Hugo 0.56.0-DEV" />
+    <meta name="description" content="I was watching the SANS DFIR Summit 2018 videos on youtube and came
+across Mari DeGrazia&#39;s talk titled &#34;Finding and Decoding Malicious
+Powershell Scripts&#34;
+">
+
+
+    <link rel="icon" href="/images/favicon.png" type="image/png">
+
+    <title>Detecting powershell persistence with Velociraptor and Yara :: Velociraptor - Hunt Evil!</title>
+
+    
+    <link href="/css/nucleus.css?1560335784" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1560335784" rel="stylesheet">
+    <link href="/css/hybrid.css?1560335784" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1560335784" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1560335784" rel="stylesheet">
+    <link href="/css/auto-complete.css?1560335784" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1560335784" rel="stylesheet">
+    <link href="/css/theme.css?1560335784" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1560335784" rel="stylesheet">
+    
+      <link href="/css/theme-mine.css?1560335784" rel="stylesheet">
+    
+
+    <script src="/js/jquery-3.3.1.min.js?1560335784"></script>
+
+    <style>
+      :root #header + #content > #left > #rlblock_left{
+          display:none !important;
+      }
+      
+    </style>
+    
+  </head>
+  <body class="" data-url="/blog/html/2018/09/29/detecting_powershell_persistence_with_velociraptor_and_yara.html">
+    <nav id="sidebar" class="">
+
+
+
+  <div id="header-wrapper">
+    <div id="header">
+      <a href="/">
+  <img src="/images/logo.svg" />
+</a>
+
+    </div>
+    
+        <div class="searchbox">
+    <label for="search-by"><i class="fas fa-search"></i></label>
+    <input data-search-input id="search-by" type="search" placeholder="Search...">
+    <span data-search-clear=""><i class="fas fa-times"></i></span>
+</div>
+
+<script type="text/javascript" src="/js/lunr.min.js?1560335784"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1560335784"></script>
+<script type="text/javascript">
+    
+        var baseurl = "\/";
+    
+</script>
+<script type="text/javascript" src="/js/search.js?1560335784"></script>
+
+    
+  </div>
+
+    <div class="highlightable">
+    <ul class="topics">
+
+        
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/about/" title="About Velociraptor" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/about/">
+          Overview
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/about/features/" title="Velociraptor Features" class="dd-item ">
+        <a href="/about/features/">
+        Velociraptor Features
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/about/license/" title="GNU Affero General Public License" class="dd-item ">
+        <a href="/about/license/">
+        License
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/blog/" title="Velociraptor Blog" class="dd-item 
+        parent
+        
+        
+        ">
+      <a href="/blog/">
+          Velociraptor Blog
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2019/03/02/agentless_hunting_with_velociraptor.html" title="Agentless hunting with Velociraptor" class="dd-item ">
+        <a href="/blog/html/2019/03/02/agentless_hunting_with_velociraptor.html">
+        Agentless hunting with Velociraptor
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2019/02/14/alerting_on_event_patterns.html" title="Alerting on event patterns" class="dd-item ">
+        <a href="/blog/html/2019/02/14/alerting_on_event_patterns.html">
+        Alerting on event patterns
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2019/02/10/velociraptor_performance.html" title="Velociraptor Performance" class="dd-item ">
+        <a href="/blog/html/2019/02/10/velociraptor_performance.html">
+        Velociraptor Performance
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2019/02/09/velociraptor_python_api.html" title="The Velociraptor Python API" class="dd-item ">
+        <a href="/blog/html/2019/02/09/velociraptor_python_api.html">
+        The Velociraptor Python API
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/09/03/velociraptor_s_client_communications.html" title="Velociraptor&#39;s client communications" class="dd-item ">
+        <a href="/blog/html/2018/09/03/velociraptor_s_client_communications.html">
+        Velociraptor&#39;s client communications
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/12/23/deploying_velociraptor_with_oauth_sso.html" title="Deploying Velociraptor with OAuth SSO" class="dd-item ">
+        <a href="/blog/html/2018/12/23/deploying_velociraptor_with_oauth_sso.html">
+        Deploying Velociraptor with OAuth SSO
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/12/22/configuring_velociraptor_for_ssl.html" title="Configuring Velociraptor for SSL" class="dd-item ">
+        <a href="/blog/html/2018/12/22/configuring_velociraptor_for_ssl.html">
+        Configuring Velociraptor for SSL
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/12/11/velociraptor_interactive_shell.html" title="Velociraptor Interactive Shell" class="dd-item ">
+        <a href="/blog/html/2018/12/11/velociraptor_interactive_shell.html">
+        Velociraptor Interactive Shell
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/12/10/server_side_vql_queries_and_events.html" title="Server side VQL queries and Escalation Events" class="dd-item ">
+        <a href="/blog/html/2018/12/10/server_side_vql_queries_and_events.html">
+        Server side VQL queries and Escalation Events
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/12/09/more_on_client_event_collection.html" title="More on client event collection" class="dd-item ">
+        <a href="/blog/html/2018/12/09/more_on_client_event_collection.html">
+        More on client event collection
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/11/13/velociraptor_training_at_nzitf.html" title="Velociraptor training at NZITF" class="dd-item ">
+        <a href="/blog/html/2018/11/13/velociraptor_training_at_nzitf.html">
+        Velociraptor training at NZITF
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/11/09/event_queries_and_endpoint_monitoring.html" title="Event Queries and Endpoint Monitoring" class="dd-item ">
+        <a href="/blog/html/2018/11/09/event_queries_and_endpoint_monitoring.html">
+        Event Queries and Endpoint Monitoring
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/09/30/velorciraptor_s_filesystem_s_accessors.html" title="Velorciraptor&#39;s filesystem&#39;s accessors" class="dd-item ">
+        <a href="/blog/html/2018/09/30/velorciraptor_s_filesystem_s_accessors.html">
+        Velorciraptor&#39;s filesystem&#39;s accessors
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/09/29/detecting_powershell_persistence_with_velociraptor_and_yara.html" title="Detecting powershell persistence with Velociraptor and Yara" class="dd-item active">
+        <a href="/blog/html/2018/09/29/detecting_powershell_persistence_with_velociraptor_and_yara.html">
+        Detecting powershell persistence with Velociraptor and Yara
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/09/03/velociraptor_walk_through_and_demo.html" title="Velociraptor walk through and demo" class="dd-item ">
+        <a href="/blog/html/2018/09/03/velociraptor_walk_through_and_demo.html">
+        Velociraptor walk through and demo
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/08/20/velociraptor_artifacts.html" title="Velociraptor Artifacts" class="dd-item ">
+        <a href="/blog/html/2018/08/20/velociraptor_artifacts.html">
+        Velociraptor Artifacts
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/08/10/browsing_around_the_filesystem.html" title="Browsing around the filesystem." class="dd-item ">
+        <a href="/blog/html/2018/08/10/browsing_around_the_filesystem.html">
+        Browsing around the filesystem.
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/08/10/design_differences_between_velociraptor_and_grr.html" title="Design differences between Velociraptor and GRR" class="dd-item ">
+        <a href="/blog/html/2018/08/10/design_differences_between_velociraptor_and_grr.html">
+        Design differences between Velociraptor and GRR
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/02/09/files_files_everything_is_just_a_file.html" title="Files, files everything is just a file!" class="dd-item ">
+        <a href="/blog/html/2018/02/09/files_files_everything_is_just_a_file.html">
+        Files, files everything is just a file!
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/08/10/hunting_what_velociraptors_do_best.html" title="Hunting - What Velociraptors do best!" class="dd-item ">
+        <a href="/blog/html/2018/08/10/hunting_what_velociraptors_do_best.html">
+        Hunting - What Velociraptors do best!
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/08/10/interrogation_make_the_endpoint_tell_us_what_it_knows.html" title="Interrogation - Make the endpoint tell us what it knows!" class="dd-item ">
+        <a href="/blog/html/2018/08/10/interrogation_make_the_endpoint_tell_us_what_it_knows.html">
+        Interrogation - Make the endpoint tell us what it knows!
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/08/10/the_velocidex_query_language.html" title="Velocidex Query Language (VQL)" class="dd-item ">
+        <a href="/blog/html/2018/08/10/the_velocidex_query_language.html">
+        Velocidex Query Language (VQL)
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/08/10/introducing_velociraptor.html" title="Introducing Velociraptor" class="dd-item ">
+        <a href="/blog/html/2018/08/10/introducing_velociraptor.html">
+        Introducing Velociraptor
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/docs/" title="Velociraptor Documentation" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/docs/">
+          Velociraptor Documentation
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/docs/user-interface/" title="Users Manual" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/docs/user-interface/">
+          User Manual Overview
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/user-interface/artifact_types/" title="Artifact Types" class="dd-item ">
+        <a href="/docs/user-interface/artifact_types/">
+        Artifact Types
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/user-interface/flows/" title="Velociraptor Artifacts" class="dd-item ">
+        <a href="/docs/user-interface/flows/">
+        Velociraptor Artifacts
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/user-interface/gui/" title="Searching for clients" class="dd-item ">
+        <a href="/docs/user-interface/gui/">
+        Searching for clients
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/documentation/" title="Velociraptor Documentation" class="dd-item ">
+        <a href="/docs/documentation/">
+        Velociraptor
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/docs/getting-started/" title="Get Started" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/docs/getting-started/">
+          Get Started Overview
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/getting-started/deploying_clients/" title="Deploying Clients" class="dd-item ">
+        <a href="/docs/getting-started/deploying_clients/">
+        Client Deployment
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/getting-started/cloud/" title="Deploying in the cloud" class="dd-item ">
+        <a href="/docs/getting-started/cloud/">
+        Cloud Deployment
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/getting-started/stand_alone/" title="Standalone Deployment" class="dd-item ">
+        <a href="/docs/getting-started/stand_alone/">
+        Standalone Deployment
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/getting-started/triaging/" title="Triaging" class="dd-item ">
+        <a href="/docs/getting-started/triaging/">
+        Triaging
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/docs/presentations/" title="Presentations and Workshops" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/docs/presentations/">
+          Presentation Overview
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/presentations/crikeycon2019/" title="Crikeycon 2019 Training Workshop" class="dd-item ">
+        <a href="/docs/presentations/crikeycon2019/">
+        CrikeyCon 2019
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/presentations/nzitf2018/" title="New Zealand Internet Task Force Conference 2018" class="dd-item ">
+        <a href="/docs/presentations/nzitf2018/">
+        NZITF2018
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/docs/vql_reference/" title="VQL Reference" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/docs/vql_reference/">
+          VQL Overview
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/vql_reference/templates/" title="Report Templates" class="dd-item ">
+        <a href="/docs/vql_reference/templates/">
+        Report Templates
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/vql_reference/event_plugins/" title="VQL Event PLugins" class="dd-item ">
+        <a href="/docs/vql_reference/event_plugins/">
+        VQL Event PLugins
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/vql_reference/functions/" title="VQL Functions" class="dd-item ">
+        <a href="/docs/vql_reference/functions/">
+        VQL Functions
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/vql_reference/plugins/" title="VQL PLugins" class="dd-item ">
+        <a href="/docs/vql_reference/plugins/">
+        VQL PLugins
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/vql_reference/server/" title="VQL Server Plugins" class="dd-item ">
+        <a href="/docs/vql_reference/server/">
+        VQL Server Plugins
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/artifacts/linux/" title="Linux Artifacts" class="dd-item ">
+        <a href="/docs/artifacts/linux/">
+        Linux Artifacts
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/artifacts/misc/" title="Miscelaneous Artifacts" class="dd-item ">
+        <a href="/docs/artifacts/misc/">
+        Miscelaneous
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/artifacts/server/" title="Server Artifacts" class="dd-item ">
+        <a href="/docs/artifacts/server/">
+        Server Artifacts
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/artifacts/detection/" title="Windows Malware Detection" class="dd-item ">
+        <a href="/docs/artifacts/detection/">
+        Windows Detection
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/artifacts/events/" title="Windows Event Monitoring" class="dd-item ">
+        <a href="/docs/artifacts/events/">
+        Windows Monitoring
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/artifacts/windows_system/" title="Windows System" class="dd-item ">
+        <a href="/docs/artifacts/windows_system/">
+        Windows System
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/artifacts/triage/" title="Windows Triage Artifacts" class="dd-item ">
+        <a href="/docs/artifacts/triage/">
+        Windows Triage
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+         
+    </ul>
+
+    
+    
+
+    
+    <section id="footer">
+      
+    </section>
+  </div>
+</nav>
+
+
+
+
+
+        <section id="body">
+        <div id="overlay"></div>
+        <div class="padding highlightable">
+              
+              <div>
+                <div id="top-bar">
+                
+                
+                <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <span id="sidebar-toggle-span">
+                        <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                          <i class="fas fa-bars"></i>
+                        </a>
+                    </span>
+                  
+                  <span id="toc-menu"><i class="fas fa-list-alt"></i></span>
+                  
+                  <span class="links">
+                 
+                 
+                    
+          
+          
+            
+            
+          
+          
+            
+            
+          
+          
+            <a href='/'>Velociraptor - Hunt Evil!</a> > <a href='/blog/'>Velociraptor Blog</a> > Detecting powershell persistence with Velociraptor and Yara
+          
+         
+          
+         
+          
+        
+                 
+                  </span>
+                </div>
+                
+                    <div class="progress">
+    <div class="wrapper">
+
+    </div>
+</div>
+
+                
+              </div>
+            </div>
+            
+        <div id="head-tags">
+        
+        </div>
+        
+        <div id="body-inner">
+          
+            <h1>
+              
+              Detecting powershell persistence with Velociraptor and Yara
+            </h1>
+          
+
+        
+
+
+
+<div class="document">
+
+
+<div class="admonition admonition-update">
+<p class="first admonition-title">Update</p>
+<p class="last">As of the latest release of Velociraptor we have raw
+registry parsing which can also be done via raw NTFS to get
+around file locking. It is no longer necessary to run yara
+scans and parse with regripper as shown here.</p>
+</div>
+<p>I was watching the SANS DFIR Summit 2018 videos on youtube and came
+across Mari DeGrazia's talk titled <a class="reference external" href="https://www.youtube.com/watch?v=JWC7fzhvAY8">&quot;Finding and Decoding Malicious Powershell Scripts&quot;</a>.
+This is an excellent talk and it really contains
+a wealth of information. It seems that Powershell is really popular
+these days, allowing attacker to &quot;live off the land&quot; by installing
+fully functional reverse shells and backdoors, in a few lines of
+obfuscated scripts.</p>
+<p>Mari went through a number of examples and also expanded on some in
+her blog post <a class="reference external" href="http://az4n6.blogspot.com/2018/06/malicious-powershell-in-registry.html">Malicious PowerShell in the Registry: Persistence</a>, where
+she documents persistence through an autorun key launching powershell
+to execute a payload within another registry key.</p>
+<p>A similar persistence mechanism is documented by David Kennedy from
+Binary defence in his post <a class="reference external" href="https://blog.binarydefense.com/powershell-injection-diskless-persistence-bypass-techniques">PowerShell Injection with Fileless Payload Persistence and Bypass Techniques</a>. In that case an msha.exe link was
+stored in the user's Run key which executed a payload from another
+registry key.</p>
+<p>I was eager to write a Velociraptor artifact to attempt to detect such
+keys using a YARA signature. Of course signature based detection is
+not as robust as behavioural analysis but it is quick and usually
+quite effective.</p>
+<p>I thought it was still quite instructive to document how one can
+develop the VQL queries for a simple Velociraptor artifact. We will be
+developing the artifact interactively on a Windows system.</p>
+<div class="section" id="preparation">
+<h2>Preparation</h2>
+<p>Our artifact will attempt to detect the persistence mechanism detailed
+in the above posts. We start by adding a value to our test user
+account under the key</p>
+<pre class="code console literal-block">
+<span class="generic output">Key: &quot;HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run&quot;
+Value: &quot;C:\Windows\system32\mshta.exe&quot;
+Data:
+  about:&lt;script&gt;c1hop=&quot;X642N10&quot;;R3I=new%20ActiveXObject(&quot;WScript.Shell&quot;);
+  QR3iroUf=&quot;I7pL7&quot;;k9To7P=R3I.RegRead(&quot;HKCU\\software\\bkzlq\\zsdnhepyzs&quot;);
+  J7UuF1n=&quot;Q2LnLxas&quot;;eval(k9To7P);JUe5wz3O=&quot;zSfmLod&quot;;&lt;/script&gt;</span>
+</pre>
+</div>
+<div class="section" id="defining-the-artifact">
+<h2>Defining the Artifact.</h2>
+<p>We create a directory called &quot;artifacts&quot; then create a new file inside
+it called powershell_persistence.yaml. Velociraptor artifacts are just
+YAML files that can be loaded at runtime using the --definitions flag.</p>
+<p>Every artifact has a name, by convention the name is separated into
+its major categories. We will call ours
+Windows.Persistence.Powershell:</p>
+<pre class="code yaml literal-block">
+<span class="name tag">name</span><span class="punctuation">:</span> <span class="literal scalar plain">Windows.Persistence.Powershell</span>
+</pre>
+<p>This is the minimum required for Velociraptor to identify it. We can
+see a listing of all artifacts Velociraptor knows about using the
+&quot;artifacts list&quot; command:</p>
+<pre class="code console literal-block">
+<span class="generic output">F:\&gt;velociraptor.exe --definitions artifacts artifacts list
+INFO:2018/09/28 07:59:40 Loaded 34 built in artifacts
+Linux.Applications.Chrome.Extensions
+Linux.Applications.Chrome.Extensions.Upload
+…
+Windows.Persistence.Powershell
+...
+Windows.Sys.Users</span>
+</pre>
+<p>We can collect the artifact simply by using the &quot;artifacts collect&quot;
+command:</p>
+<pre class="code console literal-block">
+<span class="generic output">F:\&gt;velociraptor.exe --definitions artifacts artifacts collect Windows.Persistence.Powershell
+INFO:2018/09/28 20:01:32 Loaded 34 built in artifacts</span>
+</pre>
+<p>Ok so Velociraptor can load and collect this new artifact, but as yet
+it does nothing! We need to think about what exactly we want to
+collect.</p>
+<p>We know we want to search for all values in the Run/RunOnce hive of
+all the users. Let's first see if we can retrieve all the values using
+a glob:</p>
+<pre class="code yaml literal-block">
+<span class="name tag">name</span><span class="punctuation">:</span> <span class="literal scalar plain">Windows.Persistence.Powershell</span>
+<span class="name tag">parameters</span><span class="punctuation">:</span>
+  <span class="punctuation indicator">-</span> <span class="name tag">name</span><span class="punctuation">:</span> <span class="literal scalar plain">keyGlob</span>
+    <span class="name tag">default</span><span class="punctuation">:</span> <span class="literal string">&quot;HKEY_USERS\\*\\Software\\Microsoft\\Windows\
+</span>    <span class="literal string">\\CurrentVersion\\{Run,RunOnce}\\*&quot;</span>
+<span class="name tag">sources</span><span class="punctuation">:</span>
+ <span class="punctuation indicator">-</span> <span class="name tag">precondition</span><span class="punctuation">:</span>
+    <span class="literal scalar plain">SELECT OS from info() where OS = &quot;windows&quot;</span>
+   <span class="name tag">queries</span><span class="punctuation">:</span>
+   <span class="punctuation indicator">-</span> <span class="punctuation indicator">|</span>
+    <span class="name constant">SELECT FullPath from glob(</span>
+       <span class="name constant">globs=keyGlob,</span>
+       <span class="name constant">accessor=&quot;reg&quot;</span>
+    <span class="name constant">)</span>
+</pre>
+<p>This artifact demonstrates a few concepts:</p>
+<ol class="arabic simple">
+<li>We can define parameters by name, and reference them from within
+the VQL query. This keeps the VQL query clean and more readable.</li>
+<li>We can define a precondition on the artifact. If the precondition
+is not met, the VQL query will not be run.</li>
+</ol>
+<p>Lets run this artifact:</p>
+<pre class="code console literal-block">
+<span class="generic output">F:\&gt;velociraptor.exe --definitions artifacts artifacts collect Windows.Persistence.Powershell
+INFO:2018/09/28 20:51:47 Loaded 34 built in artifacts
++--------------------------------+
+|            FullPath            |
++--------------------------------+
+| HKEY_USERS\S-1-5-19\Software\M |
+| icrosoft\Windows\CurrentVersio |
+| n\Run\OneDriveSetup            |
+| HKEY_USERS\S-1-5-20\Software\M |
+| icrosoft\Windows\CurrentVersio |
+| n\Run\OneDriveSetup            |
+| HKEY_USERS\S-1-5-21-546003962- |
+| 2713609280-610790815-1001\Soft |
+| ware\Microsoft\Windows\Current |
+| Version\Run\&quot;C:\Windows\system |
+| 32\mshta.exe&quot;                  |
++--------------------------------+
+Artifact:
+Windows.Persistence.Powershell</span>
+</pre>
+<p>It returns a couple of results so there are two Run/RunOnce values
+defined. For this artifact, we only want to return those entries which
+match a specific yara signature. We can work later on improving the
+yara signature, but for now let's just detect uses of the eval()
+powershell command within 500 characters of an ActiveXObject
+instantiation. We will try to match each value returned from the Run
+keys with this object:</p>
+<pre class="code yaml literal-block">
+<span class="name tag">name</span><span class="punctuation">:</span> <span class="literal scalar plain">Windows.Persistence.Powershell</span>
+<span class="name tag">parameters</span><span class="punctuation">:</span>
+  <span class="punctuation indicator">-</span> <span class="name tag">name</span><span class="punctuation">:</span> <span class="literal scalar plain">keyGlob</span>
+    <span class="name tag">default</span><span class="punctuation">:</span> <span class="literal string">&quot;HKEY_USERS\\*\\Software\\Microsoft\\Windows\
+</span>             <span class="literal string">\\CurrentVersion\\{Run,RunOnce}\\*&quot;</span>
+  <span class="punctuation indicator">-</span> <span class="name tag">name</span><span class="punctuation">:</span> <span class="literal scalar plain">yaraRule</span>
+    <span class="name tag">default</span><span class="punctuation">:</span> <span class="punctuation indicator">|</span>
+      <span class="name constant">rule Powershell {</span>
+        <span class="name constant">strings:</span>
+        <span class="name constant">$ = /ActiveXObject.{,500}eval/ nocase</span>
+        <span class="name constant">$ = /ActiveXObject.{,500}eval/ wide nocase</span>
+        <span class="name constant">condition:</span>
+        <span class="name constant">any of them</span>
+      <span class="name constant">}</span>
+<span class="name tag">sources</span><span class="punctuation">:</span>
+ <span class="punctuation indicator">-</span> <span class="name tag">precondition</span><span class="punctuation">:</span>
+    <span class="literal scalar plain">SELECT OS from info() where OS = &quot;windows&quot;</span>
+   <span class="name tag">queries</span><span class="punctuation">:</span>
+   <span class="punctuation indicator">-</span> <span class="punctuation indicator">|</span>
+     <span class="name constant">// This is a stored query</span>
+     <span class="name constant">LET file = SELECT FullPath from glob(</span>
+       <span class="name constant">globs=keyGlob,</span>
+       <span class="name constant">accessor=&quot;reg&quot;</span>
+     <span class="name constant">)</span>
+   <span class="punctuation indicator">-</span> <span class="punctuation indicator">|</span>
+     <span class="name constant">SELECT * FROM yara(</span>
+       <span class="name constant">rules=yaraRule,</span>
+       <span class="name constant">files=file.FullPath,   // This will expand to a list of paths.</span>
+       <span class="name constant">accessor=&quot;reg&quot;)</span>
+</pre>
+<p>This version recovers the FullPath of all the Run/RunOnce values and
+stores them in a stored query. We then issue another query that
+applies the yara rule on these values:</p>
+<pre class="code console literal-block">
+<span class="generic output">F:\&gt;velociraptor.exe --definitions artifacts artifacts collect Windows.Persistence.Powershell
+INFO:2018/09/28 21:29:10 Loaded 34 built in artifacts
++------------+------+------+--------------------------------+--------------------------------+
+|    Rule    | Meta | Tags |            Strings             |              File              |
++------------+------+------+--------------------------------+--------------------------------+
+| Powershell |      |      | {&quot;Name&quot;:&quot;$&quot;,&quot;Offset&quot;:40,&quot;HexDa | {&quot;FullPath&quot;:&quot;HKEY_USERS\\S-1-5 |
+|            |      |      | ta&quot;:[&quot;00000000  41 63 74 69 76 | -21-546003962-2713609280-61079 |
+|            |      |      |  65 58 4f  62 6a 65 63 74 28 2 | 0815-1001\\Software\\Microsoft |
+|            |      |      | 2 57  |ActiveXObject(\&quot;W|&quot;,&quot;00 | \\Windows\\CurrentVersion\\Run |
+|            |      |      | 000010  53 63 72 69 70 74 2e 5 | \\\&quot;C:\\Windows\\system32\\msh |
+|            |      |      | 3  68 65 6c 6c 22 29 3b 51  |S | ta.exe\&quot;&quot;,&quot;Type&quot;:&quot;SZ&quot;,&quot;Data&quot;:{ |
+|            |      |      | cript.Shell\&quot;);Q|&quot;,&quot;00000020   | &quot;type&quot;:&quot;SZ&quot;,&quot;value&quot;:&quot;about:\u0 |
+|            |      |      | 52 33 69 72 6f 55 66 3d  22 49 | 03cscript\u003ec1hop=\&quot;X642N10 |
+|            |      |      |  37 70 4c 37 22 3b  |R3iroUf=\ | \&quot;;R3I=new%20ActiveXObject(\&quot;W |
+|            |      |      | &quot;I7pL7\&quot;;|&quot;,&quot;00000030  6b 39 5 | Script.Shell\&quot;);QR3iroUf=\&quot;I7p |
+|            |      |      | 4 6f 37 50 3d 52  33 49 2e 52  | L7\&quot;;k9To7P=R3I.RegRead(\&quot;HKCU |
+|            |      |      | 65 67 52 65  |k9To7P=R3I.RegRe | \\\\software\\\\bkzlq\\\\zsdnh |
+|            |      |      | |&quot;,&quot;00000040  61 64 28 22 48 4 | epyzs\&quot;);J7UuF1n=\&quot;Q2LnLxas\&quot;; |
+|            |      |      | b 43 55  5c 5c 73 6f 66 74 77  | eval(k9To7P);JUe5wz3O=\&quot;zSfmLo |
+|            |      |      | 61  |ad(\&quot;HKCU\\\\softwa|&quot;,&quot;00 | d\&quot;;\u003c/script\u003e&quot;},&quot;Mti |
+|            |      |      | 000050  72 65 5c 5c 62 6b 7a 6 | me&quot;:{&quot;sec&quot;:1538191253,&quot;usec&quot;:1 |
+|            |      |      | c  71 5c 5c 7a 73 64 6e 68  |r | 538191253231489700},&quot;Ctime&quot;:{&quot; |
+|            |      |      | e\\\\bkzlq\\\\zsdnh|&quot;,&quot;0000006 | sec&quot;:1538191253,&quot;usec&quot;:1538191 |
+|            |      |      | 0  65 70 79 7a 73 22 29 3b  4a | 253231489700},&quot;Atime&quot;:{&quot;sec&quot;:1 |
+|            |      |      |  37 55 75 46 31 6e 3d  |epyzs\ | 538191253,&quot;usec&quot;:1538191253231 |
+|            |      |      | &quot;);J7UuF1n=|&quot;,&quot;00000070  22 51 | 489700}}                       |</span>
+</pre>
+<p>We can see that the last query returns 5 columns, but each column
+actually contains objects with quite a lot of additional
+information. For example, the File column returns information about
+the file that matched the yara rule (its filename, timestamps
+etc). The output is a bit confusing so we just return the relevant
+columns. We can replace the * in the last query with a curated list of
+columns to return:</p>
+<pre class="code sql literal-block">
+<span class="keyword">SELECT</span> <span class="name">File</span><span class="punctuation">.</span><span class="name">FullPath</span> <span class="keyword">as</span> <span class="name">ValueName</span><span class="punctuation">,</span> <span class="name">File</span><span class="punctuation">.</span><span class="keyword">Data</span><span class="punctuation">.</span><span class="name">value</span> <span class="keyword">as</span> <span class="name">Contents</span><span class="punctuation">,</span>
+  <span class="keyword">timestamp</span><span class="punctuation">(</span><span class="name">epoch</span><span class="operator">=</span><span class="name">File</span><span class="punctuation">.</span><span class="name">Mtime</span><span class="punctuation">.</span><span class="name">Sec</span><span class="punctuation">)</span> <span class="keyword">as</span> <span class="name">ModTime</span>
+<span class="keyword">FROM</span> <span class="name">yara</span><span class="punctuation">(</span><span class="name">rules</span><span class="operator">=</span><span class="name">yaraRule</span><span class="punctuation">,</span>
+          <span class="name">files</span><span class="operator">=</span><span class="name">file</span><span class="punctuation">.</span><span class="name">FullPath</span><span class="punctuation">,</span>
+          <span class="name">accessor</span><span class="operator">=</span><span class="literal string symbol">&quot;reg&quot;</span><span class="punctuation">)</span>
+</pre>
+<p>Which results in the quite readable:</p>
+<pre class="code console literal-block">
+<span class="generic output">F:\&gt;velociraptor.exe --definitions artifacts artifacts collect Windows.Persistence.Powershell
+INFO:2018/09/28 21:42:18 Loaded 34 built in artifacts
++--------------------------------+--------------------------------+---------------------------+
+|           ValueName            |            Contents            |          ModTime          |
++--------------------------------+--------------------------------+---------------------------+
+| HKEY_USERS\S-1-5-21-546003962- | about:&lt;script&gt;c1hop=&quot;X642N10&quot;; | 2018-09-28T20:20:53-07:00 |
+| 2713609280-610790815-1001\Soft | R3I=new%20ActiveXObject(&quot;WScri |                           |
+| ware\Microsoft\Windows\Current | pt.Shell&quot;);QR3iroUf=&quot;I7pL7&quot;;k9 |                           |
+| Version\Run\&quot;C:\Windows\system | To7P=R3I.RegRead(&quot;HKCU\\softwa |                           |
+| 32\mshta.exe&quot;                  | re\\bkzlq\\zsdnhepyzs&quot;);J7UuF1 |                           |
+|                                | n=&quot;Q2LnLxas&quot;;eval(k9To7P);JUe5 |                           |
+|                                | wz3O=&quot;zSfmLod&quot;;&lt;/script&gt;       |                           |
++--------------------------------+--------------------------------+---------------------------+
+Artifact: Windows.Persistence.Powershell</span>
+</pre>
+<p>Great! This works and only returns values that match the yara
+signature we developed.</p>
+</div>
+<div class="section" id="testing-the-artifact">
+<h2>Testing the artifact</h2>
+<p>Let's test this artifact for real now. We restart the frontend with
+the --definition flag and this makes the new artifact available in the
+GUI under the Artifact Collector flow. The GUI also shows the entire
+artifact we defined so we can see what VQL will be run:</p>
+<img alt="powershell1.png" src="powershell1.png" />
+<p>Launching the flow appears to work and shows exactly the same result
+as we collected on the command line:</p>
+<img alt="powershell2.png" src="powershell2.png" />
+</div>
+<div class="section" id="but-wait-there-is-a-problem">
+<h2>But wait! There is a problem!</h2>
+<p>When we log out of the machine, and then rerun the artifact it returns
+no results!</p>
+<img alt="powershell3.png" src="powershell3.png" />
+<p>Why is that? Experienced incident responders would recognize that any
+artifact that works from the <cite>HKEY_USERS</cite> registry hive is inherently
+unreliable. This is because the <cite>HKEY_USERS</cite> hive is not a real hive -
+it is a place where Windows mounts the user's hive when the user logs
+in.</p>
+<div class="section" id="how-does-hkey-users-hive-work">
+<h3>How does HKEY_USERS hive work?</h3>
+<p>Windows implements the concept of user profiles. Each user has a
+personal registry hive that stores user specific settings. It is
+actually a file stored on their home directory called ntuser.dat. When
+a user logs into the workstation, the file may be synced from the
+domain controller and then it is mounted under the <cite>HKEY_USERS&lt;sid&gt;</cite>
+registry hive.</p>
+<p>This means that when the user logs out, their user registry hive is
+unmounted and does not appear in <cite>HKEY_USERS</cite> any longer. Any
+artifacts based around the <cite>HKEY_USERS</cite> hive will work only if the
+collection is run when a user is logged in.</p>
+<p>This is obviously not what we want when we hunt for persistence! We
+want to make sure that none of the users on the system have this
+persistence mechanism installed. You can imagine a case where a system
+has been cleaned up but then a user logs into the machine, thereby
+reinfecting it!</p>
+</div>
+<div class="section" id="how-to-fix-this">
+<h3>How to fix this?</h3>
+<p>Yara is a very powerful tool because it allows us to search for
+patterns in amorphous data (such as process memory and structured
+files) without having to fully understand the structure of the data we
+are searching for. Of course this has its limitations, but yara can
+raise a red flag if the signature matches the file, and we can analyse
+this file more carefully later.</p>
+<p>In this case, we can not rely on globbing the <cite>HKEY_USER</cite> registry
+hive, so maybe we can just search the files that back these hives? We
+know that each user on the system has an <cite>NTUSER.DAT</cite> file in their
+home directory (usually <cite>C:\Users\&lt;username&gt;</cite>), so let's write an
+artifact to find these files. We can reuse the artifact
+Windows.Sys.Users that reports all user accounts on a system (we
+display it as JSON to enhance readability):</p>
+<pre class="code console literal-block">
+<span class="generic output">F:\&gt;velociraptor.exe artifacts collect Windows.Sys.Users --format json
+INFO:2018/09/28 22:44:26 Loaded 34 built in artifacts
+{
+ &quot;Description&quot;: &quot;&quot;,
+ &quot;Directory&quot;: &quot;C:\\Users\\test&quot;,
+ &quot;Gid&quot;: 513,
+ &quot;Name&quot;: &quot;test&quot;,
+ &quot;Type&quot;: &quot;local&quot;,
+ &quot;UUID&quot;: &quot;S-1-5-21-546003962-2713609280-610790815-1001&quot;,
+ &quot;Uid&quot;: 1001
+},
+{
+ &quot;Description&quot;: &quot;&quot;,
+ &quot;Directory&quot;: &quot;C:\\Users\\user1&quot;,
+ &quot;Gid&quot;: 513,
+ &quot;Name&quot;: &quot;user1&quot;,
+ &quot;Type&quot;: &quot;local&quot;,
+ &quot;UUID&quot;: &quot;S-1-5-21-546003962-2713609280-610790815-1003&quot;,
+ &quot;Uid&quot;: 1003
+},</span>
+</pre>
+<p>So we just want to YARA scan the NTUSER.DAT file in each home directory:</p>
+<pre class="code console literal-block">
+<span class="generic output">SELECT * from foreach(
+row={
+   SELECT Name, Directory as HomeDir
+     FROM Artifact.Windows.Sys.Users()
+    WHERE Directory.value and Gid
+},
+query={
+  SELECT File.FullPath As FullPath,
+         Strings.Offset AS Off,
+         Strings.HexData As Hex,
+          upload(file=File.FullPath, accessor=&quot;ntfs&quot;) AS Upload
+      FROM yara(
+            files=&quot;\\\\.\\&quot; + HomeDir + &quot;\\ntuser.dat&quot;,
+            accessor=&quot;ntfs&quot;,
+            rules=yaraRule, context=10)
+      })</span>
+</pre>
+<p>This query:</p>
+<ol class="arabic simple">
+<li>Selects all the usernames and their home directory from the
+Windows.Sys.Users artifact.</li>
+<li>For each directory prepends <cite>\\.\</cite> and appends &quot;ntuser.dat&quot;. For
+example <cite>c:\Users\test</cite> becomes
+<cite>\\.\c:\Users\test\NTUSER.dat</cite></li>
+<li>The file is accessed using the NTFS filesystem accessor. This is
+necessary because the registry hive is locked if the user is logged
+in. Therefore we must access it using raw NTFS parsing to bypass
+the OS locking.</li>
+<li>For each file that matches the yara expression, we upload the file
+to the server for further analysis.</li>
+</ol>
+<p>Lets run this new artifact on the server:</p>
+<img alt="powershell5.png" src="powershell5.png" />
+<p>Unlike the previous artifact, this one simply returns the YARA hit,
+but because we do not have any context on which value contained the
+signature, or even if it had been deleted. Luckily we uploaded the raw
+registry hive for further analysis, and we can use a tool such as
+RegRipper to extract more information from the hive:</p>
+<pre class="code console literal-block">
+<span class="generic prompt">$</span> wine rip.exe -p user_run -r
+<span class="generic output">/tmp/velociraptor/clients/C.c916a7e445eb0868/uploads/F.078739d6/ntfs/
+</span><span class="generic prompt">%</span>5C%5C.%5CC%3A%5CUsers%5Cuser1%5CNTUSER.DAT
+<span class="generic output">Launching user_run v.20140115
+user_run v.20140115
+(NTUSER.DAT) [Autostart] Get autostart key contents from NTUSER.DAT hive
+
+Software\Microsoft\Windows\CurrentVersion\Run
+LastWrite Time Thu Sep 27 01:19:08 2018 (UTC)
+ OneDrive: &quot;C:\Users\user1\AppData\Local\Microsoft\OneDrive\OneDrive.exe&quot;
+   /background
+ c:\windows\system32\mshta.exe: about:&lt;script&gt;c1hop=&quot;X642N10&quot;;
+   R3I=new%20ActiveXObject(&quot;WScript.Shell&quot;);
+   QR3iroUf=&quot;I7pL7&quot;;k9To7P=R3I.RegRead(&quot;HKCU\\software\\
+   bkzlq\\zsdnhepyzs&quot;);J7UuF1n=&quot;Q2LnLxas&quot;;eval(k9To7P);JUe5wz3O=&quot;zSfmLod&quot;;&lt;/script&gt;</span>
+</pre>
+<p>Note above how we can simply retrieve the uploaded file from
+Velociraptor's filestore. Velociraptor stores uploaded files on the
+filesystem within the flow's directory.</p>
+</div>
+<div class="section" id="conclusions">
+<h3>Conclusions</h3>
+<p>In this blog post we saw how to utilize YARA to find suspicious
+powershell persistence mechanisms. YARA is a powerful tool and using
+Velociraptor's artifacts we can apply it to files, registry values,
+and raw NTFS files such as locked registry hives and the pagefile.</p>
+<p>We also saw some of the inherent problems with relying on the
+<cite>HKEY_USERS</cite> registry hive for detection - the hive is only present
+when a user is logged in so when we hunt, we might miss those users
+who are currently logged out. We saw how <cite>YARA</cite> can be used to detect
+suspicious patterns in raw registry hive files and how artifacts may
+retrieve those files for further analysis.</p>
+</div>
+</div>
+</div>
+
+<footer class=" footline" >
+	
+</footer>
+
+
+        
+        </div> 
+        
+
+      </div>
+
+    <div id="navigation">
+        
+        
+        
+        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+            
+        
+        
+        
+
+
+	 
+	 
+		
+			<a class="nav nav-prev" href="/blog/html/2018/09/30/velorciraptor_s_filesystem_s_accessors.html" title="Velorciraptor&#39;s filesystem&#39;s accessors"> <i class="fa fa-chevron-left"></i></a>
+		
+		
+			<a class="nav nav-next" href="/blog/html/2018/09/03/velociraptor_walk_through_and_demo.html" title="Velociraptor walk through and demo" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+		
+	
+    </div>
+
+    </section>
+    
+    <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+      <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+    </div>
+    <script src="/js/clipboard.min.js?1560335784"></script>
+    <script src="/js/perfect-scrollbar.min.js?1560335784"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1560335784"></script>
+    <script src="/js/jquery.sticky.js?1560335784"></script>
+    <script src="/js/featherlight.min.js?1560335784"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1560335784"></script>
+    <script src="/js/highlight.pack.js?1560335784"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script src="/js/modernizr.custom-3.6.0.js?1560335784"></script>
+    <script src="/js/learn.js?1560335784"></script>
+    <script src="/js/hugo-learn.js?1560335784"></script>
+
+    <link href="/mermaid/mermaid.css?1560335784" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1560335784"></script>
+    <script>
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+    
+
+  </body>
+</html>
+

@@ -1,0 +1,3115 @@
+<!DOCTYPE html>
+<html lang="en" class="js csstransforms3d">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="Hugo 0.56.0-DEV" />
+    <meta name="description" content="VQL plugins are the data sources of VQL queries.">
+
+
+    <link rel="icon" href="/images/favicon.png" type="image/png">
+
+    <title>VQL PLugins :: Velociraptor - Hunt Evil!</title>
+
+    
+    <link href="/css/nucleus.css?1560335783" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1560335783" rel="stylesheet">
+    <link href="/css/hybrid.css?1560335783" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1560335783" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1560335783" rel="stylesheet">
+    <link href="/css/auto-complete.css?1560335783" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1560335783" rel="stylesheet">
+    <link href="/css/theme.css?1560335783" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1560335783" rel="stylesheet">
+    
+      <link href="/css/theme-mine.css?1560335783" rel="stylesheet">
+    
+
+    <script src="/js/jquery-3.3.1.min.js?1560335783"></script>
+
+    <style>
+      :root #header + #content > #left > #rlblock_left{
+          display:none !important;
+      }
+      
+    </style>
+    
+  </head>
+  <body class="" data-url="/docs/vql_reference/plugins/">
+    <nav id="sidebar" class="">
+
+
+
+  <div id="header-wrapper">
+    <div id="header">
+      <a href="/">
+  <img src="/images/logo.svg" />
+</a>
+
+    </div>
+    
+        <div class="searchbox">
+    <label for="search-by"><i class="fas fa-search"></i></label>
+    <input data-search-input id="search-by" type="search" placeholder="Search...">
+    <span data-search-clear=""><i class="fas fa-times"></i></span>
+</div>
+
+<script type="text/javascript" src="/js/lunr.min.js?1560335783"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1560335783"></script>
+<script type="text/javascript">
+    
+        var baseurl = "\/";
+    
+</script>
+<script type="text/javascript" src="/js/search.js?1560335783"></script>
+
+    
+  </div>
+
+    <div class="highlightable">
+    <ul class="topics">
+
+        
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/about/" title="About Velociraptor" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/about/">
+          Overview
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/about/features/" title="Velociraptor Features" class="dd-item ">
+        <a href="/about/features/">
+        Velociraptor Features
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/about/license/" title="GNU Affero General Public License" class="dd-item ">
+        <a href="/about/license/">
+        License
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/blog/" title="Velociraptor Blog" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/blog/">
+          Velociraptor Blog
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2019/03/02/agentless_hunting_with_velociraptor.html" title="Agentless hunting with Velociraptor" class="dd-item ">
+        <a href="/blog/html/2019/03/02/agentless_hunting_with_velociraptor.html">
+        Agentless hunting with Velociraptor
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2019/02/14/alerting_on_event_patterns.html" title="Alerting on event patterns" class="dd-item ">
+        <a href="/blog/html/2019/02/14/alerting_on_event_patterns.html">
+        Alerting on event patterns
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2019/02/10/velociraptor_performance.html" title="Velociraptor Performance" class="dd-item ">
+        <a href="/blog/html/2019/02/10/velociraptor_performance.html">
+        Velociraptor Performance
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2019/02/09/velociraptor_python_api.html" title="The Velociraptor Python API" class="dd-item ">
+        <a href="/blog/html/2019/02/09/velociraptor_python_api.html">
+        The Velociraptor Python API
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/09/03/velociraptor_s_client_communications.html" title="Velociraptor&#39;s client communications" class="dd-item ">
+        <a href="/blog/html/2018/09/03/velociraptor_s_client_communications.html">
+        Velociraptor&#39;s client communications
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/12/23/deploying_velociraptor_with_oauth_sso.html" title="Deploying Velociraptor with OAuth SSO" class="dd-item ">
+        <a href="/blog/html/2018/12/23/deploying_velociraptor_with_oauth_sso.html">
+        Deploying Velociraptor with OAuth SSO
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/12/22/configuring_velociraptor_for_ssl.html" title="Configuring Velociraptor for SSL" class="dd-item ">
+        <a href="/blog/html/2018/12/22/configuring_velociraptor_for_ssl.html">
+        Configuring Velociraptor for SSL
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/12/11/velociraptor_interactive_shell.html" title="Velociraptor Interactive Shell" class="dd-item ">
+        <a href="/blog/html/2018/12/11/velociraptor_interactive_shell.html">
+        Velociraptor Interactive Shell
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/12/10/server_side_vql_queries_and_events.html" title="Server side VQL queries and Escalation Events" class="dd-item ">
+        <a href="/blog/html/2018/12/10/server_side_vql_queries_and_events.html">
+        Server side VQL queries and Escalation Events
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/12/09/more_on_client_event_collection.html" title="More on client event collection" class="dd-item ">
+        <a href="/blog/html/2018/12/09/more_on_client_event_collection.html">
+        More on client event collection
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/11/13/velociraptor_training_at_nzitf.html" title="Velociraptor training at NZITF" class="dd-item ">
+        <a href="/blog/html/2018/11/13/velociraptor_training_at_nzitf.html">
+        Velociraptor training at NZITF
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/11/09/event_queries_and_endpoint_monitoring.html" title="Event Queries and Endpoint Monitoring" class="dd-item ">
+        <a href="/blog/html/2018/11/09/event_queries_and_endpoint_monitoring.html">
+        Event Queries and Endpoint Monitoring
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/09/30/velorciraptor_s_filesystem_s_accessors.html" title="Velorciraptor&#39;s filesystem&#39;s accessors" class="dd-item ">
+        <a href="/blog/html/2018/09/30/velorciraptor_s_filesystem_s_accessors.html">
+        Velorciraptor&#39;s filesystem&#39;s accessors
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/09/29/detecting_powershell_persistence_with_velociraptor_and_yara.html" title="Detecting powershell persistence with Velociraptor and Yara" class="dd-item ">
+        <a href="/blog/html/2018/09/29/detecting_powershell_persistence_with_velociraptor_and_yara.html">
+        Detecting powershell persistence with Velociraptor and Yara
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/09/03/velociraptor_walk_through_and_demo.html" title="Velociraptor walk through and demo" class="dd-item ">
+        <a href="/blog/html/2018/09/03/velociraptor_walk_through_and_demo.html">
+        Velociraptor walk through and demo
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/08/20/velociraptor_artifacts.html" title="Velociraptor Artifacts" class="dd-item ">
+        <a href="/blog/html/2018/08/20/velociraptor_artifacts.html">
+        Velociraptor Artifacts
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/08/10/browsing_around_the_filesystem.html" title="Browsing around the filesystem." class="dd-item ">
+        <a href="/blog/html/2018/08/10/browsing_around_the_filesystem.html">
+        Browsing around the filesystem.
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/08/10/design_differences_between_velociraptor_and_grr.html" title="Design differences between Velociraptor and GRR" class="dd-item ">
+        <a href="/blog/html/2018/08/10/design_differences_between_velociraptor_and_grr.html">
+        Design differences between Velociraptor and GRR
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/02/09/files_files_everything_is_just_a_file.html" title="Files, files everything is just a file!" class="dd-item ">
+        <a href="/blog/html/2018/02/09/files_files_everything_is_just_a_file.html">
+        Files, files everything is just a file!
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/08/10/hunting_what_velociraptors_do_best.html" title="Hunting - What Velociraptors do best!" class="dd-item ">
+        <a href="/blog/html/2018/08/10/hunting_what_velociraptors_do_best.html">
+        Hunting - What Velociraptors do best!
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/08/10/interrogation_make_the_endpoint_tell_us_what_it_knows.html" title="Interrogation - Make the endpoint tell us what it knows!" class="dd-item ">
+        <a href="/blog/html/2018/08/10/interrogation_make_the_endpoint_tell_us_what_it_knows.html">
+        Interrogation - Make the endpoint tell us what it knows!
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/08/10/the_velocidex_query_language.html" title="Velocidex Query Language (VQL)" class="dd-item ">
+        <a href="/blog/html/2018/08/10/the_velocidex_query_language.html">
+        Velocidex Query Language (VQL)
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/08/10/introducing_velociraptor.html" title="Introducing Velociraptor" class="dd-item ">
+        <a href="/blog/html/2018/08/10/introducing_velociraptor.html">
+        Introducing Velociraptor
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/docs/" title="Velociraptor Documentation" class="dd-item 
+        parent
+        
+        
+        ">
+      <a href="/docs/">
+          Velociraptor Documentation
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/docs/user-interface/" title="Users Manual" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/docs/user-interface/">
+          User Manual Overview
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/user-interface/artifact_types/" title="Artifact Types" class="dd-item ">
+        <a href="/docs/user-interface/artifact_types/">
+        Artifact Types
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/user-interface/flows/" title="Velociraptor Artifacts" class="dd-item ">
+        <a href="/docs/user-interface/flows/">
+        Velociraptor Artifacts
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/user-interface/gui/" title="Searching for clients" class="dd-item ">
+        <a href="/docs/user-interface/gui/">
+        Searching for clients
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/documentation/" title="Velociraptor Documentation" class="dd-item ">
+        <a href="/docs/documentation/">
+        Velociraptor
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/docs/getting-started/" title="Get Started" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/docs/getting-started/">
+          Get Started Overview
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/getting-started/deploying_clients/" title="Deploying Clients" class="dd-item ">
+        <a href="/docs/getting-started/deploying_clients/">
+        Client Deployment
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/getting-started/cloud/" title="Deploying in the cloud" class="dd-item ">
+        <a href="/docs/getting-started/cloud/">
+        Cloud Deployment
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/getting-started/stand_alone/" title="Standalone Deployment" class="dd-item ">
+        <a href="/docs/getting-started/stand_alone/">
+        Standalone Deployment
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/getting-started/triaging/" title="Triaging" class="dd-item ">
+        <a href="/docs/getting-started/triaging/">
+        Triaging
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/docs/presentations/" title="Presentations and Workshops" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/docs/presentations/">
+          Presentation Overview
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/presentations/crikeycon2019/" title="Crikeycon 2019 Training Workshop" class="dd-item ">
+        <a href="/docs/presentations/crikeycon2019/">
+        CrikeyCon 2019
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/presentations/nzitf2018/" title="New Zealand Internet Task Force Conference 2018" class="dd-item ">
+        <a href="/docs/presentations/nzitf2018/">
+        NZITF2018
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/docs/vql_reference/" title="VQL Reference" class="dd-item 
+        parent
+        
+        
+        ">
+      <a href="/docs/vql_reference/">
+          VQL Overview
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/vql_reference/templates/" title="Report Templates" class="dd-item ">
+        <a href="/docs/vql_reference/templates/">
+        Report Templates
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/vql_reference/event_plugins/" title="VQL Event PLugins" class="dd-item ">
+        <a href="/docs/vql_reference/event_plugins/">
+        VQL Event PLugins
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/vql_reference/functions/" title="VQL Functions" class="dd-item ">
+        <a href="/docs/vql_reference/functions/">
+        VQL Functions
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/vql_reference/plugins/" title="VQL PLugins" class="dd-item active">
+        <a href="/docs/vql_reference/plugins/">
+        VQL PLugins
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/vql_reference/server/" title="VQL Server Plugins" class="dd-item ">
+        <a href="/docs/vql_reference/server/">
+        VQL Server Plugins
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/artifacts/linux/" title="Linux Artifacts" class="dd-item ">
+        <a href="/docs/artifacts/linux/">
+        Linux Artifacts
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/artifacts/misc/" title="Miscelaneous Artifacts" class="dd-item ">
+        <a href="/docs/artifacts/misc/">
+        Miscelaneous
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/artifacts/server/" title="Server Artifacts" class="dd-item ">
+        <a href="/docs/artifacts/server/">
+        Server Artifacts
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/artifacts/detection/" title="Windows Malware Detection" class="dd-item ">
+        <a href="/docs/artifacts/detection/">
+        Windows Detection
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/artifacts/events/" title="Windows Event Monitoring" class="dd-item ">
+        <a href="/docs/artifacts/events/">
+        Windows Monitoring
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/artifacts/windows_system/" title="Windows System" class="dd-item ">
+        <a href="/docs/artifacts/windows_system/">
+        Windows System
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/artifacts/triage/" title="Windows Triage Artifacts" class="dd-item ">
+        <a href="/docs/artifacts/triage/">
+        Windows Triage
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+         
+    </ul>
+
+    
+    
+
+    
+    <section id="footer">
+      
+    </section>
+  </div>
+</nav>
+
+
+
+
+
+        <section id="body">
+        <div id="overlay"></div>
+        <div class="padding highlightable">
+              
+              <div>
+                <div id="top-bar">
+                
+                
+                <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <span id="sidebar-toggle-span">
+                        <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                          <i class="fas fa-bars"></i>
+                        </a>
+                    </span>
+                  
+                  <span id="toc-menu"><i class="fas fa-list-alt"></i></span>
+                  
+                  <span class="links">
+                 
+                 
+                    
+          
+          
+            
+            
+          
+          
+            
+            
+          
+          
+            
+            
+          
+          
+            <a href='/'>Velociraptor - Hunt Evil!</a> > <a href='/docs/'>Velociraptor Documentation</a> > <a href='/docs/vql_reference/'>VQL Reference</a> > VQL PLugins
+          
+         
+          
+         
+          
+         
+          
+        
+                 
+                  </span>
+                </div>
+                
+                    <div class="progress">
+    <div class="wrapper">
+<nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#parse-records-with-regex">parse_records_with_regex</a>
+<ul>
+<li><a href="#example">Example</a></li>
+</ul></li>
+<li><a href="#parse-csv">parse_csv</a>
+<ul>
+<li><a href="#example-1">Example</a></li>
+</ul></li>
+<li><a href="#parse-evtx">parse_evtx</a>
+<ul>
+<li><a href="#example-2">Example</a></li>
+</ul></li>
+<li><a href="#olevba">olevba</a></li>
+<li><a href="#splitparser">splitparser</a></li>
+<li><a href="#info">info</a></li>
+<li><a href="#pslist">pslist</a></li>
+<li><a href="#scope">scope</a>
+<ul>
+<li><a href="#example-3">Example</a></li>
+</ul></li>
+<li><a href="#environ">environ</a></li>
+<li><a href="#execve">execve</a></li>
+<li><a href="#yara">yara</a></li>
+<li><a href="#proc-yara">proc_yara</a></li>
+<li><a href="#glob">glob</a>
+<ul>
+<li><a href="#example-4">Example</a></li>
+</ul></li>
+<li><a href="#read-file">read_file</a></li>
+<li><a href="#stat">stat</a></li>
+<li><a href="#read-key-values">read_key_values</a></li>
+<li><a href="#http-client">http_client</a>
+<ul>
+<li><a href="#example-5">Example</a></li>
+</ul></li>
+<li><a href="#upload">upload</a></li>
+<li><a href="#authenticode">authenticode</a></li>
+<li><a href="#certificates">certificates</a></li>
+<li><a href="#users">users</a></li>
+<li><a href="#wmi">wmi</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+
+                
+              </div>
+            </div>
+            
+        <div id="head-tags">
+        
+        </div>
+        
+        <div id="body-inner">
+          
+            <h1>
+              
+              VQL PLugins
+            </h1>
+          
+
+        
+
+
+
+
+
+<p>SQL queries refer to tables of data. However, VQL queries refer to
+plugins, which generate data rows to be filtered by the query. Unlike
+SQL, VQL plugins also receive keyword arguments. When the plugin is
+evaluated it simply generates a sequence of rows which are further
+filtered by the query.</p>
+
+<p>This allows VQL statements to be chained since plugin args may also be
+other queries.</p>
+
+
+<div class="notices note" ><p>VQL plugins are not the same as VQL functions. A plugin is the subject
+of the VQL query - i.e. plugins always follow the <code>FROM</code> keyword,
+while functions (which return a single value instead of a sequence of
+rows) are only present in column specification (e.g. after <code>SELECT</code>)
+or in condition clauses (i.e. after the <code>WHERE</code> keyword).</p>
+</div>
+
+
+<h2 id="parse-records-with-regex">parse_records_with_regex</h2>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>file</td>
+<td>One or more files to parse</td>
+</tr>
+
+<tr>
+<td>regex</td>
+<td>One or more regular expressions to match within the file.</td>
+</tr>
+
+<tr>
+<td>accessor</td>
+<td>The accessor to use for openning the file.</td>
+</tr>
+</tbody>
+</table>
+
+<p>Parses a file with a set of regexp and yields matches as records.  The
+file is read into a large buffer. Then each regular expression is
+applied to the buffer, and all matches are emitted as rows.</p>
+
+<p>The regular expressions are specified in the <a href="https://golang.org/pkg/regexp/syntax/">Go
+syntax</a>. They are expected to
+contain capture variables to name the matches extracted.</p>
+
+<p>For example, consider a HTML file with simple links. The regular
+expression might be:</p>
+
+<pre><code>regex='&lt;a.+?href=&quot;(?P&lt;Link&gt;[^&quot;]+?)&quot;'
+</code></pre>
+
+<p>To produce rows with a column Link.</p>
+
+<p>The aim of this plugin is to split the file into records which can be
+further parsed. For example, if the file consists of multiple records,
+this plugin can be used to extract each record, while
+parse_string_with_regex() can be used to further split each record
+into elements. This works better than trying to write a more complex
+regex which tries to capture a lot of details in one pass.</p>
+
+<h3 id="example">Example</h3>
+
+<p>Here is an example of parsing the /var/lib/dpkg/status files. These
+files consist of records separated by empty lines:</p>
+
+<pre><code>Package: ubuntu-advantage-tools
+Status: install ok installed
+Priority: important
+Section: misc
+Installed-Size: 74
+Maintainer: Ubuntu Developers &lt;ubuntu-devel-discuss@lists.ubuntu.com&gt;
+Architecture: all
+Version: 17
+Conffiles:
+ /etc/cron.daily/ubuntu-advantage-tools 36de53e7c2d968f951b11c64be101b91
+ /etc/update-motd.d/80-esm 6ffbbf00021b4ea4255cff378c99c898
+ /etc/update-motd.d/80-livepatch 1a3172ffaa815d12b58648f117ffb67e
+Description: management tools for Ubuntu Advantage
+ Ubuntu Advantage is the professional package of tooling, technology
+ and expertise from Canonical, helping organisations around the world
+ manage their Ubuntu deployments.
+ .
+ Subscribers to Ubuntu Advantage will find helpful tools for accessing
+ services in this package.
+Homepage: https://buy.ubuntu.com
+</code></pre>
+
+<p>The following query extracts the fields in two passes. The first pass
+uses parse_records_with_regex() to extract records in blocks, while
+using parse_string_with_regex() to further break the block into
+fields.</p>
+
+<pre><code class="language-sql">SELECT parse_string_with_regex(
+   string=Record,
+   regex=['Package:\\s(?P&lt;Package&gt;.+)',
+     'Installed-Size:\\s(?P&lt;InstalledSize&gt;.+)',
+     'Version:\\s(?P&lt;Version&gt;.+)',
+     'Source:\\s(?P&lt;Source&gt;.+)',
+     'Architecture:\\s(?P&lt;Architecture&gt;.+)']) as Record
+   FROM parse_records_with_regex(
+     file=linuxDpkgStatus,
+     regex='(?sm)^(?P&lt;Record&gt;Package:.+?)\\n\\n')
+</code></pre>
+
+<h2 id="parse-csv">parse_csv</h2>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>filename</td>
+<td>One or more files to parse</td>
+</tr>
+
+<tr>
+<td>accessor</td>
+<td>The accessor to use for openning the file.</td>
+</tr>
+</tbody>
+</table>
+
+<p>Parses records from a CSV file. We expect the first row of the CSV
+file to contain column names.  This parser specifically supports
+Velociraptor&rsquo;s own CSV dialect and so it is perfect for post
+processing already existing CSV files.</p>
+
+<p>The types of each value in each column is deduced based on
+Velociraptor&rsquo;s standard encoding scheme. Therefore types are properly
+preserved when read from the CSV file.</p>
+
+<p>For example, downloading the results of a hunt in the GUI will produce
+a CSV file containing artifact rows collected from all clients.  We
+can then use the <code>parse_csv()</code> plugin to further filter the CSV file,
+or to stack using group by.</p>
+
+<h3 id="example-1">Example</h3>
+
+<p>The following stacks the result from a
+<code>Windows.Applications.Chrome.Extensions</code> artifact:</p>
+
+<pre><code class="language-sql">SELECT count(items=User) As TotalUsers, Name
+FROM parse_csv(filename=&quot;All Windows.Applications.Chrome.Extensions.csv&quot;)
+Order By TotalUsers
+Group By Name
+</code></pre>
+
+<h2 id="parse-evtx">parse_evtx</h2>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>filename</td>
+<td>One or more files to parse</td>
+</tr>
+
+<tr>
+<td>accessor</td>
+<td>The accessor to use for openning the file.</td>
+</tr>
+</tbody>
+</table>
+
+<p>This plugin parses windows events from the Windows Event log files (EVTX).</p>
+
+<p>A windows event typically contains two columns. The <code>EventData</code>
+contains event specific structured data while the <code>System</code> column
+contains common data for all events - including the Event ID.</p>
+
+<p>You should probably almost always filter by one or more event ids
+(using the <code>System.EventID.Value</code> field).</p>
+
+<h3 id="example-2">Example</h3>
+
+<pre><code class="language-sql">SELECT System.TimeCreated.SystemTime as Timestamp,
+       System.EventID.Value as EventID,
+       EventData.ImagePath as ImagePath,
+       EventData.ServiceName as ServiceName,
+       EventData.ServiceType as Type,
+       System.Security.UserID as UserSID,
+       EventData as _EventData,
+       System as _System
+FROM watch_evtx(filename=systemLogFile) WHERE EventID = 7045
+</code></pre>
+
+<h2 id="olevba">olevba</h2>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>file</td>
+<td>One or more files to parse</td>
+</tr>
+
+<tr>
+<td>accessor</td>
+<td>The accessor to use for openning the file.</td>
+</tr>
+
+<tr>
+<td>max_size</td>
+<td>Maximum size of file we load into memory.</td>
+</tr>
+</tbody>
+</table>
+
+<p>This plugin parses the provided files as OLE documents in order to
+recover VB macro code. A single document can have multiple code
+objects, and each such code object is emitted as a row.</p>
+
+<h2 id="splitparser">splitparser</h2>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>filenames</td>
+<td>One or more files to parse</td>
+</tr>
+
+<tr>
+<td>accessor</td>
+<td>The accessor to use for openning the file.</td>
+</tr>
+
+<tr>
+<td>regex</td>
+<td>The split regular expression (e.g. a comma)</td>
+</tr>
+
+<tr>
+<td>columns</td>
+<td>If the first row is not the headers, this arg must provide a list of column names for each value.</td>
+</tr>
+
+<tr>
+<td>first_row_is_headers</td>
+<td>A bool indicating if we should get column names from the first row.</td>
+</tr>
+
+<tr>
+<td>count</td>
+<td>Only split into this many columns if possible.</td>
+</tr>
+</tbody>
+</table>
+
+<p>This plugin is a more generalized parser for delimited files. It is
+not as smart as the <code>parse_csv()</code> plugin but can use multiple
+delimiters.</p>
+
+<h2 id="info">info</h2>
+
+<p>This plugin returns a single row with information about the current
+system. The information includes the Hostname, Uptime, OS, Platform
+etc.</p>
+
+<p>This plugin is very useful in preconditions as it restricts a query to
+certain OS or versions.</p>
+
+<pre><code class="language-sql">SELECT OS from info() where OS = &quot;windows&quot;
+</code></pre>
+
+<h2 id="pslist">pslist</h2>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>pid</td>
+<td>A pid to list. If this is provided we are able to operate much faster by only opening a single process.</td>
+</tr>
+</tbody>
+</table>
+
+<p>Lists running processes.</p>
+
+<p>When specifying the pid this operation is much faster so if you are
+interested in specific processes, the pid should be
+specified. Otherwise, the plugin returns all processes one on each
+row.</p>
+
+<h2 id="scope">scope</h2>
+
+<p>The scope plugin returns the current scope as a single row.</p>
+
+<p>The main use for this plugin is as a NOOP plugin in those cases we
+dont want to actually run anything.</p>
+
+<h3 id="example-3">Example</h3>
+
+<pre><code class="language-sql">SELECT 1+1 As Two FROM scop()
+</code></pre>
+
+<h2 id="environ">environ</h2>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>vars</td>
+<td>One or more names of environment variables to lookup (optional)</td>
+</tr>
+</tbody>
+</table>
+
+<p>The row returned will have all environment variables as columns. If
+the var parameter is provided, only those variables will be provided.</p>
+
+<h2 id="execve">execve</h2>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>argv</td>
+<td>One or more strings forming the arguments of the shell command.</td>
+</tr>
+
+<tr>
+<td>sep</td>
+<td>The serparator that will be used to split the stdout into rows.</td>
+</tr>
+
+<tr>
+<td>length</td>
+<td>Size of buffer to capture output per row.</td>
+</tr>
+</tbody>
+</table>
+
+<p>This plugin launches an external command and captures its STDERR,
+STDOUT and return code. The command&rsquo;s stdout is split using the <code>sep</code>
+parameter as required.</p>
+
+<p>This plugin is mostly useful for running arbitrary code on the
+client. If you do not want to allow arbitrary code to run, you can
+disable this by setting the <code>prevent_execve</code> flag in the client&rsquo;s
+config file. Be aware than many artifacts require running external
+commands to collect their output though.</p>
+
+<p>We do not actually transfer the external program to the system
+automatically. If you need to run programs which are not usually
+installed (e.g. Sysinternal&rsquo;s autoruns.exe) you will need to map them
+from a share (requiring direct access to the AD domain) or download
+them using the <code>http_client()</code> plugin.</p>
+
+<h2 id="yara">yara</h2>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>rules</td>
+<td>Yara rules in the yara DSL.</td>
+</tr>
+
+<tr>
+<td>files</td>
+<td>The list of files to scan.</td>
+</tr>
+
+<tr>
+<td>accessor</td>
+<td>Accessor (e.g. NTFS)</td>
+</tr>
+
+<tr>
+<td>context</td>
+<td>How many bytes to include around each hit</td>
+</tr>
+
+<tr>
+<td>start</td>
+<td>The start offset to scan</td>
+</tr>
+
+<tr>
+<td>end</td>
+<td>End scanning at this offset (100mb)</td>
+</tr>
+
+<tr>
+<td>number</td>
+<td>Stop after this many hits (1).</td>
+</tr>
+
+<tr>
+<td>blocksize</td>
+<td>Blocksize for scanning (1mb).</td>
+</tr>
+</tbody>
+</table>
+
+<p>The <code>yara()</code> plugin applies a signature consisting of multiple rules
+across files. You can read more about <a href="https://yara.readthedocs.io/en/v3.4.0/writingrules.html">yara
+rules</a>. The
+accessor is used to open the various files which allow this plugin to
+work across raw ntfs, zip members etc.</p>
+
+<p>Scanning proceeds by reading a block from the file, then applying the
+yara rule on the block. This will fail if the signature is split
+across block boundary.</p>
+
+
+<div class="notices note" ><p>By default only the first 100mb of the file are scanned and
+scanning stops after one hit is found.</p>
+</div>
+
+
+<h2 id="proc-yara">proc_yara</h2>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>rules</td>
+<td>Yara rules in the yara DSL.</td>
+</tr>
+
+<tr>
+<td>pid</td>
+<td>The process id to scan.</td>
+</tr>
+
+<tr>
+<td>context</td>
+<td>How many bytes to include around each hit</td>
+</tr>
+</tbody>
+</table>
+
+<p>This plugin uses yara&rsquo;s own engine to scan process memory for the signatures.</p>
+
+
+<div class="notices note" ><p>Process memory access depends on having the <a href="https://support.microsoft.com/en-au/help/131065/how-to-obtain-a-handle-to-any-process-with-sedebugprivilege">SeDebugPrivilege</a> which depends on how Velociraptor was started. Even when running as System, some processes are not accessible.</p>
+</div>
+
+
+<h2 id="glob">glob</h2>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>globs</td>
+<td>One or more glob patterns to apply to the filesystem.</td>
+</tr>
+
+<tr>
+<td>accessor</td>
+<td>An accessor to use.</td>
+</tr>
+</tbody>
+</table>
+
+<p>The <code>glob()</code> plugin is one of the most used plugins. It applies a glob
+expression in order to search for files by file name. The glob
+expression allows for wildcards, alternatives and character
+classes. Globs support both forward and backslashes as path
+separators. They also support quoting to delimit components.</p>
+
+<p>A glob expression consists of a sequence of components separated by
+path separators. If a separator is included within a component it is
+possible to quote the component to keep it together. For example, the
+windows registry contains keys with forward slash in their
+names. Therefore we may use these to prevent the glob from getting
+confused:</p>
+
+<pre><code>HKEY_LOCAL_MACHINE\Microsoft\Windows\&quot;Some Key With http://www.microsoft.com/&quot;\Some Value
+</code></pre>
+
+<p>Glob expressions are case insensitive and may contain the following wild cards:</p>
+
+<ul>
+<li>The <code>*</code> matches one or more characters.</li>
+<li>The <code>?</code> matches a single character.</li>
+<li>Alternatives are denoted by braces and comma delimited: <code>{a,b}</code></li>
+<li>Recursive search is denoted by a <code>**</code>. By default this searches 3 directories deep. If you need to increase it you can add a depth number (e.g. <code>**10</code>)</li>
+</ul>
+
+<p>By default globs do not expand environment variables. If you need to
+expand environment variables use the <code>expand()</code> function explicitly:</p>
+
+<pre><code class="language-sql">glob(globs=expand(string=&quot;%SystemRoot%\System32\Winevt\Logs\*&quot;))
+</code></pre>
+
+<h3 id="example-4">Example</h3>
+
+<p>The following searches the raw NTFS disk for event logs.</p>
+
+<pre><code class="language-sql">SELECT FullPath FROM glob(
+   globs=&quot;C:\Windows\System32\Winevt\Logs\*.evtx&quot;,
+   accessor=&quot;ntfs&quot;)
+</code></pre>
+
+<h2 id="read-file">read_file</h2>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>chunk</td>
+<td>length of each chunk to read from the file.</td>
+</tr>
+
+<tr>
+<td>max_length</td>
+<td>Max length of the file to read.</td>
+</tr>
+
+<tr>
+<td>filenames</td>
+<td>One or more files to open.</td>
+</tr>
+
+<tr>
+<td>accessor</td>
+<td>An accessor to use.</td>
+</tr>
+</tbody>
+</table>
+
+<p>This plugin reads a file in chunks and returns each chunks as a separate row.</p>
+
+<p>It is useful when we want to report file contents for small files like
+configuration files etc.</p>
+
+<p>The returned row contains the following columns: data, offset, filename</p>
+
+<h2 id="stat">stat</h2>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>filename</td>
+<td>One or more files to open.</td>
+</tr>
+
+<tr>
+<td>accessor</td>
+<td>An accessor to use.</td>
+</tr>
+</tbody>
+</table>
+
+<p>Get file information. Unlike glob() this does not support wildcards.</p>
+
+<h2 id="read-key-values">read_key_values</h2>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>globs</td>
+<td>Globs to apply.</td>
+</tr>
+
+<tr>
+<td>accessor</td>
+<td>An accessor to use.</td>
+</tr>
+</tbody>
+</table>
+
+<p>This is a convenience plugin which applies the globs to the registry
+accessor to find keys. For each key the plugin then lists all the
+values within it, and returns a row which has the value names as
+columns, while the cells contain the value&rsquo;s stat info (and data
+content available in the <code>Data</code> field).</p>
+
+<p>This makes it easier to access a bunch of related values at once.</p>
+
+<h2 id="http-client">http_client</h2>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>url</td>
+<td>The URL to access.</td>
+</tr>
+
+<tr>
+<td>params</td>
+<td>A dictionary of key/values to encode into the request</td>
+</tr>
+
+<tr>
+<td>headers</td>
+<td>A dictionary of additional headers</td>
+</tr>
+
+<tr>
+<td>method</td>
+<td>The method to use (GET/POST)</td>
+</tr>
+
+<tr>
+<td>chunk_size</td>
+<td>Size of buffers to read per row</td>
+</tr>
+
+<tr>
+<td>disable_ssl_security</td>
+<td>If this is true disable SSL security verification.</td>
+</tr>
+</tbody>
+</table>
+
+<p>This plugin makes a HTTP connection using the specified method. The
+headers and parameters may be specified. The plugin reads the
+specified number of bytes per returned row.</p>
+
+<p>If <code>disable_ssl_security</code> is specified we do not enforce SSL
+integrity. This is required to connect to self signed ssl web
+sites. For example many API handlers are exposed over such
+connections.</p>
+
+<p>The <code>http_client()</code> plugin allows use to interact with any web
+services. If the web service returns a json blob, we can parse it with
+the <code>parse_json()</code> function (or <code>parse_xml()</code> for SOAP
+endpoints). Using the parameters with a POST method we may actually
+invoke actions from within VQL (e.g. send an SMS via an SMS gateway
+when a VQL event is received).So this is a very powerful plugin.</p>
+
+<h3 id="example-5">Example</h3>
+
+<p>The following VQL returns the client&rsquo;s external IP as seen by the
+externalip service.</p>
+
+<pre><code class="language-sql">SELECT Content as IP from http_client(url='http://www.myexternalip.com/raw')
+</code></pre>
+
+<h2 id="upload">upload</h2>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>file</td>
+<td>The file to upload</td>
+</tr>
+
+<tr>
+<td>accessor</td>
+<td>An accessor to use.</td>
+</tr>
+</tbody>
+</table>
+
+<p>This plugin uploads the specified file to the server. If Velociraptor
+is run locally the file will be copied tothe <code>--dump_dir</code> path or
+added to the triage evidence container.</p>
+
+<p>This functionality is also available using the upload() function which
+might be somewhat easier to use.</p>
+
+<h2 id="authenticode">authenticode</h2>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>filename</td>
+<td>The filename of the executable</td>
+</tr>
+</tbody>
+</table>
+
+<p>Uses the Windows API to extract and verify the file&rsquo;s authenticode
+signature. Since we use the windows API this can only work with the
+&ldquo;file&rdquo; accessor.</p>
+
+<h2 id="certificates">certificates</h2>
+
+<p>Collect certificate from the system trust store.</p>
+
+<h2 id="users">users</h2>
+
+<p>Display information about workstation local users. This is obtained
+through the NetUserEnum() API.</p>
+
+<h2 id="wmi">wmi</h2>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>query</td>
+<td>The WMI query to issue.</td>
+</tr>
+
+<tr>
+<td>namespace</td>
+<td>The WMI namespace to use (ROOT/CIMV2)</td>
+</tr>
+</tbody>
+</table>
+
+<p>This plugin issues a WMI query and returns its rows directly. The
+exact format of the returned row depends on the WMI query issued.</p>
+
+<p>This plugin creates a bridge between WMI and VQL and it is a very
+commonly used plugin for inspecting the state of windows systems.</p>
+
+
+<footer class=" footline" >
+	
+</footer>
+
+
+        
+        </div> 
+        
+
+      </div>
+
+    <div id="navigation">
+        
+        
+        
+        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+            
+        
+        
+        
+
+
+	 
+	 
+		
+			<a class="nav nav-prev" href="/docs/vql_reference/functions/" title="VQL Functions"> <i class="fa fa-chevron-left"></i></a>
+		
+		
+			<a class="nav nav-next" href="/docs/vql_reference/server/" title="VQL Server Plugins" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+		
+	
+    </div>
+
+    </section>
+    
+    <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+      <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+    </div>
+    <script src="/js/clipboard.min.js?1560335783"></script>
+    <script src="/js/perfect-scrollbar.min.js?1560335783"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1560335783"></script>
+    <script src="/js/jquery.sticky.js?1560335783"></script>
+    <script src="/js/featherlight.min.js?1560335783"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1560335783"></script>
+    <script src="/js/highlight.pack.js?1560335783"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script src="/js/modernizr.custom-3.6.0.js?1560335783"></script>
+    <script src="/js/learn.js?1560335783"></script>
+    <script src="/js/hugo-learn.js?1560335783"></script>
+
+    <link href="/mermaid/mermaid.css?1560335783" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1560335783"></script>
+    <script>
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+    
+
+  </body>
+</html>
+

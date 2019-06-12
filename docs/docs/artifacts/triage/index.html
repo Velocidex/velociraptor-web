@@ -1,0 +1,3631 @@
+<!DOCTYPE html>
+<html lang="en" class="js csstransforms3d">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="Hugo 0.56.0-DEV" />
+    <meta name="description" content="Triage artifacts simply collect various files as quickly as possible.">
+
+
+    <link rel="icon" href="/images/favicon.png" type="image/png">
+
+    <title>Windows Triage Artifacts :: Velociraptor - Hunt Evil!</title>
+
+    
+    <link href="/css/nucleus.css?1560335784" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1560335784" rel="stylesheet">
+    <link href="/css/hybrid.css?1560335784" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1560335784" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1560335784" rel="stylesheet">
+    <link href="/css/auto-complete.css?1560335784" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1560335784" rel="stylesheet">
+    <link href="/css/theme.css?1560335784" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1560335784" rel="stylesheet">
+    
+      <link href="/css/theme-mine.css?1560335784" rel="stylesheet">
+    
+
+    <script src="/js/jquery-3.3.1.min.js?1560335784"></script>
+
+    <style>
+      :root #header + #content > #left > #rlblock_left{
+          display:none !important;
+      }
+      
+    </style>
+    
+  </head>
+  <body class="" data-url="/docs/artifacts/triage/">
+    <nav id="sidebar" class="">
+
+
+
+  <div id="header-wrapper">
+    <div id="header">
+      <a href="/">
+  <img src="/images/logo.svg" />
+</a>
+
+    </div>
+    
+        <div class="searchbox">
+    <label for="search-by"><i class="fas fa-search"></i></label>
+    <input data-search-input id="search-by" type="search" placeholder="Search...">
+    <span data-search-clear=""><i class="fas fa-times"></i></span>
+</div>
+
+<script type="text/javascript" src="/js/lunr.min.js?1560335784"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1560335784"></script>
+<script type="text/javascript">
+    
+        var baseurl = "\/";
+    
+</script>
+<script type="text/javascript" src="/js/search.js?1560335784"></script>
+
+    
+  </div>
+
+    <div class="highlightable">
+    <ul class="topics">
+
+        
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/about/" title="About Velociraptor" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/about/">
+          Overview
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/about/features/" title="Velociraptor Features" class="dd-item ">
+        <a href="/about/features/">
+        Velociraptor Features
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/about/license/" title="GNU Affero General Public License" class="dd-item ">
+        <a href="/about/license/">
+        License
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/blog/" title="Velociraptor Blog" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/blog/">
+          Velociraptor Blog
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2019/03/02/agentless_hunting_with_velociraptor.html" title="Agentless hunting with Velociraptor" class="dd-item ">
+        <a href="/blog/html/2019/03/02/agentless_hunting_with_velociraptor.html">
+        Agentless hunting with Velociraptor
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2019/02/14/alerting_on_event_patterns.html" title="Alerting on event patterns" class="dd-item ">
+        <a href="/blog/html/2019/02/14/alerting_on_event_patterns.html">
+        Alerting on event patterns
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2019/02/10/velociraptor_performance.html" title="Velociraptor Performance" class="dd-item ">
+        <a href="/blog/html/2019/02/10/velociraptor_performance.html">
+        Velociraptor Performance
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2019/02/09/velociraptor_python_api.html" title="The Velociraptor Python API" class="dd-item ">
+        <a href="/blog/html/2019/02/09/velociraptor_python_api.html">
+        The Velociraptor Python API
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/09/03/velociraptor_s_client_communications.html" title="Velociraptor&#39;s client communications" class="dd-item ">
+        <a href="/blog/html/2018/09/03/velociraptor_s_client_communications.html">
+        Velociraptor&#39;s client communications
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/12/23/deploying_velociraptor_with_oauth_sso.html" title="Deploying Velociraptor with OAuth SSO" class="dd-item ">
+        <a href="/blog/html/2018/12/23/deploying_velociraptor_with_oauth_sso.html">
+        Deploying Velociraptor with OAuth SSO
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/12/22/configuring_velociraptor_for_ssl.html" title="Configuring Velociraptor for SSL" class="dd-item ">
+        <a href="/blog/html/2018/12/22/configuring_velociraptor_for_ssl.html">
+        Configuring Velociraptor for SSL
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/12/11/velociraptor_interactive_shell.html" title="Velociraptor Interactive Shell" class="dd-item ">
+        <a href="/blog/html/2018/12/11/velociraptor_interactive_shell.html">
+        Velociraptor Interactive Shell
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/12/10/server_side_vql_queries_and_events.html" title="Server side VQL queries and Escalation Events" class="dd-item ">
+        <a href="/blog/html/2018/12/10/server_side_vql_queries_and_events.html">
+        Server side VQL queries and Escalation Events
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/12/09/more_on_client_event_collection.html" title="More on client event collection" class="dd-item ">
+        <a href="/blog/html/2018/12/09/more_on_client_event_collection.html">
+        More on client event collection
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/11/13/velociraptor_training_at_nzitf.html" title="Velociraptor training at NZITF" class="dd-item ">
+        <a href="/blog/html/2018/11/13/velociraptor_training_at_nzitf.html">
+        Velociraptor training at NZITF
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/11/09/event_queries_and_endpoint_monitoring.html" title="Event Queries and Endpoint Monitoring" class="dd-item ">
+        <a href="/blog/html/2018/11/09/event_queries_and_endpoint_monitoring.html">
+        Event Queries and Endpoint Monitoring
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/09/30/velorciraptor_s_filesystem_s_accessors.html" title="Velorciraptor&#39;s filesystem&#39;s accessors" class="dd-item ">
+        <a href="/blog/html/2018/09/30/velorciraptor_s_filesystem_s_accessors.html">
+        Velorciraptor&#39;s filesystem&#39;s accessors
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/09/29/detecting_powershell_persistence_with_velociraptor_and_yara.html" title="Detecting powershell persistence with Velociraptor and Yara" class="dd-item ">
+        <a href="/blog/html/2018/09/29/detecting_powershell_persistence_with_velociraptor_and_yara.html">
+        Detecting powershell persistence with Velociraptor and Yara
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/09/03/velociraptor_walk_through_and_demo.html" title="Velociraptor walk through and demo" class="dd-item ">
+        <a href="/blog/html/2018/09/03/velociraptor_walk_through_and_demo.html">
+        Velociraptor walk through and demo
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/08/20/velociraptor_artifacts.html" title="Velociraptor Artifacts" class="dd-item ">
+        <a href="/blog/html/2018/08/20/velociraptor_artifacts.html">
+        Velociraptor Artifacts
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/08/10/browsing_around_the_filesystem.html" title="Browsing around the filesystem." class="dd-item ">
+        <a href="/blog/html/2018/08/10/browsing_around_the_filesystem.html">
+        Browsing around the filesystem.
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/08/10/design_differences_between_velociraptor_and_grr.html" title="Design differences between Velociraptor and GRR" class="dd-item ">
+        <a href="/blog/html/2018/08/10/design_differences_between_velociraptor_and_grr.html">
+        Design differences between Velociraptor and GRR
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/02/09/files_files_everything_is_just_a_file.html" title="Files, files everything is just a file!" class="dd-item ">
+        <a href="/blog/html/2018/02/09/files_files_everything_is_just_a_file.html">
+        Files, files everything is just a file!
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/08/10/hunting_what_velociraptors_do_best.html" title="Hunting - What Velociraptors do best!" class="dd-item ">
+        <a href="/blog/html/2018/08/10/hunting_what_velociraptors_do_best.html">
+        Hunting - What Velociraptors do best!
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/08/10/interrogation_make_the_endpoint_tell_us_what_it_knows.html" title="Interrogation - Make the endpoint tell us what it knows!" class="dd-item ">
+        <a href="/blog/html/2018/08/10/interrogation_make_the_endpoint_tell_us_what_it_knows.html">
+        Interrogation - Make the endpoint tell us what it knows!
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/08/10/the_velocidex_query_language.html" title="Velocidex Query Language (VQL)" class="dd-item ">
+        <a href="/blog/html/2018/08/10/the_velocidex_query_language.html">
+        Velocidex Query Language (VQL)
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/08/10/introducing_velociraptor.html" title="Introducing Velociraptor" class="dd-item ">
+        <a href="/blog/html/2018/08/10/introducing_velociraptor.html">
+        Introducing Velociraptor
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/docs/" title="Velociraptor Documentation" class="dd-item 
+        parent
+        
+        
+        ">
+      <a href="/docs/">
+          Velociraptor Documentation
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/docs/user-interface/" title="Users Manual" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/docs/user-interface/">
+          User Manual Overview
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/user-interface/artifact_types/" title="Artifact Types" class="dd-item ">
+        <a href="/docs/user-interface/artifact_types/">
+        Artifact Types
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/user-interface/flows/" title="Velociraptor Artifacts" class="dd-item ">
+        <a href="/docs/user-interface/flows/">
+        Velociraptor Artifacts
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/user-interface/gui/" title="Searching for clients" class="dd-item ">
+        <a href="/docs/user-interface/gui/">
+        Searching for clients
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/documentation/" title="Velociraptor Documentation" class="dd-item ">
+        <a href="/docs/documentation/">
+        Velociraptor
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/docs/getting-started/" title="Get Started" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/docs/getting-started/">
+          Get Started Overview
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/getting-started/deploying_clients/" title="Deploying Clients" class="dd-item ">
+        <a href="/docs/getting-started/deploying_clients/">
+        Client Deployment
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/getting-started/cloud/" title="Deploying in the cloud" class="dd-item ">
+        <a href="/docs/getting-started/cloud/">
+        Cloud Deployment
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/getting-started/stand_alone/" title="Standalone Deployment" class="dd-item ">
+        <a href="/docs/getting-started/stand_alone/">
+        Standalone Deployment
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/getting-started/triaging/" title="Triaging" class="dd-item ">
+        <a href="/docs/getting-started/triaging/">
+        Triaging
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/docs/presentations/" title="Presentations and Workshops" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/docs/presentations/">
+          Presentation Overview
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/presentations/crikeycon2019/" title="Crikeycon 2019 Training Workshop" class="dd-item ">
+        <a href="/docs/presentations/crikeycon2019/">
+        CrikeyCon 2019
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/presentations/nzitf2018/" title="New Zealand Internet Task Force Conference 2018" class="dd-item ">
+        <a href="/docs/presentations/nzitf2018/">
+        NZITF2018
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/docs/vql_reference/" title="VQL Reference" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/docs/vql_reference/">
+          VQL Overview
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/vql_reference/templates/" title="Report Templates" class="dd-item ">
+        <a href="/docs/vql_reference/templates/">
+        Report Templates
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/vql_reference/event_plugins/" title="VQL Event PLugins" class="dd-item ">
+        <a href="/docs/vql_reference/event_plugins/">
+        VQL Event PLugins
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/vql_reference/functions/" title="VQL Functions" class="dd-item ">
+        <a href="/docs/vql_reference/functions/">
+        VQL Functions
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/vql_reference/plugins/" title="VQL PLugins" class="dd-item ">
+        <a href="/docs/vql_reference/plugins/">
+        VQL PLugins
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/vql_reference/server/" title="VQL Server Plugins" class="dd-item ">
+        <a href="/docs/vql_reference/server/">
+        VQL Server Plugins
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/artifacts/linux/" title="Linux Artifacts" class="dd-item ">
+        <a href="/docs/artifacts/linux/">
+        Linux Artifacts
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/artifacts/misc/" title="Miscelaneous Artifacts" class="dd-item ">
+        <a href="/docs/artifacts/misc/">
+        Miscelaneous
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/artifacts/server/" title="Server Artifacts" class="dd-item ">
+        <a href="/docs/artifacts/server/">
+        Server Artifacts
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/artifacts/detection/" title="Windows Malware Detection" class="dd-item ">
+        <a href="/docs/artifacts/detection/">
+        Windows Detection
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/artifacts/events/" title="Windows Event Monitoring" class="dd-item ">
+        <a href="/docs/artifacts/events/">
+        Windows Monitoring
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/artifacts/windows_system/" title="Windows System" class="dd-item ">
+        <a href="/docs/artifacts/windows_system/">
+        Windows System
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/artifacts/triage/" title="Windows Triage Artifacts" class="dd-item active">
+        <a href="/docs/artifacts/triage/">
+        Windows Triage
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+         
+    </ul>
+
+    
+    
+
+    
+    <section id="footer">
+      
+    </section>
+  </div>
+</nav>
+
+
+
+
+
+        <section id="body">
+        <div id="overlay"></div>
+        <div class="padding highlightable">
+              
+              <div>
+                <div id="top-bar">
+                
+                
+                <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <span id="sidebar-toggle-span">
+                        <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                          <i class="fas fa-bars"></i>
+                        </a>
+                    </span>
+                  
+                  <span id="toc-menu"><i class="fas fa-list-alt"></i></span>
+                  
+                  <span class="links">
+                 
+                 
+                    
+          
+          
+            
+            
+          
+          
+            
+            
+          
+          
+            <a href='/'>Velociraptor - Hunt Evil!</a> > <a href='/docs/'>Velociraptor Documentation</a> > Windows Triage Artifacts
+          
+         
+          
+         
+          
+        
+                 
+                  </span>
+                </div>
+                
+                    <div class="progress">
+    <div class="wrapper">
+<nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#windows-triage-collectors-amcache">Windows.Triage.Collectors.Amcache</a></li>
+<li><a href="#windows-triage-collectors-bcd">Windows.Triage.Collectors.BCD</a></li>
+<li><a href="#windows-triage-collectors-chrome">Windows.Triage.Collectors.Chrome</a></li>
+<li><a href="#windows-triage-collectors-edge">Windows.Triage.Collectors.Edge</a></li>
+<li><a href="#windows-triage-collectors-eventlogs">Windows.Triage.Collectors.EventLogs</a></li>
+<li><a href="#windows-triage-collectors-eventtracelogs">Windows.Triage.Collectors.EventTraceLogs</a></li>
+<li><a href="#windows-triage-collectors-evidenceofexecution">Windows.Triage.Collectors.EvidenceOfExecution</a></li>
+<li><a href="#windows-triage-collectors-firefox">Windows.Triage.Collectors.Firefox</a></li>
+<li><a href="#windows-triage-collectors-internetexplorer">Windows.Triage.Collectors.InternetExplorer</a></li>
+<li><a href="#windows-triage-collectors-jabber">Windows.Triage.Collectors.Jabber</a></li>
+<li><a href="#windows-triage-collectors-lnkfiles">Windows.Triage.Collectors.LnkFiles</a></li>
+<li><a href="#windows-triage-collectors-ntfsmetadata">Windows.Triage.Collectors.NTFSMetadata</a></li>
+<li><a href="#windows-triage-collectors-outlookpst">Windows.Triage.Collectors.OutlookPST</a></li>
+<li><a href="#windows-triage-collectors-powershellconsolelogs">Windows.Triage.Collectors.PowershellConsoleLogs</a></li>
+<li><a href="#windows-triage-collectors-recyclebin">Windows.Triage.Collectors.RecycleBin</a></li>
+<li><a href="#windows-triage-collectors-registryhives">Windows.Triage.Collectors.RegistryHives</a></li>
+<li><a href="#windows-triage-collectors-srum">Windows.Triage.Collectors.SRUM</a></li>
+<li><a href="#windows-triage-collectors-scheduledtasks">Windows.Triage.Collectors.ScheduledTasks</a></li>
+<li><a href="#windows-triage-collectors-skype">Windows.Triage.Collectors.Skype</a></li>
+<li><a href="#windows-triage-collectors-startupinfo">Windows.Triage.Collectors.StartupInfo</a></li>
+<li><a href="#windows-triage-collectors-teracopy">Windows.Triage.Collectors.TeraCopy</a></li>
+<li><a href="#windows-triage-collectors-thumbdb">Windows.Triage.Collectors.ThumbDB</a></li>
+<li><a href="#windows-triage-collectors-usbdevicelogs">Windows.Triage.Collectors.USBDeviceLogs</a></li>
+<li><a href="#windows-triage-collectors-wbem">Windows.Triage.Collectors.WBEM</a></li>
+<li><a href="#windows-triage-collectors-windowsfirewall">Windows.Triage.Collectors.WindowsFirewall</a></li>
+<li><a href="#windows-triage-collectors-windowsindex">Windows.Triage.Collectors.WindowsIndex</a></li>
+<li><a href="#windows-triage-webbrowsers">Windows.Triage.WebBrowsers</a></li>
+<li><a href="#triage-collection-upload">Triage.Collection.Upload</a></li>
+<li><a href="#windows-forensics-bam">Windows.Forensics.Bam</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+
+                
+              </div>
+            </div>
+            
+        <div id="head-tags">
+        
+        </div>
+        
+        <div id="body-inner">
+          
+            <h1>
+              
+              Windows Triage Artifacts
+            </h1>
+          
+
+        
+
+
+
+
+
+<h2 id="windows-triage-collectors-amcache">Windows.Triage.Collectors.Amcache</h2>
+
+<p>{{ Query &ldquo;SELECT * FROM Rows&rdquo; }}</p>
+
+<p><a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
+    data-target="#Windows_Triage_Collectors_AmcacheDetails">View Artifact</a>
+ <div class="collapse dn" id="Windows_Triage_Collectors_AmcacheDetails" style="width: fit-content"></p>
+
+<pre><code>name: Windows.Triage.Collectors.Amcache
+description: |
+  {{ Query &quot;SELECT * FROM Rows&quot; }}
+
+precondition: SELECT OS From info() where OS = 'windows'
+
+sources:
+  - queries:
+      - |
+        SELECT * FROM chain(
+          a1={ SELECT * FROM Artifact.Triage.Collection.Upload(
+               type=&quot;Amcache&quot;,
+               accessor=&quot;ntfs&quot;,
+               path=&quot;C:\\Windows\\AppCompat\\Programs\\Amcache.hve&quot;)
+          },
+          a2={ SELECT * FROM Artifact.Triage.Collection.Upload(
+               type=&quot;Amcache transaction files&quot;,
+               accessor=&quot;ntfs&quot;,
+               path=&quot;C:\\Windows\\AppCompat\\Programs\\Amcache.hve.LOG*&quot;)
+          })
+</code></pre>
+
+<p></div></a></p>
+
+<h2 id="windows-triage-collectors-bcd">Windows.Triage.Collectors.BCD</h2>
+
+<p>Boot Configuration Files.</p>
+
+<p>{{ Query &ldquo;SELECT * FROM Rows&rdquo; }}</p>
+
+<p><a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
+    data-target="#Windows_Triage_Collectors_BCDDetails">View Artifact</a>
+ <div class="collapse dn" id="Windows_Triage_Collectors_BCDDetails" style="width: fit-content"></p>
+
+<pre><code>name: Windows.Triage.Collectors.BCD
+description: |
+  Boot Configuration Files.
+
+  {{ Query &quot;SELECT * FROM Rows&quot; }}
+
+precondition: SELECT OS From info() where OS = 'windows'
+
+sources:
+  - queries:
+      - SELECT * FROM chain(
+          a1={ SELECT * FROM Artifact.Triage.Collection.Upload(
+               type=&quot;BCD&quot;,
+               path=[
+                  &quot;C:\\Boot\\BCD&quot;,
+                  &quot;C:\\Boot\\BCD.LOG*&quot;
+               ])
+          }
+        )
+</code></pre>
+
+<p></div></a></p>
+
+<h2 id="windows-triage-collectors-chrome">Windows.Triage.Collectors.Chrome</h2>
+
+<p>Collect Chrome related artifacts.</p>
+
+<p>{{ Query &ldquo;SELECT * FROM Rows&rdquo; }}</p>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>baseLocations</td>
+<td>C:\Documents and Settings\*\Local Settings\Application Data\Google\Chrome\User Data\*\,C:\Users\*\AppData\Local\Google\Chrome\User Data\*\</td>
+<td>Globs for different possible locations of firefox profiles.</td>
+</tr>
+</tbody>
+</table>
+
+<p><a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
+    data-target="#Windows_Triage_Collectors_ChromeDetails">View Artifact</a>
+ <div class="collapse dn" id="Windows_Triage_Collectors_ChromeDetails" style="width: fit-content"></p>
+
+<pre><code>name: Windows.Triage.Collectors.Chrome
+description: |
+  Collect Chrome related artifacts.
+
+  {{ Query &quot;SELECT * FROM Rows&quot; }}
+
+precondition: SELECT OS From info() where OS = 'windows'
+
+parameters:
+  - name: baseLocations
+    description: Globs for different possible locations of firefox profiles.
+    default: C:\Documents and Settings\*\Local Settings\Application Data\Google\Chrome\User Data\*\,C:\Users\*\AppData\Local\Google\Chrome\User Data\*\
+
+sources:
+  - queries:
+      - SELECT * FROM chain(
+          a1={ SELECT * FROM Artifact.Triage.Collection.Upload(
+               type=&quot;Chrome bookmarks&quot;,
+               path=split(string=baseLocations, sep=&quot;,&quot;) + &quot;Bookmarks*&quot;)
+          },
+          a2={ SELECT * FROM Artifact.Triage.Collection.Upload(
+               type=&quot;Chrome Cookies&quot;,
+               path=split(string=baseLocations, sep=&quot;,&quot;) + &quot;Cookies*&quot;)
+          },
+          a3={ SELECT * FROM Artifact.Triage.Collection.Upload(
+               type=&quot;Chrome Current Session&quot;,
+               path=split(string=baseLocations, sep=&quot;,&quot;) + &quot;Current Session&quot;)
+          },
+          a4={ SELECT * FROM Artifact.Triage.Collection.Upload(
+               type=&quot;Chrome Current Tabs&quot;,
+               path=split(string=baseLocations, sep=&quot;,&quot;) + &quot;Current Tabs&quot;)
+          },
+          a5={ SELECT * FROM Artifact.Triage.Collection.Upload(
+               type=&quot;Chrome Favicons&quot;,
+               path=split(string=baseLocations, sep=&quot;,&quot;) + &quot;Favicons*&quot;)
+          },
+          a6={ SELECT * FROM Artifact.Triage.Collection.Upload(
+               type=&quot;Chrome History&quot;,
+               path=split(string=baseLocations, sep=&quot;,&quot;) + &quot;History*&quot;)
+          },
+          a7={ SELECT * FROM Artifact.Triage.Collection.Upload(
+               type=&quot;Chrome Last Session&quot;,
+               path=split(string=baseLocations, sep=&quot;,&quot;) + &quot;Last Session&quot;)
+          },
+          a8={ SELECT * FROM Artifact.Triage.Collection.Upload(
+               type=&quot;Chrome Last Tabs&quot;,
+               path=split(string=baseLocations, sep=&quot;,&quot;) + &quot;Last Tabs&quot;)
+          },
+          a9={ SELECT * FROM Artifact.Triage.Collection.Upload(
+               type=&quot;Chrome Preferences&quot;,
+               path=split(string=baseLocations, sep=&quot;,&quot;) + &quot;Preferences&quot;)
+          },
+          b1={ SELECT * FROM Artifact.Triage.Collection.Upload(
+               type=&quot;Chrome Shortcuts&quot;,
+               path=split(string=baseLocations, sep=&quot;,&quot;) + &quot;Shortcuts*&quot;)
+          },
+          b2={ SELECT * FROM Artifact.Triage.Collection.Upload(
+               type=&quot;Chrome Top Sites&quot;,
+               path=split(string=baseLocations, sep=&quot;,&quot;) + &quot;Top Sites*&quot;)
+          },
+          b3={ SELECT * FROM Artifact.Triage.Collection.Upload(
+               type=&quot;Chrome Visited Links&quot;,
+               path=split(string=baseLocations, sep=&quot;,&quot;) + &quot;Visited Links&quot;)
+          },
+          b4={ SELECT * FROM Artifact.Triage.Collection.Upload(
+               type=&quot;Chrome Web Data&quot;,
+               path=split(string=baseLocations, sep=&quot;,&quot;) + &quot;Web Data*&quot;)
+          }
+        )
+</code></pre>
+
+<p></div></a></p>
+
+<h2 id="windows-triage-collectors-edge">Windows.Triage.Collectors.Edge</h2>
+
+<p>Collect Edge related artifacts.</p>
+
+<p>{{ Query &ldquo;SELECT * FROM Rows&rdquo; }}</p>
+
+<p><a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
+    data-target="#Windows_Triage_Collectors_EdgeDetails">View Artifact</a>
+ <div class="collapse dn" id="Windows_Triage_Collectors_EdgeDetails" style="width: fit-content"></p>
+
+<pre><code>name: Windows.Triage.Collectors.Edge
+description: |
+  Collect Edge related artifacts.
+
+  {{ Query &quot;SELECT * FROM Rows&quot; }}
+
+precondition: SELECT OS From info() where OS = 'windows'
+
+sources:
+  - queries:
+      - SELECT * FROM chain(
+          a1={ SELECT * FROM Artifact.Triage.Collection.Upload(
+               type=&quot;Edge folder&quot;,
+               path=&quot;C:\\Users\\*\\AppData\\Local\\Packages\\Microsoft.MicrosoftEdge_*\\**&quot;)
+          },
+          a2={ SELECT * FROM Artifact.Triage.Collection.Upload(
+               type=&quot;WebcacheV01.dat&quot;,
+               path=&quot;C:\\Users\\*\\AppData\\Local\\Microsoft\\Windows\\WebCache\\**&quot;)
+          }
+        )
+</code></pre>
+
+<p></div></a></p>
+
+<h2 id="windows-triage-collectors-eventlogs">Windows.Triage.Collectors.EventLogs</h2>
+
+<p>Collect event log files.</p>
+
+<p>{{ Query &ldquo;SELECT * FROM Rows&rdquo; }}</p>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>EventLogGlobs</td>
+<td>C:\Windows\system32\config\*.evt,C:\Windows\system32\winevt\logs\*.evtx</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+<p><a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
+    data-target="#Windows_Triage_Collectors_EventLogsDetails">View Artifact</a>
+ <div class="collapse dn" id="Windows_Triage_Collectors_EventLogsDetails" style="width: fit-content"></p>
+
+<pre><code>name: Windows.Triage.Collectors.EventLogs
+description: |
+  Collect event log files.
+
+  {{ Query &quot;SELECT * FROM Rows&quot; }}
+
+parameters:
+  - name: EventLogGlobs
+    default: C:\Windows\system32\config\*.evt,C:\Windows\system32\winevt\logs\*.evtx
+
+precondition: SELECT OS From info() where OS = 'windows'
+
+sources:
+  - queries:
+      - SELECT * FROM Artifact.Triage.Collection.Upload(
+           type=&quot;EventLogs&quot;,
+           path=split(string=EventLogGlobs, sep=&quot;,&quot;))
+</code></pre>
+
+<p></div></a></p>
+
+<h2 id="windows-triage-collectors-eventtracelogs">Windows.Triage.Collectors.EventTraceLogs</h2>
+
+<p>Collect event trace log files.</p>
+
+<p>{{ Query &ldquo;SELECT * FROM Rows&rdquo; }}</p>
+
+<p><a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
+    data-target="#Windows_Triage_Collectors_EventTraceLogsDetails">View Artifact</a>
+ <div class="collapse dn" id="Windows_Triage_Collectors_EventTraceLogsDetails" style="width: fit-content"></p>
+
+<pre><code>name: Windows.Triage.Collectors.EventTraceLogs
+description: |
+  Collect event trace log files.
+
+  {{ Query &quot;SELECT * FROM Rows&quot; }}
+
+precondition: SELECT OS From info() where OS = 'windows'
+
+sources:
+  - queries:
+      - SELECT * FROM chain(
+          a1={ SELECT * FROM Artifact.Triage.Collection.Upload(
+            type=&quot;WDI Trace Logs&quot;,
+            path=[
+              &quot;C:\\Windows\\System32\\WDI\\LogFiles\\*.etl*&quot;,
+              &quot;C:\\Windows\\System32\\WDI\\{*&quot;
+            ])
+          },
+          a2={ SELECT * FROM Artifact.Triage.Collection.Upload(
+            type=&quot;WMI Trace Logs&quot;,
+            path=&quot;C:\\Windows\\System32\\LogFiles\\WMI\\*&quot;)
+          },
+          a3={ SELECT * FROM Artifact.Triage.Collection.Upload(
+            type=&quot;SleepStudy Trace Logs&quot;,
+            path=&quot;C:\\Windows\\System32\\SleepStudy*&quot;)
+          },
+          a4={ SELECT * FROM Artifact.Triage.Collection.Upload(
+            type=&quot;Energy-NTKL Trace Logs&quot;,
+            path=&quot;C:\\ProgramData\\Microsoft\\Windows\\PowerEfficiency Diagnostics\\energy-ntkl.etl&quot;)
+          }
+        )
+</code></pre>
+
+<p></div></a></p>
+
+<h2 id="windows-triage-collectors-evidenceofexecution">Windows.Triage.Collectors.EvidenceOfExecution</h2>
+
+<p>{{ Query &ldquo;SELECT * FROM Rows&rdquo; }}</p>
+
+<p><a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
+    data-target="#Windows_Triage_Collectors_EvidenceOfExecutionDetails">View Artifact</a>
+ <div class="collapse dn" id="Windows_Triage_Collectors_EvidenceOfExecutionDetails" style="width: fit-content"></p>
+
+<pre><code>name: Windows.Triage.Collectors.EvidenceOfExecution
+description: |
+  {{ Query &quot;SELECT * FROM Rows&quot; }}
+
+includes:
+  - Windows.Triage.Collectors.Amcache
+
+precondition: SELECT OS From info() where OS = 'windows'
+
+sources:
+  - queries:
+      - SELECT * FROM chain(
+          a1={ SELECT * FROM Artifact.Triage.Collection.Upload(
+               type=&quot;Prefetch&quot;,
+               path=&quot;C:\\Windows\\prefetch\\*.pf&quot;)
+          },
+          a2={ SELECT * FROM Artifact.Triage.Collection.Upload(
+               type=&quot;RecentFileCache&quot;,
+               path=&quot;C:\\Windows\\AppCompat\\Programs\\RecentFileCache.bcf&quot;)
+          }
+        )
+</code></pre>
+
+<p></div></a></p>
+
+<h2 id="windows-triage-collectors-firefox">Windows.Triage.Collectors.Firefox</h2>
+
+<p>Collect Firefox related artifacts.</p>
+
+<p>{{ Query &ldquo;SELECT * FROM Rows&rdquo; }}</p>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>baseLocations</td>
+<td>C:\Users\*\AppData\Roaming\Mozilla\Firefox\Profiles\*\,C:\Documents and Settings\*\Application Data\Mozilla\Firefox\Profiles\*\</td>
+<td>Globs for different possible locations of firefox profiles.</td>
+</tr>
+</tbody>
+</table>
+
+<p><a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
+    data-target="#Windows_Triage_Collectors_FirefoxDetails">View Artifact</a>
+ <div class="collapse dn" id="Windows_Triage_Collectors_FirefoxDetails" style="width: fit-content"></p>
+
+<pre><code>name: Windows.Triage.Collectors.Firefox
+description: |
+  Collect Firefox related artifacts.
+
+  {{ Query &quot;SELECT * FROM Rows&quot; }}
+
+precondition: SELECT OS From info() where OS = 'windows'
+
+parameters:
+  - name: baseLocations
+    description: Globs for different possible locations of firefox profiles.
+    default: C:\Users\*\AppData\Roaming\Mozilla\Firefox\Profiles\*\,C:\Documents and Settings\*\Application Data\Mozilla\Firefox\Profiles\*\
+
+sources:
+  - queries:
+      - SELECT * FROM chain(
+          a1={ SELECT * FROM Artifact.Triage.Collection.Upload(
+               type=&quot;Places&quot;,
+               path=split(string=baseLocations, sep=&quot;,&quot;) + &quot;places.sqlite*&quot;)
+          },
+          a2={ SELECT * FROM Artifact.Triage.Collection.Upload(
+               type=&quot;Downloads&quot;,
+               path=split(string=baseLocations, sep=&quot;,&quot;) + &quot;downloads.sqlite*&quot;)
+          },
+          a3={ SELECT * FROM Artifact.Triage.Collection.Upload(
+               type=&quot;Form history&quot;,
+               path=split(string=baseLocations, sep=&quot;,&quot;) + &quot;formhistory.sqlite*&quot;)
+          },
+          a4={ SELECT * FROM Artifact.Triage.Collection.Upload(
+               type=&quot;Cookies&quot;,
+               path=split(string=baseLocations, sep=&quot;,&quot;) + &quot;cookies.sqlite*&quot;)
+          },
+          a5={ SELECT * FROM Artifact.Triage.Collection.Upload(
+               type=&quot;Signons&quot;,
+               path=split(string=baseLocations, sep=&quot;,&quot;) + &quot;signons.sqlite*&quot;)
+          },
+          a6={ SELECT * FROM Artifact.Triage.Collection.Upload(
+               type=&quot;Webappstore&quot;,
+               path=split(string=baseLocations, sep=&quot;,&quot;) + &quot;webappstore.sqlite*&quot;)
+          },
+          a7={ SELECT * FROM Artifact.Triage.Collection.Upload(
+               type=&quot;Favicons&quot;,
+               path=split(string=baseLocations, sep=&quot;,&quot;) + &quot;favicons.sqlite*&quot;)
+          },
+          a8={ SELECT * FROM Artifact.Triage.Collection.Upload(
+               type=&quot;Addons&quot;,
+               path=split(string=baseLocations, sep=&quot;,&quot;) + &quot;addons.sqlite*&quot;)
+          },
+          a9={ SELECT * FROM Artifact.Triage.Collection.Upload(
+               type=&quot;Search&quot;,
+               path=split(string=baseLocations, sep=&quot;,&quot;) + &quot;search.sqlite*&quot;)
+          }
+          )
+</code></pre>
+
+<p></div></a></p>
+
+<h2 id="windows-triage-collectors-internetexplorer">Windows.Triage.Collectors.InternetExplorer</h2>
+
+<p>Collect Firefox related artifacts.</p>
+
+<p>{{ Query &ldquo;SELECT * FROM Rows&rdquo; }}</p>
+
+<p><a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
+    data-target="#Windows_Triage_Collectors_InternetExplorerDetails">View Artifact</a>
+ <div class="collapse dn" id="Windows_Triage_Collectors_InternetExplorerDetails" style="width: fit-content"></p>
+
+<pre><code>name: Windows.Triage.Collectors.InternetExplorer
+description: |
+  Collect Firefox related artifacts.
+
+  {{ Query &quot;SELECT * FROM Rows&quot; }}
+
+precondition: SELECT OS From info() where OS = 'windows'
+
+sources:
+  - queries:
+      - SELECT * FROM chain(
+          a1={ SELECT * FROM Artifact.Triage.Collection.Upload(
+               type=&quot;Index.dat History&quot;,
+               path=[
+                 &quot;C:\\Documents and Settings\\*\\Local Settings\\History\\History.IE5\\index.dat&quot;,
+                 &quot;C:\\Documents and Settings\\*\\Local Settings\\History\\History.IE5\\*\\index.dat&quot;
+               ])
+          },
+          a2={ SELECT * FROM Artifact.Triage.Collection.Upload(
+               type=&quot;Index.dat temp internet files&quot;,
+               path=&quot;C:\\Documents and Settings\\*\\Local Settings\\Temporary Internet Files\\Content.IE5\\index.dat&quot;)
+          },
+          a3={ SELECT * FROM Artifact.Triage.Collection.Upload(
+               type=&quot;Index.dat cookies&quot;,
+               path=&quot;C:\\Documents and Settings\\*\\Cookies\\index.dat&quot;)
+          },
+          a4={ SELECT * FROM Artifact.Triage.Collection.Upload(
+               type=&quot;Index.dat UserData&quot;,
+               path=&quot;C:\\Documents and Settings\\*\\Application Data\\Microsoft\\Internet Explorer\\UserData\\index.dat&quot;)
+          },
+          a5={ SELECT * FROM Artifact.Triage.Collection.Upload(
+               type=&quot;Index.dat Office XP&quot;,
+               path=&quot;C:\\Documents and Settings\\*\\Application Data\\Microsoft\\Office\\Recent\\index.dat&quot;)
+          },
+          a6={ SELECT * FROM Artifact.Triage.Collection.Upload(
+               type=&quot;Index.dat Office&quot;,
+               path=&quot;C:\\Users\\*\\AppData\\Roaming\\Microsoft\\Office\\Recent\\index.dat&quot;)
+          },
+          a7={ SELECT * FROM Artifact.Triage.Collection.Upload(
+               type=&quot;Local Internet Explorer folder&quot;,
+               path=&quot;C:\\Users\\*\\AppData\\Local\\Microsoft\\Internet Explorer\\**&quot;)
+          },
+          a8={ SELECT * FROM Artifact.Triage.Collection.Upload(
+               type=&quot;Roaming Internet Explorer folder&quot;,
+               path=&quot;C:\\Users\\*\\AppData\\Roaming\\Microsoft\\Internet Explorer\\**&quot;)
+          },
+          a9={ SELECT * FROM Artifact.Triage.Collection.Upload(
+               type=&quot;IE 9/10 History&quot;,
+               path=&quot;C:\\Users\\*\\AppData\\Local\\Microsoft\\Windows\\History\\**&quot;)
+          },
+          b1={ SELECT * FROM Artifact.Triage.Collection.Upload(
+               type=&quot;IE 9/10 Cache&quot;,
+               path=&quot;C:\\Users\\*\\AppData\\Local\\Microsoft\\Windows\\Temporary Internet Files\\**&quot;)
+          },
+          b2={ SELECT * FROM Artifact.Triage.Collection.Upload(
+               type=&quot;IE 9/10 Cookies&quot;,
+               path=&quot;C:\\Users\\*\\AppData\\Local\\Microsoft\\Windows\\Cookies\\**&quot;)
+          },
+          b3={ SELECT * FROM Artifact.Triage.Collection.Upload(
+               type=&quot;IE 9/10 Download History&quot;,
+               path=&quot;C:\\Users\\*\\AppData\\Local\\Microsoft\\Windows\\IEDownloadHistory\\**&quot;)
+          },
+          b4={ SELECT * FROM Artifact.Triage.Collection.Upload(
+               type=&quot;IE 11 Metadata&quot;,
+               accessor=&quot;ntfs&quot;,
+               path=&quot;C:\\Users\\*\\AppData\\Local\\Microsoft\\Windows\\WebCache\\**&quot;)
+          },
+          b5={ SELECT * FROM Artifact.Triage.Collection.Upload(
+               type=&quot;IE 11 Cache&quot;,
+               accessor=&quot;ntfs&quot;,
+               path=&quot;C:\\Users\\*\\AppData\\Local\\Microsoft\\Windows\\INetCache\\**&quot;)
+          },
+          b6={ SELECT * FROM Artifact.Triage.Collection.Upload(
+               type=&quot;IE 11 Cookies&quot;,
+               path=&quot;C:\\Users\\*\\AppData\\Local\\Microsoft\\Windows\\INetCookies\\**&quot;)
+          }
+        )
+</code></pre>
+
+<p></div></a></p>
+
+<h2 id="windows-triage-collectors-jabber">Windows.Triage.Collectors.Jabber</h2>
+
+<p>Jabber.</p>
+
+<p>{{ Query &ldquo;SELECT * FROM Rows&rdquo; }}</p>
+
+<p><a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
+    data-target="#Windows_Triage_Collectors_JabberDetails">View Artifact</a>
+ <div class="collapse dn" id="Windows_Triage_Collectors_JabberDetails" style="width: fit-content"></p>
+
+<pre><code>name: Windows.Triage.Collectors.Jabber
+description: |
+  Jabber.
+
+  {{ Query &quot;SELECT * FROM Rows&quot; }}
+
+precondition: SELECT OS From info() where OS = 'windows'
+
+sources:
+  - queries:
+      - SELECT * FROM chain(
+          a1={ SELECT * FROM Artifact.Triage.Collection.Upload(
+               type=&quot;Cisco Jabber Database&quot;,
+               accessor=&quot;ntfs&quot;,
+               path=[
+                 &quot;C:\\Users\\*\\AppData\\Local\\Cisco\\Unified Communications\\Jabber\\CSF\\History\\*.db&quot;
+               ])
+          }
+        )
+</code></pre>
+
+<p></div></a></p>
+
+<h2 id="windows-triage-collectors-lnkfiles">Windows.Triage.Collectors.LnkFiles</h2>
+
+<p>Lnk files and jump lists.</p>
+
+<p>{{ Query &ldquo;SELECT * FROM Rows&rdquo; }}</p>
+
+<p><a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
+    data-target="#Windows_Triage_Collectors_LnkFilesDetails">View Artifact</a>
+ <div class="collapse dn" id="Windows_Triage_Collectors_LnkFilesDetails" style="width: fit-content"></p>
+
+<pre><code>name: Windows.Triage.Collectors.LnkFiles
+description: |
+  Lnk files and jump lists.
+
+  {{ Query &quot;SELECT * FROM Rows&quot; }}
+
+precondition: SELECT OS From info() where OS = 'windows'
+
+sources:
+  - queries:
+      - SELECT * FROM chain(
+          a1={ SELECT * FROM Artifact.Triage.Collection.Upload(
+               type=&quot;Lnk files from Recent&quot;,
+               path=[
+                 &quot;C:\\Users\\*\\AppData\\Roaming\\Microsoft\\Windows\\Recent\\**&quot;,
+                 &quot;C:\\Users\\*\\AppData\\Roaming\\Microsoft\\Office\\Recent\\**&quot;,
+                 &quot;C:\\Documents and Settings\\*\\Recent\\**&quot;
+               ])
+          },
+          a2={ SELECT * FROM Artifact.Triage.Collection.Upload(
+               type=&quot;Desktop lnk files&quot;,
+               path=[
+                 &quot;C:\\Documents and Settings\\*\\Desktop\\*.lnk&quot;,
+                 &quot;C:\\Users\\*\\Desktop\\*.lnk&quot;
+              ])
+          },
+          a3={ SELECT * FROM Artifact.Triage.Collection.Upload(
+               type=&quot;Restore point lnk files XP&quot;,
+               path=&quot;C:\\System Volume Information\\_restore*\\RP*\\*.lnk&quot;)
+          }
+        )
+</code></pre>
+
+<p></div></a></p>
+
+<h2 id="windows-triage-collectors-ntfsmetadata">Windows.Triage.Collectors.NTFSMetadata</h2>
+
+<p>{{ Query &ldquo;SELECT * FROM Rows&rdquo; }}</p>
+
+<p><a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
+    data-target="#Windows_Triage_Collectors_NTFSMetadataDetails">View Artifact</a>
+ <div class="collapse dn" id="Windows_Triage_Collectors_NTFSMetadataDetails" style="width: fit-content"></p>
+
+<pre><code>name: Windows.Triage.Collectors.NTFSMetadata
+description: |
+  {{ Query &quot;SELECT * FROM Rows&quot; }}
+
+precondition: SELECT OS From info() where OS = 'windows'
+
+sources:
+  - name: NTFS Metadata Files
+    queries:
+      - SELECT * FROM Artifact.Triage.Collection.Upload(
+        type=&quot;NTFS Metadata Files&quot;,
+        accessor=&quot;ntfs&quot;,
+        path=[
+            &quot;C:\\$MFT&quot;,
+            &quot;C:\\$LogFile&quot;,
+            &quot;C:\\$Extend\\$UsnJrnl:$J&quot;,
+            &quot;C:\\$Extend\\$UsnJrnl:$Max&quot;,
+            &quot;C:\\$Secure:$SDS&quot;,
+            &quot;C:\\$Boot&quot;,
+            &quot;C:\\$Extend\\$RmMetadata\\$TxfLog\\$Tops:$T&quot;
+        ])
+</code></pre>
+
+<p></div></a></p>
+
+<h2 id="windows-triage-collectors-outlookpst">Windows.Triage.Collectors.OutlookPST</h2>
+
+<p>Outlook PST and OST files.</p>
+
+<p>{{ Query &ldquo;SELECT * FROM Rows&rdquo; }}</p>
+
+<p><a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
+    data-target="#Windows_Triage_Collectors_OutlookPSTDetails">View Artifact</a>
+ <div class="collapse dn" id="Windows_Triage_Collectors_OutlookPSTDetails" style="width: fit-content"></p>
+
+<pre><code>name: Windows.Triage.Collectors.OutlookPST
+description: |
+  Outlook PST and OST files.
+
+  {{ Query &quot;SELECT * FROM Rows&quot; }}
+
+precondition: SELECT OS From info() where OS = 'windows'
+
+sources:
+  - queries:
+      - SELECT * FROM chain(
+          a1={ SELECT * FROM Artifact.Triage.Collection.Upload(
+               type=&quot;PST&quot;,
+               path=[
+                 &quot;C:\\Documents and Settings\\*\\Local Settings\\Application Data\\Microsoft\\Outlook\\*.pst&quot;,
+                 &quot;C:\\Users\\*\\AppData\\Local\\Microsoft\\Outlook\\*.pst&quot;
+               ])
+          },
+          a2={ SELECT * FROM Artifact.Triage.Collection.Upload(
+               type=&quot;OST&quot;,
+               path=[
+                 &quot;C:\\Documents and Settings\\*\\Local Settings\\Application Data\\Microsoft\\Outlook\\*.ost&quot;,
+                 &quot;C:\\Users\\*\\AppData\\Local\\Microsoft\\Outlook\\*.ost&quot;
+              ])
+          }
+        )
+</code></pre>
+
+<p></div></a></p>
+
+<h2 id="windows-triage-collectors-powershellconsolelogs">Windows.Triage.Collectors.PowershellConsoleLogs</h2>
+
+<p>PowerShell Console Log File.</p>
+
+<p>{{ Query &ldquo;SELECT * FROM Rows&rdquo; }}</p>
+
+<p><a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
+    data-target="#Windows_Triage_Collectors_PowershellConsoleLogsDetails">View Artifact</a>
+ <div class="collapse dn" id="Windows_Triage_Collectors_PowershellConsoleLogsDetails" style="width: fit-content"></p>
+
+<pre><code>name: Windows.Triage.Collectors.PowershellConsoleLogs
+description: |
+  PowerShell Console Log File.
+
+  {{ Query &quot;SELECT * FROM Rows&quot; }}
+
+precondition: SELECT OS From info() where OS = 'windows'
+
+sources:
+  - queries:
+      - SELECT * FROM chain(
+          a1={ SELECT * FROM Artifact.Triage.Collection.Upload(
+               type=&quot;PowerShell Console Log&quot;,
+               path=&quot;C:\\users\\*\\Appdata\\Roaming\\Microsoft\\Windows\\PowerShell\\PSReadline\\ConsoleHost_history.txt&quot;)
+          }
+        )
+</code></pre>
+
+<p></div></a></p>
+
+<h2 id="windows-triage-collectors-recyclebin">Windows.Triage.Collectors.RecycleBin</h2>
+
+<p>Collect contents of Recycle Bin.</p>
+
+<p>{{ Query &ldquo;SELECT * FROM Rows&rdquo; }}</p>
+
+<p><a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
+    data-target="#Windows_Triage_Collectors_RecycleBinDetails">View Artifact</a>
+ <div class="collapse dn" id="Windows_Triage_Collectors_RecycleBinDetails" style="width: fit-content"></p>
+
+<pre><code>name: Windows.Triage.Collectors.RecycleBin
+description: |
+  Collect contents of Recycle Bin.
+
+  {{ Query &quot;SELECT * FROM Rows&quot; }}
+
+precondition: SELECT OS From info() where OS = 'windows'
+
+sources:
+  - queries:
+      - SELECT * FROM chain(
+          a1={ SELECT * FROM Artifact.Triage.Collection.Upload(
+               type=&quot;Recycle.Bin&quot;,
+               path=[
+                 &quot;C:\\$Recycle.Bin\\**&quot;,
+                 &quot;C:\\RECYCLER\\**&quot;
+               ])
+          }
+        )
+</code></pre>
+
+<p></div></a></p>
+
+<h2 id="windows-triage-collectors-registryhives">Windows.Triage.Collectors.RegistryHives</h2>
+
+<p>System and user related Registry hives.</p>
+
+<p>{{ Query &ldquo;SELECT * FROM Rows&rdquo; }}</p>
+
+<p><a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
+    data-target="#Windows_Triage_Collectors_RegistryHivesDetails">View Artifact</a>
+ <div class="collapse dn" id="Windows_Triage_Collectors_RegistryHivesDetails" style="width: fit-content"></p>
+
+<pre><code>name: Windows.Triage.Collectors.RegistryHives
+description: |
+  System and user related Registry hives.
+
+  {{ Query &quot;SELECT * FROM Rows&quot; }}
+
+precondition: SELECT OS From info() where OS = 'windows'
+reference:
+  - https://github.com/EricZimmerman/KapeFiles
+
+sources:
+  - queries:
+      - SELECT * FROM chain(
+          a1={ SELECT * FROM Artifact.Triage.Collection.Upload(
+               type=&quot;ntuser.dat registry hive&quot;,
+               accessor=&quot;ntfs&quot;,
+               path=[
+                 &quot;C:\\Documents and Settings\\*\\ntuser.dat&quot;,
+                 &quot;C:\\Users\\*\\ntuser.dat&quot;
+               ])
+          },
+          a2={ SELECT * FROM Artifact.Triage.Collection.Upload(
+               type=&quot;ntuser.dat registry transaction files&quot;,
+               accessor=&quot;ntfs&quot;,
+               path=&quot;C:\\Users\\*\\ntuser.dat.LOG*&quot;)
+          },
+          a3={ SELECT * FROM Artifact.Triage.Collection.Upload(
+               type=&quot;UsrClass.dat registry hive&quot;,
+               accessor=&quot;ntfs&quot;,
+               path=&quot;C:\\Users\\*\\AppData\\Local\\Microsoft\\Windows\\UsrClass.dat&quot;)
+          },
+          a4={ SELECT * FROM Artifact.Triage.Collection.Upload(
+               type=&quot;UsrClass.dat registry transaction files&quot;,
+               accessor=&quot;ntfs&quot;,
+               path=&quot;C:\\Users\\*\\AppData\\Local\\Microsoft\\Windows\\UsrClass.dat.LOG*&quot;)
+          },
+          a5={ SELECT * FROM Artifact.Triage.Collection.Upload(
+               type=&quot;SAM registry transaction files&quot;,
+               accessor=&quot;ntfs&quot;,
+               path=&quot;C:\\Windows\\System32\\config\\SAM.LOG*&quot;)
+          },
+          a6={ SELECT * FROM Artifact.Triage.Collection.Upload(
+               type=&quot;SECURITY registry transaction files&quot;,
+               accessor=&quot;ntfs&quot;,
+               path=&quot;C:\\Windows\\System32\\config\\SECURITY.LOG*&quot;)
+          },
+          a7={ SELECT * FROM Artifact.Triage.Collection.Upload(
+               type=&quot;SOFTWARE registry transaction files&quot;,
+               accessor=&quot;ntfs&quot;,
+               path=&quot;C:\\Windows\\System32\\config\\SOFTWARE.LOG*&quot;)
+          },
+          a8={ SELECT * FROM Artifact.Triage.Collection.Upload(
+               type=&quot;SYSTEM registry transaction files&quot;,
+               accessor=&quot;ntfs&quot;,
+               path=&quot;C:\\Windows\\System32\\config\\SYSTEM.LOG*&quot;)
+          },
+          a9={ SELECT * FROM Artifact.Triage.Collection.Upload(
+               type=&quot;SAM registry hive&quot;,
+               accessor=&quot;ntfs&quot;,
+               path=&quot;C:\\Windows\\System32\\config\\SAM&quot;)
+          },
+          b1={ SELECT * FROM Artifact.Triage.Collection.Upload(
+               type=&quot;SECURITY registry hive&quot;,
+               accessor=&quot;ntfs&quot;,
+               path=&quot;C:\\Windows\\System32\\config\\SECURITY&quot;)
+          },
+          b2={ SELECT * FROM Artifact.Triage.Collection.Upload(
+               type=&quot;SOFTWARE registry hive&quot;,
+               accessor=&quot;ntfs&quot;,
+               path=&quot;C:\\Windows\\System32\\config\\SOFTWARE&quot;)
+          },
+          b3={ SELECT * FROM Artifact.Triage.Collection.Upload(
+               type=&quot;SYSTEM registry hive&quot;,
+               accessor=&quot;ntfs&quot;,
+               path=&quot;C:\\Windows\\System32\\config\\SYSTEM&quot;)
+          },
+          b4={ SELECT * FROM Artifact.Triage.Collection.Upload(
+               type=&quot;RegBack registry transaction files&quot;,
+               accessor=&quot;ntfs&quot;,
+               path=&quot;C:\\Windows\\System32\\config\\RegBack\\*.LOG*&quot;)
+          },
+          b5={ SELECT * FROM Artifact.Triage.Collection.Upload(
+               type=&quot;SAM registry hive (RegBack)&quot;,
+               accessor=&quot;ntfs&quot;,
+               path=&quot;C:\\Windows\\System32\\config\\RegBack\\SAM&quot;)
+          },
+          b6={ SELECT * FROM Artifact.Triage.Collection.Upload(
+               type=&quot;SECURITY registry hive (RegBack)&quot;,
+               accessor=&quot;ntfs&quot;,
+               path=&quot;C:\\Windows\\System32\\config\\RegBack\\SECURITY&quot;)
+          },
+          b7={ SELECT * FROM Artifact.Triage.Collection.Upload(
+               type=&quot;SOFTWARE registry hive (RegBack)&quot;,
+               accessor=&quot;ntfs&quot;,
+               path=&quot;C:\\Windows\\System32\\config\\RegBack\\SOFTWARE&quot;)
+          },
+          b8={ SELECT * FROM Artifact.Triage.Collection.Upload(
+               type=&quot;SYSTEM registry hive (RegBack)&quot;,
+               accessor=&quot;ntfs&quot;,
+               path=&quot;C:\\Windows\\System32\\config\\RegBack\\SYSTEM&quot;)
+          },
+          b9={ SELECT * FROM Artifact.Triage.Collection.Upload(
+               type=&quot;SYSTEM registry hive (RegBack)&quot;,
+               accessor=&quot;ntfs&quot;,
+               path=&quot;C:\\Windows\\System32\\config\\RegBack\\SYSTEM&quot;)
+          },
+          ba={ SELECT * FROM Artifact.Triage.Collection.Upload(
+               type=&quot;System Profile registry hive&quot;,
+               accessor=&quot;ntfs&quot;,
+               path=&quot;C:\\Windows\\System32\\config\\systemprofile\\ntuser.dat&quot;)
+          },
+          c1={ SELECT * FROM Artifact.Triage.Collection.Upload(
+               type=&quot;System Profile registry transaction files&quot;,
+               accessor=&quot;ntfs&quot;,
+               path=&quot;C:\\Windows\\System32\\config\\systemprofile\\ntuser.dat.LOG*&quot;)
+          },
+          c2={ SELECT * FROM Artifact.Triage.Collection.Upload(
+               type=&quot;Local Service registry hive&quot;,
+               accessor=&quot;ntfs&quot;,
+               path=&quot;C:\\Windows\\ServiceProfiles\\LocalService\\ntuser.dat&quot;)
+          },
+          c3={ SELECT * FROM Artifact.Triage.Collection.Upload(
+               type=&quot;Local Service registry transaction files&quot;,
+               accessor=&quot;ntfs&quot;,
+               path=&quot;C:\\Windows\\ServiceProfiles\\LocalService\\ntuser.dat.LOG*&quot;)
+          },
+          c4={ SELECT * FROM Artifact.Triage.Collection.Upload(
+               type=&quot;Network Service registry hive&quot;,
+               accessor=&quot;ntfs&quot;,
+               path=&quot;C:\\Windows\\ServiceProfiles\\NetworkService\\ntuser.dat&quot;)
+          },
+          c5={ SELECT * FROM Artifact.Triage.Collection.Upload(
+               type=&quot;Network Service registry transaction files&quot;,
+               accessor=&quot;ntfs&quot;,
+               path=&quot;C:\\Windows\\ServiceProfiles\\NetworkService\\ntuser.dat.LOG*&quot;)
+          },
+          c6={ SELECT * FROM Artifact.Triage.Collection.Upload(
+               type=&quot;System Restore Points Registry Hives (XP)&quot;,
+               accessor=&quot;ntfs&quot;,
+               path=&quot;C:\\System Volume Information\\_restore*\\RP*\\snapshot\\_REGISTRY_*&quot;)
+          }
+
+        )
+</code></pre>
+
+<p></div></a></p>
+
+<h2 id="windows-triage-collectors-srum">Windows.Triage.Collectors.SRUM</h2>
+
+<p>System Resource Usage Monitor (SRUM) Data.</p>
+
+<p>{{ Query &ldquo;SELECT * FROM Rows&rdquo; }}</p>
+
+<p><a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
+    data-target="#Windows_Triage_Collectors_SRUMDetails">View Artifact</a>
+ <div class="collapse dn" id="Windows_Triage_Collectors_SRUMDetails" style="width: fit-content"></p>
+
+<pre><code>name: Windows.Triage.Collectors.SRUM
+description: |
+  System Resource Usage Monitor (SRUM) Data.
+
+  {{ Query &quot;SELECT * FROM Rows&quot; }}
+
+precondition: SELECT OS From info() where OS = 'windows'
+
+sources:
+  - queries:
+      - SELECT * FROM chain(
+          a1={ SELECT * FROM Artifact.Triage.Collection.Upload(
+               type=&quot;SRUM&quot;,
+               path=&quot;C:\\Windows\\System32\\SRU\\**&quot;)
+          }
+        )
+</code></pre>
+
+<p></div></a></p>
+
+<h2 id="windows-triage-collectors-scheduledtasks">Windows.Triage.Collectors.ScheduledTasks</h2>
+
+<p>Scheduled tasks (*.job and XML).</p>
+
+<p>{{ Query &ldquo;SELECT * FROM Rows&rdquo; }}</p>
+
+<p><a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
+    data-target="#Windows_Triage_Collectors_ScheduledTasksDetails">View Artifact</a>
+ <div class="collapse dn" id="Windows_Triage_Collectors_ScheduledTasksDetails" style="width: fit-content"></p>
+
+<pre><code>name: Windows.Triage.Collectors.ScheduledTasks
+description: |
+  Scheduled tasks (*.job and XML).
+
+  {{ Query &quot;SELECT * FROM Rows&quot; }}
+
+precondition: SELECT OS From info() where OS = 'windows'
+
+sources:
+  - queries:
+      - SELECT * FROM chain(
+          a1={ SELECT * FROM Artifact.Triage.Collection.Upload(
+               type=&quot;at .job&quot;,
+               path=&quot;C:\\Windows\\Tasks\\*.job&quot;)
+          },
+          a1={ SELECT * FROM Artifact.Triage.Collection.Upload(
+               type=&quot;at SchedLgU.txt&quot;,
+               path=&quot;C:\\Windows\\SchedLgU.txt&quot;)
+          },
+          a2={ SELECT * FROM Artifact.Triage.Collection.Upload(
+               type=&quot;XML&quot;,
+               path=&quot;C:\\Windows\\system32\\Tasks\\**&quot;)
+          }
+        )
+</code></pre>
+
+<p></div></a></p>
+
+<h2 id="windows-triage-collectors-skype">Windows.Triage.Collectors.Skype</h2>
+
+<p>Skype.</p>
+
+<p>{{ Query &ldquo;SELECT * FROM Rows&rdquo; }}</p>
+
+<p><a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
+    data-target="#Windows_Triage_Collectors_SkypeDetails">View Artifact</a>
+ <div class="collapse dn" id="Windows_Triage_Collectors_SkypeDetails" style="width: fit-content"></p>
+
+<pre><code>name: Windows.Triage.Collectors.Skype
+description: |
+  Skype.
+
+  {{ Query &quot;SELECT * FROM Rows&quot; }}
+
+precondition: SELECT OS From info() where OS = 'windows'
+
+sources:
+  - queries:
+      - SELECT * FROM chain(
+          a1={ SELECT * FROM Artifact.Triage.Collection.Upload(
+               type=&quot;main.db&quot;,
+               path=[
+                  &quot;C:\\Users\\*\\AppData\\Local\\Packages\\Microsoft.SkypeApp_*\\LocalState\\*\\main.db&quot;,
+                  &quot;C:\\Documents and Settings\\*\\Application Data\\Skype\\*\\main.db&quot;,
+                  &quot;C:\\Users\\*\\AppData\\Roaming\\Skype\\*\\main.db&quot;
+               ])
+          }
+        )
+</code></pre>
+
+<p></div></a></p>
+
+<h2 id="windows-triage-collectors-startupinfo">Windows.Triage.Collectors.StartupInfo</h2>
+
+<p>StartupInfo XML Files.</p>
+
+<p>{{ Query &ldquo;SELECT * FROM Rows&rdquo; }}</p>
+
+<p><a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
+    data-target="#Windows_Triage_Collectors_StartupInfoDetails">View Artifact</a>
+ <div class="collapse dn" id="Windows_Triage_Collectors_StartupInfoDetails" style="width: fit-content"></p>
+
+<pre><code>name: Windows.Triage.Collectors.StartupInfo
+description: |
+  StartupInfo XML Files.
+
+  {{ Query &quot;SELECT * FROM Rows&quot; }}
+
+precondition: SELECT OS From info() where OS = 'windows'
+
+sources:
+  - queries:
+      - SELECT * FROM chain(
+          a1={ SELECT * FROM Artifact.Triage.Collection.Upload(
+               type=&quot;StartupInfo XML Files&quot;,
+               path=[
+                  &quot;C:\\Windows\\System32\\WDI\\LogFiles\\StartupInfo\\*.xml&quot;
+               ])
+          }
+        )
+</code></pre>
+
+<p></div></a></p>
+
+<h2 id="windows-triage-collectors-teracopy">Windows.Triage.Collectors.TeraCopy</h2>
+
+<p>TeraCopy log history.</p>
+
+<p>{{ Query &ldquo;SELECT * FROM Rows&rdquo; }}</p>
+
+<p><a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
+    data-target="#Windows_Triage_Collectors_TeraCopyDetails">View Artifact</a>
+ <div class="collapse dn" id="Windows_Triage_Collectors_TeraCopyDetails" style="width: fit-content"></p>
+
+<pre><code>name: Windows.Triage.Collectors.TeraCopy
+description: |
+  TeraCopy log history.
+
+  {{ Query &quot;SELECT * FROM Rows&quot; }}
+
+precondition: SELECT OS From info() where OS = 'windows'
+
+sources:
+  - queries:
+      - SELECT * FROM chain(
+          a1={ SELECT * FROM Artifact.Triage.Collection.Upload(
+               type=&quot;TeraCopy&quot;,
+               path=[
+                  &quot;C:\\Users\\*\\AppData\\Roaming\\TeraCopy&quot;
+               ])
+          }
+        )
+</code></pre>
+
+<p></div></a></p>
+
+<h2 id="windows-triage-collectors-thumbdb">Windows.Triage.Collectors.ThumbDB</h2>
+
+<p>Thumbcache DB.</p>
+
+<p>{{ Query &ldquo;SELECT * FROM Rows&rdquo; }}</p>
+
+<p><a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
+    data-target="#Windows_Triage_Collectors_ThumbDBDetails">View Artifact</a>
+ <div class="collapse dn" id="Windows_Triage_Collectors_ThumbDBDetails" style="width: fit-content"></p>
+
+<pre><code>name: Windows.Triage.Collectors.ThumbDB
+description: |
+  Thumbcache DB.
+
+  {{ Query &quot;SELECT * FROM Rows&quot; }}
+
+precondition: SELECT OS From info() where OS = 'windows'
+
+sources:
+  - queries:
+      - SELECT * FROM chain(
+          a1={ SELECT * FROM Artifact.Triage.Collection.Upload(
+               type=&quot;Thumbcache DB&quot;,
+               path=[
+                  &quot;C:\\Users\\*\\AppData\\Local\\Microsoft\\Windows\\Explorer\\thumbcache_*.db&quot;
+               ])
+          }
+        )
+</code></pre>
+
+<p></div></a></p>
+
+<h2 id="windows-triage-collectors-usbdevicelogs">Windows.Triage.Collectors.USBDeviceLogs</h2>
+
+<p>USB devices log files.</p>
+
+<p>{{ Query &ldquo;SELECT * FROM Rows&rdquo; }}</p>
+
+<p><a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
+    data-target="#Windows_Triage_Collectors_USBDeviceLogsDetails">View Artifact</a>
+ <div class="collapse dn" id="Windows_Triage_Collectors_USBDeviceLogsDetails" style="width: fit-content"></p>
+
+<pre><code>name: Windows.Triage.Collectors.USBDeviceLogs
+description: |
+  USB devices log files.
+
+  {{ Query &quot;SELECT * FROM Rows&quot; }}
+
+precondition: SELECT OS From info() where OS = 'windows'
+
+sources:
+  - queries:
+      - SELECT * FROM chain(
+          a1={ SELECT * FROM Artifact.Triage.Collection.Upload(
+               type=&quot;Setupapi.log&quot;,
+               path=[
+                  &quot;C:\\Windows\\setupapi.log&quot;,
+                  &quot;C:\\Windows\\inf\\setupapi.dev.log&quot;
+               ])
+          }
+        )
+</code></pre>
+
+<p></div></a></p>
+
+<h2 id="windows-triage-collectors-wbem">Windows.Triage.Collectors.WBEM</h2>
+
+<p>Web-Based Enterprise Management (WBEM).</p>
+
+<p>{{ Query &ldquo;SELECT * FROM Rows&rdquo; }}</p>
+
+<p><a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
+    data-target="#Windows_Triage_Collectors_WBEMDetails">View Artifact</a>
+ <div class="collapse dn" id="Windows_Triage_Collectors_WBEMDetails" style="width: fit-content"></p>
+
+<pre><code>name: Windows.Triage.Collectors.WBEM
+description: |
+  Web-Based Enterprise Management (WBEM).
+
+  {{ Query &quot;SELECT * FROM Rows&quot; }}
+
+precondition: SELECT OS From info() where OS = 'windows'
+
+sources:
+  - queries:
+      - SELECT * FROM chain(
+          a1={ SELECT * FROM Artifact.Triage.Collection.Upload(
+               type=&quot;WBEM&quot;,
+               path=[
+                 &quot;C:\\Windows\\System32\\wbem\\Repository&quot;
+               ])
+          }
+        )
+</code></pre>
+
+<p></div></a></p>
+
+<h2 id="windows-triage-collectors-windowsfirewall">Windows.Triage.Collectors.WindowsFirewall</h2>
+
+<p>Windows Firewall Logs.</p>
+
+<p>{{ Query &ldquo;SELECT * FROM Rows&rdquo; }}</p>
+
+<p><a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
+    data-target="#Windows_Triage_Collectors_WindowsFirewallDetails">View Artifact</a>
+ <div class="collapse dn" id="Windows_Triage_Collectors_WindowsFirewallDetails" style="width: fit-content"></p>
+
+<pre><code>name: Windows.Triage.Collectors.WindowsFirewall
+description: |
+  Windows Firewall Logs.
+
+  {{ Query &quot;SELECT * FROM Rows&quot; }}
+
+precondition: SELECT OS From info() where OS = 'windows'
+
+sources:
+  - queries:
+      - SELECT * FROM chain(
+          a1={ SELECT * FROM Artifact.Triage.Collection.Upload(
+               type=&quot;Windows Firewall Logs&quot;,
+               path=&quot;C:\\Windows\\System32\\LogFiles\\Firewall\\pfirewall.*&quot;
+          }
+        )
+</code></pre>
+
+<p></div></a></p>
+
+<h2 id="windows-triage-collectors-windowsindex">Windows.Triage.Collectors.WindowsIndex</h2>
+
+<p>Windows Index Search.</p>
+
+<p>{{ Query &ldquo;SELECT * FROM Rows&rdquo; }}</p>
+
+<p><a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
+    data-target="#Windows_Triage_Collectors_WindowsIndexDetails">View Artifact</a>
+ <div class="collapse dn" id="Windows_Triage_Collectors_WindowsIndexDetails" style="width: fit-content"></p>
+
+<pre><code>name: Windows.Triage.Collectors.WindowsIndex
+description: |
+  Windows Index Search.
+
+  {{ Query &quot;SELECT * FROM Rows&quot; }}
+
+precondition: SELECT OS From info() where OS = 'windows'
+
+sources:
+  - queries:
+      - SELECT * FROM chain(
+          a1={ SELECT * FROM Artifact.Triage.Collection.Upload(
+               type=&quot;WindowsIndexSearch&quot;,
+               path=&quot;C:\\programdata\\microsoft\\search\\data\\applications\\windows\\Windows.edb&quot;)
+          }
+        )
+</code></pre>
+
+<p></div></a></p>
+
+<h2 id="windows-triage-webbrowsers">Windows.Triage.WebBrowsers</h2>
+
+<p>A high level artifact for selecting all browser related artifacts.</p>
+
+<p>{{ Query &ldquo;SELECT * FROM Rows&rdquo; }}</p>
+
+<p><a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
+    data-target="#Windows_Triage_WebBrowsersDetails">View Artifact</a>
+ <div class="collapse dn" id="Windows_Triage_WebBrowsersDetails" style="width: fit-content"></p>
+
+<pre><code>name: Windows.Triage.WebBrowsers
+description: |
+  A high level artifact for selecting all browser related artifacts.
+
+  {{ Query &quot;SELECT * FROM Rows&quot; }}
+
+precondition: SELECT OS From info() where OS = 'windows'
+
+sources:
+  - queries:
+      - SELECT * FROM chain(
+          a1={ SELECT * FROM Artifact.Windows.Triage.Collectors.Chrome() },
+          a2={ SELECT * FROM Artifact.Windows.Triage.Collectors.Firefox() },
+          a3={ SELECT * FROM Artifact.Windows.Triage.Collectors.Edge() },
+          a4={ SELECT * FROM Artifact.Windows.Triage.Collectors.InternetExplorer() }
+        )
+</code></pre>
+
+<p></div></a></p>
+
+<h2 id="triage-collection-upload">Triage.Collection.Upload</h2>
+
+<p>A Generic uploader used by triaging artifacts.</p>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>path</td>
+<td></td>
+<td>This is the glob of the files we use.</td>
+</tr>
+
+<tr>
+<td>type</td>
+<td></td>
+<td>The type of files these are.</td>
+</tr>
+
+<tr>
+<td>accessor</td>
+<td>file</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+<p><a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
+    data-target="#Triage_Collection_UploadDetails">View Artifact</a>
+ <div class="collapse dn" id="Triage_Collection_UploadDetails" style="width: fit-content"></p>
+
+<pre><code>name: Triage.Collection.Upload
+description: |
+  A Generic uploader used by triaging artifacts.
+
+parameters:
+  - name: path
+    description: This is the glob of the files we use.
+  - name: type
+    description: The type of files these are.
+  - name: accessor
+    default: file
+
+sources:
+  - queries:
+      - LET results = SELECT FullPath, Size,
+               timestamp(epoch=Mtime.Sec) As Modifed,
+               type AS Type, {
+                 SELECT * FROM upload(files=FullPath, accessor=accessor)
+               } AS FileDetails
+        FROM glob(globs=path, accessor=accessor)
+        WHERE NOT IsDir
+      - SELECT FullPath, Size, Modifed, Type,
+               FileDetails.Path AS ZipPath,
+               FileDetails.Md5 as Md5,
+               FileDetails.Sha256 as SHA256
+        FROM results
+</code></pre>
+
+<p></div></a></p>
+
+<h2 id="windows-forensics-bam">Windows.Forensics.Bam</h2>
+
+<p>The Background Activity Moderator (BAM) is a Windows service that
+Controls activity of background applications.  This service exists
+in Windows 10 only after Fall Creators update – version 1709.</p>
+
+<p>It provides full path of the executable file that was run on the
+system and last execution date/time</p>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>bamKeys</td>
+<td>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\bam\UserSettings\*</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+<p><a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
+    data-target="#Windows_Forensics_BamDetails">View Artifact</a>
+ <div class="collapse dn" id="Windows_Forensics_BamDetails" style="width: fit-content"></p>
+
+<pre><code>name: Windows.Forensics.Bam
+description: |
+  The Background Activity Moderator (BAM) is a Windows service that
+  Controls activity of background applications.  This service exists
+  in Windows 10 only after Fall Creators update – version 1709.
+
+  It provides full path of the executable file that was run on the
+  system and last execution date/time
+
+reference:
+  - https://www.andreafortuna.org/dfir/forensic-artifacts-evidences-of-program-execution-on-windows-systems/
+
+parameters:
+    - name: bamKeys
+      default: HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\bam\UserSettings\*
+
+sources:
+  - precondition:
+      SELECT OS from info() where OS = &quot;windows&quot;
+    queries:
+      - LET users &lt;= SELECT Name, UUID FROM Artifact.Windows.Sys.Users()
+      - SELECT basename(path=dirname(path=FullPath)) as SID, {
+            SELECT Name FROM users WHERE UUID = basename(path=dirname(path=FullPath))
+          } As UserName,
+          Name as Binary,
+          timestamp(winfiletime=binary_parse(
+          string=Data.value, target=&quot;int64&quot;).AsInteger) as Bam_time
+        FROM glob(globs=bamKeys + &quot;\\*&quot;, accessor=&quot;reg&quot;)
+        WHERE Data.type = &quot;BINARY&quot;
+</code></pre>
+
+<p></div></a></p>
+
+
+<footer class=" footline" >
+	
+</footer>
+
+
+        
+        </div> 
+        
+
+      </div>
+
+    <div id="navigation">
+        
+        
+        
+        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+            
+        
+        
+        
+
+
+	 
+	 
+		
+			<a class="nav nav-prev" href="/docs/artifacts/windows_system/" title="Windows System"> <i class="fa fa-chevron-left"></i></a>
+		
+		
+			<a class="nav nav-next" href="/docs/user-interface/" title="Users Manual" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+		
+	
+    </div>
+
+    </section>
+    
+    <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+      <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+    </div>
+    <script src="/js/clipboard.min.js?1560335784"></script>
+    <script src="/js/perfect-scrollbar.min.js?1560335784"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1560335784"></script>
+    <script src="/js/jquery.sticky.js?1560335784"></script>
+    <script src="/js/featherlight.min.js?1560335784"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1560335784"></script>
+    <script src="/js/highlight.pack.js?1560335784"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script src="/js/modernizr.custom-3.6.0.js?1560335784"></script>
+    <script src="/js/learn.js?1560335784"></script>
+    <script src="/js/hugo-learn.js?1560335784"></script>
+
+    <link href="/mermaid/mermaid.css?1560335784" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1560335784"></script>
+    <script>
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+    
+
+  </body>
+</html>
+

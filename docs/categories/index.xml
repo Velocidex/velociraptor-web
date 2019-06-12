@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Categories on Velociraptor - Hunt Evil!</title>
+    <link>/categories/</link>
+    <description>Recent content in Categories on Velociraptor - Hunt Evil!</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 01 May 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/categories/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>manual</title>
+      <link>/categories/manual/</link>
+      <pubDate>Wed, 01 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/categories/manual/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Blog</title>
+      <link>/categories/blog/</link>
+      <pubDate>Sat, 02 Mar 2019 04:10:06 +0000</pubDate>
+      
+      <guid>/categories/blog/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>docs</title>
+      <link>/categories/docs/</link>
+      <pubDate>Fri, 01 Feb 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/categories/docs/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>getting started</title>
+      <link>/categories/getting-started/</link>
+      <pubDate>Fri, 01 Feb 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/categories/getting-started/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>gui</title>
+      <link>/categories/gui/</link>
+      <pubDate>Fri, 01 Feb 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/categories/gui/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>vql</title>
+      <link>/categories/vql/</link>
+      <pubDate>Fri, 01 Feb 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/categories/vql/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>about velociraptor</title>
+      <link>/categories/about-velociraptor/</link>
+      <pubDate>Mon, 01 Feb 2016 00:00:00 +0000</pubDate>
+      
+      <guid>/categories/about-velociraptor/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

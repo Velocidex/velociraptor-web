@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>vql on Velociraptor - Hunt Evil!</title>
+    <link>/categories/vql/</link>
+    <description>Recent content in vql on Velociraptor - Hunt Evil!</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 01 Feb 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/categories/vql/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Report Templates</title>
+      <link>/docs/vql_reference/templates/</link>
+      <pubDate>Fri, 01 Feb 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/vql_reference/templates/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>VQL Event PLugins</title>
+      <link>/docs/vql_reference/event_plugins/</link>
+      <pubDate>Fri, 01 Feb 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/vql_reference/event_plugins/</guid>
+      <description>Event plugins are useful for creating client monitoring artifacts. Currently, client side monitoring artifacts are specified in the Events section of the server configuration file. When clients connect to the server, they receive a list of monitoring artifacts they are to run. The client runs all artifacts in parallel and their results are streamed to the server.
+watch_csv    Arg Description     filename One or more files to parse   accessor The accessor to use for openning the file.</description>
+    </item>
+    
+    <item>
+      <title>VQL Functions</title>
+      <link>/docs/vql_reference/functions/</link>
+      <pubDate>Fri, 01 Feb 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/vql_reference/functions/</guid>
+      <description>Functions are useful to transform values obtained from a VQL row.
+VQL plugins are not the same as VQL functions. A plugin is the subject of the VQL query - i.e. plugins always follow the FROM keyword, while functions (which return a single value instead of a sequence of rows) are only present in column specification (e.g. after SELECT) or in condition clauses (i.e. after the WHERE keyword).
+ parse_json    Arg Description     data A string containing a serialized json object.</description>
+    </item>
+    
+    <item>
+      <title>VQL Reference</title>
+      <link>/docs/vql_reference/</link>
+      <pubDate>Fri, 01 Feb 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/vql_reference/</guid>
+      <description>The Velociraptor Query language (VQL) is an expressive language designed for querying endpoint state. It was developed as a way to flexibly adapt new IOCs on endpoints without needing to rebuild or deploy new endpoints.
+VQL is simple to use and simple to understand. Although it draws its inspiration from SQL, VQL does not support complex operations such as join. Unlike SQL, which can only query static tables of data, VQL queries plugins which are provided parameters.</description>
+    </item>
+    
+    <item>
+      <title>VQL PLugins</title>
+      <link>/docs/vql_reference/plugins/</link>
+      <pubDate>Fri, 01 Feb 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/vql_reference/plugins/</guid>
+      <description>SQL queries refer to tables of data. However, VQL queries refer to plugins, which generate data rows to be filtered by the query. Unlike SQL, VQL plugins also receive keyword arguments. When the plugin is evaluated it simply generates a sequence of rows which are further filtered by the query.
+This allows VQL statements to be chained since plugin args may also be other queries.
+VQL plugins are not the same as VQL functions.</description>
+    </item>
+    
+    <item>
+      <title>VQL Server Plugins</title>
+      <link>/docs/vql_reference/server/</link>
+      <pubDate>Fri, 01 Feb 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/vql_reference/server/</guid>
+      <description>When run on the server, VQL Queries have access to server state, and so can schedule new artifact collection flows on client, manage client label, and retrieve artifact results from hunts. It is therefore possible to post process artifacts on the server in arbitrary ways.
+Server VQL queries can also be event driven which allows one to set up higher order escalations and alerting based on client side events.</description>
+    </item>
+    
+  </channel>
+</rss>

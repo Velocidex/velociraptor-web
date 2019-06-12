@@ -1,0 +1,2472 @@
+<!DOCTYPE html>
+<html lang="en" class="js csstransforms3d">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="Hugo 0.56.0-DEV" />
+    <meta name="description" content="Velociraptor is powered by VQL and VQL is the killer feature which
+makes it so powerful. But what exactly is VQL? This section is a quick
+overview of VQL.
+">
+
+
+    <link rel="icon" href="/images/favicon.png" type="image/png">
+
+    <title>Velocidex Query Language (VQL) :: Velociraptor - Hunt Evil!</title>
+
+    
+    <link href="/css/nucleus.css?1560335784" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1560335784" rel="stylesheet">
+    <link href="/css/hybrid.css?1560335784" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1560335784" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1560335784" rel="stylesheet">
+    <link href="/css/auto-complete.css?1560335784" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1560335784" rel="stylesheet">
+    <link href="/css/theme.css?1560335784" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1560335784" rel="stylesheet">
+    
+      <link href="/css/theme-mine.css?1560335784" rel="stylesheet">
+    
+
+    <script src="/js/jquery-3.3.1.min.js?1560335784"></script>
+
+    <style>
+      :root #header + #content > #left > #rlblock_left{
+          display:none !important;
+      }
+      
+    </style>
+    
+  </head>
+  <body class="" data-url="/blog/html/2018/08/10/the_velocidex_query_language.html">
+    <nav id="sidebar" class="">
+
+
+
+  <div id="header-wrapper">
+    <div id="header">
+      <a href="/">
+  <img src="/images/logo.svg" />
+</a>
+
+    </div>
+    
+        <div class="searchbox">
+    <label for="search-by"><i class="fas fa-search"></i></label>
+    <input data-search-input id="search-by" type="search" placeholder="Search...">
+    <span data-search-clear=""><i class="fas fa-times"></i></span>
+</div>
+
+<script type="text/javascript" src="/js/lunr.min.js?1560335784"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1560335784"></script>
+<script type="text/javascript">
+    
+        var baseurl = "\/";
+    
+</script>
+<script type="text/javascript" src="/js/search.js?1560335784"></script>
+
+    
+  </div>
+
+    <div class="highlightable">
+    <ul class="topics">
+
+        
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/about/" title="About Velociraptor" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/about/">
+          Overview
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/about/features/" title="Velociraptor Features" class="dd-item ">
+        <a href="/about/features/">
+        Velociraptor Features
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/about/license/" title="GNU Affero General Public License" class="dd-item ">
+        <a href="/about/license/">
+        License
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/blog/" title="Velociraptor Blog" class="dd-item 
+        parent
+        
+        
+        ">
+      <a href="/blog/">
+          Velociraptor Blog
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2019/03/02/agentless_hunting_with_velociraptor.html" title="Agentless hunting with Velociraptor" class="dd-item ">
+        <a href="/blog/html/2019/03/02/agentless_hunting_with_velociraptor.html">
+        Agentless hunting with Velociraptor
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2019/02/14/alerting_on_event_patterns.html" title="Alerting on event patterns" class="dd-item ">
+        <a href="/blog/html/2019/02/14/alerting_on_event_patterns.html">
+        Alerting on event patterns
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2019/02/10/velociraptor_performance.html" title="Velociraptor Performance" class="dd-item ">
+        <a href="/blog/html/2019/02/10/velociraptor_performance.html">
+        Velociraptor Performance
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2019/02/09/velociraptor_python_api.html" title="The Velociraptor Python API" class="dd-item ">
+        <a href="/blog/html/2019/02/09/velociraptor_python_api.html">
+        The Velociraptor Python API
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/09/03/velociraptor_s_client_communications.html" title="Velociraptor&#39;s client communications" class="dd-item ">
+        <a href="/blog/html/2018/09/03/velociraptor_s_client_communications.html">
+        Velociraptor&#39;s client communications
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/12/23/deploying_velociraptor_with_oauth_sso.html" title="Deploying Velociraptor with OAuth SSO" class="dd-item ">
+        <a href="/blog/html/2018/12/23/deploying_velociraptor_with_oauth_sso.html">
+        Deploying Velociraptor with OAuth SSO
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/12/22/configuring_velociraptor_for_ssl.html" title="Configuring Velociraptor for SSL" class="dd-item ">
+        <a href="/blog/html/2018/12/22/configuring_velociraptor_for_ssl.html">
+        Configuring Velociraptor for SSL
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/12/11/velociraptor_interactive_shell.html" title="Velociraptor Interactive Shell" class="dd-item ">
+        <a href="/blog/html/2018/12/11/velociraptor_interactive_shell.html">
+        Velociraptor Interactive Shell
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/12/10/server_side_vql_queries_and_events.html" title="Server side VQL queries and Escalation Events" class="dd-item ">
+        <a href="/blog/html/2018/12/10/server_side_vql_queries_and_events.html">
+        Server side VQL queries and Escalation Events
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/12/09/more_on_client_event_collection.html" title="More on client event collection" class="dd-item ">
+        <a href="/blog/html/2018/12/09/more_on_client_event_collection.html">
+        More on client event collection
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/11/13/velociraptor_training_at_nzitf.html" title="Velociraptor training at NZITF" class="dd-item ">
+        <a href="/blog/html/2018/11/13/velociraptor_training_at_nzitf.html">
+        Velociraptor training at NZITF
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/11/09/event_queries_and_endpoint_monitoring.html" title="Event Queries and Endpoint Monitoring" class="dd-item ">
+        <a href="/blog/html/2018/11/09/event_queries_and_endpoint_monitoring.html">
+        Event Queries and Endpoint Monitoring
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/09/30/velorciraptor_s_filesystem_s_accessors.html" title="Velorciraptor&#39;s filesystem&#39;s accessors" class="dd-item ">
+        <a href="/blog/html/2018/09/30/velorciraptor_s_filesystem_s_accessors.html">
+        Velorciraptor&#39;s filesystem&#39;s accessors
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/09/29/detecting_powershell_persistence_with_velociraptor_and_yara.html" title="Detecting powershell persistence with Velociraptor and Yara" class="dd-item ">
+        <a href="/blog/html/2018/09/29/detecting_powershell_persistence_with_velociraptor_and_yara.html">
+        Detecting powershell persistence with Velociraptor and Yara
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/09/03/velociraptor_walk_through_and_demo.html" title="Velociraptor walk through and demo" class="dd-item ">
+        <a href="/blog/html/2018/09/03/velociraptor_walk_through_and_demo.html">
+        Velociraptor walk through and demo
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/08/20/velociraptor_artifacts.html" title="Velociraptor Artifacts" class="dd-item ">
+        <a href="/blog/html/2018/08/20/velociraptor_artifacts.html">
+        Velociraptor Artifacts
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/08/10/browsing_around_the_filesystem.html" title="Browsing around the filesystem." class="dd-item ">
+        <a href="/blog/html/2018/08/10/browsing_around_the_filesystem.html">
+        Browsing around the filesystem.
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/08/10/design_differences_between_velociraptor_and_grr.html" title="Design differences between Velociraptor and GRR" class="dd-item ">
+        <a href="/blog/html/2018/08/10/design_differences_between_velociraptor_and_grr.html">
+        Design differences between Velociraptor and GRR
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/02/09/files_files_everything_is_just_a_file.html" title="Files, files everything is just a file!" class="dd-item ">
+        <a href="/blog/html/2018/02/09/files_files_everything_is_just_a_file.html">
+        Files, files everything is just a file!
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/08/10/hunting_what_velociraptors_do_best.html" title="Hunting - What Velociraptors do best!" class="dd-item ">
+        <a href="/blog/html/2018/08/10/hunting_what_velociraptors_do_best.html">
+        Hunting - What Velociraptors do best!
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/08/10/interrogation_make_the_endpoint_tell_us_what_it_knows.html" title="Interrogation - Make the endpoint tell us what it knows!" class="dd-item ">
+        <a href="/blog/html/2018/08/10/interrogation_make_the_endpoint_tell_us_what_it_knows.html">
+        Interrogation - Make the endpoint tell us what it knows!
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/08/10/the_velocidex_query_language.html" title="Velocidex Query Language (VQL)" class="dd-item active">
+        <a href="/blog/html/2018/08/10/the_velocidex_query_language.html">
+        Velocidex Query Language (VQL)
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/08/10/introducing_velociraptor.html" title="Introducing Velociraptor" class="dd-item ">
+        <a href="/blog/html/2018/08/10/introducing_velociraptor.html">
+        Introducing Velociraptor
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/docs/" title="Velociraptor Documentation" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/docs/">
+          Velociraptor Documentation
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/docs/user-interface/" title="Users Manual" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/docs/user-interface/">
+          User Manual Overview
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/user-interface/artifact_types/" title="Artifact Types" class="dd-item ">
+        <a href="/docs/user-interface/artifact_types/">
+        Artifact Types
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/user-interface/flows/" title="Velociraptor Artifacts" class="dd-item ">
+        <a href="/docs/user-interface/flows/">
+        Velociraptor Artifacts
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/user-interface/gui/" title="Searching for clients" class="dd-item ">
+        <a href="/docs/user-interface/gui/">
+        Searching for clients
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/documentation/" title="Velociraptor Documentation" class="dd-item ">
+        <a href="/docs/documentation/">
+        Velociraptor
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/docs/getting-started/" title="Get Started" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/docs/getting-started/">
+          Get Started Overview
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/getting-started/deploying_clients/" title="Deploying Clients" class="dd-item ">
+        <a href="/docs/getting-started/deploying_clients/">
+        Client Deployment
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/getting-started/cloud/" title="Deploying in the cloud" class="dd-item ">
+        <a href="/docs/getting-started/cloud/">
+        Cloud Deployment
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/getting-started/stand_alone/" title="Standalone Deployment" class="dd-item ">
+        <a href="/docs/getting-started/stand_alone/">
+        Standalone Deployment
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/getting-started/triaging/" title="Triaging" class="dd-item ">
+        <a href="/docs/getting-started/triaging/">
+        Triaging
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/docs/presentations/" title="Presentations and Workshops" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/docs/presentations/">
+          Presentation Overview
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/presentations/crikeycon2019/" title="Crikeycon 2019 Training Workshop" class="dd-item ">
+        <a href="/docs/presentations/crikeycon2019/">
+        CrikeyCon 2019
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/presentations/nzitf2018/" title="New Zealand Internet Task Force Conference 2018" class="dd-item ">
+        <a href="/docs/presentations/nzitf2018/">
+        NZITF2018
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/docs/vql_reference/" title="VQL Reference" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/docs/vql_reference/">
+          VQL Overview
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/vql_reference/templates/" title="Report Templates" class="dd-item ">
+        <a href="/docs/vql_reference/templates/">
+        Report Templates
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/vql_reference/event_plugins/" title="VQL Event PLugins" class="dd-item ">
+        <a href="/docs/vql_reference/event_plugins/">
+        VQL Event PLugins
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/vql_reference/functions/" title="VQL Functions" class="dd-item ">
+        <a href="/docs/vql_reference/functions/">
+        VQL Functions
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/vql_reference/plugins/" title="VQL PLugins" class="dd-item ">
+        <a href="/docs/vql_reference/plugins/">
+        VQL PLugins
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/vql_reference/server/" title="VQL Server Plugins" class="dd-item ">
+        <a href="/docs/vql_reference/server/">
+        VQL Server Plugins
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/artifacts/linux/" title="Linux Artifacts" class="dd-item ">
+        <a href="/docs/artifacts/linux/">
+        Linux Artifacts
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/artifacts/misc/" title="Miscelaneous Artifacts" class="dd-item ">
+        <a href="/docs/artifacts/misc/">
+        Miscelaneous
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/artifacts/server/" title="Server Artifacts" class="dd-item ">
+        <a href="/docs/artifacts/server/">
+        Server Artifacts
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/artifacts/detection/" title="Windows Malware Detection" class="dd-item ">
+        <a href="/docs/artifacts/detection/">
+        Windows Detection
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/artifacts/events/" title="Windows Event Monitoring" class="dd-item ">
+        <a href="/docs/artifacts/events/">
+        Windows Monitoring
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/artifacts/windows_system/" title="Windows System" class="dd-item ">
+        <a href="/docs/artifacts/windows_system/">
+        Windows System
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/artifacts/triage/" title="Windows Triage Artifacts" class="dd-item ">
+        <a href="/docs/artifacts/triage/">
+        Windows Triage
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+         
+    </ul>
+
+    
+    
+
+    
+    <section id="footer">
+      
+    </section>
+  </div>
+</nav>
+
+
+
+
+
+        <section id="body">
+        <div id="overlay"></div>
+        <div class="padding highlightable">
+              
+              <div>
+                <div id="top-bar">
+                
+                
+                <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <span id="sidebar-toggle-span">
+                        <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                          <i class="fas fa-bars"></i>
+                        </a>
+                    </span>
+                  
+                  <span id="toc-menu"><i class="fas fa-list-alt"></i></span>
+                  
+                  <span class="links">
+                 
+                 
+                    
+          
+          
+            
+            
+          
+          
+            
+            
+          
+          
+            <a href='/'>Velociraptor - Hunt Evil!</a> > <a href='/blog/'>Velociraptor Blog</a> > Velocidex Query Language (VQL)
+          
+         
+          
+         
+          
+        
+                 
+                  </span>
+                </div>
+                
+                    <div class="progress">
+    <div class="wrapper">
+
+    </div>
+</div>
+
+                
+              </div>
+            </div>
+            
+        <div id="head-tags">
+        
+        </div>
+        
+        <div id="body-inner">
+          
+            <h1>
+              
+              Velocidex Query Language (VQL)
+            </h1>
+          
+
+        
+
+
+
+<div class="document" id="vql-overview">
+<h1 class="title">VQL Overview</h1>
+
+<p>VQL is only loosely based around SQL in the sense that the general
+statement structure is similar. However, VQL is a very simple
+dialect. Like SQL, a VQL query produces a table of results with
+specific columns and multiple rows. Unlike SQL, the data inside each
+cell is not limited to simple primitive types (like string, integer
+etc). In fact any JSON serializable object can be generated in a
+table's cell. It is not uncommon to generate an entire JSON
+object with additional fields in each row for a single column.</p>
+<p>The basic structure of a VQL statement is:</p>
+<pre class="code sql literal-block">
+<span class="keyword">SELECT</span> <span class="name">Column1</span><span class="punctuation">,</span> <span class="name">Column2</span><span class="punctuation">,</span> <span class="name">Column3</span> <span class="keyword">from</span> <span class="name">plugin</span><span class="punctuation">(</span><span class="name">arg</span><span class="operator">=</span><span class="name">value</span><span class="punctuation">)</span> <span class="keyword">WHERE</span> <span class="name">Column1</span> <span class="operator">&gt;</span> <span class="literal number integer">5</span>
+</pre>
+<p>There are three main parts: Column selectors, Plugin and Filter Conditions.</p>
+<div class="section" id="plugins">
+<h2>Plugins</h2>
+<p>The VQL plugin is VQL's data source. Plugins are specific pieces of
+code which may accept arguments and generate a sequence of rows. VQL's
+strength is that these plugins are very easy to write and can be added
+to Velociraptor in order to add extra functionality.</p>
+<p>Unlike SQL, VQL plugins take keyword arguments. This allows
+Velociraptor plugins to be easily customizable and adaptable. For
+example, a plugin may list all chrome extensions, and receive an
+argument pointing it to the user's home directory so it can flexibly
+be applied to different situations. The ability to provide arguments
+to plugins encourages writing more generic plugins which can be reused
+in multiple situations.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">VQL plugins currently only accept keyword arguments. It is a syntax
+error to pass args without naming them - <cite>glob(&quot;/bin/*&quot;)</cite> is not
+valid syntax, it should be <cite>glob(globs=&quot;/bin/*&quot;)</cite></p>
+</div>
+<p>It is important to appreciate that Plugins generate data
+dynamically. The data is not stored in a database table first! Plugins
+may begin generating data immediately and the VQL query will begin
+processing this data, even if the total amount of data is very
+large. The Plugin's data is not stored in memory all at once!  This
+allows for plugins to produce an unbounded number of rows and the
+query will proceed until the required number of results is achieved.</p>
+<p>Plugins may also be cancelled when the query completes, even if the
+plugin itself is not exhausted.</p>
+</div>
+<div class="section" id="column-selectors">
+<h2>Column selectors</h2>
+<p>The Column selectors are a group of expressions specifying which
+columns will be produced in the output table. As mentioned previously,
+the values produced in each column are not limited to simple types -
+it is common to produce entire JSON objects (and even additional
+tables), lists of values etc.</p>
+<p>The column selectors specify a transformation to be performed on the
+output of the plugin in producing the query's columns. The simplest
+transformation is a single &quot;*&quot;, which means no transformation at all
+(i.e. relay to the output table exactly the output of the plugin).</p>
+<p>Since plugins may produce any object (for example, a JSON object with
+nested fields), VQL column specifications can dereference nested
+fields within the produced data.</p>
+<pre class="code sql literal-block">
+<span class="keyword">SELECT</span> <span class="name">Sys</span><span class="punctuation">.</span><span class="name">Mtim</span><span class="punctuation">.</span><span class="name">Sec</span> <span class="keyword">from</span> <span class="name">glob</span><span class="punctuation">(</span><span class="name">globs</span><span class="operator">=</span><span class="literal string symbol">&quot;/bin/*&quot;</span><span class="punctuation">)</span>
+</pre>
+<p>Specifying only selected columns can limit the number of columns
+produced and make the output more useful by removing unneeded
+fields. For example the following will produce a result table with two
+columns named FullPath and SIze and a row per file found in the /bin/
+directory:</p>
+<pre class="code sql literal-block">
+<span class="keyword">SELECT</span> <span class="name">FullPath</span><span class="punctuation">,</span> <span class="keyword">Size</span> <span class="keyword">from</span> <span class="name">glob</span><span class="punctuation">(</span><span class="name">globs</span><span class="operator">=</span><span class="literal string symbol">&quot;/bin/*&quot;</span><span class="punctuation">)</span>
+</pre>
+<p>Column specifications can consist of arbitrary expressions - for
+example addition, comparisons:</p>
+<pre class="code sql literal-block">
+<span class="keyword">SELECT</span> <span class="name">FullPath</span> <span class="operator">+</span> <span class="literal string single">'.bindir'</span><span class="punctuation">,</span> <span class="keyword">Size</span> <span class="keyword">from</span> <span class="name">glob</span><span class="punctuation">(</span><span class="name">globs</span><span class="operator">=</span><span class="literal string symbol">&quot;/bin/*&quot;</span><span class="punctuation">)</span> <span class="keyword">WHERE</span> <span class="keyword">Size</span> <span class="operator">&lt;</span> <span class="literal number integer">1000</span>
+</pre>
+<p>In this case it is often useful to add a Column Alias (Note that
+column aliases can also be used in the WHERE clause):</p>
+<pre class="code sql literal-block">
+<span class="keyword">SELECT</span> <span class="name">FullPath</span> <span class="operator">+</span> <span class="literal string single">'.bindir'</span> <span class="keyword">as</span> <span class="name">Santized</span><span class="punctuation">,</span> <span class="keyword">Size</span> <span class="keyword">from</span> <span class="name">glob</span><span class="punctuation">(</span><span class="name">globs</span><span class="operator">=</span><span class="literal string symbol">&quot;/bin/*&quot;</span><span class="punctuation">)</span>
+</pre>
+<p>VQL Functions provide a way to extend VQL expressions. Unlike full
+plugins they do not produce a sequence of rows, but simply produce a
+single value (which can be an arbitrary o function formats a timestamp
+as a string. This is useful since many plugins produce times in
+seconds since epoch time:</p>
+<pre class="code sql literal-block">
+<span class="keyword">SELECT</span> <span class="name">FullPath</span><span class="punctuation">,</span> <span class="keyword">timestamp</span><span class="punctuation">(</span><span class="name">epoch</span><span class="operator">=</span><span class="name">Sys</span><span class="punctuation">.</span><span class="name">Mtim</span><span class="punctuation">.</span><span class="name">Sec</span><span class="punctuation">)</span> <span class="keyword">as</span> <span class="name">mtimefrom</span> <span class="name">glob</span><span class="punctuation">(</span><span class="name">globs</span><span class="operator">=</span><span class="literal string symbol">&quot;/bin/*&quot;</span><span class="punctuation">)</span>
+</pre>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>Some VQL functions have side effects, or are more expensive to
+run. It is important to understand that VQL transforms the columns
+emitted from a plugin BEFORE it applies filtering conditions. This
+is needed in order to allow for column transformations to
+participate in the filter condition (via the alias).</p>
+<p>Due to this order of operations the following query will upload all
+files, ignoring the WHERE condition because the upload() function
+will be evaluated on each row, even if the WHERE clause causes the
+row to be ignored:</p>
+<pre class="code sql literal-block">
+<span class="keyword">SELECT</span> <span class="name">FullPath</span><span class="punctuation">,</span> <span class="name">upload</span><span class="punctuation">(</span><span class="name">path</span><span class="operator">=</span><span class="name">FullPath</span><span class="punctuation">)</span>
+ <span class="keyword">from</span> <span class="name">glob</span><span class="punctuation">(</span><span class="name">globs</span><span class="operator">=</span><span class="literal string symbol">&quot;/bin/*&quot;</span><span class="punctuation">)</span>
+      <span class="keyword">WHERE</span> <span class="name">Name</span> <span class="operator">=~</span> <span class="literal string symbol">&quot;bash&quot;</span>
+</pre>
+<p>To upload only the files matching the expression, the query must be
+split into two - the first query applies the filtering condition
+and the second query does the upload:</p>
+<pre class="code sql last literal-block">
+<span class="name">LET</span> <span class="name">files</span> <span class="operator">=</span> <span class="keyword">SELECT</span> <span class="name">FullPath</span> <span class="keyword">from</span> <span class="name">glob</span><span class="punctuation">(</span><span class="name">globs</span><span class="operator">=</span><span class="literal string symbol">&quot;/bin/*&quot;</span><span class="punctuation">)</span>
+    <span class="keyword">WHERE</span> <span class="name">Name</span> <span class="operator">=~</span> <span class="literal string symbol">&quot;bash&quot;</span>
+<span class="keyword">SELECT</span> <span class="name">FullPath</span><span class="punctuation">,</span> <span class="name">upload</span><span class="punctuation">(</span><span class="name">path</span><span class="operator">=</span><span class="name">FullPath</span><span class="punctuation">)</span> <span class="keyword">from</span> <span class="name">files</span>
+</pre>
+</div>
+</div>
+<div class="section" id="vql-subselects">
+<h2>VQL Subselects</h2>
+<p>Unlike SQL, VQL does not have a join operator. SQL is designed to work
+with databases, and databases have multiple strategies for optimizing
+query execution (like adding table indexes, query planners
+etc). Traditionally, SQL authors prefers joins over subselects because
+in a real database JOIN operations are more optimized to use the
+database's indexes and query optimizer. However JOIN operations are
+arguably harder to read and it is hard to predict the order at where
+operations will be run (e.g. which table will use an index and which
+will use a row scan).</p>
+<p>Since VQL has no indexes nor does it have a query optimizer,
+implementing JOIN operations does not make sense. Instead, VQL
+implements subselects and multi-statement queries and using these
+tools it is possible for VQL authors to precisely control the query
+execution plan so it is most efficient.</p>
+<p>In this sense VQL authors are left to specify the most efficient
+course of query execution themselves instead of relying on a query
+optimizer. This is normally done by dividing the query into smaller
+queries and combining their results in the best order.</p>
+<p>Consider the following query that attempts to search small files for
+the keyword &quot;foobar&quot;:</p>
+<pre class="code sql literal-block">
+<span class="keyword">SELECT</span> <span class="name">FullPath</span> <span class="keyword">from</span> <span class="name">glob</span><span class="punctuation">(</span><span class="name">globs</span><span class="operator">=</span><span class="literal string symbol">&quot;/bin/*&quot;</span><span class="punctuation">)</span> <span class="keyword">where</span>
+   <span class="name">grep</span><span class="punctuation">(</span><span class="name">path</span><span class="operator">=</span><span class="name">FullPath</span><span class="punctuation">,</span> <span class="name">keywords</span><span class="operator">=</span><span class="punctuation">[</span><span class="literal string symbol">&quot;foobar&quot;</span><span class="punctuation">])</span> <span class="keyword">and</span> <span class="keyword">Size</span> <span class="operator">&lt;</span> <span class="literal number integer">1000</span>
+</pre>
+<p>Velociraptor will execute the following steps:</p>
+<ol class="arabic simple">
+<li>Run the glob() plugin to produce all the files in the /bin/ directory</li>
+<li>Transform each row to produce the FullPath.</li>
+<li>Evaluate the Filter condition on each row. The filter condition
+requires running the grep() plugin on each file looking for the
+keyword and evaluating if the SIze of the file is less than 1000.</li>
+<li>If both conditions are TRUE then Velociraptor will emit the row into the result table.</li>
+</ol>
+<p>It is obvious that this is an inefficient query because each and every
+file will be searched for the keyword regardless of its size. However,
+there is no point even trying if the file size is not less than 1000
+bytes!</p>
+<p>The problem here is that there are two conditions which both must be
+true - but each condition has a different cost associated with
+it. Clearly the grep() condition is more expensive since it requires
+opening the file and reading it completely. The Size condition is
+extremely cheap since it is just an integer comparison.</p>
+<p>However, VQL is not aware of the relative cost of the two conditions -
+it does not know that grep() is inherently an expensive operation
+since to VQL it just looks like another function. Although VQL does
+some shortcutting (for example it will cancel the grep() function if
+Size &gt;= 1000) this shortcut cancellation may arrive too late to stop
+grep() from doing a significant amount of work. The VQL author must be
+aware of the relative costs of the different operations and how the
+query should be structured for maximum efficiency.</p>
+<p>What we would really like is for VQL to evaluate the cheap condst, and
+only for those files smaller than 1000 bytes, evaluate the grep()
+condition. This allows us to eliminate most files immediately (since
+most files are larger than 1000 bytes) such that we only bother to
+grep() very few files.</p>
+<p>This can be achieved by splitting the query into two and chaining them
+together:</p>
+<pre class="code sql literal-block">
+<span class="name">LET</span> <span class="name">file</span> <span class="operator">=</span> <span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> <span class="name">glob</span><span class="punctuation">(</span><span class="name">globs</span><span class="operator">=</span><span class="literal string symbol">&quot;/bin/*&quot;</span><span class="punctuation">)</span> <span class="keyword">WHERE</span> <span class="keyword">Size</span> <span class="operator">&lt;</span> <span class="literal number integer">1000</span>
+
+<span class="keyword">SELECT</span> <span class="name">FullPath</span> <span class="keyword">from</span> <span class="name">file</span> <span class="keyword">WHERE</span> <span class="name">grep</span><span class="punctuation">(</span>
+   <span class="name">path</span><span class="operator">=</span><span class="name">FullPath</span><span class="punctuation">,</span> <span class="name">keywords</span><span class="operator">=</span><span class="punctuation">[</span><span class="literal string symbol">&quot;foobar&quot;</span><span class="punctuation">])</span>
+</pre>
+<p>The LET keyword allows us to define a &quot;stored query&quot;. A Stored Query
+is a query which is assigned into a variable name - you can think of
+the statement as running the entire query and storing the output into
+a single variable.</p>
+<p>The second query then takes the result of this query and applies
+further transformations and filtering on it. By ensuring that the
+cheap conditions are evaluated in the stored query, we can ensure that
+the number of rows stored in the LET expression is smaller than the
+total number of rows produced by the glob() plugin, and therefore the
+grep() function will be applied on few rows.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">You can think of stored queries as running in multiple steps: First
+the LET query is executed, then all its rows are stored in the
+files variable, while the second query reads each row and applies
+its own filtering on it. In reality though, the LET query is lazy
+in its evaluation and will only produce results when
+required. Velociraptor does not store the entire result table of
+the LET query in memory at once! It is quite safe therefore to run
+a very large query in the LET clause without fear of memory
+overrun.</p>
+</div>
+</div>
+<div class="section" id="escaping-parameters">
+<h2>Escaping parameters</h2>
+<p>VQL queries often need to take user input. For example consider the
+query:</p>
+<pre class="code sql literal-block">
+<span class="keyword">SELECT</span> <span class="name">FullPath</span> <span class="keyword">from</span> <span class="name">glob</span><span class="punctuation">(</span><span class="name">globs</span><span class="operator">=</span><span class="literal string symbol">&quot;/bin/*&quot;</span><span class="punctuation">)</span>
+</pre>
+<p>We might want to allow the user to specify the glob expression and
+create the query programmatically. While it is possible to ensure user
+input is escaped this is inefficient and tedious.</p>
+<p>VQL queries have an &quot;Environment&quot;. The Environment is essentially the
+evaluation scope of the query - in other words it contains all the
+values which can be accessed by name. For example when we call a VQL
+function like timestamp(), it is placed in the evaluation scope. It is
+possible to place anything in the environment (or the evaluation
+scope) and in particular, user parameters can also be placed there. In
+this case there is no need to escape user input as it is treated as a
+part of the environment and not the query. For example placing
+<cite>PATH=&quot;/bin/*&quot;</cite> into the environment, will allow the following query to
+run successfully:</p>
+<pre class="code sql literal-block">
+<span class="keyword">SELECT</span> <span class="name">FullPath</span> <span class="keyword">from</span> <span class="name">glob</span><span class="punctuation">(</span><span class="name">globs</span><span class="operator">=</span><span class="name">PATH</span><span class="punctuation">)</span>
+</pre>
+<p>You should always try to write VQL queries referring to parameters in
+the environment because this makes them reusable - the scope
+parameters become inputs to your query and the query becomes a
+reusable function.</p>
+</div>
+</div>
+
+<footer class=" footline" >
+	
+</footer>
+
+
+        
+        </div> 
+        
+
+      </div>
+
+    <div id="navigation">
+        
+        
+        
+        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+            
+        
+        
+        
+
+
+	 
+	 
+		
+			<a class="nav nav-prev" href="/blog/html/2018/08/10/interrogation_make_the_endpoint_tell_us_what_it_knows.html" title="Interrogation - Make the endpoint tell us what it knows!"> <i class="fa fa-chevron-left"></i></a>
+		
+		
+			<a class="nav nav-next" href="/blog/html/2018/08/10/introducing_velociraptor.html" title="Introducing Velociraptor" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+		
+	
+    </div>
+
+    </section>
+    
+    <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+      <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+    </div>
+    <script src="/js/clipboard.min.js?1560335785"></script>
+    <script src="/js/perfect-scrollbar.min.js?1560335785"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1560335785"></script>
+    <script src="/js/jquery.sticky.js?1560335785"></script>
+    <script src="/js/featherlight.min.js?1560335785"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1560335785"></script>
+    <script src="/js/highlight.pack.js?1560335785"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script src="/js/modernizr.custom-3.6.0.js?1560335785"></script>
+    <script src="/js/learn.js?1560335785"></script>
+    <script src="/js/hugo-learn.js?1560335785"></script>
+
+    <link href="/mermaid/mermaid.css?1560335785" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1560335785"></script>
+    <script>
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+    
+
+  </body>
+</html>
+

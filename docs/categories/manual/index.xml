@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>manual on Velociraptor - Hunt Evil!</title>
+    <link>/categories/manual/</link>
+    <description>Recent content in manual on Velociraptor - Hunt Evil!</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 01 May 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/categories/manual/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Users Manual</title>
+      <link>/docs/user-interface/</link>
+      <pubDate>Wed, 01 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/user-interface/</guid>
+      <description>This section of the site covers the user interface and how to use it effectively to solve every day DFIR tasks.</description>
+    </item>
+    
+    <item>
+      <title>Searching for clients</title>
+      <link>/docs/user-interface/gui/</link>
+      <pubDate>Wed, 01 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/user-interface/gui/</guid>
+      <description>One of the most common tasks we do is search for a client. This allows us to interact with a specific endpoint and investigate it, collecting various information about it.
+When starting the GUI we are presented with the main application front page.
+At the top of the screen we see a hamburger menu to the left and a search box. Clicking the menu opens the main application navigation menu.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,3219 @@
+<!DOCTYPE html>
+<html lang="en" class="js csstransforms3d">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="Hugo 0.56.0-DEV" />
+    <meta name="description" content="These artifacts collect information related to the windows system itself.">
+
+
+    <link rel="icon" href="/images/favicon.png" type="image/png">
+
+    <title>Windows System :: Velociraptor - Hunt Evil!</title>
+
+    
+    <link href="/css/nucleus.css?1560335784" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1560335784" rel="stylesheet">
+    <link href="/css/hybrid.css?1560335784" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1560335784" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1560335784" rel="stylesheet">
+    <link href="/css/auto-complete.css?1560335784" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1560335784" rel="stylesheet">
+    <link href="/css/theme.css?1560335784" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1560335784" rel="stylesheet">
+    
+      <link href="/css/theme-mine.css?1560335784" rel="stylesheet">
+    
+
+    <script src="/js/jquery-3.3.1.min.js?1560335784"></script>
+
+    <style>
+      :root #header + #content > #left > #rlblock_left{
+          display:none !important;
+      }
+      
+    </style>
+    
+  </head>
+  <body class="" data-url="/docs/artifacts/windows_system/">
+    <nav id="sidebar" class="">
+
+
+
+  <div id="header-wrapper">
+    <div id="header">
+      <a href="/">
+  <img src="/images/logo.svg" />
+</a>
+
+    </div>
+    
+        <div class="searchbox">
+    <label for="search-by"><i class="fas fa-search"></i></label>
+    <input data-search-input id="search-by" type="search" placeholder="Search...">
+    <span data-search-clear=""><i class="fas fa-times"></i></span>
+</div>
+
+<script type="text/javascript" src="/js/lunr.min.js?1560335784"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1560335784"></script>
+<script type="text/javascript">
+    
+        var baseurl = "\/";
+    
+</script>
+<script type="text/javascript" src="/js/search.js?1560335784"></script>
+
+    
+  </div>
+
+    <div class="highlightable">
+    <ul class="topics">
+
+        
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/about/" title="About Velociraptor" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/about/">
+          Overview
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/about/features/" title="Velociraptor Features" class="dd-item ">
+        <a href="/about/features/">
+        Velociraptor Features
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/about/license/" title="GNU Affero General Public License" class="dd-item ">
+        <a href="/about/license/">
+        License
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/blog/" title="Velociraptor Blog" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/blog/">
+          Velociraptor Blog
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2019/03/02/agentless_hunting_with_velociraptor.html" title="Agentless hunting with Velociraptor" class="dd-item ">
+        <a href="/blog/html/2019/03/02/agentless_hunting_with_velociraptor.html">
+        Agentless hunting with Velociraptor
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2019/02/14/alerting_on_event_patterns.html" title="Alerting on event patterns" class="dd-item ">
+        <a href="/blog/html/2019/02/14/alerting_on_event_patterns.html">
+        Alerting on event patterns
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2019/02/10/velociraptor_performance.html" title="Velociraptor Performance" class="dd-item ">
+        <a href="/blog/html/2019/02/10/velociraptor_performance.html">
+        Velociraptor Performance
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2019/02/09/velociraptor_python_api.html" title="The Velociraptor Python API" class="dd-item ">
+        <a href="/blog/html/2019/02/09/velociraptor_python_api.html">
+        The Velociraptor Python API
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/09/03/velociraptor_s_client_communications.html" title="Velociraptor&#39;s client communications" class="dd-item ">
+        <a href="/blog/html/2018/09/03/velociraptor_s_client_communications.html">
+        Velociraptor&#39;s client communications
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/12/23/deploying_velociraptor_with_oauth_sso.html" title="Deploying Velociraptor with OAuth SSO" class="dd-item ">
+        <a href="/blog/html/2018/12/23/deploying_velociraptor_with_oauth_sso.html">
+        Deploying Velociraptor with OAuth SSO
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/12/22/configuring_velociraptor_for_ssl.html" title="Configuring Velociraptor for SSL" class="dd-item ">
+        <a href="/blog/html/2018/12/22/configuring_velociraptor_for_ssl.html">
+        Configuring Velociraptor for SSL
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/12/11/velociraptor_interactive_shell.html" title="Velociraptor Interactive Shell" class="dd-item ">
+        <a href="/blog/html/2018/12/11/velociraptor_interactive_shell.html">
+        Velociraptor Interactive Shell
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/12/10/server_side_vql_queries_and_events.html" title="Server side VQL queries and Escalation Events" class="dd-item ">
+        <a href="/blog/html/2018/12/10/server_side_vql_queries_and_events.html">
+        Server side VQL queries and Escalation Events
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/12/09/more_on_client_event_collection.html" title="More on client event collection" class="dd-item ">
+        <a href="/blog/html/2018/12/09/more_on_client_event_collection.html">
+        More on client event collection
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/11/13/velociraptor_training_at_nzitf.html" title="Velociraptor training at NZITF" class="dd-item ">
+        <a href="/blog/html/2018/11/13/velociraptor_training_at_nzitf.html">
+        Velociraptor training at NZITF
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/11/09/event_queries_and_endpoint_monitoring.html" title="Event Queries and Endpoint Monitoring" class="dd-item ">
+        <a href="/blog/html/2018/11/09/event_queries_and_endpoint_monitoring.html">
+        Event Queries and Endpoint Monitoring
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/09/30/velorciraptor_s_filesystem_s_accessors.html" title="Velorciraptor&#39;s filesystem&#39;s accessors" class="dd-item ">
+        <a href="/blog/html/2018/09/30/velorciraptor_s_filesystem_s_accessors.html">
+        Velorciraptor&#39;s filesystem&#39;s accessors
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/09/29/detecting_powershell_persistence_with_velociraptor_and_yara.html" title="Detecting powershell persistence with Velociraptor and Yara" class="dd-item ">
+        <a href="/blog/html/2018/09/29/detecting_powershell_persistence_with_velociraptor_and_yara.html">
+        Detecting powershell persistence with Velociraptor and Yara
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/09/03/velociraptor_walk_through_and_demo.html" title="Velociraptor walk through and demo" class="dd-item ">
+        <a href="/blog/html/2018/09/03/velociraptor_walk_through_and_demo.html">
+        Velociraptor walk through and demo
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/08/20/velociraptor_artifacts.html" title="Velociraptor Artifacts" class="dd-item ">
+        <a href="/blog/html/2018/08/20/velociraptor_artifacts.html">
+        Velociraptor Artifacts
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/08/10/browsing_around_the_filesystem.html" title="Browsing around the filesystem." class="dd-item ">
+        <a href="/blog/html/2018/08/10/browsing_around_the_filesystem.html">
+        Browsing around the filesystem.
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/08/10/design_differences_between_velociraptor_and_grr.html" title="Design differences between Velociraptor and GRR" class="dd-item ">
+        <a href="/blog/html/2018/08/10/design_differences_between_velociraptor_and_grr.html">
+        Design differences between Velociraptor and GRR
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/02/09/files_files_everything_is_just_a_file.html" title="Files, files everything is just a file!" class="dd-item ">
+        <a href="/blog/html/2018/02/09/files_files_everything_is_just_a_file.html">
+        Files, files everything is just a file!
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/08/10/hunting_what_velociraptors_do_best.html" title="Hunting - What Velociraptors do best!" class="dd-item ">
+        <a href="/blog/html/2018/08/10/hunting_what_velociraptors_do_best.html">
+        Hunting - What Velociraptors do best!
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/08/10/interrogation_make_the_endpoint_tell_us_what_it_knows.html" title="Interrogation - Make the endpoint tell us what it knows!" class="dd-item ">
+        <a href="/blog/html/2018/08/10/interrogation_make_the_endpoint_tell_us_what_it_knows.html">
+        Interrogation - Make the endpoint tell us what it knows!
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/08/10/the_velocidex_query_language.html" title="Velocidex Query Language (VQL)" class="dd-item ">
+        <a href="/blog/html/2018/08/10/the_velocidex_query_language.html">
+        Velocidex Query Language (VQL)
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/08/10/introducing_velociraptor.html" title="Introducing Velociraptor" class="dd-item ">
+        <a href="/blog/html/2018/08/10/introducing_velociraptor.html">
+        Introducing Velociraptor
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/docs/" title="Velociraptor Documentation" class="dd-item 
+        parent
+        
+        
+        ">
+      <a href="/docs/">
+          Velociraptor Documentation
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/docs/user-interface/" title="Users Manual" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/docs/user-interface/">
+          User Manual Overview
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/user-interface/artifact_types/" title="Artifact Types" class="dd-item ">
+        <a href="/docs/user-interface/artifact_types/">
+        Artifact Types
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/user-interface/flows/" title="Velociraptor Artifacts" class="dd-item ">
+        <a href="/docs/user-interface/flows/">
+        Velociraptor Artifacts
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/user-interface/gui/" title="Searching for clients" class="dd-item ">
+        <a href="/docs/user-interface/gui/">
+        Searching for clients
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/documentation/" title="Velociraptor Documentation" class="dd-item ">
+        <a href="/docs/documentation/">
+        Velociraptor
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/docs/getting-started/" title="Get Started" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/docs/getting-started/">
+          Get Started Overview
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/getting-started/deploying_clients/" title="Deploying Clients" class="dd-item ">
+        <a href="/docs/getting-started/deploying_clients/">
+        Client Deployment
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/getting-started/cloud/" title="Deploying in the cloud" class="dd-item ">
+        <a href="/docs/getting-started/cloud/">
+        Cloud Deployment
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/getting-started/stand_alone/" title="Standalone Deployment" class="dd-item ">
+        <a href="/docs/getting-started/stand_alone/">
+        Standalone Deployment
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/getting-started/triaging/" title="Triaging" class="dd-item ">
+        <a href="/docs/getting-started/triaging/">
+        Triaging
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/docs/presentations/" title="Presentations and Workshops" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/docs/presentations/">
+          Presentation Overview
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/presentations/crikeycon2019/" title="Crikeycon 2019 Training Workshop" class="dd-item ">
+        <a href="/docs/presentations/crikeycon2019/">
+        CrikeyCon 2019
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/presentations/nzitf2018/" title="New Zealand Internet Task Force Conference 2018" class="dd-item ">
+        <a href="/docs/presentations/nzitf2018/">
+        NZITF2018
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/docs/vql_reference/" title="VQL Reference" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/docs/vql_reference/">
+          VQL Overview
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/vql_reference/templates/" title="Report Templates" class="dd-item ">
+        <a href="/docs/vql_reference/templates/">
+        Report Templates
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/vql_reference/event_plugins/" title="VQL Event PLugins" class="dd-item ">
+        <a href="/docs/vql_reference/event_plugins/">
+        VQL Event PLugins
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/vql_reference/functions/" title="VQL Functions" class="dd-item ">
+        <a href="/docs/vql_reference/functions/">
+        VQL Functions
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/vql_reference/plugins/" title="VQL PLugins" class="dd-item ">
+        <a href="/docs/vql_reference/plugins/">
+        VQL PLugins
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/vql_reference/server/" title="VQL Server Plugins" class="dd-item ">
+        <a href="/docs/vql_reference/server/">
+        VQL Server Plugins
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/artifacts/linux/" title="Linux Artifacts" class="dd-item ">
+        <a href="/docs/artifacts/linux/">
+        Linux Artifacts
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/artifacts/misc/" title="Miscelaneous Artifacts" class="dd-item ">
+        <a href="/docs/artifacts/misc/">
+        Miscelaneous
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/artifacts/server/" title="Server Artifacts" class="dd-item ">
+        <a href="/docs/artifacts/server/">
+        Server Artifacts
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/artifacts/detection/" title="Windows Malware Detection" class="dd-item ">
+        <a href="/docs/artifacts/detection/">
+        Windows Detection
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/artifacts/events/" title="Windows Event Monitoring" class="dd-item ">
+        <a href="/docs/artifacts/events/">
+        Windows Monitoring
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/artifacts/windows_system/" title="Windows System" class="dd-item active">
+        <a href="/docs/artifacts/windows_system/">
+        Windows System
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/artifacts/triage/" title="Windows Triage Artifacts" class="dd-item ">
+        <a href="/docs/artifacts/triage/">
+        Windows Triage
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+         
+    </ul>
+
+    
+    
+
+    
+    <section id="footer">
+      
+    </section>
+  </div>
+</nav>
+
+
+
+
+
+        <section id="body">
+        <div id="overlay"></div>
+        <div class="padding highlightable">
+              
+              <div>
+                <div id="top-bar">
+                
+                
+                <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <span id="sidebar-toggle-span">
+                        <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                          <i class="fas fa-bars"></i>
+                        </a>
+                    </span>
+                  
+                  <span id="toc-menu"><i class="fas fa-list-alt"></i></span>
+                  
+                  <span class="links">
+                 
+                 
+                    
+          
+          
+            
+            
+          
+          
+            
+            
+          
+          
+            <a href='/'>Velociraptor - Hunt Evil!</a> > <a href='/docs/'>Velociraptor Documentation</a> > Windows System
+          
+         
+          
+         
+          
+        
+                 
+                  </span>
+                </div>
+                
+                    <div class="progress">
+    <div class="wrapper">
+<nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#windows-sys-appcompatshims">Windows.Sys.AppcompatShims</a></li>
+<li><a href="#windows-sys-certificateauthorities">Windows.Sys.CertificateAuthorities</a></li>
+<li><a href="#windows-sys-diskinfo">Windows.Sys.DiskInfo</a></li>
+<li><a href="#windows-sys-drivers">Windows.Sys.Drivers</a></li>
+<li><a href="#windows-sys-firewallrules">Windows.Sys.FirewallRules</a></li>
+<li><a href="#windows-sys-interfaces">Windows.Sys.Interfaces</a></li>
+<li><a href="#windows-sys-physicalmemoryranges">Windows.Sys.PhysicalMemoryRanges</a></li>
+<li><a href="#windows-sys-programs">Windows.Sys.Programs</a></li>
+<li><a href="#windows-sys-startupitems">Windows.Sys.StartupItems</a></li>
+<li><a href="#windows-sys-users">Windows.Sys.Users</a></li>
+<li><a href="#windows-system-amcache">Windows.System.Amcache</a></li>
+<li><a href="#windows-system-pslist">Windows.System.Pslist</a></li>
+<li><a href="#windows-system-svchost">Windows.System.SVCHost</a></li>
+<li><a href="#windows-system-services">Windows.System.Services</a></li>
+<li><a href="#windows-system-untrustedbinaries">Windows.System.UntrustedBinaries</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+
+                
+              </div>
+            </div>
+            
+        <div id="head-tags">
+        
+        </div>
+        
+        <div id="body-inner">
+          
+            <h1>
+              
+              Windows System
+            </h1>
+          
+
+        
+
+
+
+
+
+<h2 id="windows-sys-appcompatshims">Windows.Sys.AppcompatShims</h2>
+
+<p>Application Compatibility shims are a way to persist malware. This
+table presents the AppCompat Shim information from the registry in a
+nice format.</p>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>shimKeys</td>
+<td>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\InstalledSDB\*</td>
+<td></td>
+</tr>
+
+<tr>
+<td>customKeys</td>
+<td>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Custom\*\*</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+<p><a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
+    data-target="#Windows_Sys_AppcompatShimsDetails">View Artifact</a>
+ <div class="collapse dn" id="Windows_Sys_AppcompatShimsDetails" style="width: fit-content"></p>
+
+<pre><code>name: Windows.Sys.AppcompatShims
+description: |
+  Application Compatibility shims are a way to persist malware. This
+  table presents the AppCompat Shim information from the registry in a
+  nice format.
+
+reference:
+  - http://files.brucon.org/2015/Tomczak_and_Ballenthin_Shims_for_the_Win.pdf
+
+parameters:
+  - name: shimKeys
+    default: &gt;-
+      HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\InstalledSDB\*
+  - name: customKeys
+    default: &gt;-
+      HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Custom\*\*
+
+sources:
+  - precondition:
+      SELECT OS From info() where OS = 'windows'
+    queries:
+      - |
+        LET installed_sdb &lt;=
+           SELECT Key, Key.Name as SdbGUID, DatabasePath,
+                  DatabaseType, DatabaseDescription,
+                  -- Convert windows file time to unix epoch.
+                  (DatabaseInstallTimeStamp / 10000000) - 11644473600 AS DatabaseInstallTimeStamp
+           FROM read_reg_key(
+             globs=split(string=shimKeys, sep=&quot;,[\\s]*&quot;),
+             accessor=&quot;reg&quot;)
+      - |
+        LET result = SELECT * from foreach(
+          row={
+            SELECT regex_replace(
+               source=FullPath,
+               replace=&quot;$1&quot;,
+               re=&quot;^.+\\\\([^\\\\]+)\\\\[^\\\\]+$&quot;) as Executable,
+              regex_replace(
+               source=Name,
+               replace=&quot;$1&quot;,
+               re=&quot;(\\{[^}]+\\}).*$&quot;) as SdbGUIDRef,
+               Name as ExeName from glob(
+              globs=split(string=customKeys, sep=&quot;,[\\s]*&quot;),
+              accessor=&quot;reg&quot;)
+          },
+          query={
+            SELECT Executable, DatabasePath, DatabaseType,
+                   DatabaseDescription, DatabaseInstallTimeStamp, SdbGUID
+            FROM installed_sdb
+            WHERE SdbGUID = SdbGUIDRef
+          })
+      - |
+        SELECT * from result
+</code></pre>
+
+<p></div></a></p>
+
+<h2 id="windows-sys-certificateauthorities">Windows.Sys.CertificateAuthorities</h2>
+
+<p>Certificate Authorities installed in Keychains/ca-bundles.</p>
+
+<p><a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
+    data-target="#Windows_Sys_CertificateAuthoritiesDetails">View Artifact</a>
+ <div class="collapse dn" id="Windows_Sys_CertificateAuthoritiesDetails" style="width: fit-content"></p>
+
+<pre><code>name: Windows.Sys.CertificateAuthorities
+description: Certificate Authorities installed in Keychains/ca-bundles.
+sources:
+  - precondition:
+      SELECT OS From info() where OS = 'windows'
+    queries:
+      - |
+        select Store, IsCA, Subject,
+               encode(string=SubjectKeyId, type='hex') AS SubjectKeyId,
+               encode(string=AuthorityKeyId, type='hex') AS AuthorityKeyId,
+               Issuer, KeyUsageString,
+               IsSelfSigned, SHA1, SignatureAlgorithm, PublicKeyAlgorithm, KeyStrength,
+               NotBefore, NotAfter, HexSerialNumber
+               from certificates()
+</code></pre>
+
+<p></div></a></p>
+
+<h2 id="windows-sys-diskinfo">Windows.Sys.DiskInfo</h2>
+
+<p>Retrieve basic information about the physical disks of a system.</p>
+
+<p><a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
+    data-target="#Windows_Sys_DiskInfoDetails">View Artifact</a>
+ <div class="collapse dn" id="Windows_Sys_DiskInfoDetails" style="width: fit-content"></p>
+
+<pre><code>name: Windows.Sys.DiskInfo
+description: Retrieve basic information about the physical disks of a system.
+sources:
+  - precondition:
+      SELECT OS From info() where OS = 'windows'
+    queries:
+      - |
+        SELECT Partitions,
+               Index as DiskIndex,
+               InterfaceType as Type,
+               PNPDeviceID,
+               DeviceID,
+               Size,
+               Manufacturer,
+               Model,
+               Name,
+               SerialNumber,
+               Description
+        FROM wmi(
+           query=&quot;SELECT * from Win32_DiskDrive&quot;,
+           namespace=&quot;ROOT\\CIMV2&quot;)
+</code></pre>
+
+<p></div></a></p>
+
+<h2 id="windows-sys-drivers">Windows.Sys.Drivers</h2>
+
+<p>Details for in-use Windows device drivers. This does not display installed but unused drivers.</p>
+
+<p><a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
+    data-target="#Windows_Sys_DriversDetails">View Artifact</a>
+ <div class="collapse dn" id="Windows_Sys_DriversDetails" style="width: fit-content"></p>
+
+<pre><code>name: Windows.Sys.Drivers
+description: Details for in-use Windows device drivers. This does not display installed but unused drivers.
+sources:
+  - precondition:
+      SELECT OS From info() where OS = 'windows'
+    queries:
+      - |
+        SELECT * from wmi(
+            query=&quot;select * from Win32_PnPSignedDriver&quot;,
+            namespace=&quot;ROOT\\CIMV2&quot;)
+</code></pre>
+
+<p></div></a></p>
+
+<h2 id="windows-sys-firewallrules">Windows.Sys.FirewallRules</h2>
+
+<p>List windows firewall rules.</p>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>regKey</td>
+<td>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\**\FirewallRules\*</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+<p><a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
+    data-target="#Windows_Sys_FirewallRulesDetails">View Artifact</a>
+ <div class="collapse dn" id="Windows_Sys_FirewallRulesDetails" style="width: fit-content"></p>
+
+<pre><code>name: Windows.Sys.FirewallRules
+description: List windows firewall rules.
+reference:
+  - https://social.technet.microsoft.com/Forums/azure/en-US/aaed9c6a-fb8b-4d43-8b69-9f4e0f619a8c/how-to-check-the-windows-firewall-settings-from-netsh-command?forum=winserverGP
+
+parameters:
+  - name: regKey
+    default: HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\**\FirewallRules\*
+
+sources:
+  - precondition:
+      SELECT OS From info() where OS = 'windows'
+    queries:
+      - |
+        LET rules = SELECT Name as Value,
+               parse_string_with_regex(string=Data,
+                 regex=[&quot;Action=(?P&lt;Action&gt;[^|]+)&quot;,
+                        &quot;Active=(?P&lt;Active&gt;[^|]+)&quot;,
+                        &quot;Dir=(?P&lt;Dir&gt;[^|]+)&quot;,
+                        &quot;Protocol=(?P&lt;Protocol&gt;[^|]+)&quot;,
+                        &quot;LPort=(?P&lt;LPort&gt;[^|]+)&quot;,
+                        &quot;Name=(?P&lt;Name&gt;[^|]+)&quot;,
+                        &quot;Desc=(?P&lt;Desc&gt;[^|]+)&quot;,
+                        &quot;App=(?P&lt;App&gt;[^|]+)&quot;]) as Record,
+               Data,
+               FullPath
+        FROM glob(globs=regKey, accessor=&quot;reg&quot;)
+
+      - |
+        SELECT Value,
+               Record.Action as Action,
+               Record.Name as Name,
+               Record.Desc as Desc,
+               Record.App as App,
+               Record.Action as Action,
+               Record.Dir as Dir,
+               if(condition=Record.Protocol = &quot;6&quot;,
+                  then=&quot;TCP&quot;,
+                  else=if(condition=Record.Protocol = &quot;17&quot;,
+                          then=&quot;UDP&quot;,
+                          else=Record.Protocol)) as Protocol,
+               if(condition=Record.LPort = NULL,
+                  then=&quot;Any&quot;,
+                  else=Record.LPort) as LPort,
+               Record.Name as Name
+        FROM rules
+</code></pre>
+
+<p></div></a></p>
+
+<h2 id="windows-sys-interfaces">Windows.Sys.Interfaces</h2>
+
+<p>Report information about the systems interfaces. This artifact
+simply parses the output from ipconfig /all.</p>
+
+<p><a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
+    data-target="#Windows_Sys_InterfacesDetails">View Artifact</a>
+ <div class="collapse dn" id="Windows_Sys_InterfacesDetails" style="width: fit-content"></p>
+
+<pre><code>name: Windows.Sys.Interfaces
+description: |
+  Report information about the systems interfaces. This artifact
+  simply parses the output from ipconfig /all.
+
+sources:
+ - precondition:
+     SELECT OS from info() where OS = &quot;windows&quot;
+   queries:
+   - |
+     // Run ipconfig to get all information about interfaces.
+     LET ipconfig = SELECT * FROM execve(argv=['ipconfig', '/all'])
+   - |
+     // This produces a single row per interface.
+     LET interfaces = SELECT Name, Data FROM parse_records_with_regex(
+        file=ipconfig.Stdout,
+        accessor='data',      // This makes the data appear as a file.
+        regex='(?s)Ethernet adapter (?P&lt;Name&gt;[^:]+?):\r\n\r\n(?P&lt;Data&gt;.+?)\r\n(\r\n|$)')
+   - |
+     // Now extract interesting things from each interface definition.
+     SELECT Name, parse_string_with_regex(
+        string=Data,
+        regex=[
+          &quot;Description[^:]+: (?P&lt;Description&gt;.+)\r\n&quot;,
+          &quot;Physical Address[^:]+: (?P&lt;MAC&gt;.+)\r\n&quot;,
+          &quot;IPv4 Address[^:]+: (?P&lt;IP&gt;[0-9.]+)&quot;,
+          &quot;Default Gateway[^:]+: (?P&lt;Gateway&gt;.+)\r\n&quot;,
+          &quot;DNS Servers[^:]+: (?P&lt;DNS&gt;.+)\r\n&quot;,
+          &quot;DHCP Server[^:]+: (?P&lt;DHCP&gt;.+)\r\n&quot;
+        ]
+     ) As Details FROM interfaces
+</code></pre>
+
+<p></div></a></p>
+
+<h2 id="windows-sys-physicalmemoryranges">Windows.Sys.PhysicalMemoryRanges</h2>
+
+<p>List Windows physical memory ranges.</p>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>physicalMemoryKey</td>
+<td>HKEY_LOCAL_MACHINE\HARDWARE\RESOURCEMAP\System Resources\Physical Memory\.Translated</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Profile</td>
+<td>{\n  &ldquo;CM_RESOURCE_LIST&rdquo;: [0, {\n    &ldquo;Count&rdquo;: [0, [&ldquo;uint32&rdquo;]],\n    &ldquo;List&rdquo;: [4, [&ldquo;CM_FULL_RESOURCE_DESCRIPTOR&rdquo;]]\n   }],\n   &ldquo;CM_FULL_RESOURCE_DESCRIPTOR&rdquo;: [0, {\n     &ldquo;PartialResourceList&rdquo;: [8, [&ldquo;CM_PARTIAL_RESOURCE_LIST&rdquo;]]\n   }],\n\n   &ldquo;CM_PARTIAL_RESOURCE_LIST&rdquo;: [0, {\n     &ldquo;Version&rdquo;: [0, [&ldquo;uint16&rdquo;]],\n     &ldquo;Revision&rdquo;: [2, [&ldquo;uint16&rdquo;]],\n     &ldquo;Count&rdquo;: [4, [&ldquo;uint32&rdquo;]],\n     &ldquo;PartialDescriptors&rdquo;: [8, [&ldquo;Array&rdquo;, {\n        &ldquo;Target&rdquo;: &ldquo;CM_PARTIAL_RESOURCE_DESCRIPTOR&rdquo;\n     }]]\n   }],\n\n   &ldquo;CM_PARTIAL_RESOURCE_DESCRIPTOR&rdquo;: [20, {\n     &ldquo;Type&rdquo;: [0, [&ldquo;char&rdquo;]],\n     &ldquo;ShareDisposition&rdquo;: [1, [&ldquo;char&rdquo;]],\n     &ldquo;Flags&rdquo;: [2, [&ldquo;uint16&rdquo;]],\n     &ldquo;Start&rdquo;: [4, [&ldquo;int64&rdquo;]],\n     &ldquo;Length&rdquo;: [12, [&ldquo;uint32&rdquo;]]\n   }]\n}\n</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+<p><a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
+    data-target="#Windows_Sys_PhysicalMemoryRangesDetails">View Artifact</a>
+ <div class="collapse dn" id="Windows_Sys_PhysicalMemoryRangesDetails" style="width: fit-content"></p>
+
+<pre><code>name: Windows.Sys.PhysicalMemoryRanges
+description: List Windows physical memory ranges.
+reference:
+  - https://docs.microsoft.com/en-us/windows-hardware/drivers/ddi/content/wdm/ns-wdm-_cm_resource_list
+
+parameters:
+  - name: physicalMemoryKey
+    default: HKEY_LOCAL_MACHINE\HARDWARE\RESOURCEMAP\System Resources\Physical Memory\.Translated
+
+  - name: Profile
+    default: |
+      {
+        &quot;CM_RESOURCE_LIST&quot;: [0, {
+          &quot;Count&quot;: [0, [&quot;uint32&quot;]],
+          &quot;List&quot;: [4, [&quot;CM_FULL_RESOURCE_DESCRIPTOR&quot;]]
+         }],
+         &quot;CM_FULL_RESOURCE_DESCRIPTOR&quot;: [0, {
+           &quot;PartialResourceList&quot;: [8, [&quot;CM_PARTIAL_RESOURCE_LIST&quot;]]
+         }],
+
+         &quot;CM_PARTIAL_RESOURCE_LIST&quot;: [0, {
+           &quot;Version&quot;: [0, [&quot;uint16&quot;]],
+           &quot;Revision&quot;: [2, [&quot;uint16&quot;]],
+           &quot;Count&quot;: [4, [&quot;uint32&quot;]],
+           &quot;PartialDescriptors&quot;: [8, [&quot;Array&quot;, {
+              &quot;Target&quot;: &quot;CM_PARTIAL_RESOURCE_DESCRIPTOR&quot;
+           }]]
+         }],
+
+         &quot;CM_PARTIAL_RESOURCE_DESCRIPTOR&quot;: [20, {
+           &quot;Type&quot;: [0, [&quot;char&quot;]],
+           &quot;ShareDisposition&quot;: [1, [&quot;char&quot;]],
+           &quot;Flags&quot;: [2, [&quot;uint16&quot;]],
+           &quot;Start&quot;: [4, [&quot;int64&quot;]],
+           &quot;Length&quot;: [12, [&quot;uint32&quot;]]
+         }]
+      }
+
+sources:
+  - precondition:
+      SELECT OS From info() where OS = 'windows'
+    queries:
+      - |
+        SELECT Type.AsInteger as Type,
+               format(format=&quot;%#0x&quot;, args=Start.AsInteger) as Start,
+               format(format=&quot;%#0x&quot;, args=Length.AsInteger) as Length
+        FROM foreach(
+          row={
+            SELECT Data
+              FROM stat(filename=physicalMemoryKey, accessor='reg')
+          },
+          query={
+            SELECT Type, Start, Length, Data FROM binary_parse(
+              string=Data.value,
+              profile=Profile,
+              target=&quot;CM_RESOURCE_LIST&quot;,
+              start=&quot;List.PartialResourceList.PartialDescriptors&quot;)
+          })
+</code></pre>
+
+<p></div></a></p>
+
+<h2 id="windows-sys-programs">Windows.Sys.Programs</h2>
+
+<p>Represents products as they are installed by Windows Installer. A product generally
+correlates to one installation package on Windows. Some fields may be blank as Windows
+installation details are left to the discretion of the product author.</p>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>programKeys</td>
+<td>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\*, HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\*, HKEY_USERS\*\Software\Microsoft\Windows\CurrentVersion\Uninstall\*</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+<p><a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
+    data-target="#Windows_Sys_ProgramsDetails">View Artifact</a>
+ <div class="collapse dn" id="Windows_Sys_ProgramsDetails" style="width: fit-content"></p>
+
+<pre><code>name: Windows.Sys.Programs
+description: |
+  Represents products as they are installed by Windows Installer. A product generally
+  correlates to one installation package on Windows. Some fields may be blank as Windows
+  installation details are left to the discretion of the product author.
+reference:
+  - https://github.com/facebook/osquery/blob/master/specs/windows/programs.table
+
+parameters:
+  - name: programKeys
+    default: &gt;-
+      HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\*,
+      HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\*,
+      HKEY_USERS\*\Software\Microsoft\Windows\CurrentVersion\Uninstall\*
+
+sources:
+  - precondition:
+      SELECT OS From info() where OS = 'windows'
+    queries:
+      - |
+        SELECT Key.Name as Name,
+               DisplayName,
+               DisplayVersion,
+               InstallLocation,
+               InstallSource,
+               Language,
+               Publisher,
+               UninstallString,
+               InstallDate
+        FROM read_reg_key(globs=split(string=programKeys, sep=',[\\s]*'))
+</code></pre>
+
+<p></div></a></p>
+
+<h2 id="windows-sys-startupitems">Windows.Sys.StartupItems</h2>
+
+<p>Applications that will be started up from the various run key locations.</p>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>runKeyGlobs</td>
+<td>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Run<em>\*, HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Run</em>\<em>, HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer\Run</em>\* HKEY_USERS\<em>\SOFTWARE\Microsoft\Windows\CurrentVersion\Run</em>\<em>, HKEY_USERS\*\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Run</em>\<em>, HKEY_USERS\*\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer\Run</em>\*\n</td>
+<td></td>
+</tr>
+
+<tr>
+<td>startupApprovedGlobs</td>
+<td>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\StartupApproved\*<em>, HKEY_USERS\*\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\StartupApproved\*</em>\n</td>
+<td></td>
+</tr>
+
+<tr>
+<td>startupFolderDirectories</td>
+<td>C:/ProgramData/Microsoft/Windows/Start Menu/Programs/Startup/<strong>, C:/Users/*/AppData/Roaming/Microsoft/Windows/StartMenu/Programs/Startup/</strong>\n</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+<p><a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
+    data-target="#Windows_Sys_StartupItemsDetails">View Artifact</a>
+ <div class="collapse dn" id="Windows_Sys_StartupItemsDetails" style="width: fit-content"></p>
+
+<pre><code>name: Windows.Sys.StartupItems
+description: Applications that will be started up from the various run key locations.
+reference:
+  - https://docs.microsoft.com/en-us/windows/desktop/setupapi/run-and-runonce-registry-keys
+
+parameters:
+  - name: runKeyGlobs
+    default: &gt;
+      HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Run*\*,
+      HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Run*\*,
+      HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer\Run*\*
+      HKEY_USERS\*\SOFTWARE\Microsoft\Windows\CurrentVersion\Run*\*,
+      HKEY_USERS\*\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Run*\*,
+      HKEY_USERS\*\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer\Run*\*
+  - name: startupApprovedGlobs
+    default: &gt;
+      HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\StartupApproved\**,
+      HKEY_USERS\*\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\StartupApproved\**
+  - name: startupFolderDirectories
+    default: &gt;
+      C:/ProgramData/Microsoft/Windows/Start Menu/Programs/Startup/**,
+      C:/Users/*/AppData/Roaming/Microsoft/Windows/StartMenu/Programs/Startup/**
+
+sources:
+  - precondition:
+      SELECT OS From info() where OS = 'windows'
+    queries:
+      - |
+        /* We need to search this multiple times so we materialize it
+           into a variable (using the &lt;= operator)
+         */
+        LET approved &lt;=
+           SELECT Name as ApprovedName,
+                  encode(string=Data, type=&quot;hex&quot;) as Enabled
+           FROM glob(globs=split(
+                     string=startupApprovedGlobs, sep=&quot;[, ]+&quot;),
+                     accessor=&quot;reg&quot;)
+           WHERE Enabled =~ &quot;^0[0-9]0+$&quot;
+
+      - |
+        LET registry_runners = SELECT Name,
+          FullPath, Data.value as Command,
+          if(
+           condition={
+                SELECT Enabled from approved
+                WHERE Name = ApprovedName
+           },
+           then=&quot;enabled&quot;, else=&quot;disabled&quot;) as Enabled
+          FROM glob(
+           globs=split(string=runKeyGlobs, sep=&quot;[, ]+&quot;),
+           accessor=&quot;reg&quot;)
+
+      - |
+        LET file_runners = SELECT * FROM foreach(
+           row={
+              SELECT Name, FullPath
+              FROM glob(
+                 globs=split(string=startupFolderDirectories,
+                 sep=&quot;,\\s*&quot;))
+           }, query={
+              SELECT Name, FullPath, &quot;enable&quot; as Enabled,
+                  encode(string=Data, type='utf16') as Command
+              FROM read_file(filenames=FullPath)
+           })
+
+      - SELECT * from chain(
+           first=registry_runners,
+           second=file_runners)
+</code></pre>
+
+<p></div></a></p>
+
+<h2 id="windows-sys-users">Windows.Sys.Users</h2>
+
+<p>List User accounts. We combine two data sources - the output from
+the NetUserEnum() call and the list of SIDs in the registry.</p>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>remoteRegKey</td>
+<td>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\ProfileList\*</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+<p><a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
+    data-target="#Windows_Sys_UsersDetails">View Artifact</a>
+ <div class="collapse dn" id="Windows_Sys_UsersDetails" style="width: fit-content"></p>
+
+<pre><code>name: Windows.Sys.Users
+description: |
+  List User accounts. We combine two data sources - the output from
+  the NetUserEnum() call and the list of SIDs in the registry.
+
+parameters:
+  - name: remoteRegKey
+    default: HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\ProfileList\*
+
+sources:
+  - precondition:
+      SELECT OS From info() where OS = 'windows'
+    queries:
+      - |
+        LET roaming_users &lt;=
+           SELECT &quot;&quot; as Uid, &quot;&quot; as Gid,
+               lookupSID(
+                 sid=basename(path=Key.FullPath)
+               ) as Name,
+               Key.FullPath as Description,
+               ProfileImagePath as Directory,
+               basename(path=Key.FullPath) as UUID, &quot;roaming&quot; as Type
+           FROM read_reg_key(globs=remoteRegKey, accessor=&quot;reg&quot;)
+      - |
+        LET local_users &lt;= select User_id as Uid, Primary_group_id as Gid, Name,
+               Comment as Description, {
+                 SELECT Directory from roaming_users WHERE User_sid = UUID
+               } as Directory, User_sid as UUID, &quot;local&quot; AS Type
+        FROM users()
+
+      - |
+        SELECT * from chain(
+         q1=local_users,
+         q2={
+           -- Only show users not already shown in the local_users above.
+           SELECT * from roaming_users
+           where not UUID in local_users.UUID
+         })
+</code></pre>
+
+<p></div></a></p>
+
+<h2 id="windows-system-amcache">Windows.System.Amcache</h2>
+
+<p>Get information from the system&rsquo;s amcache.</p>
+
+<p>The Amcache.hve file is a registry file that stores the information
+of executed applications. Amcache.hve records the recent processes
+that were run and lists the path of the files that’s executed which
+can then be used to find the executed program.</p>
+
+<p>This artifact works on Windows 10 1607 version.</p>
+
+<p>References:
+  <a href="https://www.andreafortuna.org/cybersecurity/amcache-and-shimcache-in-forensic-analysis/">https://www.andreafortuna.org/cybersecurity/amcache-and-shimcache-in-forensic-analysis/</a>
+  <a href="https://www.ssi.gouv.fr/uploads/2019/01/anssi-coriin_2019-analysis_amcache.pdf">https://www.ssi.gouv.fr/uploads/2019/01/anssi-coriin_2019-analysis_amcache.pdf</a></p>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>amCacheGlob</td>
+<td>%SYSTEMROOT%/appcompat/Programs/Amcache.hve</td>
+<td></td>
+</tr>
+
+<tr>
+<td>amCacheRegPath</td>
+<td>/Root/InventoryApplicationFile/*</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+<p><a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
+    data-target="#Windows_System_AmcacheDetails">View Artifact</a>
+ <div class="collapse dn" id="Windows_System_AmcacheDetails" style="width: fit-content"></p>
+
+<pre><code>name: Windows.System.Amcache
+description: |
+  Get information from the system's amcache.
+
+  The Amcache.hve file is a registry file that stores the information
+  of executed applications. Amcache.hve records the recent processes
+  that were run and lists the path of the files that’s executed which
+  can then be used to find the executed program.
+
+  This artifact works on Windows 10 1607 version.
+
+  References:
+    https://www.andreafortuna.org/cybersecurity/amcache-and-shimcache-in-forensic-analysis/
+    https://www.ssi.gouv.fr/uploads/2019/01/anssi-coriin_2019-analysis_amcache.pdf
+
+parameters:
+  - name: amCacheGlob
+    default: &quot;%SYSTEMROOT%/appcompat/Programs/Amcache.hve&quot;
+  - name: amCacheRegPath
+    default: /Root/InventoryApplicationFile/*
+
+sources:
+  - precondition:
+      SELECT OS From info() where OS = 'windows'
+    queries:
+      - |
+        SELECT FileId,
+               Key.FullPath as Key,
+               timestamp(epoch=Key.Mtime.Sec) as LastModified,
+               LowerCaseLongPath as Binary,
+               Name,
+               Size,
+               ProductName,
+               Publisher,
+               Version,
+               BinFileVersion
+        FROM foreach(
+          row={
+            SELECT FullPath from glob(globs=expand(path=amCacheGlob))
+          }, query={
+            SELECT * from read_reg_key(
+               globs=url(scheme='ntfs', path=FullPath, fragment=amCacheRegPath).String,
+               accessor='raw_reg'
+            )
+        })
+</code></pre>
+
+<p></div></a></p>
+
+<h2 id="windows-system-pslist">Windows.System.Pslist</h2>
+
+<p>List processes and their running binaries.</p>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>processRegex</td>
+<td>.</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+<p><a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
+    data-target="#Windows_System_PslistDetails">View Artifact</a>
+ <div class="collapse dn" id="Windows_System_PslistDetails" style="width: fit-content"></p>
+
+<pre><code>name: Windows.System.Pslist
+description: |
+  List processes and their running binaries.
+
+parameters:
+  - name: processRegex
+    default: .
+
+sources:
+  - queries:
+      - SELECT Pid, Ppid, Name, CommandLine, Exe,
+               hash(path=Exe) as Hash,
+               authenticode(filename=Exe) AS Authenticode,
+               Username, WorkingSetSize
+        FROM pslist()
+        WHERE Name =~ processRegex
+</code></pre>
+
+<p></div></a></p>
+
+<h2 id="windows-system-svchost">Windows.System.SVCHost</h2>
+
+<p>Typically a windows system will have many svchost.exe
+processes. Sometimes attackers name their processes svchost.exe to
+try to hide. Typically svchost.exe is spawned by services.exe.</p>
+
+<p>This artifact lists all the processes named svchost.exe and their
+parents if the parent is not also named services.exe.</p>
+
+<p><a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
+    data-target="#Windows_System_SVCHostDetails">View Artifact</a>
+ <div class="collapse dn" id="Windows_System_SVCHostDetails" style="width: fit-content"></p>
+
+<pre><code>name: Windows.System.SVCHost
+description: |
+  Typically a windows system will have many svchost.exe
+  processes. Sometimes attackers name their processes svchost.exe to
+  try to hide. Typically svchost.exe is spawned by services.exe.
+
+  This artifact lists all the processes named svchost.exe and their
+  parents if the parent is not also named services.exe.
+
+sources:
+  - precondition: |
+      SELECT OS From info() where OS = 'windows'
+
+    queries:
+      - |
+        // Cache the pslist output in memory.
+        LET processes &lt;= SELECT * FROM pslist()
+
+      - |
+        // Get the pids of all procecesses named services.exe
+        LET services &lt;= SELECT Pid FROM processes where Name =~ &quot;services.exe&quot;
+
+      - |
+        // The interesting processes are those which are not spawned by services.exe
+        LET suspicious = SELECT Pid As SVCHostPid,
+            Ppid As SVCHostPpid,
+            Exe as SVCHostExe,
+            CommandLine as SVCHostCommandLine
+        FROM processes
+        WHERE Name =~ &quot;svchost&quot; AND NOT Ppid in services.Pid
+
+      - |
+        // Now for each such process we display its actual parent.
+        SELECT * from foreach(
+           row=suspicious,
+           query={
+              SELECT SVCHostPid, SVCHostPpid, SVCHostExe,
+                     SVCHostCommandLine, Name as ParentName,
+                     Exe As ParentExe
+              FROM processes
+              WHERE Pid=SVCHostPpid
+          })
+</code></pre>
+
+<p></div></a></p>
+
+<h2 id="windows-system-services">Windows.System.Services</h2>
+
+<p>List all the installed services.</p>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>servicesKeyGlob</td>
+<td>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+<p><a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
+    data-target="#Windows_System_ServicesDetails">View Artifact</a>
+ <div class="collapse dn" id="Windows_System_ServicesDetails" style="width: fit-content"></p>
+
+<pre><code>name: Windows.System.Services
+description: |
+  List all the installed services.
+
+parameters:
+  - name: servicesKeyGlob
+    default: HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\
+
+sources:
+  - precondition: |
+      SELECT OS From info() where OS = 'windows'
+
+    queries:
+      - |
+        SELECT State, Name, DisplayName, Status,
+               ProcessId as Pid, ExitCode, StartMode,
+               PathName, ServiceType, StartName as UserAccount,
+               {
+                  SELECT timestamp(epoch=Mtime.Sec) as Created
+                  FROM stat(filename=servicesKeyGlob + Name, accessor='reg')
+               } AS Created,
+               {
+                 SELECT ServiceDll FROM read_reg_key(globs=servicesKeyGlob + Name + &quot;\\Parameters&quot;)
+               } AS ServiceDll
+        FROM wmi(query=&quot;SELECT * From Win32_service&quot;, namespace=&quot;root/CIMV2&quot;)
+</code></pre>
+
+<p></div></a></p>
+
+<h2 id="windows-system-untrustedbinaries">Windows.System.UntrustedBinaries</h2>
+
+<p>Windows runs a number of services and binaries as part of the
+operating system. Sometimes malware pretends to run as those well
+known names in order to hide itself in plain sight. For example, a
+malware service might call itself svchost.exe so it shows up in the
+process listing as a benign service.</p>
+
+<p>This artifact checks that the common systems binaries are
+signed. If a malware replaces these files or names itself in this
+way their signature might not be correct.</p>
+
+<p>Note that unfortunately Microsoft does not sign all their common
+binaries so many will not be signed (e.g. conhost.exe).</p>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>processNamesRegex</td>
+<td>(?i)lsass</td>
+<td>svchost</td>
+</tr>
+</tbody>
+</table>
+
+<p><a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
+    data-target="#Windows_System_UntrustedBinariesDetails">View Artifact</a>
+ <div class="collapse dn" id="Windows_System_UntrustedBinariesDetails" style="width: fit-content"></p>
+
+<pre><code>name: Windows.System.UntrustedBinaries
+description: |
+  Windows runs a number of services and binaries as part of the
+  operating system. Sometimes malware pretends to run as those well
+  known names in order to hide itself in plain sight. For example, a
+  malware service might call itself svchost.exe so it shows up in the
+  process listing as a benign service.
+
+  This artifact checks that the common systems binaries are
+  signed. If a malware replaces these files or names itself in this
+  way their signature might not be correct.
+
+  Note that unfortunately Microsoft does not sign all their common
+  binaries so many will not be signed (e.g. conhost.exe).
+
+parameters:
+  - name: processNamesRegex
+    description: A regex to select running processes which we consider should be trusted.
+    default: (?i)lsass|svchost|conhost|taskmgr|winlogon|wmiprv|dwm|csrss|velociraptor
+
+sources:
+  - precondition: |
+      SELECT OS From info() where OS = 'windows'
+    queries:
+      - |
+        LET binaries = SELECT lowcase(string=Exe) As Binary
+          FROM pslist()
+          WHERE Exe =~ processNamesRegex
+          GROUP BY Binary
+
+      - |
+        LET auth = SELECT authenticode(filename=Binary) As Authenticode
+        FROM binaries
+      - |
+        SELECT Authenticode.Filename As Filename,
+               Authenticode.IssuerName as Issuer,
+               Authenticode.SubjectName as Subject,
+               Authenticode.Trusted as Trusted from auth
+</code></pre>
+
+<p></div></a></p>
+
+
+<footer class=" footline" >
+	
+</footer>
+
+
+        
+        </div> 
+        
+
+      </div>
+
+    <div id="navigation">
+        
+        
+        
+        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+            
+        
+        
+        
+
+
+	 
+	 
+		
+			<a class="nav nav-prev" href="/docs/artifacts/events/" title="Windows Event Monitoring"> <i class="fa fa-chevron-left"></i></a>
+		
+		
+			<a class="nav nav-next" href="/docs/artifacts/triage/" title="Windows Triage Artifacts" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+		
+	
+    </div>
+
+    </section>
+    
+    <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+      <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+    </div>
+    <script src="/js/clipboard.min.js?1560335784"></script>
+    <script src="/js/perfect-scrollbar.min.js?1560335784"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1560335784"></script>
+    <script src="/js/jquery.sticky.js?1560335784"></script>
+    <script src="/js/featherlight.min.js?1560335784"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1560335784"></script>
+    <script src="/js/highlight.pack.js?1560335784"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script src="/js/modernizr.custom-3.6.0.js?1560335784"></script>
+    <script src="/js/learn.js?1560335784"></script>
+    <script src="/js/hugo-learn.js?1560335784"></script>
+
+    <link href="/mermaid/mermaid.css?1560335784" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1560335784"></script>
+    <script>
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+    
+
+  </body>
+</html>
+

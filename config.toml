@@ -2,7 +2,7 @@
 baseurl = "/"
 languageCode = "en-us"
 title = "Velociraptor - Hunt Evil!"
-theme = "hugo-theme-learn"
+theme = ["hugo-theme-learn", "syna"]
 enableGitInfo = true
 version = "0.15.0"
 publishDir = "docs"
@@ -20,6 +20,8 @@ googleAnalytics = ""
 [params]
   name = "Velociraptor"
   description = "Velociraptor: Hunt Evil"
+  themeVariant = "mine"
+  disableSearch = false
 
   [params.style]
     #background = "secondary"
@@ -27,10 +29,10 @@ googleAnalytics = ""
   # Theme customizations
   # Assets relative to 'static/'
   [params.custom]
-    favicon = "favicon.ico"
+    favicon = "/images/favicon.ico"
     favicon_ico_sizes = "16x16 32x32"
-    favicon_png = "favicon.png"
-    favicon_svg = "favicon.svg"
+    favicon_png = "/images/favicon.png"
+    favicon_svg = "/images/logo.svg"
 
   # Piwik tracking
   [params.analytics.piwik]

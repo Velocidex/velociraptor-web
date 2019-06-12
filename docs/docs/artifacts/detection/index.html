@@ -1,0 +1,2896 @@
+<!DOCTYPE html>
+<html lang="en" class="js csstransforms3d">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="Hugo 0.56.0-DEV" />
+    <meta name="description" content="These artifacts attempt to detect the presence of specific compromizes.">
+
+
+    <link rel="icon" href="/images/favicon.png" type="image/png">
+
+    <title>Windows Malware Detection :: Velociraptor - Hunt Evil!</title>
+
+    
+    <link href="/css/nucleus.css?1560335784" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1560335784" rel="stylesheet">
+    <link href="/css/hybrid.css?1560335784" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1560335784" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1560335784" rel="stylesheet">
+    <link href="/css/auto-complete.css?1560335784" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1560335784" rel="stylesheet">
+    <link href="/css/theme.css?1560335784" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1560335784" rel="stylesheet">
+    
+      <link href="/css/theme-mine.css?1560335784" rel="stylesheet">
+    
+
+    <script src="/js/jquery-3.3.1.min.js?1560335784"></script>
+
+    <style>
+      :root #header + #content > #left > #rlblock_left{
+          display:none !important;
+      }
+      
+    </style>
+    
+  </head>
+  <body class="" data-url="/docs/artifacts/detection/">
+    <nav id="sidebar" class="">
+
+
+
+  <div id="header-wrapper">
+    <div id="header">
+      <a href="/">
+  <img src="/images/logo.svg" />
+</a>
+
+    </div>
+    
+        <div class="searchbox">
+    <label for="search-by"><i class="fas fa-search"></i></label>
+    <input data-search-input id="search-by" type="search" placeholder="Search...">
+    <span data-search-clear=""><i class="fas fa-times"></i></span>
+</div>
+
+<script type="text/javascript" src="/js/lunr.min.js?1560335784"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1560335784"></script>
+<script type="text/javascript">
+    
+        var baseurl = "\/";
+    
+</script>
+<script type="text/javascript" src="/js/search.js?1560335784"></script>
+
+    
+  </div>
+
+    <div class="highlightable">
+    <ul class="topics">
+
+        
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/about/" title="About Velociraptor" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/about/">
+          Overview
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/about/features/" title="Velociraptor Features" class="dd-item ">
+        <a href="/about/features/">
+        Velociraptor Features
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/about/license/" title="GNU Affero General Public License" class="dd-item ">
+        <a href="/about/license/">
+        License
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/blog/" title="Velociraptor Blog" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/blog/">
+          Velociraptor Blog
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2019/03/02/agentless_hunting_with_velociraptor.html" title="Agentless hunting with Velociraptor" class="dd-item ">
+        <a href="/blog/html/2019/03/02/agentless_hunting_with_velociraptor.html">
+        Agentless hunting with Velociraptor
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2019/02/14/alerting_on_event_patterns.html" title="Alerting on event patterns" class="dd-item ">
+        <a href="/blog/html/2019/02/14/alerting_on_event_patterns.html">
+        Alerting on event patterns
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2019/02/10/velociraptor_performance.html" title="Velociraptor Performance" class="dd-item ">
+        <a href="/blog/html/2019/02/10/velociraptor_performance.html">
+        Velociraptor Performance
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2019/02/09/velociraptor_python_api.html" title="The Velociraptor Python API" class="dd-item ">
+        <a href="/blog/html/2019/02/09/velociraptor_python_api.html">
+        The Velociraptor Python API
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/09/03/velociraptor_s_client_communications.html" title="Velociraptor&#39;s client communications" class="dd-item ">
+        <a href="/blog/html/2018/09/03/velociraptor_s_client_communications.html">
+        Velociraptor&#39;s client communications
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/12/23/deploying_velociraptor_with_oauth_sso.html" title="Deploying Velociraptor with OAuth SSO" class="dd-item ">
+        <a href="/blog/html/2018/12/23/deploying_velociraptor_with_oauth_sso.html">
+        Deploying Velociraptor with OAuth SSO
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/12/22/configuring_velociraptor_for_ssl.html" title="Configuring Velociraptor for SSL" class="dd-item ">
+        <a href="/blog/html/2018/12/22/configuring_velociraptor_for_ssl.html">
+        Configuring Velociraptor for SSL
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/12/11/velociraptor_interactive_shell.html" title="Velociraptor Interactive Shell" class="dd-item ">
+        <a href="/blog/html/2018/12/11/velociraptor_interactive_shell.html">
+        Velociraptor Interactive Shell
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/12/10/server_side_vql_queries_and_events.html" title="Server side VQL queries and Escalation Events" class="dd-item ">
+        <a href="/blog/html/2018/12/10/server_side_vql_queries_and_events.html">
+        Server side VQL queries and Escalation Events
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/12/09/more_on_client_event_collection.html" title="More on client event collection" class="dd-item ">
+        <a href="/blog/html/2018/12/09/more_on_client_event_collection.html">
+        More on client event collection
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/11/13/velociraptor_training_at_nzitf.html" title="Velociraptor training at NZITF" class="dd-item ">
+        <a href="/blog/html/2018/11/13/velociraptor_training_at_nzitf.html">
+        Velociraptor training at NZITF
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/11/09/event_queries_and_endpoint_monitoring.html" title="Event Queries and Endpoint Monitoring" class="dd-item ">
+        <a href="/blog/html/2018/11/09/event_queries_and_endpoint_monitoring.html">
+        Event Queries and Endpoint Monitoring
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/09/30/velorciraptor_s_filesystem_s_accessors.html" title="Velorciraptor&#39;s filesystem&#39;s accessors" class="dd-item ">
+        <a href="/blog/html/2018/09/30/velorciraptor_s_filesystem_s_accessors.html">
+        Velorciraptor&#39;s filesystem&#39;s accessors
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/09/29/detecting_powershell_persistence_with_velociraptor_and_yara.html" title="Detecting powershell persistence with Velociraptor and Yara" class="dd-item ">
+        <a href="/blog/html/2018/09/29/detecting_powershell_persistence_with_velociraptor_and_yara.html">
+        Detecting powershell persistence with Velociraptor and Yara
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/09/03/velociraptor_walk_through_and_demo.html" title="Velociraptor walk through and demo" class="dd-item ">
+        <a href="/blog/html/2018/09/03/velociraptor_walk_through_and_demo.html">
+        Velociraptor walk through and demo
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/08/20/velociraptor_artifacts.html" title="Velociraptor Artifacts" class="dd-item ">
+        <a href="/blog/html/2018/08/20/velociraptor_artifacts.html">
+        Velociraptor Artifacts
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/08/10/browsing_around_the_filesystem.html" title="Browsing around the filesystem." class="dd-item ">
+        <a href="/blog/html/2018/08/10/browsing_around_the_filesystem.html">
+        Browsing around the filesystem.
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/08/10/design_differences_between_velociraptor_and_grr.html" title="Design differences between Velociraptor and GRR" class="dd-item ">
+        <a href="/blog/html/2018/08/10/design_differences_between_velociraptor_and_grr.html">
+        Design differences between Velociraptor and GRR
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/02/09/files_files_everything_is_just_a_file.html" title="Files, files everything is just a file!" class="dd-item ">
+        <a href="/blog/html/2018/02/09/files_files_everything_is_just_a_file.html">
+        Files, files everything is just a file!
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/08/10/hunting_what_velociraptors_do_best.html" title="Hunting - What Velociraptors do best!" class="dd-item ">
+        <a href="/blog/html/2018/08/10/hunting_what_velociraptors_do_best.html">
+        Hunting - What Velociraptors do best!
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/08/10/interrogation_make_the_endpoint_tell_us_what_it_knows.html" title="Interrogation - Make the endpoint tell us what it knows!" class="dd-item ">
+        <a href="/blog/html/2018/08/10/interrogation_make_the_endpoint_tell_us_what_it_knows.html">
+        Interrogation - Make the endpoint tell us what it knows!
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/08/10/the_velocidex_query_language.html" title="Velocidex Query Language (VQL)" class="dd-item ">
+        <a href="/blog/html/2018/08/10/the_velocidex_query_language.html">
+        Velocidex Query Language (VQL)
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/08/10/introducing_velociraptor.html" title="Introducing Velociraptor" class="dd-item ">
+        <a href="/blog/html/2018/08/10/introducing_velociraptor.html">
+        Introducing Velociraptor
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/docs/" title="Velociraptor Documentation" class="dd-item 
+        parent
+        
+        
+        ">
+      <a href="/docs/">
+          Velociraptor Documentation
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/docs/user-interface/" title="Users Manual" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/docs/user-interface/">
+          User Manual Overview
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/user-interface/artifact_types/" title="Artifact Types" class="dd-item ">
+        <a href="/docs/user-interface/artifact_types/">
+        Artifact Types
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/user-interface/flows/" title="Velociraptor Artifacts" class="dd-item ">
+        <a href="/docs/user-interface/flows/">
+        Velociraptor Artifacts
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/user-interface/gui/" title="Searching for clients" class="dd-item ">
+        <a href="/docs/user-interface/gui/">
+        Searching for clients
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/documentation/" title="Velociraptor Documentation" class="dd-item ">
+        <a href="/docs/documentation/">
+        Velociraptor
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/docs/getting-started/" title="Get Started" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/docs/getting-started/">
+          Get Started Overview
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/getting-started/deploying_clients/" title="Deploying Clients" class="dd-item ">
+        <a href="/docs/getting-started/deploying_clients/">
+        Client Deployment
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/getting-started/cloud/" title="Deploying in the cloud" class="dd-item ">
+        <a href="/docs/getting-started/cloud/">
+        Cloud Deployment
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/getting-started/stand_alone/" title="Standalone Deployment" class="dd-item ">
+        <a href="/docs/getting-started/stand_alone/">
+        Standalone Deployment
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/getting-started/triaging/" title="Triaging" class="dd-item ">
+        <a href="/docs/getting-started/triaging/">
+        Triaging
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/docs/presentations/" title="Presentations and Workshops" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/docs/presentations/">
+          Presentation Overview
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/presentations/crikeycon2019/" title="Crikeycon 2019 Training Workshop" class="dd-item ">
+        <a href="/docs/presentations/crikeycon2019/">
+        CrikeyCon 2019
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/presentations/nzitf2018/" title="New Zealand Internet Task Force Conference 2018" class="dd-item ">
+        <a href="/docs/presentations/nzitf2018/">
+        NZITF2018
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/docs/vql_reference/" title="VQL Reference" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/docs/vql_reference/">
+          VQL Overview
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/vql_reference/templates/" title="Report Templates" class="dd-item ">
+        <a href="/docs/vql_reference/templates/">
+        Report Templates
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/vql_reference/event_plugins/" title="VQL Event PLugins" class="dd-item ">
+        <a href="/docs/vql_reference/event_plugins/">
+        VQL Event PLugins
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/vql_reference/functions/" title="VQL Functions" class="dd-item ">
+        <a href="/docs/vql_reference/functions/">
+        VQL Functions
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/vql_reference/plugins/" title="VQL PLugins" class="dd-item ">
+        <a href="/docs/vql_reference/plugins/">
+        VQL PLugins
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/vql_reference/server/" title="VQL Server Plugins" class="dd-item ">
+        <a href="/docs/vql_reference/server/">
+        VQL Server Plugins
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/artifacts/linux/" title="Linux Artifacts" class="dd-item ">
+        <a href="/docs/artifacts/linux/">
+        Linux Artifacts
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/artifacts/misc/" title="Miscelaneous Artifacts" class="dd-item ">
+        <a href="/docs/artifacts/misc/">
+        Miscelaneous
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/artifacts/server/" title="Server Artifacts" class="dd-item ">
+        <a href="/docs/artifacts/server/">
+        Server Artifacts
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/artifacts/detection/" title="Windows Malware Detection" class="dd-item active">
+        <a href="/docs/artifacts/detection/">
+        Windows Detection
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/artifacts/events/" title="Windows Event Monitoring" class="dd-item ">
+        <a href="/docs/artifacts/events/">
+        Windows Monitoring
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/artifacts/windows_system/" title="Windows System" class="dd-item ">
+        <a href="/docs/artifacts/windows_system/">
+        Windows System
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/artifacts/triage/" title="Windows Triage Artifacts" class="dd-item ">
+        <a href="/docs/artifacts/triage/">
+        Windows Triage
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+         
+    </ul>
+
+    
+    
+
+    
+    <section id="footer">
+      
+    </section>
+  </div>
+</nav>
+
+
+
+
+
+        <section id="body">
+        <div id="overlay"></div>
+        <div class="padding highlightable">
+              
+              <div>
+                <div id="top-bar">
+                
+                
+                <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <span id="sidebar-toggle-span">
+                        <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                          <i class="fas fa-bars"></i>
+                        </a>
+                    </span>
+                  
+                  <span id="toc-menu"><i class="fas fa-list-alt"></i></span>
+                  
+                  <span class="links">
+                 
+                 
+                    
+          
+          
+            
+            
+          
+          
+            
+            
+          
+          
+            <a href='/'>Velociraptor - Hunt Evil!</a> > <a href='/docs/'>Velociraptor Documentation</a> > Windows Malware Detection
+          
+         
+          
+         
+          
+        
+                 
+                  </span>
+                </div>
+                
+                    <div class="progress">
+    <div class="wrapper">
+<nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#windows-detection-processmemory">Windows.Detection.ProcessMemory</a></li>
+<li><a href="#windows-detection-psexecservice">Windows.Detection.PsexecService</a></li>
+<li><a href="#windows-detection-thumbdrives-list">Windows.Detection.Thumbdrives.List</a></li>
+<li><a href="#windows-detection-thumbdrives-officekeywords">Windows.Detection.Thumbdrives.OfficeKeywords</a></li>
+<li><a href="#windows-detection-thumbdrives-officemacros">Windows.Detection.Thumbdrives.OfficeMacros</a></li>
+<li><a href="#windows-detection-wmiprocesscreation">Windows.Detection.WMIProcessCreation</a></li>
+<li><a href="#windows-persistence-debug">Windows.Persistence.Debug</a></li>
+<li><a href="#windows-persistence-permanentwmievents">Windows.Persistence.PermanentWMIEvents</a></li>
+<li><a href="#windows-persistence-powershellregistry">Windows.Persistence.PowershellRegistry</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+
+                
+              </div>
+            </div>
+            
+        <div id="head-tags">
+        
+        </div>
+        
+        <div id="body-inner">
+          
+            <h1>
+              
+              Windows Malware Detection
+            </h1>
+          
+
+        
+
+
+
+
+
+<h2 id="windows-detection-processmemory">Windows.Detection.ProcessMemory</h2>
+
+<p>Scanning process memory for signals is powerfull technique. This
+artifact scans processes for a yara signature and when detected, the
+process memory is dumped and uploaded to the server.</p>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>processRegex</td>
+<td>notepad</td>
+<td></td>
+</tr>
+
+<tr>
+<td>yaraRule</td>
+<td>rule Process {\n   strings:\n     $a = &ldquo;this is a secret&rdquo; nocase wide\n     $b = &ldquo;this is a secret&rdquo; nocase\n   condition:\n     any of them\n}\n</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+<p><a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
+    data-target="#Windows_Detection_ProcessMemoryDetails">View Artifact</a>
+ <div class="collapse dn" id="Windows_Detection_ProcessMemoryDetails" style="width: fit-content"></p>
+
+<pre><code>name: Windows.Detection.ProcessMemory
+description: |
+  Scanning process memory for signals is powerfull technique. This
+  artifact scans processes for a yara signature and when detected, the
+  process memory is dumped and uploaded to the server.
+
+precondition: SELECT OS From info() where OS = 'windows'
+
+parameters:
+  - name: processRegex
+    default: notepad
+  - name: yaraRule
+    default: |
+      rule Process {
+         strings:
+           $a = &quot;this is a secret&quot; nocase wide
+           $b = &quot;this is a secret&quot; nocase
+         condition:
+           any of them
+      }
+
+sources:
+  - queries:
+      - LET processes = SELECT Name as ProcessName, CommandLine, Pid
+            FROM pslist()
+            WHERE Name =~ processRegex
+
+      - LET hits = SELECT * FROM foreach(
+          row=processes,
+          query={
+             SELECT ProcessName, CommandLine, Pid, Strings.Offset as Offsets
+             FROM proc_yara(rules=yaraRule, pid=Pid)
+          })
+
+      - SELECT * FROM foreach(
+          row=hits,
+          query={
+            SELECT ProcessName, CommandLine, Pid, Offsets, FullPath,
+                   upload(file=FullPath) as CrashDump
+            FROM proc_dump(pid=Pid)
+          })
+</code></pre>
+
+<p></div></a></p>
+
+<h2 id="windows-detection-psexecservice">Windows.Detection.PsexecService</h2>
+
+<p>PSExec works by installing a new service in the system. The service
+can be renamed using the -r flag and therefore it is not enough to
+just watch for a new service called psexecsvc.exe. This artifact
+improves on this by scanning the service binary to detect the
+original psexec binary.</p>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>yaraRule</td>
+<td>rule PsExec {\n  strings:\n    $a = &ldquo;psexec&rdquo; nocase\n    $b = &ldquo;psexec&rdquo; nocase wide\n\n  condition:\n    any of them\n}\n</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+<p><a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
+    data-target="#Windows_Detection_PsexecServiceDetails">View Artifact</a>
+ <div class="collapse dn" id="Windows_Detection_PsexecServiceDetails" style="width: fit-content"></p>
+
+<pre><code>name: Windows.Detection.PsexecService
+description: |
+  PSExec works by installing a new service in the system. The service
+  can be renamed using the -r flag and therefore it is not enough to
+  just watch for a new service called psexecsvc.exe. This artifact
+  improves on this by scanning the service binary to detect the
+  original psexec binary.
+
+type: EVENT
+
+parameters:
+  - name: yaraRule
+    default: |
+      rule PsExec {
+        strings:
+          $a = &quot;psexec&quot; nocase
+          $b = &quot;psexec&quot; nocase wide
+
+        condition:
+          any of them
+      }
+
+sources:
+  - queries:
+      - LET file_scan = SELECT File, Rule, Strings, now() AS Timestamp,
+               Name, ServiceType
+        FROM yara(rules=yaraRule,
+                  accessor=&quot;ntfs&quot;,
+                  files=PathName)
+        WHERE Rule
+
+      - LET service_creation = SELECT Parse.TargetInstance.Name AS Name,
+               Parse.TargetInstance.PathName As PathName,
+               Parse.TargetInstance.ServiceType As ServiceType
+        FROM wmi_events(
+           query=&quot;SELECT * FROM __InstanceCreationEvent WITHIN 1 WHERE TargetInstance ISA 'Win32_Service'&quot;,
+           wait=5000000,
+           namespace=&quot;ROOT/CIMV2&quot;)
+
+      - SELECT * FROM foreach(
+          row=service_creation,
+          query=file_scan)
+</code></pre>
+
+<p></div></a></p>
+
+<h2 id="windows-detection-thumbdrives-list">Windows.Detection.Thumbdrives.List</h2>
+
+<p>Users inserting Thumb drives or other Removable drive pose a
+constant security risk. The external drive may contain malware or
+other undesirable content. Additionally thumb drives are an easy way
+for users to exfiltrate documents.</p>
+
+<p>This artifact watches for any removable drives and provides a
+complete file listing to the server for any new drive inserted. It
+also provides information about any addition to the thumb drive
+(e.g. a new file copied onto the drive).</p>
+
+<p>We exclude very large removable drives since they might have too
+many files.</p>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>maxDriveSize</td>
+<td>32000000000</td>
+<td>We ignore removable drives larger than this size in bytes.</td>
+</tr>
+</tbody>
+</table>
+
+<p><a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
+    data-target="#Windows_Detection_Thumbdrives_ListDetails">View Artifact</a>
+ <div class="collapse dn" id="Windows_Detection_Thumbdrives_ListDetails" style="width: fit-content"></p>
+
+<pre><code>name: Windows.Detection.Thumbdrives.List
+description: |
+  Users inserting Thumb drives or other Removable drive pose a
+  constant security risk. The external drive may contain malware or
+  other undesirable content. Additionally thumb drives are an easy way
+  for users to exfiltrate documents.
+
+  This artifact watches for any removable drives and provides a
+  complete file listing to the server for any new drive inserted. It
+  also provides information about any addition to the thumb drive
+  (e.g. a new file copied onto the drive).
+
+  We exclude very large removable drives since they might have too
+  many files.
+
+type: EVENT
+
+parameters:
+  - name: maxDriveSize
+    description: We ignore removable drives larger than this size in bytes.
+    default: &quot;32000000000&quot;
+
+
+sources:
+  - queries:
+      - LET removable_disks = SELECT Name AS Drive, atoi(string=Data.Size) AS Size
+        FROM glob(globs=&quot;/*&quot;, accessor=&quot;file&quot;)
+        WHERE Data.Description =~ &quot;Removable&quot; AND Size &lt; atoi(string=maxDriveSize)
+
+      - LET file_listing = SELECT FullPath, timestamp(epoch=Mtime.Sec) As Modified, Size
+        FROM glob(globs=Drive+&quot;\\**&quot;, accessor=&quot;file&quot;) LIMIT 1000
+
+      - SELECT * FROM diff(
+         query={ SELECT * FROM foreach(row=removable_disks, query=file_listing) },
+         key=&quot;FullPath&quot;,
+         period=10)
+         WHERE Diff = &quot;added&quot;
+</code></pre>
+
+<p></div></a></p>
+
+<h2 id="windows-detection-thumbdrives-officekeywords">Windows.Detection.Thumbdrives.OfficeKeywords</h2>
+
+<p>Users inserting Thumb drives or other Removable drive pose a
+constant security risk. The external drive may contain malware or
+other undesirable content. Additionally thumb drives are an easy way
+for users to exfiltrate documents.</p>
+
+<p>This artifact automatically scans any office files copied to a
+removable drive for keywords. This could be useful to detect
+exfiltration attempts of restricted documents.</p>
+
+<p>We exclude very large removable drives since they might have too
+many files.</p>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>officeExtensions</td>
+<td>\.(xls</td>
+<td>xlsm</td>
+</tr>
+
+<tr>
+<td>yaraRule</td>
+<td>rule Hit {\n  strings:\n    $a = &ldquo;this is my secret&rdquo; wide nocase\n    $b = &ldquo;this is my secret&rdquo; nocase\n\n  condition:\n    any of them\n}\n</td>
+<td>This yara rule will be run on document contents.</td>
+</tr>
+</tbody>
+</table>
+
+<p><a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
+    data-target="#Windows_Detection_Thumbdrives_OfficeKeywordsDetails">View Artifact</a>
+ <div class="collapse dn" id="Windows_Detection_Thumbdrives_OfficeKeywordsDetails" style="width: fit-content"></p>
+
+<pre><code>name: Windows.Detection.Thumbdrives.OfficeKeywords
+description: |
+  Users inserting Thumb drives or other Removable drive pose a
+  constant security risk. The external drive may contain malware or
+  other undesirable content. Additionally thumb drives are an easy way
+  for users to exfiltrate documents.
+
+  This artifact automatically scans any office files copied to a
+  removable drive for keywords. This could be useful to detect
+  exfiltration attempts of restricted documents.
+
+  We exclude very large removable drives since they might have too
+  many files.
+
+type: EVENT
+
+parameters:
+  - name: officeExtensions
+    default: &quot;\\.(xls|xlsm|doc|docx|ppt|pptm)$&quot;
+  - name: yaraRule
+    description: This yara rule will be run on document contents.
+    default: |
+      rule Hit {
+        strings:
+          $a = &quot;this is my secret&quot; wide nocase
+          $b = &quot;this is my secret&quot; nocase
+
+        condition:
+          any of them
+      }
+
+sources:
+  - queries:
+      - SELECT * FROM foreach(
+        row = {
+          SELECT * FROM Artifact.Windows.Detection.Thumbdrives.List()
+          WHERE FullPath =~ officeExtensions
+        },
+        query = {
+          SELECT * FROM Artifact.Generic.Applications.Office.Keywords(
+            yaraRule=yaraRule, searchGlob=FullPath, documentGlobs=&quot;&quot;)
+        })
+</code></pre>
+
+<p></div></a></p>
+
+<h2 id="windows-detection-thumbdrives-officemacros">Windows.Detection.Thumbdrives.OfficeMacros</h2>
+
+<p>Users inserting Thumb drives or other Removable drive pose a
+constant security risk. The external drive may contain malware or
+other undesirable content. Additionally thumb drives are an easy way
+for users to exfiltrate documents.</p>
+
+<p>This artifact watches for any removable drives and scans any added
+office documents for VBA macros.</p>
+
+<p>We exclude very large removable drives since they might have too
+many files.</p>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>officeExtensions</td>
+<td>\.(xls</td>
+<td>xlsm</td>
+</tr>
+</tbody>
+</table>
+
+<p><a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
+    data-target="#Windows_Detection_Thumbdrives_OfficeMacrosDetails">View Artifact</a>
+ <div class="collapse dn" id="Windows_Detection_Thumbdrives_OfficeMacrosDetails" style="width: fit-content"></p>
+
+<pre><code>name: Windows.Detection.Thumbdrives.OfficeMacros
+description: |
+  Users inserting Thumb drives or other Removable drive pose a
+  constant security risk. The external drive may contain malware or
+  other undesirable content. Additionally thumb drives are an easy way
+  for users to exfiltrate documents.
+
+  This artifact watches for any removable drives and scans any added
+  office documents for VBA macros.
+
+  We exclude very large removable drives since they might have too
+  many files.
+
+type: EVENT
+
+parameters:
+  - name: officeExtensions
+    default: &quot;\\.(xls|xlsm|doc|docx|ppt|pptm)$&quot;
+
+sources:
+  - queries:
+      - SELECT * FROM foreach(
+        row = {
+          SELECT * FROM Artifact.Windows.Detection.Thumbdrives.List()
+          WHERE FullPath =~ officeExtensions
+        },
+        query = {
+          SELECT * from olevba(file=FullPath)
+        })
+</code></pre>
+
+<p></div></a></p>
+
+<h2 id="windows-detection-wmiprocesscreation">Windows.Detection.WMIProcessCreation</h2>
+
+<p>WMI Process creation is a common lateral movement technique. The
+attacker simply uses WMI to call the Create() method on the
+Win32_Process WMI object.</p>
+
+<p>This can be easily done via the wmic.exe command or via powershell:</p>
+
+<pre><code>wmic process create cmd.exe
+</code></pre>
+
+<p><a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
+    data-target="#Windows_Detection_WMIProcessCreationDetails">View Artifact</a>
+ <div class="collapse dn" id="Windows_Detection_WMIProcessCreationDetails" style="width: fit-content"></p>
+
+<pre><code>name: Windows.Detection.WMIProcessCreation
+description: |
+  WMI Process creation is a common lateral movement technique. The
+  attacker simply uses WMI to call the Create() method on the
+  Win32_Process WMI object.
+
+  This can be easily done via the wmic.exe command or via powershell:
+
+</code></pre>
+
+<p>wmic process create cmd.exe</p>
+
+<pre><code>
+type: EVENT
+
+sources:
+  - queries:
+      - SELECT Parse from wmi_events(
+          query=&quot;SELECT * FROM MSFT_WmiProvider_ExecMethodAsyncEvent_Pre WHERE ObjectPath=\&quot;Win32_Process\&quot; AND MethodName=\&quot;Create\&quot;&quot;,
+          namespace=&quot;ROOT/CIMV2&quot;,
+          wait=50000000)
+</code></pre>
+
+<p></div></a></p>
+
+<h2 id="windows-persistence-debug">Windows.Persistence.Debug</h2>
+
+<p>Windows allows specific configuration of various executables via a
+registry key. Some keys allow defining a debugger to attach to a
+program as it is run. If this debugger is launched for commonly used
+programs (e.g. notepad) then another program can be launched at the
+same time (with the same privileges).</p>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>imageFileExecutionOptions</td>
+<td>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\*</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+<p><a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
+    data-target="#Windows_Persistence_DebugDetails">View Artifact</a>
+ <div class="collapse dn" id="Windows_Persistence_DebugDetails" style="width: fit-content"></p>
+
+<pre><code>name: Windows.Persistence.Debug
+description: |
+  Windows allows specific configuration of various executables via a
+  registry key. Some keys allow defining a debugger to attach to a
+  program as it is run. If this debugger is launched for commonly used
+  programs (e.g. notepad) then another program can be launched at the
+  same time (with the same privileges).
+
+reference:
+  - https://attack.mitre.org/techniques/T1183/
+
+parameters:
+  - name: imageFileExecutionOptions
+    default: HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\*
+
+sources:
+  - queries:
+      - SELECT Key.Name AS Program,
+               Key.FullPath as Key,
+               Debugger FROM read_reg_key(globs=imageFileExecutionOptions)
+        WHERE Debugger
+</code></pre>
+
+<p></div></a></p>
+
+<h2 id="windows-persistence-permanentwmievents">Windows.Persistence.PermanentWMIEvents</h2>
+
+<p>Malware often registers a permanent event listener within WMI. When
+the event fires, the WMI system itself will invoke the consumer to
+handle the event. The malware does not need to be running at the
+time the event fires. Malware can use this mechanism to re-infect
+the machine for example.</p>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>namespace</td>
+<td>root/subscription</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+<p><a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
+    data-target="#Windows_Persistence_PermanentWMIEventsDetails">View Artifact</a>
+ <div class="collapse dn" id="Windows_Persistence_PermanentWMIEventsDetails" style="width: fit-content"></p>
+
+<pre><code>name: Windows.Persistence.PermanentWMIEvents
+description: |
+   Malware often registers a permanent event listener within WMI. When
+   the event fires, the WMI system itself will invoke the consumer to
+   handle the event. The malware does not need to be running at the
+   time the event fires. Malware can use this mechanism to re-infect
+   the machine for example.
+
+parameters:
+  - name: namespace
+    default: root/subscription
+
+sources:
+ - precondition:
+     SELECT OS from info() where OS = &quot;windows&quot;
+   queries:
+   - |
+     LET FilterToConsumerBinding = SELECT parse_string_with_regex(
+        string=Consumer,
+        regex=['((?P&lt;namespace&gt;^[^:]+):)?(?P&lt;Type&gt;.+?)\\.Name=&quot;(?P&lt;Name&gt;.+)&quot;']) as Consumer,
+          parse_string_with_regex(
+        string=Filter,
+        regex=['((?P&lt;namespace&gt;^[^:]+):)?(?P&lt;Type&gt;.+?)\\.Name=&quot;(?P&lt;Name&gt;.+)&quot;']) as Filter
+     FROM wmi(
+         query=&quot;SELECT * FROM __FilterToConsumerBinding&quot;,
+         namespace=namespace)
+   - |
+     SELECT {
+       SELECT * FROM wmi(
+          query=&quot;SELECT * FROM &quot; + Consumer.Type,
+          namespace=if(condition=Consumer.namespace,
+              then=Consumer.namespace,
+              else=namespace)) WHERE Name = Consumer.Name
+     } AS ConsumerDetails,
+     {
+       SELECT * FROM wmi(
+          query=&quot;SELECT * FROM &quot; + Filter.Type,
+          namespace=if(condition=Filter.namespace,
+              then=Filter.namespace,
+              else=namespace)) WHERE Name = Filter.Name
+     } AS FilterDetails
+     FROM FilterToConsumerBinding
+</code></pre>
+
+<p></div></a></p>
+
+<h2 id="windows-persistence-powershellregistry">Windows.Persistence.PowershellRegistry</h2>
+
+<p>A common way of persistence is to install a hook into a user profile
+registry hive, using powershell. When the user logs in, the
+powershell script downloads a payload and executes it.</p>
+
+<p>This artifact searches the user&rsquo;s profile registry hive for
+signatures related to general Powershell execution. We use a yara
+signature specifically targeting the user&rsquo;s profile which we extract
+using raw NTFS parsing (in case the user is currently logged on and
+the registry hive is locked).</p>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>yaraRule</td>
+<td>rule PowerShell {\n  strings:\n    $a = /ActiveXObject.{,500}eval/ wide nocase\n\n  condition:\n    any of them\n}\n</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+<p><a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
+    data-target="#Windows_Persistence_PowershellRegistryDetails">View Artifact</a>
+ <div class="collapse dn" id="Windows_Persistence_PowershellRegistryDetails" style="width: fit-content"></p>
+
+<pre><code>name: Windows.Persistence.PowershellRegistry
+description: |
+  A common way of persistence is to install a hook into a user profile
+  registry hive, using powershell. When the user logs in, the
+  powershell script downloads a payload and executes it.
+
+  This artifact searches the user's profile registry hive for
+  signatures related to general Powershell execution. We use a yara
+  signature specifically targeting the user's profile which we extract
+  using raw NTFS parsing (in case the user is currently logged on and
+  the registry hive is locked).
+
+parameters:
+  - name: yaraRule
+    default: |
+      rule PowerShell {
+        strings:
+          $a = /ActiveXObject.{,500}eval/ wide nocase
+
+        condition:
+          any of them
+      }
+
+sources:
+  - precondition:
+      SELECT OS From info() where OS = 'windows'
+    queries:
+      - |
+        SELECT * from foreach(
+        row={
+          SELECT Name, Directory as HomeDir from Artifact.Windows.Sys.Users()
+          WHERE Directory and Gid
+        },
+        query={
+          SELECT File.FullPath As FullPath,
+                 Strings.Offset AS Off,
+                 Strings.HexData As Hex,
+                 upload(file=File.FullPath, accessor=&quot;ntfs&quot;) AS Upload
+              FROM yara(
+              files=&quot;\\\\.\\&quot; + HomeDir + &quot;\\ntuser.dat&quot;,
+              accessor=&quot;ntfs&quot;,
+              rules=yaraRule, context=50)
+        })
+</code></pre>
+
+<p></div></a></p>
+
+
+<footer class=" footline" >
+	
+</footer>
+
+
+        
+        </div> 
+        
+
+      </div>
+
+    <div id="navigation">
+        
+        
+        
+        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+            
+        
+        
+        
+
+
+	 
+	 
+		
+			<a class="nav nav-prev" href="/docs/artifacts/server/" title="Server Artifacts"> <i class="fa fa-chevron-left"></i></a>
+		
+		
+			<a class="nav nav-next" href="/docs/artifacts/events/" title="Windows Event Monitoring" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+		
+	
+    </div>
+
+    </section>
+    
+    <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+      <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+    </div>
+    <script src="/js/clipboard.min.js?1560335784"></script>
+    <script src="/js/perfect-scrollbar.min.js?1560335784"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1560335784"></script>
+    <script src="/js/jquery.sticky.js?1560335784"></script>
+    <script src="/js/featherlight.min.js?1560335784"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1560335784"></script>
+    <script src="/js/highlight.pack.js?1560335784"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script src="/js/modernizr.custom-3.6.0.js?1560335784"></script>
+    <script src="/js/learn.js?1560335784"></script>
+    <script src="/js/hugo-learn.js?1560335784"></script>
+
+    <link href="/mermaid/mermaid.css?1560335784" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1560335784"></script>
+    <script>
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+    
+
+  </body>
+</html>
+

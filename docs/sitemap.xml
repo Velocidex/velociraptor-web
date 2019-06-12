@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>/docs/user-interface/</loc>
+    <lastmod>2019-05-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/docs/documentation/</loc>
+    <lastmod>2019-04-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/docs/user-interface/artifact_types/</loc>
+    <lastmod>2019-02-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/docs/presentations/crikeycon2019/</loc>
+    <lastmod>2019-02-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/docs/getting-started/</loc>
+    <lastmod>2019-02-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/docs/presentations/nzitf2018/</loc>
+    <lastmod>2019-02-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/about/</loc>
+    <lastmod>2019-02-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/docs/presentations/</loc>
+    <lastmod>2019-02-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/docs/vql_reference/templates/</loc>
+    <lastmod>2019-02-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/docs/vql_reference/event_plugins/</loc>
+    <lastmod>2019-02-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/docs/vql_reference/functions/</loc>
+    <lastmod>2019-02-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/docs/vql_reference/</loc>
+    <lastmod>2019-02-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/docs/vql_reference/plugins/</loc>
+    <lastmod>2019-02-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/docs/vql_reference/server/</loc>
+    <lastmod>2019-02-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/docs/user-interface/flows/</loc>
+    <lastmod>2019-02-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/docs/user-interface/gui/</loc>
+    <lastmod>2019-05-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/about/features/</loc>
+    <lastmod>2017-02-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/about/license/</loc>
+    <lastmod>2016-03-02T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/</loc>
+    <lastmod>2019-06-10T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/</loc>
+    <lastmod>2019-06-10T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/categories/</loc>
+    <lastmod>2019-05-01T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/categories/manual/</loc>
+    <lastmod>2019-05-01T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/blog/html/2019/03/02/agentless_hunting_with_velociraptor.html</loc>
+    <lastmod>2019-03-02T04:10:06+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/categories/blog/</loc>
+    <lastmod>2019-03-02T04:10:06+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/blog/</loc>
+    <lastmod>2019-03-02T04:10:06+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/html/2019/02/14/alerting_on_event_patterns.html</loc>
+    <lastmod>2019-02-14T04:10:06+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/html/2019/02/10/velociraptor_performance.html</loc>
+    <lastmod>2019-02-10T04:10:06+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/html/2019/02/09/velociraptor_python_api.html</loc>
+    <lastmod>2019-02-09T04:10:06+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/html/2018/09/03/velociraptor_s_client_communications.html</loc>
+    <lastmod>2019-02-09T04:10:06+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/categories/docs/</loc>
+    <lastmod>2019-02-01T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/categories/getting-started/</loc>
+    <lastmod>2019-02-01T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/categories/gui/</loc>
+    <lastmod>2019-02-01T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/categories/vql/</loc>
+    <lastmod>2019-02-01T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/blog/html/2018/12/23/deploying_velociraptor_with_oauth_sso.html</loc>
+    <lastmod>2018-12-23T04:10:06+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/html/2018/12/22/configuring_velociraptor_for_ssl.html</loc>
+    <lastmod>2018-12-22T04:10:06+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/html/2018/12/11/velociraptor_interactive_shell.html</loc>
+    <lastmod>2018-12-11T04:10:06+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/html/2018/12/10/server_side_vql_queries_and_events.html</loc>
+    <lastmod>2018-12-10T04:10:06+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/html/2018/12/09/more_on_client_event_collection.html</loc>
+    <lastmod>2018-12-09T04:10:06+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/html/2018/11/13/velociraptor_training_at_nzitf.html</loc>
+    <lastmod>2018-11-13T04:10:06+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/html/2018/11/09/event_queries_and_endpoint_monitoring.html</loc>
+    <lastmod>2018-11-09T04:10:06+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/html/2018/09/30/velorciraptor_s_filesystem_s_accessors.html</loc>
+    <lastmod>2018-09-30T04:10:06+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/html/2018/09/29/detecting_powershell_persistence_with_velociraptor_and_yara.html</loc>
+    <lastmod>2018-09-29T04:10:06+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/html/2018/09/03/velociraptor_walk_through_and_demo.html</loc>
+    <lastmod>2018-09-03T04:10:06+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/html/2018/08/20/velociraptor_artifacts.html</loc>
+    <lastmod>2018-08-20T04:10:06+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/html/2018/08/10/browsing_around_the_filesystem.html</loc>
+    <lastmod>2018-08-10T04:10:06+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/html/2018/08/10/design_differences_between_velociraptor_and_grr.html</loc>
+    <lastmod>2018-08-10T04:10:06+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/html/2018/02/09/files_files_everything_is_just_a_file.html</loc>
+    <lastmod>2018-08-10T04:10:06+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/html/2018/08/10/hunting_what_velociraptors_do_best.html</loc>
+    <lastmod>2018-08-10T04:10:06+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/html/2018/08/10/interrogation_make_the_endpoint_tell_us_what_it_knows.html</loc>
+    <lastmod>2018-08-10T04:10:06+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/html/2018/08/10/the_velocidex_query_language.html</loc>
+    <lastmod>2018-08-10T04:10:06+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/html/2018/08/10/introducing_velociraptor.html</loc>
+    <lastmod>2018-02-09T04:10:06+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/docs/</loc>
+    <lastmod>2017-03-02T12:00:00-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/categories/about-velociraptor/</loc>
+    <lastmod>2016-03-02T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/docs/getting-started/deploying_clients/</loc>
+  </url>
+  
+  <url>
+    <loc>/docs/getting-started/cloud/</loc>
+  </url>
+  
+  <url>
+    <loc>/docs/artifacts/linux/</loc>
+  </url>
+  
+  <url>
+    <loc>/docs/artifacts/misc/</loc>
+  </url>
+  
+  <url>
+    <loc>/docs/artifacts/server/</loc>
+  </url>
+  
+  <url>
+    <loc>/docs/getting-started/stand_alone/</loc>
+  </url>
+  
+  <url>
+    <loc>/tags/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/docs/getting-started/triaging/</loc>
+  </url>
+  
+  <url>
+    <loc>/docs/artifacts/detection/</loc>
+  </url>
+  
+  <url>
+    <loc>/docs/artifacts/events/</loc>
+  </url>
+  
+  <url>
+    <loc>/docs/artifacts/windows_system/</loc>
+  </url>
+  
+  <url>
+    <loc>/docs/artifacts/triage/</loc>
+  </url>
+  
+</urlset>

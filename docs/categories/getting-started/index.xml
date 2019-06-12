@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>getting started on Velociraptor - Hunt Evil!</title>
+    <link>/categories/getting-started/</link>
+    <description>Recent content in getting started on Velociraptor - Hunt Evil!</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 01 Feb 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/categories/getting-started/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Get Started</title>
+      <link>/docs/getting-started/</link>
+      <pubDate>Fri, 01 Feb 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/getting-started/</guid>
+      <description>Velociraptor can be used in a number of contexts and deployed in a number of different way. The simplest way is a stand alone server. If you deploy the server in the cloud it is possible to use automatically minted SSL certificates.
+Alternatively Velociraptor can be used for triaging - simply collecting artifacts from system for later analysis and preservation.</description>
+    </item>
+    
+    <item>
+      <title>Presentations and Workshops</title>
+      <link>/docs/presentations/</link>
+      <pubDate>Fri, 01 Feb 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/presentations/</guid>
+      <description>This page highlights some of the more interesting presentations we gave. It can be used as reference material. Note the dates of presentation as some material may be outdated.</description>
+    </item>
+    
+    <item>
+      <title>Deploying Clients</title>
+      <link>/docs/getting-started/deploying_clients/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/getting-started/deploying_clients/</guid>
+      <description>Velociraptor endpoint agents are called clients. Clients connect to the server and wait for instructions (which mostly consist of VQL statements), they then run any VQL queries and return the result to the server.
+There are a number of ways to run clients, depending on your needs. This page summarizes the ways and discusses the pros and cons of each approach.
+Note that all Velociraptor binaries are the same - there is no distinction between client binaries or server binaries.</description>
+    </item>
+    
+    <item>
+      <title>Deploying in the cloud</title>
+      <link>/docs/getting-started/cloud/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/getting-started/cloud/</guid>
+      <description>However one of the most important advantages of cloud deployment is the possibility of minting a proper SSL certificate using the free Letsencrypt CA. Velociraptor is able to use the Letsencrypt protocol to obtain its own certificates (and automatically rotate them when they expire).
+Step 1: Getting a domain name An SSL certificate says that the DNS name is owned by the server which presents it. Therefore SSL goes hand in hand with DNS.</description>
+    </item>
+    
+    <item>
+      <title>Standalone Deployment</title>
+      <link>/docs/getting-started/stand_alone/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/getting-started/stand_alone/</guid>
+      <description>The Velociraptor server communicates with the clients over SSL connection. The same binary also provides a GUI on a separate port.
+Step 1: Generating a new config file. Velociraptor uses a configuration file to control the server and client. Before making a new deployment, you need to generate a new config file. The file also contains key material such that your clients will only communicate with your servers.
+Therefore our first step is to generate a new configuration file.</description>
+    </item>
+    
+    <item>
+      <title>Triaging</title>
+      <link>/docs/getting-started/triaging/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/getting-started/triaging/</guid>
+      <description>We can use Velociraptor to hunt for many artifacts across the network. However ultimately, the Velociraptor agent simply runs VQL to collect its artifacts. What if we can just collect the artifacts interactive?
+We certainly can do this!
+Triaging a system. When triaging a system our goal is to collect and preserve as much data from the system as possible, as quickly as possible.
+First lets see what artifacts come built in with Velociraptor:</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,2491 @@
+<!DOCTYPE html>
+<html lang="en" class="js csstransforms3d">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="Hugo 0.56.0-DEV" />
+    <meta name="description" content="We have shown in earlier posts how Velociraptor uses VQL to define event queries that can detect specific conditions. These conditions can be used to create alerts and escalation actions.">
+
+
+    <link rel="icon" href="/images/favicon.png" type="image/png">
+
+    <title>Alerting on event patterns :: Velociraptor - Hunt Evil!</title>
+
+    
+    <link href="/css/nucleus.css?1560335783" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1560335783" rel="stylesheet">
+    <link href="/css/hybrid.css?1560335783" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1560335783" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1560335783" rel="stylesheet">
+    <link href="/css/auto-complete.css?1560335783" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1560335783" rel="stylesheet">
+    <link href="/css/theme.css?1560335783" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1560335783" rel="stylesheet">
+    
+      <link href="/css/theme-mine.css?1560335783" rel="stylesheet">
+    
+
+    <script src="/js/jquery-3.3.1.min.js?1560335783"></script>
+
+    <style>
+      :root #header + #content > #left > #rlblock_left{
+          display:none !important;
+      }
+      
+    </style>
+    
+  </head>
+  <body class="" data-url="/blog/html/2019/02/14/alerting_on_event_patterns.html">
+    <nav id="sidebar" class="">
+
+
+
+  <div id="header-wrapper">
+    <div id="header">
+      <a href="/">
+  <img src="/images/logo.svg" />
+</a>
+
+    </div>
+    
+        <div class="searchbox">
+    <label for="search-by"><i class="fas fa-search"></i></label>
+    <input data-search-input id="search-by" type="search" placeholder="Search...">
+    <span data-search-clear=""><i class="fas fa-times"></i></span>
+</div>
+
+<script type="text/javascript" src="/js/lunr.min.js?1560335783"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1560335783"></script>
+<script type="text/javascript">
+    
+        var baseurl = "\/";
+    
+</script>
+<script type="text/javascript" src="/js/search.js?1560335783"></script>
+
+    
+  </div>
+
+    <div class="highlightable">
+    <ul class="topics">
+
+        
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/about/" title="About Velociraptor" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/about/">
+          Overview
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/about/features/" title="Velociraptor Features" class="dd-item ">
+        <a href="/about/features/">
+        Velociraptor Features
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/about/license/" title="GNU Affero General Public License" class="dd-item ">
+        <a href="/about/license/">
+        License
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/blog/" title="Velociraptor Blog" class="dd-item 
+        parent
+        
+        
+        ">
+      <a href="/blog/">
+          Velociraptor Blog
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2019/03/02/agentless_hunting_with_velociraptor.html" title="Agentless hunting with Velociraptor" class="dd-item ">
+        <a href="/blog/html/2019/03/02/agentless_hunting_with_velociraptor.html">
+        Agentless hunting with Velociraptor
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2019/02/14/alerting_on_event_patterns.html" title="Alerting on event patterns" class="dd-item active">
+        <a href="/blog/html/2019/02/14/alerting_on_event_patterns.html">
+        Alerting on event patterns
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2019/02/10/velociraptor_performance.html" title="Velociraptor Performance" class="dd-item ">
+        <a href="/blog/html/2019/02/10/velociraptor_performance.html">
+        Velociraptor Performance
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2019/02/09/velociraptor_python_api.html" title="The Velociraptor Python API" class="dd-item ">
+        <a href="/blog/html/2019/02/09/velociraptor_python_api.html">
+        The Velociraptor Python API
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/09/03/velociraptor_s_client_communications.html" title="Velociraptor&#39;s client communications" class="dd-item ">
+        <a href="/blog/html/2018/09/03/velociraptor_s_client_communications.html">
+        Velociraptor&#39;s client communications
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/12/23/deploying_velociraptor_with_oauth_sso.html" title="Deploying Velociraptor with OAuth SSO" class="dd-item ">
+        <a href="/blog/html/2018/12/23/deploying_velociraptor_with_oauth_sso.html">
+        Deploying Velociraptor with OAuth SSO
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/12/22/configuring_velociraptor_for_ssl.html" title="Configuring Velociraptor for SSL" class="dd-item ">
+        <a href="/blog/html/2018/12/22/configuring_velociraptor_for_ssl.html">
+        Configuring Velociraptor for SSL
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/12/11/velociraptor_interactive_shell.html" title="Velociraptor Interactive Shell" class="dd-item ">
+        <a href="/blog/html/2018/12/11/velociraptor_interactive_shell.html">
+        Velociraptor Interactive Shell
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/12/10/server_side_vql_queries_and_events.html" title="Server side VQL queries and Escalation Events" class="dd-item ">
+        <a href="/blog/html/2018/12/10/server_side_vql_queries_and_events.html">
+        Server side VQL queries and Escalation Events
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/12/09/more_on_client_event_collection.html" title="More on client event collection" class="dd-item ">
+        <a href="/blog/html/2018/12/09/more_on_client_event_collection.html">
+        More on client event collection
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/11/13/velociraptor_training_at_nzitf.html" title="Velociraptor training at NZITF" class="dd-item ">
+        <a href="/blog/html/2018/11/13/velociraptor_training_at_nzitf.html">
+        Velociraptor training at NZITF
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/11/09/event_queries_and_endpoint_monitoring.html" title="Event Queries and Endpoint Monitoring" class="dd-item ">
+        <a href="/blog/html/2018/11/09/event_queries_and_endpoint_monitoring.html">
+        Event Queries and Endpoint Monitoring
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/09/30/velorciraptor_s_filesystem_s_accessors.html" title="Velorciraptor&#39;s filesystem&#39;s accessors" class="dd-item ">
+        <a href="/blog/html/2018/09/30/velorciraptor_s_filesystem_s_accessors.html">
+        Velorciraptor&#39;s filesystem&#39;s accessors
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/09/29/detecting_powershell_persistence_with_velociraptor_and_yara.html" title="Detecting powershell persistence with Velociraptor and Yara" class="dd-item ">
+        <a href="/blog/html/2018/09/29/detecting_powershell_persistence_with_velociraptor_and_yara.html">
+        Detecting powershell persistence with Velociraptor and Yara
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/09/03/velociraptor_walk_through_and_demo.html" title="Velociraptor walk through and demo" class="dd-item ">
+        <a href="/blog/html/2018/09/03/velociraptor_walk_through_and_demo.html">
+        Velociraptor walk through and demo
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/08/20/velociraptor_artifacts.html" title="Velociraptor Artifacts" class="dd-item ">
+        <a href="/blog/html/2018/08/20/velociraptor_artifacts.html">
+        Velociraptor Artifacts
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/08/10/browsing_around_the_filesystem.html" title="Browsing around the filesystem." class="dd-item ">
+        <a href="/blog/html/2018/08/10/browsing_around_the_filesystem.html">
+        Browsing around the filesystem.
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/08/10/design_differences_between_velociraptor_and_grr.html" title="Design differences between Velociraptor and GRR" class="dd-item ">
+        <a href="/blog/html/2018/08/10/design_differences_between_velociraptor_and_grr.html">
+        Design differences between Velociraptor and GRR
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/02/09/files_files_everything_is_just_a_file.html" title="Files, files everything is just a file!" class="dd-item ">
+        <a href="/blog/html/2018/02/09/files_files_everything_is_just_a_file.html">
+        Files, files everything is just a file!
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/08/10/hunting_what_velociraptors_do_best.html" title="Hunting - What Velociraptors do best!" class="dd-item ">
+        <a href="/blog/html/2018/08/10/hunting_what_velociraptors_do_best.html">
+        Hunting - What Velociraptors do best!
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/08/10/interrogation_make_the_endpoint_tell_us_what_it_knows.html" title="Interrogation - Make the endpoint tell us what it knows!" class="dd-item ">
+        <a href="/blog/html/2018/08/10/interrogation_make_the_endpoint_tell_us_what_it_knows.html">
+        Interrogation - Make the endpoint tell us what it knows!
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/08/10/the_velocidex_query_language.html" title="Velocidex Query Language (VQL)" class="dd-item ">
+        <a href="/blog/html/2018/08/10/the_velocidex_query_language.html">
+        Velocidex Query Language (VQL)
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/08/10/introducing_velociraptor.html" title="Introducing Velociraptor" class="dd-item ">
+        <a href="/blog/html/2018/08/10/introducing_velociraptor.html">
+        Introducing Velociraptor
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/docs/" title="Velociraptor Documentation" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/docs/">
+          Velociraptor Documentation
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/docs/user-interface/" title="Users Manual" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/docs/user-interface/">
+          User Manual Overview
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/user-interface/artifact_types/" title="Artifact Types" class="dd-item ">
+        <a href="/docs/user-interface/artifact_types/">
+        Artifact Types
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/user-interface/flows/" title="Velociraptor Artifacts" class="dd-item ">
+        <a href="/docs/user-interface/flows/">
+        Velociraptor Artifacts
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/user-interface/gui/" title="Searching for clients" class="dd-item ">
+        <a href="/docs/user-interface/gui/">
+        Searching for clients
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/documentation/" title="Velociraptor Documentation" class="dd-item ">
+        <a href="/docs/documentation/">
+        Velociraptor
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/docs/getting-started/" title="Get Started" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/docs/getting-started/">
+          Get Started Overview
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/getting-started/deploying_clients/" title="Deploying Clients" class="dd-item ">
+        <a href="/docs/getting-started/deploying_clients/">
+        Client Deployment
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/getting-started/cloud/" title="Deploying in the cloud" class="dd-item ">
+        <a href="/docs/getting-started/cloud/">
+        Cloud Deployment
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/getting-started/stand_alone/" title="Standalone Deployment" class="dd-item ">
+        <a href="/docs/getting-started/stand_alone/">
+        Standalone Deployment
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/getting-started/triaging/" title="Triaging" class="dd-item ">
+        <a href="/docs/getting-started/triaging/">
+        Triaging
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/docs/presentations/" title="Presentations and Workshops" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/docs/presentations/">
+          Presentation Overview
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/presentations/crikeycon2019/" title="Crikeycon 2019 Training Workshop" class="dd-item ">
+        <a href="/docs/presentations/crikeycon2019/">
+        CrikeyCon 2019
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/presentations/nzitf2018/" title="New Zealand Internet Task Force Conference 2018" class="dd-item ">
+        <a href="/docs/presentations/nzitf2018/">
+        NZITF2018
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/docs/vql_reference/" title="VQL Reference" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/docs/vql_reference/">
+          VQL Overview
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/vql_reference/templates/" title="Report Templates" class="dd-item ">
+        <a href="/docs/vql_reference/templates/">
+        Report Templates
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/vql_reference/event_plugins/" title="VQL Event PLugins" class="dd-item ">
+        <a href="/docs/vql_reference/event_plugins/">
+        VQL Event PLugins
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/vql_reference/functions/" title="VQL Functions" class="dd-item ">
+        <a href="/docs/vql_reference/functions/">
+        VQL Functions
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/vql_reference/plugins/" title="VQL PLugins" class="dd-item ">
+        <a href="/docs/vql_reference/plugins/">
+        VQL PLugins
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/vql_reference/server/" title="VQL Server Plugins" class="dd-item ">
+        <a href="/docs/vql_reference/server/">
+        VQL Server Plugins
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/artifacts/linux/" title="Linux Artifacts" class="dd-item ">
+        <a href="/docs/artifacts/linux/">
+        Linux Artifacts
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/artifacts/misc/" title="Miscelaneous Artifacts" class="dd-item ">
+        <a href="/docs/artifacts/misc/">
+        Miscelaneous
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/artifacts/server/" title="Server Artifacts" class="dd-item ">
+        <a href="/docs/artifacts/server/">
+        Server Artifacts
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/artifacts/detection/" title="Windows Malware Detection" class="dd-item ">
+        <a href="/docs/artifacts/detection/">
+        Windows Detection
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/artifacts/events/" title="Windows Event Monitoring" class="dd-item ">
+        <a href="/docs/artifacts/events/">
+        Windows Monitoring
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/artifacts/windows_system/" title="Windows System" class="dd-item ">
+        <a href="/docs/artifacts/windows_system/">
+        Windows System
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/artifacts/triage/" title="Windows Triage Artifacts" class="dd-item ">
+        <a href="/docs/artifacts/triage/">
+        Windows Triage
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+         
+    </ul>
+
+    
+    
+
+    
+    <section id="footer">
+      
+    </section>
+  </div>
+</nav>
+
+
+
+
+
+        <section id="body">
+        <div id="overlay"></div>
+        <div class="padding highlightable">
+              
+              <div>
+                <div id="top-bar">
+                
+                
+                <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <span id="sidebar-toggle-span">
+                        <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                          <i class="fas fa-bars"></i>
+                        </a>
+                    </span>
+                  
+                  <span id="toc-menu"><i class="fas fa-list-alt"></i></span>
+                  
+                  <span class="links">
+                 
+                 
+                    
+          
+          
+            
+            
+          
+          
+            
+            
+          
+          
+            <a href='/'>Velociraptor - Hunt Evil!</a> > <a href='/blog/'>Velociraptor Blog</a> > Alerting on event patterns
+          
+         
+          
+         
+          
+        
+                 
+                  </span>
+                </div>
+                
+                    <div class="progress">
+    <div class="wrapper">
+
+    </div>
+</div>
+
+                
+              </div>
+            </div>
+            
+        <div id="head-tags">
+        
+        </div>
+        
+        <div id="body-inner">
+          
+            <h1>
+              
+              Alerting on event patterns
+            </h1>
+          
+
+        
+
+
+
+<div class="document" id="alerting-on-event-patterns">
+<h1 class="title">Alerting on event patterns</h1>
+
+<p>We have shown in earlier posts how Velociraptor uses VQL to define
+event queries that can detect specific conditions. These conditions
+can be used to create alerts and escalation actions.</p>
+<p>One of the most useful types of alerts is detecting a pattern of
+activity. For example we can detect failed and successful login
+attempts seperately, but it is the specific pattern of events (say 5
+failed login attempts followed by a successful one) that is
+interesting from a detection point of view.</p>
+<p>This post illustrates how this kind of temporal correlation can be
+expressed in a VQL query. We then use it to create alerts for
+attack patterns commonly seen by intrusions.</p>
+<div class="section" id="event-queries">
+<h2>Event Queries</h2>
+<p>Velociraptor executes queries written in the Velociraptor Query
+Language (VQL). The queries can be executed on the client, and their
+results streamed to the server. Alternatively the queries may be
+executed on the server and process the result of other queries which
+collected information from the client.</p>
+<p>A VQL query does not have to terminate at all. VQL queries draw their
+data from a VQL plugin which may simply return data rows at different
+times.  For example, consider the following query:</p>
+<pre class="code SQL literal-block">
+<span class="keyword">SELECT</span> <span class="name">EventData</span> <span class="keyword">as</span> <span class="name">FailedEventData</span><span class="punctuation">,</span>
+       <span class="keyword">System</span> <span class="keyword">as</span> <span class="name">FailedSystem</span>
+<span class="keyword">FROM</span> <span class="name">watch_evtx</span><span class="punctuation">(</span><span class="name">filename</span><span class="operator">=</span><span class="name">securityLogFile</span><span class="punctuation">)</span>
+<span class="keyword">WHERE</span> <span class="keyword">System</span><span class="punctuation">.</span><span class="name">EventID</span> <span class="operator">=</span> <span class="literal number integer">4625</span>
+</pre>
+<p>This query sets up a watcher on a windows event log file. As new
+events are written to the log file, the query will produce those
+events as new rows. The rows will then be filtered so we only see
+event id 4625 (Failed logon event).</p>
+<p>Velociraptor can implement event queries on the client or on the
+server. For example, say we wanted to collect all failed event logs
+with the query above. We would write an artifact that encapsulates
+this query:</p>
+<pre class="code yaml literal-block">
+<span class="name tag">name</span><span class="punctuation">:</span> <span class="literal scalar plain">Windows.System.FailedLoginAttempts</span>
+<span class="name tag">parameters</span><span class="punctuation">:</span>
+  <span class="punctuation indicator">-</span> <span class="name tag">name</span><span class="punctuation">:</span> <span class="literal scalar plain">securityLogFile</span>
+    <span class="name tag">default</span><span class="punctuation">:</span> <span class="literal scalar plain">C:/Windows/System32/Winevt/Logs/Security.evtx</span>
+<span class="name tag">sources</span><span class="punctuation">:</span>
+  <span class="punctuation indicator">-</span> <span class="name tag">queries</span><span class="punctuation">:</span>
+     <span class="punctuation indicator">-</span> <span class="literal scalar plain">SELECT EventData as FailedEventData,</span>
+           <span class="literal scalar plain">System as FailedSystem</span>
+       <span class="literal scalar plain">FROM watch_evtx(filename=securityLogFile)</span>
+       <span class="literal scalar plain">WHERE System.EventID.Value = 4625</span>
+</pre>
+<p>Then we simply add that artifact to the monitored artifact list in the
+config file:</p>
+<pre class="code yaml literal-block">
+<span class="name tag">Events</span><span class="punctuation">:</span>
+  <span class="name tag">artifacts</span><span class="punctuation">:</span>
+  <span class="punctuation indicator">-</span> <span class="literal scalar plain">Generic.Client.Stats</span>
+  <span class="punctuation indicator">-</span> <span class="literal scalar plain">Windows.System.FailedLoginAttempts</span>
+  <span class="name tag">version</span><span class="punctuation">:</span> <span class="literal scalar plain">2</span>
+  <span class="name tag">ops_per_second</span><span class="punctuation">:</span> <span class="literal scalar plain">10</span>
+</pre>
+<p>The monitored artifacts are run on all clients connected to the
+server. The output from these queries is streamed to the server and
+stored in the client's monitoring VFS directory.</p>
+<p>Lets test this artifact by trying to run a command using the runas
+windows command. We will be prompted for a password but failing to
+give the correct password will result in a login failure event:</p>
+<img alt="1.png" src="1.png" />
+<p>After a few seconds the event will be written to the windows event log
+and the <cite>watch_evtx()</cite> VQL plugin will emit the row - which will be
+streamed to the VFS monitoring directory on the server, where it can
+be viewed in the GUI:</p>
+<img alt="2.png" src="2.png" />
+<p>The above screenshot shows that the <cite>monitoring</cite> directory now
+contains a subdirectory named after the artifact we created. Inside
+this directory are CSV files for each day and every failed logon
+attempt is detailed there.</p>
+</div>
+<div class="section" id="time-correlation">
+<h2>Time correlation</h2>
+<p>While it is interesting to see all failed logon attempts in many cases
+these events are just noise. If you put any server on the internet
+(e.g. an RDP or SSH server) you will experience thousands of brute
+force attempts to break in. This is just the nature of the
+internet. If your password policy is strong enough it should not be a
+big problem.</p>
+<p>However, what if someone guesses the password for one of your
+accounts? Then the activity pattern is more like a bunch of failed
+logons followed by a successful logon for the same account.</p>
+<p>This pattern is way more interesting than just watching for a series
+of failed logons (although that is also good to know).</p>
+<p>But how do we write a query to detect this? Essentially the query
+needs to look back in time to see how many failed logon attempts
+preceeded each successful logon.</p>
+<p>This is a typical problem which may be generalized as followed:</p>
+<div class="admonition admonition-goal">
+<p class="first admonition-title">Goal</p>
+<p class="last">We want to detect an event A preceeded by a specified number of
+events B within a defined time window.</p>
+</div>
+<p>This problem may be generalized for example:</p>
+<ol class="arabic simple">
+<li>Detect a user account created and deleted within a short time
+window.</li>
+<li>A beacon to a specific DNS followed by at least 5 beacons within
+the last 5 hours to same DNS (Event A and B are the same).</li>
+</ol>
+</div>
+<div class="section" id="the-fifo-plugin">
+<h2>The fifo() plugin</h2>
+<p>How shall we write the VQL query to achieve this? This is made
+possible by use of the fifo() plugin. As its name suggests, the FIFO
+plugin acts as a First In First Out cache for event queries.</p>
+<object data="3.svg" type="image/svg+xml">
+3.svg</object>
+<p>The plugin is given a subquery which is also a VQL query generating
+its own events. As the subquery generates events, each event is kept
+in the fifo plugin's cache in a first in first out manner. Events are
+also expired if they are too old.</p>
+<p>We typically store the query in a variable. Each time the variable is
+queried the cache is returned at once. To illustrate how this works
+consider the following query:</p>
+<pre class="code text literal-block">
+LET fifo_events = SELECT * FROM fifo(
+  max_rows=5,
+  query={
+     SELECT * from watch_evtx(filename=securityLogFile)
+     WHERE System.EventID.Value = 4625
+   })
+
+SELECT * FROM foreach(
+   row={
+     SELECT * FROM clock(period=60)
+   },
+   query={
+     SELECT * from fifo_events
+   })
+</pre>
+<p>The first query is stored into the fifo_events variable. When it is
+first defined, the fifo() VQL plugin launches its subquery and simply
+collects its output into its local cache in a fifo manner. This will
+essentially keep the last 5 rows in its cache.</p>
+<p>The second query runs the clock() plugin to receive a clock event
+every 60 seconds. For each of these events, we select from the
+<cite>fifo_events</cite> variable - that is we select the last 5 failed events.</p>
+<p>You can see that this allows us to query the last 5 events in the fifo
+cache for every clock event. If we now replace the clock event with a
+successful logon event this query will do exactly what we want:</p>
+<pre class="code yaml literal-block">
+<span class="comment single"># This query will generate failed logon events - one per row, as</span>
+<span class="comment single"># they occur.</span>
+<span class="punctuation indicator">-</span> <span class="literal scalar plain">LET failed_logon = SELECT EventData as FailedEventData,</span>
+     <span class="literal scalar plain">System as FailedSystem</span>
+  <span class="literal scalar plain">FROM watch_evtx(filename=securityLogFile)</span>
+  <span class="literal scalar plain">WHERE System.EventID.Value = 4625</span>
+
+<span class="comment single"># This query will create a fifo() to contain the last 5 failed</span>
+<span class="comment single"># logon events.</span>
+<span class="punctuation indicator">-</span> <span class="literal scalar plain">LET last_5_events = SELECT FailedEventData, FailedSystem</span>
+      <span class="literal scalar plain">FROM fifo(query=failed_logon,</span>
+                <span class="literal scalar plain">max_rows=5,</span>
+                <span class="literal scalar plain">max_age=atoi(string=failedLogonTimeWindow))</span>
+
+<span class="comment single"># This query simply generates successful logon events.</span>
+<span class="punctuation indicator">-</span> <span class="literal scalar plain">LET success_logon = SELECT EventData as SuccessEventData,</span>
+     <span class="literal scalar plain">System as SuccessSystem</span>
+  <span class="literal scalar plain">FROM watch_evtx(filename=securityLogFile)</span>
+  <span class="literal scalar plain">WHERE System.EventID.Value = 4624</span>
+
+<span class="comment single"># For each successful event, we select the last 5 failed events</span>
+<span class="comment single"># and count them (using the group by). If the count is greater</span>
+<span class="comment single"># than 3 then we emit the row as an event.</span>
+<span class="punctuation indicator">-</span> <span class="literal scalar plain">SELECT * FROM foreach(</span>
+    <span class="literal scalar plain">row=success_logon,</span>
+    <span class="literal scalar plain">query={</span>
+     <span class="literal scalar plain">SELECT SuccessSystem.TimeCreated.SystemTime AS LogonTime,</span>
+            <span class="literal scalar plain">SuccessSystem, SuccessEventData, FailedEventData,</span>
+            <span class="literal scalar plain">FailedSystem, count(items=SuccessSystem) as Count</span>
+     <span class="literal scalar plain">FROM last_5_events</span>
+     <span class="literal scalar plain">WHERE FailedEventData.SubjectUserName = SuccessEventData.SubjectUserName</span>
+     <span class="literal scalar plain">GROUP BY LogonTime</span>
+    <span class="literal scalar plain">})  WHERE Count &gt; 3</span>
+</pre>
+<p>The above query simply watches the event log for failed logins and
+populates a fifo() with the last 5 failed events. At the same time we
+monitor the event log for successful logon events. If we see a
+successful event, we go back and check the last 5 failed events and
+count them.</p>
+<p>If the failed events are for the same user and there are more than 3
+then we report this as an event. We now have a high value event.</p>
+<p>Let's see what it looks like when such an event is triggered:</p>
+<img alt="3.png" src="3.png" />
+<p>Just like before, the events are written to a daily CSV log, one event
+per CSV row. It is a bit hard to see in the GUI since there is a lot
+of data, (We probably need some GUI work to improve this) but there is
+a single row emitted for each event, and the FailedEventData column
+contains a list of all the failed login attempts stored in the fifo().</p>
+</div>
+<div class="section" id="server-side-queries">
+<h2>Server side queries.</h2>
+<p>We have seen how the fifo() plugin can be used in the monitoring
+artifact itself to have the client detect its own events. However, the
+endpoint is usually only able to see its own events in isolation. It
+would be nice to be able to detect patterns only evident by seeing
+concerted behaviour from multiple endpoints at the same time.</p>
+<p>For example, consider the pattern of an attacker who compromised
+domain credentials running multiple PowerShell Remoting commands
+across the entire domain. A command like:</p>
+<pre class="code text literal-block">
+PS C:\WINDOWS\system32&gt; Invoke-Command –ComputerName testcomputer -ScriptBlock {Hostname}
+TestComputer
+</pre>
+<p>This command will generate multiple event log entries, including event
+4624 (logon) on each host. While in isolation, on each individual
+endpoint this event is not suspicious, we might consider seeing this
+event repeated within a short time across the domain suspicious.</p>
+<p>To set that up we would run the following artifact as a monitoring
+artifact on all endpoints:</p>
+<pre class="code yaml literal-block">
+<span class="name tag">name</span><span class="punctuation">:</span> <span class="literal scalar plain">Windows.Event.SuccessfulLogon</span>
+<span class="name tag">sources</span><span class="punctuation">:</span>
+ <span class="punctuation indicator">-</span> <span class="name tag">queries</span><span class="punctuation">:</span>
+   <span class="punctuation indicator">-</span> <span class="literal scalar plain">SELECT EventData as SuccessEventData,</span>
+        <span class="literal scalar plain">System as SuccessSystem</span>
+     <span class="literal scalar plain">FROM watch_evtx(filename=securityLogFile)</span>
+     <span class="literal scalar plain">WHERE System.EventID.Value = 4624</span>
+</pre>
+<p>On the server we simple install a watcher on all monitoring events
+from this artifact and feed the result to the fifo(). This fills the
+fifo() with the last 500 successful logon events from all clients
+within the last 60 seconds:</p>
+<pre class="code SQL literal-block">
+<span class="name">LET</span> <span class="name">last_successful_logons</span> <span class="operator">=</span> <span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> <span class="name">fifo</span><span class="punctuation">(</span>
+   <span class="name">max_rows</span><span class="operator">=</span><span class="literal number integer">500</span><span class="punctuation">,</span>
+   <span class="name">max_time</span><span class="operator">=</span><span class="literal number integer">60</span><span class="punctuation">,</span>
+   <span class="name">query</span><span class="operator">=</span><span class="error">{</span>
+     <span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> <span class="name">watch_monitoring</span><span class="punctuation">(</span>
+        <span class="name">artifact</span><span class="operator">=</span><span class="literal string symbol">&quot;Windows.Event.SuccessfulLogon&quot;</span><span class="punctuation">)</span>
+   <span class="error">}</span><span class="punctuation">)</span>
+</pre>
+<p>By counting the number of such unique events we can determine if there
+were too many successful logon events from different hosts within the
+last minute. This might indicate a scripted use of powershell remoting
+across the domain.</p>
+</div>
+<div class="section" id="conclusions">
+<h2>Conclusions</h2>
+<p>In this post we have seen how to write artifacts which capture a time
+ordered pattern of behavior. This technique is useful to codify common
+attack techniques. The technique is general and we can use the same
+idea on server side queries to correlate events from many hosts at the
+same time.</p>
+</div>
+</div>
+
+<footer class=" footline" >
+	
+</footer>
+
+
+        
+        </div> 
+        
+
+      </div>
+
+    <div id="navigation">
+        
+        
+        
+        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+            
+        
+        
+        
+
+
+	 
+	 
+		
+			<a class="nav nav-prev" href="/blog/html/2019/03/02/agentless_hunting_with_velociraptor.html" title="Agentless hunting with Velociraptor"> <i class="fa fa-chevron-left"></i></a>
+		
+		
+			<a class="nav nav-next" href="/blog/html/2019/02/10/velociraptor_performance.html" title="Velociraptor Performance" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+		
+	
+    </div>
+
+    </section>
+    
+    <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+      <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+    </div>
+    <script src="/js/clipboard.min.js?1560335783"></script>
+    <script src="/js/perfect-scrollbar.min.js?1560335783"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1560335783"></script>
+    <script src="/js/jquery.sticky.js?1560335783"></script>
+    <script src="/js/featherlight.min.js?1560335783"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1560335783"></script>
+    <script src="/js/highlight.pack.js?1560335783"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script src="/js/modernizr.custom-3.6.0.js?1560335783"></script>
+    <script src="/js/learn.js?1560335783"></script>
+    <script src="/js/hugo-learn.js?1560335783"></script>
+
+    <link href="/mermaid/mermaid.css?1560335783" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1560335783"></script>
+    <script>
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+    
+
+  </body>
+</html>
+

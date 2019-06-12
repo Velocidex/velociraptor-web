@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Velociraptor Blog on Velociraptor - Hunt Evil!</title>
+    <link>/blog/</link>
+    <description>Recent content in Velociraptor Blog on Velociraptor - Hunt Evil!</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 02 Mar 2019 04:10:06 +0000</lastBuildDate>
+    
+	<atom:link href="/blog/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Agentless hunting with Velociraptor</title>
+      <link>/blog/html/2019/03/02/agentless_hunting_with_velociraptor.html</link>
+      <pubDate>Sat, 02 Mar 2019 04:10:06 +0000</pubDate>
+      
+      <guid>/blog/html/2019/03/02/agentless_hunting_with_velociraptor.html</guid>
+      <description>There has been a lot of interest lately in &amp;quot;Agentless hunting&amp;quot; especially using PowerShell. There are many reasons why Agentless hunting is appealing - there are already a ton of endpoint agents and yet another one may not be welcome. Somtimes we need to deploy endpoint agents as part of a DFIR engagement and we may not want to permanently install yet another agent on end points.
+This blog post explores an agentless deployment scenario, where we do not want to install Velociraptor permanently on the end point, but rather push it to end points temporarily to collect specific artifacts.</description>
+    </item>
+    
+    <item>
+      <title>Alerting on event patterns</title>
+      <link>/blog/html/2019/02/14/alerting_on_event_patterns.html</link>
+      <pubDate>Thu, 14 Feb 2019 04:10:06 +0000</pubDate>
+      
+      <guid>/blog/html/2019/02/14/alerting_on_event_patterns.html</guid>
+      <description>Alerting on event patterns We have shown in earlier posts how Velociraptor uses VQL to define event queries that can detect specific conditions. These conditions can be used to create alerts and escalation actions.
+One of the most useful types of alerts is detecting a pattern of activity. For example we can detect failed and successful login attempts seperately, but it is the specific pattern of events (say 5 failed login attempts followed by a successful one) that is interesting from a detection point of view.</description>
+    </item>
+    
+    <item>
+      <title>Velociraptor Performance</title>
+      <link>/blog/html/2019/02/10/velociraptor_performance.html</link>
+      <pubDate>Sun, 10 Feb 2019 04:10:06 +0000</pubDate>
+      
+      <guid>/blog/html/2019/02/10/velociraptor_performance.html</guid>
+      <description>Velociraptor Performance We are often asked how many resources does a Velociraptor deployment use? How should one spec a machine for a Velociraptor deployment?
+We have previously said that one of the reasons we developed Velociraptor was to improve on the performance of GRR which was not scalable for our use case.
+We&#39;ve been working with the team at Klein &amp;amp; Co. on several intrusions over the past several months, which are providing valuable opportunities to deploy and test Velociraptor in a range of real world investigation scenarios.</description>
+    </item>
+    
+    <item>
+      <title>The Velociraptor Python API</title>
+      <link>/blog/html/2019/02/09/velociraptor_python_api.html</link>
+      <pubDate>Sat, 09 Feb 2019 04:10:06 +0000</pubDate>
+      
+      <guid>/blog/html/2019/02/09/velociraptor_python_api.html</guid>
+      <description>Velociraptor is very good at collecting artifacts from endpoints. However, in modern DFIR work, the actual collection is only the first step of a much more involved process. Typically we want to post process data using more advanced data mining tools (such as data stacking). Velociraptor usually is only a part of a wider solution which might include a SIEM and SOC integration.
+In order to facilitate interoperability with other tools, Velociraptor now offers an external API.</description>
+    </item>
+    
+    <item>
+      <title>Velociraptor&#39;s client communications</title>
+      <link>/blog/html/2018/09/03/velociraptor_s_client_communications.html</link>
+      <pubDate>Sat, 09 Feb 2019 04:10:06 +0000</pubDate>
+      
+      <guid>/blog/html/2018/09/03/velociraptor_s_client_communications.html</guid>
+      <description>How does the GRR client communicate? The GRR client protocol is depicted below.
+Due to network realities such as NAT, firewalls etc, it is not possible to directly connect to the client, so GRR relies on the client connecting to the server in order to communicate with it.
+The GRR client makes periodic POST requests to the server to both send replies and receive new instructions. Since POST requests are very short lived (most client polls carry no data) the client has to repeat the polls periodically.</description>
+    </item>
+    
+    <item>
+      <title>Deploying Velociraptor with OAuth SSO</title>
+      <link>/blog/html/2018/12/23/deploying_velociraptor_with_oauth_sso.html</link>
+      <pubDate>Sun, 23 Dec 2018 04:10:06 +0000</pubDate>
+      
+      <guid>/blog/html/2018/12/23/deploying_velociraptor_with_oauth_sso.html</guid>
+      <description>In the previous post we saw how to set up Velociraptor&#39;s GUI over SSL. This is great, but we still need to create users and assign them passwords manually. The trouble with user account management is that we can not enforce 2 factor authentication, or any password policies or any of the usual enterprise requirements for user account management. It is also difficult for users to remember yet another password for a separate system, and so might make the password easily guessable.</description>
+    </item>
+    
+    <item>
+      <title>Configuring Velociraptor for SSL</title>
+      <link>/blog/html/2018/12/22/configuring_velociraptor_for_ssl.html</link>
+      <pubDate>Sat, 22 Dec 2018 04:10:06 +0000</pubDate>
+      
+      <guid>/blog/html/2018/12/22/configuring_velociraptor_for_ssl.html</guid>
+      <description>We have previously seen how to deploy a new Velociraptor server. For a simple deployment we can have Velociraptor server and clients provisioned in minutes.
+Usually we deploy a specific Velociraptor deployment on our DFIR engagements. We use cloud resources to provision the server and have the clients connect to this cloud VM. A proper secure deployment of Velociraptor will use SSL for securing both client communication and protecting the web GUI.</description>
+    </item>
+    
+    <item>
+      <title>Velociraptor Interactive Shell</title>
+      <link>/blog/html/2018/12/11/velociraptor_interactive_shell.html</link>
+      <pubDate>Tue, 11 Dec 2018 04:10:06 +0000</pubDate>
+      
+      <guid>/blog/html/2018/12/11/velociraptor_interactive_shell.html</guid>
+      <description>One of the interesting new features in the latest release of Velociraptor is an interactive shell. One can interact with the end point over the standard Velociraptor communication mechanism - an encrypted and authenticated channel.
+This feature is implemented by utilizing the Velociraptor event monitoring, server side VQL queries. This post explores how these components come together to deliver a responsive, interactive workflow.
+Endpoint shell access Although we generally try to avoid it, sometimes the easiest way to extract certain information is to run a command and parse its output.</description>
+    </item>
+    
+    <item>
+      <title>Server side VQL queries and Escalation Events</title>
+      <link>/blog/html/2018/12/10/server_side_vql_queries_and_events.html</link>
+      <pubDate>Mon, 10 Dec 2018 04:10:06 +0000</pubDate>
+      
+      <guid>/blog/html/2018/12/10/server_side_vql_queries_and_events.html</guid>
+      <description>Previously we have seen how Velociraptor collects information from end points using Velociraptor artifacts. These artifacts encapsulate user created queries using the Velociraptor Query Language (VQL). The power of VQL is that it provides for a very flexible way of specifying exactly what should be collected from the client and how - without needing to modify client code or deploy new clients!
+This is not the whole story though! It is also possible to run VQL queries on the server side!</description>
+    </item>
+    
+    <item>
+      <title>More on client event collection</title>
+      <link>/blog/html/2018/12/09/more_on_client_event_collection.html</link>
+      <pubDate>Sun, 09 Dec 2018 04:10:06 +0000</pubDate>
+      
+      <guid>/blog/html/2018/12/09/more_on_client_event_collection.html</guid>
+      <description>Periodic Event queries The simplest kind of events are periodically generated events. These are created using the clock() VQL plugin. This is a simple event plugin which just emits a new row periodically.
+$ velociraptor query &amp;quot;select Unix from clock(period=5)&amp;quot; --max_wait 1 [ { &amp;quot;Unix&amp;quot;: 1544339715 } ][ { &amp;quot;Unix&amp;quot;: 1544339720 } ]^C  The query will never terminate, instead the clock() plugin will emit a new timestamp every 5 seconds.</description>
+    </item>
+    
+    <item>
+      <title>Velociraptor training at NZITF</title>
+      <link>/blog/html/2018/11/13/velociraptor_training_at_nzitf.html</link>
+      <pubDate>Tue, 13 Nov 2018 04:10:06 +0000</pubDate>
+      
+      <guid>/blog/html/2018/11/13/velociraptor_training_at_nzitf.html</guid>
+      <description>Velociraptor training at NZITF We are very excited to run this full day training workshop at the New Zealand Internet Engineering Task Force (NZITF) conference.
+The training material can be downloaded here &amp;quot;Velociraptor NZITF training&amp;quot;.</description>
+    </item>
+    
+    <item>
+      <title>Event Queries and Endpoint Monitoring</title>
+      <link>/blog/html/2018/11/09/event_queries_and_endpoint_monitoring.html</link>
+      <pubDate>Fri, 09 Nov 2018 04:10:06 +0000</pubDate>
+      
+      <guid>/blog/html/2018/11/09/event_queries_and_endpoint_monitoring.html</guid>
+      <description>Why monitor endpoint events? Recording end point event information on the server gives a bunch of advantages. For one, the server keeps a record of historical events, which makes going back to search for these easy as part of an incident response activity.
+For example, Velociraptor can keep a running log of process execution events for all clients, on the server. If a particular executable is suspected to be malicious, we can now go back and search for the execution of that process in the past on the infected machine (for establishing the time of infection), as well as search the entire deployment base for the same binary execution to be able identify lateral movement and wider compromises.</description>
+    </item>
+    
+    <item>
+      <title>Velorciraptor&#39;s filesystem&#39;s accessors</title>
+      <link>/blog/html/2018/09/30/velorciraptor_s_filesystem_s_accessors.html</link>
+      <pubDate>Sun, 30 Sep 2018 04:10:06 +0000</pubDate>
+      
+      <guid>/blog/html/2018/09/30/velorciraptor_s_filesystem_s_accessors.html</guid>
+      <description>In addition, Velociraptor can now also read Volume Shadow Copy snapshots. The gives a kind of time-machine ability to allow the investigator to look through the drive content at a previous point in the past.
+This blog post introduces the new features and describe how Velociraptor&#39;s filesystem accessors work to provide data from multiple sources to VQL queries.
+We have previously seen that Velociraptor can list and download files from the client&#39;s filesystem, as well as registry keys and values.</description>
+    </item>
+    
+    <item>
+      <title>Detecting powershell persistence with Velociraptor and Yara</title>
+      <link>/blog/html/2018/09/29/detecting_powershell_persistence_with_velociraptor_and_yara.html</link>
+      <pubDate>Sat, 29 Sep 2018 04:10:06 +0000</pubDate>
+      
+      <guid>/blog/html/2018/09/29/detecting_powershell_persistence_with_velociraptor_and_yara.html</guid>
+      <description>Update
+As of the latest release of Velociraptor we have raw registry parsing which can also be done via raw NTFS to get around file locking. It is no longer necessary to run yara scans and parse with regripper as shown here.
+ I was watching the SANS DFIR Summit 2018 videos on youtube and came across Mari DeGrazia&#39;s talk titled &amp;quot;Finding and Decoding Malicious Powershell Scripts&amp;quot;. This is an excellent talk and it really contains a wealth of information.</description>
+    </item>
+    
+    <item>
+      <title>Velociraptor walk through and demo</title>
+      <link>/blog/html/2018/09/03/velociraptor_walk_through_and_demo.html</link>
+      <pubDate>Mon, 03 Sep 2018 04:10:06 +0000</pubDate>
+      
+      <guid>/blog/html/2018/09/03/velociraptor_walk_through_and_demo.html</guid>
+      <description>I just uploaded a screencast of the latest Velociraptor - check it out and play with it, and please provide feedback at velociraptor-discuss&amp;#64;googlegroups.com
+  </description>
+    </item>
+    
+    <item>
+      <title>Velociraptor Artifacts</title>
+      <link>/blog/html/2018/08/20/velociraptor_artifacts.html</link>
+      <pubDate>Mon, 20 Aug 2018 04:10:06 +0000</pubDate>
+      
+      <guid>/blog/html/2018/08/20/velociraptor_artifacts.html</guid>
+      <description>First a bit of history. When we first started writing endpoint monitoring tools (With GRR then Rekall Agent) we implemented the ability to collect files, registry keys and other data. If an analyst wanted to collect, say the chrome extensions, they would need to know where chrome extensions typically reside ( %homedir%/.config/google-chrome/Extensions/**) and enter that in each time.
+We soon realized this was error prone and required too much mental overhead for analysts to constantly remember these details.</description>
+    </item>
+    
+    <item>
+      <title>Browsing around the filesystem.</title>
+      <link>/blog/html/2018/08/10/browsing_around_the_filesystem.html</link>
+      <pubDate>Fri, 10 Aug 2018 04:10:06 +0000</pubDate>
+      
+      <guid>/blog/html/2018/08/10/browsing_around_the_filesystem.html</guid>
+      <description>The Virtual File System Like GRR, Velociraptor also maintains a virtual file system view (VFS) of the client&#39;s filesystem. GRR&#39;s VFS view is generated by adding a row for each file into the database. In order to refresh the view of a certain directory, GRR issues a ListDirectory request and updates the database by storing each newly discovered file in its own row.
+Velociraptor models the client&#39;s VFS as a per-directory VQL query.</description>
+    </item>
+    
+    <item>
+      <title>Design differences between Velociraptor and GRR</title>
+      <link>/blog/html/2018/08/10/design_differences_between_velociraptor_and_grr.html</link>
+      <pubDate>Fri, 10 Aug 2018 04:10:06 +0000</pubDate>
+      
+      <guid>/blog/html/2018/08/10/design_differences_between_velociraptor_and_grr.html</guid>
+      <description>Velociraptor Clients run full VQL queries GRR&#39;s design started off with the assumption that the client should be minimalist and only support a few simple primitives (such as ListDirectory, ListProcesses etc). The intention was that most of the processing would be executed on the server inside a &amp;quot;Flow&amp;quot;. The main motivation for this design choice was the observation that it is difficult to upgrade the client in practice, and so with a minimal client, it would be possible to develop more sophisticated Flows, server side, without needing to update the clients.</description>
+    </item>
+    
+    <item>
+      <title>Files, files everything is just a file!</title>
+      <link>/blog/html/2018/02/09/files_files_everything_is_just_a_file.html</link>
+      <pubDate>Fri, 10 Aug 2018 04:10:06 +0000</pubDate>
+      
+      <guid>/blog/html/2018/02/09/files_files_everything_is_just_a_file.html</guid>
+      <description>GRR&#39;s original design abstracted the data storage to a simple key/value store originally based around Bigtable. For open source deployments various key value stores were used starting from MongoDB, to SQLite and finally MySQL. Although the original idea was to use a simple key/value implementation, due to locking requirements the data store implementation became very complex.
+As Velociraptor introduced a major redesign of the underlying data store architecture, we are now able to relax our demands of the datastore and use a true key/value model (since we have no requirements for locking and synchronization).</description>
+    </item>
+    
+    <item>
+      <title>Hunting - What Velociraptors do best!</title>
+      <link>/blog/html/2018/08/10/hunting_what_velociraptors_do_best.html</link>
+      <pubDate>Fri, 10 Aug 2018 04:10:06 +0000</pubDate>
+      
+      <guid>/blog/html/2018/08/10/hunting_what_velociraptors_do_best.html</guid>
+      <description>Velociraptor has completely redesigned the way that hunts are implemented in order to avoid database locking and increase hunt processing efficiency.
+Now we hunt like this:
+How are hunts scheduled? GRR allows hunts to be scheduled by a few client properties such as OS type, label, users etc. This works because GRR has an extensive data model of endpoint properties. However, this requires that the data model be refreshed periodically to be kept accurate.</description>
+    </item>
+    
+    <item>
+      <title>Interrogation - Make the endpoint tell us what it knows!</title>
+      <link>/blog/html/2018/08/10/interrogation_make_the_endpoint_tell_us_what_it_knows.html</link>
+      <pubDate>Fri, 10 Aug 2018 04:10:06 +0000</pubDate>
+      
+      <guid>/blog/html/2018/08/10/interrogation_make_the_endpoint_tell_us_what_it_knows.html</guid>
+      <description>When writing Velociraptor we decided to keep things very simple - we did away with a lot of the information gathered during interrogate in favor of a much simpler data model.
+Data Modelling - The Interrogate Flow GRR maintains an elaborate model of client data. For example, GRR collects and maintains a list of clients&#39; network interfaces, users, user&#39;s home directory etc. This information is maintained in elaborate protobufs and stored in the database in many rows.</description>
+    </item>
+    
+    <item>
+      <title>Velocidex Query Language (VQL)</title>
+      <link>/blog/html/2018/08/10/the_velocidex_query_language.html</link>
+      <pubDate>Fri, 10 Aug 2018 04:10:06 +0000</pubDate>
+      
+      <guid>/blog/html/2018/08/10/the_velocidex_query_language.html</guid>
+      <description>VQL Overview VQL is only loosely based around SQL in the sense that the general statement structure is similar. However, VQL is a very simple dialect. Like SQL, a VQL query produces a table of results with specific columns and multiple rows. Unlike SQL, the data inside each cell is not limited to simple primitive types (like string, integer etc). In fact any JSON serializable object can be generated in a table&#39;s cell.</description>
+    </item>
+    
+    <item>
+      <title>Introducing Velociraptor</title>
+      <link>/blog/html/2018/08/10/introducing_velociraptor.html</link>
+      <pubDate>Fri, 09 Feb 2018 04:10:06 +0000</pubDate>
+      
+      <guid>/blog/html/2018/08/10/introducing_velociraptor.html</guid>
+      <description>Hunting and responding like a raptor! At Velocidex we have been running open source endpoint monitoring tools for our clients in order to detect and respond to incidents. One of our favorite tools is GRR, developed by Google internally and then released as open source. GRR is a very powerful tool, with a polished UI and good documentation.
+Unfortunately the open source version released by Google suffers from some shortcomings and so we have decided to develop a new project, built on the shoulders of giants called Velociraptor.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,2485 @@
+<!DOCTYPE html>
+<html lang="en" class="js csstransforms3d">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="Hugo 0.56.0-DEV" />
+    <meta name="description" content="We are often asked how many resources does a Velociraptor deployment use? How should one spec a machine for a Velociraptor deployment?">
+
+
+    <link rel="icon" href="/images/favicon.png" type="image/png">
+
+    <title>Velociraptor Performance :: Velociraptor - Hunt Evil!</title>
+
+    
+    <link href="/css/nucleus.css?1560335783" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1560335783" rel="stylesheet">
+    <link href="/css/hybrid.css?1560335783" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1560335783" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1560335783" rel="stylesheet">
+    <link href="/css/auto-complete.css?1560335783" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1560335783" rel="stylesheet">
+    <link href="/css/theme.css?1560335783" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1560335783" rel="stylesheet">
+    
+      <link href="/css/theme-mine.css?1560335783" rel="stylesheet">
+    
+
+    <script src="/js/jquery-3.3.1.min.js?1560335783"></script>
+
+    <style>
+      :root #header + #content > #left > #rlblock_left{
+          display:none !important;
+      }
+      
+    </style>
+    
+  </head>
+  <body class="" data-url="/blog/html/2019/02/10/velociraptor_performance.html">
+    <nav id="sidebar" class="">
+
+
+
+  <div id="header-wrapper">
+    <div id="header">
+      <a href="/">
+  <img src="/images/logo.svg" />
+</a>
+
+    </div>
+    
+        <div class="searchbox">
+    <label for="search-by"><i class="fas fa-search"></i></label>
+    <input data-search-input id="search-by" type="search" placeholder="Search...">
+    <span data-search-clear=""><i class="fas fa-times"></i></span>
+</div>
+
+<script type="text/javascript" src="/js/lunr.min.js?1560335783"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1560335783"></script>
+<script type="text/javascript">
+    
+        var baseurl = "\/";
+    
+</script>
+<script type="text/javascript" src="/js/search.js?1560335783"></script>
+
+    
+  </div>
+
+    <div class="highlightable">
+    <ul class="topics">
+
+        
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/about/" title="About Velociraptor" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/about/">
+          Overview
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/about/features/" title="Velociraptor Features" class="dd-item ">
+        <a href="/about/features/">
+        Velociraptor Features
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/about/license/" title="GNU Affero General Public License" class="dd-item ">
+        <a href="/about/license/">
+        License
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/blog/" title="Velociraptor Blog" class="dd-item 
+        parent
+        
+        
+        ">
+      <a href="/blog/">
+          Velociraptor Blog
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2019/03/02/agentless_hunting_with_velociraptor.html" title="Agentless hunting with Velociraptor" class="dd-item ">
+        <a href="/blog/html/2019/03/02/agentless_hunting_with_velociraptor.html">
+        Agentless hunting with Velociraptor
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2019/02/14/alerting_on_event_patterns.html" title="Alerting on event patterns" class="dd-item ">
+        <a href="/blog/html/2019/02/14/alerting_on_event_patterns.html">
+        Alerting on event patterns
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2019/02/10/velociraptor_performance.html" title="Velociraptor Performance" class="dd-item active">
+        <a href="/blog/html/2019/02/10/velociraptor_performance.html">
+        Velociraptor Performance
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2019/02/09/velociraptor_python_api.html" title="The Velociraptor Python API" class="dd-item ">
+        <a href="/blog/html/2019/02/09/velociraptor_python_api.html">
+        The Velociraptor Python API
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/09/03/velociraptor_s_client_communications.html" title="Velociraptor&#39;s client communications" class="dd-item ">
+        <a href="/blog/html/2018/09/03/velociraptor_s_client_communications.html">
+        Velociraptor&#39;s client communications
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/12/23/deploying_velociraptor_with_oauth_sso.html" title="Deploying Velociraptor with OAuth SSO" class="dd-item ">
+        <a href="/blog/html/2018/12/23/deploying_velociraptor_with_oauth_sso.html">
+        Deploying Velociraptor with OAuth SSO
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/12/22/configuring_velociraptor_for_ssl.html" title="Configuring Velociraptor for SSL" class="dd-item ">
+        <a href="/blog/html/2018/12/22/configuring_velociraptor_for_ssl.html">
+        Configuring Velociraptor for SSL
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/12/11/velociraptor_interactive_shell.html" title="Velociraptor Interactive Shell" class="dd-item ">
+        <a href="/blog/html/2018/12/11/velociraptor_interactive_shell.html">
+        Velociraptor Interactive Shell
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/12/10/server_side_vql_queries_and_events.html" title="Server side VQL queries and Escalation Events" class="dd-item ">
+        <a href="/blog/html/2018/12/10/server_side_vql_queries_and_events.html">
+        Server side VQL queries and Escalation Events
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/12/09/more_on_client_event_collection.html" title="More on client event collection" class="dd-item ">
+        <a href="/blog/html/2018/12/09/more_on_client_event_collection.html">
+        More on client event collection
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/11/13/velociraptor_training_at_nzitf.html" title="Velociraptor training at NZITF" class="dd-item ">
+        <a href="/blog/html/2018/11/13/velociraptor_training_at_nzitf.html">
+        Velociraptor training at NZITF
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/11/09/event_queries_and_endpoint_monitoring.html" title="Event Queries and Endpoint Monitoring" class="dd-item ">
+        <a href="/blog/html/2018/11/09/event_queries_and_endpoint_monitoring.html">
+        Event Queries and Endpoint Monitoring
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/09/30/velorciraptor_s_filesystem_s_accessors.html" title="Velorciraptor&#39;s filesystem&#39;s accessors" class="dd-item ">
+        <a href="/blog/html/2018/09/30/velorciraptor_s_filesystem_s_accessors.html">
+        Velorciraptor&#39;s filesystem&#39;s accessors
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/09/29/detecting_powershell_persistence_with_velociraptor_and_yara.html" title="Detecting powershell persistence with Velociraptor and Yara" class="dd-item ">
+        <a href="/blog/html/2018/09/29/detecting_powershell_persistence_with_velociraptor_and_yara.html">
+        Detecting powershell persistence with Velociraptor and Yara
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/09/03/velociraptor_walk_through_and_demo.html" title="Velociraptor walk through and demo" class="dd-item ">
+        <a href="/blog/html/2018/09/03/velociraptor_walk_through_and_demo.html">
+        Velociraptor walk through and demo
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/08/20/velociraptor_artifacts.html" title="Velociraptor Artifacts" class="dd-item ">
+        <a href="/blog/html/2018/08/20/velociraptor_artifacts.html">
+        Velociraptor Artifacts
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/08/10/browsing_around_the_filesystem.html" title="Browsing around the filesystem." class="dd-item ">
+        <a href="/blog/html/2018/08/10/browsing_around_the_filesystem.html">
+        Browsing around the filesystem.
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/08/10/design_differences_between_velociraptor_and_grr.html" title="Design differences between Velociraptor and GRR" class="dd-item ">
+        <a href="/blog/html/2018/08/10/design_differences_between_velociraptor_and_grr.html">
+        Design differences between Velociraptor and GRR
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/02/09/files_files_everything_is_just_a_file.html" title="Files, files everything is just a file!" class="dd-item ">
+        <a href="/blog/html/2018/02/09/files_files_everything_is_just_a_file.html">
+        Files, files everything is just a file!
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/08/10/hunting_what_velociraptors_do_best.html" title="Hunting - What Velociraptors do best!" class="dd-item ">
+        <a href="/blog/html/2018/08/10/hunting_what_velociraptors_do_best.html">
+        Hunting - What Velociraptors do best!
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/08/10/interrogation_make_the_endpoint_tell_us_what_it_knows.html" title="Interrogation - Make the endpoint tell us what it knows!" class="dd-item ">
+        <a href="/blog/html/2018/08/10/interrogation_make_the_endpoint_tell_us_what_it_knows.html">
+        Interrogation - Make the endpoint tell us what it knows!
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/08/10/the_velocidex_query_language.html" title="Velocidex Query Language (VQL)" class="dd-item ">
+        <a href="/blog/html/2018/08/10/the_velocidex_query_language.html">
+        Velocidex Query Language (VQL)
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/blog/html/2018/08/10/introducing_velociraptor.html" title="Introducing Velociraptor" class="dd-item ">
+        <a href="/blog/html/2018/08/10/introducing_velociraptor.html">
+        Introducing Velociraptor
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/docs/" title="Velociraptor Documentation" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/docs/">
+          Velociraptor Documentation
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/docs/user-interface/" title="Users Manual" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/docs/user-interface/">
+          User Manual Overview
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/user-interface/artifact_types/" title="Artifact Types" class="dd-item ">
+        <a href="/docs/user-interface/artifact_types/">
+        Artifact Types
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/user-interface/flows/" title="Velociraptor Artifacts" class="dd-item ">
+        <a href="/docs/user-interface/flows/">
+        Velociraptor Artifacts
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/user-interface/gui/" title="Searching for clients" class="dd-item ">
+        <a href="/docs/user-interface/gui/">
+        Searching for clients
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/documentation/" title="Velociraptor Documentation" class="dd-item ">
+        <a href="/docs/documentation/">
+        Velociraptor
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/docs/getting-started/" title="Get Started" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/docs/getting-started/">
+          Get Started Overview
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/getting-started/deploying_clients/" title="Deploying Clients" class="dd-item ">
+        <a href="/docs/getting-started/deploying_clients/">
+        Client Deployment
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/getting-started/cloud/" title="Deploying in the cloud" class="dd-item ">
+        <a href="/docs/getting-started/cloud/">
+        Cloud Deployment
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/getting-started/stand_alone/" title="Standalone Deployment" class="dd-item ">
+        <a href="/docs/getting-started/stand_alone/">
+        Standalone Deployment
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/getting-started/triaging/" title="Triaging" class="dd-item ">
+        <a href="/docs/getting-started/triaging/">
+        Triaging
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/docs/presentations/" title="Presentations and Workshops" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/docs/presentations/">
+          Presentation Overview
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/presentations/crikeycon2019/" title="Crikeycon 2019 Training Workshop" class="dd-item ">
+        <a href="/docs/presentations/crikeycon2019/">
+        CrikeyCon 2019
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/presentations/nzitf2018/" title="New Zealand Internet Task Force Conference 2018" class="dd-item ">
+        <a href="/docs/presentations/nzitf2018/">
+        NZITF2018
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/docs/vql_reference/" title="VQL Reference" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/docs/vql_reference/">
+          VQL Overview
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/vql_reference/templates/" title="Report Templates" class="dd-item ">
+        <a href="/docs/vql_reference/templates/">
+        Report Templates
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/vql_reference/event_plugins/" title="VQL Event PLugins" class="dd-item ">
+        <a href="/docs/vql_reference/event_plugins/">
+        VQL Event PLugins
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/vql_reference/functions/" title="VQL Functions" class="dd-item ">
+        <a href="/docs/vql_reference/functions/">
+        VQL Functions
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/vql_reference/plugins/" title="VQL PLugins" class="dd-item ">
+        <a href="/docs/vql_reference/plugins/">
+        VQL PLugins
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/vql_reference/server/" title="VQL Server Plugins" class="dd-item ">
+        <a href="/docs/vql_reference/server/">
+        VQL Server Plugins
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/artifacts/linux/" title="Linux Artifacts" class="dd-item ">
+        <a href="/docs/artifacts/linux/">
+        Linux Artifacts
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/artifacts/misc/" title="Miscelaneous Artifacts" class="dd-item ">
+        <a href="/docs/artifacts/misc/">
+        Miscelaneous
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/artifacts/server/" title="Server Artifacts" class="dd-item ">
+        <a href="/docs/artifacts/server/">
+        Server Artifacts
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/artifacts/detection/" title="Windows Malware Detection" class="dd-item ">
+        <a href="/docs/artifacts/detection/">
+        Windows Detection
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/artifacts/events/" title="Windows Event Monitoring" class="dd-item ">
+        <a href="/docs/artifacts/events/">
+        Windows Monitoring
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/artifacts/windows_system/" title="Windows System" class="dd-item ">
+        <a href="/docs/artifacts/windows_system/">
+        Windows System
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/artifacts/triage/" title="Windows Triage Artifacts" class="dd-item ">
+        <a href="/docs/artifacts/triage/">
+        Windows Triage
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+         
+    </ul>
+
+    
+    
+
+    
+    <section id="footer">
+      
+    </section>
+  </div>
+</nav>
+
+
+
+
+
+        <section id="body">
+        <div id="overlay"></div>
+        <div class="padding highlightable">
+              
+              <div>
+                <div id="top-bar">
+                
+                
+                <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <span id="sidebar-toggle-span">
+                        <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                          <i class="fas fa-bars"></i>
+                        </a>
+                    </span>
+                  
+                  <span id="toc-menu"><i class="fas fa-list-alt"></i></span>
+                  
+                  <span class="links">
+                 
+                 
+                    
+          
+          
+            
+            
+          
+          
+            
+            
+          
+          
+            <a href='/'>Velociraptor - Hunt Evil!</a> > <a href='/blog/'>Velociraptor Blog</a> > Velociraptor Performance
+          
+         
+          
+         
+          
+        
+                 
+                  </span>
+                </div>
+                
+                    <div class="progress">
+    <div class="wrapper">
+
+    </div>
+</div>
+
+                
+              </div>
+            </div>
+            
+        <div id="head-tags">
+        
+        </div>
+        
+        <div id="body-inner">
+          
+            <h1>
+              
+              Velociraptor Performance
+            </h1>
+          
+
+        
+
+
+
+<div class="document" id="velociraptor-performance">
+<h1 class="title">Velociraptor Performance</h1>
+
+<p>We are often asked how many resources does a Velociraptor deployment
+use? How should one spec a machine for a Velociraptor deployment?</p>
+<p>We have previously said that one of the reasons we developed
+Velociraptor was to improve on the performance of GRR which was not
+scalable for our use case.</p>
+<p>We've been working with the team at Klein &amp; Co. on several intrusions
+over the past several months, which are providing valuable
+opportunities to deploy and test Velociraptor in a range of real world
+investigation scenarios. Through this process, we’ve been able to
+extend Velociraptor’s functionality and prove its performance on real
+client networks.</p>
+<p>I thought I would write a short blog post to show how Velociraptor
+performed on such a recent engagement. In this engagement we deployed
+Velociraptor on AWS and selectively pushed the client to around 600
+machines running a mix of MacOS and Windows.</p>
+<p>This post will hopefully give readers some idea of how scalable the
+tool is and the typical workloads we run with it.</p>
+<div class="section" id="the-server">
+<h2>The Server</h2>
+<p>Since this is a smallish deployment we used a single VM with 32Gb of
+RAM and 8 cores. This was definitely over speced for this job as most
+of the time the server consumed less than 10% of one core:</p>
+<pre class="code console literal-block">
+<span class="generic output">top - 06:26:13 up 29 days,  2:31,  5 users,  load average: 0.00, 0.01, 0.05
+Tasks: 214 total,   1 running, 213 sleeping,   0 stopped,   0 zombie
+</span><span class="generic prompt">%</span>Cpu<span class="operator">(</span>s<span class="operator">)</span>:  <span class="literal number">0</span>.5 us,  <span class="literal number">0</span>.1 sy,  <span class="literal number">0</span>.0 ni, <span class="literal number">99</span>.4 id,  <span class="literal number">0</span>.0 wa,  <span class="literal number">0</span>.0 hi,  <span class="literal number">0</span>.0 si,  <span class="literal number">0</span>.0 st
+<span class="generic output">KiB Mem:  32948060 total, 14877988 used, 18070072 free,   411192 buffers
+KiB Swap:        0 total,        0 used,        0 free. 13381224 cached Mem
+
+  PID USER      PR  NI    VIRT    RES    SHR S  %CPU %MEM     TIME+ COMMAND
+19334 root      20   0 1277924  94592  12616 S   3.0  0.3   9:11.03 ./velociraptor --config server.config.yaml frontend
+    8 root      20   0       0      0      0 S   0.3  0.0   7:16.30 [rcuos/0]</span>
+</pre>
+<p>You can see that the server consumed about 95mb when operating
+normally and CPU usage was around 3% of one core.</p>
+<p>For this engagement we knew that we would be collecting a lot of data
+and so we specified a large 500gb volume.</p>
+</div>
+<div class="section" id="hunt-performance">
+<h2>Hunt performance</h2>
+<p>Velociraptor works by collecting &quot;Artifacts&quot; from clients. Artifacts
+are simply encapsulated VQL queries which specify something to search
+for on the endpoint. Without going into the details of this
+engagement, we can say that we collected typical artifacts for a
+DFIR/Forensic investigation engagement. In the following I want to
+explore how well hunts performed for the following typical artifacts
+in order of complexity:</p>
+<ol class="arabic simple">
+<li>Search the filesystem for a file glob.</li>
+<li>Download the $MFT from the root filesystem.</li>
+<li>Run a Yara scan over every file on all mounted filesystems.</li>
+</ol>
+<p>We ran these artifact collections over a large number of hosts
+(between 400-500) that fell within the scope of our
+engagement. Although the number of hosts is not huge, we hope to
+demonstrate Velociraptor's scalability.</p>
+</div>
+<div class="section" id="searching-for-a-file-glob">
+<h2>Searching for a file glob</h2>
+<p>One of the simplest and most common tasks in DFIR is to search the
+filesystem for a glob based on filename. This requires traversing
+directories and matching the filename based on the user specified
+expression - for example, find all files with the extension <cite>*.exe</cite>
+within the <cite>C:\Users</cite> directory.</p>
+<p>Velociraptor can glob over the entire filesystem or over a limited set
+of files. Typically a full filesystem glob can take some minutes on
+the endpoint (it is equivalent to running the <cite>find</cite> unix command) and
+touches every file. We typically try to limit the scope of the glob as
+much as possible (e.g. only search system directories) but sometimes
+it is nice to run a glob over all mounted filesystems to make sure we
+don't miss anything. In this case we opted for a full filesystem scan.</p>
+<p>We searched the entire deployment using a hunt (The hunt is
+constructed using the <cite>File Finder</cite> flow in the GUI) which just
+launches the artifact collection. Therefore the horizontal distance
+between the red and blue dot, in the graph below, represents the total
+time taken by the host to collect the artifact.</p>
+<object data="FileNameSearch.svg" type="image/svg+xml">
+FileNameSearch.svg</object>
+<p>The graph shows how many hosts were recruited into this hunt on the Y
+axis. The X axis show the number of seconds since the hunt launch. The
+red points indicate the time when clients started their collection,
+while the blue dots indicate the time when the client completed the
+artifact collection and the server saved its results.</p>
+<p>The inset shows the same data but zoomed into the time origin.</p>
+<p>Velociraptor improves and builds on the initial ideas implemented
+within the GRR DFIR tool, and so it is interesting to compare this
+graph to a typical graph produced by GRR's hunt (reproduced from <a class="reference external" href="https://www.sciencedirect.com/science/article/pii/S1742287613000285">this paper</a>).</p>
+<img alt="grr_hunt.png" src="grr_hunt.png" />
+<p>The first noticeable difference is that Velociraptor clients complete
+their collection much faster than GRR's (the horizontal distance
+between the red and blue dots represents the time between when the
+collection is issued and the time it completes).</p>
+<p>The main reason for this is that GRR's communication protocol relies
+on polling (by default every 10 minutes). Also, since hunting is so
+resource intensive in GRR, the clients actually poll the hunt foreman
+task every 30 minutes by default. This means that GRR clients
+typically have to wait up to 30 minutes to run a hunt!</p>
+<p>The second difference is the slope of the line around the start of the
+hunt. GRR implements a hunt client rate - clients are recruited into
+the hunt slowly (by default 20 per minute) in order to limit the load
+on the frontends.  Unlike GRR, Velociraptor does not implement a hunt
+rate since the Velociraptor frontend load is controlled by limiting
+concurrency instead (more on this below).</p>
+<p>This means that Velociraptor can deliver useful results within seconds
+of the hunt starting. We see that this particular filename search
+typically takes 25-30 seconds and we see about 200 clients completing
+the hunt within this time consistently. The remaining clients are
+probably not online and they receive the hunt as they join the
+network. This makes Velociraptor hunts far more responsive and useful.</p>
+<p>You might also notice a few outliers which spend a long time
+collecting this artifact - these machines have probably been shutdown
+or suspended while collecting this artifact.</p>
+</div>
+<div class="section" id="mft-download">
+<h2>MFT Download</h2>
+<p>A common technique is to examine the Master File Table (MFT) of an
+NTFS volume. By forensically analyzing the MFT it is possible to
+detect deleted files, time stomping and build a timeline of the system
+using tools like
+<a class="reference external" href="https://github.com/dkovar/analyzeMFT">analyseMFT.py</a> or
+<a class="reference external" href="https://dmitrybrant.com/ntfswalker">ntfswalker</a> .</p>
+<p>In this case we decided to collect the $MFT from all the Windows hosts
+and post-process them offline. Typically the MFT is around 300-400mb
+and could be larger. Therefore this artifact collection is about
+performance downloading large quantities of data from multiple hosts
+quickly.</p>
+<p>Velociraptor can read the raw NTFS partition and therefore read the
+<cite>$MFT</cite> file. We wrote the following artifact to just fetch the $MFT
+file:</p>
+<pre class="code yaml literal-block">
+<span class="name tag">name</span><span class="punctuation">:</span> <span class="literal scalar plain">Artifact.NTFS.MFT_puller</span>
+<span class="name tag">description</span><span class="punctuation">:</span> <span class="punctuation indicator">|</span>
+   <span class="name constant">Uses an NTFS accessor to pull the $MFT</span>
+
+<span class="name tag">parameters</span><span class="punctuation">:</span>
+<span class="punctuation indicator">-</span> <span class="name tag">name</span><span class="punctuation">:</span> <span class="literal scalar plain">path</span>
+  <span class="name tag">default</span><span class="punctuation">:</span> <span class="literal scalar plain">\\.\C:\$MFT</span>
+
+<span class="name tag">sources</span><span class="punctuation">:</span>
+<span class="punctuation indicator">-</span> <span class="name tag">precondition</span><span class="punctuation">:</span>
+    <span class="literal scalar plain">SELECT OS From info() where OS = 'windows'</span>
+  <span class="name tag">queries</span><span class="punctuation">:</span>
+  <span class="punctuation indicator">-</span> <span class="literal scalar plain">SELECT upload(file=path, accessor=&quot;ntfs&quot;) as Upload from scope()</span>
+</pre>
+<p>Here is the timing graph for this artifact collection:</p>
+<object data="MFTDownload.svg" type="image/svg+xml">
+MFTDownload.svg</object>
+<p>This collection takes a lot longer on each host as clients are
+uploading around 400mb each to the server, but our server was in the
+cloud so it had fast bandwidth. Again we see the hosts that are
+currently up being tasked within seconds, while as hosts come online
+gradually we see them receiving the hunt and a few minutes later
+uploading their $MFT file.</p>
+<p>Was the frontend loaded at the time? I took a screenshot of <cite>top</cite> on
+the server seconds after launching the hunt:</p>
+<img alt="UploadingMFT.png" src="UploadingMFT.png" />
+<p>We can see that the CPU load is trivial (4.7%) but the major impact of
+a heavy upload collection is the memory used (about 4.7gb - up from
+about 100mb). The reason is that each client is posting a large buffer
+of data (several mb) simultaneously. The server needs to buffer the
+data before it can decrypt and process it which takes memory.</p>
+<p>In order to limit the amount of memory used, Velociraptor limits the
+total number of connections it is actively processing to 8-10
+concurrent connections. By carefully managing concurrency we are able
+to keep a limit on server memory use. We may lower the total memory
+use by reducing the concurrency (and therefore maybe fit into a
+smaller VM). Clients simply wait until the server is able to process
+their uploaded buffers. If the server takes too long, the clients
+automatically back off and retry to send the same buffer.</p>
+</div>
+<div class="section" id="yara-scan-over-the-entire-filesystem">
+<h2>Yara scan over the entire filesystem</h2>
+<p>The final example of a very intense artifact is to scan the entire
+filesystem with a YARA rule. This not only requires traversing the
+entire filesystem, but also opening each file and searching it.</p>
+<p>One of the dangers with such a scan is that users will be negatively
+impacted as their workstations start to read every file on disk! The
+main resources a YARA scan consumes is disk IO and CPU load. Users
+might complain and blame Velociraptor for their machine being slow
+(disk IO may negatively affect performance much more than CPU load!).</p>
+<p>However in this case, we don't care how long we take to scan the
+user's system, as long as every file was scanned, and as long as the
+endpoint is not overloaded and the user's work is not
+affected. Luckily Velociraptor allows us to specify the trade-off
+between collection time and collection intensity.</p>
+<div class="section" id="velociraptor-rate-limiting">
+<h3>Velociraptor rate limiting</h3>
+<p>Velociraptor controls client side load by rate limiting the client's
+VQL query. Each VQL plugin consumes an <cite>&quot;operation&quot;</cite> from the
+throttler. We define an &quot;operation&quot; as a notional unit of work - the
+heavier the VQL plugin's work, the more operations are consumed. For
+example for yara scanning, an operation is defined as 1mb of scanned
+data, or a single file if the file is smaller.</p>
+<p>When a user issues an artifact collection task, they may limit the
+rate at which operations are performed by the client. The Velociraptor
+agent then limits the operations to the specified rate. For example,
+if the rate is 20 ops/sec then the client will scan less than 20mb per
+seconds.</p>
+<p>Other collections may run concurrently at different rates, though; The
+client is not blocked while performing a single artifact
+collection. This makes sense since we often need to collect a low
+priority artifact slowly, but we do not want this to compromise rapid
+response to that host.</p>
+<p>For example, one of our targets was a server with large attached
+storage. We ran the Yara scan over this system, scanning the first
+100Mb of each file, at a rate of 50 ops/sec. In total we scanned 1.5Tb
+of files and the scan took 14 hours (for a total scan rate of
+30Mb/sec).</p>
+<p>Velociraptor by default collects the <cite>Generic.Client.Stats</cite> artifact,
+which samples the client's CPU utilization and memory usage every 10
+seconds. These samples are streamed to the server and form a record of
+the client's footprint on the endpoint. We can use this data to
+visualize the effects of performing the yara scan on this host:</p>
+<object data="cpu_utilization.svg" type="image/svg+xml">
+cpu_utilization.svg</object>
+<p>Above is the CPU usage on that particular server over the course of a
+full day (24 hours). The 14 hour yara scan is clearly visible but at
+no time is CPU utilization exceeding 30% of one core. With endpoint
+disk IO limited to about 30mb/sec we have achieved a balance between
+performance and endpoint load we are happy with.</p>
+<object data="YaraScanFull.svg" type="image/svg+xml">
+YaraScanFull.svg</object>
+<p>We can see that most endpoints take approximately an hour to perform
+this yara scan, but server load is minimal since the server simply
+stores the results of the scans while doing minimal processing.</p>
+</div>
+</div>
+<div class="section" id="conclusions">
+<h2>Conclusions</h2>
+<p>This post provides some typical numbers for Velociraptor performance
+in typical DFIR engagements. We also covered some considerations and
+trade-offs we must think about when issuing large artifact
+collections. Readers can use these as a guideline in their own
+deployments - please comment below about your
+experiences. Velociraptor is under very active development and this
+feedback is important to ensure we put in place the mechanisms to
+account for more use cases.</p>
+<div class="section" id="thanks">
+<h3>Thanks</h3>
+<p>We would like to thank the folk at <a class="reference external" href="https://www.kleinco.com.au/">Klein&amp;Co</a> for their wonderful
+support and assistance in Velociraptor development.</p>
+</div>
+</div>
+</div>
+
+<footer class=" footline" >
+	
+</footer>
+
+
+        
+        </div> 
+        
+
+      </div>
+
+    <div id="navigation">
+        
+        
+        
+        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+            
+        
+        
+        
+
+
+	 
+	 
+		
+			<a class="nav nav-prev" href="/blog/html/2019/02/14/alerting_on_event_patterns.html" title="Alerting on event patterns"> <i class="fa fa-chevron-left"></i></a>
+		
+		
+			<a class="nav nav-next" href="/blog/html/2019/02/09/velociraptor_python_api.html" title="The Velociraptor Python API" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+		
+	
+    </div>
+
+    </section>
+    
+    <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+      <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+    </div>
+    <script src="/js/clipboard.min.js?1560335783"></script>
+    <script src="/js/perfect-scrollbar.min.js?1560335783"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1560335783"></script>
+    <script src="/js/jquery.sticky.js?1560335783"></script>
+    <script src="/js/featherlight.min.js?1560335783"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1560335783"></script>
+    <script src="/js/highlight.pack.js?1560335783"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script src="/js/modernizr.custom-3.6.0.js?1560335783"></script>
+    <script src="/js/learn.js?1560335783"></script>
+    <script src="/js/hugo-learn.js?1560335783"></script>
+
+    <link href="/mermaid/mermaid.css?1560335783" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1560335783"></script>
+    <script>
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+    
+
+  </body>
+</html>
+
