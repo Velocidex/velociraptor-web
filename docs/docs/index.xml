@@ -49,9 +49,9 @@ NOTE: The updates can be pulled from any web server. You need to ensure they are
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>/docs/artifacts/server/</guid>
-      <description>Server.Alerts.InteractiveShell Velociraptor&amp;rsquo;s interactive shell is a powerful feature. If you want to monitor use of the shell on any clients, simply collect this artifact.
-View Artifact name: Server.Alerts.InteractiveShell description: | Velociraptor&#39;s interactive shell is a powerful feature. If you want to monitor use of the shell on any clients, simply collect this artifact. type: SERVER_EVENT sources: - queries: - | SELECT * from watch_monitoring(artifact=&#39;Shell&#39;)  
-Server.Alerts.PsExec Send an email if execution of the psexec service was detected on any client.</description>
+      <description>Server.Alerts.PsExec Send an email if execution of the psexec service was detected on any client. This is a server side artifact.
+Note this requires that the Windows.Event.ProcessCreation monitoring artifact be collected from clients.
+   Arg Default Description     EmailAddress admin@example.com    MessageTemplate PsExec execution detected at %v: %v for client %v\n       View Artifact Source   name: Server.</description>
     </item>
     
     <item>
@@ -61,7 +61,7 @@ Server.Alerts.PsExec Send an email if execution of the psexec service was detect
       
       <guid>/docs/artifacts/detection/</guid>
       <description>Windows.Detection.ProcessMemory Scanning process memory for signals is powerfull technique. This artifact scans processes for a yara signature and when detected, the process memory is dumped and uploaded to the server.
-   Arg Default Description     processRegex notepad    yaraRule rule Process {\n strings:\n $a = &amp;ldquo;this is a secret&amp;rdquo; nocase wide\n $b = &amp;ldquo;this is a secret&amp;rdquo; nocase\n condition:\n any of them\n}\n     View Artifact name: Windows.</description>
+   Arg Default Description     processRegex notepad    yaraRule rule Process {\n strings:\n $a = &amp;ldquo;this is a secret&amp;rdquo; nocase wide\n $b = &amp;ldquo;this is a secret&amp;rdquo; nocase\n condition:\n any of them\n}\n       View Artifact Source   name: Windows.</description>
     </item>
     
     <item>
@@ -82,7 +82,7 @@ It is recommended to collect this artifact and just archive the results.</descri
       
       <guid>/docs/artifacts/windows_system/</guid>
       <description>Windows.Sys.AppcompatShims Application Compatibility shims are a way to persist malware. This table presents the AppCompat Shim information from the registry in a nice format.
-   Arg Default Description     shimKeys HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\InstalledSDB\*    customKeys HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Custom\*\*     View Artifact name: Windows.Sys.AppcompatShims description: | Application Compatibility shims are a way to persist malware. This table presents the AppCompat Shim information from the registry in a nice format.</description>
+   Arg Default Description     shimKeys HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\InstalledSDB\*    customKeys HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Custom\*\*       View Artifact Source   name: Windows.Sys.AppcompatShims description: | Application Compatibility shims are a way to persist malware. This table presents the AppCompat Shim information from the registry in a nice format.</description>
     </item>
     
     <item>
@@ -91,10 +91,8 @@ It is recommended to collect this artifact and just archive the results.</descri
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>/docs/artifacts/triage/</guid>
-      <description>Windows.Triage.Collectors.Amcache {{ Query &amp;ldquo;SELECT * FROM Rows&amp;rdquo; }}
-View Artifact name: Windows.Triage.Collectors.Amcache description: | {{ Query &amp;quot;SELECT * FROM Rows&amp;quot; }} precondition: SELECT OS From info() where OS = &#39;windows&#39; sources: - queries: - | SELECT * FROM chain( a1={ SELECT * FROM Artifact.Triage.Collection.Upload( type=&amp;quot;Amcache&amp;quot;, accessor=&amp;quot;ntfs&amp;quot;, path=&amp;quot;C:\\Windows\\AppCompat\\Programs\\Amcache.hve&amp;quot;) }, a2={ SELECT * FROM Artifact.Triage.Collection.Upload( type=&amp;quot;Amcache transaction files&amp;quot;, accessor=&amp;quot;ntfs&amp;quot;, path=&amp;quot;C:\\Windows\\AppCompat\\Programs\\Amcache.hve.LOG*&amp;quot;) })  
-Windows.Triage.Collectors.BCD Boot Configuration Files.
-{{ Query &amp;ldquo;SELECT * FROM Rows&amp;rdquo; }}</description>
+      <description>Windows.Triage.Collectors.Amcache   View Artifact Source   name: Windows.Triage.Collectors.Amcache precondition: SELECT OS From info() where OS = &#39;windows&#39; sources: - queries: - | SELECT * FROM chain( a1={ SELECT * FROM Artifact.Triage.Collection.Upload( type=&amp;quot;Amcache&amp;quot;, accessor=&amp;quot;ntfs&amp;quot;, path=&amp;quot;C:\\Windows\\AppCompat\\Programs\\Amcache.hve&amp;quot;) }, a2={ SELECT * FROM Artifact.Triage.Collection.Upload( type=&amp;quot;Amcache transaction files&amp;quot;, accessor=&amp;quot;ntfs&amp;quot;, path=&amp;quot;C:\\Windows\\AppCompat\\Programs\\Amcache.hve.LOG*&amp;quot;) })    Windows.Triage.Collectors.BCD Boot Configuration Files.
+  View Artifact Source   name: Windows.Triage.Collectors.BCD description: | Boot Configuration Files. precondition: SELECT OS From info() where OS = &#39;windows&#39; sources: - queries: - | SELECT * FROM chain( a1={ SELECT * FROM Artifact.</description>
     </item>
     
   </channel>

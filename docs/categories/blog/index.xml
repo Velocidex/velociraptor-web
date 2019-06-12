@@ -17,7 +17,7 @@
       <pubDate>Sat, 02 Mar 2019 04:10:06 +0000</pubDate>
       
       <guid>/blog/html/2019/03/02/agentless_hunting_with_velociraptor.html</guid>
-      <description>There has been a lot of interest lately in &amp;quot;Agentless hunting&amp;quot; especially using PowerShell. There are many reasons why Agentless hunting is appealing - there are already a ton of endpoint agents and yet another one may not be welcome. Somtimes we need to deploy endpoint agents as part of a DFIR engagement and we may not want to permanently install yet another agent on end points.
+      <description>There has been a lot of interest lately in Agentless hunting especially using PowerShell. There are many reasons why Agentless hunting is appealing - there are already a ton of endpoint agents and yet another one may not be welcome. Somtimes we need to deploy endpoint agents as part of a DFIR engagement and we may not want to permanently install yet another agent on end points.
 This blog post explores an agentless deployment scenario, where we do not want to install Velociraptor permanently on the end point, but rather push it to end points temporarily to collect specific artifacts.</description>
     </item>
     

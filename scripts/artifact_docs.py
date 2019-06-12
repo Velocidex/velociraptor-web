@@ -39,7 +39,7 @@ def output_artifacts(fd, prefix):
 
         heading = name
         fd.write ("## " + heading + "\n\n")
-        fd.write (data.get("description") + "\n")
+        fd.write (data.get("description", "") + "\n")
 
         parameters = data.get("parameters",[])
         if len(parameters) > 0:
@@ -60,7 +60,7 @@ def output_artifacts(fd, prefix):
 
         for line in data['raw'].splitlines():
             fd.write (line + "\n")
-        fd.write ("```\n   {{% /expand }}\n\n")
+        fd.write ("```\n   {{% /expand %}}\n\n")
 
 
 if __name__ == "__main__" :

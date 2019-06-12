@@ -22,8 +22,8 @@ Arg|Default|Description
 clientURL|http://127.0.0.1:8000/public/velociraptor.exe|
 configURL|http://127.0.0.1:8000/public/client.config.yaml|
 
-
 {{% expand  "View Artifact Source" %}}
+
 
 ```
 name: Admin.Client.Upgrade
@@ -72,9 +72,7 @@ sources:
             )
          })
 ```
-
-{{% /expand %}}
-
+   {{% /expand %}}
 
 ## Admin.Events.PostProcessUploads
 
@@ -92,13 +90,10 @@ result set.
 
 Arg|Default|Description
 ---|------|-----------
-uploadPostProcessCommand|["/bin/ls", "-l"]\n|The command to run - must be a json array of strings! The list of files will be appended to the end of the command.\n
+uploadPostProcessCommand|["/bin/ls", "-l"]\n|The command to run - must be a json array of strings! The list\nof files will be appended to the end of the command.\n
 uploadPostProcessArtifact|Windows.Registry.NTUser.Upload|The name of the artifact to watch.\n
 
-
- <a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
-    data-target="#Admin_Events_PostProcessUploadsDetails">View Artifact</a>
- <div class="collapse dn" id="Admin_Events_PostProcessUploadsDetails" style="width: fit-content">
+{{% expand  "View Artifact Source" %}}
 
 
 ```
@@ -150,7 +145,7 @@ sources:
              FROM execve(argv=Argv)
           })
 ```
-   </div></a>
+   {{% /expand %}}
 
 ## Admin.System.CompressUploads
 
@@ -179,10 +174,7 @@ Arg|Default|Description
 ---|------|-----------
 blacklistCompressionFilename|(?i).+ntuser.dat|Filenames which match this regex will be excluded from compression.
 
-
- <a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
-    data-target="#Admin_System_CompressUploadsDetails">View Artifact</a>
- <div class="collapse dn" id="Admin_System_CompressUploadsDetails" style="width: fit-content">
+{{% expand  "View Artifact Source" %}}
 
 
 ```
@@ -231,7 +223,7 @@ sources:
                compress(path=Files) as CompressedFiles
         FROM files
 ```
-   </div></a>
+   {{% /expand %}}
 
 ## Demo.Plugins.Fifo
 
@@ -284,10 +276,7 @@ Of course in the real artifact we would want to include more
 information than just times (i.e. who logged on to where etc).
 
 
-
- <a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
-    data-target="#Demo_Plugins_FifoDetails">View Artifact</a>
- <div class="collapse dn" id="Demo_Plugins_FifoDetails" style="width: fit-content">
+{{% expand  "View Artifact Source" %}}
 
 
 ```
@@ -340,26 +329,30 @@ description: |
 
   Of course in the real artifact we would want to include more
   information than just times (i.e. who logged on to where etc).
-type: EVENT
+type: CLIENT_EVENT
 
 sources:
   - queries:
       # This query simulates failed logon attempts.
-      - LET failed_logon = SELECT Unix as FailedTime from clock(period=1)
+      - |
+        LET failed_logon = SELECT Unix as FailedTime from clock(period=1)
 
       # This is the fifo which holds the last 5 failed logon attempts
       # within the last hour.
-      - LET last_5_events = SELECT FailedTime
+      - |
+        LET last_5_events = SELECT FailedTime
             FROM fifo(query=failed_logon, max_rows=5, max_age=3600)
 
       # We need to get it started collecting data immediately by
       # materializing the cache contents. Otherwise the fifo wont
       # start until it is first called (i.e. the first successful
       # login and we will miss the failed events before hand).
-      - LET foo <= SELECT * FROM last_5_events
+      - |
+        LET foo <= SELECT * FROM last_5_events
 
       # This simulates successful logon - we assume every 3 seonds.
-      - LET success_logon = SELECT Unix as SuccessTime from clock(period=3)
+      - |
+        LET success_logon = SELECT Unix as SuccessTime from clock(period=3)
 
       # For each successful logon, query the last failed logon
       # attempts from the fifo(). We also count the total number of
@@ -375,7 +368,7 @@ sources:
            FROM last_5_events GROUP BY SuccessTime
           }) WHERE Count > 3
 ```
-   </div></a>
+   {{% /expand %}}
 
 ## Generic.Applications.Office.Keywords
 
@@ -408,10 +401,7 @@ documentGlobs|/*.{docx,docm,dotx,dotm,docb,xlsx,xlsm,xltx,xltm,pptx,pptm,potx,po
 searchGlob|C:\\Users\\**|
 yaraRule|rule Hit {\n  strings:\n    $a = "secret" wide nocase\n    $b = "secret" nocase\n\n  condition:\n    any of them\n}\n|
 
-
- <a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
-    data-target="#Generic_Applications_Office_KeywordsDetails">View Artifact</a>
- <div class="collapse dn" id="Generic_Applications_Office_KeywordsDetails" style="width: fit-content">
+{{% expand  "View Artifact Source" %}}
 
 
 ```
@@ -457,13 +447,15 @@ parameters:
 
 sources:
   - queries:
-      - LET office_docs = SELECT FullPath AS OfficePath,
+      - |
+        LET office_docs = SELECT FullPath AS OfficePath,
              timestamp(epoch=Mtime.Sec) as OfficeMtime,
              Size as OfficeSize
           FROM glob(globs=searchGlob + documentGlobs)
 
       # A list of zip members inside the doc that have some content.
-      - LET document_parts = SELECT OfficePath,
+      - |
+        LET document_parts = SELECT OfficePath,
              FullPath AS ZipMemberPath
           FROM glob(globs=url(
              scheme="file", path=OfficePath, fragment="/**").String,
@@ -471,7 +463,8 @@ sources:
           WHERE not IsDir and Size > 0
 
       # For each document, scan all its parts for the keyword.
-      - SELECT OfficePath,
+      - |
+        SELECT OfficePath,
                OfficeMtime,
                OfficeSize,
                File.ModTime as InternalMtime,
@@ -488,7 +481,7 @@ sources:
                  accessor='zip')
          })
 ```
-   </div></a>
+   {{% /expand %}}
 
 ## Generic.Client.Stats
 
@@ -498,10 +491,7 @@ Arg|Default|Description
 ---|------|-----------
 Frequency|10|Return stats every this many seconds.
 
-
- <a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
-    data-target="#Generic_Client_StatsDetails">View Artifact</a>
- <div class="collapse dn" id="Generic_Client_StatsDetails" style="width: fit-content">
+{{% expand  "View Artifact Source" %}}
 
 
 ```
@@ -511,7 +501,7 @@ parameters:
   - name: Frequency
     description: Return stats every this many seconds.
     default: "10"
-type: EVENT
+type: CLIENT_EVENT
 
 sources:
   - queries:
@@ -526,8 +516,110 @@ sources:
                   MemoryInfo.RSS as RSS
            FROM pslist(pid=getpid())
          })
+
+
+reports:
+  - type: SERVER_EVENT
+    template: |
+      {{ define "resources" }}
+           SELECT Timestamp, rate(x=CPU, y=Timestamp) * 100 As CPUPercent,
+                  RSS / 1000000 AS MemoryUse
+           FROM source()
+           WHERE CPUPercent >= 0
+      {{ end }}
+
+      {{ Query "resources" | LineChart "xaxis_mode" "time" "RSS.yaxis" 2 }}
+
+  - type: MONITORING_DAILY
+    template: |
+      {{ define "resources" }}
+           SELECT Timestamp, rate(x=CPU, y=Timestamp) * 100 As CPUPercent,
+                  RSS / 1000000 AS MemoryUse
+           FROM source()
+           WHERE CPUPercent >= 0
+      {{ end }}
+
+      {{ $client_info := Query "SELECT * FROM clients(client_id=ClientId) LIMIT 1" }}
+
+      # Client Footprint for {{ Get $client_info "0.OsInfo.Fqdn" }}
+
+      The client has a client ID of {{ Get $client_info "0.ClientId" }}.
+      Clients report the Velociraptor process footprint to the
+      server every 10 seconds. The data includes the total CPU
+      utilization, and the resident memory size used by the client.
+
+      The following graph shows the total utilization. Memory
+      utilization is meausred in `Mb` while CPU Utilization is
+      measured by `Percent of one core`.
+
+      We would expect the client to use around 1-5% of one core when
+      idle, but if a heavy hunt is running this might climb
+      substantially.
+
+      {{ Query "resources" | LineChart "xaxis_mode" "time" "RSS.yaxis" 2 }}
+
+      ## VQL Query
+
+      The following VQL query was used to plot the graph above.
+
+      ```sql
+      {{ template "resources" }}
+      ```
+
+      > To learn about managing end point performance with Velociraptor see
+        the [blog post](https://docs.velociraptor.velocidex.com/blog/html/2019/02/10/velociraptor_performance.html).
 ```
-   </div></a>
+   {{% /expand %}}
+
+## Generic.Forensic.Carving.URLs
+
+Carve URLs from files located in a glob. Note that we do not parse
+any files - we simply carve anything that looks like a URL.
+
+
+Arg|Default|Description
+---|------|-----------
+UrlGlob|["C:/Documents and Settings/*/Local Settings/Application Data/Google/Chrome/User Data/**",\n "C:/Users/*/AppData/Local/Google/Chrome/User Data/**",\n "C:/Documents and Settings/*/Local Settings/History/**",\n "C:/Documents and Settings/*/Local Settings/Temporary Internet Files/**",\n "C:/Users/*/AppData/Local/Microsoft/Windows/WebCache/**",\n "C:/Users/*/AppData/Local/Microsoft/Windows/INetCache/**",\n "C:/Users/*/AppData/Local/Microsoft/Windows/INetCookies/**",\n "C:/Users/*/AppData/Roaming/Mozilla/Firefox/Profiles/**",\n "C:/Documents and Settings/*/Application Data/Mozilla/Firefox/Profiles/**"\n ]\n|
+
+{{% expand  "View Artifact Source" %}}
+
+
+```
+name: Generic.Forensic.Carving.URLs
+description: |
+  Carve URLs from files located in a glob. Note that we do not parse
+  any files - we simply carve anything that looks like a URL.
+
+
+parameters:
+  - name: UrlGlob
+    default: |
+      ["C:/Documents and Settings/*/Local Settings/Application Data/Google/Chrome/User Data/**",
+       "C:/Users/*/AppData/Local/Google/Chrome/User Data/**",
+       "C:/Documents and Settings/*/Local Settings/History/**",
+       "C:/Documents and Settings/*/Local Settings/Temporary Internet Files/**",
+       "C:/Users/*/AppData/Local/Microsoft/Windows/WebCache/**",
+       "C:/Users/*/AppData/Local/Microsoft/Windows/INetCache/**",
+       "C:/Users/*/AppData/Local/Microsoft/Windows/INetCookies/**",
+       "C:/Users/*/AppData/Roaming/Mozilla/Firefox/Profiles/**",
+       "C:/Documents and Settings/*/Application Data/Mozilla/Firefox/Profiles/**"
+       ]
+
+sources:
+  - queries:
+      - |
+        LET matching = SELECT FullPath FROM glob(
+            globs=parse_json_array(data=UrlGlob))
+      - |
+        SELECT FullPath, URL FROM foreach(
+          row=matching,
+          query={
+            SELECT FullPath,
+                   URL FROM parse_records_with_regex(file=FullPath,
+               regex="(?P<URL>https?:\\/\\/[\\w\\.-]+[\\/\\w \\.-]*)")
+          })
+```
+   {{% /expand %}}
 
 ## Generic.Forensic.Timeline
 
@@ -541,10 +633,7 @@ Arg|Default|Description
 timelineGlob|C:\\Users\\**|
 timelineAccessor|file|
 
-
- <a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
-    data-target="#Generic_Forensic_TimelineDetails">View Artifact</a>
- <div class="collapse dn" id="Generic_Forensic_TimelineDetails" style="width: fit-content">
+{{% expand  "View Artifact Source" %}}
 
 
 ```
@@ -584,7 +673,7 @@ sources:
                Atime.Sec AS Atime, Mtime.Sec AS Mtime, Ctime.Sec AS Ctime
         FROM glob(globs=timelineGlob, accessor=timelineAccessor)
 ```
-   </div></a>
+   {{% /expand %}}
 
 ## Network.ExternalIpAddress
 
@@ -594,10 +683,7 @@ Arg|Default|Description
 ---|------|-----------
 externalUrl|http://www.myexternalip.com/raw|The URL of the external IP detection site.
 
-
- <a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
-    data-target="#Network_ExternalIpAddressDetails">View Artifact</a>
- <div class="collapse dn" id="Network_ExternalIpAddressDetails" style="width: fit-content">
+{{% expand  "View Artifact Source" %}}
 
 
 ```
@@ -610,9 +696,10 @@ parameters:
 sources:
   - precondition: SELECT * from info()
     queries:
-      - SELECT Content as IP from http_client(url=externalUrl)
+      - |
+        SELECT Content as IP from http_client(url=externalUrl)
 ```
-   </div></a>
+   {{% /expand %}}
 
 ## Reporting.Hunts.Details
 
@@ -620,10 +707,7 @@ Report details about which client ran each hunt, how long it took
 and if it has completed.
 
 
-
- <a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
-    data-target="#Reporting_Hunts_DetailsDetails">View Artifact</a>
- <div class="collapse dn" id="Reporting_Hunts_DetailsDetails" style="width: fit-content">
+{{% expand  "View Artifact Source" %}}
 
 
 ```
@@ -656,7 +740,63 @@ sources:
       - |
         SELECT * from foreach(row=hunts, query=flows)
 ```
-   </div></a>
+   {{% /expand %}}
+
+## System.Hunt.Participation
+
+Endpoints may participate in hunts. This artifact collects which hunt
+each system participated in.
+
+Note: This is an automated system hunt. You do not need to start it.
+
+
+{{% expand  "View Artifact Source" %}}
+
+
+```
+name: System.Hunt.Participation
+description: |
+     Endpoints may participate in hunts. This artifact collects which hunt
+     each system participated in.
+
+     Note: This is an automated system hunt. You do not need to start it.
+
+reports:
+  - type: MONITORING_DAILY
+    template: |
+      {{ define "all_hunts" }}LET allhunts <= SELECT * FROM hunts(){{ end }}
+      {{ define "hunts" }}
+           SELECT * FROM foreach(
+             row={ SELECT timestamp(epoch=Timestamp) AS Scheduled,
+                          HuntId as ParticipatedHuntId
+                   FROM source(client_id=ClientId,
+                       artifact='System.Hunt.Participation') },
+             query={
+                SELECT Scheduled,
+                       HuntId,
+                       HuntDescription,
+                       StartRequest.Args.Artifacts.Names
+                FROM allhunts
+                WHERE HuntId = ParticipatedHuntId
+             })
+      {{ end }}
+
+      {{ $client_info := Query "SELECT * FROM clients(client_id=ClientId) LIMIT 1" }}
+
+      # Hunt participation for {{ Get $client_info "0.OsInfo.Fqdn" }}
+
+      The client with a client ID of {{ Get $client_info "0.ClientId" }} participated in some hunts today.
+
+      {{ Query "all_hunts" "hunts" | Table }}
+
+      ## VQL Query
+      The following VQL query was used to plot the graph above.
+
+      ```sql
+      {{ template "hunts" }}
+      ```
+```
+   {{% /expand %}}
 
 ## Windows.Applications.ChocolateyPackages
 
@@ -666,10 +806,7 @@ Arg|Default|Description
 ---|------|-----------
 ChocolateyInstall||
 
-
- <a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
-    data-target="#Windows_Applications_ChocolateyPackagesDetails">View Artifact</a>
- <div class="collapse dn" id="Windows_Applications_ChocolateyPackagesDetails" style="width: fit-content">
+{{% expand  "View Artifact Source" %}}
 
 
 ```
@@ -710,7 +847,7 @@ sources:
             FROM files
         })
 ```
-   </div></a>
+   {{% /expand %}}
 
 ## Windows.Applications.Chrome.Extensions
 
@@ -730,10 +867,7 @@ Arg|Default|Description
 ---|------|-----------
 extensionGlobs|\\AppData\\Local\\Google\\Chrome\\User Data\\*\\Extensions\\*\\*\\manifest.json|
 
-
- <a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
-    data-target="#Windows_Applications_Chrome_ExtensionsDetails">View Artifact</a>
- <div class="collapse dn" id="Windows_Applications_Chrome_ExtensionsDetails" style="width: fit-content">
+{{% expand  "View Artifact Source" %}}
 
 
 ```
@@ -866,7 +1000,7 @@ sources:
 
         FROM parsed_manifest_files
 ```
-   </div></a>
+   {{% /expand %}}
 
 ## Windows.Applications.OfficeMacros
 
@@ -886,10 +1020,7 @@ Arg|Default|Description
 officeExtensions|*.{xls,xlsm,doc,docx,ppt,pptm}|
 officeFileSearchGlob|C:\\Users\\**\\|The directory to search for office documents.
 
-
- <a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
-    data-target="#Windows_Applications_OfficeMacrosDetails">View Artifact</a>
- <div class="collapse dn" id="Windows_Applications_OfficeMacrosDetails" style="width: fit-content">
+{{% expand  "View Artifact Source" %}}
 
 
 ```
@@ -923,7 +1054,178 @@ sources:
                SELECT * from olevba(file=FullPath)
            })
 ```
-   </div></a>
+   {{% /expand %}}
+
+## Windows.EventLogs.DHCP
+
+
+This artifact parses the windows dhcp event log looking for evidence
+of IP address assignments.
+
+In some investigations it is important to be able to identify the
+machine which was assigned a particular IP address at a point in
+time. Usually these logs are available from the DHCP server, but in
+many cases the server logs are not available (for example, if the
+endpoint was visiting a different network or the DHCP server is on a
+wireless router with no log retention).
+
+On windows, there are two types of logs:
+
+  1. The first type is the admin log
+     (`Microsoft-Windows-Dhcp-Client%4Admin.evt`). These only contain
+     errors such as an endpoint trying to continue its lease, but
+     the lease is rejected by the server.
+
+  2. The operational log
+     (`Microsoft-Windows-Dhcp-Client%4Operational.evtx`) contains
+     the full log of each lease. Unfortunately this log is disabled
+     by default. If it is available we can rely on the information.
+
+
+Arg|Default|Description
+---|------|-----------
+eventDirGlob|C:\\Windows\\system32\\winevt\\logs\\|
+adminLog|Microsoft-Windows-Dhcp-Client%4Admin.evtx|
+operationalLog|Microsoft-Windows-Dhcp-Client%4Operational.evtx|
+accessor|file|
+
+{{% expand  "View Artifact Source" %}}
+
+
+```
+name: Windows.EventLogs.DHCP
+description: |
+
+  This artifact parses the windows dhcp event log looking for evidence
+  of IP address assignments.
+
+  In some investigations it is important to be able to identify the
+  machine which was assigned a particular IP address at a point in
+  time. Usually these logs are available from the DHCP server, but in
+  many cases the server logs are not available (for example, if the
+  endpoint was visiting a different network or the DHCP server is on a
+  wireless router with no log retention).
+
+  On windows, there are two types of logs:
+
+    1. The first type is the admin log
+       (`Microsoft-Windows-Dhcp-Client%4Admin.evt`). These only contain
+       errors such as an endpoint trying to continue its lease, but
+       the lease is rejected by the server.
+
+    2. The operational log
+       (`Microsoft-Windows-Dhcp-Client%4Operational.evtx`) contains
+       the full log of each lease. Unfortunately this log is disabled
+       by default. If it is available we can rely on the information.
+
+parameters:
+  - name: eventDirGlob
+    default: C:\Windows\system32\winevt\logs\
+  - name: adminLog
+    default: Microsoft-Windows-Dhcp-Client%4Admin.evtx
+
+  - name: operationalLog
+    default: Microsoft-Windows-Dhcp-Client%4Operational.evtx
+
+  - name: accessor
+    default: file
+
+sources:
+  - name: RejectedDHCP
+    queries:
+      - |
+        LET files = SELECT * FROM glob(
+            globs=eventDirGlob + adminLog,
+            accessor=accessor)
+      - |
+        SELECT Time AS _Time,
+               timestamp(epoch=Time) As Timestamp,
+               Computer, MAC, ClientIP, DHCPServer, Type FROM foreach(
+           row=files,
+           query={
+              SELECT System.TimeCreated.SystemTime as Time,
+                     System.Computer AS Computer,
+                     format(format="%x:%x:%x:%x:%x:%x", args=[EventData.HWAddress]) AS MAC,
+                     ip(netaddr4_le=EventData.Address1) AS ClientIP,
+                     ip(netaddr4_le=EventData.Address2) AS DHCPServer,
+                     "Lease Rejected" AS Type
+              FROM parse_evtx(filename=FullPath, accessor=accessor)
+              WHERE System.EventID.Value = 1002
+           })
+
+  - name: AssignedDHCP
+    queries:
+      - |
+        LET files = SELECT * FROM glob(
+            globs=eventDirGlob + operationalLog,
+            accessor=accessor)
+      - |
+        SELECT Time AS _Time,
+               timestamp(epoch=Time) As Timestamp,
+               Computer, MAC, ClientIP, DHCPServer, Type FROM foreach(
+           row=files,
+           query={
+              SELECT System.TimeCreated.SystemTime as Time,
+                     System.Computer AS Computer,
+                     EventData.InterfaceGuid AS MAC,
+                     ip(netaddr4_le=EventData.Address1) AS ClientIP,
+                     ip(netaddr4_le=EventData.Address2) AS DHCPServer,
+                     "Lease Assigned" AS Type
+              FROM parse_evtx(filename=FullPath, accessor=accessor)
+              WHERE System.EventID.Value = 60000
+           })
+
+
+reports:
+  - type: CLIENT
+    template: |
+      Evidence of DHCP assigned IP addresses
+      ======================================
+
+      {{ .Description }}
+
+      {{ define "assigned_dhcp" }}
+            SELECT Computer, ClientIP,
+                   count(items=Timestamp) AS Total,
+                   enumerate(items=Timestamp) AS Times
+            FROM source(source='AssignedDHCP')
+            GROUP BY ClientIP
+      {{ end }}
+      {{ define "rejected_dhcp" }}
+            SELECT Computer, ClientIP,
+                   count(items=Timestamp) AS Total,
+                   enumerate(items=Timestamp) AS Times
+            FROM source(source='RejectedDHCP')
+            GROUP BY ClientIP
+      {{ end }}
+
+      {{ $assigned := Query "assigned_dhcp"}}
+      {{ if $assigned }}
+      ## Operational logs
+
+      This machine has DHCP operational logging enabled. We therefore
+      can see complete references to all granted leases:
+        {{ Table $assigned }}
+
+      ## Timeline
+
+      {{ Query "SELECT _Time * 1000, ClientIP FROM source(source='AssignedDHCP')" | Timeline }}
+
+      {{ end }}
+
+      ## Admin logs
+
+      The admin logs show errors with DHCP lease requests. Typically
+      rejected leases indicate that the machine held a least on a IP
+      address in the past, but this lease is invalid for its current
+      environment. For example, the machine has been moved to a
+      different network.
+
+      {{ Query "rejected_dhcp" | Table }}
+
+      {{ Query "SELECT _Time * 1000, ClientIP FROM source(source='RejectedDHCP')" | Timeline }}
+```
+   {{% /expand %}}
 
 ## Windows.Network.ArpCache
 
@@ -935,10 +1237,7 @@ wmiQuery|SELECT AddressFamily, Store, State, InterfaceIndex, IPAddress,\n       
 wmiNamespace|ROOT\\StandardCimv2|
 kMapOfState|{\n "0": "Unreachable",\n "1": "Incomplete",\n "2": "Probe",\n "3": "Delay",\n "4": "Stale",\n "5": "Reachable",\n "6": "Permanent",\n "7": "TBD"\n}\n|
 
-
- <a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
-    data-target="#Windows_Network_ArpCacheDetails">View Artifact</a>
- <div class="collapse dn" id="Windows_Network_ArpCacheDetails" style="width: fit-content">
+{{% expand  "View Artifact Source" %}}
 
 
 ```
@@ -1004,16 +1303,13 @@ sources:
              WHERE InterfaceIndex = Index
           })
 ```
-   </div></a>
+   {{% /expand %}}
 
 ## Windows.Network.InterfaceAddresses
 
 Network interfaces and relevant metadata.
 
-
- <a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
-    data-target="#Windows_Network_InterfaceAddressesDetails">View Artifact</a>
- <div class="collapse dn" id="Windows_Network_InterfaceAddressesDetails" style="width: fit-content">
+{{% expand  "View Artifact Source" %}}
 
 
 ```
@@ -1029,20 +1325,17 @@ sources:
            from interfaces()
 
       - |
-        SELECT Index, MTU, Name, HardwareAddr,
-           Flags, Addrs.IP as IP, Addrs.Mask as Mask
+        SELECT Index, MTU, Name, HardwareAddr.String As HardwareAddr,
+           Flags, Addrs.IP as IP, Addrs.Mask.String as Mask
         FROM flatten(query=interface_address)
 ```
-   </div></a>
+   {{% /expand %}}
 
 ## Windows.Network.ListeningPorts
 
 Processes with listening (bound) network sockets/ports.
 
-
- <a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
-    data-target="#Windows_Network_ListeningPortsDetails">View Artifact</a>
- <div class="collapse dn" id="Windows_Network_ListeningPortsDetails" style="width: fit-content">
+{{% expand  "View Artifact Source" %}}
 
 
 ```
@@ -1068,7 +1361,7 @@ sources:
             FROM process where Pid = PortPid
           })
 ```
-   </div></a>
+   {{% /expand %}}
 
 ## Windows.Network.Netstat
 
@@ -1076,10 +1369,7 @@ Show information about open sockets. On windows the time when the
 socket was first bound is also shown.
 
 
-
- <a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
-    data-target="#Windows_Network_NetstatDetails">View Artifact</a>
- <div class="collapse dn" id="Windows_Network_NetstatDetails" style="width: fit-content">
+{{% expand  "View Artifact Source" %}}
 
 
 ```
@@ -1101,7 +1391,7 @@ sources:
                Timestamp
                FROM netstat()
 ```
-   </div></a>
+   {{% /expand %}}
 
 ## Windows.Packs.Autoexec
 
@@ -1110,10 +1400,7 @@ target machine. This is an amalgamation of other tables like
 services, scheduled_tasks, startup_items and more.
 
 
-
- <a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
-    data-target="#Windows_Packs_AutoexecDetails">View Artifact</a>
- <div class="collapse dn" id="Windows_Packs_AutoexecDetails" style="width: fit-content">
+{{% expand  "View Artifact Source" %}}
 
 
 ```
@@ -1134,17 +1421,14 @@ sources:
             FROM Artifact.Windows.Sys.StartupItems()
           })
 ```
-   </div></a>
+   {{% /expand %}}
 
 ## Windows.Packs.Persistence
 
 This artifact pack collects various persistence mechanisms in Windows.
 
 
-
- <a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
-    data-target="#Windows_Packs_PersistenceDetails">View Artifact</a>
- <div class="collapse dn" id="Windows_Packs_PersistenceDetails" style="width: fit-content">
+{{% expand  "View Artifact Source" %}}
 
 
 ```
@@ -1161,14 +1445,16 @@ sources:
       {{ DocFrom "Windows.Persistence.PermanentWMIEvents" }}
 
     queries:
-      - SELECT * FROM Artifact.Windows.Persistence.PermanentWMIEvents()
+      - |
+        SELECT * FROM Artifact.Windows.Persistence.PermanentWMIEvents()
 
   - name: Startup Items
     description: |
       {{ DocFrom "Windows.Sys.StartupItems" }}
 
     queries:
-      - SELECT * FROM Artifact.Windows.Sys.StartupItems()
+      - |
+        SELECT * FROM Artifact.Windows.Sys.StartupItems()
 
   - name: Debug Bootstraping
     description: |
@@ -1178,12 +1464,79 @@ sources:
       program will also launch the program listed under the Debugger
       column.
 
-      {{ Query "SELECT Program, Debugger FROM Rows" }}
-
     queries:
       - SELECT * FROM Artifact.Windows.Persistence.Debug()
 ```
-   </div></a>
+   {{% /expand %}}
+
+## Windows.Registry.NTUser
+
+This artifact searches for keys or values within the user's
+NTUser.dat registry hives.
+
+When a user logs into a windows machine the system creates their own
+"profile" which consists of a registry hive mapped into the
+HKEY_USERS hive. This hive file is locked as long as the user is
+logged in. If the user is not logged in, the file is not mapped at
+all.
+
+This artifact bypasses the locking mechanism by parsing the raw NTFS
+filesystem to recover the registry hives. We then parse the registry
+hives to search for the glob provided.
+
+This artifact is designed to be reused by other artifacts that need
+to access user data.
+
+
+Arg|Default|Description
+---|------|-----------
+KeyGlob|Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\ComDlg32\\**|
+UserHomes|C:\\Users\\*\\NTUSER.DAT|
+
+{{% expand  "View Artifact Source" %}}
+
+
+```
+name: Windows.Registry.NTUser
+description: |
+  This artifact searches for keys or values within the user's
+  NTUser.dat registry hives.
+
+  When a user logs into a windows machine the system creates their own
+  "profile" which consists of a registry hive mapped into the
+  HKEY_USERS hive. This hive file is locked as long as the user is
+  logged in. If the user is not logged in, the file is not mapped at
+  all.
+
+  This artifact bypasses the locking mechanism by parsing the raw NTFS
+  filesystem to recover the registry hives. We then parse the registry
+  hives to search for the glob provided.
+
+  This artifact is designed to be reused by other artifacts that need
+  to access user data.
+
+parameters:
+ - name: KeyGlob
+   default: Software\Microsoft\Windows\CurrentVersion\Explorer\ComDlg32\**
+ - name: UserHomes
+   default: C:\Users\*\NTUSER.DAT
+
+sources:
+ - queries:
+     - |
+       SELECT * FROM foreach(
+         row={
+            SELECT FullPath FROM glob(globs=UserHomes)
+         },
+         query={
+            SELECT FullPath, Data, Mtime.Sec AS Mtime FROM glob(
+               globs=url(scheme="ntfs",
+                  path=FullPath,
+                  fragment=KeyGlob).String,
+               accessor="raw_reg")
+         })
+```
+   {{% /expand %}}
 
 ## Windows.Registry.NTUser.Upload
 
@@ -1199,10 +1552,7 @@ registry hives using raw NTFS parsing. We then just upload all hives
 to the server.
 
 
-
- <a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
-    data-target="#Windows_Registry_NTUser_UploadDetails">View Artifact</a>
- <div class="collapse dn" id="Windows_Registry_NTUser_UploadDetails" style="width: fit-content">
+{{% expand  "View Artifact Source" %}}
 
 
 ```
@@ -1233,7 +1583,7 @@ sources:
                       accessor="ntfs") as Upload
         FROM users
 ```
-   </div></a>
+   {{% /expand %}}
 
 ## Windows.Registry.Sysinternals.Eulacheck
 
@@ -1250,10 +1600,7 @@ Arg|Default|Description
 ---|------|-----------
 Sysinternals_Reg_Key|HKEY_USERS\\*\\Software\\Sysinternals\\*|
 
-
- <a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
-    data-target="#Windows_Registry_Sysinternals_EulacheckDetails">View Artifact</a>
- <div class="collapse dn" id="Windows_Registry_Sysinternals_EulacheckDetails" style="width: fit-content">
+{{% expand  "View Artifact Source" %}}
 
 
 ```
@@ -1276,7 +1623,8 @@ sources:
       SELECT OS From info() where OS = 'windows'
 
     queries:
-    - LET users <= SELECT Name, UUID FROM Artifact.Windows.Sys.Users()
+    - |
+      LET users <= SELECT Name, UUID FROM Artifact.Windows.Sys.Users()
     - |
       SELECT Key.Name as ProgramName,
              Key.FullPath as Key,
@@ -1288,4 +1636,170 @@ sources:
              EulaAccepted
       FROM read_reg_key(globs=split(string=Sysinternals_Reg_Key, sep=',[\\s]*'))
 ```
-   </div></a>
+   {{% /expand %}}
+
+## Windows.Search.FileFinder
+
+Find files on the filesystem using the filename or content.
+
+
+## Performance Note
+
+This artifact can be quite expensive, especially if we search file
+content. It will require opening each file and reading its entire
+content. To minimize the impact on the endpoint we recommend this
+artifact is collected with a rate limited way (about 20-50 ops per
+second).
+
+This artifact is usefull in the following scenarios:
+
+  * We need to locate all the places on our network where customer
+    data has been copied.
+
+  * We’ve identified malware in a data breach, named using short
+    random strings in specific folders and need to search for other
+    instances across the network.
+
+  * We believe our user account credentials have been dumped and
+    need to locate them.
+
+  * We need to search for exposed credit card data to satisfy PCI
+    requirements.
+
+  * We have a sample of data that has been disclosed and need to
+    locate other similar files
+
+
+Arg|Default|Description
+---|------|-----------
+SearchFilesGlob|C:\\Users\\**|Use a glob to define the files that will be searched.
+Keywords|None|A comma delimited list of strings to search for.
+Use_Raw_NTFS|Y|
+Upload_File|N|
+Calculate_Hash|N|
+MoreRecentThan||
+ModifiedBefore||
+
+{{% expand  "View Artifact Source" %}}
+
+
+```
+name: Windows.Search.FileFinder
+description: |
+  Find files on the filesystem using the filename or content.
+
+
+  ## Performance Note
+
+  This artifact can be quite expensive, especially if we search file
+  content. It will require opening each file and reading its entire
+  content. To minimize the impact on the endpoint we recommend this
+  artifact is collected with a rate limited way (about 20-50 ops per
+  second).
+
+  This artifact is usefull in the following scenarios:
+
+    * We need to locate all the places on our network where customer
+      data has been copied.
+
+    * We’ve identified malware in a data breach, named using short
+      random strings in specific folders and need to search for other
+      instances across the network.
+
+    * We believe our user account credentials have been dumped and
+      need to locate them.
+
+    * We need to search for exposed credit card data to satisfy PCI
+      requirements.
+
+    * We have a sample of data that has been disclosed and need to
+      locate other similar files
+
+
+precondition:
+  SELECT * FROM info() where OS = 'windows'
+
+parameters:
+  - name: SearchFilesGlob
+    default: C:\Users\**
+    description: Use a glob to define the files that will be searched.
+
+  - name: Keywords
+    default:
+    description: A comma delimited list of strings to search for.
+
+  - name: Use_Raw_NTFS
+    default: Y
+    type: bool
+
+  - name: Upload_File
+    default: N
+    type: bool
+
+  - name: Calculate_Hash
+    default: N
+    type: bool
+
+  - name: MoreRecentThan
+    default: ""
+    type: timestamp
+
+  - name: ModifiedBefore
+    default: ""
+    type: timestamp
+
+
+sources:
+  - queries:
+    - |
+      LET ntfs_search = SELECT FullPath,
+               Sys.mft as Inode,
+               Mode.String AS Mode, Size,
+               Mtime.Sec AS Modified,
+               timestamp(epoch=Atime.Sec) AS ATime,
+               timestamp(epoch=Mtime.Sec) AS MTime,
+               timestamp(epoch=Ctime.Sec) AS CTime,
+               if(condition=(Upload_File = "Y" and NOT IsDir ),
+                  then=upload(file=FullPath, accessor="ntfs")) AS Upload,
+               if(condition=(Calculate_Hash = "Y" and NOT IsDir ),
+                  then=hash(path=FullPath, accessor="ntfs")) AS Hash
+        FROM glob(globs=SearchFilesGlob, accessor="ntfs")
+
+    - |
+      LET file_search = SELECT FullPath,
+               Sys.mft as Inode,
+               Mode.String AS Mode, Size,
+               Mtime.Sec AS Modified,
+               timestamp(epoch=Atime.Sec) AS ATime,
+               timestamp(epoch=Mtime.Sec) AS MTime,
+               timestamp(epoch=Ctime.Sec) AS CTime,
+               if(condition=(Upload_File = "Y" and NOT IsDir ),
+                  then=upload(file=FullPath, accessor="file")) AS Upload,
+               if(condition=(Calculate_Hash = "Y" and NOT IsDir ),
+                  then=hash(path=FullPath, accessor="file")) AS Hash
+        FROM glob(globs=SearchFilesGlob, accessor="file")
+
+    - |
+      LET combined_search = SELECT * FROM if(
+        condition=(Use_Raw_NTFS = "Y"),
+        then=ntfs_search,
+        else=file_search)
+
+    - |
+      LET more_recent = SELECT * FROM if(
+        condition=MoreRecentThan,
+        then={
+          SELECT * FROM combined_search
+          WHERE Modified > atoi(string=MoreRecentThan)
+        }, else=combined_search)
+
+    - |
+      SELECT * FROM if(
+        condition=ModifiedBefore,
+        then={
+          SELECT * FROM more_recent
+          WHERE Modified < atoi(string=ModifiedBefore)
+        }, else=more_recent)
+```
+   {{% /expand %}}
+

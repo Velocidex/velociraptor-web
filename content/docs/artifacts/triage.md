@@ -9,19 +9,13 @@ toc: true
 ---
 ## Windows.Triage.Collectors.Amcache
 
-{{ Query "SELECT * FROM Rows" }}
 
 
-
- <a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
-    data-target="#Windows_Triage_Collectors_AmcacheDetails">View Artifact</a>
- <div class="collapse dn" id="Windows_Triage_Collectors_AmcacheDetails" style="width: fit-content">
+{{% expand  "View Artifact Source" %}}
 
 
 ```
 name: Windows.Triage.Collectors.Amcache
-description: |
-  {{ Query "SELECT * FROM Rows" }}
 
 precondition: SELECT OS From info() where OS = 'windows'
 
@@ -40,19 +34,14 @@ sources:
                path="C:\\Windows\\AppCompat\\Programs\\Amcache.hve.LOG*")
           })
 ```
-   </div></a>
+   {{% /expand %}}
 
 ## Windows.Triage.Collectors.BCD
 
 Boot Configuration Files.
 
-{{ Query "SELECT * FROM Rows" }}
 
-
-
- <a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
-    data-target="#Windows_Triage_Collectors_BCDDetails">View Artifact</a>
- <div class="collapse dn" id="Windows_Triage_Collectors_BCDDetails" style="width: fit-content">
+{{% expand  "View Artifact Source" %}}
 
 
 ```
@@ -60,13 +49,12 @@ name: Windows.Triage.Collectors.BCD
 description: |
   Boot Configuration Files.
 
-  {{ Query "SELECT * FROM Rows" }}
-
 precondition: SELECT OS From info() where OS = 'windows'
 
 sources:
   - queries:
-      - SELECT * FROM chain(
+      - |
+        SELECT * FROM chain(
           a1={ SELECT * FROM Artifact.Triage.Collection.Upload(
                type="BCD",
                path=[
@@ -76,31 +64,24 @@ sources:
           }
         )
 ```
-   </div></a>
+   {{% /expand %}}
 
 ## Windows.Triage.Collectors.Chrome
 
 Collect Chrome related artifacts.
-
-{{ Query "SELECT * FROM Rows" }}
 
 
 Arg|Default|Description
 ---|------|-----------
 baseLocations|C:\\Documents and Settings\\*\\Local Settings\\Application Data\\Google\\Chrome\\User Data\\*\\,C:\\Users\\*\\AppData\\Local\\Google\\Chrome\\User Data\\*\\|Globs for different possible locations of firefox profiles.
 
-
- <a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
-    data-target="#Windows_Triage_Collectors_ChromeDetails">View Artifact</a>
- <div class="collapse dn" id="Windows_Triage_Collectors_ChromeDetails" style="width: fit-content">
+{{% expand  "View Artifact Source" %}}
 
 
 ```
 name: Windows.Triage.Collectors.Chrome
 description: |
   Collect Chrome related artifacts.
-
-  {{ Query "SELECT * FROM Rows" }}
 
 precondition: SELECT OS From info() where OS = 'windows'
 
@@ -111,7 +92,8 @@ parameters:
 
 sources:
   - queries:
-      - SELECT * FROM chain(
+      - |
+        SELECT * FROM chain(
           a1={ SELECT * FROM Artifact.Triage.Collection.Upload(
                type="Chrome bookmarks",
                path=split(string=baseLocations, sep=",") + "Bookmarks*")
@@ -166,19 +148,14 @@ sources:
           }
         )
 ```
-   </div></a>
+   {{% /expand %}}
 
 ## Windows.Triage.Collectors.Edge
 
 Collect Edge related artifacts.
 
-{{ Query "SELECT * FROM Rows" }}
 
-
-
- <a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
-    data-target="#Windows_Triage_Collectors_EdgeDetails">View Artifact</a>
- <div class="collapse dn" id="Windows_Triage_Collectors_EdgeDetails" style="width: fit-content">
+{{% expand  "View Artifact Source" %}}
 
 
 ```
@@ -186,13 +163,12 @@ name: Windows.Triage.Collectors.Edge
 description: |
   Collect Edge related artifacts.
 
-  {{ Query "SELECT * FROM Rows" }}
-
 precondition: SELECT OS From info() where OS = 'windows'
 
 sources:
   - queries:
-      - SELECT * FROM chain(
+      - |
+        SELECT * FROM chain(
           a1={ SELECT * FROM Artifact.Triage.Collection.Upload(
                type="Edge folder",
                path="C:\\Users\\*\\AppData\\Local\\Packages\\Microsoft.MicrosoftEdge_*\\**")
@@ -203,31 +179,24 @@ sources:
           }
         )
 ```
-   </div></a>
+   {{% /expand %}}
 
 ## Windows.Triage.Collectors.EventLogs
 
 Collect event log files.
-
-{{ Query "SELECT * FROM Rows" }}
 
 
 Arg|Default|Description
 ---|------|-----------
 EventLogGlobs|C:\\Windows\\system32\\config\\*.evt,C:\\Windows\\system32\\winevt\\logs\\*.evtx|
 
-
- <a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
-    data-target="#Windows_Triage_Collectors_EventLogsDetails">View Artifact</a>
- <div class="collapse dn" id="Windows_Triage_Collectors_EventLogsDetails" style="width: fit-content">
+{{% expand  "View Artifact Source" %}}
 
 
 ```
 name: Windows.Triage.Collectors.EventLogs
 description: |
   Collect event log files.
-
-  {{ Query "SELECT * FROM Rows" }}
 
 parameters:
   - name: EventLogGlobs
@@ -237,23 +206,19 @@ precondition: SELECT OS From info() where OS = 'windows'
 
 sources:
   - queries:
-      - SELECT * FROM Artifact.Triage.Collection.Upload(
+      - |
+        SELECT * FROM Artifact.Triage.Collection.Upload(
            type="EventLogs",
            path=split(string=EventLogGlobs, sep=","))
 ```
-   </div></a>
+   {{% /expand %}}
 
 ## Windows.Triage.Collectors.EventTraceLogs
 
 Collect event trace log files.
 
-{{ Query "SELECT * FROM Rows" }}
 
-
-
- <a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
-    data-target="#Windows_Triage_Collectors_EventTraceLogsDetails">View Artifact</a>
- <div class="collapse dn" id="Windows_Triage_Collectors_EventTraceLogsDetails" style="width: fit-content">
+{{% expand  "View Artifact Source" %}}
 
 
 ```
@@ -261,13 +226,12 @@ name: Windows.Triage.Collectors.EventTraceLogs
 description: |
   Collect event trace log files.
 
-  {{ Query "SELECT * FROM Rows" }}
-
 precondition: SELECT OS From info() where OS = 'windows'
 
 sources:
   - queries:
-      - SELECT * FROM chain(
+      - |
+        SELECT * FROM chain(
           a1={ SELECT * FROM Artifact.Triage.Collection.Upload(
             type="WDI Trace Logs",
             path=[
@@ -289,32 +253,24 @@ sources:
           }
         )
 ```
-   </div></a>
+   {{% /expand %}}
 
 ## Windows.Triage.Collectors.EvidenceOfExecution
 
-{{ Query "SELECT * FROM Rows" }}
 
 
-
- <a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
-    data-target="#Windows_Triage_Collectors_EvidenceOfExecutionDetails">View Artifact</a>
- <div class="collapse dn" id="Windows_Triage_Collectors_EvidenceOfExecutionDetails" style="width: fit-content">
+{{% expand  "View Artifact Source" %}}
 
 
 ```
 name: Windows.Triage.Collectors.EvidenceOfExecution
-description: |
-  {{ Query "SELECT * FROM Rows" }}
-
-includes:
-  - Windows.Triage.Collectors.Amcache
 
 precondition: SELECT OS From info() where OS = 'windows'
 
 sources:
   - queries:
-      - SELECT * FROM chain(
+      - |
+        SELECT * FROM chain(
           a1={ SELECT * FROM Artifact.Triage.Collection.Upload(
                type="Prefetch",
                path="C:\\Windows\\prefetch\\*.pf")
@@ -325,31 +281,24 @@ sources:
           }
         )
 ```
-   </div></a>
+   {{% /expand %}}
 
 ## Windows.Triage.Collectors.Firefox
 
 Collect Firefox related artifacts.
-
-{{ Query "SELECT * FROM Rows" }}
 
 
 Arg|Default|Description
 ---|------|-----------
 baseLocations|C:\\Users\\*\\AppData\\Roaming\\Mozilla\\Firefox\\Profiles\\*\\,C:\\Documents and Settings\\*\\Application Data\\Mozilla\\Firefox\\Profiles\\*\\|Globs for different possible locations of firefox profiles.
 
-
- <a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
-    data-target="#Windows_Triage_Collectors_FirefoxDetails">View Artifact</a>
- <div class="collapse dn" id="Windows_Triage_Collectors_FirefoxDetails" style="width: fit-content">
+{{% expand  "View Artifact Source" %}}
 
 
 ```
 name: Windows.Triage.Collectors.Firefox
 description: |
   Collect Firefox related artifacts.
-
-  {{ Query "SELECT * FROM Rows" }}
 
 precondition: SELECT OS From info() where OS = 'windows'
 
@@ -360,7 +309,8 @@ parameters:
 
 sources:
   - queries:
-      - SELECT * FROM chain(
+      - |
+        SELECT * FROM chain(
           a1={ SELECT * FROM Artifact.Triage.Collection.Upload(
                type="Places",
                path=split(string=baseLocations, sep=",") + "places.sqlite*")
@@ -399,19 +349,14 @@ sources:
           }
           )
 ```
-   </div></a>
+   {{% /expand %}}
 
 ## Windows.Triage.Collectors.InternetExplorer
 
 Collect Firefox related artifacts.
 
-{{ Query "SELECT * FROM Rows" }}
 
-
-
- <a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
-    data-target="#Windows_Triage_Collectors_InternetExplorerDetails">View Artifact</a>
- <div class="collapse dn" id="Windows_Triage_Collectors_InternetExplorerDetails" style="width: fit-content">
+{{% expand  "View Artifact Source" %}}
 
 
 ```
@@ -419,13 +364,12 @@ name: Windows.Triage.Collectors.InternetExplorer
 description: |
   Collect Firefox related artifacts.
 
-  {{ Query "SELECT * FROM Rows" }}
-
 precondition: SELECT OS From info() where OS = 'windows'
 
 sources:
   - queries:
-      - SELECT * FROM chain(
+      - |
+        SELECT * FROM chain(
           a1={ SELECT * FROM Artifact.Triage.Collection.Upload(
                type="Index.dat History",
                path=[
@@ -493,19 +437,14 @@ sources:
           }
         )
 ```
-   </div></a>
+   {{% /expand %}}
 
 ## Windows.Triage.Collectors.Jabber
 
 Jabber.
 
-{{ Query "SELECT * FROM Rows" }}
 
-
-
- <a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
-    data-target="#Windows_Triage_Collectors_JabberDetails">View Artifact</a>
- <div class="collapse dn" id="Windows_Triage_Collectors_JabberDetails" style="width: fit-content">
+{{% expand  "View Artifact Source" %}}
 
 
 ```
@@ -513,13 +452,12 @@ name: Windows.Triage.Collectors.Jabber
 description: |
   Jabber.
 
-  {{ Query "SELECT * FROM Rows" }}
-
 precondition: SELECT OS From info() where OS = 'windows'
 
 sources:
   - queries:
-      - SELECT * FROM chain(
+      - |
+        SELECT * FROM chain(
           a1={ SELECT * FROM Artifact.Triage.Collection.Upload(
                type="Cisco Jabber Database",
                accessor="ntfs",
@@ -529,7 +467,7 @@ sources:
           }
         )
 ```
-   </div></a>
+   {{% /expand %}}
 
 ## Windows.Triage.Collectors.LnkFiles
 
@@ -538,10 +476,7 @@ Lnk files and jump lists.
 {{ Query "SELECT * FROM Rows" }}
 
 
-
- <a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
-    data-target="#Windows_Triage_Collectors_LnkFilesDetails">View Artifact</a>
- <div class="collapse dn" id="Windows_Triage_Collectors_LnkFilesDetails" style="width: fit-content">
+{{% expand  "View Artifact Source" %}}
 
 
 ```
@@ -555,7 +490,8 @@ precondition: SELECT OS From info() where OS = 'windows'
 
 sources:
   - queries:
-      - SELECT * FROM chain(
+      - |
+        SELECT * FROM chain(
           a1={ SELECT * FROM Artifact.Triage.Collection.Upload(
                type="Lnk files from Recent",
                path=[
@@ -577,17 +513,14 @@ sources:
           }
         )
 ```
-   </div></a>
+   {{% /expand %}}
 
 ## Windows.Triage.Collectors.NTFSMetadata
 
 {{ Query "SELECT * FROM Rows" }}
 
 
-
- <a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
-    data-target="#Windows_Triage_Collectors_NTFSMetadataDetails">View Artifact</a>
- <div class="collapse dn" id="Windows_Triage_Collectors_NTFSMetadataDetails" style="width: fit-content">
+{{% expand  "View Artifact Source" %}}
 
 
 ```
@@ -600,7 +533,8 @@ precondition: SELECT OS From info() where OS = 'windows'
 sources:
   - name: NTFS Metadata Files
     queries:
-      - SELECT * FROM Artifact.Triage.Collection.Upload(
+      - |
+        SELECT * FROM Artifact.Triage.Collection.Upload(
         type="NTFS Metadata Files",
         accessor="ntfs",
         path=[
@@ -613,19 +547,14 @@ sources:
             "C:\\$Extend\\$RmMetadata\\$TxfLog\\$Tops:$T"
         ])
 ```
-   </div></a>
+   {{% /expand %}}
 
 ## Windows.Triage.Collectors.OutlookPST
 
 Outlook PST and OST files.
 
-{{ Query "SELECT * FROM Rows" }}
 
-
-
- <a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
-    data-target="#Windows_Triage_Collectors_OutlookPSTDetails">View Artifact</a>
- <div class="collapse dn" id="Windows_Triage_Collectors_OutlookPSTDetails" style="width: fit-content">
+{{% expand  "View Artifact Source" %}}
 
 
 ```
@@ -633,13 +562,12 @@ name: Windows.Triage.Collectors.OutlookPST
 description: |
   Outlook PST and OST files.
 
-  {{ Query "SELECT * FROM Rows" }}
-
 precondition: SELECT OS From info() where OS = 'windows'
 
 sources:
   - queries:
-      - SELECT * FROM chain(
+      - |
+        SELECT * FROM chain(
           a1={ SELECT * FROM Artifact.Triage.Collection.Upload(
                type="PST",
                path=[
@@ -656,19 +584,14 @@ sources:
           }
         )
 ```
-   </div></a>
+   {{% /expand %}}
 
 ## Windows.Triage.Collectors.PowershellConsoleLogs
 
 PowerShell Console Log File.
 
-{{ Query "SELECT * FROM Rows" }}
 
-
-
- <a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
-    data-target="#Windows_Triage_Collectors_PowershellConsoleLogsDetails">View Artifact</a>
- <div class="collapse dn" id="Windows_Triage_Collectors_PowershellConsoleLogsDetails" style="width: fit-content">
+{{% expand  "View Artifact Source" %}}
 
 
 ```
@@ -676,32 +599,26 @@ name: Windows.Triage.Collectors.PowershellConsoleLogs
 description: |
   PowerShell Console Log File.
 
-  {{ Query "SELECT * FROM Rows" }}
-
 precondition: SELECT OS From info() where OS = 'windows'
 
 sources:
   - queries:
-      - SELECT * FROM chain(
+      - |
+        SELECT * FROM chain(
           a1={ SELECT * FROM Artifact.Triage.Collection.Upload(
                type="PowerShell Console Log",
                path="C:\\users\\*\\Appdata\\Roaming\\Microsoft\\Windows\\PowerShell\\PSReadline\\ConsoleHost_history.txt")
           }
         )
 ```
-   </div></a>
+   {{% /expand %}}
 
 ## Windows.Triage.Collectors.RecycleBin
 
 Collect contents of Recycle Bin.
 
-{{ Query "SELECT * FROM Rows" }}
 
-
-
- <a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
-    data-target="#Windows_Triage_Collectors_RecycleBinDetails">View Artifact</a>
- <div class="collapse dn" id="Windows_Triage_Collectors_RecycleBinDetails" style="width: fit-content">
+{{% expand  "View Artifact Source" %}}
 
 
 ```
@@ -709,13 +626,13 @@ name: Windows.Triage.Collectors.RecycleBin
 description: |
   Collect contents of Recycle Bin.
 
-  {{ Query "SELECT * FROM Rows" }}
 
 precondition: SELECT OS From info() where OS = 'windows'
 
 sources:
   - queries:
-      - SELECT * FROM chain(
+      - |
+        SELECT * FROM chain(
           a1={ SELECT * FROM Artifact.Triage.Collection.Upload(
                type="Recycle.Bin",
                path=[
@@ -725,19 +642,14 @@ sources:
           }
         )
 ```
-   </div></a>
+   {{% /expand %}}
 
 ## Windows.Triage.Collectors.RegistryHives
 
 System and user related Registry hives.
 
-{{ Query "SELECT * FROM Rows" }}
 
-
-
- <a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
-    data-target="#Windows_Triage_Collectors_RegistryHivesDetails">View Artifact</a>
- <div class="collapse dn" id="Windows_Triage_Collectors_RegistryHivesDetails" style="width: fit-content">
+{{% expand  "View Artifact Source" %}}
 
 
 ```
@@ -745,15 +657,14 @@ name: Windows.Triage.Collectors.RegistryHives
 description: |
   System and user related Registry hives.
 
-  {{ Query "SELECT * FROM Rows" }}
-
 precondition: SELECT OS From info() where OS = 'windows'
 reference:
   - https://github.com/EricZimmerman/KapeFiles
 
 sources:
   - queries:
-      - SELECT * FROM chain(
+      - |
+        SELECT * FROM chain(
           a1={ SELECT * FROM Artifact.Triage.Collection.Upload(
                type="ntuser.dat registry hive",
                accessor="ntfs",
@@ -885,19 +796,14 @@ sources:
 
         )
 ```
-   </div></a>
+   {{% /expand %}}
 
 ## Windows.Triage.Collectors.SRUM
 
 System Resource Usage Monitor (SRUM) Data.
 
-{{ Query "SELECT * FROM Rows" }}
 
-
-
- <a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
-    data-target="#Windows_Triage_Collectors_SRUMDetails">View Artifact</a>
- <div class="collapse dn" id="Windows_Triage_Collectors_SRUMDetails" style="width: fit-content">
+{{% expand  "View Artifact Source" %}}
 
 
 ```
@@ -905,32 +811,26 @@ name: Windows.Triage.Collectors.SRUM
 description: |
   System Resource Usage Monitor (SRUM) Data.
 
-  {{ Query "SELECT * FROM Rows" }}
-
 precondition: SELECT OS From info() where OS = 'windows'
 
 sources:
   - queries:
-      - SELECT * FROM chain(
+      - |
+        SELECT * FROM chain(
           a1={ SELECT * FROM Artifact.Triage.Collection.Upload(
                type="SRUM",
                path="C:\\Windows\\System32\\SRU\\**")
           }
         )
 ```
-   </div></a>
+   {{% /expand %}}
 
 ## Windows.Triage.Collectors.ScheduledTasks
 
 Scheduled tasks (*.job and XML).
 
-{{ Query "SELECT * FROM Rows" }}
 
-
-
- <a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
-    data-target="#Windows_Triage_Collectors_ScheduledTasksDetails">View Artifact</a>
- <div class="collapse dn" id="Windows_Triage_Collectors_ScheduledTasksDetails" style="width: fit-content">
+{{% expand  "View Artifact Source" %}}
 
 
 ```
@@ -938,13 +838,12 @@ name: Windows.Triage.Collectors.ScheduledTasks
 description: |
   Scheduled tasks (*.job and XML).
 
-  {{ Query "SELECT * FROM Rows" }}
-
 precondition: SELECT OS From info() where OS = 'windows'
 
 sources:
   - queries:
-      - SELECT * FROM chain(
+      - |
+        SELECT * FROM chain(
           a1={ SELECT * FROM Artifact.Triage.Collection.Upload(
                type="at .job",
                path="C:\\Windows\\Tasks\\*.job")
@@ -959,19 +858,14 @@ sources:
           }
         )
 ```
-   </div></a>
+   {{% /expand %}}
 
 ## Windows.Triage.Collectors.Skype
 
 Skype.
 
-{{ Query "SELECT * FROM Rows" }}
 
-
-
- <a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
-    data-target="#Windows_Triage_Collectors_SkypeDetails">View Artifact</a>
- <div class="collapse dn" id="Windows_Triage_Collectors_SkypeDetails" style="width: fit-content">
+{{% expand  "View Artifact Source" %}}
 
 
 ```
@@ -979,13 +873,12 @@ name: Windows.Triage.Collectors.Skype
 description: |
   Skype.
 
-  {{ Query "SELECT * FROM Rows" }}
-
 precondition: SELECT OS From info() where OS = 'windows'
 
 sources:
   - queries:
-      - SELECT * FROM chain(
+      - |
+        SELECT * FROM chain(
           a1={ SELECT * FROM Artifact.Triage.Collection.Upload(
                type="main.db",
                path=[
@@ -996,19 +889,14 @@ sources:
           }
         )
 ```
-   </div></a>
+   {{% /expand %}}
 
 ## Windows.Triage.Collectors.StartupInfo
 
 StartupInfo XML Files.
 
-{{ Query "SELECT * FROM Rows" }}
 
-
-
- <a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
-    data-target="#Windows_Triage_Collectors_StartupInfoDetails">View Artifact</a>
- <div class="collapse dn" id="Windows_Triage_Collectors_StartupInfoDetails" style="width: fit-content">
+{{% expand  "View Artifact Source" %}}
 
 
 ```
@@ -1016,13 +904,12 @@ name: Windows.Triage.Collectors.StartupInfo
 description: |
   StartupInfo XML Files.
 
-  {{ Query "SELECT * FROM Rows" }}
-
 precondition: SELECT OS From info() where OS = 'windows'
 
 sources:
   - queries:
-      - SELECT * FROM chain(
+      - |
+        SELECT * FROM chain(
           a1={ SELECT * FROM Artifact.Triage.Collection.Upload(
                type="StartupInfo XML Files",
                path=[
@@ -1031,19 +918,14 @@ sources:
           }
         )
 ```
-   </div></a>
+   {{% /expand %}}
 
 ## Windows.Triage.Collectors.TeraCopy
 
 TeraCopy log history.
 
-{{ Query "SELECT * FROM Rows" }}
 
-
-
- <a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
-    data-target="#Windows_Triage_Collectors_TeraCopyDetails">View Artifact</a>
- <div class="collapse dn" id="Windows_Triage_Collectors_TeraCopyDetails" style="width: fit-content">
+{{% expand  "View Artifact Source" %}}
 
 
 ```
@@ -1051,13 +933,12 @@ name: Windows.Triage.Collectors.TeraCopy
 description: |
   TeraCopy log history.
 
-  {{ Query "SELECT * FROM Rows" }}
-
 precondition: SELECT OS From info() where OS = 'windows'
 
 sources:
   - queries:
-      - SELECT * FROM chain(
+      - |
+        SELECT * FROM chain(
           a1={ SELECT * FROM Artifact.Triage.Collection.Upload(
                type="TeraCopy",
                path=[
@@ -1066,19 +947,14 @@ sources:
           }
         )
 ```
-   </div></a>
+   {{% /expand %}}
 
 ## Windows.Triage.Collectors.ThumbDB
 
 Thumbcache DB.
 
-{{ Query "SELECT * FROM Rows" }}
 
-
-
- <a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
-    data-target="#Windows_Triage_Collectors_ThumbDBDetails">View Artifact</a>
- <div class="collapse dn" id="Windows_Triage_Collectors_ThumbDBDetails" style="width: fit-content">
+{{% expand  "View Artifact Source" %}}
 
 
 ```
@@ -1086,13 +962,12 @@ name: Windows.Triage.Collectors.ThumbDB
 description: |
   Thumbcache DB.
 
-  {{ Query "SELECT * FROM Rows" }}
-
 precondition: SELECT OS From info() where OS = 'windows'
 
 sources:
   - queries:
-      - SELECT * FROM chain(
+      - |
+        SELECT * FROM chain(
           a1={ SELECT * FROM Artifact.Triage.Collection.Upload(
                type="Thumbcache DB",
                path=[
@@ -1101,19 +976,14 @@ sources:
           }
         )
 ```
-   </div></a>
+   {{% /expand %}}
 
 ## Windows.Triage.Collectors.USBDeviceLogs
 
 USB devices log files.
 
-{{ Query "SELECT * FROM Rows" }}
 
-
-
- <a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
-    data-target="#Windows_Triage_Collectors_USBDeviceLogsDetails">View Artifact</a>
- <div class="collapse dn" id="Windows_Triage_Collectors_USBDeviceLogsDetails" style="width: fit-content">
+{{% expand  "View Artifact Source" %}}
 
 
 ```
@@ -1121,13 +991,12 @@ name: Windows.Triage.Collectors.USBDeviceLogs
 description: |
   USB devices log files.
 
-  {{ Query "SELECT * FROM Rows" }}
-
 precondition: SELECT OS From info() where OS = 'windows'
 
 sources:
   - queries:
-      - SELECT * FROM chain(
+      - |
+        SELECT * FROM chain(
           a1={ SELECT * FROM Artifact.Triage.Collection.Upload(
                type="Setupapi.log",
                path=[
@@ -1137,19 +1006,14 @@ sources:
           }
         )
 ```
-   </div></a>
+   {{% /expand %}}
 
 ## Windows.Triage.Collectors.WBEM
 
 Web-Based Enterprise Management (WBEM).
 
-{{ Query "SELECT * FROM Rows" }}
 
-
-
- <a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
-    data-target="#Windows_Triage_Collectors_WBEMDetails">View Artifact</a>
- <div class="collapse dn" id="Windows_Triage_Collectors_WBEMDetails" style="width: fit-content">
+{{% expand  "View Artifact Source" %}}
 
 
 ```
@@ -1157,13 +1021,12 @@ name: Windows.Triage.Collectors.WBEM
 description: |
   Web-Based Enterprise Management (WBEM).
 
-  {{ Query "SELECT * FROM Rows" }}
-
 precondition: SELECT OS From info() where OS = 'windows'
 
 sources:
   - queries:
-      - SELECT * FROM chain(
+      - |
+        SELECT * FROM chain(
           a1={ SELECT * FROM Artifact.Triage.Collection.Upload(
                type="WBEM",
                path=[
@@ -1172,19 +1035,14 @@ sources:
           }
         )
 ```
-   </div></a>
+   {{% /expand %}}
 
 ## Windows.Triage.Collectors.WindowsFirewall
 
 Windows Firewall Logs.
 
-{{ Query "SELECT * FROM Rows" }}
 
-
-
- <a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
-    data-target="#Windows_Triage_Collectors_WindowsFirewallDetails">View Artifact</a>
- <div class="collapse dn" id="Windows_Triage_Collectors_WindowsFirewallDetails" style="width: fit-content">
+{{% expand  "View Artifact Source" %}}
 
 
 ```
@@ -1192,32 +1050,26 @@ name: Windows.Triage.Collectors.WindowsFirewall
 description: |
   Windows Firewall Logs.
 
-  {{ Query "SELECT * FROM Rows" }}
-
 precondition: SELECT OS From info() where OS = 'windows'
 
 sources:
   - queries:
-      - SELECT * FROM chain(
+      - |
+        SELECT * FROM chain(
           a1={ SELECT * FROM Artifact.Triage.Collection.Upload(
                type="Windows Firewall Logs",
-               path="C:\\Windows\\System32\\LogFiles\\Firewall\\pfirewall.*"
+               path="C:\\Windows\\System32\\LogFiles\\Firewall\\pfirewall.*")
           }
         )
 ```
-   </div></a>
+   {{% /expand %}}
 
 ## Windows.Triage.Collectors.WindowsIndex
 
 Windows Index Search.
 
-{{ Query "SELECT * FROM Rows" }}
 
-
-
- <a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
-    data-target="#Windows_Triage_Collectors_WindowsIndexDetails">View Artifact</a>
- <div class="collapse dn" id="Windows_Triage_Collectors_WindowsIndexDetails" style="width: fit-content">
+{{% expand  "View Artifact Source" %}}
 
 
 ```
@@ -1225,32 +1077,67 @@ name: Windows.Triage.Collectors.WindowsIndex
 description: |
   Windows Index Search.
 
-  {{ Query "SELECT * FROM Rows" }}
-
 precondition: SELECT OS From info() where OS = 'windows'
 
 sources:
   - queries:
-      - SELECT * FROM chain(
+      - |
+        SELECT * FROM chain(
           a1={ SELECT * FROM Artifact.Triage.Collection.Upload(
                type="WindowsIndexSearch",
                path="C:\\programdata\\microsoft\\search\\data\\applications\\windows\\Windows.edb")
           }
         )
 ```
-   </div></a>
+   {{% /expand %}}
+
+## Windows.Triage.ProcessMemory
+
+Dump process memory and upload to the server
+
+
+Arg|Default|Description
+---|------|-----------
+processRegex|notepad|
+
+{{% expand  "View Artifact Source" %}}
+
+
+```
+name: Windows.Triage.ProcessMemory
+description: |
+  Dump process memory and upload to the server
+
+precondition: SELECT OS From info() where OS = 'windows'
+
+parameters:
+  - name: processRegex
+    default: notepad
+
+sources:
+  - queries:
+      - |
+        LET processes = SELECT Name as ProcessName, CommandLine, Pid
+            FROM pslist()
+            WHERE Name =~ processRegex
+
+      - |
+        SELECT * FROM foreach(
+          row=processes,
+          query={
+            SELECT ProcessName, CommandLine, Pid, FullPath,
+                   upload(file=FullPath) as CrashDump
+            FROM proc_dump(pid=Pid)
+          })
+```
+   {{% /expand %}}
 
 ## Windows.Triage.WebBrowsers
 
 A high level artifact for selecting all browser related artifacts.
 
-{{ Query "SELECT * FROM Rows" }}
 
-
-
- <a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
-    data-target="#Windows_Triage_WebBrowsersDetails">View Artifact</a>
- <div class="collapse dn" id="Windows_Triage_WebBrowsersDetails" style="width: fit-content">
+{{% expand  "View Artifact Source" %}}
 
 
 ```
@@ -1258,20 +1145,19 @@ name: Windows.Triage.WebBrowsers
 description: |
   A high level artifact for selecting all browser related artifacts.
 
-  {{ Query "SELECT * FROM Rows" }}
-
 precondition: SELECT OS From info() where OS = 'windows'
 
 sources:
   - queries:
-      - SELECT * FROM chain(
+      - |
+        SELECT * FROM chain(
           a1={ SELECT * FROM Artifact.Windows.Triage.Collectors.Chrome() },
           a2={ SELECT * FROM Artifact.Windows.Triage.Collectors.Firefox() },
           a3={ SELECT * FROM Artifact.Windows.Triage.Collectors.Edge() },
           a4={ SELECT * FROM Artifact.Windows.Triage.Collectors.InternetExplorer() }
         )
 ```
-   </div></a>
+   {{% /expand %}}
 
 ## Triage.Collection.Upload
 
@@ -1284,10 +1170,7 @@ path||This is the glob of the files we use.
 type||The type of files these are.
 accessor|file|
 
-
- <a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
-    data-target="#Triage_Collection_UploadDetails">View Artifact</a>
- <div class="collapse dn" id="Triage_Collection_UploadDetails" style="width: fit-content">
+{{% expand  "View Artifact Source" %}}
 
 
 ```
@@ -1305,20 +1188,22 @@ parameters:
 
 sources:
   - queries:
-      - LET results = SELECT FullPath, Size,
+      - |
+        LET results = SELECT FullPath, Size,
                timestamp(epoch=Mtime.Sec) As Modifed,
                type AS Type, {
                  SELECT * FROM upload(files=FullPath, accessor=accessor)
                } AS FileDetails
         FROM glob(globs=path, accessor=accessor)
         WHERE NOT IsDir
-      - SELECT FullPath, Size, Modifed, Type,
+      - |
+        SELECT FullPath, Size, Modifed, Type,
                FileDetails.Path AS ZipPath,
                FileDetails.Md5 as Md5,
                FileDetails.Sha256 as SHA256
         FROM results
 ```
-   </div></a>
+   {{% /expand %}}
 
 ## Windows.Forensics.Bam
 
@@ -1334,10 +1219,7 @@ Arg|Default|Description
 ---|------|-----------
 bamKeys|HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\bam\\UserSettings\\*|
 
-
- <a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
-    data-target="#Windows_Forensics_BamDetails">View Artifact</a>
- <div class="collapse dn" id="Windows_Forensics_BamDetails" style="width: fit-content">
+{{% expand  "View Artifact Source" %}}
 
 
 ```
@@ -1361,8 +1243,10 @@ sources:
   - precondition:
       SELECT OS from info() where OS = "windows"
     queries:
-      - LET users <= SELECT Name, UUID FROM Artifact.Windows.Sys.Users()
-      - SELECT basename(path=dirname(path=FullPath)) as SID, {
+      - |
+        LET users <= SELECT Name, UUID FROM Artifact.Windows.Sys.Users()
+      - |
+        SELECT basename(path=dirname(path=FullPath)) as SID, {
             SELECT Name FROM users WHERE UUID = basename(path=dirname(path=FullPath))
           } As UserName,
           Name as Binary,
@@ -1371,5 +1255,5 @@ sources:
         FROM glob(globs=bamKeys + "\\*", accessor="reg")
         WHERE Data.type = "BINARY"
 ```
-   </div></a>
+   {{% /expand %}}
 

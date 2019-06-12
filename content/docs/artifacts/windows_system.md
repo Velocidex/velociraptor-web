@@ -19,10 +19,7 @@ Arg|Default|Description
 shimKeys|HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\AppCompatFlags\\InstalledSDB\\*|
 customKeys|HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\AppCompatFlags\\Custom\\*\\*|
 
-
- <a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
-    data-target="#Windows_Sys_AppcompatShimsDetails">View Artifact</a>
- <div class="collapse dn" id="Windows_Sys_AppcompatShimsDetails" style="width: fit-content">
+{{% expand  "View Artifact Source" %}}
 
 
 ```
@@ -80,16 +77,13 @@ sources:
       - |
         SELECT * from result
 ```
-   </div></a>
+   {{% /expand %}}
 
 ## Windows.Sys.CertificateAuthorities
 
 Certificate Authorities installed in Keychains/ca-bundles.
 
-
- <a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
-    data-target="#Windows_Sys_CertificateAuthoritiesDetails">View Artifact</a>
- <div class="collapse dn" id="Windows_Sys_CertificateAuthoritiesDetails" style="width: fit-content">
+{{% expand  "View Artifact Source" %}}
 
 
 ```
@@ -108,16 +102,13 @@ sources:
                NotBefore, NotAfter, HexSerialNumber
                from certificates()
 ```
-   </div></a>
+   {{% /expand %}}
 
 ## Windows.Sys.DiskInfo
 
 Retrieve basic information about the physical disks of a system.
 
-
- <a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
-    data-target="#Windows_Sys_DiskInfoDetails">View Artifact</a>
- <div class="collapse dn" id="Windows_Sys_DiskInfoDetails" style="width: fit-content">
+{{% expand  "View Artifact Source" %}}
 
 
 ```
@@ -143,16 +134,13 @@ sources:
            query="SELECT * from Win32_DiskDrive",
            namespace="ROOT\\CIMV2")
 ```
-   </div></a>
+   {{% /expand %}}
 
 ## Windows.Sys.Drivers
 
 Details for in-use Windows device drivers. This does not display installed but unused drivers.
 
-
- <a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
-    data-target="#Windows_Sys_DriversDetails">View Artifact</a>
- <div class="collapse dn" id="Windows_Sys_DriversDetails" style="width: fit-content">
+{{% expand  "View Artifact Source" %}}
 
 
 ```
@@ -167,7 +155,7 @@ sources:
             query="select * from Win32_PnPSignedDriver",
             namespace="ROOT\\CIMV2")
 ```
-   </div></a>
+   {{% /expand %}}
 
 ## Windows.Sys.FirewallRules
 
@@ -177,10 +165,7 @@ Arg|Default|Description
 ---|------|-----------
 regKey|HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\SharedAccess\\Parameters\\FirewallPolicy\\**\\FirewallRules\\*|
 
-
- <a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
-    data-target="#Windows_Sys_FirewallRulesDetails">View Artifact</a>
- <div class="collapse dn" id="Windows_Sys_FirewallRulesDetails" style="width: fit-content">
+{{% expand  "View Artifact Source" %}}
 
 
 ```
@@ -231,7 +216,7 @@ sources:
                Record.Name as Name
         FROM rules
 ```
-   </div></a>
+   {{% /expand %}}
 
 ## Windows.Sys.Interfaces
 
@@ -239,10 +224,7 @@ Report information about the systems interfaces. This artifact
 simply parses the output from ipconfig /all.
 
 
-
- <a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
-    data-target="#Windows_Sys_InterfacesDetails">View Artifact</a>
- <div class="collapse dn" id="Windows_Sys_InterfacesDetails" style="width: fit-content">
+{{% expand  "View Artifact Source" %}}
 
 
 ```
@@ -278,7 +260,7 @@ sources:
         ]
      ) As Details FROM interfaces
 ```
-   </div></a>
+   {{% /expand %}}
 
 ## Windows.Sys.PhysicalMemoryRanges
 
@@ -289,10 +271,7 @@ Arg|Default|Description
 physicalMemoryKey|HKEY_LOCAL_MACHINE\\HARDWARE\\RESOURCEMAP\\System Resources\\Physical Memory\\.Translated|
 Profile|{\n  "CM_RESOURCE_LIST": [0, {\n    "Count": [0, ["uint32"]],\n    "List": [4, ["CM_FULL_RESOURCE_DESCRIPTOR"]]\n   }],\n   "CM_FULL_RESOURCE_DESCRIPTOR": [0, {\n     "PartialResourceList": [8, ["CM_PARTIAL_RESOURCE_LIST"]]\n   }],\n\n   "CM_PARTIAL_RESOURCE_LIST": [0, {\n     "Version": [0, ["uint16"]],\n     "Revision": [2, ["uint16"]],\n     "Count": [4, ["uint32"]],\n     "PartialDescriptors": [8, ["Array", {\n        "Target": "CM_PARTIAL_RESOURCE_DESCRIPTOR"\n     }]]\n   }],\n\n   "CM_PARTIAL_RESOURCE_DESCRIPTOR": [20, {\n     "Type": [0, ["char"]],\n     "ShareDisposition": [1, ["char"]],\n     "Flags": [2, ["uint16"]],\n     "Start": [4, ["int64"]],\n     "Length": [12, ["uint32"]]\n   }]\n}\n|
 
-
- <a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
-    data-target="#Windows_Sys_PhysicalMemoryRangesDetails">View Artifact</a>
- <div class="collapse dn" id="Windows_Sys_PhysicalMemoryRangesDetails" style="width: fit-content">
+{{% expand  "View Artifact Source" %}}
 
 
 ```
@@ -355,7 +334,7 @@ sources:
               start="List.PartialResourceList.PartialDescriptors")
           })
 ```
-   </div></a>
+   {{% /expand %}}
 
 ## Windows.Sys.Programs
 
@@ -368,10 +347,7 @@ Arg|Default|Description
 ---|------|-----------
 programKeys|HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\*, HKEY_LOCAL_MACHINE\\SOFTWARE\\WOW6432Node\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\*, HKEY_USERS\\*\\Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\*|
 
-
- <a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
-    data-target="#Windows_Sys_ProgramsDetails">View Artifact</a>
- <div class="collapse dn" id="Windows_Sys_ProgramsDetails" style="width: fit-content">
+{{% expand  "View Artifact Source" %}}
 
 
 ```
@@ -406,7 +382,7 @@ sources:
                InstallDate
         FROM read_reg_key(globs=split(string=programKeys, sep=',[\\s]*'))
 ```
-   </div></a>
+   {{% /expand %}}
 
 ## Windows.Sys.StartupItems
 
@@ -418,10 +394,7 @@ runKeyGlobs|HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Ru
 startupApprovedGlobs|HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\StartupApproved\\**, HKEY_USERS\\*\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\StartupApproved\\**\n|
 startupFolderDirectories|C:/ProgramData/Microsoft/Windows/Start Menu/Programs/Startup/**, C:/Users/*/AppData/Roaming/Microsoft/Windows/StartMenu/Programs/Startup/**\n|
 
-
- <a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
-    data-target="#Windows_Sys_StartupItemsDetails">View Artifact</a>
- <div class="collapse dn" id="Windows_Sys_StartupItemsDetails" style="width: fit-content">
+{{% expand  "View Artifact Source" %}}
 
 
 ```
@@ -490,11 +463,12 @@ sources:
               FROM read_file(filenames=FullPath)
            })
 
-      - SELECT * from chain(
+      - |
+        SELECT * from chain(
            first=registry_runners,
            second=file_runners)
 ```
-   </div></a>
+   {{% /expand %}}
 
 ## Windows.Sys.Users
 
@@ -506,10 +480,7 @@ Arg|Default|Description
 ---|------|-----------
 remoteRegKey|HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\ProfileList\\*|
 
-
- <a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
-    data-target="#Windows_Sys_UsersDetails">View Artifact</a>
- <div class="collapse dn" id="Windows_Sys_UsersDetails" style="width: fit-content">
+{{% expand  "View Artifact Source" %}}
 
 
 ```
@@ -527,32 +498,82 @@ sources:
       SELECT OS From info() where OS = 'windows'
     queries:
       - |
-        LET roaming_users <=
-           SELECT "" as Uid, "" as Gid,
+        LET roaming_users <= SELECT "" as Uid, "" as Gid,
                lookupSID(
                  sid=basename(path=Key.FullPath)
                ) as Name,
                Key.FullPath as Description,
                ProfileImagePath as Directory,
-               basename(path=Key.FullPath) as UUID, "roaming" as Type
+               basename(path=Key.FullPath) as UUID,
+               Key.Mtime.Sec as Mtime,
+               "roaming" as Type
            FROM read_reg_key(globs=remoteRegKey, accessor="reg")
       - |
         LET local_users <= select User_id as Uid, Primary_group_id as Gid, Name,
                Comment as Description, {
                  SELECT Directory from roaming_users WHERE User_sid = UUID
-               } as Directory, User_sid as UUID, "local" AS Type
+               } as Directory, User_sid as UUID, 0 AS Mtime, "local" AS Type
         FROM users()
 
       - |
+        LET local_users_with_mtime = SELECT Uid, Gid, Name, Description,
+            Directory, UUID, {
+                SELECT Mtime.Sec FROM stat(filename=expand(path=Directory))
+            } As Mtime, Type
+        FROM local_users
+
+      - |
         SELECT * from chain(
-         q1=local_users,
+         q1=local_users_with_mtime,
          q2={
            -- Only show users not already shown in the local_users above.
            SELECT * from roaming_users
            where not UUID in local_users.UUID
          })
+
+
+reports:
+  - type: HUNT
+    template: |
+      # Users Hunt
+
+      Enumerating all the users on all endpoints can reveal machines
+      which had an unexpected login activity. For example, if a user
+      from an unrelated department is logging into an endpoint by
+      virtue of domain credentials, this could mean their account is
+      compromised and the attackers are laterally moving through the
+      network.
+
+      {{ define "users" }}
+         SELECT Name, UUID, Fqdn, timestamp(epoch=Mtime) as LastMod FROM source()
+         WHERE NOT UUID =~ "(-5..$|S-1-5-18|S-1-5-19|S-1-5-20)"
+      {{ end }}
+
+      {{ Query "users" | Table }}
+
+  - type: CLIENT
+    template: |
+
+      System Users
+      ============
+
+      {{ .Description }}
+
+      The following table shows basic information about the users on this system.
+
+      * Remote users also show the modification timestamp from the
+        registry key.
+
+      * Local users show the mtime of their home directory.
+
+      {{ define "users" }}
+         LET users <= SELECT Name, UUID, Type,
+               timestamp(epoch=Mtime) as Mtime
+         FROM source()
+      {{ end }}
+      {{ Query "users" "SELECT Name, UUID, Type, Mtime FROM users" | Table }}
 ```
-   </div></a>
+   {{% /expand %}}
 
 ## Windows.System.Amcache
 
@@ -575,10 +596,7 @@ Arg|Default|Description
 amCacheGlob|%SYSTEMROOT%/appcompat/Programs/Amcache.hve|
 amCacheRegPath|/Root/InventoryApplicationFile/*|
 
-
- <a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
-    data-target="#Windows_System_AmcacheDetails">View Artifact</a>
- <div class="collapse dn" id="Windows_System_AmcacheDetails" style="width: fit-content">
+{{% expand  "View Artifact Source" %}}
 
 
 ```
@@ -603,14 +621,17 @@ parameters:
   - name: amCacheRegPath
     default: /Root/InventoryApplicationFile/*
 
+precondition: |
+  SELECT OS From info() where OS = 'windows'
+
 sources:
-  - precondition:
-      SELECT OS From info() where OS = 'windows'
+  - name: InventoryApplicationFile
     queries:
       - |
         SELECT FileId,
                Key.FullPath as Key,
                timestamp(epoch=Key.Mtime.Sec) as LastModified,
+               Key.Mtime.Sec as _LastModified,
                LowerCaseLongPath as Binary,
                Name,
                Size,
@@ -623,12 +644,75 @@ sources:
             SELECT FullPath from glob(globs=expand(path=amCacheGlob))
           }, query={
             SELECT * from read_reg_key(
-               globs=url(scheme='ntfs', path=FullPath, fragment=amCacheRegPath).String,
+               globs=url(scheme='ntfs', path=FullPath,
+                         fragment=amCacheRegPath).String,
                accessor='raw_reg'
             )
         })
+
+  - name: File
+    queries:
+      - |
+        SELECT * FROM foreach(
+          row={
+            SELECT FullPath from glob(globs=expand(path=amCacheGlob))
+          }, query={
+            SELECT get(item=scope(), member="100") As ProductId,
+                   get(item=scope(), member="101") As SHA1,
+                   get(item=scope(), member="15") As FullPath,
+                   timestamp(epoch=Key.Mtime.Sec) as LastModifiedKey
+            FROM read_reg_key(
+               globs=url(scheme='ntfs', path=FullPath,
+                         fragment='/Root/File/*/*').String,
+               accessor='raw_reg'
+            )
+        })
+
+reports:
+  - type: CLIENT
+    template: |
+      {{define "recent_executions"}}
+           LET recent_executions <= SELECT LastModified, Name, count(items=Name) As Count,
+                  int(int=_LastModified/3600) AS Hour
+           FROM source(source="InventoryApplicationFile")
+           GROUP BY Hour
+           LIMIT 500
+      {{ end }}
+
+      {{ define "timeline" }}
+         SELECT LastModified,
+                format(format="%s (%d)", args=[Name, Count]) As TotalCount
+         FROM recent_executions
+      {{ end }}
+
+      The AMCache file
+      ================
+
+      {{ .Description }}
+
+      ## Execution clusters
+
+      The AMCache artifact only shows us the time of first execution
+      of a binary. We get an idea when it was installed. Typically
+      execution artifacts are clustered in time - if an attacker
+      copies a bunch of new tools they will all start running at about
+      the same time.
+
+      The below timeline shows a summary of execution clusters. The
+      binaries are grouped in an hour interval. The label is the first
+      binary name and the total number of binaries within that hour.
+
+      > For clarity we hide the names of all other binaries, and just
+        show the total count.
+
+      {{ Query "recent_executions" "timeline" | Timeline }}
+
+
+      Here is the same data in tabular form.
+
+      {{ Query "timeline" | Table }}
 ```
-   </div></a>
+   {{% /expand %}}
 
 ## Windows.System.Pslist
 
@@ -639,10 +723,7 @@ Arg|Default|Description
 ---|------|-----------
 processRegex|.|
 
-
- <a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
-    data-target="#Windows_System_PslistDetails">View Artifact</a>
- <div class="collapse dn" id="Windows_System_PslistDetails" style="width: fit-content">
+{{% expand  "View Artifact Source" %}}
 
 
 ```
@@ -656,14 +737,15 @@ parameters:
 
 sources:
   - queries:
-      - SELECT Pid, Ppid, Name, CommandLine, Exe,
+      - |
+        SELECT Pid, Ppid, Name, CommandLine, Exe,
                hash(path=Exe) as Hash,
                authenticode(filename=Exe) AS Authenticode,
                Username, WorkingSetSize
         FROM pslist()
         WHERE Name =~ processRegex
 ```
-   </div></a>
+   {{% /expand %}}
 
 ## Windows.System.SVCHost
 
@@ -675,10 +757,7 @@ This artifact lists all the processes named svchost.exe and their
 parents if the parent is not also named services.exe.
 
 
-
- <a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
-    data-target="#Windows_System_SVCHostDetails">View Artifact</a>
- <div class="collapse dn" id="Windows_System_SVCHostDetails" style="width: fit-content">
+{{% expand  "View Artifact Source" %}}
 
 
 ```
@@ -725,7 +804,7 @@ sources:
               WHERE Pid=SVCHostPpid
           })
 ```
-   </div></a>
+   {{% /expand %}}
 
 ## Windows.System.Services
 
@@ -736,10 +815,7 @@ Arg|Default|Description
 ---|------|-----------
 servicesKeyGlob|HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\|
 
-
- <a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
-    data-target="#Windows_System_ServicesDetails">View Artifact</a>
- <div class="collapse dn" id="Windows_System_ServicesDetails" style="width: fit-content">
+{{% expand  "View Artifact Source" %}}
 
 
 ```
@@ -769,7 +845,7 @@ sources:
                } AS ServiceDll
         FROM wmi(query="SELECT * From Win32_service", namespace="root/CIMV2")
 ```
-   </div></a>
+   {{% /expand %}}
 
 ## Windows.System.UntrustedBinaries
 
@@ -791,10 +867,7 @@ Arg|Default|Description
 ---|------|-----------
 processNamesRegex|(?i)lsass|svchost|conhost|taskmgr|winlogon|wmiprv|dwm|csrss|velociraptor|A regex to select running processes which we consider should be trusted.
 
-
- <a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
-    data-target="#Windows_System_UntrustedBinariesDetails">View Artifact</a>
- <div class="collapse dn" id="Windows_System_UntrustedBinariesDetails" style="width: fit-content">
+{{% expand  "View Artifact Source" %}}
 
 
 ```
@@ -837,5 +910,5 @@ sources:
                Authenticode.SubjectName as Subject,
                Authenticode.Trusted as Trusted from auth
 ```
-   </div></a>
+   {{% /expand %}}
 

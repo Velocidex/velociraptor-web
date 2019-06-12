@@ -1,4 +1,4 @@
-content/en/artifacts/linux.md:
+content/docs/artifacts/linux.md:
   title: Linux Artifacts
   linktitle: Linux Artifacts
   description: Linux Artifacts
@@ -9,7 +9,7 @@ content/en/artifacts/linux.md:
   toc: true
   prefix: Linux.
 
-content/en/artifacts/windows_system.md:
+content/docs/artifacts/windows_system.md:
   title: Windows System
   linktitle: Windows System
   description: These artifacts collect information related to the windows system itself.
@@ -20,7 +20,7 @@ content/en/artifacts/windows_system.md:
   toc: true
   prefix: Windows.Sys
 
-content/en/artifacts/server.md:
+content/docs/artifacts/server.md:
   title: Server Artifacts
   linktitle: Server Artifacts
   description: These artifacts are intended to run on the server.
@@ -31,7 +31,7 @@ content/en/artifacts/server.md:
   toc: true
   prefix: Server.
 
-content/en/artifacts/triage.md:
+content/docs/artifacts/triage.md:
   title: Windows Triage Artifacts
   linktitle: Windows Triage
   description: Triage artifacts simply collect various files as quickly as possible.
@@ -45,7 +45,7 @@ content/en/artifacts/triage.md:
     - Triage.
     - Windows.Forensics
 
-content/en/artifacts/detection.md:
+content/docs/artifacts/detection.md:
   title: Windows Malware Detection
   linktitle: Windows Detection
   description: These artifacts attempt to detect the presence of specific compromizes.
@@ -59,7 +59,7 @@ content/en/artifacts/detection.md:
     - Windows.Persist
 
 
-content/en/artifacts/events.md:
+content/docs/artifacts/events.md:
   title: Windows Event Monitoring
   linktitle: Windows Monitoring
   description: These event artifacts stream monitoring events from the endpoint. We collect these events on the server.
@@ -71,7 +71,7 @@ content/en/artifacts/events.md:
   prefix:
     - Windows.Events.
 
-content/en/artifacts/misc.md:
+content/docs/artifacts/misc.md:
   title: Miscelaneous Artifacts
   linktitle: Miscelaneous
   description: Various Artifacts which do not fit into other categories.

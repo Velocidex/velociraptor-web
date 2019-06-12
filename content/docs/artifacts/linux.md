@@ -25,10 +25,7 @@ Arg|Default|Description
 ---|------|-----------
 extensionGlobs|/.config/google-chrome/*/Extensions/*/*/manifest.json|
 
-
- <a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
-    data-target="#Linux_Applications_Chrome_ExtensionsDetails">View Artifact</a>
- <div class="collapse dn" id="Linux_Applications_Chrome_ExtensionsDetails" style="width: fit-content">
+{{% expand  "View Artifact Source" %}}
 
 
 ```
@@ -161,7 +158,7 @@ sources:
 
         FROM parsed_manifest_files
 ```
-   </div></a>
+   {{% /expand %}}
 
 ## Linux.Applications.Chrome.Extensions.Upload
 
@@ -175,10 +172,7 @@ Arg|Default|Description
 ---|------|-----------
 extensionGlobs|/.config/google-chrome/*/Extensions/**|
 
-
- <a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
-    data-target="#Linux_Applications_Chrome_Extensions_UploadDetails">View Artifact</a>
- <div class="collapse dn" id="Linux_Applications_Chrome_Extensions_UploadDetails" style="width: fit-content">
+{{% expand  "View Artifact Source" %}}
 
 
 ```
@@ -209,7 +203,7 @@ sources:
              FROM glob(globs=Homedir + '/' + extensionGlobs)
           })
 ```
-   </div></a>
+   {{% /expand %}}
 
 ## Linux.Applications.Docker.Info
 
@@ -219,10 +213,7 @@ Arg|Default|Description
 ---|------|-----------
 dockerSocket|/var/run/docker.sock|Docker server socket. You will normally need to be root to connect.\n
 
-
- <a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
-    data-target="#Linux_Applications_Docker_InfoDetails">View Artifact</a>
- <div class="collapse dn" id="Linux_Applications_Docker_InfoDetails" style="width: fit-content">
+{{% expand  "View Artifact Source" %}}
 
 
 ```
@@ -275,7 +266,7 @@ sources:
                JSON.DockerRootDir as DockerRootDir
         FROM data
 ```
-   </div></a>
+   {{% /expand %}}
 
 ## Linux.Applications.Docker.Version
 
@@ -285,10 +276,7 @@ Arg|Default|Description
 ---|------|-----------
 dockerSocket|/var/run/docker.sock|Docker server socket. You will normally need to be root to connect.\n
 
-
- <a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
-    data-target="#Linux_Applications_Docker_VersionDetails">View Artifact</a>
- <div class="collapse dn" id="Linux_Applications_Docker_VersionDetails" style="width: fit-content">
+{{% expand  "View Artifact Source" %}}
 
 
 ```
@@ -318,7 +306,7 @@ sources:
                JSON.BuildTime as BuildTime
         FROM data
 ```
-   </div></a>
+   {{% /expand %}}
 
 ## Linux.Debian.AptSources
 
@@ -342,10 +330,7 @@ Arg|Default|Description
 linuxAptSourcesGlobs|/etc/apt/sources.list,/etc/apt/sources.list.d/*.list|Globs to find apt source *.list files.
 aptCacheDirectory|/var/lib/apt/lists/|Location of the apt cache directory.
 
-
- <a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
-    data-target="#Linux_Debian_AptSourcesDetails">View Artifact</a>
- <div class="collapse dn" id="Linux_Debian_AptSourcesDetails" style="width: fit-content">
+{{% expand  "View Artifact Source" %}}
 
 
 ```
@@ -462,7 +447,7 @@ sources:
              row=parsed_apt_lines,
              query=parse_cache_or_pass)
 ```
-   </div></a>
+   {{% /expand %}}
 
 ## Linux.Debian.Packages
 
@@ -472,10 +457,7 @@ Arg|Default|Description
 ---|------|-----------
 linuxDpkgStatus|/var/lib/dpkg/status|
 
-
- <a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
-    data-target="#Linux_Debian_PackagesDetails">View Artifact</a>
- <div class="collapse dn" id="Linux_Debian_PackagesDetails" style="width: fit-content">
+{{% expand  "View Artifact Source" %}}
 
 
 ```
@@ -511,7 +493,7 @@ sources:
                Record.Source as Source,
                Record.Architecture as Architecture from packages
 ```
-   </div></a>
+   {{% /expand %}}
 
 ## Linux.Mounts
 
@@ -521,10 +503,7 @@ Arg|Default|Description
 ---|------|-----------
 ProcMounts|/proc/mounts|
 
-
- <a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
-    data-target="#Linux_MountsDetails">View Artifact</a>
- <div class="collapse dn" id="Linux_MountsDetails" style="width: fit-content">
+{{% expand  "View Artifact Source" %}}
 
 
 ```
@@ -544,7 +523,7 @@ sources:
                    regex='(?m)^(?P<Device>[^ ]+) (?P<Mount>[^ ]+) (?P<FSType>[^ ]+) '+
                          '(?P<Opts>[^ ]+)')
 ```
-   </div></a>
+   {{% /expand %}}
 
 ## Linux.Proc.Arp
 
@@ -554,10 +533,7 @@ Arg|Default|Description
 ---|------|-----------
 ProcNetArp|/proc/net/arp|
 
-
- <a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
-    data-target="#Linux_Proc_ArpDetails">View Artifact</a>
- <div class="collapse dn" id="Linux_Proc_ArpDetails" style="width: fit-content">
+{{% expand  "View Artifact Source" %}}
 
 
 ```
@@ -577,7 +553,7 @@ sources:
            regex='\\s{3,20}',
            first_row_is_headers=true)
 ```
-   </div></a>
+   {{% /expand %}}
 
 ## Linux.Proc.Modules
 
@@ -587,10 +563,7 @@ Arg|Default|Description
 ---|------|-----------
 ProcModules|/proc/modules|
 
-
- <a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
-    data-target="#Linux_Proc_ModulesDetails">View Artifact</a>
- <div class="collapse dn" id="Linux_Proc_ModulesDetails" style="width: fit-content">
+{{% expand  "View Artifact Source" %}}
 
 
 ```
@@ -599,6 +572,7 @@ description: Module listing via /proc/modules.
 parameters:
   - name: ProcModules
     default: /proc/modules
+
 sources:
   - precondition: |
       SELECT OS From info() where OS = 'linux'
@@ -614,7 +588,7 @@ sources:
            regex='\\s+',
            columns=['Name', 'Size', 'UseCount', 'UsedBy', 'Status', 'Address'])
 ```
-   </div></a>
+   {{% /expand %}}
 
 ## Linux.Ssh.AuthorizedKeys
 
@@ -624,10 +598,7 @@ Arg|Default|Description
 ---|------|-----------
 sshKeyFiles|.ssh/authorized_keys*|
 
-
- <a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
-    data-target="#Linux_Ssh_AuthorizedKeysDetails">View Artifact</a>
- <div class="collapse dn" id="Linux_Ssh_AuthorizedKeysDetails" style="width: fit-content">
+{{% expand  "View Artifact Source" %}}
 
 
 ```
@@ -660,7 +631,7 @@ sources:
                filenames=FullPath, regex="\n", columns=["Key"])
           })
 ```
-   </div></a>
+   {{% /expand %}}
 
 ## Linux.Ssh.KnownHosts
 
@@ -670,10 +641,7 @@ Arg|Default|Description
 ---|------|-----------
 sshKnownHostsFiles|.ssh/known_hosts*|
 
-
- <a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
-    data-target="#Linux_Ssh_KnownHostsDetails">View Artifact</a>
- <div class="collapse dn" id="Linux_Ssh_KnownHostsDetails" style="width: fit-content">
+{{% expand  "View Artifact Source" %}}
 
 
 ```
@@ -707,7 +675,7 @@ sources:
             WHERE not Line =~ "^[^#]+#"
           })
 ```
-   </div></a>
+   {{% /expand %}}
 
 ## Linux.Sys.ACPITables
 
@@ -717,10 +685,7 @@ Arg|Default|Description
 ---|------|-----------
 kLinuxACPIPath|/sys/firmware/acpi/tables|
 
-
- <a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
-    data-target="#Linux_Sys_ACPITablesDetails">View Artifact</a>
- <div class="collapse dn" id="Linux_Sys_ACPITablesDetails" style="width: fit-content">
+{{% expand  "View Artifact Source" %}}
 
 
 ```
@@ -741,7 +706,7 @@ sources:
       - |
         SELECT Name, Size, Hash.MD5, Hash.SHA1, Hash.SHA256 from hashes
 ```
-   </div></a>
+   {{% /expand %}}
 
 ## Linux.Sys.CPUTime
 
@@ -753,10 +718,7 @@ Arg|Default|Description
 ---|------|-----------
 procStat|/proc/stat|
 
-
- <a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
-    data-target="#Linux_Sys_CPUTimeDetails">View Artifact</a>
- <div class="collapse dn" id="Linux_Sys_CPUTimeDetails" style="width: fit-content">
+{{% expand  "View Artifact Source" %}}
 
 
 ```
@@ -792,7 +754,7 @@ sources:
                atoi(string=guest) as Guest,
                atoi(string=guest_nice) as GuestNice FROM raw
 ```
-   </div></a>
+   {{% /expand %}}
 
 ## Linux.Sys.Crontab
 
@@ -803,10 +765,7 @@ Arg|Default|Description
 ---|------|-----------
 cronTabGlob|/etc/crontab,/etc/cron.d/**,/var/at/tabs/**,/var/spool/cron/**,/var/spool/cron/crontabs/**|
 
-
- <a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
-    data-target="#Linux_Sys_CrontabDetails">View Artifact</a>
- <div class="collapse dn" id="Linux_Sys_CrontabDetails" style="width: fit-content">
+{{% expand  "View Artifact Source" %}}
 
 
 ```
@@ -857,7 +816,7 @@ sources:
                FullPath AS Path
         FROM raw
 ```
-   </div></a>
+   {{% /expand %}}
 
 ## Linux.Sys.LastUserLogin
 
@@ -868,10 +827,7 @@ Arg|Default|Description
 wtmpGlobs|/var/log/wtmp*|
 wtmpProfile|{\n  "timeval": [8, {\n   "tv_sec": [0, ["int"]],\n   "tv_usec": [4, ["int"]]\n  }],\n  "exit_status": [4, {\n   "e_exit": [2, ["short int"]],\n   "e_termination": [0, ["short int"]]\n  }],\n  "timezone": [8, {\n   "tz_dsttime": [4, ["int"]],\n   "tz_minuteswest": [0, ["int"]]\n  }],\n  "utmp": [384, {\n   "__glibc_reserved": [364, ["Array", {\n    "count": 20,\n    "target": "char",\n    "target_args": null\n   }]],\n   "ut_addr_v6": [348, ["Array", {\n    "count": 4,\n    "target": "int",\n    "target_args": null\n   }]],\n   "ut_exit": [332, ["exit_status"]],\n   "ut_host": [76, ["String", {\n    "length": 256\n   }]],\n   "ut_id": [40, ["String", {\n    "length": 4\n   }]],\n   "ut_line": [8, ["String", {\n    "length": 32\n   }]],\n   "ut_pid": [4, ["int"]],\n   "ut_session": [336, ["int"]],\n   "ut_tv": [340, ["timeval"]],\n   "ut_type": [0, ["Enumeration", {\n     "target": "short int",\n     "choices": {\n        "0": "EMPTY",\n        "1": "RUN_LVL",\n        "2": "BOOT_TIME",\n        "5": "INIT_PROCESS",\n        "6": "LOGIN_PROCESS",\n        "7": "USER_PROCESS",\n        "8": "DEAD_PROCESS"\n      }\n   }]],\n   "ut_user": [44, ["String", {\n    "length": 32\n   }]]\n  }]\n}\n|
 
-
- <a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
-    data-target="#Linux_Sys_LastUserLoginDetails">View Artifact</a>
- <div class="collapse dn" id="Linux_Sys_LastUserLoginDetails" style="width: fit-content">
+{{% expand  "View Artifact Source" %}}
 
 
 ```
@@ -968,7 +924,7 @@ sources:
                  )
           })
 ```
-   </div></a>
+   {{% /expand %}}
 
 ## Linux.Sys.Users
 
@@ -978,10 +934,7 @@ Arg|Default|Description
 ---|------|-----------
 PasswordFile|/etc/passwd|The location of the password file.
 
-
- <a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
-    data-target="#Linux_Sys_UsersDetails">View Artifact</a>
- <div class="collapse dn" id="Linux_Sys_UsersDetails" style="width: fit-content">
+{{% expand  "View Artifact Source" %}}
 
 
 ```
@@ -1003,5 +956,5 @@ sources:
                   '(?P<Uid>[^:]+):(?P<Gid>[^:]+):(?P<Description>[^:]*):' +
                   '(?P<Homedir>[^:]+):(?P<Shell>[^:\\s]+)')
 ```
-   </div></a>
+   {{% /expand %}}
 

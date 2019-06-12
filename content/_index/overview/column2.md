@@ -6,4 +6,6 @@ weight = 20
   image = "monitoring.svg"
 +++
 
-Continuously collect endpoint events such as event logs, file modification and process execution logs. Centrally store events indefinitely for historical review and analysis.
+Continuously collect endpoint events such as event logs, file
+modification and process execution logs. Centrally store events
+indefinitely for historical review and analysis.

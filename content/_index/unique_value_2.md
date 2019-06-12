@@ -16,5 +16,5 @@ title = "Deploy in minutes."
 Velociraptor works on macOS, Windows, Linux, FreeBSD, and others.
 Velociraptor is distributed as a statically linked single binary. This
 ensures it does not require runtime dependencies or libraries to be
-present on the system making it easy to deploy with SCCM or Windows
-build in group policy technology.
+present on the system making it easy to deploy with SCCM or Windows'
+built in group policy technology.

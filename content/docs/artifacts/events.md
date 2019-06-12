@@ -28,10 +28,7 @@ Arg|Default|Description
 ---|------|-----------
 whitelistRegex|wpad.home|We ignore DNS names that match this regex.
 
-
- <a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
-    data-target="#Windows_Events_DNSQueriesDetails">View Artifact</a>
- <div class="collapse dn" id="Windows_Events_DNSQueriesDetails" style="width: fit-content">
+{{% expand  "View Artifact Source" %}}
 
 
 ```
@@ -50,6 +47,8 @@ description: |
   bad C&C you can use this archive to confirm if any of your endpoints
   have contacted this C&C.
 
+type: CLIENT_EVENT
+
 parameters:
   - name: whitelistRegex
     description: We ignore DNS names that match this regex.
@@ -64,8 +63,40 @@ sources:
         SELECT timestamp(epoch=Time) As Time, EventType, Name, CNAME, Answers
         FROM dns()
         WHERE not Name =~ whitelistRegex
+
+reports:
+- type: MONITORING_DAILY
+  template: |
+    {{ define "dns" }}
+       SELECT count(items=Name) AS Total, Name
+       FROM source(client_id=ClientId,
+                   artifact='Windows.Events.DNSQueries')
+      WHERE EventType = "Q" and not Name =~ ".home.$"
+      GROUP BY Name
+      ORDER BY Total desc
+      LIMIT 1000
+    {{ end }}
+
+    {{ $client_info := Query "SELECT * FROM clients(client_id=ClientId) LIMIT 1" }}
+
+    # DNS Questions for {{ Get $client_info "0.OsInfo.Fqdn" }}
+
+    The 1000 most common DNS Queries on this day are listed in the
+    below table. Typically we are looking for two interesting
+    anomalies:
+
+    1. Sorting by count for the most frequently called domains. If you
+       do not recognize these it may be possible that a malware is
+       frequently calling out to its C&C.
+
+    2. Examining some of the least commonly used DNS names might
+       indicate DNS exfiltration.
+
+    {{ Query "dns" | Table }}
+
+    > The following domains are filtered out: `.home.`
 ```
-   </div></a>
+   {{% /expand %}}
 
 ## Windows.Events.FailedLogBeforeSuccess
 
@@ -97,10 +128,7 @@ securityLogFile|C:/Windows/System32/Winevt/Logs/Security.evtx|
 failureCount|3|Alert if there are this many failures before the successful logon.
 failedLogonTimeWindow|3600|
 
-
- <a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
-    data-target="#Windows_Events_FailedLogBeforeSuccessDetails">View Artifact</a>
- <div class="collapse dn" id="Windows_Events_FailedLogBeforeSuccessDetails" style="width: fit-content">
+{{% expand  "View Artifact Source" %}}
 
 
 ```
@@ -126,7 +154,7 @@ description: |
 
   You can set the policy in group policy managment console (gpmc):
   Computer Configuration\Windows Settings\Security Settings\Local Policies\Audit Policy.
-type: EVENT
+type: CLIENT_EVENT
 
 parameters:
   - name: securityLogFile
@@ -157,7 +185,8 @@ sources:
                       max_age=atoi(string=failedLogonTimeWindow))
 
       # Force the fifo to materialize.
-      - LET foo <= SELECT * FROM last_5_events
+      - |
+        LET foo <= SELECT * FROM last_5_events
 
       - |
         LET success_logon = SELECT EventData as SuccessEventData,
@@ -178,7 +207,7 @@ sources:
            GROUP BY LogonTime
           })  WHERE Count > atoi(string=failureCount)
 ```
-   </div></a>
+   {{% /expand %}}
 
 ## Windows.Events.ProcessCreation
 
@@ -190,10 +219,7 @@ Arg|Default|Description
 wmiQuery|SELECT * FROM __InstanceCreationEvent WITHIN 1 WHERE TargetInstance ISA 'Win32_Process'|
 eventQuery|SELECT * FROM Win32_ProcessStartTrace|
 
-
- <a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
-    data-target="#Windows_Events_ProcessCreationDetails">View Artifact</a>
- <div class="collapse dn" id="Windows_Events_ProcessCreationDetails" style="width: fit-content">
+{{% expand  "View Artifact Source" %}}
 
 
 ```
@@ -201,7 +227,7 @@ name: Windows.Events.ProcessCreation
 description: |
   Collect all process creation events.
 
-type: EVENT
+type: CLIENT_EVENT
 
 parameters:
   # This query will not see processes that complete within 1 second.
@@ -242,7 +268,7 @@ sources:
            wait=5000000,   // Do not time out.
            namespace="ROOT/CIMV2")
 ```
-   </div></a>
+   {{% /expand %}}
 
 ## Windows.Events.ServiceCreation
 
@@ -261,10 +287,7 @@ Arg|Default|Description
 ---|------|-----------
 systemLogFile|C:/Windows/System32/Winevt/Logs/System.evtx|
 
-
- <a href="javascript:void(0)" class="js-toggle dib w-100 link mid-gray hover-accent-color-light pl2 pr2 pv2 "
-    data-target="#Windows_Events_ServiceCreationDetails">View Artifact</a>
- <div class="collapse dn" id="Windows_Events_ServiceCreationDetails" style="width: fit-content">
+{{% expand  "View Artifact Source" %}}
 
 
 ```
@@ -279,7 +302,7 @@ description: |
 
   This event monitor extracts the service creation events from the
   event log and records them on the server.
-type: EVENT
+type: CLIENT_EVENT
 
 parameters:
   - name: systemLogFile
@@ -302,5 +325,5 @@ sources:
                System as _System
         FROM watch_evtx(filename=systemLogFile) WHERE EventID = 7045
 ```
-   </div></a>
+   {{% /expand %}}
 

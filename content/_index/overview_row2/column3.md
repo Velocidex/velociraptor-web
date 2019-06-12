@@ -6,4 +6,5 @@ weight = 30
   image = "triage.svg"
 +++
 
-When certain conditions are detected occur, trigger automated response actions.
+When certain conditions are detected, trigger automated response
+actions - from alerts to automated triaging and endpoint lockdown.
