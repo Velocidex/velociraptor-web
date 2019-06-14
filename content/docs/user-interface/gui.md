@@ -10,7 +10,7 @@ menu:
   docs:
     parent: "manual"
     weight: 10
-weight: 0010
+weight: 20
 draft: false
 aliases: [/manual/gui]
 toc: true

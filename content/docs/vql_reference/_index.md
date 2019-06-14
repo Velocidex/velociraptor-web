@@ -1,19 +1,6 @@
 ---
 title: VQL Reference
-linktitle: VQL Overview
-date: 2019-02-01
-publishdate: 2019-02-01
-lastmod: 2019-02-01
-categories: [vql]
-keywords: []
-menu:
-  docs:
-    parent: "vql_reference"
-    weight: 1
-weight: 1
-draft: false
-aliases: []
-toc: true
+weight: 100
 ---
 
 The Velociraptor Query language (VQL) is an expressive language

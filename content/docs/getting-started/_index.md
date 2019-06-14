@@ -1,26 +1,26 @@
 ---
-title: Get Started
-linktitle: Get Started Overview
-description: Quick start and guides for installing Velociraptor on your preferred operating system.
-date: 2019-02-01
-publishdate: 2019-02-01
-lastmod: 2019-02-01
+title: Getting Started
 categories: [getting started]
 keywords: [usage,docs]
-menu:
-  docs:
-    parent: "getting-started"
-    weight: 1
-weight: 0001    #rem
-draft: false
-aliases: [/overview/introduction/]
-toc: false
+weight: 5
 ---
 
 Velociraptor can be used in a number of contexts and deployed in a
-number of different way. The simplest way is a stand alone server. If
-you deploy the server in the cloud it is possible to use automatically
-minted SSL certificates.
+number of different way. The following pages will help you get started
+quickly.
 
-Alternatively Velociraptor can be used for triaging - simply
-collecting artifacts from system for later analysis and preservation.
+Most people want to start a single server and client and check out the
+GUI. This way you can see how Velociraptor can be useful to you
+immediately. You can read about this installation method in the
+"Standalone Deployment" page.
+
+
+If you deploy the server in the cloud it is possible to use
+automatically minted SSL certificates and Single Sign On for
+authentication. You can read about this approach in the "Cloud
+Deployment" page.
+
+Alternatively Velociraptor can simply be used for triaging - simply
+collecting artifacts interactivly from systems for later analysis and
+preservation. You can read more about this mode in the "Triaging"
+page.

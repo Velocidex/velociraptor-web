@@ -42,16 +42,6 @@ VQL plugins are not the same as VQL functions. A plugin is the subject of the VQ
     </item>
     
     <item>
-      <title>VQL Reference</title>
-      <link>/docs/vql_reference/</link>
-      <pubDate>Fri, 01 Feb 2019 00:00:00 +0000</pubDate>
-      
-      <guid>/docs/vql_reference/</guid>
-      <description>The Velociraptor Query language (VQL) is an expressive language designed for querying endpoint state. It was developed as a way to flexibly adapt new IOCs on endpoints without needing to rebuild or deploy new endpoints.
-VQL is simple to use and simple to understand. Although it draws its inspiration from SQL, VQL does not support complex operations such as join. Unlike SQL, which can only query static tables of data, VQL queries plugins which are provided parameters.</description>
-    </item>
-    
-    <item>
       <title>VQL PLugins</title>
       <link>/docs/vql_reference/plugins/</link>
       <pubDate>Fri, 01 Feb 2019 00:00:00 +0000</pubDate>

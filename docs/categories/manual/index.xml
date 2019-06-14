@@ -12,15 +12,6 @@
     
     
     <item>
-      <title>Users Manual</title>
-      <link>/docs/user-interface/</link>
-      <pubDate>Wed, 01 May 2019 00:00:00 +0000</pubDate>
-      
-      <guid>/docs/user-interface/</guid>
-      <description>This section of the site covers the user interface and how to use it effectively to solve every day DFIR tasks.</description>
-    </item>
-    
-    <item>
       <title>Searching for clients</title>
       <link>/docs/user-interface/gui/</link>
       <pubDate>Wed, 01 May 2019 00:00:00 +0000</pubDate>

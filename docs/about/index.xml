@@ -17,8 +17,7 @@
       <pubDate>Wed, 01 Feb 2017 00:00:00 +0000</pubDate>
       
       <guid>/about/features/</guid>
-      <description>Velociraptor has many features and its feature set is growing daily. The following is an overview of the most significant features.
-Endpoint operations  Find files on endpoints using glob expressions, file metadata and even Yara signatures. Search through registry using glob expressions, metadata and even Yara signatures. Apply Yara signatures to process memory. Acquire process memory based on various conditions for further examination by Windbg. Upload entire files from endpoints automatically and on demand.</description>
+      <description></description>
     </item>
     
     <item>

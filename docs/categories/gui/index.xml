@@ -12,17 +12,6 @@
     
     
     <item>
-      <title>Artifact Types</title>
-      <link>/docs/user-interface/artifact_types/</link>
-      <pubDate>Fri, 01 Feb 2019 00:00:00 +0000</pubDate>
-      
-      <guid>/docs/user-interface/artifact_types/</guid>
-      <description>Velociraptor uses VQL for many different purposes. Since Artifacts are a nice way to package VQL queries, there are a number of different types of artifacts. This page documents some of the more common artifact types and where they are used.
-Client Artifacts Client artifacts encapsulate VQL queries that run on the client. The artifact contains a number of Sources - each extracting a single table of data.
-Client artifacts are collected from the each client at a time, or using a hunt, collected from a number of clients at the same time.</description>
-    </item>
-    
-    <item>
       <title>Velociraptor Artifacts</title>
       <link>/docs/user-interface/flows/</link>
       <pubDate>Fri, 01 Feb 2019 00:00:00 +0000</pubDate>

@@ -1,26 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Users Manual on Velociraptor - Hunt Evil!</title>
+    <title>User Interface on Velociraptor - Hunt Evil!</title>
     <link>/docs/user-interface/</link>
-    <description>Recent content in Users Manual on Velociraptor - Hunt Evil!</description>
+    <description>Recent content in User Interface on Velociraptor - Hunt Evil!</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 01 May 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/docs/user-interface/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    <item>
-      <title>Artifact Types</title>
-      <link>/docs/user-interface/artifact_types/</link>
-      <pubDate>Fri, 01 Feb 2019 00:00:00 +0000</pubDate>
-      
-      <guid>/docs/user-interface/artifact_types/</guid>
-      <description>Velociraptor uses VQL for many different purposes. Since Artifacts are a nice way to package VQL queries, there are a number of different types of artifacts. This page documents some of the more common artifact types and where they are used.
-Client Artifacts Client artifacts encapsulate VQL queries that run on the client. The artifact contains a number of Sources - each extracting a single table of data.
-Client artifacts are collected from the each client at a time, or using a hunt, collected from a number of clients at the same time.</description>
-    </item>
     
     <item>
       <title>Velociraptor Artifacts</title>

@@ -39,15 +39,6 @@
     </item>
     
     <item>
-      <title>getting started</title>
-      <link>/categories/getting-started/</link>
-      <pubDate>Fri, 01 Feb 2019 00:00:00 +0000</pubDate>
-      
-      <guid>/categories/getting-started/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>gui</title>
       <link>/categories/gui/</link>
       <pubDate>Fri, 01 Feb 2019 00:00:00 +0000</pubDate>
@@ -71,6 +62,15 @@
       <pubDate>Mon, 01 Feb 2016 00:00:00 +0000</pubDate>
       
       <guid>/categories/about-velociraptor/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>getting started</title>
+      <link>/categories/getting-started/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/categories/getting-started/</guid>
       <description></description>
     </item>
     

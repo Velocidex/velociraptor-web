@@ -1,15 +1,25 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Get Started on Velociraptor - Hunt Evil!</title>
+    <title>Getting Started on Velociraptor - Hunt Evil!</title>
     <link>/docs/getting-started/</link>
-    <description>Recent content in Get Started on Velociraptor - Hunt Evil!</description>
+    <description>Recent content in Getting Started on Velociraptor - Hunt Evil!</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 01 Feb 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/docs/getting-started/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Standalone Deployment</title>
+      <link>/docs/getting-started/stand_alone/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/getting-started/stand_alone/</guid>
+      <description>The simplest way to deploy a Velociraptor server is via a self signed, stand alone deployment. Later we will see how to deploy Velociraptor in production, but this page will help you deploy a stand alone test environment.
+System overview Before we start it is useful to see how a Velociraptor deployment looks at a high level:
+The administrator uses their browser to connect to the Velociraptor GUI over SSL.</description>
+    </item>
     
     <item>
       <title>Deploying Clients</title>
@@ -18,8 +28,7 @@
       
       <guid>/docs/getting-started/deploying_clients/</guid>
       <description>Velociraptor endpoint agents are called clients. Clients connect to the server and wait for instructions (which mostly consist of VQL statements), they then run any VQL queries and return the result to the server.
-There are a number of ways to run clients, depending on your needs. This page summarizes the ways and discusses the pros and cons of each approach.
-Note that all Velociraptor binaries are the same - there is no distinction between client binaries or server binaries.</description>
+There are a number of ways to run clients, depending on your needs. Ultimately, however, the same Velociraptor binary is run with the client configuration file generated in the previous steps providing it with the key material and configuration.</description>
     </item>
     
     <item>
@@ -30,17 +39,6 @@ Note that all Velociraptor binaries are the same - there is no distinction betwe
       <guid>/docs/getting-started/cloud/</guid>
       <description>However one of the most important advantages of cloud deployment is the possibility of minting a proper SSL certificate using the free Letsencrypt CA. Velociraptor is able to use the Letsencrypt protocol to obtain its own certificates (and automatically rotate them when they expire).
 Step 1: Getting a domain name An SSL certificate says that the DNS name is owned by the server which presents it. Therefore SSL goes hand in hand with DNS.</description>
-    </item>
-    
-    <item>
-      <title>Standalone Deployment</title>
-      <link>/docs/getting-started/stand_alone/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>/docs/getting-started/stand_alone/</guid>
-      <description>The Velociraptor server communicates with the clients over SSL connection. The same binary also provides a GUI on a separate port.
-Step 1: Generating a new config file. Velociraptor uses a configuration file to control the server and client. Before making a new deployment, you need to generate a new config file. The file also contains key material such that your clients will only communicate with your servers.
-Therefore our first step is to generate a new configuration file.</description>
     </item>
     
     <item>

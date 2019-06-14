@@ -1,20 +1,8 @@
 ---
-title: Artifact Types
-linktitle: Artifact Types
-date: 2019-02-01
-publishdate: 2019-02-01
-lastmod: 2019-02-01
-categories: [gui]
-keywords: [usage,docs]
-menu:
-  docs:
-    parent: "manual"
-    weight: 15
-weight: 0001    #rem
-draft: false
-aliases: [/gui/artifact_types]
-toc: true
+title: Artifact Reference
+weight: 300
 ---
+
 
 Velociraptor uses VQL for many different purposes. Since Artifacts are
 a nice way to package VQL queries, there are a number of different
