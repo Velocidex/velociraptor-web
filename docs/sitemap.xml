@@ -49,12 +49,12 @@
   
   <url>
     <loc>/docs/getting-started/</loc>
-    <lastmod>2019-06-12T21:22:27+10:00</lastmod>
+    <lastmod>2019-06-15T02:51:46+10:00</lastmod>
   </url>
   
   <url>
     <loc>/docs/getting-started/stand_alone/</loc>
-    <lastmod>2019-06-12T21:22:27+10:00</lastmod>
+    <lastmod>2019-06-15T02:51:46+10:00</lastmod>
   </url>
   
   <url>
@@ -69,21 +69,27 @@
   
   <url>
     <loc>/docs/getting-started/deploying_clients/</loc>
-    <lastmod>2019-06-12T21:22:27+10:00</lastmod>
+    <lastmod>2019-06-15T02:51:46+10:00</lastmod>
   </url>
   
   <url>
     <loc>/docs/user-interface/</loc>
+    <lastmod>2019-06-15T02:51:46+10:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/docs/getting-started/cloud/</loc>
     <lastmod>2019-06-12T21:22:27+10:00</lastmod>
   </url>
   
   <url>
     <loc>/docs/use_cases/</loc>
+    <lastmod>2019-06-15T02:51:46+10:00</lastmod>
   </url>
   
   <url>
     <loc>/docs/presentations/</loc>
-    <lastmod>2019-06-12T21:22:27+10:00</lastmod>
+    <lastmod>2019-06-15T02:51:46+10:00</lastmod>
   </url>
   
   <url>
@@ -93,16 +99,17 @@
   
   <url>
     <loc>/docs/tutorial/</loc>
+    <lastmod>2019-06-15T02:51:46+10:00</lastmod>
   </url>
   
   <url>
     <loc>/docs/vql_reference/</loc>
-    <lastmod>2019-06-12T21:22:27+10:00</lastmod>
+    <lastmod>2019-06-15T02:51:46+10:00</lastmod>
   </url>
   
   <url>
     <loc>/docs/artifacts/</loc>
-    <lastmod>2019-06-12T23:06:34+10:00</lastmod>
+    <lastmod>2019-06-15T02:51:46+10:00</lastmod>
   </url>
   
   <url>
@@ -112,13 +119,13 @@
   
   <url>
     <loc>/</loc>
-    <lastmod>2019-06-12T23:06:34+10:00</lastmod>
+    <lastmod>2019-06-15T02:51:46+10:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>/categories/</loc>
-    <lastmod>2019-06-12T21:22:27+10:00</lastmod>
+    <lastmod>2019-06-15T02:51:46+10:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -269,7 +276,7 @@
   
   <url>
     <loc>/docs/</loc>
-    <lastmod>2019-06-12T21:22:27+10:00</lastmod>
+    <lastmod>2019-06-15T02:51:46+10:00</lastmod>
   </url>
   
   <url>
@@ -279,12 +286,8 @@
   </url>
   
   <url>
-    <loc>/docs/getting-started/cloud/</loc>
-    <lastmod>2019-06-12T21:22:27+10:00</lastmod>
-  </url>
-  
-  <url>
     <loc>/docs/artifacts/linux/linux/</loc>
+    <lastmod>2019-06-15T02:51:46+10:00</lastmod>
   </url>
   
   <url>
@@ -334,7 +337,7 @@
   
   <url>
     <loc>/categories/getting-started/</loc>
-    <lastmod>2019-06-12T21:22:27+10:00</lastmod>
+    <lastmod>2019-06-15T02:51:46+10:00</lastmod>
     <priority>0</priority>
   </url>
   

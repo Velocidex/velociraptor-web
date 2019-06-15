@@ -37,8 +37,7 @@ There are a number of ways to run clients, depending on your needs. Ultimately, 
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>/docs/getting-started/cloud/</guid>
-      <description>However one of the most important advantages of cloud deployment is the possibility of minting a proper SSL certificate using the free Letsencrypt CA. Velociraptor is able to use the Letsencrypt protocol to obtain its own certificates (and automatically rotate them when they expire).
-Step 1: Getting a domain name An SSL certificate says that the DNS name is owned by the server which presents it. Therefore SSL goes hand in hand with DNS.</description>
+      <description>Many users choose to deploy Velociraptor in the cloud. This is a convenient and reliable option. One of the advantages of cloud deployment is the possibility of minting a proper SSL certificate using the free Letsencrypt CA. This elimintates the bad certificate browser warning seen in the Self Signed Deployment method. Velociraptor is able to use the Letsencrypt protocol to obtain and manage its own certificates (and automatically rotate them when they expire).</description>
     </item>
     
     <item>

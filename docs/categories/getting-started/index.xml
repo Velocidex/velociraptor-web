@@ -43,16 +43,6 @@ Overview Before we start it is useful to see how a Velociraptor deployment looks
     </item>
     
     <item>
-      <title>Deploying in the cloud</title>
-      <link>/docs/getting-started/cloud/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>/docs/getting-started/cloud/</guid>
-      <description>However one of the most important advantages of cloud deployment is the possibility of minting a proper SSL certificate using the free Letsencrypt CA. Velociraptor is able to use the Letsencrypt protocol to obtain its own certificates (and automatically rotate them when they expire).
-Step 1: Getting a domain name An SSL certificate says that the DNS name is owned by the server which presents it. Therefore SSL goes hand in hand with DNS.</description>
-    </item>
-    
-    <item>
       <title>Triaging</title>
       <link>/docs/getting-started/triaging/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
