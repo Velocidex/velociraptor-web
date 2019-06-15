@@ -12,15 +12,15 @@
   <meta name="google" value="notranslate">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="description" content="Velociraptor: Hunt Evil">
+  <meta name="description" content="Velociraptor: Digging Deeper!">
   <meta property="og:title" content="Velociraptor &amp;middot; Velociraptor - Hunt Evil!">
   <meta property="og:url" content="/">
-  <meta property="og:description" content="Velociraptor: Hunt Evil">
+  <meta property="og:description" content="Velociraptor: Digging Deeper!">
   <meta property="og:site_name" content="Velociraptor - Hunt Evil!">
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Velociraptor &amp;middot; Velociraptor - Hunt Evil!" />
-  <meta name="twitter:description" content="Velociraptor: Hunt Evil">
+  <meta name="twitter:description" content="Velociraptor: Digging Deeper!">
   <meta name="twitter:url" content="/" />
     <meta property="og:image" content="">
     <meta name="twitter:image" content="">
@@ -398,7 +398,7 @@ html {
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="navbar-collapse justify-content-between collapse show" id="navbarCollapse">
+    <div class="navbar-collapse justify-content-end collapse show" id="navbarCollapse">
       <ul class="navbar-nav"><li class="nav-item">
               <a href="/"
                   class="nav-link active default-active">
@@ -421,21 +421,6 @@ html {
               </a>
             </li>
       </ul>
-        <div class="search-container position-relative">
-          <form action="/search" class="my-0">
-            <div class="input-group my-0">
-              <input type="text" class="form-control py-1" id="search-query-nav" name="s" placeholder="Search...">
-              <div class="input-group-append">
-                <button class="btn btn-primary" title="Search"><i class="fa fa-search"></i></button>
-              </div>
-            </div>
-          </form>
-          <div class="search-results-container">
-            <div class="col p-0">
-              <div id="search-results-nav" class="col px-0 results"></div>
-            </div>
-          </div>
-        </div>
     </div>
   </div>
     <div class="d-none d-lg-block pl-auto">
@@ -450,50 +435,6 @@ html {
   title="Back to top"
   ><i class="fas fa-angle-up"></i><span class="sr-only">Back to top</span>
 </div>
-
-<script id="search-empty-template-nav" type="text/x-js-template">
-  <p class="p-2">Please enter a word or phrase above</p>
-</script>
-<script id="search-no-results-template-nav" type="text/x-js-template">
-  <p class="p-2">No matches found</p>
-</script>
-<script id="search-result-template-nav" type="text/x-js-template">
-  <a href="${link}" id="summary-${key}" class="result ignore-color-change">
-    <div class="p-2">
-      <h5>${title}</h5>
-      <p class="m-0 text-secondary">${snippet}</p>
-      ${ isset tags }<p>Tags: ${tags}</p>${ end }
-      ${ isset categories }<p>Categories: ${categories}</p>${ end }
-    </div>
-  </a>
-</script>
-
-<script>
-  var fragmentName = "nav";
-  window.syna.api.register('search', 'search-' + fragmentName, {
-    searchInput: '#search-query-nav',
-    resultsContainer: '#search-results-nav',
-    template: '#search-result-template-nav',
-    noResults: '#search-no-results-template-nav',
-    empty: '#search-empty-template-nav',
-  });
-
-  var resultsContainer = document.querySelector('.search-results-container');
-  document.querySelector('#search-query-nav').addEventListener('input', function(e) {
-    if (e.target.value.length) {
-      resultsContainer.classList.add('show');
-    } else {
-      resultsContainer.classList.remove('show');
-    }
-  });
-
-  document.addEventListener('click', function(e) {
-    if (!document.querySelector('.search-container').contains(e.target)) {
-      document.querySelector('#search-query-nav').value = '';
-      resultsContainer.classList.remove('show');
-    }
-  });
-</script>
 
 <!-- Hero -->
 <header id="hero" class="fragment hero">
@@ -953,7 +894,6 @@ experts in well over 1,000 cases.</div>
 
     <!-- Theme Code -->
       <script async defer src="/scripts/syna-main.min.7d08697560d9c911a0194673093ed24e917be39c0c6ea6ffe9bfefd7869f9f34.js"></script>
-      <script async defer src="/scripts/syna-search.min.907fcad5c5d5d1cf17b588f973805d28fec45877fe127410a6992b29634796ce.js"></script>
       <script async defer src="/scripts/syna-hero.min.4c86bbf85a8655c22c5046df9f983a1f0a0f771915f9f447a6872a863a6714ef.js"></script>
       <link rel='stylesheet' href='/css/page.css'>
   </body>

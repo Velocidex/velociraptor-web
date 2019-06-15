@@ -3,7 +3,7 @@ baseurl = "/"
 languageCode = "en-us"
 title = "Velociraptor - Hunt Evil!"
 theme = ["hugo-theme-learn", "syna"]
-enableGitInfo = true
+enableGitInfo = false
 version = "0.15.0"
 publishDir = "docs"
 
@@ -18,10 +18,14 @@ lastmod = ["lastmod", ":git", "date"]
 googleAnalytics = ""
 
 [params]
+  #  Settings from https://learn.netlify.com/en/basics/configuration/
   name = "Velociraptor"
-  description = "Velociraptor: Hunt Evil"
+  description = "Velociraptor: Digging Deeper!"
   themeVariant = "mine"
   disableSearch = false
+
+  # Generates too much churn in git tree.
+  disableAssetsBusting = true
 
   [params.style]
     #background = "secondary"

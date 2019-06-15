@@ -151,10 +151,10 @@ this happened, simply change the dyndns name and start again.
 
 {{% /notice %}}
 
-The first time you connect the GUI to the frontend, the server will
-obtain its own certificates from letsencrypt (it might take a couple
-of seconds to respond the first time). You should have no SSL warnings
-in your browser.
+The first time you connect to the GUI or to the frontend, the server
+will obtain its own certificates from letsencrypt (it might take a
+couple of seconds to respond the first time). You should have no SSL
+warnings in your browser.
 
 
 ## Configuring Google OAuth SSO
@@ -314,3 +314,14 @@ can also see the user's Google avatar at the top right for some more
 eye candy :-).
 
 ![Velociraptor Dashboard](../dashboard.png)
+
+
+{{% notice note %}}
+
+Velociraptor will retain its OAuth token for 24 hours. Each day users
+will need to re-grant OAuth credentials. Therefore revoking a user
+from the Google Admin console may take a full day to take effect. To
+remove access sooner you should use `velociraptor --config
+server.config.yaml user lock MyUserName` at the console.
+
+{{% /notice %}}

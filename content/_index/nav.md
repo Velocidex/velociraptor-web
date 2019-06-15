@@ -1,9 +1,7 @@
 +++
 fragment = "nav"
-search = true
+search = false
 sticky = true
-#disabled = true
-date = "2018-05-17"
 weight = 0
 background = "dark"
 
