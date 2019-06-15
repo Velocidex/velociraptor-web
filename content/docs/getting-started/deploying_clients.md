@@ -45,7 +45,7 @@ to add the MSI to the assigned software group. See [How to use Group Policy to r
 ### Official release MSI
 
 The recommended way to install Velociraptor is via the release MSI on
-the Github release page. Since the Velociraptor requires a
+the Github release page. Since the Velociraptor client requires a
 configuration file to specifically tell it where to connect to, we can
 not package the configuration file in the official release. Therefore
 the official MSI does not include a configuration file.
@@ -65,7 +65,7 @@ Therefore when installing from the official MSI package you need to:
 
 2. Copy the configuration file from a share to the Velociraptor
    directory. This can be done via Group Policy Scheduled tasks or
-   another way.
+   another way (See the Group Policy procedure outlined below).
 
 As soon as the configuration file is copied, Velociraptor will begin
 communicating with the server.
@@ -153,13 +153,13 @@ to host the share).
 ![Create Share](../1.png)
 
 
-I created a directory `C:\\Users\\Deployment` and ensured that it is
-read only. I have shared the directory as the name Deployment.
+I created a directory `C:\Users\Deployment` and ensured that it is
+read only. I have shared the directory as the name `Deployment`.
 
 I now place the Velociraptor executable and client config file in that
 directory and verify that I can run the binary from the network
 share. The binary should be accessible via
-`\\\\\\\\DC\\Deployment\\velociraptor.exe`:
+`\\DC\Deployment\velociraptor.exe`:
 
 ![Testing Client Locally](../2.png)
 
@@ -191,7 +191,7 @@ endpoint).
 Next we give the task a name and a description. In order to allow
 Velociraptor to access raw devices (e.g. to collect memory or NTFS
 artifacts) we can specify that the client will run at
-`NT_AUTHORITY\\SYSTEM` privileges, and run without any user being
+`NT_AUTHORITY\SYSTEM` privileges, and run without any user being
 logged on. It is also worth ticking the "hidden" checkbox here to
 prevent a console box from appearing.
 
@@ -199,9 +199,9 @@ prevent a console box from appearing.
 
 Next click the Actions tab and add a new action. This is where we
 launch the Velociraptor client. The program will simply be launched
-from the share (i.e. `\\\\\\\\DC\\Deployment\\velociraptor.exe`) and we give
+from the share (i.e. `\\DC\Deployment\velociraptor.exe`) and we give
 it the arguments allowing it to read the provided configuration file
-(i.e. `--config \\\\\\\\DC\\Deployment\\client.config.yaml client -v`).
+(i.e. `--config \\DC\Deployment\client.config.yaml client -v`).
 
 ![8](../8.png)
 

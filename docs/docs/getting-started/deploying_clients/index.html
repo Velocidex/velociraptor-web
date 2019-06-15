@@ -9,7 +9,7 @@
 
     <link rel="icon" href="/images/favicon.png" type="image/png">
 
-    <title>Deploying Clients :: Velociraptor - Hunt Evil!</title>
+    <title>Deploying Clients :: Velociraptor - Digging Deeper!</title>
 
     
     <link href="/css/nucleus.css" rel="stylesheet">
@@ -298,6 +298,8 @@
         <ul>
           
           
+            
+          
           
           
         
@@ -309,17 +311,23 @@
  
   
     
-      <li data-nav-id="/docs/user-interface/flows/" title="Velociraptor Artifacts" class="dd-item ">
-        <a href="/docs/user-interface/flows/">
-        Velociraptor Artifacts
+    <li data-nav-id="/docs/user-interface/investigating_clients/" title="Investigating Clients" class="dd-item 
         
-        </a>
-    </li>
-     
-  
- 
-
-            
+        
+        
+        ">
+      <a href="/docs/user-interface/investigating_clients/">
+          Investigating Clients
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
           
             
             
@@ -328,13 +336,170 @@
  
   
     
-      <li data-nav-id="/docs/user-interface/gui/" title="Searching for clients" class="dd-item ">
-        <a href="/docs/user-interface/gui/">
+      <li data-nav-id="/docs/user-interface/investigating_clients/searching_clients/" title="Searching for clients" class="dd-item ">
+        <a href="/docs/user-interface/investigating_clients/searching_clients/">
         Searching for clients
         
         </a>
     </li>
      
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/user-interface/investigating_clients/virtual_filesystem/" title="The Virtual File System" class="dd-item ">
+        <a href="/docs/user-interface/investigating_clients/virtual_filesystem/">
+        Client VFS
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/docs/user-interface/artifacts/" title="Velociraptor Artifacts" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/docs/user-interface/artifacts/">
+          Velociraptor Artifacts
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/user-interface/artifacts/client_artifacts/" title="Client Artifacts" class="dd-item ">
+        <a href="/docs/user-interface/artifacts/client_artifacts/">
+        Client Artifacts
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/user-interface/artifacts/client_events/" title="Client Event Artifacts" class="dd-item ">
+        <a href="/docs/user-interface/artifacts/client_events/">
+        Client Event Artifacts
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/user-interface/artifacts/server_artifacts/" title="Server Artifacts" class="dd-item ">
+        <a href="/docs/user-interface/artifacts/server_artifacts/">
+        Server Artifacts
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/user-interface/artifacts/server_events/" title="Server Event Artifacts" class="dd-item ">
+        <a href="/docs/user-interface/artifacts/server_events/">
+        Server Event Artifacts
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/user-interface/artifacts/add_artifacts/" title="Customizing Artifacts" class="dd-item ">
+        <a href="/docs/user-interface/artifacts/add_artifacts/">
+        Customizing Artifacts
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
   
  
 
@@ -1289,7 +1454,7 @@
             
           
           
-            <a href='/'>Velociraptor - Hunt Evil!</a> > <a href='/docs/'>Velociraptor Documentation</a> > <a href='/docs/getting-started/'>Getting Started</a> > Deploying Clients
+            <a href='/'>Velociraptor - Digging Deeper!</a> > <a href='/docs/'>Velociraptor Documentation</a> > <a href='/docs/getting-started/'>Getting Started</a> > Deploying Clients
           
          
           
@@ -1389,7 +1554,7 @@ to add the MSI to the assigned software group. See <a href="https://support.micr
 <h3 id="official-release-msi">Official release MSI</h3>
 
 <p>The recommended way to install Velociraptor is via the release MSI on
-the Github release page. Since the Velociraptor requires a
+the Github release page. Since the Velociraptor client requires a
 configuration file to specifically tell it where to connect to, we can
 not package the configuration file in the official release. Therefore
 the official MSI does not include a configuration file.</p>
@@ -1410,7 +1575,7 @@ the client will be started.</p>
 
 <li><p>Copy the configuration file from a share to the Velociraptor
 directory. This can be done via Group Policy Scheduled tasks or
-another way.</p></li>
+another way (See the Group Policy procedure outlined below).</p></li>
 </ol>
 
 <p>As soon as the configuration file is copied, Velociraptor will begin
@@ -1494,13 +1659,13 @@ to host the share).</p>
 
 <p><img src="../1.png" alt="Create Share" /></p>
 
-<p>I created a directory <code>C:\\Users\\Deployment</code> and ensured that it is
-read only. I have shared the directory as the name Deployment.</p>
+<p>I created a directory <code>C:\Users\Deployment</code> and ensured that it is
+read only. I have shared the directory as the name <code>Deployment</code>.</p>
 
 <p>I now place the Velociraptor executable and client config file in that
 directory and verify that I can run the binary from the network
 share. The binary should be accessible via
-<code>\\\\\\\\DC\\Deployment\\velociraptor.exe</code>:</p>
+<code>\\DC\Deployment\velociraptor.exe</code>:</p>
 
 <p><img src="../2.png" alt="Testing Client Locally" /></p>
 
@@ -1531,7 +1696,7 @@ endpoint).</p>
 <p>Next we give the task a name and a description. In order to allow
 Velociraptor to access raw devices (e.g. to collect memory or NTFS
 artifacts) we can specify that the client will run at
-<code>NT_AUTHORITY\\SYSTEM</code> privileges, and run without any user being
+<code>NT_AUTHORITY\SYSTEM</code> privileges, and run without any user being
 logged on. It is also worth ticking the &ldquo;hidden&rdquo; checkbox here to
 prevent a console box from appearing.</p>
 
@@ -1539,9 +1704,9 @@ prevent a console box from appearing.</p>
 
 <p>Next click the Actions tab and add a new action. This is where we
 launch the Velociraptor client. The program will simply be launched
-from the share (i.e. <code>\\\\\\\\DC\\Deployment\\velociraptor.exe</code>) and we give
+from the share (i.e. <code>\\DC\Deployment\velociraptor.exe</code>) and we give
 it the arguments allowing it to read the provided configuration file
-(i.e. <code>--config \\\\\\\\DC\\Deployment\\client.config.yaml client -v</code>).</p>
+(i.e. <code>--config \\DC\Deployment\client.config.yaml client -v</code>).</p>
 
 <p><img src="../8.png" alt="8" /></p>
 
@@ -1762,6 +1927,21 @@ program. Now you can verify that Velociraptor is running:</p>
 
                     
                     
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
                     
 
                     
@@ -1793,6 +1973,105 @@ program. Now you can verify that Velociraptor is running:</p>
                     
                     
 
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
                     
             
         

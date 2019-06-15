@@ -58,11 +58,12 @@ operation has the following aspects:
   certificates.
 
   - Note that in this mode, the clients will pin the server's self
-    signed certificate, and refuse to talk with a server. (This is
-    actually more secure than standard PKI because even a compromized
-    public CA can not signs for the server).
+    signed certificate, and refuse to talk with a server that is
+    signed via a public CA. (This is actually more secure than
+    standard PKI because even a compromised public CA can not signs
+    for the server).
 
-* GUI Communication is authenticated with basic Auth.
+* GUI Communications are authenticated with basic Auth.
 * GUI will bind to localhost only on port 8889 (i.e. https://localhost:8889/)
 
 Selecting "Self Signed SSL" proceeds to ask the following questions:

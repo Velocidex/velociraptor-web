@@ -1,7 +1,7 @@
 # Site settings
 baseurl = "/"
 languageCode = "en-us"
-title = "Velociraptor - Hunt Evil!"
+title = "Velociraptor - Digging Deeper!"
 theme = ["hugo-theme-learn", "syna"]
 enableGitInfo = false
 version = "0.15.0"

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Velociraptor Artifacts on Velociraptor - Digging Deeper!</title>
+    <link>/docs/user-interface/artifacts/</link>
+    <description>Recent content in Velociraptor Artifacts on Velociraptor - Digging Deeper!</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    
+	<atom:link href="/docs/user-interface/artifacts/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Client Artifacts</title>
+      <link>/docs/user-interface/artifacts/client_artifacts/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/user-interface/artifacts/client_artifacts/</guid>
+      <description>Now that we understand what artifacts actually are, we are ready to collect artifacts from our endpoints. We will first discuss how to collect an artifact from a single endpoint, and later discuss how to hunt for the artifacts across the entire fleet.
+Once we searched and selected the endpoint of interest, we can switch to the &amp;ldquo;Collected Artifacts&amp;rdquo; view.
+The screen shows the artifacts previously collected on this endpoint.</description>
+    </item>
+    
+    <item>
+      <title>Client Event Artifacts</title>
+      <link>/docs/user-interface/artifacts/client_events/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/user-interface/artifacts/client_events/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Server Artifacts</title>
+      <link>/docs/user-interface/artifacts/server_artifacts/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/user-interface/artifacts/server_artifacts/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Server Event Artifacts</title>
+      <link>/docs/user-interface/artifacts/server_events/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/user-interface/artifacts/server_events/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Customizing Artifacts</title>
+      <link>/docs/user-interface/artifacts/add_artifacts/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/user-interface/artifacts/add_artifacts/</guid>
+      <description>Adding or Editing artifacts through the GUI Velociraptor comes with a wide selection of built in artifacts, but the real power of Velociraptor&amp;rsquo;s query language lies in the ability of users to customize and develop their own artifacts - flexibly responding to their own needs.
+This can be achieved via the Server Management screen - reachable from the side bar menu.
+The Server Management screen consists of a tree view on the left hand side showing several high level categories of server configuration to edit.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -9,7 +9,7 @@
 
     <link rel="icon" href="/images/favicon.png" type="image/png">
 
-    <title>User Interface :: Velociraptor - Hunt Evil!</title>
+    <title>User Interface :: Velociraptor - Digging Deeper!</title>
 
     
     <link href="/css/nucleus.css" rel="stylesheet">
@@ -298,6 +298,8 @@
         <ul>
           
           
+            
+          
           
           
         
@@ -309,17 +311,23 @@
  
   
     
-      <li data-nav-id="/docs/user-interface/flows/" title="Velociraptor Artifacts" class="dd-item ">
-        <a href="/docs/user-interface/flows/">
-        Velociraptor Artifacts
+    <li data-nav-id="/docs/user-interface/investigating_clients/" title="Investigating Clients" class="dd-item 
         
-        </a>
-    </li>
-     
-  
- 
-
-            
+        
+        
+        ">
+      <a href="/docs/user-interface/investigating_clients/">
+          Investigating Clients
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
           
             
             
@@ -328,13 +336,170 @@
  
   
     
-      <li data-nav-id="/docs/user-interface/gui/" title="Searching for clients" class="dd-item ">
-        <a href="/docs/user-interface/gui/">
+      <li data-nav-id="/docs/user-interface/investigating_clients/searching_clients/" title="Searching for clients" class="dd-item ">
+        <a href="/docs/user-interface/investigating_clients/searching_clients/">
         Searching for clients
         
         </a>
     </li>
      
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/user-interface/investigating_clients/virtual_filesystem/" title="The Virtual File System" class="dd-item ">
+        <a href="/docs/user-interface/investigating_clients/virtual_filesystem/">
+        Client VFS
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/docs/user-interface/artifacts/" title="Velociraptor Artifacts" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/docs/user-interface/artifacts/">
+          Velociraptor Artifacts
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/user-interface/artifacts/client_artifacts/" title="Client Artifacts" class="dd-item ">
+        <a href="/docs/user-interface/artifacts/client_artifacts/">
+        Client Artifacts
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/user-interface/artifacts/client_events/" title="Client Event Artifacts" class="dd-item ">
+        <a href="/docs/user-interface/artifacts/client_events/">
+        Client Event Artifacts
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/user-interface/artifacts/server_artifacts/" title="Server Artifacts" class="dd-item ">
+        <a href="/docs/user-interface/artifacts/server_artifacts/">
+        Server Artifacts
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/user-interface/artifacts/server_events/" title="Server Event Artifacts" class="dd-item ">
+        <a href="/docs/user-interface/artifacts/server_events/">
+        Server Event Artifacts
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/user-interface/artifacts/add_artifacts/" title="Customizing Artifacts" class="dd-item ">
+        <a href="/docs/user-interface/artifacts/add_artifacts/">
+        Customizing Artifacts
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
   
  
 
@@ -1285,7 +1450,7 @@
             
           
           
-            <a href='/'>Velociraptor - Hunt Evil!</a> > <a href='/docs/'>Velociraptor Documentation</a> > User Interface
+            <a href='/'>Velociraptor - Digging Deeper!</a> > <a href='/docs/'>Velociraptor Documentation</a> > User Interface
           
          
           
@@ -1298,7 +1463,15 @@
                 
                     <div class="progress">
     <div class="wrapper">
-
+<nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#the-dashboard">The Dashboard</a></li>
+<li><a href="#navigation-bar">Navigation bar</a></li>
+</ul></li>
+</ul>
+</nav>
     </div>
 </div>
 
@@ -1323,11 +1496,62 @@
 
 
 
-	<p>This section has a quick tour of the user interface. To get started
-read the &ldquo;Getting Started&rdquo; section above.</p>
+	
 
-<p>This section of the site covers the user interface and how to use it
-effectively to solve every day DFIR tasks.</p>
+<p>Velociraptor is a Digital Forensic and Incident Response tool, and the
+Velociraptor user interface is the main tool used to create and
+collect artifacts from endpoints.</p>
+
+<p>The GUI allows for:</p>
+
+<ul>
+<li>Interactively collecting artifacts from endpoints.</li>
+<li>Exporting this collected data for offline analysis.</li>
+<li>Adding/Removing monitoring rules from all endpoints.</li>
+<li>Adding automated response rules on the server.</li>
+<li>Adding new artifacts based on new queries.</li>
+</ul>
+
+<h2 id="the-dashboard">The Dashboard</h2>
+
+<p>When initially logging into the application, you will be presented
+with the <code>Dashboard</code>.</p>
+
+<p><img src="dashboard.png" alt="Image" /></p>
+
+<p>The dashboard presents pertinent information about the current
+deployment:</p>
+
+<ol>
+<li>The number of clients currently connected to the server.</li>
+<li>A graph of the server&rsquo;s CPU and memory footprint.</li>
+<li>A graph of the total number of clients connected.</li>
+</ol>
+
+<p>You can choose to view the graphs over the last 1 day, 2 days or
+week. You can zoom into a time range.</p>
+
+
+<div class="notices tip" ><p>The dashboard is actually an artifact itself called
+<code>Server.Monitor.Health</code>. You can customize this artifact so the
+dashboard can display information relevant to your deployment.</p>
+</div>
+
+
+<h2 id="navigation-bar">Navigation bar</h2>
+
+<p>The navigation bar is displayed on the left hand side of the
+window. You can expand it to include descriptions by clicking on the
+<code>Hamburger Icon</code> at the top left.</p>
+
+<p><img src="navbar.png" alt="Image" /></p>
+
+<p>There are two sets of options. The first dealing with the server
+itself, while client specific options require the client to be
+selected first.</p>
+
+<p>In the following pages we will discuss each specific option and show
+it can be used.</p>
 
 
 
@@ -1524,6 +1748,8 @@ effectively to solve every day DFIR tasks.</p>
 
                     
                     
+                        
+                    
                     
 
                     
@@ -1534,6 +1760,19 @@ effectively to solve every day DFIR tasks.</p>
                     
                         
                         
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
                     
                 
                 
@@ -1558,6 +1797,105 @@ effectively to solve every day DFIR tasks.</p>
                     
                     
 
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
                     
             
         
@@ -2268,7 +2606,7 @@ effectively to solve every day DFIR tasks.</p>
 			<a class="nav nav-prev" href="/docs/getting-started/triaging/" title="Triaging"> <i class="fa fa-chevron-left"></i></a>
 		
 		
-			<a class="nav nav-next" href="/docs/user-interface/flows/" title="Velociraptor Artifacts" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+			<a class="nav nav-next" href="/docs/user-interface/investigating_clients/" title="Investigating Clients" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
 		
 	
     </div>
