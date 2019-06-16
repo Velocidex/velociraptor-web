@@ -3,14 +3,14 @@ fragment = "hero"
 #disabled = true
 date = "2016-09-07"
 weight = 50
-background = "light" # can influence the text color
-particles = true
+background = "dark" # can influence the text color
+particles = false
 
 title = "Velociraptor"
 subtitle = "Empowered endpoint visibility"
 
 [header]
-#  image = "header.jpg"
+  image = "test.jpg"
 
 [asset]
   image = "logo.svg"

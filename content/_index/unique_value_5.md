@@ -3,7 +3,7 @@ fragment = "item"
 #disabled = false
 date = "2017-10-04"
 weight = 225
-background = "light"
+background = "dark"
 align = "right"
 
 title = "Training available"

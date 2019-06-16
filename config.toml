@@ -56,12 +56,13 @@ googleAnalytics = ""
   [params.colors]
     primary = "#00838F"
     secondary = "#868e96"
-    success = "#008f54"
+    success = "#00aa00"
     info = "#00c9dc"
     warning = "#fdf314"
     danger = "#dc1200"
     light = "#f8f9fa"
     dark = "#343a40"
+
 
 # main/prepend/postpend menus are displayed in nav fragment.
 # Keep an eye out for updates. These will be moved out to make navbar more

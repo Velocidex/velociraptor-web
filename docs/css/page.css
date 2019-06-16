@@ -3,9 +3,11 @@
     width: 120px
 }
 
+/*
 .navbar-brand img {
     height: 60px !important;
 }
+*/
 
 @font-face {
     font-family: "fontastique";
@@ -14,4 +16,63 @@
 
 h1, h2, h3 {
     font-family: "fontastique";
+}
+
+
+.dt-laptop-slider{
+    width:50%;
+    float: right;
+    margin-right: -150px;
+    background: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/179949/macbook.png');
+    background-repeat: no-repeat;
+    background-position: top left;
+    background-size: contain;
+    width: 900px;
+    z-index:4;
+}
+
+
+.laptop-screen{
+    margin: 67px 167px;
+    width: 570px;
+    height: 390px;
+    overflow: hidden;
+    position: relative;
+    z-index: 100;
+}
+
+.app-shot{
+    position:absolute;
+    animation:round 16s infinite;
+    opacity:0;
+    z-index:-1;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    width: 570px;
+    height: 390px;
+
+}
+@keyframes round{
+    25%{opacity:1;}
+    40%{opacity:0;}
+}
+
+img:nth-child(4){animation-delay:0s;}
+img:nth-child(3){animation-delay:4s;}
+img:nth-child(2){animation-delay:8s;}
+img:nth-child(1){animation-delay:12s;}
+
+
+img.hero-img {
+    width: 100%;
+    position: fixed;
+    z-index: -1;
+}
+
+
+.map-item {
+    height: 400px;
+    width: 100%;
+    background-color: white;
 }

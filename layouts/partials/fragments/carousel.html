@@ -1,0 +1,13 @@
+{{- $images := .Params.asset.images -}}
+
+<div class="container-fluid bg-light">
+  <div class="row align-items-center text-center text-lg-left">
+    <div class="dt-laptop-slider">
+      <div class="laptop-screen">
+        {{- range $images -}}
+        <img class="app-shot" src="{{.}}" />
+        {{- end -}}
+      </div>
+    </div>
+  </div>
+</div>
