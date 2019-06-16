@@ -43,3 +43,17 @@ to see the original builtin artifact content.
 
 Saving the artifact will validate it and ensure the VQL syntax is
 correct. You may then search for it in the artifact collection screen.
+
+
+{{% notice warning %}}
+
+**A note about security**: Being able to add new artifacts gives a
+user absolute control over clients **and** the server. This is because
+a user can add arbitrary VQL to either a `Client Artifact` (so it can
+run on the client with system level access) or to a `Server Artifact`
+(which has access to all clients). Currently Velociraptor has a 2 tier
+security model (Readonly users can not add artifacts, and full users
+can do anything). This might change in future but until then you need
+to be aware that Velociraptor admins are extremely privileged.
+
+{{% /notice %}}

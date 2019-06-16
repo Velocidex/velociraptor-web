@@ -23,6 +23,7 @@ googleAnalytics = ""
   description = "Velociraptor: Digging Deeper!"
   themeVariant = "mine"
   disableSearch = false
+  disableBreadcrumb = true
 
   # Generates too much churn in git tree.
   disableAssetsBusting = true

@@ -1439,36 +1439,7 @@
                   <span class="links">
                  
                  
-                    
-          
-          
-            
-            
-          
-          
-            
-            
-          
-          
-            
-            
-          
-          
-            
-            
-          
-          
-            <a href='/'>Velociraptor - Digging Deeper!</a> > <a href='/docs/'>Velociraptor Documentation</a> > <a href='/docs/user-interface/'>User Interface</a> > <a href='/docs/user-interface/investigating_clients/'>Investigating Clients</a> > Searching for clients
-          
-         
-          
-         
-          
-         
-          
-         
-          
-        
+                   Searching for clients 
                  
                   </span>
                 </div>
@@ -1483,6 +1454,7 @@
 <ul>
 <li><a href="#built-in-labels">Built-in Labels</a></li>
 </ul></li>
+<li><a href="#selecting-a-client">Selecting a client</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -1616,6 +1588,49 @@ are specifically marked by the <code>Sales</code> label.</p>
 <p>Then we apply the Group Policy Object only on the Sales OU which will
 result in those clients being enrolled with the Sales label
 automatically.</p>
+
+<h2 id="selecting-a-client">Selecting a client</h2>
+
+<p>Clicking on any client in the search screen will switch the GUI to
+client mode. This will now present information relevant to the
+selected client.</p>
+
+<p>You can easily tell which client we are dealing with as the name of
+the host, and the last time we connected with it are shown:</p>
+
+<p><img src="../host_view.png" alt="Host View" /></p>
+
+<p>Velociraptor maintains some basic information about the host, such as
+its hostname, labels, last seen IP and last seen time. This is shown
+in the <code>Host View</code> pane. Velociraptor uses this information to make it
+possible to search for this host and target it for further
+investigation. Velociraptor gathers this information during the
+<code>Interrogate</code> operation. Interrogation normally occurs when the client
+first enrolls, but you can interrogate any client at any time by
+clicking the <code>Interrogate</code> button.</p>
+
+<p>Ultimately, interrogation simply runs a bunch of VQL queries on the
+endpoint. We can issue arbitrary VQL and have it appear in the <code>VQL
+Drilldown</code> page.</p>
+
+<p><img src="../vql_drilldown.png" alt="VQL Drilldown" /></p>
+
+<p>To add arbitrary VQL queries to the drill-down simply populate them in
+the configuration file. For example the following also collect the
+endpoint&rsquo;s uptime:</p>
+
+<pre><code class="language-yaml">Flows:
+  interrogate_additional_queries:
+     - Name: Uptime
+       VQL:  &quot;SELECT Uptime from info()&quot;
+</code></pre>
+
+
+<div class="notices note" ><p>The VQL Drilldown simply shows the results from running the VQL
+queries on the client. The time when those were run is shown, as well
+as the actual query run is visible by hovering over the title.</p>
+</div>
+
 
 
 <footer class=" footline" >

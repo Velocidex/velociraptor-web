@@ -1439,36 +1439,7 @@
                   <span class="links">
                  
                  
-                    
-          
-          
-            
-            
-          
-          
-            
-            
-          
-          
-            
-            
-          
-          
-            
-            
-          
-          
-            <a href='/'>Velociraptor - Digging Deeper!</a> > <a href='/docs/'>Velociraptor Documentation</a> > <a href='/docs/user-interface/'>User Interface</a> > <a href='/docs/user-interface/artifacts/'>Velociraptor Artifacts</a> > Customizing Artifacts
-          
-         
-          
-         
-          
-         
-          
-         
-          
-        
+                   Customizing Artifacts 
                  
                   </span>
                 </div>
@@ -1551,6 +1522,18 @@ to see the original builtin artifact content.</p>
 
 <p>Saving the artifact will validate it and ensure the VQL syntax is
 correct. You may then search for it in the artifact collection screen.</p>
+
+
+<div class="notices warning" ><p><strong>A note about security</strong>: Being able to add new artifacts gives a
+user absolute control over clients <strong>and</strong> the server. This is because
+a user can add arbitrary VQL to either a <code>Client Artifact</code> (so it can
+run on the client with system level access) or to a <code>Server Artifact</code>
+(which has access to all clients). Currently Velociraptor has a 2 tier
+security model (Readonly users can not add artifacts, and full users
+can do anything). This might change in future but until then you need
+to be aware that Velociraptor admins are extremely privileged.</p>
+</div>
+
 
 
 <footer class=" footline" >

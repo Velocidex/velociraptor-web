@@ -114,3 +114,51 @@ Client:
 Then we apply the Group Policy Object only on the Sales OU which will
 result in those clients being enrolled with the Sales label
 automatically.
+
+
+## Selecting a client
+
+Clicking on any client in the search screen will switch the GUI to
+client mode. This will now present information relevant to the
+selected client.
+
+You can easily tell which client we are dealing with as the name of
+the host, and the last time we connected with it are shown:
+
+![Host View](../host_view.png)
+
+
+Velociraptor maintains some basic information about the host, such as
+its hostname, labels, last seen IP and last seen time. This is shown
+in the `Host View` pane. Velociraptor uses this information to make it
+possible to search for this host and target it for further
+investigation. Velociraptor gathers this information during the
+`Interrogate` operation. Interrogation normally occurs when the client
+first enrolls, but you can interrogate any client at any time by
+clicking the `Interrogate` button.
+
+Ultimately, interrogation simply runs a bunch of VQL queries on the
+endpoint. We can issue arbitrary VQL and have it appear in the `VQL
+Drilldown` page.
+
+![VQL Drilldown](../vql_drilldown.png)
+
+
+To add arbitrary VQL queries to the drill-down simply populate them in
+the configuration file. For example the following also collect the
+endpoint's uptime:
+
+```yaml
+Flows:
+  interrogate_additional_queries:
+     - Name: Uptime
+       VQL:  "SELECT Uptime from info()"
+```
+
+{{% notice note %}}
+
+The VQL Drilldown simply shows the results from running the VQL
+queries on the client. The time when those were run is shown, as well
+as the actual query run is visible by hovering over the title.
+
+{{% /notice %}}

@@ -1439,36 +1439,7 @@
                   <span class="links">
                  
                  
-                    
-          
-          
-            
-            
-          
-          
-            
-            
-          
-          
-            
-            
-          
-          
-            
-            
-          
-          
-            <a href='/'>Velociraptor - Digging Deeper!</a> > <a href='/docs/'>Velociraptor Documentation</a> > <a href='/docs/user-interface/'>User Interface</a> > <a href='/docs/user-interface/artifacts/'>Velociraptor Artifacts</a> > Client Artifacts
-          
-         
-          
-         
-          
-         
-          
-         
-          
-        
+                   Client Artifacts 
                  
                   </span>
                 </div>
@@ -1480,7 +1451,12 @@
 <li>
 <ul>
 <li><a href="#the-artifact-details-pane">The artifact details pane</a></li>
-<li><a href="#collecting-an-artifact-from-an-endpoint">Collecting an artifact from an endpoint.</a></li>
+<li><a href="#collecting-an-artifact-from-an-endpoint">Collecting an artifact from an endpoint.</a>
+<ul>
+<li><a href="#controlling-endpoint-performance">Controlling endpoint performance</a></li>
+</ul></li>
+<li><a href="#the-file-finder-artifact">The File Finder Artifact</a></li>
+<li><a href="#inspecting-the-results-of-an-artifact">Inspecting the results of an artifact</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -1519,8 +1495,8 @@ to the &ldquo;Collected Artifacts&rdquo; view.</p>
 
 <p><img src="../collected_artifacts.png" alt="The Collected Artifacts view" /></p>
 
-<p>The screen shows the artifacts previously collected on this
-endpoint. The screen is split into a top table showing a list of
+<p>This page shows the artifacts previously collected on this
+endpoint. The page is split into a top table showing a list of
 collected artifacts, and a bottom overview pane showing details about
 each selected artifact in the table above.</p>
 
@@ -1544,9 +1520,9 @@ collected at the same time. This column shows each artifact by
 name.</p></li>
 
 <li><p>The <code>Creation Date</code> is when the artifact was created. The endpoint
-may not have been online at the time, so it is possible that the
-endpoint did not receive the collection request immediately when it
-was created.</p></li>
+may not have been online when we issued the collection request, so
+it is possible that the endpoint actually collected the artifact at
+a later time.</p></li>
 
 <li><p>The <code>Last Active</code> date is when the last response arrived from the
 endpoint relating to this flow. The difference between this time
@@ -1569,23 +1545,32 @@ specific artifact parameters that were issued.</p>
 <p>In particular that tab also offers a <code>Download Results</code>
 button. Clicking this button will create a zip file containing all
 relevant information obtained from this artifact. Specifically it
-contains a CSV file for each returned VQL query, as well as any file
+contains a CSV file for each returned VQL query, as well as any files
 uploaded by the artifact.</p>
 
+<p><img src="../flow_zip.png" alt="Downloaded Artifact" /></p>
+
+
+<div class="notices warning" ><p>There is no way to know currently how large the exported zip file will
+be, as the Zip file is built on the fly. Therefore there is no
+progress bar either as the file is downloaded.</p>
+</div>
+
+
 <p>The <code>Uploaded Files</code> tab shows the files uploaded by the artifact&rsquo;s
-VQL. Some artifact as simply file collectors - collecting a bunch of
+VQL. Some artifact are simply file collectors - collecting a bunch of
 files for later post processing analysis.</p>
 
 <p>The <code>Results</code> tab shows a table of VQL results from each source. For
 artifacts containing multiple sources (or if you collected multiple
 artifacts) the selector allows switching between them to view the
 result table from each. Since an artifact <code>source</code> is simply a VQL
-query, it returns a table with columns specified by the query
-itself. Therefore each artifact will procude a different table.</p>
+query, it returns a single table with columns specified by the query
+itself. Therefore each artifact source will produce a different table.</p>
 
 <p>The <code>Logs</code> tab shows any messages logged by the endpoint while
-collecting the artifact. Many issues encounted by the endpoint are not
-considered fatal, but are nevertheless logged to the server (for
+collecting the artifact. Many issues encountered by the endpoint are
+not considered fatal, but are nevertheless logged to the server (for
 example, if the endpoint attempts to open a file which is locked). You
 should look at the tab to assess if you are getting a complete result.</p>
 
@@ -1612,11 +1597,79 @@ the description as well as the parameters the artifact takes and the
 VQL queries that will be run. The artifact can now be added to the
 selected artifacts box.</p>
 
+<h3 id="controlling-endpoint-performance">Controlling endpoint performance</h3>
+
+<p>Some artifacts have to perform many operations on the endpoint. For
+example, image if we were looking for a particular file matching a
+given hash. We would have to hash all files on the endpoint and then
+compare the has to the required hash. This may negatively impact on
+the endpoint performance.</p>
+
+<p>Velociraptor offers two settings to allow you to decide how much
+impact you want to have on the endpoint.</p>
+
 <p>You can set the <code>Ops/Sec</code> value for collecting the artifacts. This
 setting controls how aggressively the endpoint will collect the
 artifact. For artifacts that collect a lot of files or otherwise
 utilize heavy resources on the endpoint, it is advisable to lower this
-to reduce endpoint load.</p>
+to reduce endpoint load. An operation is considered a single row or
+1mb scanned, so setting this value to 20 Ops/sec would result in a
+yara scan of approximately 20Mb/s. Values between 1 and 50 should be
+set here.</p>
+
+<p>The <code>Maximum Time</code> setting controls how long Velociraptor will allow
+the artifact query to run. Artifacts that take longer than this time
+(by default 10 minutes) will be canceled. Velociraptor uses this
+timeout to ensure artifacts do not run out of control on the
+endpoint. If your artifact requires examining many files, or you have
+lowered Ops/Sec to reduce its impact on the endpoint (but this will
+make it take longer), you should increase this value.</p>
+
+<h2 id="the-file-finder-artifact">The File Finder Artifact</h2>
+
+<p>Artifacts can take parameters. When you add an artifact to the
+&ldquo;Selected Artifact&rdquo; UI the Artifact&rsquo;s parameters also appear in the UI
+for you to adjust. The parameters are should be properly filled with
+reasonable defaults already so you only need to adjust them sometimes.</p>
+
+<p>One of the most useful artifacts is the File Finder:</p>
+
+<p><img src="../file_finder.png" alt="File Finder" /></p>
+
+<p>The File Finder allows you to search for files in the endpoint using a
+number of criteria:</p>
+
+<ol>
+<li><p>The Glob is a search pattern of files</p></li>
+
+<li><p>If you want to search the contents of files you can specific a number of keywords here.</p></li>
+
+<li><p><code>Use Raw NTFS</code> specifies that raw NTFS parsing should be used -
+this is important for locked files like registry hives.</p></li>
+
+<li><p><code>Upload Files</code> specifies that matching files will be uploaded to the server</p></li>
+
+<li><p><code>Calculate Hash</code> specifies that hashes will be calculated of matching files.</p></li>
+
+<li><p>It is also possible to set date ranges for file matches.</p></li>
+</ol>
+
+<h2 id="inspecting-the-results-of-an-artifact">Inspecting the results of an artifact</h2>
+
+<p>When an artifact runs on the endpoint, Velociraptor&rsquo;s VQL engine may
+log messages about problems it encounters along the way.</p>
+
+<p><img src="../flow_log.png" alt="Flow Log" /></p>
+
+<p>For example in the above screenshot we see that some files were not
+opened by the query because they were locked, but the query uploaded
+216 rows and 205 files to the server.</p>
+
+<p>You should inspect the log output to ensure that the artifact is
+collected without errors. Although the artifact collection in this
+case was mostly successful (it fetched most of the browser artifacts),
+a few files were not able to be retrieved. This may or may not be
+significant to your case.</p>
 
 
 <footer class=" footline" >

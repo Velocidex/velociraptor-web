@@ -1439,43 +1439,21 @@
                   <span class="links">
                  
                  
-                    
-          
-          
-            
-            
-          
-          
-            
-            
-          
-          
-            
-            
-          
-          
-            
-            
-          
-          
-            <a href='/'>Velociraptor - Digging Deeper!</a> > <a href='/docs/'>Velociraptor Documentation</a> > <a href='/docs/user-interface/'>User Interface</a> > <a href='/docs/user-interface/artifacts/'>Velociraptor Artifacts</a> > Server Artifacts
-          
-         
-          
-         
-          
-         
-          
-         
-          
-        
+                   Server Artifacts 
                  
                   </span>
                 </div>
                 
                     <div class="progress">
     <div class="wrapper">
-
+<nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#running-a-server-artifact">Running a Server Artifact</a></li>
+</ul></li>
+</ul>
+</nav>
     </div>
 </div>
 
@@ -1499,6 +1477,45 @@
 
 
 
+
+
+<p>We have seen how Velociraptor&rsquo;s VQL language is used to query clients
+for artifacts relevant to our investigation. It is also possible to
+run VQL queries on the server in much the same way. On the server, VQL
+exposes functionality making it possible to manage the server
+deployment, as well as post process and correlate results from the
+entire deployment.</p>
+
+<p>In exactly the same way, server side VQL queries are encapsulated in
+<code>Server Artifacts</code>.</p>
+
+
+<div class="notices note" ><p><code>Server Artifacts</code> run once and produce a fixed output at an instance
+in time. They are not the same as <code>Server Event Artifacts</code> which run
+continuously and generate daily event logs.</p>
+</div>
+
+
+<p>Since server artifacts do not themselves collect any information from
+the client, typically Server Artifacts are used to post process client
+collections in some way or to perform administrative tasks.</p>
+
+<h2 id="running-a-server-artifact">Running a Server Artifact</h2>
+
+<p>To run a Server Artifact select the <code>Server Artifact</code> option in the
+side navigation bar, then click the <code>Collect More Artifacts</code> button.</p>
+
+<p><img src="../server_artifacts.png" alt="Server Artifacts" /></p>
+
+<p>In the above example we will collect the <code>Server.Information.Clients</code>
+artifact which just lists all the clients, and the users associated
+with them (This is an example of a server artifact which post
+processes the <code>Windows.Sys.Users</code> artifact)</p>
+
+<p><img src="../server_artifact_users.png" alt="Server Artifacts" /></p>
+
+<p>We can now download the list of all clients, and some information
+about each client as obtained at this instance in time.</p>
 
 
 <footer class=" footline" >

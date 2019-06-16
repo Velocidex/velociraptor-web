@@ -1439,43 +1439,22 @@
                   <span class="links">
                  
                  
-                    
-          
-          
-            
-            
-          
-          
-            
-            
-          
-          
-            
-            
-          
-          
-            
-            
-          
-          
-            <a href='/'>Velociraptor - Digging Deeper!</a> > <a href='/docs/'>Velociraptor Documentation</a> > <a href='/docs/user-interface/'>User Interface</a> > <a href='/docs/user-interface/artifacts/'>Velociraptor Artifacts</a> > Client Event Artifacts
-          
-         
-          
-         
-          
-         
-          
-         
-          
-        
+                   Client Event Artifacts 
                  
                   </span>
                 </div>
                 
                     <div class="progress">
     <div class="wrapper">
-
+<nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#inspecting-client-events">Inspecting client events</a></li>
+<li><a href="#updating-client-event-monitoring">Updating client event monitoring</a></li>
+</ul></li>
+</ul>
+</nav>
     </div>
 </div>
 
@@ -1499,6 +1478,78 @@
 
 
 
+
+
+<p>Velociraptor&rsquo;s VQL language is unique in that it allows queries to run
+in the background and take a long time without using CPU
+resources. This means that VQL is an asynchronous streaming query
+engine.</p>
+
+<p>Velociraptor has a number of VQL plugins which simply block, waiting
+for events to occur (These are termed <code>Event plugins</code>). When an event
+occurs, the query returns the event as a single row which is then
+streamed to the server to be recorded.</p>
+
+<p>We are able to use this to implement monitoring rules on the endpoint
+as never ending VQL queries. The Velociraptor server has a list of
+event artifacts to run on endpoints. When a new endpoint connects, it
+receives this list of artifacts and begins running them in parallel -
+and thereby we begin monitoring the endpoint for the specific events
+we are interested in.</p>
+
+<h2 id="inspecting-client-events">Inspecting client events</h2>
+
+<p>Lets start by inspecting some events from the endpoint. By default,
+Velociraptor collects the <code>Generic.Client.Stats</code> artifact. This
+artifact samples the Velociraptor process&rsquo;s memory and CPU usage
+footprint every 10 seconds. This artifact is useful to ensure that
+Velociraptor&rsquo;s impact on the endpoint is acceptable.</p>
+
+<p>Let&rsquo;s see what our Velociraptor client impact was on June 16. Select
+<code>Client Events</code> in the navigation bar and <code>Generic.Client.Stats</code> in
+the pulldown. You can change the date of interest in the date
+selector.</p>
+
+<p><img src="../client_stats.png" alt="Client Stats" /></p>
+
+
+<div class="notices tip" ><p>The <code>Client Events</code> screen renders a report which is defined within
+the artifact itself. This means you can customize the report, or write
+your own report. See <a href="/docs/vql_reference/templates/">Report Templates</a> for more about customizing your own reports.</p>
+</div>
+
+
+<h2 id="updating-client-event-monitoring">Updating client event monitoring</h2>
+
+<p>The Velociraptor server maintains a list of client event artifacts to
+monitor. You can update this list by clicking the &ldquo;Update client
+monitoring artifacts&rdquo; button.</p>
+
+<p><img src="../add_client_monitoring.png" alt="Add Client Monitoring" /></p>
+
+<p>You can search for client monitoring artifacts to add. Highlighting an
+existing artifact will display its description and may also add any
+potential parameters.</p>
+
+<p>In the example above we are monitoring process execution logs via the
+<code>Windows.Events.ProcessCreation</code> artifacts. Let us add also monitor
+the endpoint DNS queries via the <code>Windows.Events.DNSQueries</code> artifact
+by adding it, and clicking <code>Save Client Monitoring Artifacts</code>.</p>
+
+<p>As soon as you save this, clients will begin streaming these events to
+the server. In this case every DNS query performed on the endpoint
+will be recorded on the server.</p>
+
+<p>Let&rsquo;s look at the DNSQueries performed by this specific endpoint on
+the 16th June:</p>
+
+<p><img src="../dns_queries.png" alt="DNS Query" /></p>
+
+<p>The DNS Artifact&rsquo;s report produces a table of frequency of the DNS
+names queried over the day. The table may be filtered (in this case we
+check for lookups to any <code>microsoft</code> domain), and sorted (by lookup
+count). This allows us to see if there are excessive connections to
+particular domains - these might indicate a C&amp;C connection!</p>
 
 
 <footer class=" footline" >

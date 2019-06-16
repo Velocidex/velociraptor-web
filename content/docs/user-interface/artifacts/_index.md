@@ -4,19 +4,21 @@ linktitle: Velociraptor Artifacts
 weight: 30
 ---
 
-Velociraptor's main job is to collect `Artifacts`, but is an
+Velociraptor's main job is to collect `Artifacts`, but what is an
 `Artifact`?. An artifact is simply a yaml file which tells
 Velociraptor how to collect a set of files or information in order to
 answer a specific question.
 
-Before we can discuss the rest of the GUI, we need to understand what
-Artifacts are and how they relate of Velociraptor.
+Before we can discuss how artifacts are used within Velociraptor, we
+need to understand what Artifacts are and how they relate of
+Velociraptor.
 
 
 ## Artifact definitions
 
 Artifacts are supposed to be defined and tweaked by the
-user. Therefore they are defined using YAML in a simple file format.
+user. Therefore they are defined using YAML in a simple human readable
+file format.
 
 Below is an example of a typical artifact definition.
 

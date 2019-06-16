@@ -18,7 +18,7 @@
       <guid>/docs/user-interface/artifacts/client_artifacts/</guid>
       <description>Now that we understand what artifacts actually are, we are ready to collect artifacts from our endpoints. We will first discuss how to collect an artifact from a single endpoint, and later discuss how to hunt for the artifacts across the entire fleet.
 Once we searched and selected the endpoint of interest, we can switch to the &amp;ldquo;Collected Artifacts&amp;rdquo; view.
-The screen shows the artifacts previously collected on this endpoint.</description>
+This page shows the artifacts previously collected on this endpoint.</description>
     </item>
     
     <item>
@@ -27,7 +27,8 @@ The screen shows the artifacts previously collected on this endpoint.</descripti
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>/docs/user-interface/artifacts/client_events/</guid>
-      <description></description>
+      <description>Velociraptor&amp;rsquo;s VQL language is unique in that it allows queries to run in the background and take a long time without using CPU resources. This means that VQL is an asynchronous streaming query engine.
+Velociraptor has a number of VQL plugins which simply block, waiting for events to occur (These are termed Event plugins). When an event occurs, the query returns the event as a single row which is then streamed to the server to be recorded.</description>
     </item>
     
     <item>
@@ -36,7 +37,8 @@ The screen shows the artifacts previously collected on this endpoint.</descripti
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>/docs/user-interface/artifacts/server_artifacts/</guid>
-      <description></description>
+      <description>We have seen how Velociraptor&amp;rsquo;s VQL language is used to query clients for artifacts relevant to our investigation. It is also possible to run VQL queries on the server in much the same way. On the server, VQL exposes functionality making it possible to manage the server deployment, as well as post process and correlate results from the entire deployment.
+In exactly the same way, server side VQL queries are encapsulated in Server Artifacts.</description>
     </item>
     
     <item>

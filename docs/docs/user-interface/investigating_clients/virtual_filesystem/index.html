@@ -1439,43 +1439,24 @@
                   <span class="links">
                  
                  
-                    
-          
-          
-            
-            
-          
-          
-            
-            
-          
-          
-            
-            
-          
-          
-            
-            
-          
-          
-            <a href='/'>Velociraptor - Digging Deeper!</a> > <a href='/docs/'>Velociraptor Documentation</a> > <a href='/docs/user-interface/'>User Interface</a> > <a href='/docs/user-interface/investigating_clients/'>Investigating Clients</a> > The Virtual File System
-          
-         
-          
-         
-          
-         
-          
-         
-          
-        
+                   The Virtual File System 
                  
                   </span>
                 </div>
                 
                     <div class="progress">
     <div class="wrapper">
-
+<nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#file-operations">File operations</a></li>
+<li><a href="#downloading-files">Downloading files</a></li>
+<li><a href="#filesystem-accessors">Filesystem Accessors</a></li>
+<li><a href="#automation">Automation</a></li>
+</ul></li>
+</ul>
+</nav>
     </div>
 </div>
 
@@ -1499,6 +1480,127 @@
 
 
 
+
+
+<p>If we had to investigate a machine interactively we would probably
+start off by using Windows Explorer or a similar tool to navigate the
+endpoint&rsquo;s filesystem directly. It is convenient and intuitive!</p>
+
+<p>Velociraptor provides a similar feature - the client&rsquo;s Virtual File
+System. This feature mirrors some of the endpoint&rsquo;s files and
+directories on the endpoint on the server and allows user to navigate
+through those interactively.</p>
+
+<p>After searching for a client, and selecting it you will see the option
+<code>Virtual Filesystem</code> available in the side navigation bar.</p>
+
+<p><img src="../vfs_view.png" alt="VFS" /></p>
+
+<p>The interface is divided into three main parts:</p>
+
+<ol>
+<li>The left side shows a tree view of the <code>Virtual File System</code> and its directories.</li>
+<li>The top pane shows the file listings contained within each directory.</li>
+<li>The bottom pane shows information about files selected in the file listing pane.</li>
+</ol>
+
+<h2 id="file-operations">File operations</h2>
+
+<p>Selecting a directory in the tree view will populate the file listing
+pane with cached information stored on the server&rsquo;s. You can see the
+time when that listing was actually taken from the endpoint at the top
+of the table.</p>
+
+<p><img src="../file_actions.png" alt="VFS" /></p>
+
+<p>Since we can only show the information we have cached on the server,
+we may not have data for a directory on the end point we have never
+navigated to previously.</p>
+
+<p>To refresh the server&rsquo;s cache you can click the &ldquo;Refresh this
+directory&rdquo; button. This will schedule a directory listing on the
+client and refresh the server&rsquo;s cache.</p>
+
+<p>It is also possible to refresh directories recursively by clicking the
+&ldquo;Recursively Refresh directory&rdquo; button.</p>
+
+
+<div class="notices warning" ><p>It may be tempting to just recursively refresh the entire endpoint&rsquo;s
+filesystem but can take a long time and download a lot of
+data. Nevertheless it may be convenient sometimes. Note that queries
+have a 10 minute timeout by default so it may not completely cover the
+entire filesystem in this time either.</p>
+</div>
+
+
+<h2 id="downloading-files">Downloading files</h2>
+
+<p>Sometimes we can see a file in the file listing pane and want to view
+it. Since the GUI only shows information cached on the server, the
+file contents are not immediately available to us.</p>
+
+<p>Clicking on the &ldquo;Collect From Client&rdquo; button will schedule a file
+collection from the endpoint (if the client is currently connected the
+file will be download immediately).</p>
+
+<p><img src="../download_file.png" alt="Download" /></p>
+
+<p>You may now download the file to your computer by clicking the
+download button. Alternately you can view a hexdump or text dump of
+the file using the relevant tabs.</p>
+
+<p><img src="../hexview.png" alt="HexView" /></p>
+
+<h2 id="filesystem-accessors">Filesystem Accessors</h2>
+
+<p>Many VQL plugins operate on files. However how we read files on the
+endpoint can vary - depending on what we actually mean by file. For
+example, Velociraptor is able to read files parsed from the NTFS
+parser, compressed files within Zip archives, or even files downloaded
+from a URL. VQL specifies the way a file is read via an <code>accessor</code>
+(essentially a file access driver).</p>
+
+<p>The <code>Virtual File System</code> make a number of common accessors available
+for navigation, by specifying them at the top level of the tree view:</p>
+
+<ol>
+<li><p>The <code>file</code> accessor uses the normal OS filesystem APIs to access
+files and directories.</p>
+
+<ul>
+<li>The limitations with this method is that some files are
+ locked if they are in use and we are not able to read
+ them. For example, the registry hives or the page file.</li>
+</ul></li>
+
+<li><p>The <code>ntfs</code> accessor uses Velociraptor&rsquo;s built in NTFS parser to
+extract directory information and file contents.</p>
+
+<ul>
+<li>This bypasses the normal file locking mechanism and allows us
+ to download and read locked files like registry hives.</li>
+</ul></li>
+
+<li><p>The <code>registry</code> accessor uses the OS APIs to view the registry as a
+filesystem. You can use this to navigate the endpoint&rsquo;s registry
+hives interactively.</p>
+
+<ul>
+<li>Since registry values are typically small, Velociraptor also
+ gets the values in the directory listing as well, so it is
+ not usually necessary to download files from the registry
+ hive.</li>
+</ul></li>
+</ol>
+
+<h2 id="automation">Automation</h2>
+
+<p>While it is intuitive to interactively examine an endpoint using the
+<code>Virtual File System</code> we typically need something a bit more
+automated.</p>
+
+<p>Velociraptor uses <code>Artifacts</code> to encapsulate and automate endpoint
+analysis. You can read more about <a href="/docs/user-interface/artifacts/client_artifacts/">Client Artifacts</a>.</p>
 
 
 <footer class=" footline" >
