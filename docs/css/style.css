@@ -3780,3 +3780,13 @@ img.logo {
 .icon-pentagon img {
     height: 100%;
 }
+
+
+@font-face {
+    font-family: "fontastique";
+    src: url("/fonts/fontastique.ttf");
+}
+
+h1, h2, h3 {
+    font-family: "fontastique";
+}
