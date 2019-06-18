@@ -67,7 +67,7 @@ googleAnalytics = ""
 
   [[params.navbar]]
   title = "Home"
-  link = "/"
+  link = "/index.md"
 
   [[params.navbar]]
   title = "FAQ"
