@@ -218,14 +218,7 @@
 },
 {
         "uri": "/",
-        "title": "Velociraptor",
-        "tags": [],
-        "description": "Velociraptor: Digging Deeper!",
-        "content": ""
-},
-{
-        "uri": "/",
-        "title": "Velociraptor - Digging Deeper!",
+        "title": "",
         "tags": [],
         "description": "",
         "content": ""
@@ -422,6 +415,27 @@
 {
         "uri": "/categories/about-velociraptor/",
         "title": "about velociraptor",
+        "tags": [],
+        "description": "",
+        "content": ""
+},
+{
+        "uri": "/contact/",
+        "title": "",
+        "tags": [],
+        "description": "",
+        "content": ""
+},
+{
+        "uri": "/faq/",
+        "title": "",
+        "tags": [],
+        "description": "",
+        "content": ""
+},
+{
+        "uri": "/index.html",
+        "title": "",
         "tags": [],
         "description": "",
         "content": ""

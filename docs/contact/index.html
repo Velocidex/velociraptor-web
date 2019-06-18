@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+        
+        <meta charset="utf-8">
+    <title>Velociraptor - Digging Deeper</title>
+    <meta name="description" content="">
+        <meta name="author" content="">
+
+        
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+        
+        <link rel="icon" href="/images/favicon/favicon.png" type="image/x-icon" />
+        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/images/favicon/favicon.png">
+        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/images/favicon/favicon.png">
+        <link rel="apple-touch-icon-precomposed" href="/images/favicon/favicon.png">
+
+        
+
+        
+        <link rel="stylesheet" href="/css/bootstrap.min.css">
+        
+        <link rel="stylesheet" href="/css/style.css">
+        
+        <link rel="stylesheet" href="/css/responsive.css">
+        
+        <link rel="stylesheet" href="/css/fontawesome-all.min.css">
+        
+        <link rel="stylesheet" href="/css/animate.css">
+        
+        <link rel="stylesheet" href="/css/prettyPhoto.css">
+        
+        <link rel="stylesheet" href="/css/owl.carousel.css">
+        <link rel="stylesheet" href="/css/owl.theme.css">
+        
+        <link rel="stylesheet" href="/css/flexslider.css">
+        
+        <link rel="stylesheet" href="/css/cd-hero.css">
+
+        
+    
+
+</head>
+<body><div class="body-inner">
+<header id="header" class="navbar-fixed-top header" role="banner">
+  <div class="container">
+    <div class="row">
+      
+      <div class="navbar-header">
+        <button type="button"
+                class="navbar-toggle"
+                data-toggle="collapse"
+                data-target=".navbar-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <div class="navbar-brand navbar-bg">
+          <a href="/">
+            <img class="img-responsive logo-small"
+                 src="/images/logos/velo_word_on_side.svg"
+                 alt="logo">
+          </a>
+        </div>
+      </div>
+
+      <nav class="collapse navbar-collapse clearfix" role="navigation">
+        <ul class="nav navbar-nav navbar-right">
+              
+            
+              
+                 
+              
+            
+          <li class="">
+            <a href="/">
+              Home
+            </a>
+          </li>
+              
+            
+              
+                 
+              
+            
+          <li class="">
+            <a href="/faq/">
+              FAQ
+            </a>
+          </li>
+              
+            
+              
+                 
+              
+            
+          <li class="">
+            <a href="/docs/">
+              Documentation
+            </a>
+          </li>
+              
+            
+              
+                 
+                 
+              
+            
+          <li class="active">
+            <a href="#">
+              Contact
+            </a>
+          </li>
+              
+          <li class="">
+            <a href="https://github.com/Velocidex/velociraptor">
+              <i class="fab fa-github"></i>
+            </a>
+          </li></ul>
+      </nav>
+    </div>
+  </div>
+</header>
+<div id="banner-area">
+    <img src="/images/banner/banner2.jpg" alt ="" />
+    <div class="parallax-overlay"></div>
+    
+    <div class="banner-title-content">
+      <div class="text-center">
+        <h2>Contact Us</h2>
+        <ul class="breadcrumb">
+          <li>Home</li>
+          <li><a href="#"> Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  
+
+  <section id="main-container">
+    <div class="container">
+
+      <div class="row">
+        
+        <div id="map-wrapper" class="no-padding">
+          <div class="map-item" id="map"></div>
+<script>
+  function initMap() {
+    var ve = {lat: -33.8656909, lng: 151.20929479999995};
+    var map = new google.maps.Map(
+      document.getElementById('map'), {
+        zoom: 15,
+        center: ve,
+        styles: [
+          {elementType: 'geometry',
+           stylers: [
+             {color: '#242f3e'},
+           ]},
+          {elementType: 'labels.text.stroke',
+           stylers: [
+             {color: '#242f3e'},
+           ]},
+          {elementType: 'labels.text.fill',
+           stylers: [
+             {color: '#555'},
+           ]},
+          {
+            featureType: 'administrative',
+            stylers: [{visibility: 'off'}]
+          },
+          {
+            featureType: 'poi',
+            stylers: [
+              {visibility: 'off'}
+            ]
+          },
+          {
+            featureType: 'poi.park',
+            stylers: [
+              {visibility: 'off'},
+            ]
+          },
+          {
+            featureType: 'road',
+            elementType: 'geometry',
+            stylers: [{color: '#38414e'}]
+          },
+          {
+            featureType: 'road',
+            elementType: 'geometry.stroke',
+            stylers: [{color: '#212a37'}]
+          },
+          {
+            featureType: 'road',
+            elementType: 'labels.text.fill',
+            stylers: [{color: '#9ca5b3'}]
+          },
+          {
+            featureType: 'road.highway',
+            elementType: 'geometry',
+            stylers: [{color: '#746855'}]
+          },
+          {
+            featureType: 'road.highway',
+            elementType: 'geometry.stroke',
+            stylers: [{color: '#1f2835'}]
+          },
+          {
+            featureType: 'road.highway',
+            elementType: 'labels.text.fill',
+            stylers: [{color: '#f3d19c'}]
+          },
+          {
+            featureType: 'transit',
+            stylers: [{visibility: "off"}],
+          },
+          {
+            featureType: 'water',
+            elementType: 'geometry',
+            stylers: [{color: '#17263c'}]
+          },
+          {
+            featureType: 'water',
+            elementType: 'labels.text.fill',
+            stylers: [{color: '#515c6d'}]
+          },
+          {
+            featureType: 'water',
+            elementType: 'labels.text.stroke',
+            stylers: [{color: '#17263c'}]
+          }
+        ]
+      });
+
+    var infowindow = new google.maps.InfoWindow({
+      content: "Velocidex",
+    });
+
+    var image = {
+      url: "/images/logos/velo_bare_small.svg",
+      
+      size: new google.maps.Size(73, 117),
+      
+      origin: new google.maps.Point(0, 0),
+      
+      anchor: new google.maps.Point(0, 0),
+      scaledSize: new google.maps.Size(30, 42)
+    };
+
+    var marker = new google.maps.Marker({
+      position: ve,
+      animation: google.maps.Animation.DROP,
+      icon: image,
+      title: "Velocidex Enterprises",
+      map: map
+    });
+    marker.addListener('click', function() {
+      infowindow.open(map, marker);
+    });
+    infowindow.open(map, marker);
+  }
+</script>
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBHBbgGnUPMVZ92mDQWfc0TubCbMqDVnD4&callback=initMap">
+</script>
+
+        </div>
+
+      </div>
+
+      <div class="gap-40"></div>
+
+      <div class="row">
+        <div class="col-md-7">
+          <form id="contact-form" action="contact-form.php" method="post" role="form">
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label>Name</label>
+                  <input class="form-control" name="name" id="name" placeholder="" type="text" required>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label>Email</label>
+                  <input class="form-control" name="email" id="email"
+                         placeholder="" type="email" required>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label>Subject</label>
+                  <input class="form-control" name="subject" id="subject"
+                         placeholder="" required>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Message</label>
+              <textarea class="form-control" name="message" id="message" placeholder="" rows="10" required></textarea>
+            </div>
+            <div class="text-right"><br>
+              <button class="btn btn-primary solid blank" type="submit">Send Message</button>
+            </div>
+          </form>
+        </div>
+        <div class="col-md-5">
+          <div class="contact-info">
+            <h3>Contact Details</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse eget erat magna. Pellentesque justo ante</p>
+            <br>
+            <p><i class="fa fa-home info"></i>  1102 Saint Marys, Junction City, KS </p>
+            <p><i class="fa fa-phone info"></i>  +(785) 238-4131 </p>
+            <p><i class="fa fa-envelope-o info"></i>  info@bizcraft.com</p>
+            <p><i class="fa fa-globe info"></i>  www.bizcraft.com</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </section>
+
+</div>
+
+  
+  <footer id="footer" class="footer">
+    <div class="container">
+
+      <div class="row">
+        <div class="col-md-4 col-sm-12 footer-widget">
+          <h3 class="widget-title">Recent Posts</h3>
+
+          <div class="latest-post-items media">
+            <div class="latest-post-content media-body">
+              <h4><a href="#">Bulgaria claims to find Europe's 'oldest town'</a></h4>
+              <p class="post-meta">
+                <span class="author">Posted by John Doe</span>
+                <span class="post-meta-cat">in<a href="#"> Blog</a></span>
+              </p>
+            </div>
+          </div>
+
+          <div class="latest-post-items media">
+            <div class="latest-post-content media-body">
+              <h4><a href="#">Few Answers in Case of Murdered Law Professor</a></h4>
+              <p class="post-meta">
+                <span class="date"><i class="icon icon-calendar"></i> Mar 15, 2015</span>
+                <span class="post-meta-comments"><i class="icon icon-bubbles4"></i> <a href="#">03</a></span>
+              </p>
+            </div>
+          </div>
+
+          <div class="latest-post-items media">
+            <div class="latest-post-content media-body">
+              <h4><a href="#">Over the year we have lots of experience in our field</a></h4>
+              <p class="post-meta">
+                <span class="date"><i class="icon icon-calendar"></i> Apr 17, 2015</span>
+                <span class="post-meta-comments"><i class="icon icon-bubbles4"></i> <a href="#">14</a></span>
+              </p>
+            </div>
+          </div>
+
+        </div>
+
+
+
+        <div class="col-md-4 col-sm-12 footer-widget">
+          <h3 class="widget-title">Flickr Photos</h3>
+
+          <div class="img-gallery">
+            <div class="img-container">
+              <a class="thumb-holder" data-rel="prettyPhoto" href="/images/gallery/1.jpg">
+                <img src="/images/gallery/1.jpg" alt="">
+              </a>
+              <a class="thumb-holder" data-rel="prettyPhoto" href="/images/gallery/2.jpg">
+                <img src="/images/gallery/2.jpg" alt="">
+              </a>
+              <a class="thumb-holder" data-rel="prettyPhoto" href="/images/gallery/3.jpg">
+                <img src="/images/gallery/3.jpg" alt="">
+              </a>
+              <a class="thumb-holder" data-rel="prettyPhoto" href="/images/gallery/4.jpg">
+                <img src="/images/gallery/4.jpg" alt="">
+              </a>
+              <a class="thumb-holder" data-rel="prettyPhoto" href="/images/gallery/5.jpg">
+                <img src="/images/gallery/5.jpg" alt="">
+              </a>
+              <a class="thumb-holder" data-rel="prettyPhoto" href="/images/gallery/6.jpg">
+                <img src="/images/gallery/6.jpg" alt="">
+              </a>
+              <a class="thumb-holder" data-rel="prettyPhoto" href="/images/gallery/6.jpg">
+                <img src="/images/gallery/7.jpg" alt="">
+              </a>
+              <a class="thumb-holder" data-rel="prettyPhoto" href="/images/gallery/6.jpg">
+                <img src="/images/gallery/8.jpg" alt="">
+              </a>
+              <a class="thumb-holder" data-rel="prettyPhoto" href="/images/gallery/6.jpg">
+                <img src="/images/gallery/9.jpg" alt="">
+              </a>
+            </div>
+          </div>
+
+
+        </div>
+
+        <div class="col-md-3 col-sm-12 footer-widget footer-about-us">
+          <h3 class="widget-title">About Craft</h3>
+          <p>We are a awward winning multinational company. We believe in quality and standard worldwide.</p>
+          <h4>Address</h4>
+          <p>1102 Saint Marys, Junction City, KS</p>
+          <div class="row">
+            <div class="col-md-6">
+              <h4>Email:</h4>
+              <p>info@craftbd.com</p>
+            </div>
+            <div class="col-md-6">
+              <h4>Phone No.</h4>
+              <p>+(785) 238-4131</p>
+            </div>
+          </div>
+          <form action="#" role="form">
+            <div class="input-group subscribe">
+              <input type="email" class="form-control" placeholder="Email Address" required="">
+              <span class="input-group-addon">
+                <button class="btn" type="submit"><i class="fa fa-envelope-o"> </i></button>
+              </span>
+            </div>
+          </form>
+        </div>
+
+
+      </div>
+    </div>
+  </footer>
+
+
+  
+  <section id="copyright" class="copyright angle">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 text-center">
+          <ul class="footer-social unstyled">
+            <li>
+              <a title="Twitter" href="#">
+                <span class="icon-pentagon wow bounceIn"><i class="fab fa-twitter"></i></span>
+              </a>
+              <a title="Facebook" href="#">
+                <span class="icon-pentagon wow bounceIn"><i class="fab fa-facebook"></i></span>
+              </a>
+              <a title="Google+" href="#">
+                <span class="icon-pentagon wow bounceIn"><i class="fab fa-google-plus"></i></span>
+              </a>
+              <a title="linkedin" href="#">
+                <span class="icon-pentagon wow bounceIn"><i class="fab fa-linkedin"></i></span>
+              </a>
+              <a title="Pinterest" href="#">
+                <span class="icon-pentagon wow bounceIn"><i class="fab fa-pinterest"></i></span>
+              </a>
+              <a title="Skype" href="#">
+                <span class="icon-pentagon wow bounceIn"><i class="fab fa-skype"></i></span>
+              </a>
+              <a title="Dribble" href="#">
+                <span class="icon-pentagon wow bounceIn"><i class="fab fa-dribbble"></i></span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 text-center">
+          <div class="copyright-info">
+            &copy; Copyright 2019 Velocidex Enterprises.
+          </div>
+        </div>
+      </div>
+      <div id="back-to-top" data-spy="affix" data-offset-top="10" class="back-to-top affix">
+        <button class="btn btn-primary" title="Back to Top"><i class="fa fa-angle-double-up"></i></button>
+      </div>
+    </div>
+  </section>
+
+
+
+
+      
+      <script type="text/javascript" src="/js/jquery.js"></script>
+      
+      <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+      
+      <script type="text/javascript" src="/js/style-switcher.js"></script>
+      
+      <script type="text/javascript" src="/js/owl.carousel.js"></script>
+      
+      <script type="text/javascript" src="/js/jquery.prettyPhoto.js"></script>
+      
+      <script type="text/javascript" src="/js/jquery.flexslider.js"></script>
+      
+      <script type="text/javascript" src="/js/cd-hero.js"></script>
+      
+      <script type="text/javascript" src="/js/isotope.js"></script>
+      <script type="text/javascript" src="/js/ini.isotope.js"></script>
+      
+      <script type="text/javascript" src="/js/wow.min.js"></script>
+      
+      <script type="text/javascript" src="/js/smoothscroll.js"></script>
+      
+      <script type="text/javascript" src="/js/jquery.easing.1.3.js"></script>
+      
+      <script type="text/javascript" src="/js/jquery.counterup.min.js"></script>
+      
+      <script type="text/javascript" src="/js/waypoints.min.js"></script>
+      
+      <script type="text/javascript" src="/js/custom.js"></script>
+</body>
+</html>

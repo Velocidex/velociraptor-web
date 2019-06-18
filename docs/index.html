@@ -1,799 +1,479 @@
-<html lang="en-us">
-  <head>
-  <meta name="theme" content="Syna">
-  <meta name="theme-version" content="v0.15">
-  <meta name="theme-url" content="https://syna.okkur.org">
-  <meta name="theme-description" content="Highly customizable open source theme for Hugo based static websites">
-  <meta name="theme-author" content="Okkur Labs">
-  <meta name="theme-author-url" content="https://about.okkur.org">
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta http-equiv="Content-Language" content="en-us">
-  <meta name="google" value="notranslate">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="description" content="Velociraptor: Digging Deeper!">
-  <meta property="og:title" content="Velociraptor &amp;middot; Velociraptor - Digging Deeper!">
-  <meta property="og:url" content="/">
-  <meta property="og:description" content="Velociraptor: Digging Deeper!">
-  <meta property="og:site_name" content="Velociraptor - Digging Deeper!">
-  <meta property="og:type" content="website">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Velociraptor &amp;middot; Velociraptor - Digging Deeper!" />
-  <meta name="twitter:description" content="Velociraptor: Digging Deeper!">
-  <meta name="twitter:url" content="/" />
-    <meta property="og:image" content="">
-    <meta name="twitter:image" content="">
-  <meta name="author" content="Velociraptor">
-
-  <meta name="generator" content="Hugo 0.56.0-DEV" />
-
-  <title>Velociraptor &middot; Velociraptor - Digging Deeper!</title>
-
-  <!-- Theme Styles -->
-  <style>
-.mx-0 {
-  margin-left: 0 !important;
-  margin-right: 0 !important; }
-
- 
-@-ms-viewport {
-  width: device-width; }
-
-html {
-  box-sizing: border-box;
-  -ms-overflow-style: scrollbar; }
-
-*,
-*::before,
-*::after {
-  box-sizing: inherit; }
-
-.container {
-  width: 100%;
-  padding-right: 15px;
-  padding-left: 15px;
-  margin-right: auto;
-  margin-left: auto;
-  max-width: 540px;
-  max-width: 720px;
-  max-width: 960px;
-  max-width: 1140px; }
-
-.container-fluid {
-  width: 100%;
-  padding-right: 15px;
-  padding-left: 15px;
-  margin-right: auto;
-  margin-left: auto; }
-
-.row {
-  display: flex;
-  flex-wrap: wrap;
-  margin-right: -15px;
-  margin-left: -15px; }
-
-.no-gutters {
-  margin-right: 0;
-  margin-left: 0; }
-  .no-gutters > .col,
-  .no-gutters > [class*="col-"] {
-    padding-right: 0;
-    padding-left: 0; }
-
-.col-1, .col-2, .col-3, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9, .col-10, .col-11, .col-12, .col,
-.col-auto {
-  position: relative;
-  width: 100%;
-  min-height: 1px;
-  padding-right: 15px;
-  padding-left: 15px; }
-
-.col {
-  flex-basis: 0;
-  flex-grow: 1;
-  max-width: 100%; }
-
-.col-auto {
-  flex: 0 0 auto;
-  width: auto;
-  max-width: none; }
-
-.col-1 {
-  flex: 0 0 8.33333%;
-  max-width: 8.33333%; }
-
-.col-2 {
-  flex: 0 0 16.66667%;
-  max-width: 16.66667%; }
-
-.col-3 {
-  flex: 0 0 25%;
-  max-width: 25%; }
-
-.col-4 {
-  flex: 0 0 33.33333%;
-  max-width: 33.33333%; }
-
-.col-5 {
-  flex: 0 0 41.66667%;
-  max-width: 41.66667%; }
-
-.col-6 {
-  flex: 0 0 50%;
-  max-width: 50%; }
-
-.col-7 {
-  flex: 0 0 58.33333%;
-  max-width: 58.33333%; }
-
-.col-8 {
-  flex: 0 0 66.66667%;
-  max-width: 66.66667%; }
-
-.col-9 {
-  flex: 0 0 75%;
-  max-width: 75%; }
-
-.col-10 {
-  flex: 0 0 83.33333%;
-  max-width: 83.33333%; }
-
-.col-11 {
-  flex: 0 0 91.66667%;
-  max-width: 91.66667%; }
-
-.col-12 {
-  flex: 0 0 100%;
-  max-width: 100%; }
-
-.order-first {
-  order: -1; }
-
-.order-last {
-  order: 13; }
-
-.order-0 {
-  order: 0; }
-
-.order-1 {
-  order: 1; }
-
-.order-2 {
-  order: 2; }
-
-.order-3 {
-  order: 3; }
-
-.order-4 {
-  order: 4; }
-
-.order-5 {
-  order: 5; }
-
-.order-6 {
-  order: 6; }
-
-.order-7 {
-  order: 7; }
-
-.order-8 {
-  order: 8; }
-
-.order-9 {
-  order: 9; }
-
-.order-10 {
-  order: 10; }
-
-.order-11 {
-  order: 11; }
-
-.order-12 {
-  order: 12; }
-
-.offset-1 {
-  margin-left: 8.33333%; }
-
-.offset-2 {
-  margin-left: 16.66667%; }
-
-.offset-3 {
-  margin-left: 25%; }
-
-.offset-4 {
-  margin-left: 33.33333%; }
-
-.offset-5 {
-  margin-left: 41.66667%; }
-
-.offset-6 {
-  margin-left: 50%; }
-
-.offset-7 {
-  margin-left: 58.33333%; }
-
-.offset-8 {
-  margin-left: 66.66667%; }
-
-.offset-9 {
-  margin-left: 75%; }
-
-.offset-10 {
-  margin-left: 83.33333%; }
-
-.offset-11 {
-  margin-left: 91.66667%; }
-
-.d-none {
-  display: none !important; }
-
-.d-inline {
-  display: inline !important; }
-
-.d-inline-block {
-  display: inline-block !important; }
-
-.d-block {
-  display: block !important; }
-
-.d-table {
-  display: table !important; }
-
-.d-table-row {
-  display: table-row !important; }
-
-.d-table-cell {
-  display: table-cell !important; }
-
-.d-flex {
-  display: flex !important; }
-
-.d-inline-flex {
-  display: inline-flex !important; }
-
-@media print {
-  .d-print-none {
-    display: none !important; }
-  .d-print-inline {
-    display: inline !important; }
-  .d-print-inline-block {
-    display: inline-block !important; }
-  .d-print-block {
-    display: block !important; }
-  .d-print-table {
-    display: table !important; }
-  .d-print-table-row {
-    display: table-row !important; }
-  .d-print-table-cell {
-    display: table-cell !important; }
-  .d-print-flex {
-    display: flex !important; }
-  .d-print-inline-flex {
-    display: inline-flex !important; } }
-
-.flex-row {
-  flex-direction: row !important; }
-
-.flex-column {
-  flex-direction: column !important; }
-
-.flex-row-reverse {
-  flex-direction: row-reverse !important; }
-
-.flex-column-reverse {
-  flex-direction: column-reverse !important; }
-
-.flex-wrap {
-  flex-wrap: wrap !important; }
-
-.flex-nowrap {
-  flex-wrap: nowrap !important; }
-
-.flex-wrap-reverse {
-  flex-wrap: wrap-reverse !important; }
-
-.flex-fill {
-  flex: 1 1 auto !important; }
-
-.flex-grow-0 {
-  flex-grow: 0 !important; }
-
-.flex-grow-1 {
-  flex-grow: 1 !important; }
-
-.flex-shrink-0 {
-  flex-shrink: 0 !important; }
-
-.flex-shrink-1 {
-  flex-shrink: 1 !important; }
-
-.justify-content-start {
-  justify-content: flex-start !important; }
-
-.justify-content-end {
-  justify-content: flex-end !important; }
-
-.justify-content-center {
-  justify-content: center !important; }
-
-.justify-content-between {
-  justify-content: space-between !important; }
-
-.justify-content-around {
-  justify-content: space-around !important; }
-
-.align-items-start {
-  align-items: flex-start !important; }
-
-.align-items-end {
-  align-items: flex-end !important; }
-
-.align-items-center {
-  align-items: center !important; }
-
-.align-items-baseline {
-  align-items: baseline !important; }
-
-.align-items-stretch {
-  align-items: stretch !important; }
-
-.align-content-start {
-  align-content: flex-start !important; }
-
-.align-content-end {
-  align-content: flex-end !important; }
-
-.align-content-center {
-  align-content: center !important; }
-
-.align-content-between {
-  align-content: space-between !important; }
-
-.align-content-around {
-  align-content: space-around !important; }
-
-.align-content-stretch {
-  align-content: stretch !important; }
-
-.align-self-auto {
-  align-self: auto !important; }
-
-.align-self-start {
-  align-self: flex-start !important; }
-
-.align-self-end {
-  align-self: flex-end !important; }
-
-.align-self-center {
-  align-self: center !important; }
-
-.align-self-baseline {
-  align-self: baseline !important; }
-
-.align-self-stretch {
-  align-self: stretch !important; }
-</style>
-
-  <link href="/style.min.1c94adcbe5db1cd971a3d42e272a374ca4f4aca1fbc5559e08d70c26bbe6d7fc.css" rel="stylesheet">
-      <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico">
-      <link rel="icon" sizes="16x16 32x32" type="image/x-icon" href="/images/favicon.ico">
-      <link rel="icon" href="/images/favicon.png">
-      <link rel="apple-touch-icon-precomposed" href="/images/favicon.png">
-      <link rel="icon" type="image/svg+xml" href="/images/logo.svg">
-
-  <script>
-    window.syna = {
-      
-    };
-  </script>
-  <script src="/scripts/syna-head.min.bb34bad09b42b3febef27ef9976fc5d5c34c8f199549c80f2bfb0a6ecc2586e2.js"></script>
-      <link rel='stylesheet' href='/css/page.css'></head>
-<body class="bg-secondary">
-    <!-- Navigation --><nav class="overlay fragment navbar navbar-expand-lg py-2 scroll-spy bg-dark navbar-dark" id="nav" role="navigation" style='position: sticky; top: 0; z-index: 10000 !important;'>
+<!DOCTYPE html>
+<html lang="en"><head>
+        
+        <meta charset="utf-8">
+    <title>Velociraptor - Digging Deeper</title>
+    <meta name="description" content="">
+        <meta name="author" content="">
+
+        
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+        
+        <link rel="icon" href="/images/favicon/favicon.png" type="image/x-icon" />
+        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/images/favicon/favicon.png">
+        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/images/favicon/favicon.png">
+        <link rel="apple-touch-icon-precomposed" href="/images/favicon/favicon.png">
+
+        
+
+        
+        <link rel="stylesheet" href="/css/bootstrap.min.css">
+        
+        <link rel="stylesheet" href="/css/style.css">
+        
+        <link rel="stylesheet" href="/css/responsive.css">
+        
+        <link rel="stylesheet" href="/css/fontawesome-all.min.css">
+        
+        <link rel="stylesheet" href="/css/animate.css">
+        
+        <link rel="stylesheet" href="/css/prettyPhoto.css">
+        
+        <link rel="stylesheet" href="/css/owl.carousel.css">
+        <link rel="stylesheet" href="/css/owl.theme.css">
+        
+        <link rel="stylesheet" href="/css/flexslider.css">
+        
+        <link rel="stylesheet" href="/css/cd-hero.css">
+
+        
+    
+
+</head>
+<body><div class="body-inner">
+<header id="header" class="navbar-fixed-top header" role="banner">
   <div class="container">
-      <a class="navbar-brand py-0" href="/#">
-        <img src="/images/velo_small.svg" height="35" class="d-inline-block align-top" alt="Velociraptor">
-      </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="navbar-collapse justify-content-end collapse show" id="navbarCollapse">
-      <ul class="navbar-nav"><li class="nav-item">
-              <a href="/"
-                  class="nav-link active default-active">
-                Home
-              </a>
-            </li><li class="nav-item">
-              <a href="/blog"
-                  class="nav-link">
-                Blog
-              </a>
-            </li><li class="nav-item">
-              <a href="/docs"
-                  class="nav-link">
-                Docs
-              </a>
-            </li><li class="nav-item">
-              <a href="/contact"
-                  class="nav-link">
-                Contact
-              </a>
-            </li>
-      </ul>
-    </div>
-  </div>
-    <div class="d-none d-lg-block pl-auto">
-      <a class="btn btn-light ignore-color-change" href="https://github.com/Velocidex/velociraptor" role="button" title="Github">
-        <i class="fab fa-github mr-2"></i>
-        Download
-      </a>
-    </div>
-</nav>
-
-<div class="scroll-to-top bg-primary has-font-icon"
-  title="Back to top"
-  ><i class="fas fa-angle-up"></i><span class="sr-only">Back to top</span>
-</div>
-
-<!-- Hero -->
-<header id="hero" class="fragment hero">
-    <img src="/hero/test.jpg"
-           class="hero-img"></img>
-      <div class="row justify-content-center align-items-start">
-        <img
-          class="overlay img-fluid"
-          src="/images/logo.svg"
-          alt="Velociraptor"width="400px"></img>
+    <div class="row">
+      
+      <div class="navbar-header">
+        <button type="button"
+                class="navbar-toggle"
+                data-toggle="collapse"
+                data-target=".navbar-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <div class="navbar-brand navbar-bg">
+          <a href="/">
+            <img class="img-responsive logo-small"
+                 src="/images/logos/velo_word_on_side.svg"
+                 alt="logo">
+          </a>
+        </div>
       </div>
-      <div class="row justify-content-center align-items-start">
-        <h1 class="overlay jumbotron-heading my-4 text-white">Empowered endpoint visibility</h1>
-      </div><div class="row justify-content-center align-items-start">
-    <a class="overlay btn btn-lg m-2 btn-primary " href="/docs/getting-started/">
-      <div class="column justify-content-center align-content-center">Quick Start</div>
-    </a>
+
+      <nav class="collapse navbar-collapse clearfix" role="navigation">
+        <ul class="nav navbar-nav navbar-right">
+              
+            
+              
+                 
+              
+            
+          <li class="">
+            <a href="/">
+              Home
+            </a>
+          </li>
+              
+            
+              
+                 
+              
+            
+          <li class="">
+            <a href="/faq/">
+              FAQ
+            </a>
+          </li>
+              
+            
+              
+                 
+              
+            
+          <li class="">
+            <a href="/docs/">
+              Documentation
+            </a>
+          </li>
+              
+            
+              
+                 
+              
+            
+          <li class="">
+            <a href="/contact/">
+              Contact
+            </a>
+          </li>
+              
+          <li class="">
+            <a href="https://github.com/Velocidex/velociraptor">
+              <i class="fab fa-github"></i>
+            </a>
+          </li></ul>
+      </nav>
+    </div>
   </div>
 </header>
-<script>
-  var fragmentName = "hero";window.syna.api.register("hero", "hero-" + fragmentName, {
-    selector: "hero-particles-js",
-    config: JSON.parse("{\n  \"particles\": {\n    \"number\": {\n      \"value\": 80,\n      \"density\": {\n        \"enable\": true,\n        \"value_area\": 800\n      }\n    },\n    \"color\": {\n      \"value\": \"#0c0a0a\"\n    },\n    \"shape\": {\n      \"type\": \"circle\",\n      \"stroke\": {\n        \"width\": 0,\n        \"color\": \"#000000\"\n      },\n      \"polygon\": {\n        \"nb_sides\": 5\n      },\n      \"image\": {\n        \"src\": \"img/github.svg\",\n        \"width\": 100,\n        \"height\": 100\n      }\n    },\n    \"opacity\": {\n      \"value\": 0.5,\n      \"random\": false,\n      \"anim\": {\n        \"enable\": false,\n        \"speed\": 1,\n        \"opacity_min\": 0.1,\n        \"sync\": false\n      }\n    },\n    \"size\": {\n      \"value\": 3,\n      \"random\": true,\n      \"anim\": {\n        \"enable\": false,\n        \"speed\": 40,\n        \"size_min\": 0.1,\n        \"sync\": false\n      }\n    },\n    \"line_linked\": {\n      \"enable\": true,\n      \"distance\": 150,\n      \"color\": \"#000000\",\n      \"opacity\": 0.4,\n      \"width\": 1\n    },\n    \"move\": {\n      \"enable\": true,\n      \"speed\": 6,\n      \"direction\": \"none\",\n      \"random\": false,\n      \"straight\": false,\n      \"out_mode\": \"out\",\n      \"bounce\": false,\n      \"attract\": {\n        \"enable\": false,\n        \"rotateX\": 600,\n        \"rotateY\": 1200\n      }\n    }\n  },\n  \"interactivity\": {\n    \"detect_on\": \"canvas\",\n    \"events\": {\n      \"onhover\": {\n        \"enable\": true,\n        \"mode\": \"repulse\"\n      },\n      \"onclick\": {\n        \"enable\": true,\n        \"mode\": \"push\"\n      },\n      \"resize\": true\n    },\n    \"modes\": {\n      \"grab\": {\n        \"distance\": 400,\n        \"line_linked\": {\n          \"opacity\": 1\n        }\n      },\n      \"bubble\": {\n        \"distance\": 400,\n        \"size\": 40,\n        \"duration\": 2,\n        \"opacity\": 8,\n        \"speed\": 3\n      },\n      \"repulse\": {\n        \"distance\": 200,\n        \"duration\": 0.4\n      },\n      \"push\": {\n        \"particles_nb\": 4\n      },\n      \"remove\": {\n        \"particles_nb\": 2\n      }\n    }\n  },\n  \"retina_detect\": true\n}"),
-  });
-</script>
 
-<!-- Items -->
-<section id="overview" class="fragment">
-    <div class="container-fluid bg-light">
-    <div class="container py-5">
-
-  <div class="row mx-0">
-    <div class="col px-0 text-center text-body">
-      <h2>The Velociraptor advantage</h2>
-    </div>
-  </div><div class="row mx-0">
-    <div class="col pt-4 pb-0 px-0 text-center text-body">
-      <h5>Powered by a flexible and powerful query language, Velociraptor is quickly becoming the tool of choice for many forensic and incident response investigations.</h5>
-    </div>
-  </div>
-
-  <div class="row justify-content-center align-items-stretch items">
-          <div class="col-md-4 d-flex flex-column">
-              <div class="col justify-content-between d-flex flex-column header">
-              <div class="row image justify-content-center align-items-center">
-                    <img src="/overview/logs.svg" class="p-2 mb-2 item-icon" alt="Collection">
-              </div>
-              <div class="row justify-content-center text-center">
-                  <h4 class="mb-3 text-body">Collection</h4></div>
-              </div>
-            <div class="row justify-content-center text-center p-2">
-                <div class=" text-body">
-                  <p>At the press of a button, collect evidence across all your endpoints.</p>
-
-                </div>
-            </div>
+  <section id="home" class="no-padding">
+    <div id="main-slide" class="cd-hero">
+      <ul class="cd-hero-slider">
+        <li class="selected">
+          <div class="overlay2">
+            <img class="" src="/images/slider/bg1.jpg" alt="slider">
           </div>
-          <div class="col-md-4 d-flex flex-column">
-              <div class="col justify-content-between d-flex flex-column header">
-              <div class="row image justify-content-center align-items-center">
-                    <img src="/overview/monitoring.svg" class="p-2 mb-2 item-icon" alt="Detection">
-              </div>
-              <div class="row justify-content-center text-center">
-                  <h4 class="mb-3 text-body">Detection</h4></div>
-              </div>
-            <div class="row justify-content-center text-center p-2">
-                <div class=" text-body">
-                  <p>Continuously collect endpoint events such as event logs, file
-modification and process execution logs. Centrally store events
-indefinitely for historical review and analysis.</p>
-
-                </div>
-            </div>
-          </div></div>
-    </div>
-    </div>
-</section>
-
-<!-- Items -->
-<section id="overview_row2" class="fragment">
-    <div class="container-fluid bg-light">
-    <div class="container py-5">
-
-
-  <div class="row justify-content-center align-items-stretch items">
-          <div class="col-md-4 d-flex flex-column">
-              <div class="col justify-content-between d-flex flex-column header">
-              <div class="row image justify-content-center align-items-center">
-                    <img src="/overview_row2/target.svg" class="p-2 mb-2 item-icon" alt="Hunting">
-              </div>
-              <div class="row justify-content-center text-center">
-                  <h4 class="mb-3 text-body">Hunting</h4></div>
-              </div>
-            <div class="row justify-content-center text-center p-2">
-                <div class=" text-body">
-                  <p>Actively search for intrusions by customizing detection and collection rules to your specific environment.</p>
-
-                </div>
-            </div>
+          <div class="cd-half-width cd-img-container">
+            <img src="/images/logos/logo.svg" class="logo"></img>
           </div>
-          <div class="col-md-4 d-flex flex-column">
-              <div class="col justify-content-between d-flex flex-column header">
-              <div class="row image justify-content-center align-items-center">
-                    <img src="/overview_row2/triage.svg" class="p-2 mb-2 item-icon" alt="Response">
-              </div>
-              <div class="row justify-content-center text-center">
-                  <h4 class="mb-3 text-body">Response</h4></div>
-              </div>
-            <div class="row justify-content-center text-center p-2">
-                <div class=" text-body">
-                  <p>When certain conditions are detected, trigger automated response
-actions - from alerts to automated triaging and endpoint lockdown.</p>
-
-                </div>
-            </div>
-          </div></div>
-    </div>
-    </div>
-</section>
-
-<!-- Item -->
-<section id="unique_value_1" class="fragment">
-    <div class="container-fluid bg-dark">
-    <div class="container py-5">
-
-  <div class="row align-items-center text-center justify-content-start text-lg-left">
-    <div class="col-12 order-lg-12 pl-lg-5 col-lg-8">
-        <div class="row pb-3">
-          <div class="col-12 text-white">
-            <h2>Open source</h2>
+          <div class="cd-half-width">
+            <h2>Powerfull endpoint visibility</h2>
+            <a href="#0" class="btn btn-primary white cd-btn">Start Now</a>
+            <a href="#0" class="btn btn-primary solid cd-btn">Learn More</a>
+          </div> 
+        </li>
+        <li>
+          <div class="overlay2">
+            <img class="" src="/images/slider/bg2.jpg" alt="slider">
           </div>
+          <div class="cd-half-width">
+            <h2>Discover signs of compromize</h2>
+            <p>Velociraptor brings domain expert forensic knowledge to your fingertips</p>
+            <a href="#0" class="cd-btn btn btn-primary solid">Take a Tour</a>
+          </div> 
+
+          <div class="cd-half-width cd-img-container">
+            <img src="/images/logos/logo.svg"
+                 class="logo"
+                 alt="">
+          </div> 
+        </li>
+        <li>
+          <div class="overlay2">
+            <img class="" src="/images/slider/bg3.jpg" alt="slider">
+          </div>
+          <div class="cd-half-width cd-img-container img-right">
+            <img src="/images/logos/logo.svg" class="logo" alt="">
+          </div> 
+          <div class="cd-half-width">
+            <h2>Respond and Automate</h2>
+            <p>Automate response to collect more evidence, or disrupt and ongoing attack!</p>
+            <a href="#0" class="cd-btn btn btn-primary white">Start</a>
+            <a href="#0" class="cd-btn btn secondary btn-primary solid">Learn More</a>
+          </div> 
+        </li>
+      </ul> 
+
+      <div class="cd-slider-nav">
+        <nav>
+          <span class="cd-marker item-1"></span>
+          <ul>
+            <li class="selected"><a href="#0">
+                <i class="fa fa-binoculars"></i>
+                Investigate</a></li>
+            <li><a href="#0"><i class="fa fa-search"></i>
+                Discover</a></li>
+            <li><a href="#0"><i class="fa fa-bullseye"></i>
+                React</a></li>
+          </ul>
+        </nav>
+      </div> 
+
+    </div>
+  </section> 
+
+
+  
+  <section id="service" class="service angle">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-1">
+          <span class="title-icon pull-left">
+            <i class="fa fa-cogs"></i></span>
         </div>
-      <div class="col-12 text-center d-lg-none pb-4 order-lg-1 mt-lg-5 mr-lg-auto col-lg-4">
-        <div class="row">
-          <div class="col-12">
-                <span class="fa-stack fa-4x" title="Open source">
-                  <i class="fas fa-circle fa-stack-2x text-primary"></i>
-                  <i class="fab fa-osi fa-stack-1x fa-inverse"></i>
-                  <span class="sr-only">Open source</span>
-                </span>
-          </div>
+        <div class="col-md-11 heading">
+          <h2 class="title">
+            The Velociraptor advantage
+            <span class="title-desc">
+              Powered by a flexible and powerful query language,
+              Velociraptor is quickly becoming the tool of choice
+              for many forensic and incident response
+              investigations.
+            </span>
+          </h2>
         </div>
-      </div><div class="row text-left">
-        <div class="col-12">
-          <div class="mb-0 text-secondary">As an open source platform, Velociraptor is designed to evolve and
-improve through the feedback and input from those in the front line of
-cybersecurity and forensic investigations. Just as the world of
-cybersecurity changes, so does Velociraptor.</div>
-        </div>
-      </div></div>
-    <div class="col-12 order-lg-1 mr-lg-auto col-lg-4">
-      <div class="row justify-content-center">
-            <div class="col-12 text-center d-none d-lg-inline">
-              <span class="fa-stack fa-4x" title="Open source">
-                <i class="fas fa-circle fa-stack-2x text-primary"></i>
-                <i class="fab fa-osi fa-stack-1x fa-inverse"></i>
-                <span class="sr-only">Open source</span>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <div class="col-md-3 col-sm-3 wow fadeInDown" data-wow-delay=".5s">
+            <div class="service-content text-center">
+              <span class="service-icon icon-pentagon">
+                <img src="/images/icons/logs.svg"></img>
               </span>
+              <h3>Collection</h3>
+              <p>
+                At the press of a button, collect evidence across all your endpoints.
+              </p>
             </div>
+          </div>
+
+          <div class="col-md-3 col-sm-3 wow fadeInDown" data-wow-delay=".8s" >
+            <div class="service-content text-center">
+              <span class="service-icon icon-pentagon">
+                <img src="/images/icons/monitoring.svg"></img>
+              </span>
+              <h3>Detection</h3>
+              <p>
+                Continuously collect endpoint events such as event
+                logs, file modification and process execution
+                logs. Centrally store events indefinitely for
+                historical review and analysis.
+              </p>
+            </div>
+
+          </div>
+
+          <div class="col-md-3 col-sm-3 wow fadeInDown" data-wow-delay="1.1s">
+            <div class="service-content text-center">
+              <span class="service-icon icon-pentagon">
+                <img src="/images/icons/target.svg"></img>
+              </span>
+              <h3>Hunting</h3>
+              <p>
+                Actively search for intrusions by customizing
+                detection and collection rules to your specific
+                environment.
+              </p>
+            </div>
+          </div>
+
+          <div class="col-md-3 col-sm-3 wow fadeInDown" data-wow-delay="1.4s">
+            <div class="service-content text-center">
+              <span class="service-icon icon-pentagon">
+                <img src="/images/icons/triage.svg"></img>
+              </span>
+              <h3>Response</h3>
+              <p>
+                When certain conditions are detected, trigger
+                automated response actions - from alerts to
+                automated triaging and endpoint lockdown.
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-    </div>
-    </div>
-</section>
+  </section>
 
-<!-- Item -->
-<section id="unique_value_2" class="fragment">
-    <div class="container-fluid bg-dark">
-    <div class="container py-5">
+  
+  <section id="portfolio" class="portfolio">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3">
+        </div>
+        <div class="col-md-6 heading">
+          <span class="title-icon classic pull-left"><i class="fa fa-suitcase"></i></span>
+          <h2 class="title classic">Velociraptor</h2>
+        </div>
+      </div> 
 
-  <div class="row align-items-center text-center justify-content-start text-lg-left">
-    <div class="col-12 order-lg-1 pr-lg-5 col-lg-8">
-        <div class="row pb-3">
-          <div class="col-12 text-white">
-            <h2>Deploy in minutes.</h2>
-          </div>
+      
+      <div class="row text-right">
+        <div class="isotope-nav" data-isotope-nav="isotope">
+          <ul>
+            <li><a href="#" class="active" data-filter="*">All</a></li>
+            <li><a href="#" data-filter=".forensics">Forensics</a></li>
+            <li><a href="#" data-filter=".incident-response">Incident Response</a></li>
+          </ul>
         </div>
-      <div class="col-12 text-center d-lg-none pb-4 order-lg-12 mt-lg-5 ml-lg-auto col-lg-4">
-        <div class="row">
-          <div class="col-12">
-                <span class="fa-stack fa-4x" title="Deploy in minutes.">
-                  <i class="fas fa-circle fa-stack-2x text-primary"></i>
-                  <i class="fas fa-bolt fa-stack-1x fa-inverse"></i>
-                  <span class="sr-only">Deploy in minutes.</span>
-                </span>
-          </div>
-        </div>
-      </div><div class="row text-left">
-        <div class="col-12">
-          <div class="mb-0 text-secondary">Velociraptor works on macOS, Windows, Linux, FreeBSD, and others.
-Velociraptor is distributed as a statically linked single binary. This
-ensures it does not require runtime dependencies or libraries to be
-present on the system making it easy to deploy with SCCM or Windows&rsquo;
-built in group policy technology.</div>
-        </div>
-      </div></div>
-    <div class="col-12 order-lg-12 ml-lg-auto col-lg-4">
-      <div class="row justify-content-center">
-            <div class="col-12 text-center d-none d-lg-inline">
-              <span class="fa-stack fa-4x" title="Deploy in minutes.">
-                <i class="fas fa-circle fa-stack-2x text-primary"></i>
-                <i class="fas fa-bolt fa-stack-1x fa-inverse"></i>
-                <span class="sr-only">Deploy in minutes.</span>
-              </span>
-            </div>
       </div>
     </div>
-  </div>
-    </div>
-    </div>
-</section>
 
-<!-- Item -->
-<section id="unique_value_3" class="fragment">
-    <div class="container-fluid bg-dark">
-    <div class="container py-5">
-
-  <div class="row align-items-center text-center justify-content-start text-lg-left">
-    <div class="col-12 order-lg-12 pl-lg-5 col-lg-8">
-        <div class="row pb-3">
-          <div class="col-12 text-white">
-            <h2>Powered by VQL</h2>
-          </div>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="">
         </div>
-      <div class="col-12 text-center d-lg-none pb-4 order-lg-1 mt-lg-5 mr-lg-auto col-lg-4">
-        <div class="row">
-          <div class="col-12">
-                <span class="fa-stack fa-4x" title="Powered by VQL">
-                  <i class="fas fa-circle fa-stack-2x text-primary"></i>
-                  <i class="fas fa-table fa-stack-1x fa-inverse"></i>
-                  <span class="sr-only">Powered by VQL</span>
-                </span>
-          </div>
-        </div>
-      </div><div class="row text-left">
-        <div class="col-12">
-          <div class="mb-0 text-secondary">An expressive query language is used to tailor and adapt detection
-rules without needing to modify code or deploy software to collect new
-information. VQL is contained within high level, human readable files
-called <strong>Artifacts</strong>. These files can be shared and exchanged freely
-within the community in order to share knowledge and experience.</div>
-        </div>
-      </div></div>
-    <div class="col-12 order-lg-1 mr-lg-auto col-lg-4">
-      <div class="row justify-content-center">
-            <div class="col-12 text-center d-none d-lg-inline">
-              <span class="fa-stack fa-4x" title="Powered by VQL">
-                <i class="fas fa-circle fa-stack-2x text-primary"></i>
-                <i class="fas fa-table fa-stack-1x fa-inverse"></i>
-                <span class="sr-only">Powered by VQL</span>
-              </span>
+        <div class="">
+          <div id="isotope" class="isotope">
+            <div class="col-sm-3 web-design isotope-item">
+              <div class="grid">
+                <figure class="effect-oscar">
+                  <img src="/images/screenshots/add_artifacts.png" alt="">
+                  <figcaption>
+                    <h3>Search for Forensic Artifacts</h3>
+                    <a class="link icon-pentagon" href="portfolio-item.html"><i class="fa fa-link"></i></a>
+                    <a class="view icon-pentagon" data-rel="prettyPhoto"
+                       href="/images/screenshots/add_artifacts.png">
+                      <i class="fa fa-search"></i></a>
+                  </figcaption>
+                </figure>
+              </div>
             </div>
+
+            <div class="col-sm-3 forensics isotope-item">
+              <div class="grid">
+                <figure class="effect-oscar">
+                  <img src="/images/screenshots/client_stats.png" alt="">
+                  <figcaption>
+                    <h3>Endpoint Telemetry</h3>
+                    <a class="link icon-pentagon" href="portfolio-item.html"><i class="fa fa-link"></i></a>
+                    <a class="view icon-pentagon" data-rel="prettyPhoto"
+                       href="/images/screenshots/client_stats.png">
+                      <i class="fa fa-search"></i></a>
+                  </figcaption>
+                </figure>
+              </div>
+            </div>
+
+            <div class="col-sm-3 incident-response isotope-item">
+              <div class="grid">
+                <figure class="effect-oscar">
+                  <img src="/images/screenshots/dashboard.png" alt="">
+                  <figcaption>
+                    <h3>A dashboard</h3>
+                    <a class="link icon-pentagon" href="portfolio-item.html"><i class="fa fa-link"></i></a>
+                    <a class="view icon-pentagon" data-rel="prettyPhoto"
+                       href="/images/screenshots/dashboard.png">
+                      <i class="fa fa-search"></i></a>
+                  </figcaption>
+                </figure>
+              </div>
+            </div>
+
+            <div class="col-sm-3 incident-response isotope-item">
+              <div class="grid">
+                <figure class="effect-oscar">
+                  <img src="/images/screenshots/edit_artifacts.png" alt="">
+                  <figcaption>
+                    <h3>Editing Artifacts</h3>
+                    <a class="link icon-pentagon" href="portfolio-item.html"><i class="fa fa-link"></i></a>
+                    <a class="view icon-pentagon" data-rel="prettyPhoto"
+                       href="/images/screenshots/edit_artifacts.png">
+                      <i class="fa fa-search"></i></a>
+                  </figcaption>
+                </figure>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-    </div>
-    </div>
-</section>
+  </section>
 
-<!-- Item -->
-<section id="unique_value_4" class="fragment">
-    <div class="container-fluid bg-dark">
-    <div class="container py-5">
-
-  <div class="row align-items-center text-center justify-content-start text-lg-left">
-    <div class="col-12 order-lg-1 pr-lg-5 col-lg-8">
-        <div class="row pb-3">
-          <div class="col-12 text-white">
-            <h2>Commercially supported</h2>
+  
+  <section id="feature" class="feature">
+    <div class="container">
+      <div class="row">
+        <div class="feature-box col-sm-4 wow fadeInDown" data-wow-delay=".5s">
+          <span class="feature-icon pull-left" ><i class="fab fa-osi"></i></span>
+          <div class="feature-content">
+            <h3>Open Source</h3>
+            <p>
+              As an open source platform, Velociraptor is designed
+              to evolve and improve through the feedback and input
+              from those in the front line of cybersecurity and
+              forensic investigations. Just as the world of
+              cybersecurity changes, so does Velociraptor.
+            </p>
           </div>
         </div>
-      <div class="col-12 text-center d-lg-none pb-4 order-lg-12 mt-lg-5 ml-lg-auto col-lg-4">
-        <div class="row">
-          <div class="col-12">
-                <span class="fa-stack fa-4x" title="Commercially supported">
-                  <i class="fas fa-circle fa-stack-2x text-primary"></i>
-                  <i class="fas fa-phone-volume fa-stack-1x fa-inverse"></i>
-                  <span class="sr-only">Commercially supported</span>
-                </span>
+
+        <div class="feature-box col-sm-4 wow fadeInDown" data-wow-delay=".5s">
+          <span class="feature-icon pull-left" ><i class="fa fa-bolt"></i></span>
+          <div class="feature-content">
+            <h3>Deploy in minutes.</h3>
+            <p>
+              Velociraptor works on macOS, Windows, Linux,
+              FreeBSD, and others.  Velociraptor is distributed as
+              a statically linked single binary. This ensures it
+              does not require runtime dependencies or libraries
+              to be present on the system making it easy to deploy
+              with SCCM or Windows' built in group policy
+              technology.
+            </p>
           </div>
         </div>
-      </div><div class="row text-left">
-        <div class="col-12">
-          <div class="mb-0 text-secondary">Velocidex Enterprises offers a trusted commercial entity which stands
-behind our product! Backed by our experience in digital forensics and
-incident response investigations we can assist with custom integration
-or development requirements.</div>
+
+        <div class="feature-box col-sm-4 wow fadeInDown" data-wow-delay=".5s">
+          <span class="feature-icon pull-left" ><i class="fa fa-table"></i></span>
+          <div class="feature-content">
+            <h3>Powered by VQL</h3>
+            <p>
+              An expressive query language is used to tailor and
+              adapt detection rules without needing to modify code
+              or deploy software to collect new information. VQL
+              is contained within high level, human readable files
+              called **Artifacts**. These files can be shared and
+              exchanged freely within the community in order to
+              share knowledge and experience.
+            </p>
+          </div>
         </div>
-      </div></div>
-    <div class="col-12 order-lg-12 ml-lg-auto col-lg-4">
-      <div class="row justify-content-center">
-            <div class="col-12 text-center d-none d-lg-inline">
-              <span class="fa-stack fa-4x" title="Commercially supported">
-                <i class="fas fa-circle fa-stack-2x text-primary"></i>
-                <i class="fas fa-phone-volume fa-stack-1x fa-inverse"></i>
-                <span class="sr-only">Commercially supported</span>
-              </span>
-            </div>
       </div>
-    </div>
-  </div>
-    </div>
-    </div>
-</section>
 
-<!-- Item -->
-<section id="unique_value_5" class="fragment">
-    <div class="container-fluid bg-dark">
-    <div class="container py-5">
+      <div class="gap-40"></div>
 
-  <div class="row align-items-center text-center justify-content-start text-lg-left">
-    <div class="col-12 order-lg-12 pl-lg-5 col-lg-8">
-        <div class="row pb-3">
-          <div class="col-12 text-white">
-            <h2>Training available</h2>
+      <div class="row">
+        <div class="feature-box col-sm-4 wow fadeInDown" data-wow-delay=".5s">
+          <span class="feature-icon pull-left" ><i class="fa fa-phone"></i></span>
+          <div class="feature-content">
+            <h3>Commercially supported</h3>
+            <p>
+              Velocidex Enterprises offers a trusted commercial
+              entity which stands behind our product! Backed by
+              our experience in digital forensics and incident
+              response investigations we can assist with custom
+              integration or development requirements.
+            </p>
           </div>
         </div>
-      <div class="col-12 text-center d-lg-none pb-4 order-lg-1 mt-lg-5 mr-lg-auto col-lg-4">
-        <div class="row">
-          <div class="col-12">
-                <span class="fa-stack fa-4x" title="Training available">
-                  <i class="fas fa-circle fa-stack-2x text-primary"></i>
-                  <i class="fas fa-user-graduate fa-stack-1x fa-inverse"></i>
-                  <span class="sr-only">Training available</span>
-                </span>
+
+        <div class="feature-box col-sm-4 wow fadeInDown" data-wow-delay=".5s">
+          <span class="feature-icon pull-left" ><i class="fas fa-user-graduate"></i></span>
+          <div class="feature-content">
+            <h3>Training available</h3>
+            <p>
+              Velociraptor is designed to be easy to use and
+              deploy. Formal Training will allow you to
+              confidently deploy and maximise the value you can
+              get from Velociraptor. Velocidex Enterprises offers
+              training courses at various levels which can also be
+              tailored to your specific needs.
+            </p>
           </div>
         </div>
-      </div><div class="row text-left">
-        <div class="col-12">
-          <div class="mb-0 text-secondary">Velociraptor is designed to be easy to use and deploy. Formal Training
-will allow you to confidently deploy and maximise the value you can
-get from Velociraptor. Velocidex Enterprises offers training courses
-at various levels which can also be tailored to your specific needs.</div>
+
+        <div class="feature-box col-sm-4 wow fadeInDown" data-wow-delay=".5s">
+          <span class="feature-icon pull-left" ><i class="fa fa-tachometer-alt"></i></span>
+          <div class="feature-content">
+            <h3>High Performance Hunting</h3>
+            <p>
+              We pay a lot of attention to the performance of our
+              tool! Velociraptor features high performance and
+              endpoint throttling to minimize endpoint impact.
+            </p>
+          </div>
         </div>
-      </div></div>
-    <div class="col-12 order-lg-1 mr-lg-auto col-lg-4">
-      <div class="row justify-content-center">
-            <div class="col-12 text-center d-none d-lg-inline">
-              <span class="fa-stack fa-4x" title="Training available">
-                <i class="fas fa-circle fa-stack-2x text-primary"></i>
-                <i class="fas fa-user-graduate fa-stack-1x fa-inverse"></i>
-                <span class="sr-only">Training available</span>
-              </span>
-            </div>
+
       </div>
+
+      <div class="gap-40"></div>
+
     </div>
-  </div>
-    </div>
-    </div>
-</section>
-<div class="container-fluid bg-light">
-  <div class="row align-items-center text-center text-lg-left">
-    <div class="dt-laptop-slider">
-      <div class="laptop-screen"><img class="app-shot" src="dashboard.png" /><img class="app-shot" src="add_artifacts.png" /><img class="app-shot" src="client_stats.png" /><img class="app-shot" src="edit_artifacts.png" /></div>
-    </div>
-  </div>
-</div>
-<div class="map-item" id="map"></div>
+  </section>
+
+
+  <section id="image-block" class="image-block no-padding">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-6 ts-padding"><div class="map-item" id="map"></div>
 <script>
   function initMap() {
     var ve = {lat: -33.8656909, lng: 151.20929479999995};
@@ -887,7 +567,7 @@ at various levels which can also be tailored to your specific needs.</div>
     });
 
     var image = {
-      url: "/images/logo_bare_small.svg",
+      url: "/images/logos/velo_bare_small.svg",
       
       size: new google.maps.Size(73, 117),
       
@@ -913,114 +593,392 @@ at various levels which can also be tailored to your specific needs.</div>
 <script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBHBbgGnUPMVZ92mDQWfc0TubCbMqDVnD4&callback=initMap">
 </script>
-
-<!-- Member -->
-<section id="members" class="fragment">
-    <div class="container-fluid bg-light">
-    <div class="container py-5">
-
-  <div class="row mx-0">
-    <div class="col px-0 text-center text-body">
-      <h2>Our team</h2>
-    </div>
-  </div><div class="row mx-0">
-    <div class="col pt-4 pb-0 px-0 text-center text-body">
-      <h5>Velociraptor was developed by an expert team of digital forensic and cyber response professionals who have a long history of developing and working with incident response tools. Frustrated with the limitations and lack of flexibility of other tools, Velociraptor has the DFIR practitioner community in mind.</h5>
-    </div>
-  </div>
-<div class="row justify-content-center align-items-start"><div class="col-lg-4 col-md-6 col-sm-12 pt-3 pb-5 text-left text-sm-center"><div class="text-center m-2">
-                <img src="/members/mike_hu53881ffbbf3525e0d99bfc8329da8184_43925_250x250_fill_q75_box_smart1.jpg" class="img-fluid rounded-circle w-75 border border-dark" alt="Michael Cohen"></img>
-              </div><div class="mt-5 mb-0 text-body">
-              <h2>Michael Cohen</h2>
-            </div>
-            <div class="member text-body"><div class="pt-3">
-                    <div class="description">Michael Cohen is a Digital Forensic Researcher and Software
-Engineer. He has worked on such open source DFIR projects as Rekall
-and GRR, the platform developed and used by Google for digital
-forensic investigation and incident response across their massive
-network. He founded Velocidex, specialising in development and
-implementation of opensource DFIR tools. He is the Principal Developer
-of Velociraptor.</div>
-                  </div></div>
-          </div><div class="col-lg-4 col-md-6 col-sm-12 pt-3 pb-5 text-left text-sm-center"><div class="text-center m-2">
-                <img src="/images/nick.jpg" class="img-fluid rounded-circle w-75 border border-dark" alt="Nick Klein"></img>
-              </div><div class="mt-5 mb-0 text-body">
-              <h2>Nick Klein</h2>
-            </div>
-            <div class="member text-body"><div class="pt-3">
-                    <div class="description">Nick Klein is the Director of Klein &amp; Co., the leading independent
-computer forensic team from Sydney, Australia. He has over 20 years of
-experience, specialising in forensic technology investigations and
-presenting expert evidence in legal and other proceedings. Since
-founding Klein &amp; Co. in 2009, Klein and his team have been engaged as
-experts in well over 1,000 cases.</div>
-                  </div></div>
+</div>
+        <div class="col-md-6 ts-padding img-block-right">
+          <div class="img-block-head text-center">
+            <h2>Know More About Our Company</h2>
+            <h3>Velocidex Enterprises</h3>
+            <p>
+              We are an Austalian technology company.
+            </p>
           </div>
-    </div>
-    </div>
-    </div>
-</section>
 
+          <div class="gap-30"></div>
 
-<!-- Copyright -->
-<footer class="overlay fragment container-fluid bg-light" id="copyright">
-  <div class="container">
-    <div class="row py-3">
-      <div class="col-md">
-        <div class="row mx-0 my-2 justify-content-center text-center text-lg-none text-black-50">
-          <div class="row mx-0 mr-lg-auto justify-content-center">
-              <div class="col-auto">Copyright 2019, Velocidex Enterprises Ltd.</div>
+          <div class="image-block-content">
+            <span class="feature-icon pull-left" >
+              <i class="fa fa-bicycle"></i>
+            </span>
+            <div class="feature-content">
+              <h3>Proven track record</h3>
+              <p>We have been doing incident response work for years.</p>
+            </div>
           </div>
+
+          <div class="image-block-content">
+            <span class="feature-icon pull-left" >
+              <i class="fa fa-gem"></i>
+            </span>
+            <div class="feature-content">
+              <h3>Someone you can trust</h3>
+              <p>Our integrity is our strength</p>
+            </div>
+          </div>
+
+          <div class="image-block-content">
+            <span class="feature-icon pull-left" >
+              <i class="fa fa-street-view"></i>
+            </span>
+            <div class="feature-content">
+              <h3>Local presence</h3>
+              <p>
+                We come to you and help you set up and manage your
+                Velociraptor deployment
+              </p>
+            </div>
+          </div>
+
         </div>
       </div>
-        <div class="col-auto mx-auto">
-          <div class="row mx-0 navbar-text text-center text-black-50">Website based on<a href="https://syna.okkur.org" class="ml-1">Syna</a>
-          </div>
-        </div>
-        <div class="col-md">
-          <div class="row mx-0 my-2 justify-content-center">
-            <ul class="nav ml-lg-auto">
-                <li class="nav-item">
-                  <a class="nav-link py-0" href="/about"
-                  >About Us</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link py-0" href="/#"
-                  
-                    class="anchor"
-                  >Another Link</a>
-                </li>
-            </ul>
-          </div>
-        </div>
     </div>
-  </div>
-</footer>
-<div id="react"></div>
-    <div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header row mx-0">
-              <div class="modal-title col px-0">
-                <h5 class="title text-dark"></h5>
-                <h6 class="subtitle text-secondary"></h6>
+  </section>
+
+
+
+
+  
+  <section id="team" class="team">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-1">
+          <span class="title-icon pull-left">
+            <i class="fab fa-weixin"></i></span>
+        </div>
+        <div class="col-md-11 heading">
+          <h2 class="title">
+            Our Team <span class="title-desc">
+              Velociraptor was developed by an expert team of
+              digital forensic and cyber response professionals
+              who have a long history of developing and working
+              with incident response tools. Frustrated with the
+              limitations and lack of flexibility of other tools,
+              Velociraptor has the DFIR practitioner community in
+              mind.
+          </span></h2>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6 col-sm-6">
+          <div class="team team-list wow slideInLeft">
+            <div class="img-hexagon">
+              <img src="/images/faces/mike.jpg" alt="">
+              <span class="img-top"></span>
+              <span class="img-bottom"></span>
+            </div>
+            <div class="team-content">
+              <h3>Mike Cohen</h3>
+              <p class="desc">
+                Michael is a Digital Forensic Researcher and Software Engineer. He has worked on such open source DFIR projects as Rekall and GRR. He is the Principal Developer of Velociraptor.
+              </p>
+
+              <div class="team-social">
+                <a class="fb" href="#"><i class="fab fa-facebook"></i></a>
+                <a class="twt" href="#"><i class="fab fa-twitter"></i></a>
+                <a class="gplus" href="#"><i class="fab fa-google-plus"></i></a>
+                <a class="linkdin" href="#"><i class="fab fa-linkedin"></i></a>
+                <a class="dribble" href="#"><i class="fab fa-dribbble"></i></a>
               </div>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
             </div>
-            <img src="" alt="" class="img-fluid">
-            <div class="modal-body p-3">
-              <div class="badge-container"></div>
-              <div class="content"></div>
+          </div>
+        </div>
+        <div class="col-md-6 col-sm-6">
+          <div class="team team-list wow slideInRight">
+            <div class="img-hexagon">
+              <img src="/images/faces/nick.jpg" alt="">
+              <span class="img-top"></span>
+              <span class="img-bottom"></span>
+            </div>
+            <div class="team-content">
+              <h3>Nick Klein</h3>
+              <p class="desc">
+                Nick Klein has over 20 years of experience,
+                specialising in forensic technology investigations
+                and presenting expert evidence in legal and other
+                proceedings. Since founding Klein & Co. in 2009,
+                Klein and his team have been engaged as experts in
+                well over 1,000 cases.
+              </p>
+              <div class="team-social">
+                <a class="fb" href="#"><i class="fab fa-facebook"></i></a>
+                <a class="twt" href="#"><i class="fab fa-twitter"></i></a>
+                <a class="gplus" href="#"><i class="fab fa-google-plus"></i></a>
+                <a class="linkdin" href="#"><i class="fab fa-linkedin"></i></a>
+                <a class="dribble" href="#"><i class="fab fa-dribbble"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="gap-60"></div>
+    </div>
+  </section>
+
+  
+  <section class="parallax parallax1">
+    <div class="parallax-overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 text-center">
+          <h2>Download your copy today!</h2>
+          <p>
+            <a href="docs/getting-started"
+               class="btn btn-primary white">
+              Getting Started
+            </a>
+            <a href="https://github.com/Velocidex/velociraptor/releases"
+               class="btn btn-primary solid">
+              Download
+            </a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  
+  <section class="testimonial parallax parallax2">
+    <div class="parallax-overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div id="testimonial-carousel" class="owl-carousel owl-theme text-center testimonial-slide">
+          <div class="item">
+            <div class="testimonial-thumb">
+              <img src="/images/team/testimonial1.jpg" alt="testimonial">
+            </div>
+            <div class="testimonial-content">
+              <p class="testimonial-text">
+                Lorem Ipsum as their default model text, and a search for ‘lorem ipsum’ will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose. Lorem Ipsum is that it as opposed to using.
+              </p>
+              <h3 class="name">Sarah Arevik<span>Chief Executive</span></h3>
+            </div>
+          </div>
+          <div class="item">
+            <div class="testimonial-thumb">
+              <img src="/images/team/testimonial2.jpg" alt="testimonial">
+            </div>
+            <div class="testimonial-content">
+              <p class="testimonial-text">
+                Lorem Ipsum as their default model text, and a search for ‘lorem ipsum’ will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose. Lorem Ipsum is that it as opposed to using.
+              </p>
+              <h3 class="name">Narek Bedros<span>Sr. Manager</span></h3>
+            </div>
+          </div>
+          <div class="item">
+            <div class="testimonial-thumb">
+              <img src="/images/team/testimonial3.jpg" alt="testimonial">
+            </div>
+            <div class="testimonial-content">
+              <p class="testimonial-text">
+                Lorem Ipsum as their default model text, and a search for ‘lorem ipsum’ will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose. Lorem Ipsum is that it as opposed to using.
+              </p>
+              <h3 class="name">Taline Lucine<span>Sales Manager</span></h3>
             </div>
           </div>
         </div>
       </div>
     </div>
+  </section>
 
-    <!-- Theme Code -->
-      <script async defer src="/scripts/syna-main.min.7d08697560d9c911a0194673093ed24e917be39c0c6ea6ffe9bfefd7869f9f34.js"></script>
-      <link rel='stylesheet' href='/css/page.css'>
-  </body>
+</div>
+
+  
+  <footer id="footer" class="footer">
+    <div class="container">
+
+      <div class="row">
+        <div class="col-md-4 col-sm-12 footer-widget">
+          <h3 class="widget-title">Recent Posts</h3>
+
+          <div class="latest-post-items media">
+            <div class="latest-post-content media-body">
+              <h4><a href="#">Bulgaria claims to find Europe's 'oldest town'</a></h4>
+              <p class="post-meta">
+                <span class="author">Posted by John Doe</span>
+                <span class="post-meta-cat">in<a href="#"> Blog</a></span>
+              </p>
+            </div>
+          </div>
+
+          <div class="latest-post-items media">
+            <div class="latest-post-content media-body">
+              <h4><a href="#">Few Answers in Case of Murdered Law Professor</a></h4>
+              <p class="post-meta">
+                <span class="date"><i class="icon icon-calendar"></i> Mar 15, 2015</span>
+                <span class="post-meta-comments"><i class="icon icon-bubbles4"></i> <a href="#">03</a></span>
+              </p>
+            </div>
+          </div>
+
+          <div class="latest-post-items media">
+            <div class="latest-post-content media-body">
+              <h4><a href="#">Over the year we have lots of experience in our field</a></h4>
+              <p class="post-meta">
+                <span class="date"><i class="icon icon-calendar"></i> Apr 17, 2015</span>
+                <span class="post-meta-comments"><i class="icon icon-bubbles4"></i> <a href="#">14</a></span>
+              </p>
+            </div>
+          </div>
+
+        </div>
+
+
+
+        <div class="col-md-4 col-sm-12 footer-widget">
+          <h3 class="widget-title">Flickr Photos</h3>
+
+          <div class="img-gallery">
+            <div class="img-container">
+              <a class="thumb-holder" data-rel="prettyPhoto" href="/images/gallery/1.jpg">
+                <img src="/images/gallery/1.jpg" alt="">
+              </a>
+              <a class="thumb-holder" data-rel="prettyPhoto" href="/images/gallery/2.jpg">
+                <img src="/images/gallery/2.jpg" alt="">
+              </a>
+              <a class="thumb-holder" data-rel="prettyPhoto" href="/images/gallery/3.jpg">
+                <img src="/images/gallery/3.jpg" alt="">
+              </a>
+              <a class="thumb-holder" data-rel="prettyPhoto" href="/images/gallery/4.jpg">
+                <img src="/images/gallery/4.jpg" alt="">
+              </a>
+              <a class="thumb-holder" data-rel="prettyPhoto" href="/images/gallery/5.jpg">
+                <img src="/images/gallery/5.jpg" alt="">
+              </a>
+              <a class="thumb-holder" data-rel="prettyPhoto" href="/images/gallery/6.jpg">
+                <img src="/images/gallery/6.jpg" alt="">
+              </a>
+              <a class="thumb-holder" data-rel="prettyPhoto" href="/images/gallery/6.jpg">
+                <img src="/images/gallery/7.jpg" alt="">
+              </a>
+              <a class="thumb-holder" data-rel="prettyPhoto" href="/images/gallery/6.jpg">
+                <img src="/images/gallery/8.jpg" alt="">
+              </a>
+              <a class="thumb-holder" data-rel="prettyPhoto" href="/images/gallery/6.jpg">
+                <img src="/images/gallery/9.jpg" alt="">
+              </a>
+            </div>
+          </div>
+
+
+        </div>
+
+        <div class="col-md-3 col-sm-12 footer-widget footer-about-us">
+          <h3 class="widget-title">About Craft</h3>
+          <p>We are a awward winning multinational company. We believe in quality and standard worldwide.</p>
+          <h4>Address</h4>
+          <p>1102 Saint Marys, Junction City, KS</p>
+          <div class="row">
+            <div class="col-md-6">
+              <h4>Email:</h4>
+              <p>info@craftbd.com</p>
+            </div>
+            <div class="col-md-6">
+              <h4>Phone No.</h4>
+              <p>+(785) 238-4131</p>
+            </div>
+          </div>
+          <form action="#" role="form">
+            <div class="input-group subscribe">
+              <input type="email" class="form-control" placeholder="Email Address" required="">
+              <span class="input-group-addon">
+                <button class="btn" type="submit"><i class="fa fa-envelope-o"> </i></button>
+              </span>
+            </div>
+          </form>
+        </div>
+
+
+      </div>
+    </div>
+  </footer>
+
+
+  
+  <section id="copyright" class="copyright angle">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 text-center">
+          <ul class="footer-social unstyled">
+            <li>
+              <a title="Twitter" href="#">
+                <span class="icon-pentagon wow bounceIn"><i class="fab fa-twitter"></i></span>
+              </a>
+              <a title="Facebook" href="#">
+                <span class="icon-pentagon wow bounceIn"><i class="fab fa-facebook"></i></span>
+              </a>
+              <a title="Google+" href="#">
+                <span class="icon-pentagon wow bounceIn"><i class="fab fa-google-plus"></i></span>
+              </a>
+              <a title="linkedin" href="#">
+                <span class="icon-pentagon wow bounceIn"><i class="fab fa-linkedin"></i></span>
+              </a>
+              <a title="Pinterest" href="#">
+                <span class="icon-pentagon wow bounceIn"><i class="fab fa-pinterest"></i></span>
+              </a>
+              <a title="Skype" href="#">
+                <span class="icon-pentagon wow bounceIn"><i class="fab fa-skype"></i></span>
+              </a>
+              <a title="Dribble" href="#">
+                <span class="icon-pentagon wow bounceIn"><i class="fab fa-dribbble"></i></span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 text-center">
+          <div class="copyright-info">
+            &copy; Copyright 2019 Velocidex Enterprises.
+          </div>
+        </div>
+      </div>
+      <div id="back-to-top" data-spy="affix" data-offset-top="10" class="back-to-top affix">
+        <button class="btn btn-primary" title="Back to Top"><i class="fa fa-angle-double-up"></i></button>
+      </div>
+    </div>
+  </section>
+
+
+
+
+      
+      <script type="text/javascript" src="/js/jquery.js"></script>
+      
+      <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+      
+      <script type="text/javascript" src="/js/style-switcher.js"></script>
+      
+      <script type="text/javascript" src="/js/owl.carousel.js"></script>
+      
+      <script type="text/javascript" src="/js/jquery.prettyPhoto.js"></script>
+      
+      <script type="text/javascript" src="/js/jquery.flexslider.js"></script>
+      
+      <script type="text/javascript" src="/js/cd-hero.js"></script>
+      
+      <script type="text/javascript" src="/js/isotope.js"></script>
+      <script type="text/javascript" src="/js/ini.isotope.js"></script>
+      
+      <script type="text/javascript" src="/js/wow.min.js"></script>
+      
+      <script type="text/javascript" src="/js/smoothscroll.js"></script>
+      
+      <script type="text/javascript" src="/js/jquery.easing.1.3.js"></script>
+      
+      <script type="text/javascript" src="/js/jquery.counterup.min.js"></script>
+      
+      <script type="text/javascript" src="/js/waypoints.min.js"></script>
+      
+      <script type="text/javascript" src="/js/custom.js"></script>
+</body>
 </html>

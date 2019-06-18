@@ -1,0 +1,4 @@
++++
+type = "mainpage"
+layout = "contact"
++++
