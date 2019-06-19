@@ -2928,7 +2928,22 @@ retrieve those files for further analysis.</p>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>
-    
+    <script>
+  function scrollToView(element, container) {
+    var offset = element.offset().top - $(window).scrollTop();
+
+    if(offset > window.innerHeight){
+      
+      container.animate({scrollTop: offset}, 1000);
+      return false;
+    }
+    return true;
+  };
+
+  $(document).ready(function () {
+    scrollToView($("li.active"), $("div.ps-container"));
+  });
+</script>
 
   </body>
 </html>

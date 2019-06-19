@@ -1,0 +1,16 @@
+<script>
+  function scrollToView(element, container) {
+    var offset = element.offset().top - $(window).scrollTop();
+
+    if(offset > window.innerHeight){
+      // Not in view so scroll to it
+      container.animate({scrollTop: offset}, 1000);
+      return false;
+    }
+    return true;
+  };
+
+  $(document).ready(function () {
+    scrollToView($("li.active"), $("div.ps-container"));
+  });
+</script>
