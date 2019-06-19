@@ -2,9 +2,12 @@
         <!-- Basic Page Needs
         ================================================== -->
         <meta charset="utf-8">
-    <title>Velociraptor - Digging Deeper</title>
-    <meta name="description" content="">
-        <meta name="author" content="">
+    <title>{{ .Title }}</title>
+        <!-- Social preview -->
+        {{- template "_internal/opengraph.html" . -}}
+        {{- template "_internal/google_news.html" . -}}
+        {{- template "_internal/schema.html" . -}}
+        {{- template "_internal/twitter_cards.html" . -}}
 
         <!-- Mobile Specific Metas
         ================================================== -->

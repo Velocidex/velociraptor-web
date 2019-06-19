@@ -1,30 +1,18 @@
 ---
 title: VQL PLugins
-linktitle: VQL PLugins
-description: VQL plugins are the data sources of VQL queries.
-date: 2019-02-01
-publishdate: 2019-02-01
-lastmod: 2019-02-01
-categories: [vql]
-keywords: []
-menu:
-  docs:
-    parent: "vql_reference"
-    weight: 10
-weight: 1
-draft: false
-aliases: []
-toc: true
+weight: 10
 ---
 
-SQL queries refer to tables of data. However, VQL queries refer to
-plugins, which generate data rows to be filtered by the query. Unlike
-SQL, VQL plugins also receive keyword arguments. When the plugin is
-evaluated it simply generates a sequence of rows which are further
-filtered by the query.
+VQL plugins are the data sources of VQL queries. While SQL queries
+refer to static tables of data, VQL queries refer to plugins, which
+generate data rows to be filtered by the query.
 
-This allows VQL statements to be chained since plugin args may also be
-other queries.
+Unlike SQL, VQL plugins also receive keyword arguments. When the
+plugin is evaluated it simply generates a sequence of rows which are
+further filtered by the query.
+
+This allows VQL statements to be chained naturally since plugin args
+may also be other queries.
 
 {{% notice note %}}
 
@@ -37,7 +25,6 @@ or in condition clauses (i.e. after the `WHERE` keyword).
 {{% /notice %}}
 
 ## parse_records_with_regex
-
 
 Arg | Description
 ----|------------

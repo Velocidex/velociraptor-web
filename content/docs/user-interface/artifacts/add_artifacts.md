@@ -3,46 +3,99 @@ title: Customizing Artifacts
 weight: 50
 ---
 
-### Adding or Editing artifacts through the GUI
-
 Velociraptor comes with a wide selection of built in artifacts, but
 the real power of Velociraptor's query language lies in the ability of
 users to customize and develop their own artifacts - flexibly
-responding to their own needs.
+responding to their own needs. This is really what sets Velociraptor
+apart from other tools: It is an open platform putting the user in
+charge of designing their own perfect response and detection system.
 
-This can be achieved via the `Server Management` screen - reachable
-from the side bar menu.
+As described previously, Artifacts are simply text files in YAML
+format which encapsulate VQL queries. Artifacts are readable and
+editable by end users, and are supposed to be reused and adapted as
+seen fit.
 
-![Add artifacts](../add_artifacts.png)
+{{% notice tip %}}
 
-The `Server Management` screen consists of a tree view on the left
-hand side showing several high level categories of server
-configuration to edit. The `artifact_definitions` category is used to
-manage the server's artifact repository.
+When thinking about writing a new artifact, you should check out any
+similar artifacts that already exist. It is way easier to adapt an
+existing artifact which does something similar to what you need.
 
-Below the top level we see the `builtin` and the `custom` folders. The
-`builtin` folder contains all the artifacts that come with
-Velociraptor. The artifacts are simply YAML files. Built in artifacts
-are stored in the server binary, while custom artifacts are simply
-stored in the Server's file store (where they can be easily backed up
-if needed). You can see the content of the YAML file by selecting the
-`TextView` tab.
+{{% /notice %}}
 
-Probably the easiest way to get familiar with artifacts is to edit an
-existing artifact. Selecting an existing artifact and clicking the
-`Add/Edit an artifact` toolbar button will open the artifact in an
-editor.
+
+## Viewing existing artifacts
+
+The `Customizing Artifacts` screen, reachable from the side bar menu,
+offers a search interface to the Velociraptor artifacts
+database. Velociraptor comes built in with a large number of useful
+artifacts (you can contribute your own artifacts to the project by
+sending us a pull request <i class="far fa-smile-wink"></i>).
+
+![View artifacts](../artifact_view.png)
+
+Since there are many artifacts in the repository it is easier to
+search for what you need. Simply type your search string in the search
+bar and the UI will suggest artifacts for you to look more closely
+into. The search terms are applied across both the artifact's name and
+the artifact's description.
+
+When selecting an artifact to view, the right pane will be filled with
+information about it. Each artifact should provide some information
+about what it is supposed to look for, any parameters it might require
+and their default values, as well as the actual VQL that will be run.
+
+Note that artifacts have a **Type** which indicates in which context a
+particular artifact can be used. Currently artifacts can be:
+
+1. **CLIENT**: Will run on the client once and return a single collection bundle.
+2. **CLIENT_EVENT**: Will run contineuously on the client as an event monitor.
+3. **SERVER**: Will run on the server once and return a single collection bundle.
+4. **SERVER_EVENT**: Will run contineuously on the server as an event monitor.
+
+In the above example we see the `Server.Monitoring.ClientCount`
+artifact. This is a server event monitoring artifact which sends an
+email every hour with the current state of the deployment (total
+number of clients enrolled). This artifact is useful in order to keep
+network administrators informed of the state of a Velociraptor
+deployment rollout, without needing to provide them actual logons to
+the Velociraptor GUI.
+
+## Editing an existing artifact.
+
+Once an artifact is viewed, it is possible to edit it in order to
+customize a new artifact. Velociraptor comes with a large library of
+existing artifacts and chances are that some of them will already be
+similar to what you need. Therefore it makes sense to start by editing
+an existing artifact.
 
 ![Editing artifacts](../edit_artifacts.png)
 
-If you keep the name of the artifact the same, then the saved artifact
-will override the default built in one. Changing the name will add the
-new artifact to the server repository. Note that custom artifacts are
-always stored under the `custom` path. This way you can always go back
-to see the original builtin artifact content.
+Clicking the `Edit an artifact` button will edit the currently
+selected artifact by bringing up an editor window.
+
+All custom artifacts must have the prefix `Custom` to their name. This
+distinguishes them from the built in artifacts. This means that at any
+time you may choose to run the customized version or the original
+built in artifact as you see fit. In future Velociraptor releases,
+built in artifacts may be updated but since these are not the same as
+the customized artifacts there is no conflict.
 
 Saving the artifact will validate it and ensure the VQL syntax is
-correct. You may then search for it in the artifact collection screen.
+correct. This is not sufficient though, so you should test your new
+artifact thoroughly. Custom artifacts appear in the relevant search
+screen (depending on their declared artifact type).
+
+## Adding a brand new artifact
+
+Clicking the `Add an Artifact` button pre-fills a new artifact with a
+template. The template contains comments to help you build the
+artifact.
+
+When you become more comfortable with VQL and Velociraptor artifacts
+creating a new artifact only takes minutes. This provides you with
+great hunting power - from idea to implementation and execution of a
+hunt may only take a few minutes!
 
 
 {{% notice warning %}}

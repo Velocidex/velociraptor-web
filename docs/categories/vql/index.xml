@@ -42,17 +42,6 @@ VQL plugins are not the same as VQL functions. A plugin is the subject of the VQ
     </item>
     
     <item>
-      <title>VQL PLugins</title>
-      <link>/docs/vql_reference/plugins/</link>
-      <pubDate>Fri, 01 Feb 2019 00:00:00 +0000</pubDate>
-      
-      <guid>/docs/vql_reference/plugins/</guid>
-      <description>SQL queries refer to tables of data. However, VQL queries refer to plugins, which generate data rows to be filtered by the query. Unlike SQL, VQL plugins also receive keyword arguments. When the plugin is evaluated it simply generates a sequence of rows which are further filtered by the query.
-This allows VQL statements to be chained since plugin args may also be other queries.
-VQL plugins are not the same as VQL functions.</description>
-    </item>
-    
-    <item>
       <title>VQL Server Plugins</title>
       <link>/docs/vql_reference/server/</link>
       <pubDate>Fri, 01 Feb 2019 00:00:00 +0000</pubDate>

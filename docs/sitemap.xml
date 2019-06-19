@@ -33,11 +33,6 @@
   </url>
   
   <url>
-    <loc>/docs/vql_reference/plugins/</loc>
-    <lastmod>2019-02-01T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>/docs/vql_reference/server/</loc>
     <lastmod>2019-02-01T00:00:00+00:00</lastmod>
   </url>
@@ -61,6 +56,10 @@
   
   <url>
     <loc>/docs/getting-started/stand_alone/</loc>
+  </url>
+  
+  <url>
+    <loc>/docs/vql_reference/plugins/</loc>
   </url>
   
   <url>
@@ -141,11 +140,6 @@
   </url>
   
   <url>
-    <loc>/</loc>
-    <lastmod>2019-03-02T04:10:06+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>/blog/html/2019/03/02/agentless_hunting_with_velociraptor.html</loc>
     <lastmod>2019-03-02T04:10:06+00:00</lastmod>
   </url>
@@ -160,6 +154,11 @@
     <loc>/categories/</loc>
     <lastmod>2019-03-02T04:10:06+00:00</lastmod>
     <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/</loc>
+    <lastmod>2019-03-02T04:10:06+00:00</lastmod>
   </url>
   
   <url>
@@ -291,18 +290,6 @@
   </url>
   
   <url>
-    <loc>/contact/</loc>
-  </url>
-  
-  <url>
-    <loc>/faq/</loc>
-  </url>
-  
-  <url>
-    <loc>/index.html</loc>
-  </url>
-  
-  <url>
     <loc>/docs/artifacts/linux/linux/</loc>
   </url>
   
@@ -321,6 +308,18 @@
   
   <url>
     <loc>/docs/getting-started/triaging/</loc>
+  </url>
+  
+  <url>
+    <loc>/contact/</loc>
+  </url>
+  
+  <url>
+    <loc>/faq/</loc>
+  </url>
+  
+  <url>
+    <loc>/index.html</loc>
   </url>
   
   <url>

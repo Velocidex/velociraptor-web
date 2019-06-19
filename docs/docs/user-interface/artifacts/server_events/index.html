@@ -694,9 +694,9 @@
  
   
     
-      <li data-nav-id="/docs/vql_reference/plugins/" title="VQL PLugins" class="dd-item ">
-        <a href="/docs/vql_reference/plugins/">
-        VQL PLugins
+      <li data-nav-id="/docs/vql_reference/server/" title="VQL Server Plugins" class="dd-item ">
+        <a href="/docs/vql_reference/server/">
+        VQL Server Plugins
         
         </a>
     </li>
@@ -713,9 +713,9 @@
  
   
     
-      <li data-nav-id="/docs/vql_reference/server/" title="VQL Server Plugins" class="dd-item ">
-        <a href="/docs/vql_reference/server/">
-        VQL Server Plugins
+      <li data-nav-id="/docs/vql_reference/plugins/" title="VQL PLugins" class="dd-item ">
+        <a href="/docs/vql_reference/plugins/">
+        VQL PLugins
         
         </a>
     </li>
@@ -1441,7 +1441,14 @@
                 
                     <div class="progress">
     <div class="wrapper">
-
+<nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#updating-server-event-monitoring">Updating server event monitoring</a></li>
+</ul></li>
+</ul>
+</nav>
     </div>
 </div>
 
@@ -1464,6 +1471,65 @@
         
 
 
+
+
+
+<p>We have seen how client event VQL queries are run on endpoints and
+stream client side events to the server. In a similar way, event
+queries can run on the server to watch for events server side.</p>
+
+<p>Typically server event artifacts monitor the server for the occurrence
+of some conditions. When these conditions are detected, the artifact
+will emit a row.</p>
+
+<p>Selecting <code>Server Events</code> in the UI shows a similar screen to the
+<code>Client Events</code> selection, except that we are now looking at server
+monitoring artifacts.</p>
+
+<p><img src="../server_events.png" alt="Server Events" /></p>
+
+<p>In the above example, we see the <code>Server.Powershell.EncodedCommands</code>
+artifact. This artifact monitors the process execution logs from all
+clients (as collected by the <code>Windows.Events.ProcessCreation</code> client
+monitoring artifact) and when a Powershell process with encoded
+scripts are run, it simply decodes the script.</p>
+
+
+<div class="notices note" ><p>Powershell is a common tool used by many adversaries for lateral
+movement. Typically attackers encode their malicious scripts so they
+can be sent over remote connections. This makes it difficult to see
+what the command will do when looking at a plain process execution
+log. The <code>Server.Powershell.EncodedCommands</code> simply decodes these for
+further inspection.</p>
+</div>
+
+
+<h2 id="updating-server-event-monitoring">Updating server event monitoring</h2>
+
+<p>The Velociraptor server maintains a list of server event artifacts to
+monitor. You can update this list by clicking the &ldquo;Update server
+monitoring artifacts&rdquo; button.</p>
+
+<p><img src="../server_events_add.png" alt="Add Server Monitoring" /></p>
+
+<p>You can search for server monitoring artifacts to add. Highlighting an
+existing artifact will display its description and you may also add
+any potential parameters.</p>
+
+<p>In the example above we are adding the <code>Admin.System.CompressUploads</code>
+artifact which compresses uploads as soon as they are collected from
+endpoints in order to keep server disk usage to a minimum.</p>
+
+
+<div class="notices tip" ><p>The <code>Admin.System.CompressUploads</code> artifact is an example of a server
+event monitoring artifact specifically designed to post process a
+specific type of collected files. In this case we watch for the
+collection flow to complete, then simply compress all files
+uploaded. However one can think of similar post processing scenarios
+such as parsing file of a particular type, or uploading the files to
+virus reputation sites (e.g. Virus Total). Your imagination is really
+the limit of what can be done using this mechanism.</p>
+</div>
 
 
 

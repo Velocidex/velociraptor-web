@@ -1,28 +1,30 @@
 # Site settings
 baseurl = "/"
 languageCode = "en-us"
-title = "Velociraptor - Digging Deeper!"
 theme = ["hugo-theme-learn", "bizcraft"]
 #theme = ["bizcraft", "hugo-theme-learn"]
 #theme = ["hugo-theme-learn"]
 enableGitInfo = false
 version = "0.15.0"
 publishDir = "docs"
+title = "Velociraptor - Digging Deeper!"
 
 [outputs]
   home = ["HTML", "JSON"]
 
 [frontmatter]
-date = ["date", "lastmod"]
-lastmod = ["lastmod", ":git", "date"]
+  date = ["date", "lastmod"]
+  lastmod = ["lastmod", ":git", "date"]
 
-# Google Analytics tracking
-googleAnalytics = ""
+  # Google Analytics tracking
+  googleAnalytics = ""
 
 [params]
   #  Settings from https://learn.netlify.com/en/basics/configuration/
   name = "Velociraptor"
+  title = "Velociraptor: Digging Deeper!"
   description = "Velociraptor: Digging Deeper!"
+  images = ["/images/logos/logo.svg"]
   themeVariant = "mine"
   disableSearch = false
   disableBreadcrumb = true

@@ -47,7 +47,9 @@ In exactly the same way, server side VQL queries are encapsulated in Server Arti
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>/docs/user-interface/artifacts/server_events/</guid>
-      <description></description>
+      <description>We have seen how client event VQL queries are run on endpoints and stream client side events to the server. In a similar way, event queries can run on the server to watch for events server side.
+Typically server event artifacts monitor the server for the occurrence of some conditions. When these conditions are detected, the artifact will emit a row.
+Selecting Server Events in the UI shows a similar screen to the Client Events selection, except that we are now looking at server monitoring artifacts.</description>
     </item>
     
     <item>
@@ -56,9 +58,8 @@ In exactly the same way, server side VQL queries are encapsulated in Server Arti
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>/docs/user-interface/artifacts/add_artifacts/</guid>
-      <description>Adding or Editing artifacts through the GUI Velociraptor comes with a wide selection of built in artifacts, but the real power of Velociraptor&amp;rsquo;s query language lies in the ability of users to customize and develop their own artifacts - flexibly responding to their own needs.
-This can be achieved via the Server Management screen - reachable from the side bar menu.
-The Server Management screen consists of a tree view on the left hand side showing several high level categories of server configuration to edit.</description>
+      <description>Velociraptor comes with a wide selection of built in artifacts, but the real power of Velociraptor&amp;rsquo;s query language lies in the ability of users to customize and develop their own artifacts - flexibly responding to their own needs. This is really what sets Velociraptor apart from other tools: It is an open platform putting the user in charge of designing their own perfect response and detection system.
+As described previously, Artifacts are simply text files in YAML format which encapsulate VQL queries.</description>
     </item>
     
   </channel>
