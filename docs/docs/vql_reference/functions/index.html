@@ -4,25 +4,25 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="Hugo 0.56.0-DEV" />
-    <meta name="description" content="VQL Functions operate on value to return other values.">
+    <meta name="description" content="Velociraptor: Digging Deeper!">
 
 
 <meta property="og:title" content="VQL Functions" />
-<meta property="og:description" content="VQL Functions operate on value to return other values." />
+<meta property="og:description" content="VQL Functions operate on value to return other values. Functions are useful to transform values obtained from a VQL row.
+VQL plugins are not the same as VQL functions. A plugin is the subject of the VQL query - i.e. plugins always follow the FROM keyword, while functions (which return a single value instead of a sequence of rows) are only present in column specification (e.g. after SELECT) or in condition clauses (i." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/docs/vql_reference/functions/" />
 
 <meta property="og:image" content="https://velociraptor-docs-staging.velocidex.com/images/velo_small.png" />
-<meta property="article:published_time" content="2019-02-01T00:00:00&#43;00:00"/>
-<meta property="article:modified_time" content="2019-02-01T00:00:00&#43;00:00"/><meta property="og:site_name" content="Velociraptor: Digging Deeper!" />
+<meta property="og:site_name" content="Velociraptor: Digging Deeper!" />
 
 <meta itemprop="name" content="VQL Functions">
-<meta itemprop="description" content="VQL Functions operate on value to return other values.">
+<meta itemprop="description" content="VQL Functions operate on value to return other values. Functions are useful to transform values obtained from a VQL row.
+VQL plugins are not the same as VQL functions. A plugin is the subject of the VQL query - i.e. plugins always follow the FROM keyword, while functions (which return a single value instead of a sequence of rows) are only present in column specification (e.g. after SELECT) or in condition clauses (i.">
 
 
-<meta itemprop="datePublished" content="2019-02-01T00:00:00&#43;00:00" />
-<meta itemprop="dateModified" content="2019-02-01T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="934">
+
+<meta itemprop="wordCount" content="1989">
 
 
 
@@ -31,7 +31,8 @@
 <meta name="twitter:image" content="https://velociraptor-docs-staging.velocidex.com/images/velo_small.png"/>
 
 <meta name="twitter:title" content="VQL Functions"/>
-<meta name="twitter:description" content="VQL Functions operate on value to return other values."/>
+<meta name="twitter:description" content="VQL Functions operate on value to return other values. Functions are useful to transform values obtained from a VQL row.
+VQL plugins are not the same as VQL functions. A plugin is the subject of the VQL query - i.e. plugins always follow the FROM keyword, while functions (which return a single value instead of a sequence of rows) are only present in column specification (e.g. after SELECT) or in condition clauses (i."/>
 
     <link rel="icon" href="/images/favicon.png" type="image/png">
 
@@ -566,78 +567,6 @@
  
   
     
-    <li data-nav-id="/docs/presentations/" title="Presentations and Workshops" class="dd-item 
-        
-        
-        
-        ">
-      <a href="/docs/presentations/">
-          Presentations and Workshops
-          
-      </a>
-      
-      
-        <ul>
-          
-          
-          
-          
-        
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/docs/presentations/crikeycon2019/" title="Crikeycon 2019 Training Workshop" class="dd-item ">
-        <a href="/docs/presentations/crikeycon2019/">
-        CrikeyCon 2019
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/docs/presentations/nzitf2018/" title="New Zealand Internet Task Force Conference 2018" class="dd-item ">
-        <a href="/docs/presentations/nzitf2018/">
-        NZITF2018
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-        
-        </ul>
-              
-    </li>
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
     <li data-nav-id="/docs/vql_reference/" title="VQL Reference" class="dd-item 
         parent
         
@@ -663,9 +592,9 @@
  
   
     
-      <li data-nav-id="/docs/vql_reference/templates/" title="Report Templates" class="dd-item ">
-        <a href="/docs/vql_reference/templates/">
-        Report Templates
+      <li data-nav-id="/docs/vql_reference/plugins/" title="VQL PLugins" class="dd-item ">
+        <a href="/docs/vql_reference/plugins/">
+        VQL PLugins
         
         </a>
     </li>
@@ -701,25 +630,6 @@
  
   
     
-      <li data-nav-id="/docs/vql_reference/functions/" title="VQL Functions" class="dd-item active">
-        <a href="/docs/vql_reference/functions/">
-        VQL Functions
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
       <li data-nav-id="/docs/vql_reference/server/" title="VQL Server Plugins" class="dd-item ">
         <a href="/docs/vql_reference/server/">
         VQL Server Plugins
@@ -739,9 +649,28 @@
  
   
     
-      <li data-nav-id="/docs/vql_reference/plugins/" title="VQL PLugins" class="dd-item ">
-        <a href="/docs/vql_reference/plugins/">
-        VQL PLugins
+      <li data-nav-id="/docs/vql_reference/functions/" title="VQL Functions" class="dd-item active">
+        <a href="/docs/vql_reference/functions/">
+        VQL Functions
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/vql_reference/templates/" title="Report Templates" class="dd-item ">
+        <a href="/docs/vql_reference/templates/">
+        Report Templates
         
         </a>
     </li>
@@ -755,25 +684,6 @@
         </ul>
               
     </li>
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/docs/tutorial/" title="Tutorial" class="dd-item ">
-        <a href="/docs/tutorial/">
-        Tutorial
-        
-        </a>
-    </li>
-     
   
  
 
@@ -941,6 +851,97 @@
         </ul>
               
     </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/docs/presentations/" title="Presentations and Workshops" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/docs/presentations/">
+          Presentations and Workshops
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/presentations/crikeycon2019/" title="Crikeycon 2019 Training Workshop" class="dd-item ">
+        <a href="/docs/presentations/crikeycon2019/">
+        CrikeyCon 2019
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/presentations/nzitf2018/" title="New Zealand Internet Task Force Conference 2018" class="dd-item ">
+        <a href="/docs/presentations/nzitf2018/">
+        NZITF2018
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/tutorial/" title="Tutorial" class="dd-item ">
+        <a href="/docs/tutorial/">
+        Tutorial
+        
+        </a>
+    </li>
+     
   
  
 
@@ -1471,30 +1472,59 @@
 <ul>
 <li>
 <ul>
-<li><a href="#parse-json">parse_json</a></li>
-<li><a href="#parse-json-array">parse_json_array</a></li>
-<li><a href="#parse-xml">parse_xml</a></li>
-<li><a href="#environ">environ</a></li>
-<li><a href="#dirname">dirname</a></li>
-<li><a href="#basename">basename</a></li>
-<li><a href="#tempfile">tempfile</a></li>
-<li><a href="#format">format</a></li>
-<li><a href="#base64decode">base64decode</a></li>
-<li><a href="#ip">ip</a></li>
-<li><a href="#lowcase">lowcase</a></li>
-<li><a href="#upcase">upcase</a></li>
+<li><a href="#array">array</a></li>
 <li><a href="#atoi">atoi</a></li>
-<li><a href="#now">now</a></li>
-<li><a href="#utf16">utf16</a></li>
+<li><a href="#authenticode">authenticode</a></li>
+<li><a href="#base64decode">base64decode</a></li>
+<li><a href="#basename">basename</a></li>
+<li><a href="#binary-parse">binary_parse</a></li>
+<li><a href="#collect">collect</a></li>
+<li><a href="#compress">compress</a></li>
+<li><a href="#count">count</a></li>
+<li><a href="#dict">dict</a></li>
+<li><a href="#dirname">dirname</a></li>
+<li><a href="#encode">encode</a></li>
+<li><a href="#environ">environ</a></li>
+<li><a href="#expand">expand</a></li>
+<li><a href="#file-store">file_store</a></li>
+<li><a href="#filter">filter</a></li>
+<li><a href="#format">format</a></li>
+<li><a href="#get">get</a></li>
+<li><a href="#getpid">getpid</a></li>
+<li><a href="#grep">grep</a></li>
 <li><a href="#hash">hash</a></li>
 <li><a href="#humanize">humanize</a></li>
-<li><a href="#array">array</a></li>
+<li><a href="#if">if</a></li>
+<li><a href="#int">int</a></li>
+<li><a href="#ip">ip</a></li>
 <li><a href="#join">join</a></li>
-<li><a href="#filter">filter</a></li>
-<li><a href="#getpid">getpid</a></li>
-<li><a href="#url">url</a></li>
+<li><a href="#label">label</a></li>
+<li><a href="#lowcase">lowcase</a></li>
+<li><a href="#max">max</a>
+<ul>
+<li><a href="#example">Example</a></li>
+</ul></li>
+<li><a href="#min">min</a>
+<ul>
+<li><a href="#example-1">Example</a></li>
+</ul></li>
+<li><a href="#now">now</a></li>
+<li><a href="#parse-float">parse_float</a></li>
+<li><a href="#parse-json">parse_json</a></li>
+<li><a href="#parse-json-array">parse_json_array</a></li>
+<li><a href="#parse-pe">parse_pe</a></li>
+<li><a href="#parse-string-with-regex">parse_string_with_regex</a></li>
+<li><a href="#parse-xml">parse_xml</a></li>
+<li><a href="#rate">rate</a></li>
+<li><a href="#regex-replace">regex_replace</a></li>
+<li><a href="#scope">scope</a></li>
+<li><a href="#split">split</a></li>
+<li><a href="#tempfile">tempfile</a></li>
+<li><a href="#timestamp">timestamp</a></li>
+<li><a href="#upcase">upcase</a></li>
 <li><a href="#upload">upload</a></li>
-<li><a href="#expand">expand</a></li>
+<li><a href="#url">url</a></li>
+<li><a href="#utf16">utf16</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -1523,7 +1553,8 @@
 
 
 
-<p>Functions are useful to transform values obtained from a VQL row.</p>
+<p>VQL Functions operate on value to return other values. Functions are
+useful to transform values obtained from a VQL row.</p>
 
 
 <div class="notices note" ><p>VQL plugins are not the same as VQL functions. A plugin is the subject
@@ -1534,96 +1565,239 @@ or in condition clauses (i.e. after the <code>WHERE</code> keyword).</p>
 </div>
 
 
-<h2 id="parse-json">parse_json</h2>
+<h2 id="array">array</h2>
+
+<p>This function accepts arbitrary arguments and creates an array by
+flattening the arguments. For example <code>array(a=1, b=2)</code> will return
+<code>[1, 2]</code>.</p>
+
+<p>You can use this to flatten a subquery as well:</p>
+
+<pre><code class="language-sql">SELECT array(a1={ SELECT User FROM Artifact.Windows.System.Users() }) as Users FROM scope()
+</code></pre>
+
+<p>Will return a single row with Users being an array of names.</p>
+
+<h2 id="atoi">atoi</h2>
 
 <table>
 <thead>
 <tr>
 <th>Arg</th>
 <th>Description</th>
+<th>Type</th>
 </tr>
 </thead>
 
 <tbody>
 <tr>
-<td>data</td>
-<td>A string containing a serialized json object.</td>
+<td>string</td>
+<td>A string to convert to int</td>
+<td>string (required)</td>
 </tr>
 </tbody>
 </table>
 
-<p>This function parses a json string into a dict.</p>
+<p>Converts a string to an integer.</p>
 
-<p>Note that when VQL dereferences fields in a dict it returns a Null for
-those fields that do not exist. Thus there is no error in actually
-accessing missing fields, the column will just return nil.</p>
-
-<h2 id="parse-json-array">parse_json_array</h2>
+<h2 id="authenticode">authenticode</h2>
 
 <table>
 <thead>
 <tr>
 <th>Arg</th>
 <th>Description</th>
+<th>Type</th>
 </tr>
 </thead>
 
 <tbody>
 <tr>
-<td>data</td>
-<td>A string containing a serialized json array.</td>
+<td>filename</td>
+<td>The filename to parse.</td>
+<td>string (required)</td>
 </tr>
 </tbody>
 </table>
 
-<p>This function is similar to <code>parse_json()</code> but works for a JSON list
-instead of an object.</p>
+<p>Uses the Windows API to extract and verify the file&rsquo;s authenticode
+signature. Since we use the windows API this can only work with the
+&ldquo;file&rdquo; accessor.</p>
 
-<h2 id="parse-xml">parse_xml</h2>
+<h2 id="base64decode">base64decode</h2>
 
 <table>
 <thead>
 <tr>
 <th>Arg</th>
 <th>Description</th>
+<th>Type</th>
 </tr>
 </thead>
 
 <tbody>
 <tr>
-<td>file</td>
-<td>A single file to parse</td>
-</tr>
-
-<tr>
-<td>accessor</td>
-<td>The accessor to use for openning the file.</td>
+<td>string</td>
+<td>A string to decode</td>
+<td>string (required)</td>
 </tr>
 </tbody>
 </table>
 
-<p>This function parses the xml file into a dict like object which can
-then be queried.</p>
+<p>Decodes a base64 encoded string.</p>
 
-<h2 id="environ">environ</h2>
+<h2 id="basename">basename</h2>
 
 <table>
 <thead>
 <tr>
 <th>Arg</th>
 <th>Description</th>
+<th>Type</th>
 </tr>
 </thead>
 
 <tbody>
 <tr>
-<td>var</td>
-<td>The name of the environment variable to lookup</td>
+<td>path</td>
+<td>Extract directory name of path</td>
+<td>string (required)</td>
 </tr>
 </tbody>
 </table>
 
-<p>Returns the value of the environment variable specified.</p>
+<p>Splits the path on separator and return the basename.</p>
+
+<h2 id="binary-parse">binary_parse</h2>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>offset</td>
+<td>Start parsing from this offset.</td>
+<td>int64</td>
+</tr>
+
+<tr>
+<td>string</td>
+<td>The string to parse.</td>
+<td>string (required)</td>
+</tr>
+
+<tr>
+<td>profile</td>
+<td>The profile to use.</td>
+<td>string</td>
+</tr>
+
+<tr>
+<td>iterator</td>
+<td>An iterator to begin with.</td>
+<td>string</td>
+</tr>
+
+<tr>
+<td>target</td>
+<td>The target type to fetch.</td>
+<td>string</td>
+</tr>
+</tbody>
+</table>
+
+<p>Parse a binary string with profile based parser.</p>
+
+<h2 id="collect">collect</h2>
+
+<p>Launch an artifact collection against a client.</p>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>client_id</td>
+<td>The client id to schedule a collection on</td>
+<td>string (required)</td>
+</tr>
+
+<tr>
+<td>artifacts</td>
+<td>A list of artifacts to collect</td>
+<td>list of string (required)</td>
+</tr>
+
+<tr>
+<td>env</td>
+<td>Parameters to apply to the artifacts</td>
+<td>vfilter.Any</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="compress">compress</h2>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>path</td>
+<td>A VFS path to compress</td>
+<td>list of string (required)</td>
+</tr>
+</tbody>
+</table>
+
+<p>Compress a file in the server&rsquo;s FileStore. A compressed
+file is archived so it takes less space. It is still possible to see
+the file and read it but not to seek within it.</p>
+
+<h2 id="count">count</h2>
+
+<p>Counts the items.</p>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>items</td>
+<td></td>
+<td>vfilter.Any (required)</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="dict">dict</h2>
+
+<p>Construct a dict from arbitrary keyword args. The dictionary can be
+referenced later by VQL expressions.</p>
 
 <h2 id="dirname">dirname</h2>
 
@@ -1645,51 +1819,148 @@ then be queried.</p>
 
 <p>Splits the path on separator and return the directory name.</p>
 
-<h2 id="basename">basename</h2>
+<h2 id="encode">encode</h2>
 
 <table>
 <thead>
 <tr>
 <th>Arg</th>
 <th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>string</td>
+<td></td>
+<td>vfilter.Any (required)</td>
+</tr>
+
+<tr>
+<td>type</td>
+<td></td>
+<td>string (required)</td>
+</tr>
+</tbody>
+</table>
+
+<p>Encodes a string as as different type. Currently supported types include &lsquo;hex&rsquo;, &lsquo;base64&rsquo;.</p>
+
+<h2 id="environ">environ</h2>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>var</td>
+<td>Extract the var from the environment.</td>
+<td>string (required)</td>
+</tr>
+</tbody>
+</table>
+
+<p>Returns the value of the environment variable specified.</p>
+
+<h2 id="expand">expand</h2>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
 </tr>
 </thead>
 
 <tbody>
 <tr>
 <td>path</td>
-<td>The path to use</td>
+<td>A path with environment escapes</td>
+<td>string (required)</td>
 </tr>
 </tbody>
 </table>
 
-<p>Splits the path on separator and return the basename.</p>
+<p>This function expands environment variables into the path. It is
+normally needed after using registry values of type REG_EXPAND_SZ as
+they typically contain environment strings. Velociraptor does not
+automatically expand such values since environment variables typically
+depend on the specific user account which reads the registry value
+(different user accounts can have different environment variables).</p>
 
-<h2 id="tempfile">tempfile</h2>
+<h2 id="file-store">file_store</h2>
 
 <table>
 <thead>
 <tr>
 <th>Arg</th>
 <th>Description</th>
+<th>Type</th>
 </tr>
 </thead>
 
 <tbody>
 <tr>
-<td>data</td>
-<td>The data to store in the temp file.</td>
-</tr>
-
-<tr>
-<td>extension</td>
-<td>A file extension to add to the file.</td>
+<td>path</td>
+<td>A VFS path to convert</td>
+<td>list of string (required)</td>
 </tr>
 </tbody>
 </table>
 
-<p>Create a temporary file and write some data into it. The file will be
-removed when the query completes.</p>
+<p>Resolves file store paths into full filesystem paths. This function is
+only available on the server. It can be used to find the backing file
+behind a filestore path so it can be passed on to an external program.</p>
+
+<p>Velociraptor uses the concept of a Virtual File System to manage the
+information about clients etc. The VFS path is a path into the file
+store. Of course ultimately (at least in the current implementation)
+the file store is storing files on disk, but the disk filename is not
+necessarily the same as the VFS path (for example non representable
+characters are escaped).</p>
+
+<p>You can use the <code>file_store()</code> function to return the real file path
+on disk. This probably only makes sense for VQL queries running on the
+server which can independently open the file.</p>
+
+<p>In future the file store may be abstracted (e.g. files may not be
+locally stored at all) and this function may stop working.</p>
+
+<h2 id="filter">filter</h2>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>list</td>
+<td>A list of items too filter</td>
+<td>list of string (required)</td>
+</tr>
+
+<tr>
+<td>regex</td>
+<td>A regex to test each item</td>
+<td>list of string (required)</td>
+</tr>
+</tbody>
+</table>
+
+<p>Returns another array filtered by the regular expression.</p>
 
 <h2 id="format">format</h2>
 
@@ -1698,18 +1969,21 @@ removed when the query completes.</p>
 <tr>
 <th>Arg</th>
 <th>Description</th>
+<th>Type</th>
 </tr>
 </thead>
 
 <tbody>
 <tr>
 <td>format</td>
-<td>A format string to use.</td>
+<td>Format string to use</td>
+<td>string (required)</td>
 </tr>
 
 <tr>
 <td>args</td>
-<td>A list of args to interpolate into the format string.</td>
+<td>An array of elements to apply into the format string.</td>
+<td>Any</td>
 </tr>
 </tbody>
 </table>
@@ -1720,7 +1994,129 @@ package</a>.</p>
 
 <p>The function returns a string.</p>
 
-<h2 id="base64decode">base64decode</h2>
+<h2 id="get">get</h2>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>item</td>
+<td></td>
+<td>vfilter.Any (required)</td>
+</tr>
+
+<tr>
+<td>member</td>
+<td></td>
+<td>string (required)</td>
+</tr>
+</tbody>
+</table>
+
+<p>Gets the member field from item.</p>
+
+<h2 id="getpid">getpid</h2>
+
+<p>Returns Velociraptor&rsquo;s own pid.</p>
+
+<h2 id="grep">grep</h2>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>path</td>
+<td>path to open.</td>
+<td>string (required)</td>
+</tr>
+
+<tr>
+<td>accessor</td>
+<td>An accessor to use.</td>
+<td>string</td>
+</tr>
+
+<tr>
+<td>keywords</td>
+<td>Keywords to search for.</td>
+<td>list of string (required)</td>
+</tr>
+
+<tr>
+<td>context</td>
+<td>Extract this many bytes as context around hits.</td>
+<td>int</td>
+</tr>
+</tbody>
+</table>
+
+<p>Search a file for keywords.</p>
+
+<h2 id="hash">hash</h2>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>path</td>
+<td>Path to open and hash.</td>
+<td>string (required)</td>
+</tr>
+
+<tr>
+<td>accessor</td>
+<td>The accessor to use</td>
+<td>string</td>
+</tr>
+</tbody>
+</table>
+
+<p>This function calculates the MD5, SHA1 and SHA256 hashes of the file.</p>
+
+<h2 id="humanize">humanize</h2>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>bytes</td>
+<td>Format bytes with units</td>
+<td>int64</td>
+</tr>
+</tbody>
+</table>
+
+<p>Formats a byte count in human readable way (e.g. Mb, Gb etc).</p>
+
+<h2 id="if">if</h2>
 
 <table>
 <thead>
@@ -1732,13 +2128,52 @@ package</a>.</p>
 
 <tbody>
 <tr>
-<td>string</td>
-<td>A string to decode</td>
+<td>condition</td>
+<td>A condition (either a value or a subquery)</td>
+</tr>
+
+<tr>
+<td>then</td>
+<td>a value if the condition is true</td>
+</tr>
+
+<tr>
+<td>else</td>
+<td>a value if the condition is false</td>
 </tr>
 </tbody>
 </table>
 
-<p>Decodes a base64 encoded string.</p>
+<p>This function evaluates a condition. Note that the values used in the
+<code>then</code> or <code>else</code> clause are evaluated lazily. They may be expressions
+that involve stored queries (i.e. queries stored using the <code>LET</code>
+keyword). These queries will not be evaluated if they are not needed.</p>
+
+<p>This allows a query to cheaply branch. For example, if a parameter is
+given, then perform hash or upload to the server. See the
+<code>Windows.Search.FileFinder</code> for an example of how <code>if()</code> is used.</p>
+
+<h2 id="int">int</h2>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>int</td>
+<td>The integer to round</td>
+<td>vfilter.Any</td>
+</tr>
+</tbody>
+</table>
+
+<p>Truncate a float to an integer.</p>
 
 <h2 id="ip">ip</h2>
 
@@ -1747,18 +2182,21 @@ package</a>.</p>
 <tr>
 <th>Arg</th>
 <th>Description</th>
+<th>Type</th>
 </tr>
 </thead>
 
 <tbody>
 <tr>
 <td>netaddr4_le</td>
-<td>An IPv4 address as a little endian integer.</td>
+<td>A network order IPv4 address (as little endian).</td>
+<td>int64</td>
 </tr>
 
 <tr>
 <td>netaddr4_be</td>
-<td>An IPv4 address as a big endian integer.</td>
+<td>A network order IPv4 address (as big endian).</td>
+<td>int64</td>
 </tr>
 </tbody>
 </table>
@@ -1774,7 +2212,389 @@ encoded as an array of 8 bytes which makes it easy to format using the
 <pre><code>  format(format=&quot;%x:%x:%x:%x:%x:%x:%x:%x&quot;, value)
 </code></pre>
 
+<h2 id="join">join</h2>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>sep</td>
+<td>The separator</td>
+<td>string</td>
+</tr>
+
+<tr>
+<td>array</td>
+<td>The array to join</td>
+<td>list of string (required)</td>
+</tr>
+</tbody>
+</table>
+
+<p>Joins the array into a string separated by the sep character.</p>
+
+<h2 id="label">label</h2>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>client_id</td>
+<td>Client ID to label.</td>
+<td>string (required)</td>
+</tr>
+
+<tr>
+<td>labels</td>
+<td>A list of labels to apply</td>
+<td>list of string (required)</td>
+</tr>
+
+<tr>
+<td>op</td>
+<td>An operation on the labels (add, remove)</td>
+<td>string</td>
+</tr>
+</tbody>
+</table>
+
+<p>Add the labels to the client. If op is &lsquo;remove&rsquo; then remove these labels.</p>
+
+<p>This function only works when run on the server.</p>
+
 <h2 id="lowcase">lowcase</h2>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>string</td>
+<td>A string to lower</td>
+<td>string (required)</td>
+</tr>
+</tbody>
+</table>
+
+<p>Converts a string to lower case.</p>
+
+<h2 id="max">max</h2>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>items</td>
+<td></td>
+<td>vfilter.Any (required)</td>
+</tr>
+</tbody>
+</table>
+
+<p>This finds the smallest number in the aggregate. It is only meaningful
+in a group by query.</p>
+
+<h3 id="example">Example</h3>
+
+<p>The following query lists all the processes and shows the largest
+bash pid of all bash processes.</p>
+
+<pre><code class="language-SQL">SELECT Name, max(items=Pid) as LargestPid from pslist() Where Name =~ 'bash' group by Name
+</code></pre>
+
+<h2 id="min">min</h2>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>items</td>
+<td></td>
+<td>vfilter.Any (required)</td>
+</tr>
+</tbody>
+</table>
+
+<p>This finds the smallest number in the aggregate. It is only meaningful
+in a group by query.</p>
+
+<h3 id="example-1">Example</h3>
+
+<p>The following query lists all the processes and shows the smallest
+bash pid of all bash processes.</p>
+
+<pre><code class="language-SQL">SELECT Name, min(items=Pid) as SmallestPid from pslist() Where Name =~ 'bash' group by Name
+</code></pre>
+
+<h2 id="now">now</h2>
+
+<p>Returns the current time as seconds since the unix epoch.</p>
+
+<h2 id="parse-float">parse_float</h2>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>string</td>
+<td>A string to convert to int</td>
+<td>string (required)</td>
+</tr>
+</tbody>
+</table>
+
+<p>Convert a string to a float.</p>
+
+<h2 id="parse-json">parse_json</h2>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>data</td>
+<td>Json encoded string.</td>
+<td>string (required)</td>
+</tr>
+</tbody>
+</table>
+
+<p>This function parses a json string into a dict.</p>
+
+<p>Note that when VQL dereferences fields in a dict it returns a Null for
+those fields that do not exist. Thus there is no error in actually
+accessing missing fields, the column will just return nil.</p>
+
+<h2 id="parse-json-array">parse_json_array</h2>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>data</td>
+<td>Json encoded string.</td>
+<td>string (required)</td>
+</tr>
+</tbody>
+</table>
+
+<p>This function is similar to <code>parse_json()</code> but works for a JSON list
+instead of an object.</p>
+
+<h2 id="parse-pe">parse_pe</h2>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>file</td>
+<td>The PE file to open.</td>
+<td>string (required)</td>
+</tr>
+
+<tr>
+<td>accessor</td>
+<td>The accessor to use.</td>
+<td>string</td>
+</tr>
+</tbody>
+</table>
+
+<p>Parse a PE file.</p>
+
+<h2 id="parse-string-with-regex">parse_string_with_regex</h2>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>string</td>
+<td>A string to parse.</td>
+<td>string (required)</td>
+</tr>
+
+<tr>
+<td>regex</td>
+<td>The regex to apply.</td>
+<td>list of string (required)</td>
+</tr>
+</tbody>
+</table>
+
+<p>Parse a string with a set of regex and extract fields. Returns a dict
+with fields populated from all regex capture variables.</p>
+
+<h2 id="parse-xml">parse_xml</h2>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>file</td>
+<td>XML file to open.</td>
+<td>string (required)</td>
+</tr>
+
+<tr>
+<td>accessor</td>
+<td>The accessor to use</td>
+<td>string</td>
+</tr>
+</tbody>
+</table>
+
+<p>This function parses the xml file into a dict like object which can
+then be queried.</p>
+
+<h2 id="rate">rate</h2>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>x</td>
+<td>The X float</td>
+<td>float64 (required)</td>
+</tr>
+
+<tr>
+<td>y</td>
+<td>The Y float</td>
+<td>float64 (required)</td>
+</tr>
+</tbody>
+</table>
+
+<p>Calculates the rate (derivative) between two quantities. For example
+if a monitoring plugin returns an absolute value sampled in time
+(e.g. bytes transferred sampled every second) then the rate() plugin
+can calculate the average bytes/sec.</p>
+
+<p>This function works by remembering the values of x and y from the
+previous row and applying the current rows values.</p>
+
+<h2 id="regex-replace">regex_replace</h2>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>source</td>
+<td>The source string to replace.</td>
+<td>string (required)</td>
+</tr>
+
+<tr>
+<td>replace</td>
+<td>The substitute string.</td>
+<td>string (required)</td>
+</tr>
+
+<tr>
+<td>re</td>
+<td>A regex to apply</td>
+<td>string (required)</td>
+</tr>
+</tbody>
+</table>
+
+<p>Search and replace a string with a regexp. Note you can use $1 to
+replace the capture string.</p>
+
+<h2 id="scope">scope</h2>
+
+<p>return the scope as a dict.</p>
+
+<h2 id="split">split</h2>
 
 <table>
 <thead>
@@ -1787,12 +2607,74 @@ encoded as an array of 8 bytes which makes it easy to format using the
 <tbody>
 <tr>
 <td>string</td>
-<td>A string to decode</td>
+<td>The string to split</td>
+</tr>
+
+<tr>
+<td>sep</td>
+<td>A regex to serve as a separator.</td>
 </tr>
 </tbody>
 </table>
 
-<p>Converts a string to lower case.</p>
+<p>Splits a string into an array based on a regexp separator.</p>
+
+<h2 id="tempfile">tempfile</h2>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>data</td>
+<td>Data to write in the tempfile.</td>
+<td>list of string (required)</td>
+</tr>
+
+<tr>
+<td>extension</td>
+<td>An extension to place in the tempfile.</td>
+<td>string</td>
+</tr>
+</tbody>
+</table>
+
+<p>Create a temporary file and write some data into it. The file will be
+removed when the query completes.</p>
+
+<h2 id="timestamp">timestamp</h2>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>epoch</td>
+<td></td>
+<td>int64</td>
+</tr>
+
+<tr>
+<td>winfiletime</td>
+<td></td>
+<td>int64</td>
+</tr>
+</tbody>
+</table>
+
+<p>Convert seconds from epoch into a string.</p>
 
 <h2 id="upcase">upcase</h2>
 
@@ -1801,174 +2683,56 @@ encoded as an array of 8 bytes which makes it easy to format using the
 <tr>
 <th>Arg</th>
 <th>Description</th>
+<th>Type</th>
 </tr>
 </thead>
 
 <tbody>
 <tr>
 <td>string</td>
-<td>A string to decode</td>
+<td>A string to lower</td>
+<td>string (required)</td>
 </tr>
 </tbody>
 </table>
 
 <p>Converts a string to upper case</p>
 
-<h2 id="atoi">atoi</h2>
+<h2 id="upload">upload</h2>
 
 <table>
 <thead>
 <tr>
 <th>Arg</th>
 <th>Description</th>
+<th>Type</th>
 </tr>
 </thead>
 
 <tbody>
-<tr>
-<td>string</td>
-<td>A string to decode</td>
-</tr>
-</tbody>
-</table>
-
-<p>Converts a string to an integer.</p>
-
-<h2 id="now">now</h2>
-
-<p>Returns the current time as seconds since the unix epoch.</p>
-
-<h2 id="utf16">utf16</h2>
-
-<table>
-<thead>
-<tr>
-<th>Arg</th>
-<th>Description</th>
-</tr>
-</thead>
-
-<tbody>
-<tr>
-<td>string</td>
-<td>A string to decode</td>
-</tr>
-</tbody>
-</table>
-
-<p>Converts a UTF16 encoded string to a normal utf8 string.</p>
-
-<h2 id="hash">hash</h2>
-
-<table>
-<thead>
-<tr>
-<th>Arg</th>
-<th>Description</th>
-</tr>
-</thead>
-
-<tbody>
-<tr>
-<td>path</td>
-<td>A file to hash</td>
-</tr>
-
 <tr>
 <td>accessor</td>
-<td>The accessor to use for openning the file.</td>
+<td>The accessor to use</td>
+<td>string</td>
+</tr>
+
+<tr>
+<td>file</td>
+<td>The file to upload</td>
+<td>string (required)</td>
+</tr>
+
+<tr>
+<td>name</td>
+<td>The name of the file that should be stored on the server</td>
+<td>string</td>
 </tr>
 </tbody>
 </table>
 
-<p>This function calculates the MD5, SHA1 and SHA256 hashes of the file.</p>
-
-<h2 id="humanize">humanize</h2>
-
-<table>
-<thead>
-<tr>
-<th>Arg</th>
-<th>Description</th>
-</tr>
-</thead>
-
-<tbody>
-<tr>
-<td>bytes</td>
-<td>Number of bytes</td>
-</tr>
-</tbody>
-</table>
-
-<p>Formats a byte count in human readable way (e.g. Mb, Gb etc).</p>
-
-<h2 id="array">array</h2>
-
-<p>This function accepts arbitrary arguments and creates an array by
-flattening the arguments. For example <code>array(a=1, b=2)</code> will return
-<code>[1, 2]</code>.</p>
-
-<p>You can use this to flatten a subquery as well:</p>
-
-<pre><code class="language-sql">SELECT array(a1={ SELECT User FROM Artifact.Windows.System.Users() }) as Users FROM scope()
-</code></pre>
-
-<p>Will return a single row with Users being an array of names.</p>
-
-<h2 id="join">join</h2>
-
-<table>
-<thead>
-<tr>
-<th>Arg</th>
-<th>Description</th>
-</tr>
-</thead>
-
-<tbody>
-<tr>
-<td>array</td>
-<td>An array of strings</td>
-</tr>
-
-<tr>
-<td>sep</td>
-<td>A separator (by default comma)</td>
-</tr>
-</tbody>
-</table>
-
-<p>Joins the array into a string separated by the sep character.</p>
-
-<h2 id="filter">filter</h2>
-
-<table>
-<thead>
-<tr>
-<th>Arg</th>
-<th>Description</th>
-</tr>
-</thead>
-
-<tbody>
-<tr>
-<td>array</td>
-<td>An array of strings</td>
-</tr>
-
-<tr>
-<td>regex</td>
-<td>A regular expression to apply to the array</td>
-</tr>
-</tbody>
-</table>
-
-<p>Returns another array filtered by the regular expression.</p>
-
-<h2 id="getpid">getpid</h2>
-
-<p>Returns Velociraptor&rsquo;s own pid.</p>
+<p>This function uploads the specified file to the server. If Velociraptor
+is run locally the file will be copied tothe <code>--dump_dir</code> path or
+added to the triage evidence container.</p>
 
 <h2 id="url">url</h2>
 
@@ -1977,6 +2741,7 @@ flattening the arguments. For example <code>array(a=1, b=2)</code> will return
 <tr>
 <th>Arg</th>
 <th>Description</th>
+<th>Type</th>
 </tr>
 </thead>
 
@@ -1984,26 +2749,31 @@ flattening the arguments. For example <code>array(a=1, b=2)</code> will return
 <tr>
 <td>scheme</td>
 <td>The scheme to use</td>
+<td>string</td>
 </tr>
 
 <tr>
 <td>host</td>
 <td>The host component</td>
+<td>string</td>
 </tr>
 
 <tr>
 <td>path</td>
 <td>The path component</td>
+<td>string</td>
 </tr>
 
 <tr>
 <td>fragment</td>
-<td>The fragment component</td>
+<td>The fragment</td>
+<td>string</td>
 </tr>
 
 <tr>
 <td>parse</td>
 <td>A url to parse</td>
+<td>string</td>
 </tr>
 </tbody>
 </table>
@@ -2031,62 +2801,27 @@ in the following way:</p>
 possible in the geenral case to simply append strings. You need to use
 the <code>url()</code> function to build the proper url.</p>
 
-<h2 id="upload">upload</h2>
+<h2 id="utf16">utf16</h2>
 
 <table>
 <thead>
 <tr>
 <th>Arg</th>
 <th>Description</th>
+<th>Type</th>
 </tr>
 </thead>
 
 <tbody>
 <tr>
-<td>file</td>
-<td>The file to upload</td>
-</tr>
-
-<tr>
-<td>name</td>
-<td>The name it should be uploaded under</td>
-</tr>
-
-<tr>
-<td>accessor</td>
-<td>An accessor to use.</td>
+<td>string</td>
+<td>A string to decode</td>
+<td>string (required)</td>
 </tr>
 </tbody>
 </table>
 
-<p>This function uploads the specified file to the server. If Velociraptor
-is run locally the file will be copied tothe <code>--dump_dir</code> path or
-added to the triage evidence container.</p>
-
-<h2 id="expand">expand</h2>
-
-<table>
-<thead>
-<tr>
-<th>Arg</th>
-<th>Description</th>
-</tr>
-</thead>
-
-<tbody>
-<tr>
-<td>path</td>
-<td>A path string to expand.</td>
-</tr>
-</tbody>
-</table>
-
-<p>This function expands environment variables into the path. It is
-normally needed after using registry values of type REG_EXPAND_SZ as
-they typically contain environment strings. Velociraptor does not
-automatically expand such values since environment variables typically
-depend on the specific user account which reads the registry value
-(different user accounts can have different environment variables).</p>
+<p>Converts a UTF16 encoded string to a normal utf8 string.</p>
 
 
 <footer class=" footline" >
@@ -2453,6 +3188,7 @@ depend on the specific user account which reads the registry value
             
                 
                     
+                    
                 
                 
 
@@ -2465,6 +3201,9 @@ depend on the specific user account which reads the registry value
             
             
                 
+                    
+                        
+                        
                     
                 
                 
@@ -2481,42 +3220,6 @@ depend on the specific user account which reads the registry value
             
             
                 
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-                        
-            
-            
-                
-                    
-                        
-                        
                     
                 
                 
@@ -2580,38 +3283,6 @@ depend on the specific user account which reads the registry value
                     
             
         
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
                     
             
         
@@ -2740,6 +3411,70 @@ depend on the specific user account which reads the registry value
                     
             
         
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
                     
             
         
@@ -3140,10 +3875,10 @@ depend on the specific user account which reads the registry value
 	 
 	 
 		
-			<a class="nav nav-prev" href="/docs/vql_reference/event_plugins/" title="VQL Event PLugins"> <i class="fa fa-chevron-left"></i></a>
+			<a class="nav nav-prev" href="/docs/vql_reference/server/" title="VQL Server Plugins"> <i class="fa fa-chevron-left"></i></a>
 		
 		
-			<a class="nav nav-next" href="/docs/vql_reference/server/" title="VQL Server Plugins" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+			<a class="nav nav-next" href="/docs/vql_reference/templates/" title="Report Templates" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
 		
 	
     </div>

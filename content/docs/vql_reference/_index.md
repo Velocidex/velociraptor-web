@@ -1,6 +1,6 @@
 ---
 title: VQL Reference
-weight: 100
+weight: 40
 ---
 
 The Velociraptor Query language (VQL) is an expressive language

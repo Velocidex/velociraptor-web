@@ -24,13 +24,272 @@ or in condition clauses (i.e. after the `WHERE` keyword).
 
 {{% /notice %}}
 
+## certificates
+
+Collect certificate from the system trust store.
+
+## chain
+
+Chain the output of several queries into the same table. This plugin
+takes any args and chains them.
+
+### Example
+
+The following returns the rows from the first query then the rows from
+the second query.
+
+```sql
+SELECT * FROM chain(
+    a={ SELECT ...},
+    b={ SELECT ...})
+```
+
+## environ
+
+Arg | Description | Type
+----|-------------|-----
+vars | Extract these variables from the environment and return them one per row |  list of string
+
+The row returned will have all environment variables as columns. If
+the var parameter is provided, only those variables will be provided.
+
+## execve
+
+Arg | Description | Type
+----|-------------|-----
+argv | Argv to run the command with. |  list of string (required)
+sep | The serparator that will be used to split the stdout into rows. | string
+length | Size of buffer to capture output per row. | int6
+
+This plugin launches an external command and captures its STDERR,
+STDOUT and return code. The command's stdout is split using the `sep`
+parameter as required.
+
+This plugin is mostly useful for running arbitrary code on the
+client. If you do not want to allow arbitrary code to run, you can
+disable this by setting the `prevent_execve` flag in the client's
+config file. Be aware than many artifacts require running external
+commands to collect their output though.
+
+We do not actually transfer the external program to the system
+automatically. If you need to run programs which are not usually
+installed (e.g. Sysinternal's autoruns.exe) you will need to map them
+from a share (requiring direct access to the AD domain) or download
+them using the `http_client()` plugin.
+
+## flatten
+
+Arg | Description | Type
+----|-------------|-----
+Name |  | string
+
+Flatten the columns in query. If any column repeats then we repeat the
+entire row once for each item.
+
+## foreach
+
+Arg | Description | Type
+----|-------------|-----
+row |  | StoredQuery (required)
+query |  | StoredQuery (required)
+
+Executes 'query' once for each row in the 'row' query.
+
+## glob
+
+Arg | Description | Type
+----|-------------|-----
+globs | One or more glob patterns to apply to the filesystem. |  list of string (required)
+accessor | An accessor to use. | string
+
+The `glob()` plugin is one of the most used plugins. It applies a glob
+expression in order to search for files by file name. The glob
+expression allows for wildcards, alternatives and character
+classes. Globs support both forward and backslashes as path
+separators. They also support quoting to delimit components.
+
+A glob expression consists of a sequence of components separated by
+path separators. If a separator is included within a component it is
+possible to quote the component to keep it together. For example, the
+windows registry contains keys with forward slash in their
+names. Therefore we may use these to prevent the glob from getting
+confused:
+
+```
+HKEY_LOCAL_MACHINE\Microsoft\Windows\"Some Key With http://www.microsoft.com/"\Some Value
+```
+
+Glob expressions are case insensitive and may contain the following wild cards:
+
+* The `*` matches one or more characters.
+* The `?` matches a single character.
+* Alternatives are denoted by braces and comma delimited: `{a,b}`
+* Recursive search is denoted by a `**`. By default this searches 3 directories deep. If you need to increase it you can add a depth number (e.g. `**10`)
+
+By default globs do not expand environment variables. If you need to
+expand environment variables use the `expand()` function explicitly:
+
+```sql
+glob(globs=expand(string="%SystemRoot%\System32\Winevt\Logs\*"))
+```
+
+### Example
+
+The following searches the raw NTFS disk for event logs.
+
+```sql
+SELECT FullPath FROM glob(
+   globs="C:\Windows\System32\Winevt\Logs\*.evtx",
+   accessor="ntfs")
+```
+
+## http_client
+
+Arg | Description | Type
+----|-------------|-----
+url | The URL to fetch | string (required)
+params | Parameters to encode as POST or GET query strings | vfilter.Any
+headers | A dict of headers to send. | vfilter.Any
+method | HTTP method to use (GET, POST) | string
+chunk_size | Read input with this chunk size and send each chunk as a row | int
+disable_ssl_security | Disable ssl certificate verifications. | bool
+
+This plugin makes a HTTP connection using the specified method. The
+headers and parameters may be specified. The plugin reads the
+specified number of bytes per returned row.
+
+If `disable_ssl_security` is specified we do not enforce SSL
+integrity. This is required to connect to self signed ssl web
+sites. For example many API handlers are exposed over such
+connections.
+
+The `http_client()` plugin allows use to interact with any web
+services. If the web service returns a json blob, we can parse it with
+the `parse_json()` function (or `parse_xml()` for SOAP
+endpoints). Using the parameters with a POST method we may actually
+invoke actions from within VQL (e.g. send an SMS via an SMS gateway
+when a VQL event is received).So this is a very powerful plugin.
+
+### Example
+
+The following VQL returns the client's external IP as seen by the
+externalip service.
+
+```sql
+SELECT Content as IP from http_client(url='http://www.myexternalip.com/raw')
+```
+
+## if
+
+Arg | Description | Type
+----|-------------|-----
+condition |  | vfilter.Any (required)
+then |  | vfilter.StoredQuery (required)
+else |  | vfilter.StoredQuery
+
+Conditional execution of query
+
+## info
+
+This plugin returns a single row with information about the current
+system. The information includes the Hostname, Uptime, OS, Platform
+etc.
+
+This plugin is very useful in preconditions as it restricts a query to
+certain OS or versions.
+
+
+```sql
+SELECT OS from info() where OS = "windows"
+```
+
+## netstat
+
+Collect network information.
+
+
+## olevba
+
+Arg | Description | Type
+----|-------------|-----
+file | A list of filenames to open as OLE files. |  list of string (required)
+accessor | The accessor to use. | string
+max_size | Maximum size of file we load into memory. | int64
+
+This plugin parses the provided files as OLE documents in order to
+recover VB macro code. A single document can have multiple code
+objects, and each such code object is emitted as a row.
+
+## parse_csv
+
+Arg | Description | Type
+----|-------------|-----
+filename | CSV files to open |  list of string (required)
+accessor | The accessor to use | string
+
+Parses records from a CSV file. We expect the first row of the CSV
+file to contain column names.  This parser specifically supports
+Velociraptor's own CSV dialect and so it is perfect for post
+processing already existing CSV files.
+
+The types of each value in each column is deduced based on
+Velociraptor's standard encoding scheme. Therefore types are properly
+preserved when read from the CSV file.
+
+For example, downloading the results of a hunt in the GUI will produce
+a CSV file containing artifact rows collected from all clients.  We
+can then use the `parse_csv()` plugin to further filter the CSV file,
+or to stack using group by.
+
+### Example
+
+The following stacks the result from a
+`Windows.Applications.Chrome.Extensions` artifact:
+
+```sql
+SELECT count(items=User) As TotalUsers, Name
+FROM parse_csv(filename="All Windows.Applications.Chrome.Extensions.csv")
+Order By TotalUsers
+Group By Name
+```
+
+## parse_evtx
+
+Arg | Description | Type
+----|-------------|-----
+filename | A list of event log files to parse. |  list of string (required)
+accessor | The accessor to use. | string
+
+This plugin parses windows events from the Windows Event log files (EVTX).
+
+A windows event typically contains two columns. The `EventData`
+contains event specific structured data while the `System` column
+contains common data for all events - including the Event ID.
+
+You should probably almost always filter by one or more event ids
+(using the `System.EventID.Value` field).
+
+### Example
+
+```sql
+SELECT System.TimeCreated.SystemTime as Timestamp,
+       System.EventID.Value as EventID,
+       EventData.ImagePath as ImagePath,
+       EventData.ServiceName as ServiceName,
+       EventData.ServiceType as Type,
+       System.Security.UserID as UserSID,
+       EventData as _EventData,
+       System as _System
+FROM watch_evtx(filename=systemLogFile) WHERE EventID = 7045
+```
+
 ## parse_records_with_regex
 
-Arg | Description
-----|------------
-file|One or more files to parse
-regex|One or more regular expressions to match within the file.
-accessor|The accessor to use for openning the file.
+Arg | Description | Type
+----|-------------|-----
+accessor | The accessor to use. | string
+file | A list of files to parse. |  list of string (required)
+regex | A list of regex to apply to the file data. |  list of string (required)
 
 Parses a file with a set of regexp and yields matches as records.  The
 file is read into a large buffer. Then each regular expression is
@@ -103,84 +362,125 @@ SELECT parse_string_with_regex(
      regex='(?sm)^(?P<Record>Package:.+?)\\n\\n')
 ```
 
-## parse_csv
+## partitions
+
+List all partititions
+
+## proc_dump
+
+Arg | Description | Type
+----|-------------|-----
+pid | The PID to dump out. | int64 (required)
+
+Dumps a process into a crashdump. The crashdump file can be opened
+with the windows debugger as normal. The plugin returns the filename
+of the crash dump which is a temporary file - the file will be removed
+when the query completes, so if you want to hold on to it, you should
+use the upload() plugin to upload it to the server or otherwise copy
+it.
+
+
+## proc_yara
+
+Arg | Description | Type
+----|-------------|-----
+context | How many bytes to include around each hit | int
+start | The start offset to scan | int64
+end | End scanning at this offset (100mb) | uint64
+number | Stop after this many hits (1). | int64
+blocksize | Blocksize for scanning (1mb). | int64
+rules | Yara rules in the yara DSL. | string (required)
+files | The list of files to scan. |  list of string (required)
+accessor | Accessor (e.g. NTFS) | string
+
+This plugin uses yara's own engine to scan process memory for the signatures.
+
+{{% notice note %}}
+
+Process memory access depends on having the [SeDebugPrivilege](https://support.microsoft.com/en-au/help/131065/how-to-obtain-a-handle-to-any-process-with-sedebugprivilege) which depends on how Velociraptor was started. Even when running as System, some processes are not accessible.
+
+{{% /notice %}}
+
+## pslist
 
 Arg | Description
 ----|------------
-filename|One or more files to parse
-accessor|The accessor to use for openning the file.
+pid|A pid to list. If this is provided we are able to operate much faster by only opening a single process.
 
 
-Parses records from a CSV file. We expect the first row of the CSV
-file to contain column names.  This parser specifically supports
-Velociraptor's own CSV dialect and so it is perfect for post
-processing already existing CSV files.
+Lists running processes.
 
-The types of each value in each column is deduced based on
-Velociraptor's standard encoding scheme. Therefore types are properly
-preserved when read from the CSV file.
+When specifying the pid this operation is much faster so if you are
+interested in specific processes, the pid should be
+specified. Otherwise, the plugin returns all processes one on each
+row.
 
-For example, downloading the results of a hunt in the GUI will produce
-a CSV file containing artifact rows collected from all clients.  We
-can then use the `parse_csv()` plugin to further filter the CSV file,
-or to stack using group by.
+## read_file
+
+Arg | Description | Type
+----|-------------|-----
+filenames | One or more files to open. |  list of string (required)
+accessor | An accessor to use. | string
+chunk | length of each chunk to read from the file. | int
+max_length | Max length of the file to read. | int
+
+This plugin reads a file in chunks and returns each chunks as a separate row.
+
+It is useful when we want to report file contents for small files like
+configuration files etc.
+
+The returned row contains the following columns: data, offset, filename
+
+## read_key_values
+
+Arg | Description | Type
+----|-------------|-----
+globs | Glob expressions to apply. |  list of string (required)
+accessor | The accessor to use (default raw_reg). | string
+
+This is a convenience plugin which applies the globs to the registry
+accessor to find keys. For each key the plugin then lists all the
+values within it, and returns a row which has the value names as
+columns, while the cells contain the value's stat info (and data
+content available in the `Data` field).
+
+This makes it easier to access a bunch of related values at once.
+
+## scope
+
+The scope plugin returns the current scope as a single row.
+
+The main use for this plugin is as a NOOP plugin in those cases we
+dont want to actually run anything.
 
 ### Example
 
-The following stacks the result from a
-`Windows.Applications.Chrome.Extensions` artifact:
-
 ```sql
-SELECT count(items=User) As TotalUsers, Name
-FROM parse_csv(filename="All Windows.Applications.Chrome.Extensions.csv")
-Order By TotalUsers
-Group By Name
+SELECT 1+1 As Two FROM scop()
 ```
 
+## sample
 
-## parse_evtx
+Arg | Description | Type
+----|-------------|-----
+n | Pick every n row from query. | int64 (required)
+query | Source query. | vfilter.StoredQuery (required)
 
-Arg | Description
-----|------------
-filename|One or more files to parse
-accessor|The accessor to use for openning the file.
+Executes 'query' and samples every n'th row. This is most useful on
+the server in order to downsample event artifact results.
 
+## split_records
 
-This plugin parses windows events from the Windows Event log files (EVTX).
+Parses files by splitting lines into records.
 
-A windows event typically contains two columns. The `EventData`
-contains event specific structured data while the `System` column
-contains common data for all events - including the Event ID.
-
-You should probably almost always filter by one or more event ids
-(using the `System.EventID.Value` field).
-
-### Example
-
-```sql
-SELECT System.TimeCreated.SystemTime as Timestamp,
-       System.EventID.Value as EventID,
-       EventData.ImagePath as ImagePath,
-       EventData.ServiceName as ServiceName,
-       EventData.ServiceType as Type,
-       System.Security.UserID as UserSID,
-       EventData as _EventData,
-       System as _System
-FROM watch_evtx(filename=systemLogFile) WHERE EventID = 7045
-```
-
-## olevba
-
-Arg | Description
-----|------------
-file|One or more files to parse
-accessor|The accessor to use for openning the file.
-max_size|Maximum size of file we load into memory.
-
-This plugin parses the provided files as OLE documents in order to
-recover VB macro code. A single document can have multiple code
-objects, and each such code object is emitted as a row.
-
+Arg | Description | Type
+----|-------------|-----
+count | Only split into this many columns if possible. | int
+filenames | Files to parse. |  list of string (required)
+accessor | The accessor to use | string
+regex | The split regular expression (e.g. a comma) | string (required)
+columns | If the first row is not the headers, this arg must provide a list of column names for each value. |  list of string
+first_row_is_headers | A bool indicating if we should get column names from the first row. | bool
 
 ## splitparser
 
@@ -197,96 +497,59 @@ This plugin is a more generalized parser for delimited files. It is
 not as smart as the `parse_csv()` plugin but can use multiple
 delimiters.
 
-
-## info
-
-This plugin returns a single row with information about the current
-system. The information includes the Hostname, Uptime, OS, Platform
-etc.
-
-This plugin is very useful in preconditions as it restricts a query to
-certain OS or versions.
-
-
-```sql
-SELECT OS from info() where OS = "windows"
-```
-
-
-## pslist
+## stat
 
 Arg | Description
 ----|------------
-pid|A pid to list. If this is provided we are able to operate much faster by only opening a single process.
+filename|One or more files to open.
+accessor|An accessor to use.
 
+Get file information. Unlike glob() this does not support wildcards.
 
-Lists running processes.
+## upload
 
-When specifying the pid this operation is much faster so if you are
-interested in specific processes, the pid should be
-specified. Otherwise, the plugin returns all processes one on each
-row.
+Arg | Description | Type
+----|-------------|-----
+accessor | The accessor to use | string
+files | A list of files to upload |  list of string (required)
 
-## scope
+This plugin uploads the specified file to the server. If Velociraptor
+is run locally the file will be copied tothe `--dump_dir` path or
+added to the triage evidence container.
 
-The scope plugin returns the current scope as a single row.
+This functionality is also available using the upload() function which
+might be somewhat easier to use.
 
-The main use for this plugin is as a NOOP plugin in those cases we
-dont want to actually run anything.
+## users
 
-### Example
+Display information about workstation local users. This is obtained
+through the NetUserEnum() API.
 
-```sql
-SELECT 1+1 As Two FROM scop()
-```
+## wmi
 
-## environ
+Arg | Description | Type
+----|-------------|-----
+query | The WMI query to issue. | string (required)
+namespace | The WMI namespace to use (ROOT/CIMV2) | string
 
-Arg | Description
-----|------------
-vars|One or more names of environment variables to lookup (optional)
+This plugin issues a WMI query and returns its rows directly. The
+exact format of the returned row depends on the WMI query issued.
 
-The row returned will have all environment variables as columns. If
-the var parameter is provided, only those variables will be provided.
-
-
-## execve
-
-Arg | Description
-----|------------
-argv|One or more strings forming the arguments of the shell command.
-sep|The serparator that will be used to split the stdout into rows.
-length|Size of buffer to capture output per row.
-
-
-This plugin launches an external command and captures its STDERR,
-STDOUT and return code. The command's stdout is split using the `sep`
-parameter as required.
-
-This plugin is mostly useful for running arbitrary code on the
-client. If you do not want to allow arbitrary code to run, you can
-disable this by setting the `prevent_execve` flag in the client's
-config file. Be aware than many artifacts require running external
-commands to collect their output though.
-
-We do not actually transfer the external program to the system
-automatically. If you need to run programs which are not usually
-installed (e.g. Sysinternal's autoruns.exe) you will need to map them
-from a share (requiring direct access to the AD domain) or download
-them using the `http_client()` plugin.
+This plugin creates a bridge between WMI and VQL and it is a very
+commonly used plugin for inspecting the state of windows systems.
 
 ## yara
 
-Arg | Description
-----|------------
-rules|Yara rules in the yara DSL.
-files|The list of files to scan.
-accessor|Accessor (e.g. NTFS)
-context|How many bytes to include around each hit
-start|The start offset to scan
-end|End scanning at this offset (100mb)
-number|Stop after this many hits (1).
-blocksize|Blocksize for scanning (1mb).
+Arg | Description | Type
+----|-------------|-----
+number | Stop after this many hits (1). | int64
+blocksize | Blocksize for scanning (1mb). | int64
+rules | Yara rules in the yara DSL. | string (required)
+files | The list of files to scan. |  list of string (required)
+accessor | Accessor (e.g. NTFS) | string
+context | How many bytes to include around each hit | int
+start | The start offset to scan | int64
+end | End scanning at this offset (100mb) | uint64
 
 The `yara()` plugin applies a signature consisting of multiple rules
 across files. You can read more about [yara
@@ -304,190 +567,3 @@ By default only the first 100mb of the file are scanned and
 scanning stops after one hit is found.
 
 {{% /notice %}}
-
-## proc_yara
-
-Arg | Description
-----|------------
-rules|Yara rules in the yara DSL.
-pid|The process id to scan.
-context|How many bytes to include around each hit
-
-This plugin uses yara's own engine to scan process memory for the signatures.
-
-{{% notice note %}}
-
-Process memory access depends on having the [SeDebugPrivilege](https://support.microsoft.com/en-au/help/131065/how-to-obtain-a-handle-to-any-process-with-sedebugprivilege) which depends on how Velociraptor was started. Even when running as System, some processes are not accessible.
-
-{{% /notice %}}
-
-## glob
-
-Arg | Description
-----|------------
-globs|One or more glob patterns to apply to the filesystem.
-accessor|An accessor to use.
-
-The `glob()` plugin is one of the most used plugins. It applies a glob
-expression in order to search for files by file name. The glob
-expression allows for wildcards, alternatives and character
-classes. Globs support both forward and backslashes as path
-separators. They also support quoting to delimit components.
-
-A glob expression consists of a sequence of components separated by
-path separators. If a separator is included within a component it is
-possible to quote the component to keep it together. For example, the
-windows registry contains keys with forward slash in their
-names. Therefore we may use these to prevent the glob from getting
-confused:
-
-```
-HKEY_LOCAL_MACHINE\Microsoft\Windows\"Some Key With http://www.microsoft.com/"\Some Value
-```
-
-Glob expressions are case insensitive and may contain the following wild cards:
-
-* The `*` matches one or more characters.
-* The `?` matches a single character.
-* Alternatives are denoted by braces and comma delimited: `{a,b}`
-* Recursive search is denoted by a `**`. By default this searches 3 directories deep. If you need to increase it you can add a depth number (e.g. `**10`)
-
-By default globs do not expand environment variables. If you need to
-expand environment variables use the `expand()` function explicitly:
-
-```sql
-glob(globs=expand(string="%SystemRoot%\System32\Winevt\Logs\*"))
-```
-
-### Example
-
-The following searches the raw NTFS disk for event logs.
-
-```sql
-SELECT FullPath FROM glob(
-   globs="C:\Windows\System32\Winevt\Logs\*.evtx",
-   accessor="ntfs")
-```
-## read_file
-
-Arg | Description
-----|------------
-chunk|length of each chunk to read from the file.
-max_length|Max length of the file to read.
-filenames|One or more files to open.
-accessor|An accessor to use.
-
-This plugin reads a file in chunks and returns each chunks as a separate row.
-
-It is useful when we want to report file contents for small files like
-configuration files etc.
-
-The returned row contains the following columns: data, offset, filename
-
-## stat
-
-Arg | Description
-----|------------
-filename|One or more files to open.
-accessor|An accessor to use.
-
-Get file information. Unlike glob() this does not support wildcards.
-
-## read_key_values
-
-Arg | Description
-----|------------
-globs|Globs to apply.
-accessor|An accessor to use.
-
-This is a convenience plugin which applies the globs to the registry
-accessor to find keys. For each key the plugin then lists all the
-values within it, and returns a row which has the value names as
-columns, while the cells contain the value's stat info (and data
-content available in the `Data` field).
-
-This makes it easier to access a bunch of related values at once.
-
-
-## http_client
-
-
-Arg | Description
-----|------------
-url|The URL to access.
-params|A dictionary of key/values to encode into the request
-headers|A dictionary of additional headers
-method|The method to use (GET/POST)
-chunk_size|Size of buffers to read per row
-disable_ssl_security|If this is true disable SSL security verification.
-
-This plugin makes a HTTP connection using the specified method. The
-headers and parameters may be specified. The plugin reads the
-specified number of bytes per returned row.
-
-If `disable_ssl_security` is specified we do not enforce SSL
-integrity. This is required to connect to self signed ssl web
-sites. For example many API handlers are exposed over such
-connections.
-
-The `http_client()` plugin allows use to interact with any web
-services. If the web service returns a json blob, we can parse it with
-the `parse_json()` function (or `parse_xml()` for SOAP
-endpoints). Using the parameters with a POST method we may actually
-invoke actions from within VQL (e.g. send an SMS via an SMS gateway
-when a VQL event is received).So this is a very powerful plugin.
-
-### Example
-
-The following VQL returns the client's external IP as seen by the
-externalip service.
-
-```sql
-SELECT Content as IP from http_client(url='http://www.myexternalip.com/raw')
-```
-
-## upload
-
-Arg | Description
-----|------------
-file|The file to upload
-accessor|An accessor to use.
-
-This plugin uploads the specified file to the server. If Velociraptor
-is run locally the file will be copied tothe `--dump_dir` path or
-added to the triage evidence container.
-
-This functionality is also available using the upload() function which
-might be somewhat easier to use.
-
-## authenticode
-
-Arg | Description
-----|------------
-filename|The filename of the executable
-
-Uses the Windows API to extract and verify the file's authenticode
-signature. Since we use the windows API this can only work with the
-"file" accessor.
-
-## certificates
-
-Collect certificate from the system trust store.
-
-## users
-
-Display information about workstation local users. This is obtained
-through the NetUserEnum() API.
-
-## wmi
-
-Arg | Description
-----|------------
-query|The WMI query to issue.
-namespace|The WMI namespace to use (ROOT/CIMV2)
-
-This plugin issues a WMI query and returns its rows directly. The
-exact format of the returned row depends on the WMI query issued.
-
-This plugin creates a bridge between WMI and VQL and it is a very
-commonly used plugin for inspecting the state of windows systems.

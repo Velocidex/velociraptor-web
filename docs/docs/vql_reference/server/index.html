@@ -4,25 +4,25 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="Hugo 0.56.0-DEV" />
-    <meta name="description" content="VQL Queries can also be run on the server.">
+    <meta name="description" content="Velociraptor: Digging Deeper!">
 
 
 <meta property="og:title" content="VQL Server Plugins" />
-<meta property="og:description" content="VQL Queries can also be run on the server." />
+<meta property="og:description" content="VQL Queries can also be run on the server. When run on the server, VQL Queries have access to server state, and so can schedule new artifact collection flows on client, manage client label, and retrieve artifact results from hunts. It is therefore possible to post process artifacts on the server in arbitrary ways.
+Server VQL queries can also be event driven which allows one to set up higher order escalations and alerting based on client side events." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/docs/vql_reference/server/" />
 
 <meta property="og:image" content="https://velociraptor-docs-staging.velocidex.com/images/velo_small.png" />
-<meta property="article:published_time" content="2019-02-01T00:00:00&#43;00:00"/>
-<meta property="article:modified_time" content="2019-02-01T00:00:00&#43;00:00"/><meta property="og:site_name" content="Velociraptor: Digging Deeper!" />
+<meta property="og:site_name" content="Velociraptor: Digging Deeper!" />
 
 <meta itemprop="name" content="VQL Server Plugins">
-<meta itemprop="description" content="VQL Queries can also be run on the server.">
+<meta itemprop="description" content="VQL Queries can also be run on the server. When run on the server, VQL Queries have access to server state, and so can schedule new artifact collection flows on client, manage client label, and retrieve artifact results from hunts. It is therefore possible to post process artifacts on the server in arbitrary ways.
+Server VQL queries can also be event driven which allows one to set up higher order escalations and alerting based on client side events.">
 
 
-<meta itemprop="datePublished" content="2019-02-01T00:00:00&#43;00:00" />
-<meta itemprop="dateModified" content="2019-02-01T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="1238">
+
+<meta itemprop="wordCount" content="867">
 
 
 
@@ -31,7 +31,8 @@
 <meta name="twitter:image" content="https://velociraptor-docs-staging.velocidex.com/images/velo_small.png"/>
 
 <meta name="twitter:title" content="VQL Server Plugins"/>
-<meta name="twitter:description" content="VQL Queries can also be run on the server."/>
+<meta name="twitter:description" content="VQL Queries can also be run on the server. When run on the server, VQL Queries have access to server state, and so can schedule new artifact collection flows on client, manage client label, and retrieve artifact results from hunts. It is therefore possible to post process artifacts on the server in arbitrary ways.
+Server VQL queries can also be event driven which allows one to set up higher order escalations and alerting based on client side events."/>
 
     <link rel="icon" href="/images/favicon.png" type="image/png">
 
@@ -566,78 +567,6 @@
  
   
     
-    <li data-nav-id="/docs/presentations/" title="Presentations and Workshops" class="dd-item 
-        
-        
-        
-        ">
-      <a href="/docs/presentations/">
-          Presentations and Workshops
-          
-      </a>
-      
-      
-        <ul>
-          
-          
-          
-          
-        
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/docs/presentations/crikeycon2019/" title="Crikeycon 2019 Training Workshop" class="dd-item ">
-        <a href="/docs/presentations/crikeycon2019/">
-        CrikeyCon 2019
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/docs/presentations/nzitf2018/" title="New Zealand Internet Task Force Conference 2018" class="dd-item ">
-        <a href="/docs/presentations/nzitf2018/">
-        NZITF2018
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-        
-        </ul>
-              
-    </li>
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
     <li data-nav-id="/docs/vql_reference/" title="VQL Reference" class="dd-item 
         parent
         
@@ -663,9 +592,9 @@
  
   
     
-      <li data-nav-id="/docs/vql_reference/templates/" title="Report Templates" class="dd-item ">
-        <a href="/docs/vql_reference/templates/">
-        Report Templates
+      <li data-nav-id="/docs/vql_reference/plugins/" title="VQL PLugins" class="dd-item ">
+        <a href="/docs/vql_reference/plugins/">
+        VQL PLugins
         
         </a>
     </li>
@@ -701,25 +630,6 @@
  
   
     
-      <li data-nav-id="/docs/vql_reference/functions/" title="VQL Functions" class="dd-item ">
-        <a href="/docs/vql_reference/functions/">
-        VQL Functions
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
       <li data-nav-id="/docs/vql_reference/server/" title="VQL Server Plugins" class="dd-item active">
         <a href="/docs/vql_reference/server/">
         VQL Server Plugins
@@ -739,9 +649,28 @@
  
   
     
-      <li data-nav-id="/docs/vql_reference/plugins/" title="VQL PLugins" class="dd-item ">
-        <a href="/docs/vql_reference/plugins/">
-        VQL PLugins
+      <li data-nav-id="/docs/vql_reference/functions/" title="VQL Functions" class="dd-item ">
+        <a href="/docs/vql_reference/functions/">
+        VQL Functions
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/vql_reference/templates/" title="Report Templates" class="dd-item ">
+        <a href="/docs/vql_reference/templates/">
+        Report Templates
         
         </a>
     </li>
@@ -755,25 +684,6 @@
         </ul>
               
     </li>
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/docs/tutorial/" title="Tutorial" class="dd-item ">
-        <a href="/docs/tutorial/">
-        Tutorial
-        
-        </a>
-    </li>
-     
   
  
 
@@ -941,6 +851,97 @@
         </ul>
               
     </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/docs/presentations/" title="Presentations and Workshops" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/docs/presentations/">
+          Presentations and Workshops
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/presentations/crikeycon2019/" title="Crikeycon 2019 Training Workshop" class="dd-item ">
+        <a href="/docs/presentations/crikeycon2019/">
+        CrikeyCon 2019
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/presentations/nzitf2018/" title="New Zealand Internet Task Force Conference 2018" class="dd-item ">
+        <a href="/docs/presentations/nzitf2018/">
+        NZITF2018
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/tutorial/" title="Tutorial" class="dd-item ">
+        <a href="/docs/tutorial/">
+        Tutorial
+        
+        </a>
+    </li>
+     
   
  
 
@@ -1471,21 +1472,16 @@
 <ul>
 <li>
 <ul>
-<li><a href="#mail">mail</a></li>
-<li><a href="#collect">collect</a></li>
 <li><a href="#clients">clients</a></li>
-<li><a href="#flows">flows</a></li>
-<li><a href="#compress">compress</a></li>
 <li><a href="#elastic">elastic</a></li>
-<li><a href="#file-store">file_store</a></li>
-<li><a href="#hunts">hunts</a></li>
-<li><a href="#hunt-results">hunt_results</a></li>
+<li><a href="#flows">flows</a></li>
 <li><a href="#hunt-flows">hunt_flows</a></li>
-<li><a href="#label">label</a></li>
-<li><a href="#monitoring">monitoring</a></li>
-<li><a href="#watch-monitoring">watch_monitoring</a></li>
-<li><a href="#collected-artifacts">collected_artifacts</a></li>
+<li><a href="#hunt-results">hunt_results</a></li>
+<li><a href="#hunts">hunts</a></li>
+<li><a href="#mail">mail</a></li>
+<li><a href="#search">search</a></li>
 <li><a href="#source">source</a></li>
+<li><a href="#watch-monitoring">watch_monitoring</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -1514,96 +1510,14 @@
 
 
 
-<p>When run on the server, VQL Queries have access to server state, and
-so can schedule new artifact collection flows on client, manage client
-label, and retrieve artifact results from hunts. It is therefore
-possible to post process artifacts on the server in arbitrary ways.</p>
+<p>VQL Queries can also be run on the server. When run on the server, VQL
+Queries have access to server state, and so can schedule new artifact
+collection flows on client, manage client label, and retrieve artifact
+results from hunts. It is therefore possible to post process artifacts
+on the server in arbitrary ways.</p>
 
 <p>Server VQL queries can also be event driven which allows one to set up
 higher order escalations and alerting based on client side events.</p>
-
-<h2 id="mail">mail</h2>
-
-<table>
-<thead>
-<tr>
-<th>Arg</th>
-<th>Description</th>
-</tr>
-</thead>
-
-<tbody>
-<tr>
-<td>to</td>
-<td>Who to send mail to</td>
-</tr>
-
-<tr>
-<td>cc</td>
-<td>Who to cc the mail</td>
-</tr>
-
-<tr>
-<td>subject</td>
-<td>The subject of the mail</td>
-</tr>
-
-<tr>
-<td>body</td>
-<td>The body of the message</td>
-</tr>
-
-<tr>
-<td>period</td>
-<td>How long to wait before sending the next mail - help to throttle mails.</td>
-</tr>
-</tbody>
-</table>
-
-<p>This plugin sends a mail. In order to use it you must have the Mail
-section configured in the server&rsquo;s config file.</p>
-
-<p>Usually you would use the <code>foreach()</code> plugin to send a mail from
-another event query.</p>
-
-<p>Mails will not be sent more frequently than the specified period. Most
-mail servers implement rate limiting or spam detection so if this is
-set too low it is possible to overload the server. Currently we do not batch messages, rather drop them if sent too quickly.</p>
-
-<h2 id="collect">collect</h2>
-
-<table>
-<thead>
-<tr>
-<th>Arg</th>
-<th>Description</th>
-</tr>
-</thead>
-
-<tbody>
-<tr>
-<td>client_id</td>
-<td>The client to schedule collection on</td>
-</tr>
-
-<tr>
-<td>artifacts</td>
-<td>A list of one or more artifact names to collect.</td>
-</tr>
-
-<tr>
-<td>env</td>
-<td>A dict of parameters to populate the scope with.</td>
-</tr>
-</tbody>
-</table>
-
-<p>The function schedules an artifact collection flow on the server for
-the client. It is equivalent to the GUI functionality and allows us to
-automatically collect client artifacts in response to some event.</p>
-
-<p>The function will return a flow id which can be used to track flow
-until completion.</p>
 
 <h2 id="clients">clients</h2>
 
@@ -1612,13 +1526,21 @@ until completion.</p>
 <tr>
 <th>Arg</th>
 <th>Description</th>
+<th>Type</th>
 </tr>
 </thead>
 
 <tbody>
 <tr>
 <td>search</td>
-<td>A search expression for clients.</td>
+<td>Client search string. Can have the following prefixes: &lsquo;lable:&lsquo;, &lsquo;host:&rsquo;</td>
+<td>string</td>
+</tr>
+
+<tr>
+<td>client_id</td>
+<td></td>
+<td>string</td>
 </tr>
 </tbody>
 </table>
@@ -1631,48 +1553,6 @@ search term is the same as in the GUI and may consist of:</p>
 <li>May contain wild cards (<code>my*hostname</code>)</li>
 <li>May contain a prefix such as host:, label:, user:</li>
 </ul>
-
-<h2 id="flows">flows</h2>
-
-<table>
-<thead>
-<tr>
-<th>Arg</th>
-<th>Description</th>
-</tr>
-</thead>
-
-<tbody>
-<tr>
-<td>client_id</td>
-<td>The client to use</td>
-</tr>
-</tbody>
-</table>
-
-<p>Returns a list of flows launched on the client by client id.</p>
-
-<h2 id="compress">compress</h2>
-
-<table>
-<thead>
-<tr>
-<th>Arg</th>
-<th>Description</th>
-</tr>
-</thead>
-
-<tbody>
-<tr>
-<td>path</td>
-<td>A VFS path into the file store</td>
-</tr>
-</tbody>
-</table>
-
-<p>This function compresses a file within the file store. A compressed
-file is archived so it takes less space. It is still possible to see
-the file and read it but not to seek within it.</p>
 
 <h2 id="elastic">elastic</h2>
 
@@ -1713,41 +1593,59 @@ default index.</p>
 
 <p>This plugin is experimental.</p>
 
-<h2 id="file-store">file_store</h2>
+
+<div class="notices note" ><p>This plugin is currently disabled because it seems to have an
+extremely large binary footprint. You can enable it and recompile the
+binary if you need it.</p>
+</div>
+
+
+<h2 id="flows">flows</h2>
 
 <table>
 <thead>
 <tr>
 <th>Arg</th>
 <th>Description</th>
+<th>Type</th>
 </tr>
 </thead>
 
 <tbody>
 <tr>
-<td>path</td>
-<td>A VFS path</td>
+<td>client_id</td>
+<td></td>
+<td>list of string (required)</td>
 </tr>
 </tbody>
 </table>
 
-<p>Velociraptor uses the concept of a Virtual File System to manage the
-information about clients etc. The VFS path is a path into the file
-store. Of course ultimately (at least in the current implementation)
-the file store is storing files on disk, but the disk filename is not
-necessarily the same as the VFS path (for example non representable
-characters are escaped).</p>
+<p>Returns a list of flows launched on the client by client id.</p>
 
-<p>You can use the <code>file_store()</code> function to return the real file path
-on disk. This probably only makes sense for VQL queries running on the
-server which can independently open the file.</p>
+<h2 id="hunt-flows">hunt_flows</h2>
 
-<p>In future the file store may be abstracted (e.g. files may not be
-locally stored at all) and this function may stop working.</p>
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
 
-<h2 id="hunts">hunts</h2>
+<tbody>
+<tr>
+<td>hunt_id</td>
+<td>The hunt id to inspect.</td>
+<td>string (required)</td>
+</tr>
+</tbody>
+</table>
 
-<p>Returns all the hunts scheduled in the system.</p>
+<p>Retrieve the flows launched by a hunt. This is useful to quickly
+identified which client returned results, without necessarily counting
+them. Flow object contains high level context about the flow
+execution.</p>
 
 <h2 id="hunt-results">hunt_results</h2>
 
@@ -1756,23 +1654,33 @@ locally stored at all) and this function may stop working.</p>
 <tr>
 <th>Arg</th>
 <th>Description</th>
+<th>Type</th>
 </tr>
 </thead>
 
 <tbody>
 <tr>
-<td>hunt_id</td>
-<td>The hunt id to use</td>
+<td>artifact</td>
+<td>The artifact to retrieve</td>
+<td>string (required)</td>
 </tr>
 
 <tr>
-<td>artifact</td>
-<td>The name of the artifact to retrieve results for</td>
+<td>source</td>
+<td>An optional source within the artifact.</td>
+<td>string</td>
+</tr>
+
+<tr>
+<td>hunt_id</td>
+<td>The hunt id to read.</td>
+<td>string (required)</td>
 </tr>
 
 <tr>
 <td>brief</td>
-<td>If set less information is returned.</td>
+<td>If set we return less columns.</td>
+<td>bool</td>
 </tr>
 </tbody>
 </table>
@@ -1787,106 +1695,178 @@ appended (since hunt results come from multiple clients).</p>
 <p>The plugin is useful for performing stacking (using group by) or
 further narrowing the hunt result on demand.</p>
 
-<h2 id="hunt-flows">hunt_flows</h2>
+<h2 id="hunts">hunts</h2>
+
+<p>Returns all the hunts scheduled in the system.</p>
+
+<h2 id="mail">mail</h2>
 
 <table>
 <thead>
 <tr>
 <th>Arg</th>
 <th>Description</th>
+<th>Type</th>
 </tr>
 </thead>
 
 <tbody>
+<tr>
+<td>subject</td>
+<td>The subject.</td>
+<td>string</td>
+</tr>
+
+<tr>
+<td>body</td>
+<td>The body of the mail.</td>
+<td>string (required)</td>
+</tr>
+
+<tr>
+<td>period</td>
+<td>How long to wait before sending the next mail - help to throttle mails.</td>
+<td>int64 (required)</td>
+</tr>
+
+<tr>
+<td>to</td>
+<td>Receipient of the mail</td>
+<td>list of string (required)</td>
+</tr>
+
+<tr>
+<td>cc</td>
+<td>A cc for the mail</td>
+<td>list of string</td>
+</tr>
+</tbody>
+</table>
+
+<p>This plugin sends a mail. In order to use it you must have the Mail
+section configured in the server&rsquo;s config file.</p>
+
+<p>Usually you would use the <code>foreach()</code> plugin to send a mail from
+another event query.</p>
+
+<p>Mails will not be sent more frequently than the specified period. Most
+mail servers implement rate limiting or spam detection so if this is
+set too low it is possible to overload the server. Currently we do not
+batch messages, rather drop them if sent too quickly.</p>
+
+<h2 id="search">search</h2>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>type</td>
+<td>The type of search (e.g. &lsquo;key&rsquo;)</td>
+<td>string</td>
+</tr>
+
+<tr>
+<td>query</td>
+<td>The query string.</td>
+<td>string</td>
+</tr>
+
+<tr>
+<td>offset</td>
+<td>Skip this many results.</td>
+<td>uint64</td>
+</tr>
+
+<tr>
+<td>limit</td>
+<td>Only return limited results</td>
+<td>uint64</td>
+</tr>
+</tbody>
+</table>
+
+<p>Search the server client&rsquo;s index.</p>
+
+<h2 id="source">source</h2>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>start_time</td>
+<td>Start return events from this date (for event sources)</td>
+<td>int64</td>
+</tr>
+
+<tr>
+<td>mode</td>
+<td>HUNT or CLIENT mode can be empty</td>
+<td>string</td>
+</tr>
+
+<tr>
+<td>flow_id</td>
+<td>A flow ID (client or server artifacts)</td>
+<td>string</td>
+</tr>
+
 <tr>
 <td>hunt_id</td>
-<td>The hunt id to use</td>
-</tr>
-</tbody>
-</table>
-
-<p>Retrieve the flows launched by a hunt. This is useful to quickly
-identified which client returned results, without necessarily counting
-them. Flow object contains high level context about the flow
-execution.</p>
-
-<h2 id="label">label</h2>
-
-<table>
-<thead>
-<tr>
-<th>Arg</th>
-<th>Description</th>
-</tr>
-</thead>
-
-<tbody>
-<tr>
-<td>client_id</td>
-<td>The client to use</td>
-</tr>
-
-<tr>
-<td>labels</td>
-<td>One or more label</td>
-</tr>
-
-<tr>
-<td>op</td>
-<td>An operation on the labels (add, remove)</td>
-</tr>
-</tbody>
-</table>
-
-<p>This function adds or removed labels from clients.</p>
-
-<h2 id="monitoring">monitoring</h2>
-
-<table>
-<thead>
-<tr>
-<th>Arg</th>
-<th>Description</th>
-</tr>
-</thead>
-
-<tbody>
-<tr>
-<td>client_id</td>
-<td>The client to use. If not specified we search all clients.</td>
+<td>Retrieve sources from this hunt (combines all results from all clients)</td>
+<td>string</td>
 </tr>
 
 <tr>
 <td>artifact</td>
-<td>The artifact to retrieve</td>
+<td>The name of the artifact collection to fetch</td>
+<td>string</td>
 </tr>
 
 <tr>
-<td>date_regex</td>
-<td>A regular expression applied to the date file.</td>
+<td>source</td>
+<td>An optional named source within the artifact</td>
+<td>string</td>
+</tr>
+
+<tr>
+<td>client_id</td>
+<td>The client id to extract</td>
+<td>string</td>
+</tr>
+
+<tr>
+<td>day_name</td>
+<td>Only extract this day&rsquo;s Monitoring logs (deprecated)</td>
+<td>string</td>
+</tr>
+
+<tr>
+<td>end_time</td>
+<td>Stop end events reach this time (event sources).</td>
+<td>int64</td>
 </tr>
 </tbody>
 </table>
 
-<p>Velociraptor can monitor events on endpoints using the Event
-monitoring framework. This causes events to be streamed from the
-client and stored on the server within the client&rsquo;s monitoring part of
-the VFS.</p>
-
-<p>One installs event monitoring artifacts by naming them in the server&rsquo;s
-configuration files. Rows returned from these artifacts will be
-written to CSV files on the server. Each file is named by the day it
-is written.</p>
-
-<p>This plugin allows to query monitoring logs collected by the server
-and therefore post process them. For example it is possible to search
-process execution logs for certain process names, or stack them using
-group by queries.</p>
-
-<p>For efficiency it is possible to specify a regex which should match
-the date. Since monitoring CSV files are stored with the date as a
-filename, we can avoid openning files which are not interesting or too
-old.</p>
+<p>This is the main plugin to use in server VQL to fetch results. It
+automatically figures out what type the artifact is and where the CSV
+files are. The plugin can take many of these parameters from the
+report context so when used in a report it usually needs very few
+actual arguments.</p>
 
 <h2 id="watch-monitoring">watch_monitoring</h2>
 
@@ -1926,73 +1906,6 @@ side events and acts on them (e.g. by esclating or responding).</p>
 
 <p>If the client id is not specified, we watch for events from all
 clients.</p>
-
-<h2 id="collected-artifacts">collected_artifacts</h2>
-
-<table>
-<thead>
-<tr>
-<th>Arg</th>
-<th>Description</th>
-</tr>
-</thead>
-
-<tbody>
-<tr>
-<td>client_id</td>
-<td>The client id.</td>
-</tr>
-
-<tr>
-<td>flow_id</td>
-<td>The flow id (you can get these from the flows() plugin).</td>
-</tr>
-
-<tr>
-<td>artifact</td>
-<td>The artifact name to retrieve.</td>
-</tr>
-
-<tr>
-<td>source</td>
-<td>If the artifact contains multiple named sources, setting this will fetch a named source.</td>
-</tr>
-</tbody>
-</table>
-
-<p>This plugin emits the results from an artifact collected on a
-client. You can get a list of such artifacts by querying the <code>flows()</code>
-plugin. If the artifact contains multiple named sources, the plugin
-allows for a single source to be selected.</p>
-
-<p>Note that a VQL plugin simply returns the results collected and saved
-by another query run by the artifact. It is most useful for post
-processing the results.</p>
-
-<h2 id="source">source</h2>
-
-<table>
-<thead>
-<tr>
-<th>Arg</th>
-<th>Description</th>
-</tr>
-</thead>
-
-<tbody>
-<tr>
-<td>source</td>
-<td>The name of the source to query.</td>
-</tr>
-</tbody>
-</table>
-
-<p>This is a convenience function to use in reports. It simply called
-collected_artifacts() above with the client_id, flow_id and artifact
-fetched from the environment.</p>
-
-<p>When a report is generated these values are prefilled in the
-environment by the template expander.</p>
 
 
 <footer class=" footline" >
@@ -2359,54 +2272,6 @@ environment by the template expander.</p>
             
                 
                     
-                
-                
-
-                    
-                    
-                    
-
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
                     
                 
                 
@@ -2423,22 +2288,6 @@ environment by the template expander.</p>
                     
                         
                         
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
                     
                 
                 
@@ -2503,9 +2352,6 @@ environment by the template expander.</p>
             
         
                     
-            
-        
-                    
                         
             
             
@@ -2518,6 +2364,9 @@ environment by the template expander.</p>
                     
                     
 
+                    
+            
+        
                     
             
         
@@ -2646,6 +2495,70 @@ environment by the template expander.</p>
                     
             
         
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
                     
             
         
@@ -3046,10 +2959,10 @@ environment by the template expander.</p>
 	 
 	 
 		
-			<a class="nav nav-prev" href="/docs/vql_reference/functions/" title="VQL Functions"> <i class="fa fa-chevron-left"></i></a>
+			<a class="nav nav-prev" href="/docs/vql_reference/event_plugins/" title="VQL Event PLugins"> <i class="fa fa-chevron-left"></i></a>
 		
 		
-			<a class="nav nav-next" href="/docs/vql_reference/plugins/" title="VQL PLugins" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+			<a class="nav nav-next" href="/docs/vql_reference/functions/" title="VQL Functions" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
 		
 	
     </div>

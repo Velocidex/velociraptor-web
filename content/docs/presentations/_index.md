@@ -2,7 +2,7 @@
 title: Presentations and Workshops
 categories: [getting started]
 keywords: [usage,docs]
-weight: 50
+weight: 60
 ---
 
 We present about Velociraptor frequently in conferences and workshops.

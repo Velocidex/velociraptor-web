@@ -24,7 +24,7 @@ This allows VQL statements to be chained naturally since plugin args may also be
 
 
 
-<meta itemprop="wordCount" content="2196">
+<meta itemprop="wordCount" content="2605">
 
 
 
@@ -570,78 +570,6 @@ This allows VQL statements to be chained naturally since plugin args may also be
  
   
     
-    <li data-nav-id="/docs/presentations/" title="Presentations and Workshops" class="dd-item 
-        
-        
-        
-        ">
-      <a href="/docs/presentations/">
-          Presentations and Workshops
-          
-      </a>
-      
-      
-        <ul>
-          
-          
-          
-          
-        
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/docs/presentations/crikeycon2019/" title="Crikeycon 2019 Training Workshop" class="dd-item ">
-        <a href="/docs/presentations/crikeycon2019/">
-        CrikeyCon 2019
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/docs/presentations/nzitf2018/" title="New Zealand Internet Task Force Conference 2018" class="dd-item ">
-        <a href="/docs/presentations/nzitf2018/">
-        NZITF2018
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-        
-        </ul>
-              
-    </li>
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
     <li data-nav-id="/docs/vql_reference/" title="VQL Reference" class="dd-item 
         parent
         
@@ -667,9 +595,9 @@ This allows VQL statements to be chained naturally since plugin args may also be
  
   
     
-      <li data-nav-id="/docs/vql_reference/templates/" title="Report Templates" class="dd-item ">
-        <a href="/docs/vql_reference/templates/">
-        Report Templates
+      <li data-nav-id="/docs/vql_reference/plugins/" title="VQL PLugins" class="dd-item active">
+        <a href="/docs/vql_reference/plugins/">
+        VQL PLugins
         
         </a>
     </li>
@@ -705,25 +633,6 @@ This allows VQL statements to be chained naturally since plugin args may also be
  
   
     
-      <li data-nav-id="/docs/vql_reference/functions/" title="VQL Functions" class="dd-item ">
-        <a href="/docs/vql_reference/functions/">
-        VQL Functions
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
       <li data-nav-id="/docs/vql_reference/server/" title="VQL Server Plugins" class="dd-item ">
         <a href="/docs/vql_reference/server/">
         VQL Server Plugins
@@ -743,9 +652,28 @@ This allows VQL statements to be chained naturally since plugin args may also be
  
   
     
-      <li data-nav-id="/docs/vql_reference/plugins/" title="VQL PLugins" class="dd-item active">
-        <a href="/docs/vql_reference/plugins/">
-        VQL PLugins
+      <li data-nav-id="/docs/vql_reference/functions/" title="VQL Functions" class="dd-item ">
+        <a href="/docs/vql_reference/functions/">
+        VQL Functions
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/vql_reference/templates/" title="Report Templates" class="dd-item ">
+        <a href="/docs/vql_reference/templates/">
+        Report Templates
         
         </a>
     </li>
@@ -759,25 +687,6 @@ This allows VQL statements to be chained naturally since plugin args may also be
         </ul>
               
     </li>
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/docs/tutorial/" title="Tutorial" class="dd-item ">
-        <a href="/docs/tutorial/">
-        Tutorial
-        
-        </a>
-    </li>
-     
   
  
 
@@ -945,6 +854,97 @@ This allows VQL statements to be chained naturally since plugin args may also be
         </ul>
               
     </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/docs/presentations/" title="Presentations and Workshops" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/docs/presentations/">
+          Presentations and Workshops
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/presentations/crikeycon2019/" title="Crikeycon 2019 Training Workshop" class="dd-item ">
+        <a href="/docs/presentations/crikeycon2019/">
+        CrikeyCon 2019
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/presentations/nzitf2018/" title="New Zealand Internet Task Force Conference 2018" class="dd-item ">
+        <a href="/docs/presentations/nzitf2018/">
+        NZITF2018
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/tutorial/" title="Tutorial" class="dd-item ">
+        <a href="/docs/tutorial/">
+        Tutorial
+        
+        </a>
+    </li>
+     
   
  
 
@@ -1475,46 +1475,57 @@ This allows VQL statements to be chained naturally since plugin args may also be
 <ul>
 <li>
 <ul>
-<li><a href="#parse-records-with-regex">parse_records_with_regex</a>
+<li><a href="#certificates">certificates</a></li>
+<li><a href="#chain">chain</a>
 <ul>
 <li><a href="#example">Example</a></li>
 </ul></li>
-<li><a href="#parse-csv">parse_csv</a>
+<li><a href="#environ">environ</a></li>
+<li><a href="#execve">execve</a></li>
+<li><a href="#flatten">flatten</a></li>
+<li><a href="#foreach">foreach</a></li>
+<li><a href="#glob">glob</a>
 <ul>
 <li><a href="#example-1">Example</a></li>
 </ul></li>
-<li><a href="#parse-evtx">parse_evtx</a>
+<li><a href="#http-client">http_client</a>
 <ul>
 <li><a href="#example-2">Example</a></li>
 </ul></li>
-<li><a href="#olevba">olevba</a></li>
-<li><a href="#splitparser">splitparser</a></li>
+<li><a href="#if">if</a></li>
 <li><a href="#info">info</a></li>
-<li><a href="#pslist">pslist</a></li>
-<li><a href="#scope">scope</a>
+<li><a href="#netstat">netstat</a></li>
+<li><a href="#olevba">olevba</a></li>
+<li><a href="#parse-csv">parse_csv</a>
 <ul>
 <li><a href="#example-3">Example</a></li>
 </ul></li>
-<li><a href="#environ">environ</a></li>
-<li><a href="#execve">execve</a></li>
-<li><a href="#yara">yara</a></li>
-<li><a href="#proc-yara">proc_yara</a></li>
-<li><a href="#glob">glob</a>
+<li><a href="#parse-evtx">parse_evtx</a>
 <ul>
 <li><a href="#example-4">Example</a></li>
 </ul></li>
-<li><a href="#read-file">read_file</a></li>
-<li><a href="#stat">stat</a></li>
-<li><a href="#read-key-values">read_key_values</a></li>
-<li><a href="#http-client">http_client</a>
+<li><a href="#parse-records-with-regex">parse_records_with_regex</a>
 <ul>
 <li><a href="#example-5">Example</a></li>
 </ul></li>
+<li><a href="#partitions">partitions</a></li>
+<li><a href="#proc-dump">proc_dump</a></li>
+<li><a href="#proc-yara">proc_yara</a></li>
+<li><a href="#pslist">pslist</a></li>
+<li><a href="#read-file">read_file</a></li>
+<li><a href="#read-key-values">read_key_values</a></li>
+<li><a href="#scope">scope</a>
+<ul>
+<li><a href="#example-6">Example</a></li>
+</ul></li>
+<li><a href="#sample">sample</a></li>
+<li><a href="#split-records">split_records</a></li>
+<li><a href="#splitparser">splitparser</a></li>
+<li><a href="#stat">stat</a></li>
 <li><a href="#upload">upload</a></li>
-<li><a href="#authenticode">authenticode</a></li>
-<li><a href="#certificates">certificates</a></li>
 <li><a href="#users">users</a></li>
 <li><a href="#wmi">wmi</a></li>
+<li><a href="#yara">yara</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -1563,6 +1574,472 @@ or in condition clauses (i.e. after the <code>WHERE</code> keyword).</p>
 </div>
 
 
+<h2 id="certificates">certificates</h2>
+
+<p>Collect certificate from the system trust store.</p>
+
+<h2 id="chain">chain</h2>
+
+<p>Chain the output of several queries into the same table. This plugin
+takes any args and chains them.</p>
+
+<h3 id="example">Example</h3>
+
+<p>The following returns the rows from the first query then the rows from
+the second query.</p>
+
+<pre><code class="language-sql">SELECT * FROM chain(
+    a={ SELECT ...},
+    b={ SELECT ...})
+</code></pre>
+
+<h2 id="environ">environ</h2>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>vars</td>
+<td>Extract these variables from the environment and return them one per row</td>
+<td>list of string</td>
+</tr>
+</tbody>
+</table>
+
+<p>The row returned will have all environment variables as columns. If
+the var parameter is provided, only those variables will be provided.</p>
+
+<h2 id="execve">execve</h2>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>argv</td>
+<td>Argv to run the command with.</td>
+<td>list of string (required)</td>
+</tr>
+
+<tr>
+<td>sep</td>
+<td>The serparator that will be used to split the stdout into rows.</td>
+<td>string</td>
+</tr>
+
+<tr>
+<td>length</td>
+<td>Size of buffer to capture output per row.</td>
+<td>int6</td>
+</tr>
+</tbody>
+</table>
+
+<p>This plugin launches an external command and captures its STDERR,
+STDOUT and return code. The command&rsquo;s stdout is split using the <code>sep</code>
+parameter as required.</p>
+
+<p>This plugin is mostly useful for running arbitrary code on the
+client. If you do not want to allow arbitrary code to run, you can
+disable this by setting the <code>prevent_execve</code> flag in the client&rsquo;s
+config file. Be aware than many artifacts require running external
+commands to collect their output though.</p>
+
+<p>We do not actually transfer the external program to the system
+automatically. If you need to run programs which are not usually
+installed (e.g. Sysinternal&rsquo;s autoruns.exe) you will need to map them
+from a share (requiring direct access to the AD domain) or download
+them using the <code>http_client()</code> plugin.</p>
+
+<h2 id="flatten">flatten</h2>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>Name</td>
+<td></td>
+<td>string</td>
+</tr>
+</tbody>
+</table>
+
+<p>Flatten the columns in query. If any column repeats then we repeat the
+entire row once for each item.</p>
+
+<h2 id="foreach">foreach</h2>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>row</td>
+<td></td>
+<td>StoredQuery (required)</td>
+</tr>
+
+<tr>
+<td>query</td>
+<td></td>
+<td>StoredQuery (required)</td>
+</tr>
+</tbody>
+</table>
+
+<p>Executes &lsquo;query&rsquo; once for each row in the &lsquo;row&rsquo; query.</p>
+
+<h2 id="glob">glob</h2>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>globs</td>
+<td>One or more glob patterns to apply to the filesystem.</td>
+<td>list of string (required)</td>
+</tr>
+
+<tr>
+<td>accessor</td>
+<td>An accessor to use.</td>
+<td>string</td>
+</tr>
+</tbody>
+</table>
+
+<p>The <code>glob()</code> plugin is one of the most used plugins. It applies a glob
+expression in order to search for files by file name. The glob
+expression allows for wildcards, alternatives and character
+classes. Globs support both forward and backslashes as path
+separators. They also support quoting to delimit components.</p>
+
+<p>A glob expression consists of a sequence of components separated by
+path separators. If a separator is included within a component it is
+possible to quote the component to keep it together. For example, the
+windows registry contains keys with forward slash in their
+names. Therefore we may use these to prevent the glob from getting
+confused:</p>
+
+<pre><code>HKEY_LOCAL_MACHINE\Microsoft\Windows\&quot;Some Key With http://www.microsoft.com/&quot;\Some Value
+</code></pre>
+
+<p>Glob expressions are case insensitive and may contain the following wild cards:</p>
+
+<ul>
+<li>The <code>*</code> matches one or more characters.</li>
+<li>The <code>?</code> matches a single character.</li>
+<li>Alternatives are denoted by braces and comma delimited: <code>{a,b}</code></li>
+<li>Recursive search is denoted by a <code>**</code>. By default this searches 3 directories deep. If you need to increase it you can add a depth number (e.g. <code>**10</code>)</li>
+</ul>
+
+<p>By default globs do not expand environment variables. If you need to
+expand environment variables use the <code>expand()</code> function explicitly:</p>
+
+<pre><code class="language-sql">glob(globs=expand(string=&quot;%SystemRoot%\System32\Winevt\Logs\*&quot;))
+</code></pre>
+
+<h3 id="example-1">Example</h3>
+
+<p>The following searches the raw NTFS disk for event logs.</p>
+
+<pre><code class="language-sql">SELECT FullPath FROM glob(
+   globs=&quot;C:\Windows\System32\Winevt\Logs\*.evtx&quot;,
+   accessor=&quot;ntfs&quot;)
+</code></pre>
+
+<h2 id="http-client">http_client</h2>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>url</td>
+<td>The URL to fetch</td>
+<td>string (required)</td>
+</tr>
+
+<tr>
+<td>params</td>
+<td>Parameters to encode as POST or GET query strings</td>
+<td>vfilter.Any</td>
+</tr>
+
+<tr>
+<td>headers</td>
+<td>A dict of headers to send.</td>
+<td>vfilter.Any</td>
+</tr>
+
+<tr>
+<td>method</td>
+<td>HTTP method to use (GET, POST)</td>
+<td>string</td>
+</tr>
+
+<tr>
+<td>chunk_size</td>
+<td>Read input with this chunk size and send each chunk as a row</td>
+<td>int</td>
+</tr>
+
+<tr>
+<td>disable_ssl_security</td>
+<td>Disable ssl certificate verifications.</td>
+<td>bool</td>
+</tr>
+</tbody>
+</table>
+
+<p>This plugin makes a HTTP connection using the specified method. The
+headers and parameters may be specified. The plugin reads the
+specified number of bytes per returned row.</p>
+
+<p>If <code>disable_ssl_security</code> is specified we do not enforce SSL
+integrity. This is required to connect to self signed ssl web
+sites. For example many API handlers are exposed over such
+connections.</p>
+
+<p>The <code>http_client()</code> plugin allows use to interact with any web
+services. If the web service returns a json blob, we can parse it with
+the <code>parse_json()</code> function (or <code>parse_xml()</code> for SOAP
+endpoints). Using the parameters with a POST method we may actually
+invoke actions from within VQL (e.g. send an SMS via an SMS gateway
+when a VQL event is received).So this is a very powerful plugin.</p>
+
+<h3 id="example-2">Example</h3>
+
+<p>The following VQL returns the client&rsquo;s external IP as seen by the
+externalip service.</p>
+
+<pre><code class="language-sql">SELECT Content as IP from http_client(url='http://www.myexternalip.com/raw')
+</code></pre>
+
+<h2 id="if">if</h2>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>condition</td>
+<td></td>
+<td>vfilter.Any (required)</td>
+</tr>
+
+<tr>
+<td>then</td>
+<td></td>
+<td>vfilter.StoredQuery (required)</td>
+</tr>
+
+<tr>
+<td>else</td>
+<td></td>
+<td>vfilter.StoredQuery</td>
+</tr>
+</tbody>
+</table>
+
+<p>Conditional execution of query</p>
+
+<h2 id="info">info</h2>
+
+<p>This plugin returns a single row with information about the current
+system. The information includes the Hostname, Uptime, OS, Platform
+etc.</p>
+
+<p>This plugin is very useful in preconditions as it restricts a query to
+certain OS or versions.</p>
+
+<pre><code class="language-sql">SELECT OS from info() where OS = &quot;windows&quot;
+</code></pre>
+
+<h2 id="netstat">netstat</h2>
+
+<p>Collect network information.</p>
+
+<h2 id="olevba">olevba</h2>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>file</td>
+<td>A list of filenames to open as OLE files.</td>
+<td>list of string (required)</td>
+</tr>
+
+<tr>
+<td>accessor</td>
+<td>The accessor to use.</td>
+<td>string</td>
+</tr>
+
+<tr>
+<td>max_size</td>
+<td>Maximum size of file we load into memory.</td>
+<td>int64</td>
+</tr>
+</tbody>
+</table>
+
+<p>This plugin parses the provided files as OLE documents in order to
+recover VB macro code. A single document can have multiple code
+objects, and each such code object is emitted as a row.</p>
+
+<h2 id="parse-csv">parse_csv</h2>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>filename</td>
+<td>CSV files to open</td>
+<td>list of string (required)</td>
+</tr>
+
+<tr>
+<td>accessor</td>
+<td>The accessor to use</td>
+<td>string</td>
+</tr>
+</tbody>
+</table>
+
+<p>Parses records from a CSV file. We expect the first row of the CSV
+file to contain column names.  This parser specifically supports
+Velociraptor&rsquo;s own CSV dialect and so it is perfect for post
+processing already existing CSV files.</p>
+
+<p>The types of each value in each column is deduced based on
+Velociraptor&rsquo;s standard encoding scheme. Therefore types are properly
+preserved when read from the CSV file.</p>
+
+<p>For example, downloading the results of a hunt in the GUI will produce
+a CSV file containing artifact rows collected from all clients.  We
+can then use the <code>parse_csv()</code> plugin to further filter the CSV file,
+or to stack using group by.</p>
+
+<h3 id="example-3">Example</h3>
+
+<p>The following stacks the result from a
+<code>Windows.Applications.Chrome.Extensions</code> artifact:</p>
+
+<pre><code class="language-sql">SELECT count(items=User) As TotalUsers, Name
+FROM parse_csv(filename=&quot;All Windows.Applications.Chrome.Extensions.csv&quot;)
+Order By TotalUsers
+Group By Name
+</code></pre>
+
+<h2 id="parse-evtx">parse_evtx</h2>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>filename</td>
+<td>A list of event log files to parse.</td>
+<td>list of string (required)</td>
+</tr>
+
+<tr>
+<td>accessor</td>
+<td>The accessor to use.</td>
+<td>string</td>
+</tr>
+</tbody>
+</table>
+
+<p>This plugin parses windows events from the Windows Event log files (EVTX).</p>
+
+<p>A windows event typically contains two columns. The <code>EventData</code>
+contains event specific structured data while the <code>System</code> column
+contains common data for all events - including the Event ID.</p>
+
+<p>You should probably almost always filter by one or more event ids
+(using the <code>System.EventID.Value</code> field).</p>
+
+<h3 id="example-4">Example</h3>
+
+<pre><code class="language-sql">SELECT System.TimeCreated.SystemTime as Timestamp,
+       System.EventID.Value as EventID,
+       EventData.ImagePath as ImagePath,
+       EventData.ServiceName as ServiceName,
+       EventData.ServiceType as Type,
+       System.Security.UserID as UserSID,
+       EventData as _EventData,
+       System as _System
+FROM watch_evtx(filename=systemLogFile) WHERE EventID = 7045
+</code></pre>
+
 <h2 id="parse-records-with-regex">parse_records_with_regex</h2>
 
 <table>
@@ -1570,23 +2047,27 @@ or in condition clauses (i.e. after the <code>WHERE</code> keyword).</p>
 <tr>
 <th>Arg</th>
 <th>Description</th>
+<th>Type</th>
 </tr>
 </thead>
 
 <tbody>
 <tr>
+<td>accessor</td>
+<td>The accessor to use.</td>
+<td>string</td>
+</tr>
+
+<tr>
 <td>file</td>
-<td>One or more files to parse</td>
+<td>A list of files to parse.</td>
+<td>list of string (required)</td>
 </tr>
 
 <tr>
 <td>regex</td>
-<td>One or more regular expressions to match within the file.</td>
-</tr>
-
-<tr>
-<td>accessor</td>
-<td>The accessor to use for openning the file.</td>
+<td>A list of regex to apply to the file data.</td>
+<td>list of string (required)</td>
 </tr>
 </tbody>
 </table>
@@ -1614,7 +2095,7 @@ parse_string_with_regex() can be used to further split each record
 into elements. This works better than trying to write a more complex
 regex which tries to capture a lot of details in one pass.</p>
 
-<h3 id="example">Example</h3>
+<h3 id="example-5">Example</h3>
 
 <p>Here is an example of parsing the /var/lib/dpkg/status files. These
 files consist of records separated by empty lines:</p>
@@ -1658,7 +2139,107 @@ fields.</p>
      regex='(?sm)^(?P&lt;Record&gt;Package:.+?)\\n\\n')
 </code></pre>
 
-<h2 id="parse-csv">parse_csv</h2>
+<h2 id="partitions">partitions</h2>
+
+<p>List all partititions</p>
+
+<h2 id="proc-dump">proc_dump</h2>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>pid</td>
+<td>The PID to dump out.</td>
+<td>int64 (required)</td>
+</tr>
+</tbody>
+</table>
+
+<p>Dumps a process into a crashdump. The crashdump file can be opened
+with the windows debugger as normal. The plugin returns the filename
+of the crash dump which is a temporary file - the file will be removed
+when the query completes, so if you want to hold on to it, you should
+use the upload() plugin to upload it to the server or otherwise copy
+it.</p>
+
+<h2 id="proc-yara">proc_yara</h2>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>context</td>
+<td>How many bytes to include around each hit</td>
+<td>int</td>
+</tr>
+
+<tr>
+<td>start</td>
+<td>The start offset to scan</td>
+<td>int64</td>
+</tr>
+
+<tr>
+<td>end</td>
+<td>End scanning at this offset (100mb)</td>
+<td>uint64</td>
+</tr>
+
+<tr>
+<td>number</td>
+<td>Stop after this many hits (1).</td>
+<td>int64</td>
+</tr>
+
+<tr>
+<td>blocksize</td>
+<td>Blocksize for scanning (1mb).</td>
+<td>int64</td>
+</tr>
+
+<tr>
+<td>rules</td>
+<td>Yara rules in the yara DSL.</td>
+<td>string (required)</td>
+</tr>
+
+<tr>
+<td>files</td>
+<td>The list of files to scan.</td>
+<td>list of string (required)</td>
+</tr>
+
+<tr>
+<td>accessor</td>
+<td>Accessor (e.g. NTFS)</td>
+<td>string</td>
+</tr>
+</tbody>
+</table>
+
+<p>This plugin uses yara&rsquo;s own engine to scan process memory for the signatures.</p>
+
+
+<div class="notices note" ><p>Process memory access depends on having the <a href="https://support.microsoft.com/en-au/help/131065/how-to-obtain-a-handle-to-any-process-with-sedebugprivilege">SeDebugPrivilege</a> which depends on how Velociraptor was started. Even when running as System, some processes are not accessible.</p>
+</div>
+
+
+<h2 id="pslist">pslist</h2>
 
 <table>
 <thead>
@@ -1670,118 +2251,190 @@ fields.</p>
 
 <tbody>
 <tr>
-<td>filename</td>
-<td>One or more files to parse</td>
-</tr>
-
-<tr>
-<td>accessor</td>
-<td>The accessor to use for openning the file.</td>
+<td>pid</td>
+<td>A pid to list. If this is provided we are able to operate much faster by only opening a single process.</td>
 </tr>
 </tbody>
 </table>
 
-<p>Parses records from a CSV file. We expect the first row of the CSV
-file to contain column names.  This parser specifically supports
-Velociraptor&rsquo;s own CSV dialect and so it is perfect for post
-processing already existing CSV files.</p>
+<p>Lists running processes.</p>
 
-<p>The types of each value in each column is deduced based on
-Velociraptor&rsquo;s standard encoding scheme. Therefore types are properly
-preserved when read from the CSV file.</p>
+<p>When specifying the pid this operation is much faster so if you are
+interested in specific processes, the pid should be
+specified. Otherwise, the plugin returns all processes one on each
+row.</p>
 
-<p>For example, downloading the results of a hunt in the GUI will produce
-a CSV file containing artifact rows collected from all clients.  We
-can then use the <code>parse_csv()</code> plugin to further filter the CSV file,
-or to stack using group by.</p>
+<h2 id="read-file">read_file</h2>
 
-<h3 id="example-1">Example</h3>
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
 
-<p>The following stacks the result from a
-<code>Windows.Applications.Chrome.Extensions</code> artifact:</p>
+<tbody>
+<tr>
+<td>filenames</td>
+<td>One or more files to open.</td>
+<td>list of string (required)</td>
+</tr>
 
-<pre><code class="language-sql">SELECT count(items=User) As TotalUsers, Name
-FROM parse_csv(filename=&quot;All Windows.Applications.Chrome.Extensions.csv&quot;)
-Order By TotalUsers
-Group By Name
+<tr>
+<td>accessor</td>
+<td>An accessor to use.</td>
+<td>string</td>
+</tr>
+
+<tr>
+<td>chunk</td>
+<td>length of each chunk to read from the file.</td>
+<td>int</td>
+</tr>
+
+<tr>
+<td>max_length</td>
+<td>Max length of the file to read.</td>
+<td>int</td>
+</tr>
+</tbody>
+</table>
+
+<p>This plugin reads a file in chunks and returns each chunks as a separate row.</p>
+
+<p>It is useful when we want to report file contents for small files like
+configuration files etc.</p>
+
+<p>The returned row contains the following columns: data, offset, filename</p>
+
+<h2 id="read-key-values">read_key_values</h2>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>globs</td>
+<td>Glob expressions to apply.</td>
+<td>list of string (required)</td>
+</tr>
+
+<tr>
+<td>accessor</td>
+<td>The accessor to use (default raw_reg).</td>
+<td>string</td>
+</tr>
+</tbody>
+</table>
+
+<p>This is a convenience plugin which applies the globs to the registry
+accessor to find keys. For each key the plugin then lists all the
+values within it, and returns a row which has the value names as
+columns, while the cells contain the value&rsquo;s stat info (and data
+content available in the <code>Data</code> field).</p>
+
+<p>This makes it easier to access a bunch of related values at once.</p>
+
+<h2 id="scope">scope</h2>
+
+<p>The scope plugin returns the current scope as a single row.</p>
+
+<p>The main use for this plugin is as a NOOP plugin in those cases we
+dont want to actually run anything.</p>
+
+<h3 id="example-6">Example</h3>
+
+<pre><code class="language-sql">SELECT 1+1 As Two FROM scop()
 </code></pre>
 
-<h2 id="parse-evtx">parse_evtx</h2>
+<h2 id="sample">sample</h2>
 
 <table>
 <thead>
 <tr>
 <th>Arg</th>
 <th>Description</th>
+<th>Type</th>
 </tr>
 </thead>
 
 <tbody>
 <tr>
-<td>filename</td>
-<td>One or more files to parse</td>
+<td>n</td>
+<td>Pick every n row from query.</td>
+<td>int64 (required)</td>
 </tr>
 
 <tr>
-<td>accessor</td>
-<td>The accessor to use for openning the file.</td>
+<td>query</td>
+<td>Source query.</td>
+<td>vfilter.StoredQuery (required)</td>
 </tr>
 </tbody>
 </table>
 
-<p>This plugin parses windows events from the Windows Event log files (EVTX).</p>
+<p>Executes &lsquo;query&rsquo; and samples every n&rsquo;th row. This is most useful on
+the server in order to downsample event artifact results.</p>
 
-<p>A windows event typically contains two columns. The <code>EventData</code>
-contains event specific structured data while the <code>System</code> column
-contains common data for all events - including the Event ID.</p>
+<h2 id="split-records">split_records</h2>
 
-<p>You should probably almost always filter by one or more event ids
-(using the <code>System.EventID.Value</code> field).</p>
-
-<h3 id="example-2">Example</h3>
-
-<pre><code class="language-sql">SELECT System.TimeCreated.SystemTime as Timestamp,
-       System.EventID.Value as EventID,
-       EventData.ImagePath as ImagePath,
-       EventData.ServiceName as ServiceName,
-       EventData.ServiceType as Type,
-       System.Security.UserID as UserSID,
-       EventData as _EventData,
-       System as _System
-FROM watch_evtx(filename=systemLogFile) WHERE EventID = 7045
-</code></pre>
-
-<h2 id="olevba">olevba</h2>
+<p>Parses files by splitting lines into records.</p>
 
 <table>
 <thead>
 <tr>
 <th>Arg</th>
 <th>Description</th>
+<th>Type</th>
 </tr>
 </thead>
 
 <tbody>
 <tr>
-<td>file</td>
-<td>One or more files to parse</td>
+<td>count</td>
+<td>Only split into this many columns if possible.</td>
+<td>int</td>
+</tr>
+
+<tr>
+<td>filenames</td>
+<td>Files to parse.</td>
+<td>list of string (required)</td>
 </tr>
 
 <tr>
 <td>accessor</td>
-<td>The accessor to use for openning the file.</td>
+<td>The accessor to use</td>
+<td>string</td>
 </tr>
 
 <tr>
-<td>max_size</td>
-<td>Maximum size of file we load into memory.</td>
+<td>regex</td>
+<td>The split regular expression (e.g. a comma)</td>
+<td>string (required)</td>
+</tr>
+
+<tr>
+<td>columns</td>
+<td>If the first row is not the headers, this arg must provide a list of column names for each value.</td>
+<td>list of string</td>
+</tr>
+
+<tr>
+<td>first_row_is_headers</td>
+<td>A bool indicating if we should get column names from the first row.</td>
+<td>bool</td>
 </tr>
 </tbody>
 </table>
-
-<p>This plugin parses the provided files as OLE documents in order to
-recover VB macro code. A single document can have multiple code
-objects, and each such code object is emitted as a row.</p>
 
 <h2 id="splitparser">splitparser</h2>
 
@@ -1830,327 +2483,6 @@ objects, and each such code object is emitted as a row.</p>
 not as smart as the <code>parse_csv()</code> plugin but can use multiple
 delimiters.</p>
 
-<h2 id="info">info</h2>
-
-<p>This plugin returns a single row with information about the current
-system. The information includes the Hostname, Uptime, OS, Platform
-etc.</p>
-
-<p>This plugin is very useful in preconditions as it restricts a query to
-certain OS or versions.</p>
-
-<pre><code class="language-sql">SELECT OS from info() where OS = &quot;windows&quot;
-</code></pre>
-
-<h2 id="pslist">pslist</h2>
-
-<table>
-<thead>
-<tr>
-<th>Arg</th>
-<th>Description</th>
-</tr>
-</thead>
-
-<tbody>
-<tr>
-<td>pid</td>
-<td>A pid to list. If this is provided we are able to operate much faster by only opening a single process.</td>
-</tr>
-</tbody>
-</table>
-
-<p>Lists running processes.</p>
-
-<p>When specifying the pid this operation is much faster so if you are
-interested in specific processes, the pid should be
-specified. Otherwise, the plugin returns all processes one on each
-row.</p>
-
-<h2 id="scope">scope</h2>
-
-<p>The scope plugin returns the current scope as a single row.</p>
-
-<p>The main use for this plugin is as a NOOP plugin in those cases we
-dont want to actually run anything.</p>
-
-<h3 id="example-3">Example</h3>
-
-<pre><code class="language-sql">SELECT 1+1 As Two FROM scop()
-</code></pre>
-
-<h2 id="environ">environ</h2>
-
-<table>
-<thead>
-<tr>
-<th>Arg</th>
-<th>Description</th>
-</tr>
-</thead>
-
-<tbody>
-<tr>
-<td>vars</td>
-<td>One or more names of environment variables to lookup (optional)</td>
-</tr>
-</tbody>
-</table>
-
-<p>The row returned will have all environment variables as columns. If
-the var parameter is provided, only those variables will be provided.</p>
-
-<h2 id="execve">execve</h2>
-
-<table>
-<thead>
-<tr>
-<th>Arg</th>
-<th>Description</th>
-</tr>
-</thead>
-
-<tbody>
-<tr>
-<td>argv</td>
-<td>One or more strings forming the arguments of the shell command.</td>
-</tr>
-
-<tr>
-<td>sep</td>
-<td>The serparator that will be used to split the stdout into rows.</td>
-</tr>
-
-<tr>
-<td>length</td>
-<td>Size of buffer to capture output per row.</td>
-</tr>
-</tbody>
-</table>
-
-<p>This plugin launches an external command and captures its STDERR,
-STDOUT and return code. The command&rsquo;s stdout is split using the <code>sep</code>
-parameter as required.</p>
-
-<p>This plugin is mostly useful for running arbitrary code on the
-client. If you do not want to allow arbitrary code to run, you can
-disable this by setting the <code>prevent_execve</code> flag in the client&rsquo;s
-config file. Be aware than many artifacts require running external
-commands to collect their output though.</p>
-
-<p>We do not actually transfer the external program to the system
-automatically. If you need to run programs which are not usually
-installed (e.g. Sysinternal&rsquo;s autoruns.exe) you will need to map them
-from a share (requiring direct access to the AD domain) or download
-them using the <code>http_client()</code> plugin.</p>
-
-<h2 id="yara">yara</h2>
-
-<table>
-<thead>
-<tr>
-<th>Arg</th>
-<th>Description</th>
-</tr>
-</thead>
-
-<tbody>
-<tr>
-<td>rules</td>
-<td>Yara rules in the yara DSL.</td>
-</tr>
-
-<tr>
-<td>files</td>
-<td>The list of files to scan.</td>
-</tr>
-
-<tr>
-<td>accessor</td>
-<td>Accessor (e.g. NTFS)</td>
-</tr>
-
-<tr>
-<td>context</td>
-<td>How many bytes to include around each hit</td>
-</tr>
-
-<tr>
-<td>start</td>
-<td>The start offset to scan</td>
-</tr>
-
-<tr>
-<td>end</td>
-<td>End scanning at this offset (100mb)</td>
-</tr>
-
-<tr>
-<td>number</td>
-<td>Stop after this many hits (1).</td>
-</tr>
-
-<tr>
-<td>blocksize</td>
-<td>Blocksize for scanning (1mb).</td>
-</tr>
-</tbody>
-</table>
-
-<p>The <code>yara()</code> plugin applies a signature consisting of multiple rules
-across files. You can read more about <a href="https://yara.readthedocs.io/en/v3.4.0/writingrules.html">yara
-rules</a>. The
-accessor is used to open the various files which allow this plugin to
-work across raw ntfs, zip members etc.</p>
-
-<p>Scanning proceeds by reading a block from the file, then applying the
-yara rule on the block. This will fail if the signature is split
-across block boundary.</p>
-
-
-<div class="notices note" ><p>By default only the first 100mb of the file are scanned and
-scanning stops after one hit is found.</p>
-</div>
-
-
-<h2 id="proc-yara">proc_yara</h2>
-
-<table>
-<thead>
-<tr>
-<th>Arg</th>
-<th>Description</th>
-</tr>
-</thead>
-
-<tbody>
-<tr>
-<td>rules</td>
-<td>Yara rules in the yara DSL.</td>
-</tr>
-
-<tr>
-<td>pid</td>
-<td>The process id to scan.</td>
-</tr>
-
-<tr>
-<td>context</td>
-<td>How many bytes to include around each hit</td>
-</tr>
-</tbody>
-</table>
-
-<p>This plugin uses yara&rsquo;s own engine to scan process memory for the signatures.</p>
-
-
-<div class="notices note" ><p>Process memory access depends on having the <a href="https://support.microsoft.com/en-au/help/131065/how-to-obtain-a-handle-to-any-process-with-sedebugprivilege">SeDebugPrivilege</a> which depends on how Velociraptor was started. Even when running as System, some processes are not accessible.</p>
-</div>
-
-
-<h2 id="glob">glob</h2>
-
-<table>
-<thead>
-<tr>
-<th>Arg</th>
-<th>Description</th>
-</tr>
-</thead>
-
-<tbody>
-<tr>
-<td>globs</td>
-<td>One or more glob patterns to apply to the filesystem.</td>
-</tr>
-
-<tr>
-<td>accessor</td>
-<td>An accessor to use.</td>
-</tr>
-</tbody>
-</table>
-
-<p>The <code>glob()</code> plugin is one of the most used plugins. It applies a glob
-expression in order to search for files by file name. The glob
-expression allows for wildcards, alternatives and character
-classes. Globs support both forward and backslashes as path
-separators. They also support quoting to delimit components.</p>
-
-<p>A glob expression consists of a sequence of components separated by
-path separators. If a separator is included within a component it is
-possible to quote the component to keep it together. For example, the
-windows registry contains keys with forward slash in their
-names. Therefore we may use these to prevent the glob from getting
-confused:</p>
-
-<pre><code>HKEY_LOCAL_MACHINE\Microsoft\Windows\&quot;Some Key With http://www.microsoft.com/&quot;\Some Value
-</code></pre>
-
-<p>Glob expressions are case insensitive and may contain the following wild cards:</p>
-
-<ul>
-<li>The <code>*</code> matches one or more characters.</li>
-<li>The <code>?</code> matches a single character.</li>
-<li>Alternatives are denoted by braces and comma delimited: <code>{a,b}</code></li>
-<li>Recursive search is denoted by a <code>**</code>. By default this searches 3 directories deep. If you need to increase it you can add a depth number (e.g. <code>**10</code>)</li>
-</ul>
-
-<p>By default globs do not expand environment variables. If you need to
-expand environment variables use the <code>expand()</code> function explicitly:</p>
-
-<pre><code class="language-sql">glob(globs=expand(string=&quot;%SystemRoot%\System32\Winevt\Logs\*&quot;))
-</code></pre>
-
-<h3 id="example-4">Example</h3>
-
-<p>The following searches the raw NTFS disk for event logs.</p>
-
-<pre><code class="language-sql">SELECT FullPath FROM glob(
-   globs=&quot;C:\Windows\System32\Winevt\Logs\*.evtx&quot;,
-   accessor=&quot;ntfs&quot;)
-</code></pre>
-
-<h2 id="read-file">read_file</h2>
-
-<table>
-<thead>
-<tr>
-<th>Arg</th>
-<th>Description</th>
-</tr>
-</thead>
-
-<tbody>
-<tr>
-<td>chunk</td>
-<td>length of each chunk to read from the file.</td>
-</tr>
-
-<tr>
-<td>max_length</td>
-<td>Max length of the file to read.</td>
-</tr>
-
-<tr>
-<td>filenames</td>
-<td>One or more files to open.</td>
-</tr>
-
-<tr>
-<td>accessor</td>
-<td>An accessor to use.</td>
-</tr>
-</tbody>
-</table>
-
-<p>This plugin reads a file in chunks and returns each chunks as a separate row.</p>
-
-<p>It is useful when we want to report file contents for small files like
-configuration files etc.</p>
-
-<p>The returned row contains the following columns: data, offset, filename</p>
-
 <h2 id="stat">stat</h2>
 
 <table>
@@ -2176,104 +2508,6 @@ configuration files etc.</p>
 
 <p>Get file information. Unlike glob() this does not support wildcards.</p>
 
-<h2 id="read-key-values">read_key_values</h2>
-
-<table>
-<thead>
-<tr>
-<th>Arg</th>
-<th>Description</th>
-</tr>
-</thead>
-
-<tbody>
-<tr>
-<td>globs</td>
-<td>Globs to apply.</td>
-</tr>
-
-<tr>
-<td>accessor</td>
-<td>An accessor to use.</td>
-</tr>
-</tbody>
-</table>
-
-<p>This is a convenience plugin which applies the globs to the registry
-accessor to find keys. For each key the plugin then lists all the
-values within it, and returns a row which has the value names as
-columns, while the cells contain the value&rsquo;s stat info (and data
-content available in the <code>Data</code> field).</p>
-
-<p>This makes it easier to access a bunch of related values at once.</p>
-
-<h2 id="http-client">http_client</h2>
-
-<table>
-<thead>
-<tr>
-<th>Arg</th>
-<th>Description</th>
-</tr>
-</thead>
-
-<tbody>
-<tr>
-<td>url</td>
-<td>The URL to access.</td>
-</tr>
-
-<tr>
-<td>params</td>
-<td>A dictionary of key/values to encode into the request</td>
-</tr>
-
-<tr>
-<td>headers</td>
-<td>A dictionary of additional headers</td>
-</tr>
-
-<tr>
-<td>method</td>
-<td>The method to use (GET/POST)</td>
-</tr>
-
-<tr>
-<td>chunk_size</td>
-<td>Size of buffers to read per row</td>
-</tr>
-
-<tr>
-<td>disable_ssl_security</td>
-<td>If this is true disable SSL security verification.</td>
-</tr>
-</tbody>
-</table>
-
-<p>This plugin makes a HTTP connection using the specified method. The
-headers and parameters may be specified. The plugin reads the
-specified number of bytes per returned row.</p>
-
-<p>If <code>disable_ssl_security</code> is specified we do not enforce SSL
-integrity. This is required to connect to self signed ssl web
-sites. For example many API handlers are exposed over such
-connections.</p>
-
-<p>The <code>http_client()</code> plugin allows use to interact with any web
-services. If the web service returns a json blob, we can parse it with
-the <code>parse_json()</code> function (or <code>parse_xml()</code> for SOAP
-endpoints). Using the parameters with a POST method we may actually
-invoke actions from within VQL (e.g. send an SMS via an SMS gateway
-when a VQL event is received).So this is a very powerful plugin.</p>
-
-<h3 id="example-5">Example</h3>
-
-<p>The following VQL returns the client&rsquo;s external IP as seen by the
-externalip service.</p>
-
-<pre><code class="language-sql">SELECT Content as IP from http_client(url='http://www.myexternalip.com/raw')
-</code></pre>
-
 <h2 id="upload">upload</h2>
 
 <table>
@@ -2281,18 +2515,21 @@ externalip service.</p>
 <tr>
 <th>Arg</th>
 <th>Description</th>
+<th>Type</th>
 </tr>
 </thead>
 
 <tbody>
 <tr>
-<td>file</td>
-<td>The file to upload</td>
+<td>accessor</td>
+<td>The accessor to use</td>
+<td>string</td>
 </tr>
 
 <tr>
-<td>accessor</td>
-<td>An accessor to use.</td>
+<td>files</td>
+<td>A list of files to upload</td>
+<td>list of string (required)</td>
 </tr>
 </tbody>
 </table>
@@ -2303,32 +2540,6 @@ added to the triage evidence container.</p>
 
 <p>This functionality is also available using the upload() function which
 might be somewhat easier to use.</p>
-
-<h2 id="authenticode">authenticode</h2>
-
-<table>
-<thead>
-<tr>
-<th>Arg</th>
-<th>Description</th>
-</tr>
-</thead>
-
-<tbody>
-<tr>
-<td>filename</td>
-<td>The filename of the executable</td>
-</tr>
-</tbody>
-</table>
-
-<p>Uses the Windows API to extract and verify the file&rsquo;s authenticode
-signature. Since we use the windows API this can only work with the
-&ldquo;file&rdquo; accessor.</p>
-
-<h2 id="certificates">certificates</h2>
-
-<p>Collect certificate from the system trust store.</p>
 
 <h2 id="users">users</h2>
 
@@ -2342,6 +2553,7 @@ through the NetUserEnum() API.</p>
 <tr>
 <th>Arg</th>
 <th>Description</th>
+<th>Type</th>
 </tr>
 </thead>
 
@@ -2349,11 +2561,13 @@ through the NetUserEnum() API.</p>
 <tr>
 <td>query</td>
 <td>The WMI query to issue.</td>
+<td>string (required)</td>
 </tr>
 
 <tr>
 <td>namespace</td>
 <td>The WMI namespace to use (ROOT/CIMV2)</td>
+<td>string</td>
 </tr>
 </tbody>
 </table>
@@ -2363,6 +2577,84 @@ exact format of the returned row depends on the WMI query issued.</p>
 
 <p>This plugin creates a bridge between WMI and VQL and it is a very
 commonly used plugin for inspecting the state of windows systems.</p>
+
+<h2 id="yara">yara</h2>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>number</td>
+<td>Stop after this many hits (1).</td>
+<td>int64</td>
+</tr>
+
+<tr>
+<td>blocksize</td>
+<td>Blocksize for scanning (1mb).</td>
+<td>int64</td>
+</tr>
+
+<tr>
+<td>rules</td>
+<td>Yara rules in the yara DSL.</td>
+<td>string (required)</td>
+</tr>
+
+<tr>
+<td>files</td>
+<td>The list of files to scan.</td>
+<td>list of string (required)</td>
+</tr>
+
+<tr>
+<td>accessor</td>
+<td>Accessor (e.g. NTFS)</td>
+<td>string</td>
+</tr>
+
+<tr>
+<td>context</td>
+<td>How many bytes to include around each hit</td>
+<td>int</td>
+</tr>
+
+<tr>
+<td>start</td>
+<td>The start offset to scan</td>
+<td>int64</td>
+</tr>
+
+<tr>
+<td>end</td>
+<td>End scanning at this offset (100mb)</td>
+<td>uint64</td>
+</tr>
+</tbody>
+</table>
+
+<p>The <code>yara()</code> plugin applies a signature consisting of multiple rules
+across files. You can read more about <a href="https://yara.readthedocs.io/en/v3.4.0/writingrules.html">yara
+rules</a>. The
+accessor is used to open the various files which allow this plugin to
+work across raw ntfs, zip members etc.</p>
+
+<p>Scanning proceeds by reading a block from the file, then applying the
+yara rule on the block. This will fail if the signature is split
+across block boundary.</p>
+
+
+<div class="notices note" ><p>By default only the first 100mb of the file are scanned and
+scanning stops after one hit is found.</p>
+</div>
+
 
 
 <footer class=" footline" >
@@ -2729,18 +3021,6 @@ commonly used plugin for inspecting the state of windows systems.</p>
             
                 
                     
-                
-                
-
-                    
-                    
-                    
-
-                    
-                        
-            
-            
-                
                     
                 
                 
@@ -2749,28 +3029,6 @@ commonly used plugin for inspecting the state of windows systems.</p>
                     
                     
 
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-            
-        
                     
                         
             
@@ -2785,6 +3043,9 @@ commonly used plugin for inspecting the state of windows systems.</p>
                     
                     
 
+                    
+            
+        
                     
                         
             
@@ -2852,42 +3113,6 @@ commonly used plugin for inspecting the state of windows systems.</p>
                     
             
         
-                    
-                        
-            
-            
-                
-                    
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                        
-                        
-                    
-                
-                
-
-                    
-                    
-                    
-
                     
             
         
@@ -3016,6 +3241,70 @@ commonly used plugin for inspecting the state of windows systems.</p>
                     
             
         
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
                     
             
         
@@ -3416,10 +3705,10 @@ commonly used plugin for inspecting the state of windows systems.</p>
 	 
 	 
 		
-			<a class="nav nav-prev" href="/docs/vql_reference/server/" title="VQL Server Plugins"> <i class="fa fa-chevron-left"></i></a>
+			<a class="nav nav-prev" href="/docs/vql_reference/" title="VQL Reference"> <i class="fa fa-chevron-left"></i></a>
 		
 		
-			<a class="nav nav-next" href="/docs/tutorial/" title="Tutorial" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+			<a class="nav nav-next" href="/docs/vql_reference/event_plugins/" title="VQL Event PLugins" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
 		
 	
     </div>

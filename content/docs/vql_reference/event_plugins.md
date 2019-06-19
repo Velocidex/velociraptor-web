@@ -1,69 +1,24 @@
 ---
 title: VQL Event PLugins
-linktitle: VQL Event PLugins
-description: VQL Event plugins are plugins which never terminate - but instead generate rows based on events.
-date: 2019-02-01
-publishdate: 2019-02-01
-lastmod: 2019-02-01
-categories: [vql]
-keywords: []
-menu:
-  docs:
-    parent: "vql_reference"
-    weight: 50
-weight: 1
-draft: false
-aliases: []
-toc: true
+weight: 20
 ---
 
-Event plugins are useful for creating client monitoring
-artifacts. Currently, client side monitoring artifacts are specified
-in the `Events` section of the server configuration file. When clients
-connect to the server, they receive a list of monitoring artifacts
-they are to run. The client runs all artifacts in parallel and their
-results are streamed to the server.
+VQL Event plugins are plugins which never terminate - but instead
+generate rows based on events. Event plugins are useful for creating
+client monitoring artifacts. Currently, client side monitoring
+artifacts are specified in the `Events` section of the server
+configuration file. When clients connect to the server, they receive a
+list of monitoring artifacts they are to run. The client runs all
+artifacts in parallel and their results are streamed to the server.
 
 
-## watch_csv
-
-Arg | Description
-----|------------
-filename|One or more files to parse
-accessor|The accessor to use for openning the file.
-
-This plugin is the event version of `parse_csv()`. When the CSV file
-grows this plugin will emit the new rows.
-
-## watch_evtx
-
-Arg | Description
-----|------------
-filename|One or more files to parse
-accessor|The accessor to use for openning the file.
-
-
-
-Watch an EVTX file and stream events from it. This is the Event plugin
-version of `parse_evtx()`.
-
-
-{{% notice note %}}
-
-It often takes several seconds for events to be flushed to the event
-log and so this plugin's event may be delayed. For some applications
-this results in a race condition with the event itself - for example,
-files mentioned in the event may already be removed by the time the
-event is triggered.
-
-{{% /notice %}}
 
 ## clock
 
-Arg | Description
-----|------------
-period|Wait this many seconds between events.
-ms|Wait this many milliseconds between events..
+Arg | Description | Type
+----|-------------|-----
+period | Wait this many seconds between events. | int64
+ms | Wait this many ms between events. | int64
 
 This plugin generates events periodically. The periodicity can be
 controlled either via the `period` or the `ms` parameter. Each row
@@ -80,11 +35,11 @@ SELECT Sec FROM clock(period=10)
 
 ## diff
 
-Arg | Description
-----|------------
-query|Source for cached rows.
-key|The column to use as key."
-period|Number of seconds between evaluation of the query.
+Arg | Description | Type
+----|-------------|-----
+query | Source for cached rows. | vfilter.StoredQuery (required)
+key | The column to use as key. | string (required)
+period | Number of seconds between evaluation of the query. | int64
 
 The `diff()` plugin runs a non-event query periodically and calculates
 the difference between its result set from the last run.
@@ -125,13 +80,31 @@ SELECT * FROM diff(
   WHERE Diff = "added"
 ```
 
+## dns
+
+Monitor dns queries. This plugin opens a raw socket and monitors
+network traffic for DNS questions and answers.
+
+{{% notice note %}}
+
+When Velociraptor attempts to open a raw socket, sometimes Windows
+Defender treats that as suspicious behavior and quaranteens the
+Velociraptor binary. This can be avoided by signing the binary which
+signals to Windows Defender that the binary is legitimate.
+
+If you do not intend to build Velociraptor from source, use the
+official signed Velociraptor binaries which should not trigger alerts
+from Windows Defender.
+
+{{% /notice %}}
+
 ## fifo
 
-Arg | Description
-----|------------
-query|Source for cached rows.
-max_age|max_age,doc=Maximum number of seconds to hold rows in the fifo.
-max_rows|Maximum number of rows to hold in the fifo.
+Arg | Description | Type
+----|-------------|-----
+query | Source for cached rows. | vfilter.StoredQuery (required)
+max_age | Maximum number of seconds to hold rows in the fifo. | int64
+max_rows | Maximum number of rows to hold in the fifo. | int64
 
 The `fifo()` plugin allows for VQL queries to apply across historical
 data. The fifo plugin accepts another event query as parameter, then
@@ -180,48 +153,61 @@ SELECT * FROM foreach(
       })  WHERE Count > atoi(string=failureCount)
 ```
 
-## dns
-
-Monitor dns queries. This plugin opens a raw socket and monitors
-network traffic for DNS questions and answers.
-
-{{% notice note %}}
-
-When Velociraptor attempts to open a raw socket, sometimes Windows
-Defender treats that as suspicious behavior and quaranteens the
-Velociraptor binary. This can be avoided by signing the binary which
-signals to Windows Defender that the binary is legitimate.
-
-If you do not intend to build Velociraptor from source, use the
-official signed Velociraptor binaries which should not trigger alerts
-from Windows Defender.
-
-{{% /notice %}}
-
 ## netstat
 
 Collect network information using the network APIs.
 
-## proc_dump
+## watch_csv
 
-Arg | Description
-----|------------
-pid|Process ID to dump.
+Arg | Description | Type
+----|-------------|-----
+filename | CSV files to open |  list of string (required)
+accessor | The accessor to use | string
 
-Dumps a process into a crashdump. The crashdump file can be opened
-with the windows debugger as normal. The plugin returns the filename
-of the crash dump which is a temporary file - the file will be removed
-when the query completes, so if you want to hold on to it, you should
-use the upload() plugin to upload it to the server or otherwise copy
-it.
+
+This plugin is the event version of `parse_csv()`. When the CSV file
+grows this plugin will emit the new rows.
+
+## watch_evtx
+
+Arg | Description | Type
+----|-------------|-----
+filename | A list of event log files to parse. |  list of string (required)
+accessor | The accessor to use. | string
+
+Watch an EVTX file and stream events from it. This is the Event plugin
+version of `parse_evtx()`.
+
+
+{{% notice note %}}
+
+It often takes several seconds for events to be flushed to the event
+log and so this plugin's event may be delayed. For some applications
+this results in a race condition with the event itself - for example,
+files mentioned in the event may already be removed by the time the
+event is triggered.
+
+{{% /notice %}}
+
+## watch_monitoring
+
+Arg | Description | Type
+----|-------------|-----
+source | An optional artifact named source | string
+client_id | A list of client ids to watch. If not provided we watch all clients. |  list of string
+artifact | The event artifact name to watch | string (required)
+
+Watch clients' monitoring log. This is an event plugin. If client_id
+is not provided we watch the global journal which contains events from
+all clients.
 
 ## wmi_events
 
-Arg | Description
-----|------------
-query|WMI query to run.
-namespace|WMI namespace
-wait|Wait this many seconds for events and then quit.
+Arg | Description | Type
+----|-------------|-----
+query | WMI query to run. | string (required)
+namespace | WMI namespace | string (required)
+wait | Wait this many seconds for events and then quit. | int64 (required)
 
 This plugin sets up a [WMI
 event](https://docs.microsoft.com/en-us/windows/desktop/wmisdk/receiving-a-wmi-event)
