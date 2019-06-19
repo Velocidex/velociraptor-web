@@ -156,7 +156,7 @@ body, p{
 
 h1, h2, h3, h4, h5, h6 {
         font-family: 'JaapokkiRegular';
-        text-transform: uppercase;
+        // text-transform: uppercase;
         letter-spacing: 0.5px;
 }
 
@@ -417,7 +417,7 @@ blockquote {
         font-size: 16px;
         line-height: 18px;
         font-weight: 400;
-        text-transform: capitalize;
+        // text-transform: capitalize;
         display: block;
         color: #6A6A6A
  }
@@ -1028,7 +1028,7 @@ ul.navbar-nav > li > a i{
 
 #main-slide .slider-content h2{
         font-size: 52px;
-        text-transform: uppercase;
+        // text-transform: uppercase;
         color: #fff;
 }
 
