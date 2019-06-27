@@ -1,7 +1,8 @@
 # Site settings
 baseurl = "/"
 languageCode = "en-us"
-theme = ["hugo-theme-learn", "bizcraft"]
+theme = ["docdock", "bizcraft"]
+#theme = ["docdock", "bizcraft"]
 #theme = ["bizcraft", "hugo-theme-learn"]
 #theme = ["hugo-theme-learn"]
 enableGitInfo = false
@@ -26,8 +27,10 @@ title = "Velociraptor - Digging Deeper!"
   description = "Velociraptor: Digging Deeper!"
   images = ["https://velociraptor-docs-staging.velocidex.com/images/velo_small.png"]
   themeVariant = "mine"
+  themeStyle = "original"
   disableSearch = false
   disableBreadcrumb = true
+  disableHomeIcon = true
 
   # Generates too much churn in git tree.
   disableAssetsBusting = true

@@ -1,2593 +1,622 @@
 <!DOCTYPE html>
-<html lang="en" class="js csstransforms3d">
+<html>
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="generator" content="Hugo 0.56.0-DEV" />
-    <meta name="description" content="Velociraptor: Digging Deeper!">
-
-
-<meta property="og:title" content="Use Cases" />
-<meta property="og:description" content="Since Velociraptor is a very flexible tool, it can help you in many situations. It is therefore useful to look at some of the common use cases." />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="/docs/use_cases/" />
-
-<meta property="og:image" content="https://velociraptor-docs-staging.velocidex.com/images/velo_small.png" />
-<meta property="og:site_name" content="Velociraptor: Digging Deeper!" />
-
-<meta itemprop="name" content="Use Cases">
-<meta itemprop="description" content="Since Velociraptor is a very flexible tool, it can help you in many situations. It is therefore useful to look at some of the common use cases.">
-
-
-
-<meta itemprop="wordCount" content="27">
-
-
-
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://velociraptor-docs-staging.velocidex.com/images/velo_small.png"/>
-
-<meta name="twitter:title" content="Use Cases"/>
-<meta name="twitter:description" content="Since Velociraptor is a very flexible tool, it can help you in many situations. It is therefore useful to look at some of the common use cases."/>
-
-    <link rel="icon" href="/images/favicon.png" type="image/png">
-
-    <title>Use Cases :: Velociraptor - Digging Deeper!</title>
-
+    <title>Velociraptor - Digging Deeper!</title>
     
-    <link href="/css/nucleus.css" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css" rel="stylesheet">
-    <link href="/css/hybrid.css" rel="stylesheet">
-    <link href="/css/featherlight.min.css" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css" rel="stylesheet">
-    <link href="/css/auto-complete.css" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css" rel="stylesheet">
-    <link href="/css/theme.css" rel="stylesheet">
-    <link href="/css/hugo-theme.css" rel="stylesheet">
-    
-      <link href="/css/theme-mine.css" rel="stylesheet">
-    
+      <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="revised" content="2019-06-28T00:34:28 AEST">
+<title>Use Cases :: Velociraptor - Digging Deeper!</title>
+<link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon" />
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<link href="/css/nucleus.css" rel="stylesheet">
+<link href="/css/font-awesome.min.css" rel="stylesheet">
+<link href="/css/hybrid.css" rel="stylesheet">
+<link href="/css/featherlight.min.css" rel="stylesheet">
+<link href="/css/auto-complete.css" rel="stylesheet">
+<link href="/theme-original/style.css" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js"></script>
+  <link href="/theme-original/variant-mine.css" rel="stylesheet">
 
-    <style>
-      :root #header + #content > #left > #rlblock_left{
-          display:none !important;
-      }
-      
-    </style>
+
+<script src="/js/jquery-2.x.min.js"></script>
+<style type="text/css">
+  :root #header + #content > #left > #rlblock_left {
+    display:none !important;
+  }
+</style>
+<link rel="stylesheet" href="/css/theme-mine.css">
+<script src="/js/custom.js"></script>
+
+
     
   </head>
-  <body class="" data-url="/docs/use_cases/">
-    <nav id="sidebar" class="">
+  <body data-url="/docs/use_cases/">
+    
+      <div id="headermain"></div>
+<nav id="sidebar" class="">
 
 
 
+<div class="highlightable">
   <div id="header-wrapper">
     <div id="header">
-      <a href="/">
-  <img src="/images/logo.svg" />
-</a>
+      
+	
+  
+    <p><a href="/">
+  <img src="/images/logo.svg">
+</a></p>
+
+  
+
 
     </div>
-    
         <div class="searchbox">
-    <label for="search-by"><i class="fas fa-search"></i></label>
-    <input data-search-input id="search-by" type="search" placeholder="Search...">
-    <span data-search-clear=""><i class="fas fa-times"></i></span>
-</div>
-
-<script type="text/javascript" src="/js/lunr.min.js"></script>
-<script type="text/javascript" src="/js/auto-complete.js"></script>
-<script type="text/javascript">
-    
-        var baseurl = "\/";
-    
-</script>
-<script type="text/javascript" src="/js/search.js"></script>
-
-    
+		    <label for="search-by"><i class="fa fa-search"></i></label>
+		    <input data-search-input id="search-by" type="text" placeholder="Search...">
+		    <span data-search-clear=""><i class="fa fa-close"></i></span>
+		</div>
+		<script type="text/javascript" src="/js/lunr.min.js"></script>
+		<script type="text/javascript" src="/js/auto-complete.js"></script>
+		<script type="text/javascript">
+        
+            var baseurl = "\/";
+        
+		</script>
+		<script type="text/javascript" src="/js/search.js"></script>
   </div>
 
-    <div class="highlightable">
-    <ul class="topics">
-
-        
-          
-          
-
-
- 
-  
-    
-    <li data-nav-id="/about/" title="About Velociraptor" class="dd-item 
-        
-        
-        
+      <ul class="topics">
+    <li data-nav-id="/about/" class="dd-item haschildren
         ">
-      <a href="/about/">
-          Overview
-          
-      </a>
-      
-      
+      <div>
+      <a href="/about/">About Velociraptor</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
         <ul>
-          
-          
-          
-          
-        
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/about/features/" title="Velociraptor Features" class="dd-item ">
-        <a href="/about/features/">
-        Velociraptor Features
-        
-        </a>
+      <li data-nav-id="/about/features/" class="dd-item">
+        <div>
+          <a href="/about/features/">
+            Velociraptor Features
+          </a>
+        </div>
     </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/about/license/" title="GNU Affero General Public License" class="dd-item ">
-        <a href="/about/license/">
-        License
-        
-        </a>
+      <li data-nav-id="/about/license/" class="dd-item">
+        <div>
+          <a href="/about/license/">
+            License
+          </a>
+        </div>
     </li>
-     
-  
- 
-
-            
-          
-        
         </ul>
-              
     </li>
-  
- 
-
-          
-          
-
-
- 
-  
-    
-    <li data-nav-id="/docs/" title="Velociraptor Documentation" class="dd-item 
-        parent
-        
-        
+    <li data-nav-id="/docs/" class="dd-item parent haschildren
         ">
-      <a href="/docs/">
-          Velociraptor Documentation
-          
-      </a>
-      
-      
+      <div>
+      <a href="/docs/">Velociraptor Documentation</a>
+            <i class="fa fa-angle-down fa-lg category-icon"></i>
+      </div>
         <ul>
-          
-          
-            
-          
-          
-          
-        
-          
-            
-            
-
-
- 
-  
-    
-    <li data-nav-id="/docs/getting-started/" title="Getting Started" class="dd-item 
-        
-        
-        
+    <li data-nav-id="/docs/getting-started/" class="dd-item haschildren
         ">
-      <a href="/docs/getting-started/">
-          Getting Started
-          
-      </a>
-      
-      
+      <div>
+      <a href="/docs/getting-started/">Getting Started</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
         <ul>
-          
-          
-          
-          
-        
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/docs/getting-started/stand_alone/" title="Standalone Deployment" class="dd-item ">
-        <a href="/docs/getting-started/stand_alone/">
-        Standalone Deployment
-        
-        </a>
+      <li data-nav-id="/docs/getting-started/stand_alone/" class="dd-item">
+        <div>
+          <a href="/docs/getting-started/stand_alone/">
+            Standalone Deployment
+          </a>
+        </div>
     </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/docs/getting-started/deploying_clients/" title="Deploying Clients" class="dd-item ">
-        <a href="/docs/getting-started/deploying_clients/">
-        Deploying Clients
-        
-        </a>
+      <li data-nav-id="/docs/getting-started/deploying_clients/" class="dd-item">
+        <div>
+          <a href="/docs/getting-started/deploying_clients/">
+            Deploying Clients
+          </a>
+        </div>
     </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/docs/getting-started/cloud/" title="Deploying in the cloud" class="dd-item ">
-        <a href="/docs/getting-started/cloud/">
-        Deploying in the cloud
-        
-        </a>
+      <li data-nav-id="/docs/getting-started/cloud/" class="dd-item">
+        <div>
+          <a href="/docs/getting-started/cloud/">
+            Deploying in the cloud
+          </a>
+        </div>
     </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/docs/getting-started/triaging/" title="Triaging" class="dd-item ">
-        <a href="/docs/getting-started/triaging/">
-        Triaging
-        
-        </a>
+      <li data-nav-id="/docs/getting-started/triaging/" class="dd-item">
+        <div>
+          <a href="/docs/getting-started/triaging/">
+            Triaging
+          </a>
+        </div>
     </li>
-     
-  
- 
-
-            
-          
-        
         </ul>
-              
     </li>
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
-    <li data-nav-id="/docs/user-interface/" title="User Interface" class="dd-item 
-        
-        
-        
+    <li data-nav-id="/docs/user-interface/" class="dd-item haschildren
         ">
-      <a href="/docs/user-interface/">
-          User Interface
-          
-      </a>
-      
-      
+      <div>
+      <a href="/docs/user-interface/">User Interface</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
         <ul>
-          
-          
-            
-          
-          
-          
-        
-          
-            
-            
-
-
- 
-  
-    
-    <li data-nav-id="/docs/user-interface/investigating_clients/" title="Investigating Clients" class="dd-item 
-        
-        
-        
+    <li data-nav-id="/docs/user-interface/investigating_clients/" class="dd-item haschildren
         ">
-      <a href="/docs/user-interface/investigating_clients/">
-          Investigating Clients
-          
-      </a>
-      
-      
+      <div>
+      <a href="/docs/user-interface/investigating_clients/">Investigating Clients</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
         <ul>
-          
-          
-          
-          
-        
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/docs/user-interface/investigating_clients/searching_clients/" title="Searching for clients" class="dd-item ">
-        <a href="/docs/user-interface/investigating_clients/searching_clients/">
-        Searching for clients
-        
-        </a>
+      <li data-nav-id="/docs/user-interface/investigating_clients/searching_clients/" class="dd-item">
+        <div>
+          <a href="/docs/user-interface/investigating_clients/searching_clients/">
+            Searching for clients
+          </a>
+        </div>
     </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/docs/user-interface/investigating_clients/virtual_filesystem/" title="The Virtual File System" class="dd-item ">
-        <a href="/docs/user-interface/investigating_clients/virtual_filesystem/">
-        Client VFS
-        
-        </a>
+      <li data-nav-id="/docs/user-interface/investigating_clients/virtual_filesystem/" class="dd-item">
+        <div>
+          <a href="/docs/user-interface/investigating_clients/virtual_filesystem/">
+            Client VFS
+          </a>
+        </div>
     </li>
-     
-  
- 
-
-            
-          
-        
         </ul>
-              
     </li>
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
-    <li data-nav-id="/docs/user-interface/artifacts/" title="Velociraptor Artifacts" class="dd-item 
-        
-        
-        
+    <li data-nav-id="/docs/user-interface/artifacts/" class="dd-item haschildren
         ">
-      <a href="/docs/user-interface/artifacts/">
-          Velociraptor Artifacts
-          
-      </a>
-      
-      
+      <div>
+      <a href="/docs/user-interface/artifacts/">Velociraptor Artifacts</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
         <ul>
-          
-          
-          
-          
-        
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/docs/user-interface/artifacts/client_artifacts/" title="Client Artifacts" class="dd-item ">
-        <a href="/docs/user-interface/artifacts/client_artifacts/">
-        Client Artifacts
-        
-        </a>
+      <li data-nav-id="/docs/user-interface/artifacts/client_artifacts/" class="dd-item">
+        <div>
+          <a href="/docs/user-interface/artifacts/client_artifacts/">
+            Client Artifacts
+          </a>
+        </div>
     </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/docs/user-interface/artifacts/client_events/" title="Client Event Artifacts" class="dd-item ">
-        <a href="/docs/user-interface/artifacts/client_events/">
-        Client Event Artifacts
-        
-        </a>
+      <li data-nav-id="/docs/user-interface/artifacts/client_events/" class="dd-item">
+        <div>
+          <a href="/docs/user-interface/artifacts/client_events/">
+            Client Event Artifacts
+          </a>
+        </div>
     </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/docs/user-interface/artifacts/server_artifacts/" title="Server Artifacts" class="dd-item ">
-        <a href="/docs/user-interface/artifacts/server_artifacts/">
-        Server Artifacts
-        
-        </a>
+      <li data-nav-id="/docs/user-interface/artifacts/server_artifacts/" class="dd-item">
+        <div>
+          <a href="/docs/user-interface/artifacts/server_artifacts/">
+            Server Artifacts
+          </a>
+        </div>
     </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/docs/user-interface/artifacts/server_events/" title="Server Event Artifacts" class="dd-item ">
-        <a href="/docs/user-interface/artifacts/server_events/">
-        Server Event Artifacts
-        
-        </a>
+      <li data-nav-id="/docs/user-interface/artifacts/server_events/" class="dd-item">
+        <div>
+          <a href="/docs/user-interface/artifacts/server_events/">
+            Server Event Artifacts
+          </a>
+        </div>
     </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/docs/user-interface/artifacts/add_artifacts/" title="Customizing Artifacts" class="dd-item ">
-        <a href="/docs/user-interface/artifacts/add_artifacts/">
-        Customizing Artifacts
-        
-        </a>
+      <li data-nav-id="/docs/user-interface/artifacts/add_artifacts/" class="dd-item">
+        <div>
+          <a href="/docs/user-interface/artifacts/add_artifacts/">
+            Customizing Artifacts
+          </a>
+        </div>
     </li>
-     
-  
- 
-
-            
-          
-        
         </ul>
-              
     </li>
-  
- 
-
-            
-          
-        
         </ul>
-              
     </li>
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/docs/use_cases/" title="Use Cases" class="dd-item active">
-        <a href="/docs/use_cases/">
-        Use Cases
-        
-        </a>
+      <li data-nav-id="/docs/use_cases/" class="dd-item active">
+        <div>
+          <a href="/docs/use_cases/">
+            Use Cases
+          </a>
+        </div>
     </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
-    <li data-nav-id="/docs/vql_reference/" title="VQL Reference" class="dd-item 
-        
-        
-        
+    <li data-nav-id="/docs/vql_reference/" class="dd-item haschildren
         ">
-      <a href="/docs/vql_reference/">
-          VQL Reference
-          
-      </a>
-      
-      
+      <div>
+      <a href="/docs/vql_reference/">VQL Reference</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
         <ul>
-          
-          
-          
-          
-        
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/docs/vql_reference/plugins/" title="VQL PLugins" class="dd-item ">
-        <a href="/docs/vql_reference/plugins/">
-        VQL PLugins
-        
-        </a>
+      <li data-nav-id="/docs/vql_reference/plugins/" class="dd-item">
+        <div>
+          <a href="/docs/vql_reference/plugins/">
+            VQL PLugins
+          </a>
+        </div>
     </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/docs/vql_reference/event_plugins/" title="VQL Event PLugins" class="dd-item ">
-        <a href="/docs/vql_reference/event_plugins/">
-        VQL Event PLugins
-        
-        </a>
+      <li data-nav-id="/docs/vql_reference/event_plugins/" class="dd-item">
+        <div>
+          <a href="/docs/vql_reference/event_plugins/">
+            VQL Event PLugins
+          </a>
+        </div>
     </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/docs/vql_reference/server/" title="VQL Server Plugins" class="dd-item ">
-        <a href="/docs/vql_reference/server/">
-        VQL Server Plugins
-        
-        </a>
+      <li data-nav-id="/docs/vql_reference/server/" class="dd-item">
+        <div>
+          <a href="/docs/vql_reference/server/">
+            VQL Server Plugins
+          </a>
+        </div>
     </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/docs/vql_reference/functions/" title="VQL Functions" class="dd-item ">
-        <a href="/docs/vql_reference/functions/">
-        VQL Functions
-        
-        </a>
+      <li data-nav-id="/docs/vql_reference/functions/" class="dd-item">
+        <div>
+          <a href="/docs/vql_reference/functions/">
+            VQL Functions
+          </a>
+        </div>
     </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/docs/vql_reference/templates/" title="Report Templates" class="dd-item ">
-        <a href="/docs/vql_reference/templates/">
-        Report Templates
-        
-        </a>
+      <li data-nav-id="/docs/vql_reference/templates/" class="dd-item">
+        <div>
+          <a href="/docs/vql_reference/templates/">
+            Report Templates
+          </a>
+        </div>
     </li>
-     
-  
- 
-
-            
-          
-        
         </ul>
-              
     </li>
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
-    <li data-nav-id="/docs/artifacts/" title="Artifact Reference" class="dd-item 
-        
-        
-        
+    <li data-nav-id="/docs/artifacts/" class="dd-item haschildren
         ">
-      <a href="/docs/artifacts/">
-          Artifact Reference
-          
-      </a>
-      
-      
+      <div>
+      <a href="/docs/artifacts/">Artifact Reference</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
         <ul>
-          
-          
-          
-          
-        
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/docs/artifacts/linux/linux/" title="Linux Artifacts" class="dd-item ">
-        <a href="/docs/artifacts/linux/linux/">
-        Linux Artifacts
-        
-        </a>
+      <li data-nav-id="/docs/artifacts/linux/linux/" class="dd-item">
+        <div>
+          <a href="/docs/artifacts/linux/linux/">
+            Linux Artifacts
+          </a>
+        </div>
     </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/docs/artifacts/misc/" title="Miscelaneous Artifacts" class="dd-item ">
-        <a href="/docs/artifacts/misc/">
-        Miscelaneous
-        
-        </a>
+      <li data-nav-id="/docs/artifacts/misc/" class="dd-item">
+        <div>
+          <a href="/docs/artifacts/misc/">
+            Miscelaneous
+          </a>
+        </div>
     </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/docs/artifacts/server/" title="Server Artifacts" class="dd-item ">
-        <a href="/docs/artifacts/server/">
-        Server Artifacts
-        
-        </a>
+      <li data-nav-id="/docs/artifacts/server/" class="dd-item">
+        <div>
+          <a href="/docs/artifacts/server/">
+            Server Artifacts
+          </a>
+        </div>
     </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/docs/artifacts/detection/" title="Windows Malware Detection" class="dd-item ">
-        <a href="/docs/artifacts/detection/">
-        Windows Detection
-        
-        </a>
+      <li data-nav-id="/docs/artifacts/detection/" class="dd-item">
+        <div>
+          <a href="/docs/artifacts/detection/">
+            Windows Detection
+          </a>
+        </div>
     </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/docs/artifacts/events/" title="Windows Event Monitoring" class="dd-item ">
-        <a href="/docs/artifacts/events/">
-        Windows Monitoring
-        
-        </a>
+      <li data-nav-id="/docs/artifacts/events/" class="dd-item">
+        <div>
+          <a href="/docs/artifacts/events/">
+            Windows Monitoring
+          </a>
+        </div>
     </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/docs/artifacts/windows_system/" title="Windows System" class="dd-item ">
-        <a href="/docs/artifacts/windows_system/">
-        Windows System
-        
-        </a>
+      <li data-nav-id="/docs/artifacts/windows_system/" class="dd-item">
+        <div>
+          <a href="/docs/artifacts/windows_system/">
+            Windows System
+          </a>
+        </div>
     </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/docs/artifacts/triage/" title="Windows Triage Artifacts" class="dd-item ">
-        <a href="/docs/artifacts/triage/">
-        Windows Triage
-        
-        </a>
+      <li data-nav-id="/docs/artifacts/triage/" class="dd-item">
+        <div>
+          <a href="/docs/artifacts/triage/">
+            Windows Triage
+          </a>
+        </div>
     </li>
-     
-  
- 
-
-            
-          
-        
         </ul>
-              
     </li>
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
-    <li data-nav-id="/docs/presentations/" title="Presentations and Workshops" class="dd-item 
-        
-        
-        
+    <li data-nav-id="/docs/presentations/" class="dd-item haschildren
         ">
-      <a href="/docs/presentations/">
-          Presentations and Workshops
-          
-      </a>
-      
-      
+      <div>
+      <a href="/docs/presentations/">Presentations and Workshops</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
         <ul>
-          
-          
-          
-          
-        
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/docs/presentations/crikeycon2019/" title="Crikeycon 2019 Training Workshop" class="dd-item ">
-        <a href="/docs/presentations/crikeycon2019/">
-        CrikeyCon 2019
-        
-        </a>
+      <li data-nav-id="/docs/presentations/crikeycon2019/" class="dd-item">
+        <div>
+          <a href="/docs/presentations/crikeycon2019/">
+            CrikeyCon 2019
+          </a>
+        </div>
     </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/docs/presentations/nzitf2018/" title="New Zealand Internet Task Force Conference 2018" class="dd-item ">
-        <a href="/docs/presentations/nzitf2018/">
-        NZITF2018
-        
-        </a>
+      <li data-nav-id="/docs/presentations/nzitf2018/" class="dd-item">
+        <div>
+          <a href="/docs/presentations/nzitf2018/">
+            NZITF2018
+          </a>
+        </div>
     </li>
-     
-  
- 
-
-            
-          
-        
         </ul>
-              
     </li>
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/docs/tutorial/" title="Tutorial" class="dd-item ">
-        <a href="/docs/tutorial/">
-        Tutorial
-        
-        </a>
+      <li data-nav-id="/docs/tutorial/" class="dd-item">
+        <div>
+          <a href="/docs/tutorial/">
+            Tutorial
+          </a>
+        </div>
     </li>
-     
-  
- 
-
-            
-          
-        
         </ul>
-              
     </li>
-  
- 
-
-          
-          
-
-
- 
-  
-    
-    <li data-nav-id="/blog/" title="Velociraptor Blog" class="dd-item 
-        
-        
-        
+    <li data-nav-id="/blog/" class="dd-item haschildren
         ">
-      <a href="/blog/">
-          Velociraptor Blog
-          
-      </a>
-      
-      
+      <div>
+      <a href="/blog/">Velociraptor Blog</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
         <ul>
-          
-          
-          
-          
-        
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/blog/html/2019/03/02/agentless_hunting_with_velociraptor.html" title="Agentless hunting with Velociraptor" class="dd-item ">
-        <a href="/blog/html/2019/03/02/agentless_hunting_with_velociraptor.html">
-        Agentless hunting with Velociraptor
-        
-        </a>
+      <li data-nav-id="/blog/html/2019/03/02/agentless_hunting_with_velociraptor.html" class="dd-item">
+        <div>
+          <a href="/blog/html/2019/03/02/agentless_hunting_with_velociraptor.html">
+            Agentless hunting with Velociraptor
+          </a>
+        </div>
     </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/blog/html/2019/02/14/alerting_on_event_patterns.html" title="Alerting on event patterns" class="dd-item ">
-        <a href="/blog/html/2019/02/14/alerting_on_event_patterns.html">
-        Alerting on event patterns
-        
-        </a>
+      <li data-nav-id="/blog/html/2019/02/14/alerting_on_event_patterns.html" class="dd-item">
+        <div>
+          <a href="/blog/html/2019/02/14/alerting_on_event_patterns.html">
+            Alerting on event patterns
+          </a>
+        </div>
     </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/blog/html/2019/02/10/velociraptor_performance.html" title="Velociraptor Performance" class="dd-item ">
-        <a href="/blog/html/2019/02/10/velociraptor_performance.html">
-        Velociraptor Performance
-        
-        </a>
+      <li data-nav-id="/blog/html/2019/02/10/velociraptor_performance.html" class="dd-item">
+        <div>
+          <a href="/blog/html/2019/02/10/velociraptor_performance.html">
+            Velociraptor Performance
+          </a>
+        </div>
     </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/blog/html/2019/02/09/velociraptor_python_api.html" title="The Velociraptor Python API" class="dd-item ">
-        <a href="/blog/html/2019/02/09/velociraptor_python_api.html">
-        The Velociraptor Python API
-        
-        </a>
+      <li data-nav-id="/blog/html/2019/02/09/velociraptor_python_api.html" class="dd-item">
+        <div>
+          <a href="/blog/html/2019/02/09/velociraptor_python_api.html">
+            The Velociraptor Python API
+          </a>
+        </div>
     </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/blog/html/2018/09/03/velociraptor_s_client_communications.html" title="Velociraptor&#39;s client communications" class="dd-item ">
-        <a href="/blog/html/2018/09/03/velociraptor_s_client_communications.html">
-        Velociraptor&#39;s client communications
-        
-        </a>
+      <li data-nav-id="/blog/html/2018/09/03/velociraptor_s_client_communications.html" class="dd-item">
+        <div>
+          <a href="/blog/html/2018/09/03/velociraptor_s_client_communications.html">
+            Velociraptor&#39;s client communications
+          </a>
+        </div>
     </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/blog/html/2018/12/23/deploying_velociraptor_with_oauth_sso.html" title="Deploying Velociraptor with OAuth SSO" class="dd-item ">
-        <a href="/blog/html/2018/12/23/deploying_velociraptor_with_oauth_sso.html">
-        Deploying Velociraptor with OAuth SSO
-        
-        </a>
+      <li data-nav-id="/blog/html/2018/12/23/deploying_velociraptor_with_oauth_sso.html" class="dd-item">
+        <div>
+          <a href="/blog/html/2018/12/23/deploying_velociraptor_with_oauth_sso.html">
+            Deploying Velociraptor with OAuth SSO
+          </a>
+        </div>
     </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/blog/html/2018/12/22/configuring_velociraptor_for_ssl.html" title="Configuring Velociraptor for SSL" class="dd-item ">
-        <a href="/blog/html/2018/12/22/configuring_velociraptor_for_ssl.html">
-        Configuring Velociraptor for SSL
-        
-        </a>
+      <li data-nav-id="/blog/html/2018/12/22/configuring_velociraptor_for_ssl.html" class="dd-item">
+        <div>
+          <a href="/blog/html/2018/12/22/configuring_velociraptor_for_ssl.html">
+            Configuring Velociraptor for SSL
+          </a>
+        </div>
     </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/blog/html/2018/12/11/velociraptor_interactive_shell.html" title="Velociraptor Interactive Shell" class="dd-item ">
-        <a href="/blog/html/2018/12/11/velociraptor_interactive_shell.html">
-        Velociraptor Interactive Shell
-        
-        </a>
+      <li data-nav-id="/blog/html/2018/12/11/velociraptor_interactive_shell.html" class="dd-item">
+        <div>
+          <a href="/blog/html/2018/12/11/velociraptor_interactive_shell.html">
+            Velociraptor Interactive Shell
+          </a>
+        </div>
     </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/blog/html/2018/12/10/server_side_vql_queries_and_events.html" title="Server side VQL queries and Escalation Events" class="dd-item ">
-        <a href="/blog/html/2018/12/10/server_side_vql_queries_and_events.html">
-        Server side VQL queries and Escalation Events
-        
-        </a>
+      <li data-nav-id="/blog/html/2018/12/10/server_side_vql_queries_and_events.html" class="dd-item">
+        <div>
+          <a href="/blog/html/2018/12/10/server_side_vql_queries_and_events.html">
+            Server side VQL queries and Escalation Events
+          </a>
+        </div>
     </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/blog/html/2018/12/09/more_on_client_event_collection.html" title="More on client event collection" class="dd-item ">
-        <a href="/blog/html/2018/12/09/more_on_client_event_collection.html">
-        More on client event collection
-        
-        </a>
+      <li data-nav-id="/blog/html/2018/12/09/more_on_client_event_collection.html" class="dd-item">
+        <div>
+          <a href="/blog/html/2018/12/09/more_on_client_event_collection.html">
+            More on client event collection
+          </a>
+        </div>
     </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/blog/html/2018/11/13/velociraptor_training_at_nzitf.html" title="Velociraptor training at NZITF" class="dd-item ">
-        <a href="/blog/html/2018/11/13/velociraptor_training_at_nzitf.html">
-        Velociraptor training at NZITF
-        
-        </a>
+      <li data-nav-id="/blog/html/2018/11/13/velociraptor_training_at_nzitf.html" class="dd-item">
+        <div>
+          <a href="/blog/html/2018/11/13/velociraptor_training_at_nzitf.html">
+            Velociraptor training at NZITF
+          </a>
+        </div>
     </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/blog/html/2018/11/09/event_queries_and_endpoint_monitoring.html" title="Event Queries and Endpoint Monitoring" class="dd-item ">
-        <a href="/blog/html/2018/11/09/event_queries_and_endpoint_monitoring.html">
-        Event Queries and Endpoint Monitoring
-        
-        </a>
+      <li data-nav-id="/blog/html/2018/11/09/event_queries_and_endpoint_monitoring.html" class="dd-item">
+        <div>
+          <a href="/blog/html/2018/11/09/event_queries_and_endpoint_monitoring.html">
+            Event Queries and Endpoint Monitoring
+          </a>
+        </div>
     </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/blog/html/2018/09/30/velorciraptor_s_filesystem_s_accessors.html" title="Velorciraptor&#39;s filesystem&#39;s accessors" class="dd-item ">
-        <a href="/blog/html/2018/09/30/velorciraptor_s_filesystem_s_accessors.html">
-        Velorciraptor&#39;s filesystem&#39;s accessors
-        
-        </a>
+      <li data-nav-id="/blog/html/2018/09/30/velorciraptor_s_filesystem_s_accessors.html" class="dd-item">
+        <div>
+          <a href="/blog/html/2018/09/30/velorciraptor_s_filesystem_s_accessors.html">
+            Velorciraptor&#39;s filesystem&#39;s accessors
+          </a>
+        </div>
     </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/blog/html/2018/09/29/detecting_powershell_persistence_with_velociraptor_and_yara.html" title="Detecting powershell persistence with Velociraptor and Yara" class="dd-item ">
-        <a href="/blog/html/2018/09/29/detecting_powershell_persistence_with_velociraptor_and_yara.html">
-        Detecting powershell persistence with Velociraptor and Yara
-        
-        </a>
+      <li data-nav-id="/blog/html/2018/09/29/detecting_powershell_persistence_with_velociraptor_and_yara.html" class="dd-item">
+        <div>
+          <a href="/blog/html/2018/09/29/detecting_powershell_persistence_with_velociraptor_and_yara.html">
+            Detecting powershell persistence with Velociraptor and Yara
+          </a>
+        </div>
     </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/blog/html/2018/09/03/velociraptor_walk_through_and_demo.html" title="Velociraptor walk through and demo" class="dd-item ">
-        <a href="/blog/html/2018/09/03/velociraptor_walk_through_and_demo.html">
-        Velociraptor walk through and demo
-        
-        </a>
+      <li data-nav-id="/blog/html/2018/09/03/velociraptor_walk_through_and_demo.html" class="dd-item">
+        <div>
+          <a href="/blog/html/2018/09/03/velociraptor_walk_through_and_demo.html">
+            Velociraptor walk through and demo
+          </a>
+        </div>
     </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/blog/html/2018/08/20/velociraptor_artifacts.html" title="Velociraptor Artifacts" class="dd-item ">
-        <a href="/blog/html/2018/08/20/velociraptor_artifacts.html">
-        Velociraptor Artifacts
-        
-        </a>
+      <li data-nav-id="/blog/html/2018/08/20/velociraptor_artifacts.html" class="dd-item">
+        <div>
+          <a href="/blog/html/2018/08/20/velociraptor_artifacts.html">
+            Velociraptor Artifacts
+          </a>
+        </div>
     </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/blog/html/2018/08/10/browsing_around_the_filesystem.html" title="Browsing around the filesystem." class="dd-item ">
-        <a href="/blog/html/2018/08/10/browsing_around_the_filesystem.html">
-        Browsing around the filesystem.
-        
-        </a>
+      <li data-nav-id="/blog/html/2018/08/10/browsing_around_the_filesystem.html" class="dd-item">
+        <div>
+          <a href="/blog/html/2018/08/10/browsing_around_the_filesystem.html">
+            Browsing around the filesystem.
+          </a>
+        </div>
     </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/blog/html/2018/08/10/design_differences_between_velociraptor_and_grr.html" title="Design differences between Velociraptor and GRR" class="dd-item ">
-        <a href="/blog/html/2018/08/10/design_differences_between_velociraptor_and_grr.html">
-        Design differences between Velociraptor and GRR
-        
-        </a>
+      <li data-nav-id="/blog/html/2018/08/10/design_differences_between_velociraptor_and_grr.html" class="dd-item">
+        <div>
+          <a href="/blog/html/2018/08/10/design_differences_between_velociraptor_and_grr.html">
+            Design differences between Velociraptor and GRR
+          </a>
+        </div>
     </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/blog/html/2018/02/09/files_files_everything_is_just_a_file.html" title="Files, files everything is just a file!" class="dd-item ">
-        <a href="/blog/html/2018/02/09/files_files_everything_is_just_a_file.html">
-        Files, files everything is just a file!
-        
-        </a>
+      <li data-nav-id="/blog/html/2018/02/09/files_files_everything_is_just_a_file.html" class="dd-item">
+        <div>
+          <a href="/blog/html/2018/02/09/files_files_everything_is_just_a_file.html">
+            Files, files everything is just a file!
+          </a>
+        </div>
     </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/blog/html/2018/08/10/hunting_what_velociraptors_do_best.html" title="Hunting - What Velociraptors do best!" class="dd-item ">
-        <a href="/blog/html/2018/08/10/hunting_what_velociraptors_do_best.html">
-        Hunting - What Velociraptors do best!
-        
-        </a>
+      <li data-nav-id="/blog/html/2018/08/10/hunting_what_velociraptors_do_best.html" class="dd-item">
+        <div>
+          <a href="/blog/html/2018/08/10/hunting_what_velociraptors_do_best.html">
+            Hunting - What Velociraptors do best!
+          </a>
+        </div>
     </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/blog/html/2018/08/10/interrogation_make_the_endpoint_tell_us_what_it_knows.html" title="Interrogation - Make the endpoint tell us what it knows!" class="dd-item ">
-        <a href="/blog/html/2018/08/10/interrogation_make_the_endpoint_tell_us_what_it_knows.html">
-        Interrogation - Make the endpoint tell us what it knows!
-        
-        </a>
+      <li data-nav-id="/blog/html/2018/08/10/interrogation_make_the_endpoint_tell_us_what_it_knows.html" class="dd-item">
+        <div>
+          <a href="/blog/html/2018/08/10/interrogation_make_the_endpoint_tell_us_what_it_knows.html">
+            Interrogation - Make the endpoint tell us what it knows!
+          </a>
+        </div>
     </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/blog/html/2018/08/10/the_velocidex_query_language.html" title="Velocidex Query Language (VQL)" class="dd-item ">
-        <a href="/blog/html/2018/08/10/the_velocidex_query_language.html">
-        Velocidex Query Language (VQL)
-        
-        </a>
+      <li data-nav-id="/blog/html/2018/08/10/the_velocidex_query_language.html" class="dd-item">
+        <div>
+          <a href="/blog/html/2018/08/10/the_velocidex_query_language.html">
+            Velocidex Query Language (VQL)
+          </a>
+        </div>
     </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/blog/html/2018/08/10/introducing_velociraptor.html" title="Introducing Velociraptor" class="dd-item ">
-        <a href="/blog/html/2018/08/10/introducing_velociraptor.html">
-        Introducing Velociraptor
-        
-        </a>
+      <li data-nav-id="/blog/html/2018/08/10/introducing_velociraptor.html" class="dd-item">
+        <div>
+          <a href="/blog/html/2018/08/10/introducing_velociraptor.html">
+            Introducing Velociraptor
+          </a>
+        </div>
     </li>
-     
-  
- 
-
-            
-          
-        
         </ul>
-              
     </li>
-  
- 
 
-          
-         
+
+
+
+    <hr />
+    <li></li>
+    
     </ul>
 
-    
-    
-
-    
-    <section id="footer">
-      
+ <section id="footer">
     </section>
   </div>
 </nav>
 
 
 
+<section id="body">
+<div id="overlay"></div>
+<div class="padding highlightable">
+
+  <div id="top-bar">
+    <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+        <span id="sidebar-toggle-span">
+          <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+            <i class="fa fa-bars"></i>
+          </a>
+        </span>
+        <span id="toc-menu"><i class="fa fa-list-alt"></i></span>
+        <span class="links">
+        
 
 
-        <section id="body">
-        <div id="overlay"></div>
-        <div class="padding highlightable">
-              
-              <div>
-                <div id="top-bar">
-                
-                
-                <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-                    <span id="sidebar-toggle-span">
-                        <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
-                          <i class="fas fa-bars"></i>
-                        </a>
-                    </span>
-                  
-                  <span id="toc-menu"><i class="fas fa-list-alt"></i></span>
-                  
-                  <span class="links">
-                 
-                 
-                   Use Cases 
-                 
-                  </span>
-                </div>
-                
-                    <div class="progress">
-    <div class="wrapper">
 
+
+
+
+
+ <a href='/'>Velociraptor - Digging Deeper!</a> > <a href='/docs/'>Velociraptor Documentation</a> > Use Cases
+
+ 
+
+ 
+
+   
+        </span>
     </div>
-</div>
-
-                
-              </div>
-            </div>
-            
-        <div id="head-tags">
-        
+    
+    
+    <div class="progress">
+        <div class="wrapper">
+    
         </div>
-        
-        <div id="body-inner">
-          
-            <h1>
-              
-              Use Cases
-            </h1>
-          
+    </div>
+    
 
-        
+  </div>
 
 
+<div id="body-inner">
+  
+    <h1>Use Cases</h1>
+  
 
-<p>Since Velociraptor is a very flexible tool, it can help you in many
+
+
+    
+    
+    
+    <p>Since Velociraptor is a very flexible tool, it can help you in many
 situations. It is therefore useful to look at some of the common use
 cases.</p>
 
 
-<footer class=" footline" >
+    
+    
+          <footer class=" footline" >
 	
 </footer>
+  </div>
+</div>
 
+<div id="navigation">
+<a class="nav nav-prev" href="/docs/user-interface/artifacts/add_artifacts/" title="Customizing Artifacts"> <i class="fa fa-chevron-left"></i><label>Customizing Artifacts</label></a>
+    <a class="nav nav-next" href="/docs/vql_reference/" title="VQL Reference" style="margin-right: 0px;"><label>VQL Reference</label><i class="fa fa-chevron-right"></i></a></div>
 
-        
-        </div> 
-        
+</section>
+<div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+  <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+</div>    
 
-      </div>
+<script src="/js/clipboard.min.js"></script>
+<script src="/js/featherlight.min.js"></script>
+<script src="/js/html5shiv-printshiv.min.js"></script>
 
-    <div id="navigation">
-        
-        
-        
-        
-            
-            
-                
-                    
-                    
-                
-                
+<script src="/js/modernizr.custom.71422.js"></script>
+<script src="/js/docdock.js"></script>
+<script src="/theme-original/script.js"></script>
 
-                    
-                    
-                        
-                    
-                    
 
-                    
-                        
-            
-            
-                
-                    
-                        
-                        
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                    
-                
-                
-
-                    
-                    
-                        
-                    
-                    
-
-                    
-                        
-            
-            
-                
-                    
-                        
-                        
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                        
-                    
-                    
-
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-            
-        
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                        
-                        
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-            
-        
-                    
-            
-        
-        
-        
-
-
-	 
-	 
-		
-			<a class="nav nav-prev" href="/docs/user-interface/artifacts/add_artifacts/" title="Customizing Artifacts"> <i class="fa fa-chevron-left"></i></a>
-		
-		
-			<a class="nav nav-next" href="/docs/vql_reference/" title="VQL Reference" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
-		
-	
-    </div>
-
-    </section>
     
-    <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
-      <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
-    </div>
-    <script src="/js/clipboard.min.js"></script>
-    <script src="/js/perfect-scrollbar.min.js"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js"></script>
-    <script src="/js/jquery.sticky.js"></script>
-    <script src="/js/featherlight.min.js"></script>
-    <script src="/js/html5shiv-printshiv.min.js"></script>
-    <script src="/js/highlight.pack.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js"></script>
-    <script src="/js/learn.js"></script>
-    <script src="/js/hugo-learn.js"></script>
 
-    <link href="/mermaid/mermaid.css" rel="stylesheet" />
-    <script src="/mermaid/mermaid.js"></script>
-    <script>
-        mermaid.initialize({ startOnLoad: true });
-    </script>
-    <script>
-  function scrollToView(element, container) {
-    var offset = element.offset().top - $(window).scrollTop();
+    
+    
 
-    if(offset > window.innerHeight){
-      
-      container.animate({scrollTop: offset}, 1000);
-      return false;
-    }
-    return true;
-  };
-
-  $(document).ready(function () {
-    scrollToView($("li.active"), $("div.ps-container"));
-  });
-</script>
-
+    
   </body>
 </html>
-

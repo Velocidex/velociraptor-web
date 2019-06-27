@@ -127,3 +127,14 @@ h1 {
 pre code {
     font-size: 14px;
 }
+
+
+div.progress  {
+    height: auto;
+    overflow: auto;
+}
+
+
+span.copy-to-clipboard {
+    display: none;
+}

@@ -43,11 +43,6 @@
   </url>
   
   <url>
-    <loc>/blog/</loc>
-    <lastmod>2019-03-02T04:10:06+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>/about/features/</loc>
     <lastmod>2017-02-01T00:00:00+00:00</lastmod>
   </url>
@@ -70,6 +65,11 @@
   
   <url>
     <loc>/docs/vql_reference/event_plugins/</loc>
+  </url>
+  
+  <url>
+    <loc>/blog/</loc>
+    <lastmod>2019-03-02T04:10:06+00:00</lastmod>
   </url>
   
   <url>
@@ -121,13 +121,13 @@
   </url>
   
   <url>
-    <loc>/docs/presentations/</loc>
-    <lastmod>2019-02-01T00:00:00+00:00</lastmod>
+    <loc>/about/license/</loc>
+    <lastmod>2016-03-02T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/about/license/</loc>
-    <lastmod>2016-03-02T00:00:00+00:00</lastmod>
+    <loc>/docs/presentations/</loc>
+    <lastmod>2019-02-01T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -136,23 +136,6 @@
   
   <url>
     <loc>/blog/html/2019/03/02/agentless_hunting_with_velociraptor.html</loc>
-    <lastmod>2019-03-02T04:10:06+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/categories/blog/</loc>
-    <lastmod>2019-03-02T04:10:06+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>/categories/</loc>
-    <lastmod>2019-03-02T04:10:06+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>/</loc>
     <lastmod>2019-03-02T04:10:06+00:00</lastmod>
   </url>
   
@@ -174,12 +157,6 @@
   <url>
     <loc>/blog/html/2018/09/03/velociraptor_s_client_communications.html</loc>
     <lastmod>2019-02-09T04:10:06+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/categories/docs/</loc>
-    <lastmod>2019-02-01T00:00:00+00:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -273,8 +250,36 @@
   </url>
   
   <url>
+    <loc>/_header/</loc>
+  </url>
+  
+  <url>
     <loc>/categories/about-velociraptor/</loc>
     <lastmod>2016-03-02T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/categories/blog/</loc>
+    <lastmod>2019-03-02T04:10:06+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/categories/</loc>
+    <lastmod>2016-03-02T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/categories/docs/</loc>
+    <lastmod>2019-02-01T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/categories/getting-started/</loc>
+    <lastmod>2019-02-01T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -304,11 +309,16 @@
   </url>
   
   <url>
+    <loc>/</loc>
+    <lastmod>2019-02-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/faq/</loc>
   </url>
   
   <url>
-    <loc>/index.html</loc>
+    <loc>/</loc>
   </url>
   
   <url>
@@ -325,11 +335,6 @@
   
   <url>
     <loc>/docs/artifacts/triage/</loc>
-  </url>
-  
-  <url>
-    <loc>/categories/getting-started/</loc>
-    <priority>0</priority>
   </url>
   
 </urlset>
