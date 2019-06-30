@@ -1,3 +1,4 @@
+
 jQuery(document).ready(function () {
 
     // Execute actions on images generated from Markdown pages
