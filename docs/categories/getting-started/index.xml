@@ -6,7 +6,6 @@
     <description>Recent content in Getting Started on Velociraptor - Digging Deeper!</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 01 Feb 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/categories/getting-started/index.xml" rel="self" type="application/rss+xml" />
     
@@ -25,7 +24,7 @@ If you deploy the server in the cloud it is possible to use automatically minted
     <item>
       <title>Presentations and Workshops</title>
       <link>/docs/presentations/</link>
-      <pubDate>Fri, 01 Feb 2019 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>/docs/presentations/</guid>
       <description>We present about Velociraptor frequently in conferences and workshops.

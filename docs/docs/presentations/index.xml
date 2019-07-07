@@ -6,7 +6,6 @@
     <description>Recent content in Presentations and Workshops on Velociraptor - Digging Deeper!</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 01 Feb 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/docs/presentations/index.xml" rel="self" type="application/rss+xml" />
     
@@ -14,19 +13,21 @@
     <item>
       <title>Crikeycon 2019 Training Workshop</title>
       <link>/docs/presentations/crikeycon2019/</link>
-      <pubDate>Fri, 01 Feb 2019 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>/docs/presentations/crikeycon2019/</guid>
-      <description>The training material can be downloaded from Velociraptor CrikeyCon2019 training</description>
+      <description>At CrikeyCon 2019 we presented a full day training workshop.
+The training material can be downloaded from Velociraptor CrikeyCon2019 training</description>
     </item>
     
     <item>
       <title>New Zealand Internet Task Force Conference 2018</title>
       <link>/docs/presentations/nzitf2018/</link>
-      <pubDate>Fri, 01 Feb 2019 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>/docs/presentations/nzitf2018/</guid>
-      <description>The training material can be downloaded from Velociraptor NZITF training</description>
+      <description>We presented a Velociraptor workshop at the NZITF2018 conference.
+The training material can be downloaded from Velociraptor NZITF training</description>
     </item>
     
   </channel>

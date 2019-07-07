@@ -163,6 +163,18 @@ integrity. This is required to connect to self signed ssl web
 sites. For example many API handlers are exposed over such
 connections.
 
+{{% notice note %}}
+
+When connecting to the Velociraptor frontend itself, even in self
+signed mode, we will ensure certs are properly verified. You can
+therefore safely export files from the Frontend's public directory
+over self signed SSL. When connecting to a self signed Velociraptor
+frontend, we ensure the self signed certificate was issued by the
+Velociraptor internal CA - i.e. we pin the Frontend's certificate in
+the binary.
+
+{{% /notice %}}
+
 The `http_client()` plugin allows use to interact with any web
 services. If the web service returns a json blob, we can parse it with
 the `parse_json()` function (or `parse_xml()` for SOAP
@@ -392,6 +404,7 @@ blocksize | Blocksize for scanning (1mb). | int64
 rules | Yara rules in the yara DSL. | string (required)
 files | The list of files to scan. |  list of string (required)
 accessor | Accessor (e.g. NTFS) | string
+key | A unique key used to cache the yara rule so it does not need to be recomiled | string
 
 This plugin uses yara's own engine to scan process memory for the signatures.
 
@@ -497,6 +510,32 @@ This plugin is a more generalized parser for delimited files. It is
 not as smart as the `parse_csv()` plugin but can use multiple
 delimiters.
 
+## source
+
+Arg | Description | Type
+----|-------------|-----
+mode | HUNT or CLIENT mode can be empty | string
+day_name | Only extract this day's Monitoring logs (deprecated) | string
+start_time | Start return events from this date (for event sources) | int64
+flow_id | A flow ID (client or server artifacts) | string
+artifact | The name of the artifact collection to fetch | string
+source | An optional named source within the artifact | string
+client_id | The client id to extract | string
+end_time | Stop end events reach this time (event sources). | int64
+hunt_id | Retrieve sources from this hunt (combines all results from all clients) | string
+
+Retrieve rows from an artifact's source.
+
+This plugin is mostly useful in reports. It attempts to do the right
+thing automatically by inferring most parameters from its execution
+environment.
+
+For example when called within a CLIENT report context, it will
+automatically fill its flow id, client id etc. Typically this means
+that you only need to specify the source name (for multi-source
+artifacts).
+
+
 ## stat
 
 Arg | Description
@@ -550,16 +589,48 @@ accessor | Accessor (e.g. NTFS) | string
 context | How many bytes to include around each hit | int
 start | The start offset to scan | int64
 end | End scanning at this offset (100mb) | uint64
+key | If set use this key to cache the  yara rules. | string
+
 
 The `yara()` plugin applies a signature consisting of multiple rules
 across files. You can read more about [yara
 rules](https://yara.readthedocs.io/en/v3.4.0/writingrules.html). The
-accessor is used to open the various files which allow this plugin to
+accessor is used to open the various files which allows this plugin to
 work across raw ntfs, zip members etc.
 
 Scanning proceeds by reading a block from the file, then applying the
 yara rule on the block. This will fail if the signature is split
-across block boundary.
+across block boundary. You can choose the block size to be
+appropriate.
+
+Note that because we are just scanning the file data, yara plugins
+like the pe plugin will not work. You can emulate all the yara plugins
+with VQL anyway (e.g. to test for pe headers)
+
+Typically the yara rule does not change for the life of the query, so
+we cache it to avoid having to recompile it each time. The `key`
+variable can be used to uniquely identify the cache key for the
+rule. If the `key` variable is not specified, we use the rule text
+itself to generate the cache key. It is recommended that the `key`
+parameter be specified because it makes it more efficient.
+
+### Shorthand rules
+
+This plugin accepts yara rules in the `rules` parameter. But typically
+we only search for keywords so writing a full yara syntax rule is
+tedious. Therefore we provide a shorthand way to specify the
+keywords. For example:
+
+```
+wide nocase:foo,bar,baz
+```
+
+When the rule is provided in the above form, the plugin will
+automatically generate a yara rule which matches any of the specified
+keywords. The specification before the `:` means the same thing as the
+yara DSL and the following combinations are supported `wide`, `wide
+ascii`, `wide nocase`, `wide nocase ascii`.
+
 
 {{% notice note %}}
 

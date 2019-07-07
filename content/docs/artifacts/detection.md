@@ -1,10 +1,8 @@
 ---
 description: These artifacts attempt to detect the presence of specific compromizes.
 linktitle: Windows Detection
-menu:
-  docs: {parent: Artifacts, weight: 20}
 title: Windows Malware Detection
-toc: true
+weight: 50
 
 ---
 ## Windows.Detection.ProcessMemory
@@ -55,7 +53,7 @@ sources:
         LET hits = SELECT * FROM foreach(
           row=processes,
           query={
-             SELECT ProcessName, CommandLine, Pid, Strings.Offset as Offsets
+             SELECT ProcessName, CommandLine, Pid, String.Offset as Offsets
              FROM proc_yara(rules=yaraRule, pid=Pid)
           })
 
@@ -112,7 +110,7 @@ parameters:
 sources:
   - queries:
       - |
-        LET file_scan = SELECT File, Rule, Strings, now() AS Timestamp,
+        LET file_scan = SELECT File, Rule, String, now() AS Timestamp,
                Name, ServiceType
         FROM yara(rules=yaraRule, files=PathName)
         WHERE Rule
@@ -342,8 +340,8 @@ Win32_Process WMI object.
 
 This can be easily done via the wmic.exe command or via powershell:
 
-```
-wmic process create cmd.exe
+```bash
+wmic process call create cmd.exe
 ```
 
 
@@ -359,8 +357,8 @@ description: |
 
   This can be easily done via the wmic.exe command or via powershell:
 
-  ```
-  wmic process create cmd.exe
+  ```bash
+  wmic process call create cmd.exe
   ```
 
 type: CLIENT_EVENT
@@ -536,8 +534,8 @@ sources:
         },
         query={
           SELECT File.FullPath As FullPath,
-                 Strings.Offset AS Off,
-                 Strings.HexData As Hex,
+                 String.Offset AS Off,
+                 String.HexData As Hex,
                  upload(file=File.FullPath, accessor="ntfs") AS Upload
               FROM yara(
               files="\\\\.\\" + HomeDir + "\\ntuser.dat",

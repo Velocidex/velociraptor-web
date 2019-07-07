@@ -5,7 +5,7 @@
     
       <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<title>Docs :: Velociraptor - Digging Deeper!</title>
+<title>Artifact Tips :: Velociraptor - Digging Deeper!</title>
 <link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon" />
 <link rel="stylesheet" href="/css/bootstrap.min.css">
 <link href="/css/nucleus.css" rel="stylesheet">
@@ -30,7 +30,7 @@
 
     
   </head>
-  <body data-url="/categories/docs/">
+  <body data-url="/docs/vql_reference/tips/">
     
       <div id="headermain"></div>
 <nav id="sidebar" class="">
@@ -89,10 +89,11 @@
     </li>
         </ul>
     </li>
-    <li data-nav-id="/docs/" class="dd-item haschildren
+    <li data-nav-id="/docs/" class="dd-item parent haschildren
         ">
       <div>
-      <a href="/docs/">Velociraptor Documentation</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      <a href="/docs/">Velociraptor Documentation</a>
+            <i class="fa fa-angle-down fa-lg category-icon"></i>
       </div>
         <ul>
     <li data-nav-id="/docs/getting-started/" class="dd-item haschildren
@@ -211,10 +212,11 @@
           </a>
         </div>
     </li>
-    <li data-nav-id="/docs/vql_reference/" class="dd-item haschildren
+    <li data-nav-id="/docs/vql_reference/" class="dd-item parent haschildren
         ">
       <div>
-      <a href="/docs/vql_reference/">VQL Reference</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      <a href="/docs/vql_reference/">VQL Reference</a>
+            <i class="fa fa-angle-down fa-lg category-icon"></i>
       </div>
         <ul>
       <li data-nav-id="/docs/vql_reference/plugins/" class="dd-item">
@@ -252,6 +254,13 @@
           </a>
         </div>
     </li>
+      <li data-nav-id="/docs/vql_reference/tips/" class="dd-item active">
+        <div>
+          <a href="/docs/vql_reference/tips/">
+            Artifact Tips
+          </a>
+        </div>
+    </li>
         </ul>
     </li>
     <li data-nav-id="/docs/artifacts/" class="dd-item haschildren
@@ -260,17 +269,17 @@
       <a href="/docs/artifacts/">Artifact Reference</a><i class="fa fa-angle-right fa-lg category-icon"></i>
       </div>
         <ul>
-      <li data-nav-id="/docs/artifacts/linux/linux/" class="dd-item">
+      <li data-nav-id="/docs/artifacts/linux/" class="dd-item">
         <div>
-          <a href="/docs/artifacts/linux/linux/">
+          <a href="/docs/artifacts/linux/">
             Linux Artifacts
           </a>
         </div>
     </li>
-      <li data-nav-id="/docs/artifacts/misc/" class="dd-item">
+      <li data-nav-id="/docs/artifacts/windows_system/" class="dd-item">
         <div>
-          <a href="/docs/artifacts/misc/">
-            Miscelaneous
+          <a href="/docs/artifacts/windows_system/">
+            Windows System
           </a>
         </div>
     </li>
@@ -278,6 +287,13 @@
         <div>
           <a href="/docs/artifacts/server/">
             Server Artifacts
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/artifacts/triage/" class="dd-item">
+        <div>
+          <a href="/docs/artifacts/triage/">
+            Windows Triage
           </a>
         </div>
     </li>
@@ -295,17 +311,17 @@
           </a>
         </div>
     </li>
-      <li data-nav-id="/docs/artifacts/windows_system/" class="dd-item">
+      <li data-nav-id="/docs/artifacts/misc/" class="dd-item">
         <div>
-          <a href="/docs/artifacts/windows_system/">
-            Windows System
+          <a href="/docs/artifacts/misc/">
+            Miscelaneous
           </a>
         </div>
     </li>
-      <li data-nav-id="/docs/artifacts/triage/" class="dd-item">
+      <li data-nav-id="/docs/artifacts/linux/linux/" class="dd-item">
         <div>
-          <a href="/docs/artifacts/triage/">
-            Windows Triage
+          <a href="/docs/artifacts/linux/linux/">
+            Linux Artifacts
           </a>
         </div>
     </li>
@@ -320,7 +336,7 @@
       <li data-nav-id="/docs/presentations/crikeycon2019/" class="dd-item">
         <div>
           <a href="/docs/presentations/crikeycon2019/">
-            CrikeyCon 2019
+            Crikeycon 2019 Training Workshop
           </a>
         </div>
     </li>
@@ -348,6 +364,13 @@
       <a href="/blog/">Velociraptor Blog</a><i class="fa fa-angle-right fa-lg category-icon"></i>
       </div>
         <ul>
+      <li data-nav-id="/blog/html/2018/08/10/browsing_around_the_filesystem.html" class="dd-item">
+        <div>
+          <a href="/blog/html/2018/08/10/browsing_around_the_filesystem.html">
+            Browsing around the filesystem.
+          </a>
+        </div>
+    </li>
       <li data-nav-id="/blog/html/2019/03/02/agentless_hunting_with_velociraptor.html" class="dd-item">
         <div>
           <a href="/blog/html/2019/03/02/agentless_hunting_with_velociraptor.html">
@@ -460,13 +483,6 @@
           </a>
         </div>
     </li>
-      <li data-nav-id="/blog/html/2018/08/10/browsing_around_the_filesystem.html" class="dd-item">
-        <div>
-          <a href="/blog/html/2018/08/10/browsing_around_the_filesystem.html">
-            Browsing around the filesystem.
-          </a>
-        </div>
-    </li>
       <li data-nav-id="/blog/html/2018/08/10/design_differences_between_velociraptor_and_grr.html" class="dd-item">
         <div>
           <a href="/blog/html/2018/08/10/design_differences_between_velociraptor_and_grr.html">
@@ -542,7 +558,22 @@
         <span class="links">
         
 
- Docs
+
+
+
+
+
+
+
+
+
+ <a href='/'>Velociraptor - Digging Deeper!</a> > <a href='/docs/'>Velociraptor Documentation</a> > <a href='/docs/vql_reference/'>VQL Reference</a> > Artifact Tips
+
+ 
+
+ 
+
+ 
 
    
         </span>
@@ -551,7 +582,15 @@
     
     <div class="progress">
         <div class="wrapper">
-    
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#develop-artifacts-locally">Develop artifacts locally</a></li>
+<li><a href="#place-complex-filters-as-column-specs">Place complex filters as column specs.</a></li>
+</ul></li>
+</ul>
+</nav>
         </div>
     </div>
     
@@ -561,7 +600,7 @@
 
 <div id="body-inner">
   
-    <h1>Docs</h1>
+    <h1>Artifact Tips</h1>
   
 
 
@@ -569,63 +608,43 @@
     
     
     
+    
 
+<p>When writing a new artifact it helps to use the following tips to make
+it easier.</p>
 
+<h2 id="develop-artifacts-locally">Develop artifacts locally</h2>
 
-<div class="extra-pagination inner">
-<nav class="pagination" role="navigation">
-	
-	<span class="page-number">Page 1 of 1</span>
-	
-</nav>
+<p>Although the Velociraptor GUI allows to change the artifact, and
+collect it from remote machines this is tedious in general. It is
+easier to just develop and collect the artifact locally.</p>
 
-</div>
+<p>Simply create a directory where you store your custom artifact, and
+run the artifact collector with that directory specified.</p>
 
+<pre><code>$ mkdir /tmp/my_artifacts/
+$ vi /tmp/my_artifacts/my_new_artifact.yaml
+....
+$ velociraptor --definitions /tmp/my_artifacts artifacts collect -v My.New.Artifact.Name
+</code></pre>
 
-   <article class="post docs">
-    <header class="post-header">
-        <h2 class="post-title"><a href="/docs/presentations/crikeycon2019/">Crikeycon 2019 Training Workshop</a></h2>
-    </header>
-    <section class="post-excerpt">
-        <p>The training material can be downloaded from Velociraptor CrikeyCon2019 training <a class="read-more" href="/docs/presentations/crikeycon2019/">&raquo;</a></p>
-    </section>
-    <footer class=" footline" >
-         
-        
+<p>Note the <code>-v</code> flag which emits verbose messages to the console. If you
+have VQL syntax errors or any issues you will be able to see that
+easily, edit the artifact source and re-collect it.</p>
 
-        
-        
+<h2 id="place-complex-filters-as-column-specs">Place complex filters as column specs.</h2>
 
-    </footer>
-</article>
+<p>In VQL you can put complex expressions in the WHERE clause in order to
+filter the result set. The trouble is that you can not actually see
+the results of the expression - the expression is simply evaluated for
+a boolean true/false.</p>
 
-   <article class="post docs">
-    <header class="post-header">
-        <h2 class="post-title"><a href="/docs/presentations/nzitf2018/">New Zealand Internet Task Force Conference 2018</a></h2>
-    </header>
-    <section class="post-excerpt">
-        <p>The training material can be downloaded from Velociraptor NZITF training <a class="read-more" href="/docs/presentations/nzitf2018/">&raquo;</a></p>
-    </section>
-    <footer class=" footline" >
-         
-        
+<p>It is more producting to place the complex expression in the column
+specification and then you can see what it evaluates to for each row.</p>
 
-        
-        
-
-    </footer>
-</article>
-
-
-<div style="margin-bottom:2rem"></div>
-
-<nav class="pagination" role="navigation">
-	
-	<span class="page-number">Page 1 of 1</span>
-	
-</nav>
-
-
+<pre><code>SELECT encode(string=Data.value, type=&quot;hex&quot;) AS Value FROM .....
+WHERE Value =~ &quot;ffffff7f$&quot;
+</code></pre>
 
 
     
@@ -637,7 +656,8 @@
 </div>
 
 <div id="navigation">
-<a class="nav nav-next" href="/about/" title="About Velociraptor" style="margin-right: 0px;"><label>About Velociraptor</label><i class="fa fa-chevron-right"></i></a></div>
+<a class="nav nav-prev" href="/docs/vql_reference/templates/" title="Report Templates"> <i class="fa fa-chevron-left"></i><label>Report Templates</label></a>
+    <a class="nav nav-next" href="/docs/artifacts/" title="Artifact Reference" style="margin-right: 0px;"><label>Artifact Reference</label><i class="fa fa-chevron-right"></i></a></div>
 
 </section>
 <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">

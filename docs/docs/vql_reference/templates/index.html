@@ -254,6 +254,13 @@
           </a>
         </div>
     </li>
+      <li data-nav-id="/docs/vql_reference/tips/" class="dd-item">
+        <div>
+          <a href="/docs/vql_reference/tips/">
+            Artifact Tips
+          </a>
+        </div>
+    </li>
         </ul>
     </li>
     <li data-nav-id="/docs/artifacts/" class="dd-item haschildren
@@ -262,17 +269,17 @@
       <a href="/docs/artifacts/">Artifact Reference</a><i class="fa fa-angle-right fa-lg category-icon"></i>
       </div>
         <ul>
-      <li data-nav-id="/docs/artifacts/linux/linux/" class="dd-item">
+      <li data-nav-id="/docs/artifacts/linux/" class="dd-item">
         <div>
-          <a href="/docs/artifacts/linux/linux/">
+          <a href="/docs/artifacts/linux/">
             Linux Artifacts
           </a>
         </div>
     </li>
-      <li data-nav-id="/docs/artifacts/misc/" class="dd-item">
+      <li data-nav-id="/docs/artifacts/windows_system/" class="dd-item">
         <div>
-          <a href="/docs/artifacts/misc/">
-            Miscelaneous
+          <a href="/docs/artifacts/windows_system/">
+            Windows System
           </a>
         </div>
     </li>
@@ -280,6 +287,13 @@
         <div>
           <a href="/docs/artifacts/server/">
             Server Artifacts
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/artifacts/triage/" class="dd-item">
+        <div>
+          <a href="/docs/artifacts/triage/">
+            Windows Triage
           </a>
         </div>
     </li>
@@ -297,17 +311,17 @@
           </a>
         </div>
     </li>
-      <li data-nav-id="/docs/artifacts/windows_system/" class="dd-item">
+      <li data-nav-id="/docs/artifacts/misc/" class="dd-item">
         <div>
-          <a href="/docs/artifacts/windows_system/">
-            Windows System
+          <a href="/docs/artifacts/misc/">
+            Miscelaneous
           </a>
         </div>
     </li>
-      <li data-nav-id="/docs/artifacts/triage/" class="dd-item">
+      <li data-nav-id="/docs/artifacts/linux/linux/" class="dd-item">
         <div>
-          <a href="/docs/artifacts/triage/">
-            Windows Triage
+          <a href="/docs/artifacts/linux/linux/">
+            Linux Artifacts
           </a>
         </div>
     </li>
@@ -322,7 +336,7 @@
       <li data-nav-id="/docs/presentations/crikeycon2019/" class="dd-item">
         <div>
           <a href="/docs/presentations/crikeycon2019/">
-            CrikeyCon 2019
+            Crikeycon 2019 Training Workshop
           </a>
         </div>
     </li>
@@ -350,6 +364,13 @@
       <a href="/blog/">Velociraptor Blog</a><i class="fa fa-angle-right fa-lg category-icon"></i>
       </div>
         <ul>
+      <li data-nav-id="/blog/html/2018/08/10/browsing_around_the_filesystem.html" class="dd-item">
+        <div>
+          <a href="/blog/html/2018/08/10/browsing_around_the_filesystem.html">
+            Browsing around the filesystem.
+          </a>
+        </div>
+    </li>
       <li data-nav-id="/blog/html/2019/03/02/agentless_hunting_with_velociraptor.html" class="dd-item">
         <div>
           <a href="/blog/html/2019/03/02/agentless_hunting_with_velociraptor.html">
@@ -462,13 +483,6 @@
           </a>
         </div>
     </li>
-      <li data-nav-id="/blog/html/2018/08/10/browsing_around_the_filesystem.html" class="dd-item">
-        <div>
-          <a href="/blog/html/2018/08/10/browsing_around_the_filesystem.html">
-            Browsing around the filesystem.
-          </a>
-        </div>
-    </li>
       <li data-nav-id="/blog/html/2018/08/10/design_differences_between_velociraptor_and_grr.html" class="dd-item">
         <div>
           <a href="/blog/html/2018/08/10/design_differences_between_velociraptor_and_grr.html">
@@ -568,7 +582,23 @@
     
     <div class="progress">
         <div class="wrapper">
-    
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#report-templates">Report templates</a>
+<ul>
+<li><a href="#report-types">Report types</a></li>
+</ul></li>
+<li><a href="#report-plugins">Report Plugins</a>
+<ul>
+<li><a href="#the-query-plugin">The Query plugin.</a></li>
+<li><a href="#the-table-plugin">The Table plugin</a></li>
+<li><a href="#the-linechart-plugin">The LineChart plugin</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
         </div>
     </div>
     
@@ -588,6 +618,115 @@
     
     
 
+<p>Velociraptor collects artifacts from end points but sometimes the
+significance of the collected information requires user
+interpretation. To assist in interpreting the collected information,
+Velociraptor can generate a <code>Report</code>.</p>
+
+<p>Artifact writers use the report to guide the artifact user in
+interpreting the results and assessing the significance of these
+results.</p>
+
+<p>The artifact file therefore contains a report section which allows the
+artifact writer to explain the significance of the findings.</p>
+
+<h2 id="report-templates">Report templates</h2>
+
+<p>The report is simply a template that gets evaluated in the context of
+the collected artifact. The templating language is the same as Go&rsquo;s
+text/template and produces markdown format.</p>
+
+<h3 id="report-types">Report types</h3>
+
+<p>It is possible to create multiple reports in each artifact to be used in different contexts. For example, an artifact that collects installed software might be run individually on one endpoint, or as part of a hunt. For the hunt we might want to count total machines with a certain software installed.</p>
+
+<p>Therefore the following report types may be defined:</p>
+
+<ul>
+<li>CLIENT - this report applies to an artifact collected from a single endpoint.</li>
+<li>HUNT - The report applies when viewing the results of a hunt.</li>
+</ul>
+
+<p>If the report type is left empty, the type is inferred from the
+artifact type.</p>
+
+<h2 id="report-plugins">Report Plugins</h2>
+
+<p>Reports may call specialized functions to customize the data shown.</p>
+
+<h3 id="the-query-plugin">The Query plugin.</h3>
+
+<p>This is the most useful report plugin in Velociraptor reporting. It
+allows you to run arbitrary VQL statements and produces a result set
+with columns and rows.</p>
+
+<p>There are two ways to run a query, inline and using a template. Due to
+limitations in the Go&rsquo;s templating language, expansion braces may not
+contain line breaks. This makes it hard to properly format long VQL
+statements.</p>
+
+<p>We can therefore define a template by name and simply call in as part
+of the Query plugin. Here is an example from <code>Windows.Sys.Users</code> artifact:</p>
+
+<pre><code>      {{ define &quot;users&quot; }}
+         LET users &lt;= SELECT Name, UUID, Type,
+               timestamp(epoch=Mtime) as Mtime
+         FROM source()
+      {{ end }}
+      {{ Query &quot;users&quot; &quot;SELECT Name, UUID, Type, Mtime FROM users&quot; | Table }}
+</code></pre>
+
+<div class="notices note" ><p>The <code>source()</code> VQL plugin is very useful in reports since it generates
+all the results from the currently collected artifact. For artifacts
+with multiple named sources, you can specify which source you want
+using the <code>source</code> parameter (i.e. <code>source(source=&quot;foo&quot;)</code></p>
+</div>
+
+
+<h3 id="the-table-plugin">The Table plugin</h3>
+
+<p>The <code>Query</code> plugin simply generates an array of rows so it is usually
+necessary to pipe it to a <code>Table</code>, or <code>LineChart</code> or simply assign it
+to a variable.</p>
+
+<p>The Table plugin simply renders the result of the VQL statement as a
+table. An example of this output is shown below.</p>
+
+<p><img src="../report.png" alt="Report" /></p>
+
+<h3 id="the-linechart-plugin">The LineChart plugin</h3>
+
+<p>Sometimes we want to see the output as a line chart. Consider the
+<code>Generic.Client.Stats</code> artifact which collects a client&rsquo;s memory and
+CPU load footprint every 10 seconds. In this case it is useful to see
+the memory use as a chart:</p>
+
+<pre><code>      {{ define &quot;resources&quot; }}
+           SELECT Timestamp, rate(x=CPU, y=Timestamp) * 100 As CPUPercent,
+                  RSS / 1000000 AS MemoryUse
+           FROM source()
+           WHERE CPUPercent &gt;= 0
+      {{ end }}
+      {{ Query &quot;resources&quot; | LineChart &quot;xaxis_mode&quot; &quot;time&quot; &quot;RSS.yaxis&quot; 2 }}
+</code></pre>
+
+<p>We first pipe the results of the VQL query to the <code>LineChart</code> plugin,
+and specify some parameters to it.</p>
+
+<ol>
+<li><code>xaxis_mode</code> <code>time</code> means the x axis should be treated as a timestamp.</li>
+<li><code>RSS.yaxis</code> Indicates that the second column should be an additional y axis.</li>
+</ol>
+
+<p><img src="../report_chart.png" alt="Report Chart" /></p>
+
+<div class="notices note" ><p>Note that in the above query the <code>source()</code> automatically incorporated
+the start and end times as set by the report viewer. The report author
+does not need to do anything special.</p>
+</div>
+
+
+
     
     
           <footer class=" footline" >
@@ -598,7 +737,7 @@
 
 <div id="navigation">
 <a class="nav nav-prev" href="/docs/vql_reference/functions/" title="VQL Functions"> <i class="fa fa-chevron-left"></i><label>VQL Functions</label></a>
-    <a class="nav nav-next" href="/docs/artifacts/" title="Artifact Reference" style="margin-right: 0px;"><label>Artifact Reference</label><i class="fa fa-chevron-right"></i></a></div>
+    <a class="nav nav-next" href="/docs/vql_reference/tips/" title="Artifact Tips" style="margin-right: 0px;"><label>Artifact Tips</label><i class="fa fa-chevron-right"></i></a></div>
 
 </section>
 <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">

@@ -1,10 +1,8 @@
 ---
 description: These artifacts collect information related to the windows system itself.
 linktitle: Windows System
-menu:
-  docs: {parent: Artifacts, weight: 5}
 title: Windows System
-toc: true
+weight: 20
 
 ---
 ## Windows.Sys.AppcompatShims
@@ -372,6 +370,7 @@ sources:
     queries:
       - |
         SELECT Key.Name as Name,
+               timestamp(epoch=Key.Mtime.Sec) AS MTime,
                DisplayName,
                DisplayVersion,
                InstallLocation,
@@ -380,7 +379,8 @@ sources:
                Publisher,
                UninstallString,
                InstallDate
-        FROM read_reg_key(globs=split(string=programKeys, sep=',[\\s]*'))
+        FROM read_reg_key(globs=split(string=programKeys, sep=',[\\s]*'),
+                          accessor="reg")
 ```
    {{% /expand %}}
 
@@ -711,6 +711,67 @@ reports:
       Here is the same data in tabular form.
 
       {{ Query "timeline" | Table }}
+```
+   {{% /expand %}}
+
+## Windows.System.CriticalServices
+
+This artifact returns information about any services which are
+considered critical.
+
+The default list contains virus scanners. If the software is not
+installed at all, it will not be shown.
+
+ATT&CK: T1089
+
+### References:
+* https://github.com/teoseller/osquery-attck/blob/master/windows_critical_service_status.conf
+
+
+Arg|Default|Description
+---|------|-----------
+lookupTable|ServiceName\nWinDefend\nMpsSvc\nSepMasterService\nSAVAdminService\nSavService\nwscsvc\nwuauserv\n|
+
+{{% expand  "View Artifact Source" %}}
+
+
+```
+name: Windows.System.CriticalServices
+description: |
+  This artifact returns information about any services which are
+  considered critical.
+
+  The default list contains virus scanners. If the software is not
+  installed at all, it will not be shown.
+
+  ATT&CK: T1089
+
+  ### References:
+  * https://github.com/teoseller/osquery-attck/blob/master/windows_critical_service_status.conf
+
+precondition: SELECT OS From info() where OS = 'windows'
+
+parameters:
+  - name: lookupTable
+    default: |
+       ServiceName
+       WinDefend
+       MpsSvc
+       SepMasterService
+       SAVAdminService
+       SavService
+       wscsvc
+       wuauserv
+
+sources:
+     - queries:
+       - LET lookup <= SELECT * FROM parse_csv(filename=lookupTable, accessor='data')
+       - |
+         SELECT Name, DisplayName, Created, State, {
+            SELECT * FROM lookup WHERE Name =~ ServiceName
+         } AS Critical
+         FROM Artifact.Windows.System.Services()
+         WHERE Critical AND State != "Running"
 ```
    {{% /expand %}}
 

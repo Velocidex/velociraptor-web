@@ -2,83 +2,56 @@ content/docs/artifacts/linux.md:
   title: Linux Artifacts
   linktitle: Linux Artifacts
   description: Linux Artifacts
-  menu:
-    docs:
-      parent: "Artifacts"
-      weight: 1
-  toc: true
   prefix: Linux.
+  weight: 10
 
 content/docs/artifacts/windows_system.md:
   title: Windows System
   linktitle: Windows System
   description: These artifacts collect information related to the windows system itself.
-  menu:
-    docs:
-      parent: "Artifacts"
-      weight: 5
-  toc: true
   prefix: Windows.Sys
+  weight: 20
 
 content/docs/artifacts/server.md:
   title: Server Artifacts
   linktitle: Server Artifacts
   description: These artifacts are intended to run on the server.
-  menu:
-    docs:
-      parent: "Artifacts"
-      weight: 10
-  toc: true
   prefix: Server.
+  weight: 30
 
 content/docs/artifacts/triage.md:
   title: Windows Triage Artifacts
   linktitle: Windows Triage
   description: Triage artifacts simply collect various files as quickly as possible.
-  menu:
-    docs:
-      parent: "Artifacts"
-      weight: 15
-  toc: true
   prefix:
     - Windows.Triage.
     - Triage.
     - Windows.Forensics
+  weight: 40
 
 content/docs/artifacts/detection.md:
   title: Windows Malware Detection
   linktitle: Windows Detection
   description: These artifacts attempt to detect the presence of specific compromizes.
-  menu:
-    docs:
-      parent: "Artifacts"
-      weight: 20
-  toc: true
   prefix:
     - Windows.Detection
     - Windows.Persist
-
+  weight: 50
 
 content/docs/artifacts/events.md:
   title: Windows Event Monitoring
   linktitle: Windows Monitoring
   description: These event artifacts stream monitoring events from the endpoint. We collect these events on the server.
-  menu:
-    docs:
-      parent: "Artifacts"
-      weight: 25
   toc: true
   prefix:
     - Windows.Events.
+  weight: 60
 
 content/docs/artifacts/misc.md:
   title: Miscelaneous Artifacts
   linktitle: Miscelaneous
   description: Various Artifacts which do not fit into other categories.
-  menu:
-    docs:
-      parent: "Artifacts"
-      weight: 30
   toc: true
   prefix:
     - ""
+  weight: 70

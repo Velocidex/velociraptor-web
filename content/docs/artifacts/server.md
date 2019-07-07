@@ -1,10 +1,8 @@
 ---
 description: These artifacts are intended to run on the server.
 linktitle: Server Artifacts
-menu:
-  docs: {parent: Artifacts, weight: 10}
 title: Server Artifacts
-toc: true
+weight: 30
 
 ---
 ## Server.Alerts.PsExec
@@ -59,6 +57,60 @@ sources:
               body=format(
               format=MessageTemplate,
               args=[Timestamp, CommandLine, ClientId])
+          )
+        })
+```
+   {{% /expand %}}
+
+## Server.Alerts.WinPmem
+
+Send an email if the pmem service has been installed on any of the
+endpoints.
+
+Note this requires that the Windows.Event.ServiceCreation
+monitoring artifact be collected from clients.
+
+
+Arg|Default|Description
+---|------|-----------
+EmailAddress|admin@example.com|
+
+{{% expand  "View Artifact Source" %}}
+
+
+```
+name: Server.Alerts.WinPmem
+description: |
+   Send an email if the pmem service has been installed on any of the
+   endpoints.
+
+   Note this requires that the Windows.Event.ServiceCreation
+   monitoring artifact be collected from clients.
+
+type: SERVER_EVENT
+
+parameters:
+  - name: EmailAddress
+    default: admin@example.com
+
+sources:
+  - queries:
+      - |
+        SELECT * FROM foreach(
+          row={
+            SELECT * from watch_monitoring(
+              artifact='Windows.Events.ServiceCreation')
+            WHERE ServiceName =~ 'pmem'
+          },
+          query={
+            SELECT * FROM mail(
+              to=EmailAddress,
+              subject='Pmem launched on host',
+              period=60,
+              body=format(
+                 format="WinPmem execution detected at %s for client %v",
+                 args=[Timestamp, ClientId]
+              )
           )
         })
 ```
@@ -413,7 +465,8 @@ reports:
                SELECT _ts as Timestamp,
                   CPUPercent,
                   MemoryUse
-               FROM source(source="Prometheus")
+               FROM source(source="Prometheus",
+                           artifact="Server.Monitor.Health")
              })
       {{ end }}
 
@@ -424,7 +477,8 @@ reports:
                SELECT _ts as Timestamp,
                   client_comms_current_connections,
                   client_comms_concurrency
-               FROM source(source="Prometheus")
+               FROM source(source="Prometheus",
+                           artifact="Server.Monitor.Health")
             })
       {{ end }}
 
@@ -538,21 +592,23 @@ sources:
       - |
         LET stats = SELECT parse_string_with_regex(string=Content,
            regex=[
-             'process_resident_memory_bytes (?P<process_resident_memory_bytes>[^\\s]+)',
              'client_comms_concurrency (?P<client_comms_concurrency>[^\\s]+)',
              'client_comms_current_connections (?P<client_comms_current_connections>[^\\s]+)',
              'flow_completion (?P<flow_completion>[^\\s]+)',
              'process_open_fds (?P<process_open_fds>[^\\s]+)',
-             'process_cpu_seconds_total (?P<process_cpu_seconds_total>[^\\s]+)',
              'stats_client_one_day_actives{version="[^"]+"} (?P<one_day_active>[^\\s]+)',
              'stats_client_seven_day_actives{version="[^"]+"} (?P<seven_day_active>[^\\s]+)'
-           ]) AS Stat
-        FROM  http_client(url=MetricsURL, chunk=50000)
+           ]) AS Stat, {
+              // On Windows Prometheus does not provide these so we get our own.
+              SELECT Times.user + Times.system as CPU,
+                     MemoryInfo.RSS as RSS
+              FROM pslist(pid=getpid())
+           } AS PslistStats
+        FROM  http_client(url=MetricsURL, chunk_size=50000)
 
       - |
         SELECT now() AS Timestamp,
-               parse_float(string=Stat.process_resident_memory_bytes)
-                      AS process_resident_memory_bytes,
+               PslistStats.RSS AS process_resident_memory_bytes,
                parse_float(string=Stat.client_comms_concurrency)
                       AS client_comms_concurrency,
                parse_float(string=Stat.client_comms_current_connections)
@@ -560,8 +616,7 @@ sources:
                parse_float(string=Stat.flow_completion) AS flow_completion,
                parse_float(string=Stat.process_open_fds)
                      AS process_open_fds,
-               parse_float(string=Stat.process_cpu_seconds_total)
-                     AS process_cpu_seconds_total,
+               PslistStats.CPU AS process_cpu_seconds_total,
                parse_float(string=Stat.one_day_active)
                      AS one_day_active,
                parse_float(string=Stat.seven_day_active)

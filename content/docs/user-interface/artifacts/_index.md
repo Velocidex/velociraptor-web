@@ -72,7 +72,7 @@ We can see the main sections:
 2. The `description` section contains a human readable description of
    the purpose of this artifact, how it works and when to use it. The
    description section is searchable in the GUI so you should provide
-   enough context there to assist a user in selcting this artifact.
+   enough context there to assist a user in selecting this artifact.
 
 2. The `parameters` section is a list of parameters provided to the
    artifact. When the user selects this artifact in the GUI, they are
@@ -143,7 +143,7 @@ Velociraptor uses VQL for many different purposes. Since Artifacts are
 a nice way to package VQL queries, there are a number of different
 types of artifacts depending on the specific VQL contained within them.
 
-For a full reference of VQL see [VQL Reference]({{< ref "docs/vql_reference" >}}), but for now we just need to distinguish between two main types of VQL queries:
+For a full reference of VQL see [VQL Reference]({{< ref "/docs/vql_reference" >}}), but for now we just need to distinguish between two main types of VQL queries:
 
 1. A `Collection Query` is a query which runs once and collects a
    table of results, then terminates.
@@ -155,25 +155,25 @@ For a full reference of VQL see [VQL Reference]({{< ref "docs/vql_reference" >}}
 
 Therefore we have 4 types of artifacts:
 
-1. A [client collection artifact]({{< ref "client_artifacts" >}})
+1. A [client collection artifact]({{< relref "client_artifacts" >}})
    encapsulates VQL queries primarily designed to run on the endpoint
    and return a table of results. These are typically used to capture
    some piece of information from the host - for example, the list of
    installed programs, the presence of a registry key etc.
 
-2. A [client event artifact]({{< ref "client_events" >}}) encapsulates
+2. A [client event artifact]({{< relref "client_events" >}}) encapsulates
    Event Queries that are running on the client, streaming rows to the
    server. These are typically used to monitor for specific events on
    the client. For example, watching the event log for a new event of
    interest.
 
-3. A [server collection artifact]({{< ref "server_artifacts" >}}) is
+3. A [server collection artifact]({{< relref "server_artifacts" >}}) is
    an artifact that contains a Collection Query that is designed to
    run on the server. Typically these artifacts are used to perform
    some post processing on the server or provide server state
    information.
 
-4. A [server event artifact]({{< ref "server_events" >}}) is an
+4. A [server event artifact]({{< relref "server_events" >}}) is an
    artifact containing event queries permanently running on the
    server. These are typically used to watch the entire Velociraptor
    deployment for specific conditions. For example, a server event

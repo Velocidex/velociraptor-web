@@ -1,5 +1,5 @@
 ---
 title: "Velociraptor Blog"
 aliases: [/blog/]
-weight: 20
+weight: 50
 ---

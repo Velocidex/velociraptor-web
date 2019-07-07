@@ -56,7 +56,20 @@ VQL plugins are not the same as VQL functions. A plugin is the subject of the VQ
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>/docs/vql_reference/templates/</guid>
-      <description></description>
+      <description>Velociraptor collects artifacts from end points but sometimes the significance of the collected information requires user interpretation. To assist in interpreting the collected information, Velociraptor can generate a Report.
+Artifact writers use the report to guide the artifact user in interpreting the results and assessing the significance of these results.
+The artifact file therefore contains a report section which allows the artifact writer to explain the significance of the findings.</description>
+    </item>
+    
+    <item>
+      <title>Artifact Tips</title>
+      <link>/docs/vql_reference/tips/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/vql_reference/tips/</guid>
+      <description>When writing a new artifact it helps to use the following tips to make it easier.
+Develop artifacts locally Although the Velociraptor GUI allows to change the artifact, and collect it from remote machines this is tedious in general. It is easier to just develop and collect the artifact locally.
+Simply create a directory where you store your custom artifact, and run the artifact collector with that directory specified.</description>
     </item>
     
   </channel>

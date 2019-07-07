@@ -252,6 +252,13 @@
           </a>
         </div>
     </li>
+      <li data-nav-id="/docs/vql_reference/tips/" class="dd-item">
+        <div>
+          <a href="/docs/vql_reference/tips/">
+            Artifact Tips
+          </a>
+        </div>
+    </li>
         </ul>
     </li>
     <li data-nav-id="/docs/artifacts/" class="dd-item haschildren
@@ -260,17 +267,17 @@
       <a href="/docs/artifacts/">Artifact Reference</a><i class="fa fa-angle-right fa-lg category-icon"></i>
       </div>
         <ul>
-      <li data-nav-id="/docs/artifacts/linux/linux/" class="dd-item">
+      <li data-nav-id="/docs/artifacts/linux/" class="dd-item">
         <div>
-          <a href="/docs/artifacts/linux/linux/">
+          <a href="/docs/artifacts/linux/">
             Linux Artifacts
           </a>
         </div>
     </li>
-      <li data-nav-id="/docs/artifacts/misc/" class="dd-item">
+      <li data-nav-id="/docs/artifacts/windows_system/" class="dd-item">
         <div>
-          <a href="/docs/artifacts/misc/">
-            Miscelaneous
+          <a href="/docs/artifacts/windows_system/">
+            Windows System
           </a>
         </div>
     </li>
@@ -278,6 +285,13 @@
         <div>
           <a href="/docs/artifacts/server/">
             Server Artifacts
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/artifacts/triage/" class="dd-item">
+        <div>
+          <a href="/docs/artifacts/triage/">
+            Windows Triage
           </a>
         </div>
     </li>
@@ -295,17 +309,17 @@
           </a>
         </div>
     </li>
-      <li data-nav-id="/docs/artifacts/windows_system/" class="dd-item">
+      <li data-nav-id="/docs/artifacts/misc/" class="dd-item">
         <div>
-          <a href="/docs/artifacts/windows_system/">
-            Windows System
+          <a href="/docs/artifacts/misc/">
+            Miscelaneous
           </a>
         </div>
     </li>
-      <li data-nav-id="/docs/artifacts/triage/" class="dd-item">
+      <li data-nav-id="/docs/artifacts/linux/linux/" class="dd-item">
         <div>
-          <a href="/docs/artifacts/triage/">
-            Windows Triage
+          <a href="/docs/artifacts/linux/linux/">
+            Linux Artifacts
           </a>
         </div>
     </li>
@@ -320,7 +334,7 @@
       <li data-nav-id="/docs/presentations/crikeycon2019/" class="dd-item">
         <div>
           <a href="/docs/presentations/crikeycon2019/">
-            CrikeyCon 2019
+            Crikeycon 2019 Training Workshop
           </a>
         </div>
     </li>
@@ -348,6 +362,13 @@
       <a href="/blog/">Velociraptor Blog</a><i class="fa fa-angle-right fa-lg category-icon"></i>
       </div>
         <ul>
+      <li data-nav-id="/blog/html/2018/08/10/browsing_around_the_filesystem.html" class="dd-item">
+        <div>
+          <a href="/blog/html/2018/08/10/browsing_around_the_filesystem.html">
+            Browsing around the filesystem.
+          </a>
+        </div>
+    </li>
       <li data-nav-id="/blog/html/2019/03/02/agentless_hunting_with_velociraptor.html" class="dd-item">
         <div>
           <a href="/blog/html/2019/03/02/agentless_hunting_with_velociraptor.html">
@@ -457,13 +478,6 @@
         <div>
           <a href="/blog/html/2018/08/20/velociraptor_artifacts.html">
             Velociraptor Artifacts
-          </a>
-        </div>
-    </li>
-      <li data-nav-id="/blog/html/2018/08/10/browsing_around_the_filesystem.html" class="dd-item">
-        <div>
-          <a href="/blog/html/2018/08/10/browsing_around_the_filesystem.html">
-            Browsing around the filesystem.
           </a>
         </div>
     </li>
@@ -588,6 +602,24 @@
 
    <article class="post blog">
     <header class="post-header">
+        <h2 class="post-title"><a href="/blog/html/2018/12/09/more_on_client_event_collection.html">More on client event collection</a></h2>
+    </header>
+    <section class="post-excerpt">
+        <p>Periodic Event queries The simplest kind of events are periodically generated events. These are created using the clock() VQL plugin. This is a simple event plugin which just emits a new row periodically.
+$ velociraptor query &quot;select Unix from clock(period=5)&quot; --max_wait 1 [ { &quot;Unix&quot;: 1544339715 } ][ { &quot;Unix&quot;: 1544339720 } ]^C  The query will never terminate, instead the clock() plugin will emit a new timestamp every 5 seconds. <a class="read-more" href="/blog/html/2018/12/09/more_on_client_event_collection.html">&raquo;</a></p>
+    </section>
+    <footer class=" footline" >
+         
+        
+
+        
+        
+
+    </footer>
+</article>
+
+   <article class="post blog">
+    <header class="post-header">
         <h2 class="post-title"><a href="/blog/html/2018/11/13/velociraptor_training_at_nzitf.html">Velociraptor training at NZITF</a></h2>
     </header>
     <section class="post-excerpt">
@@ -685,24 +717,6 @@ As of the latest release of Velociraptor we have raw registry parsing which can 
     <section class="post-excerpt">
         <p>First a bit of history. When we first started writing endpoint monitoring tools (With GRR then Rekall Agent) we implemented the ability to collect files, registry keys and other data. If an analyst wanted to collect, say the chrome extensions, they would need to know where chrome extensions typically reside ( %homedir%/.config/google-chrome/Extensions/**) and enter that in each time.
 We soon realized this was error prone and required too much mental overhead for analysts to constantly remember these details. <a class="read-more" href="/blog/html/2018/08/20/velociraptor_artifacts.html">&raquo;</a></p>
-    </section>
-    <footer class=" footline" >
-         
-        
-
-        
-        
-
-    </footer>
-</article>
-
-   <article class="post blog">
-    <header class="post-header">
-        <h2 class="post-title"><a href="/blog/html/2018/08/10/browsing_around_the_filesystem.html">Browsing around the filesystem.</a></h2>
-    </header>
-    <section class="post-excerpt">
-        <p>The Virtual File System Like GRR, Velociraptor also maintains a virtual file system view (VFS) of the client's filesystem. GRR's VFS view is generated by adding a row for each file into the database. In order to refresh the view of a certain directory, GRR issues a ListDirectory request and updates the database by storing each newly discovered file in its own row.
-Velociraptor models the client's VFS as a per-directory VQL query. <a class="read-more" href="/blog/html/2018/08/10/browsing_around_the_filesystem.html">&raquo;</a></p>
     </section>
     <footer class=" footline" >
          

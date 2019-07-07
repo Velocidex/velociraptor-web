@@ -3,22 +3,17 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>/docs/presentations/crikeycon2019/</loc>
-    <lastmod>2019-02-01T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/docs/presentations/nzitf2018/</loc>
-    <lastmod>2019-02-01T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>/about/</loc>
     <lastmod>2019-02-01T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>/docs/getting-started/</loc>
+  </url>
+  
+  <url>
+    <loc>/blog/html/2018/08/10/browsing_around_the_filesystem.html</loc>
+    <lastmod>2018-08-10T04:10:06+00:00</lastmod>
   </url>
   
   <url>
@@ -31,7 +26,15 @@
   </url>
   
   <url>
+    <loc>/docs/presentations/crikeycon2019/</loc>
+  </url>
+  
+  <url>
     <loc>/docs/user-interface/investigating_clients/</loc>
+  </url>
+  
+  <url>
+    <loc>/docs/artifacts/linux/</loc>
   </url>
   
   <url>
@@ -56,6 +59,10 @@
   </url>
   
   <url>
+    <loc>/docs/presentations/nzitf2018/</loc>
+  </url>
+  
+  <url>
     <loc>/docs/user-interface/investigating_clients/searching_clients/</loc>
   </url>
   
@@ -68,12 +75,15 @@
   </url>
   
   <url>
-    <loc>/blog/</loc>
-    <lastmod>2019-03-02T04:10:06+00:00</lastmod>
+    <loc>/docs/artifacts/windows_system/</loc>
   </url>
   
   <url>
     <loc>/docs/getting-started/cloud/</loc>
+  </url>
+  
+  <url>
+    <loc>/docs/artifacts/server/</loc>
   </url>
   
   <url>
@@ -109,6 +119,10 @@
   </url>
   
   <url>
+    <loc>/docs/artifacts/triage/</loc>
+  </url>
+  
+  <url>
     <loc>/docs/artifacts/</loc>
   </url>
   
@@ -121,13 +135,32 @@
   </url>
   
   <url>
+    <loc>/blog/</loc>
+    <lastmod>2018-08-10T04:10:06+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/docs/artifacts/detection/</loc>
+  </url>
+  
+  <url>
+    <loc>/docs/vql_reference/tips/</loc>
+  </url>
+  
+  <url>
     <loc>/about/license/</loc>
-    <lastmod>2016-03-02T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>/docs/presentations/</loc>
-    <lastmod>2019-02-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/docs/artifacts/events/</loc>
+  </url>
+  
+  <url>
+    <loc>/docs/artifacts/misc/</loc>
   </url>
   
   <url>
@@ -215,11 +248,6 @@
   </url>
   
   <url>
-    <loc>/blog/html/2018/08/10/browsing_around_the_filesystem.html</loc>
-    <lastmod>2018-08-10T04:10:06+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>/blog/html/2018/08/10/design_differences_between_velociraptor_and_grr.html</loc>
     <lastmod>2018-08-10T04:10:06+00:00</lastmod>
   </url>
@@ -254,45 +282,24 @@
   </url>
   
   <url>
-    <loc>/categories/about-velociraptor/</loc>
-    <lastmod>2016-03-02T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>/categories/blog/</loc>
-    <lastmod>2019-03-02T04:10:06+00:00</lastmod>
+    <lastmod>2018-08-10T04:10:06+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>/categories/</loc>
-    <lastmod>2016-03-02T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>/categories/docs/</loc>
-    <lastmod>2019-02-01T00:00:00+00:00</lastmod>
+    <lastmod>2018-08-10T04:10:06+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>/categories/getting-started/</loc>
-    <lastmod>2019-02-01T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>/docs/artifacts/linux/linux/</loc>
-  </url>
-  
-  <url>
-    <loc>/docs/artifacts/misc/</loc>
-  </url>
-  
-  <url>
-    <loc>/docs/artifacts/server/</loc>
   </url>
   
   <url>
@@ -310,7 +317,7 @@
   
   <url>
     <loc>/</loc>
-    <lastmod>2019-02-01T00:00:00+00:00</lastmod>
+    <lastmod>2018-08-10T04:10:06+00:00</lastmod>
   </url>
   
   <url>
@@ -319,22 +326,6 @@
   
   <url>
     <loc>/</loc>
-  </url>
-  
-  <url>
-    <loc>/docs/artifacts/detection/</loc>
-  </url>
-  
-  <url>
-    <loc>/docs/artifacts/events/</loc>
-  </url>
-  
-  <url>
-    <loc>/docs/artifacts/windows_system/</loc>
-  </url>
-  
-  <url>
-    <loc>/docs/artifacts/triage/</loc>
   </url>
   
 </urlset>

@@ -2,10 +2,9 @@
 description: These event artifacts stream monitoring events from the endpoint. We
   collect these events on the server.
 linktitle: Windows Monitoring
-menu:
-  docs: {parent: Artifacts, weight: 25}
 title: Windows Event Monitoring
 toc: true
+weight: 60
 
 ---
 ## Windows.Events.DNSQueries

@@ -22,9 +22,12 @@ presents it. Therefore SSL goes hand in hand with DNS. It is not
 currently possible to get a Letsencrypt certificate for an IP address.
 
 Therefore the first thing you need to do is to buy a DNS domain from
-any provider. Once there, you need to set up a DNS A Record to point at
-your Velociraptor server's external IP.  You can use a dynamic DNS
-client such as ddclient to update your DNS->IP mapping dynamically.
+any provider. Once there, you need to set up a DNS A Record to point
+at your Velociraptor server's external IP.  You can use a dynamic DNS
+client such as ddclient to update your DNS->IP mapping
+dynamically. Alternative, Velociraptor directly supports updating
+Google Domains Dynamic DNS so this is the easiest option since it
+requires the least amount of configuration.
 
 In this example we use Google Domains to purchase our domain, but any
 other domain provider would work as well.
@@ -67,46 +70,8 @@ credentials in the `ddclient` configuration file on our server VM.
 
 ![Credentials](../sso2.png)
 
-Next we install ddclient on our VM. This will update our dynamic IP
-address whenever the external interface changes. Configure the file
-`/etc/ddclient.conf`:
-
-```text
-   protocol=dyndns2
-   use=web
-   server=domains.google.com
-   ssl=yes
-   login=X13342342XYZ
-   password='slk43521kj'
-   velociraptor.rekall-innovations.com
-```
-
-Next configure the service to start by editing `/etc/default/ddclient`:
-
-```bash
-   # Configuration for ddclient scripts
-   # generated from debconf on Tue Oct 23 20:25:23 AEST 2018
-   #
-   # /etc/default/ddclient
-
-   # Set to "true" if ddclient should be run every time DHCP client ('dhclient'
-   # from package isc-dhcp-client) updates the systems IP address.
-   run_dhclient="false"
-
-   # Set to "true" if ddclient should be run every time a new ppp connection is
-   # established. This might be useful, if you are using dial-on-demand.
-   run_ipup="false"
-
-   # Set to "true" if ddclient should run in daemon mode
-   # If this is changed to true, run_ipup and run_dhclient must be set to false.
-   run_daemon="true"
-
-   # Set the time interval between the updates of the dynamic DNS name in seconds.
-   # This option only takes effect if the ddclient runs in daemon mode.
-   daemon_interval="300"
-```
-
-Run `dhclient` and check that it updates the address correctly.
+We will need these credential during the interactive configuration
+process below.
 
 ## Configure Velociraptor to use autocert
 
@@ -266,8 +231,22 @@ Generating keys please wait....
 ? What is the public DNS name of the Frontend (e.g. www.example.com): www.example.com
 ? Enter the Google OAuth Client ID? 1234xxxxxx.apps.googleusercontent.com
 ? Enter the Google OAuth Client Secret? qsadlkjhdaslkjasd
+? Are you using Google Domains DynDNS? Yes
+? Google Domains DynDNS Username XXXXXXXXX
+? Google Domains DynDNS Password YYYYYYYYY
 ? Path to the datastore directory. (/tmp)
+? GUI Username or email address to authorize (empty to end):mic
+? GUI Username or email address to authorize (empty to end):
 ```
+
+The DynDNS Username and Password field simply contain the values
+generated earlier by the Google Domains console.
+
+The configuration allows you to add authorized usernames at this
+stage. Note that username authorization is written to the data store
+and so it will only work on the same machine we are deploying to. If
+you are creating the configuration on another machine, you will need
+to explicitely add users later as demonstrated below.
 
 Now we can start the Velociraptor frontend:
 
@@ -323,5 +302,73 @@ will need to re-grant OAuth credentials. Therefore revoking a user
 from the Google Admin console may take a full day to take effect. To
 remove access sooner you should use `velociraptor --config
 server.config.yaml user lock MyUserName` at the console.
+
+{{% /notice %}}
+
+## Deploying to the cloud
+
+We saw how to start the frontend manually, but in practice we would
+rather have it run as a service, so it can be started in case the node
+is rebooted.
+
+We recommend that Velociraptor be deployed on an Ubuntu or Debian
+Linux based VM. We therefore provided an easy way to build a deb
+package:
+
+```bash
+$ ./velociraptor --config ~/server.config.yaml debian server
+$ ls -l velociraptor_0.3.0_server.deb
+-rw-r--r-- 1 mic mic 12710596 Jul  7 01:35 velociraptor_0.3.0_server.deb
+```
+
+The produced deb package will install Velociraptor as a service and
+the config file we just generated. You simply need to copy the deb to
+the node and install it.
+
+{{% notice note %}}
+
+You need to ensure that directories you specify in the config file
+actually exist on the node. For example, we normally purchase a node
+with large attached storage (say 500Gb) to hold the collected
+artifacts. We then format the additional partition (using `mkext2`)
+and mount it on a specific directory (e.g. `/data/`). We then need to
+add the new partition to `/etc/mtab` to ensure it gets mounted on
+boot. This needs to happen before we start the velociraptor service or
+it will fail to start.
+
+{{% /notice %}}
+
+You can check the installtion using `service velociraptor_server status`.
+
+```bash
+$ sudo dpkg -i velociraptor_0.3.0_server.deb
+Selecting previously unselected package velociraptor-server.
+(Reading database ... 384556 files and directories currently installed.)
+Preparing to unpack velociraptor_0.3.0_server.deb ...
+Unpacking velociraptor-server (0.3.0) ...
+Setting up velociraptor-server (0.3.0) ...
+Created symlink /etc/systemd/system/multi-user.target.wants/velociraptor_server.service → /etc/systemd/system/velociraptor_server.service.
+
+$ sudo service velociraptor_server status
+● velociraptor_server.service - Velociraptor linux amd64
+   Loaded: loaded (/etc/systemd/system/velociraptor_server.service; enabled; vendor preset: enabled)
+   Active: active (running) since Sun 2019-07-07 08:49:24 AEST; 17s ago
+ Main PID: 2275 (velociraptor)
+    Tasks: 13 (limit: 4915)
+   Memory: 30.2M
+   CGroup: /system.slice/velociraptor_server.service
+           └─2275 /usr/local/bin/velociraptor --config /etc/velociraptor/server.config.yaml frontend
+
+Jul 07 08:49:24 mic-Inspiron systemd[1]: Started Velociraptor linux amd64.
+```
+
+
+{{% notice tip %}}
+
+You do not need to build the deb package on a Linux machine. If you
+prefer to use Windows for your day to day work, you may build the deb
+on your windows machine but you must specify the `--binary` flag to
+the `debian server` command with a path to the linux binary. Yoy can
+obtain a copy of the linux binary from the Github releases page.
 
 {{% /notice %}}

@@ -1,20 +1,7 @@
 ---
 title: GNU Affero General Public License
 linktitle: License
-description: Velociraptor is released under the AGPLv3 License.
-date: 2016-02-01
-publishdate: 2016-02-01
-lastmod: 2016-03-02
-categories: ["about velociraptor"]
-keywords: ["License","AGPLv3"]
-menu:
-  docs:
-    parent: "about"
-    weight: 60
 weight: 60
-sections_weight: 60
-aliases: [/meta/license]
-toc: true
 ---
 
 _Version 3, 19 November 2007_

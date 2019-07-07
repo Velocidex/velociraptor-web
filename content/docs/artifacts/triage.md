@@ -1,15 +1,17 @@
 ---
 description: Triage artifacts simply collect various files as quickly as possible.
 linktitle: Windows Triage
-menu:
-  docs: {parent: Artifacts, weight: 15}
 title: Windows Triage Artifacts
-toc: true
+weight: 40
 
 ---
 ## Windows.Triage.Collectors.Amcache
 
 
+
+Arg|Default|Description
+---|------|-----------
+triageTable|Type,Accessor,Glob\nAmcache,ntfs,C:\\Windows\\AppCompat\\Programs\\Amcache.hve\nAmcache transaction files,ntfs,C:\\Windows\\AppCompat\\Programs\\Amcache.hve.LOG*\n|
 
 {{% expand  "View Artifact Source" %}}
 
@@ -19,20 +21,16 @@ name: Windows.Triage.Collectors.Amcache
 
 precondition: SELECT OS From info() where OS = 'windows'
 
+parameters:
+  - name: triageTable
+    default: |
+      Type,Accessor,Glob
+      Amcache,ntfs,C:\Windows\AppCompat\Programs\Amcache.hve
+      Amcache transaction files,ntfs,C:\Windows\AppCompat\Programs\Amcache.hve.LOG*
+
 sources:
   - queries:
-      - |
-        SELECT * FROM chain(
-          a1={ SELECT * FROM Artifact.Triage.Collection.Upload(
-               type="Amcache",
-               accessor="ntfs",
-               path="C:\\Windows\\AppCompat\\Programs\\Amcache.hve")
-          },
-          a2={ SELECT * FROM Artifact.Triage.Collection.Upload(
-               type="Amcache transaction files",
-               accessor="ntfs",
-               path="C:\\Windows\\AppCompat\\Programs\\Amcache.hve.LOG*")
-          })
+      - SELECT * FROM Artifact.Triage.Collection.UploadTable(triageTable=triageTable)
 ```
    {{% /expand %}}
 
@@ -73,7 +71,7 @@ Collect Chrome related artifacts.
 
 Arg|Default|Description
 ---|------|-----------
-baseLocations|C:\\Documents and Settings\\*\\Local Settings\\Application Data\\Google\\Chrome\\User Data\\*\\,C:\\Users\\*\\AppData\\Local\\Google\\Chrome\\User Data\\*\\|Globs for different possible locations of firefox profiles.
+triageTable|Type,Accessor,Glob\nChrome Bookmarks,file,C:\\Documents and Settings\\*\\Local Settings\\Application Data\\Google\\Chrome\\User Data\\*\\Bookmarks*\nChrome Bookmarks,file,C:\\Users\\*\\AppData\\Local\\Google\\Chrome\\User Data\\*\\Bookmarks*\nChrome Bookmarks,file,C:\\Documents and Settings\\*\\Local Settings\\Application Data\\Google\\Chrome\\User Data\\*\\Bookmarks*\nChrome Bookmarks,file,C:\\Users\\*\\AppData\\Local\\Google\\Chrome\\User Data\\*\\Bookmarks*\nChrome Cookies,file,C:\\Documents and Settings\\*\\Local Settings\\Application Data\\Google\\Chrome\\User Data\\*\\Cookies*\nChrome Cookies,file,C:\\Users\\*\\AppData\\Local\\Google\\Chrome\\User Data\\*\\Cookies*\nChrome Current Session,ntfs,C:\\Documents and Settings\\*\\Local Settings\\Application Data\\Google\\Chrome\\User Data\\*\\Current Session\nChrome Current Session,ntfs,C:\\Users\\*\\AppData\\Local\\Google\\Chrome\\User Data\\*\\Current Session\nChrome Current Tab,file,C:\\Documents and Settings\\*\\Local Settings\\Application Data\\Google\\Chrome\\User Data\\*\\Current Tab\nChrome Current Tab,file,C:\\Users\\*\\AppData\\Local\\Google\\Chrome\\User Data\\*\\Current Tab\nChrome Favicons,file,C:\\Documents and Settings\\*\\Local Settings\\Application Data\\Google\\Chrome\\User Data\\*\\Favicons*\nChrome Favicons,file,C:\\Users\\*\\AppData\\Local\\Google\\Chrome\\User Data\\*\\Favicons*\nChrome History,file,C:\\Documents and Settings\\*\\Local Settings\\Application Data\\Google\\Chrome\\User Data\\*\\History*\nChrome History,file,C:\\Users\\*\\AppData\\Local\\Google\\Chrome\\User Data\\*\\History*\nChrome Last Session,file,C:\\Documents and Settings\\*\\Local Settings\\Application Data\\Google\\Chrome\\User Data\\*\\Last Session\nChrome Last Session,file,C:\\Users\\*\\AppData\\Local\\Google\\Chrome\\User Data\\*\\Last Session\nChrome Last Tabs,file,C:\\Documents and Settings\\*\\Local Settings\\Application Data\\Google\\Chrome\\User Data\\*\\Last Tabs\nChrome Last Tabs,file,C:\\Users\\*\\AppData\\Local\\Google\\Chrome\\User Data\\*\\Last Tabs\nChrome Preferences,file,C:\\Documents and Settings\\*\\Local Settings\\Application Data\\Google\\Chrome\\User Data\\*\\Preferences\nChrome Preferences,file,C:\\Users\\*\\AppData\\Local\\Google\\Chrome\\User Data\\*\\Preferences\nChrome Shortcuts,file,C:\\Documents and Settings\\*\\Local Settings\\Application Data\\Google\\Chrome\\User Data\\*\\Shortcuts*\nChrome Shortcuts,file,C:\\Users\\*\\AppData\\Local\\Google\\Chrome\\User Data\\*\\Shortcuts*\nChrome Top Sites,file,C:\\Documents and Settings\\*\\Local Settings\\Application Data\\Google\\Chrome\\User Data\\*\\Top Sites*\nChrome Top Sites,file,C:\\Users\\*\\AppData\\Local\\Google\\Chrome\\User Data\\*\\Top Sites\nChrome Visited Links,file,C:\\Documents and Settings\\*\\Local Settings\\Application Data\\Google\\Chrome\\User Data\\*\\Visited Links\nChrome Visited Links,file,C:\\Users\\*\\AppData\\Local\\Google\\Chrome\\User Data\\*\\Visited Links\nChrome Web Data,file,C:\\Documents and Settings\\*\\Local Settings\\Application Data\\Google\\Chrome\\User Data\\*\\Web Data*\nChrome Web Data,file,C:\\Users\\*\\AppData\\Local\\Google\\Chrome\\User Data\\*\\Web Data*\n|
 
 {{% expand  "View Artifact Source" %}}
 
@@ -86,67 +84,41 @@ description: |
 precondition: SELECT OS From info() where OS = 'windows'
 
 parameters:
-  - name: baseLocations
-    description: Globs for different possible locations of firefox profiles.
-    default: C:\Documents and Settings\*\Local Settings\Application Data\Google\Chrome\User Data\*\,C:\Users\*\AppData\Local\Google\Chrome\User Data\*\
+  - name: triageTable
+    default: |
+      Type,Accessor,Glob
+      Chrome Bookmarks,file,C:\Documents and Settings\*\Local Settings\Application Data\Google\Chrome\User Data\*\Bookmarks*
+      Chrome Bookmarks,file,C:\Users\*\AppData\Local\Google\Chrome\User Data\*\Bookmarks*
+      Chrome Bookmarks,file,C:\Documents and Settings\*\Local Settings\Application Data\Google\Chrome\User Data\*\Bookmarks*
+      Chrome Bookmarks,file,C:\Users\*\AppData\Local\Google\Chrome\User Data\*\Bookmarks*
+      Chrome Cookies,file,C:\Documents and Settings\*\Local Settings\Application Data\Google\Chrome\User Data\*\Cookies*
+      Chrome Cookies,file,C:\Users\*\AppData\Local\Google\Chrome\User Data\*\Cookies*
+      Chrome Current Session,ntfs,C:\Documents and Settings\*\Local Settings\Application Data\Google\Chrome\User Data\*\Current Session
+      Chrome Current Session,ntfs,C:\Users\*\AppData\Local\Google\Chrome\User Data\*\Current Session
+      Chrome Current Tab,file,C:\Documents and Settings\*\Local Settings\Application Data\Google\Chrome\User Data\*\Current Tab
+      Chrome Current Tab,file,C:\Users\*\AppData\Local\Google\Chrome\User Data\*\Current Tab
+      Chrome Favicons,file,C:\Documents and Settings\*\Local Settings\Application Data\Google\Chrome\User Data\*\Favicons*
+      Chrome Favicons,file,C:\Users\*\AppData\Local\Google\Chrome\User Data\*\Favicons*
+      Chrome History,file,C:\Documents and Settings\*\Local Settings\Application Data\Google\Chrome\User Data\*\History*
+      Chrome History,file,C:\Users\*\AppData\Local\Google\Chrome\User Data\*\History*
+      Chrome Last Session,file,C:\Documents and Settings\*\Local Settings\Application Data\Google\Chrome\User Data\*\Last Session
+      Chrome Last Session,file,C:\Users\*\AppData\Local\Google\Chrome\User Data\*\Last Session
+      Chrome Last Tabs,file,C:\Documents and Settings\*\Local Settings\Application Data\Google\Chrome\User Data\*\Last Tabs
+      Chrome Last Tabs,file,C:\Users\*\AppData\Local\Google\Chrome\User Data\*\Last Tabs
+      Chrome Preferences,file,C:\Documents and Settings\*\Local Settings\Application Data\Google\Chrome\User Data\*\Preferences
+      Chrome Preferences,file,C:\Users\*\AppData\Local\Google\Chrome\User Data\*\Preferences
+      Chrome Shortcuts,file,C:\Documents and Settings\*\Local Settings\Application Data\Google\Chrome\User Data\*\Shortcuts*
+      Chrome Shortcuts,file,C:\Users\*\AppData\Local\Google\Chrome\User Data\*\Shortcuts*
+      Chrome Top Sites,file,C:\Documents and Settings\*\Local Settings\Application Data\Google\Chrome\User Data\*\Top Sites*
+      Chrome Top Sites,file,C:\Users\*\AppData\Local\Google\Chrome\User Data\*\Top Sites
+      Chrome Visited Links,file,C:\Documents and Settings\*\Local Settings\Application Data\Google\Chrome\User Data\*\Visited Links
+      Chrome Visited Links,file,C:\Users\*\AppData\Local\Google\Chrome\User Data\*\Visited Links
+      Chrome Web Data,file,C:\Documents and Settings\*\Local Settings\Application Data\Google\Chrome\User Data\*\Web Data*
+      Chrome Web Data,file,C:\Users\*\AppData\Local\Google\Chrome\User Data\*\Web Data*
 
 sources:
   - queries:
-      - |
-        SELECT * FROM chain(
-          a1={ SELECT * FROM Artifact.Triage.Collection.Upload(
-               type="Chrome bookmarks",
-               path=split(string=baseLocations, sep=",") + "Bookmarks*")
-          },
-          a2={ SELECT * FROM Artifact.Triage.Collection.Upload(
-               type="Chrome Cookies",
-               path=split(string=baseLocations, sep=",") + "Cookies*")
-          },
-          a3={ SELECT * FROM Artifact.Triage.Collection.Upload(
-               type="Chrome Current Session",
-               path=split(string=baseLocations, sep=",") + "Current Session")
-          },
-          a4={ SELECT * FROM Artifact.Triage.Collection.Upload(
-               type="Chrome Current Tabs",
-               path=split(string=baseLocations, sep=",") + "Current Tabs")
-          },
-          a5={ SELECT * FROM Artifact.Triage.Collection.Upload(
-               type="Chrome Favicons",
-               path=split(string=baseLocations, sep=",") + "Favicons*")
-          },
-          a6={ SELECT * FROM Artifact.Triage.Collection.Upload(
-               type="Chrome History",
-               path=split(string=baseLocations, sep=",") + "History*")
-          },
-          a7={ SELECT * FROM Artifact.Triage.Collection.Upload(
-               type="Chrome Last Session",
-               path=split(string=baseLocations, sep=",") + "Last Session")
-          },
-          a8={ SELECT * FROM Artifact.Triage.Collection.Upload(
-               type="Chrome Last Tabs",
-               path=split(string=baseLocations, sep=",") + "Last Tabs")
-          },
-          a9={ SELECT * FROM Artifact.Triage.Collection.Upload(
-               type="Chrome Preferences",
-               path=split(string=baseLocations, sep=",") + "Preferences")
-          },
-          b1={ SELECT * FROM Artifact.Triage.Collection.Upload(
-               type="Chrome Shortcuts",
-               path=split(string=baseLocations, sep=",") + "Shortcuts*")
-          },
-          b2={ SELECT * FROM Artifact.Triage.Collection.Upload(
-               type="Chrome Top Sites",
-               path=split(string=baseLocations, sep=",") + "Top Sites*")
-          },
-          b3={ SELECT * FROM Artifact.Triage.Collection.Upload(
-               type="Chrome Visited Links",
-               path=split(string=baseLocations, sep=",") + "Visited Links")
-          },
-          b4={ SELECT * FROM Artifact.Triage.Collection.Upload(
-               type="Chrome Web Data",
-               path=split(string=baseLocations, sep=",") + "Web Data*")
-          }
-        )
+      - SELECT * FROM Artifact.Triage.Collection.UploadTable(triageTable=triageTable)
 ```
    {{% /expand %}}
 
@@ -154,6 +126,10 @@ sources:
 
 Collect Edge related artifacts.
 
+
+Arg|Default|Description
+---|------|-----------
+triageTable|Type,Accessor,Glob\nEdge folder,ntfs,C:\\Users\\*\\AppData\\Local\\Packages\\Microsoft.MicrosoftEdge_*\\**\nWebcacheV01.dat,ntfs,C:\\Users\\*\\AppData\\Local\\Microsoft\\Windows\\WebCache\\**\n|
 
 {{% expand  "View Artifact Source" %}}
 
@@ -165,19 +141,16 @@ description: |
 
 precondition: SELECT OS From info() where OS = 'windows'
 
+parameters:
+  - name: triageTable
+    default: |
+      Type,Accessor,Glob
+      Edge folder,ntfs,C:\Users\*\AppData\Local\Packages\Microsoft.MicrosoftEdge_*\**
+      WebcacheV01.dat,ntfs,C:\Users\*\AppData\Local\Microsoft\Windows\WebCache\**
+
 sources:
   - queries:
-      - |
-        SELECT * FROM chain(
-          a1={ SELECT * FROM Artifact.Triage.Collection.Upload(
-               type="Edge folder",
-               path="C:\\Users\\*\\AppData\\Local\\Packages\\Microsoft.MicrosoftEdge_*\\**")
-          },
-          a2={ SELECT * FROM Artifact.Triage.Collection.Upload(
-               type="WebcacheV01.dat",
-               path="C:\\Users\\*\\AppData\\Local\\Microsoft\\Windows\\WebCache\\**")
-          }
-        )
+      - SELECT * FROM Artifact.Triage.Collection.UploadTable(triageTable=triageTable)
 ```
    {{% /expand %}}
 
@@ -356,6 +329,10 @@ sources:
 Collect Firefox related artifacts.
 
 
+Arg|Default|Description
+---|------|-----------
+triageTable|Type,Accessor,Glob\nIndex.dat History,file,C:\\Documents and Settings\\*\\Local Settings\\History\\History.IE5\\index.dat\nIndex.dat History,file,C:\\Documents and Settings\\*\\Local Settings\\History\\History.IE5\\*\\index.dat\nIndex.dat temp internet files,file,C:\\Documents and Settings\\*\\Local Settings\\Temporary Internet Files\\Content.IE5\\index.dat\nIndex.dat cookies,file,C:\\Documents and Settings\\*\\Cookies\\index.dat\nIndex.dat UserData,file,C:\\Documents and Settings\\*\\Application Data\\Microsoft\\Internet Explorer\\UserData\\index.dat\nIndex.dat Office XP,file,C:\\Documents and Settings\\*\\Application Data\\Microsoft\\Office\\Recent\\index.dat\nIndex.dat Office,file,C:\\Users\\*\\AppData\\Roaming\\Microsoft\\Office\\Recent\\index.dat\nLocal Internet Explorer folder,ntfs,C:\\Users\\*\\AppData\\Local\\Microsoft\\Internet Explorer\\**\nRoaming Internet Explorer folder,file,C:\\Users\\*\\AppData\\Roaming\\Microsoft\\Internet Explorer\\**\nIE 9/10 History,file,C:\\Users\\*\\AppData\\Local\\Microsoft\\Windows\\History\\**\nIE 9/10 Cache,file,C:\\Users\\*\\AppData\\Local\\Microsoft\\Windows\\Temporary Internet Files\\**\nIE 9/10 Cookies,file,C:\\Users\\*\\AppData\\Local\\Microsoft\\Windows\\Cookies\\**\nIE 9/10 Download History,file,C:\\Users\\*\\AppData\\Local\\Microsoft\\Windows\\IEDownloadHistory\\**\nIE 11 Metadata,ntfs,C:\\Users\\*\\AppData\\Local\\Microsoft\\Windows\\WebCache\\**\nIE 11 Cache,ntfs,C:\\Users\\*\\AppData\\Local\\Microsoft\\Windows\\INetCache\\**\nIE 11 Cookies,file,C:\\Users\\*\\AppData\\Local\\Microsoft\\Windows\\INetCookies\\**\n|
+
 {{% expand  "View Artifact Source" %}}
 
 
@@ -366,76 +343,30 @@ description: |
 
 precondition: SELECT OS From info() where OS = 'windows'
 
+parameters:
+  - name: triageTable
+    default: |
+      Type,Accessor,Glob
+      Index.dat History,file,C:\Documents and Settings\*\Local Settings\History\History.IE5\index.dat
+      Index.dat History,file,C:\Documents and Settings\*\Local Settings\History\History.IE5\*\index.dat
+      Index.dat temp internet files,file,C:\Documents and Settings\*\Local Settings\Temporary Internet Files\Content.IE5\index.dat
+      Index.dat cookies,file,C:\Documents and Settings\*\Cookies\index.dat
+      Index.dat UserData,file,C:\Documents and Settings\*\Application Data\Microsoft\Internet Explorer\UserData\index.dat
+      Index.dat Office XP,file,C:\Documents and Settings\*\Application Data\Microsoft\Office\Recent\index.dat
+      Index.dat Office,file,C:\Users\*\AppData\Roaming\Microsoft\Office\Recent\index.dat
+      Local Internet Explorer folder,ntfs,C:\Users\*\AppData\Local\Microsoft\Internet Explorer\**
+      Roaming Internet Explorer folder,file,C:\Users\*\AppData\Roaming\Microsoft\Internet Explorer\**
+      IE 9/10 History,file,C:\Users\*\AppData\Local\Microsoft\Windows\History\**
+      IE 9/10 Cache,file,C:\Users\*\AppData\Local\Microsoft\Windows\Temporary Internet Files\**
+      IE 9/10 Cookies,file,C:\Users\*\AppData\Local\Microsoft\Windows\Cookies\**
+      IE 9/10 Download History,file,C:\Users\*\AppData\Local\Microsoft\Windows\IEDownloadHistory\**
+      IE 11 Metadata,ntfs,C:\Users\*\AppData\Local\Microsoft\Windows\WebCache\**
+      IE 11 Cache,ntfs,C:\Users\*\AppData\Local\Microsoft\Windows\INetCache\**
+      IE 11 Cookies,file,C:\Users\*\AppData\Local\Microsoft\Windows\INetCookies\**
+
 sources:
   - queries:
-      - |
-        SELECT * FROM chain(
-          a1={ SELECT * FROM Artifact.Triage.Collection.Upload(
-               type="Index.dat History",
-               path=[
-                 "C:\\Documents and Settings\\*\\Local Settings\\History\\History.IE5\\index.dat",
-                 "C:\\Documents and Settings\\*\\Local Settings\\History\\History.IE5\\*\\index.dat"
-               ])
-          },
-          a2={ SELECT * FROM Artifact.Triage.Collection.Upload(
-               type="Index.dat temp internet files",
-               path="C:\\Documents and Settings\\*\\Local Settings\\Temporary Internet Files\\Content.IE5\\index.dat")
-          },
-          a3={ SELECT * FROM Artifact.Triage.Collection.Upload(
-               type="Index.dat cookies",
-               path="C:\\Documents and Settings\\*\\Cookies\\index.dat")
-          },
-          a4={ SELECT * FROM Artifact.Triage.Collection.Upload(
-               type="Index.dat UserData",
-               path="C:\\Documents and Settings\\*\\Application Data\\Microsoft\\Internet Explorer\\UserData\\index.dat")
-          },
-          a5={ SELECT * FROM Artifact.Triage.Collection.Upload(
-               type="Index.dat Office XP",
-               path="C:\\Documents and Settings\\*\\Application Data\\Microsoft\\Office\\Recent\\index.dat")
-          },
-          a6={ SELECT * FROM Artifact.Triage.Collection.Upload(
-               type="Index.dat Office",
-               path="C:\\Users\\*\\AppData\\Roaming\\Microsoft\\Office\\Recent\\index.dat")
-          },
-          a7={ SELECT * FROM Artifact.Triage.Collection.Upload(
-               type="Local Internet Explorer folder",
-               path="C:\\Users\\*\\AppData\\Local\\Microsoft\\Internet Explorer\\**")
-          },
-          a8={ SELECT * FROM Artifact.Triage.Collection.Upload(
-               type="Roaming Internet Explorer folder",
-               path="C:\\Users\\*\\AppData\\Roaming\\Microsoft\\Internet Explorer\\**")
-          },
-          a9={ SELECT * FROM Artifact.Triage.Collection.Upload(
-               type="IE 9/10 History",
-               path="C:\\Users\\*\\AppData\\Local\\Microsoft\\Windows\\History\\**")
-          },
-          b1={ SELECT * FROM Artifact.Triage.Collection.Upload(
-               type="IE 9/10 Cache",
-               path="C:\\Users\\*\\AppData\\Local\\Microsoft\\Windows\\Temporary Internet Files\\**")
-          },
-          b2={ SELECT * FROM Artifact.Triage.Collection.Upload(
-               type="IE 9/10 Cookies",
-               path="C:\\Users\\*\\AppData\\Local\\Microsoft\\Windows\\Cookies\\**")
-          },
-          b3={ SELECT * FROM Artifact.Triage.Collection.Upload(
-               type="IE 9/10 Download History",
-               path="C:\\Users\\*\\AppData\\Local\\Microsoft\\Windows\\IEDownloadHistory\\**")
-          },
-          b4={ SELECT * FROM Artifact.Triage.Collection.Upload(
-               type="IE 11 Metadata",
-               accessor="ntfs",
-               path="C:\\Users\\*\\AppData\\Local\\Microsoft\\Windows\\WebCache\\**")
-          },
-          b5={ SELECT * FROM Artifact.Triage.Collection.Upload(
-               type="IE 11 Cache",
-               accessor="ntfs",
-               path="C:\\Users\\*\\AppData\\Local\\Microsoft\\Windows\\INetCache\\**")
-          },
-          b6={ SELECT * FROM Artifact.Triage.Collection.Upload(
-               type="IE 11 Cookies",
-               path="C:\\Users\\*\\AppData\\Local\\Microsoft\\Windows\\INetCookies\\**")
-          }
-        )
+      - SELECT * FROM Artifact.Triage.Collection.UploadTable(triageTable=triageTable)
 ```
    {{% /expand %}}
 
@@ -473,8 +404,6 @@ sources:
 
 Lnk files and jump lists.
 
-{{ Query "SELECT * FROM Rows" }}
-
 
 {{% expand  "View Artifact Source" %}}
 
@@ -483,8 +412,6 @@ Lnk files and jump lists.
 name: Windows.Triage.Collectors.LnkFiles
 description: |
   Lnk files and jump lists.
-
-  {{ Query "SELECT * FROM Rows" }}
 
 precondition: SELECT OS From info() where OS = 'windows'
 
@@ -517,7 +444,6 @@ sources:
 
 ## Windows.Triage.Collectors.NTFSMetadata
 
-{{ Query "SELECT * FROM Rows" }}
 
 
 {{% expand  "View Artifact Source" %}}
@@ -525,10 +451,11 @@ sources:
 
 ```
 name: Windows.Triage.Collectors.NTFSMetadata
-description: |
-  {{ Query "SELECT * FROM Rows" }}
 
 precondition: SELECT OS From info() where OS = 'windows'
+
+reference:
+  - https://github.com/EricZimmerman/KapeFiles
 
 sources:
   - name: NTFS Metadata Files
@@ -649,6 +576,10 @@ sources:
 System and user related Registry hives.
 
 
+Arg|Default|Description
+---|------|-----------
+triageTable|Type,Accessor,Glob\nntuser.dat registry hive,ntfs,C:\\Documents and Settings\\*\\ntuser.dat\nntuser.dat registry hive,ntfs,C:\\Users\\*\\ntuser.dat\nntuser.dat registry transaction files,ntfs,C:\\Documents and Settings\\*\\ntuser.dat.LOG*\nntuser.dat registry transaction files,ntfs,C:\\Users\\*\\ntuser.dat.LOG*\nUsrClass.dat registry hive,ntfs,C:\\Users\\*\\AppData\\Local\\Microsoft\\Windows\\UsrClass.dat\nUsrClass.dat registry transaction files,ntfs,C:\\Users\\*\\AppData\\Local\\Microsoft\\Windows\\UsrClass.dat.LOG*\nSAM registry transaction files,ntfs,C:\\Windows\\System32\\config\\SAM.LOG*\nSECURITY registry transaction files,ntfs,C:\\Windows\\System32\\config\\SECURITY.LOG*\nSYSTEM registry transaction files,ntfs,C:\\Windows\\System32\\config\\SYSTEM.LOG*\nSAM registry hive,ntfs,C:\\Windows\\System32\\config\\SAM\nSECURITY registry hive,ntfs,C:\\Windows\\System32\\config\\SECURITY\nSOFTWARE registry hive,ntfs,C:\\Windows\\System32\\config\\SOFTWARE\nSYSTEM registry hive,ntfs,C:\\Windows\\System32\\config\\SYSTEM\nRegBack registry transaction files,ntfs,C:\\Windows\\System32\\config\\RegBack\\*.LOG*\nSAM registry hive (RegBack),ntfs,C:\\Windows\\System32\\config\\RegBack\\SAM\nSECURITY registry hive (RegBack),ntfs,C:\\Windows\\System32\\config\\RegBack\\SECURITY\nSOFTWARE registry hive (RegBack),ntfs,C:\\Windows\\System32\\config\\RegBack\\SOFTWARE\nSYSTEM registry hive (RegBack),ntfs,C:\\Windows\\System32\\config\\RegBack\\SYSTEM\nSystem Profile registry hive,ntfs,C:\\Windows\\System32\\config\\systemprofile\\ntuser.dat\nSystem Profile registry transaction files,ntfs,C:\\Windows\\System32\\config\\systemprofile\\ntuser.dat.LOG*\nLocal Service registry hive,ntfs,C:\\Windows\\ServiceProfiles\\LocalService\\ntuser.dat\nLocal Service registry transaction files,ntfs,C:\\Windows\\ServiceProfiles\\LocalService\\ntuser.dat.LOG*\nNetwork Service registry hive,ntfs,C:\\Windows\\ServiceProfiles\\NetworkService\\ntuser.dat\nNetwork Service registry transaction files,ntfs,C:\\Windows\\ServiceProfiles\\NetworkService\\ntuser.dat.LOG*\nSystem Restore Points Registry Hives (XP),ntfs,C:\\System Volume Information\\_restore*\\RP*\\snapshot\\_REGISTRY_*\n|
+
 {{% expand  "View Artifact Source" %}}
 
 
@@ -658,143 +589,44 @@ description: |
   System and user related Registry hives.
 
 precondition: SELECT OS From info() where OS = 'windows'
+
 reference:
   - https://github.com/EricZimmerman/KapeFiles
 
+parameters:
+  - name: triageTable
+    default: |
+      Type,Accessor,Glob
+      ntuser.dat registry hive,ntfs,C:\Documents and Settings\*\ntuser.dat
+      ntuser.dat registry hive,ntfs,C:\Users\*\ntuser.dat
+      ntuser.dat registry transaction files,ntfs,C:\Documents and Settings\*\ntuser.dat.LOG*
+      ntuser.dat registry transaction files,ntfs,C:\Users\*\ntuser.dat.LOG*
+      UsrClass.dat registry hive,ntfs,C:\Users\*\AppData\Local\Microsoft\Windows\UsrClass.dat
+      UsrClass.dat registry transaction files,ntfs,C:\Users\*\AppData\Local\Microsoft\Windows\UsrClass.dat.LOG*
+      SAM registry transaction files,ntfs,C:\Windows\System32\config\SAM.LOG*
+      SECURITY registry transaction files,ntfs,C:\Windows\System32\config\SECURITY.LOG*
+      SYSTEM registry transaction files,ntfs,C:\Windows\System32\config\SYSTEM.LOG*
+      SAM registry hive,ntfs,C:\Windows\System32\config\SAM
+      SECURITY registry hive,ntfs,C:\Windows\System32\config\SECURITY
+      SOFTWARE registry hive,ntfs,C:\Windows\System32\config\SOFTWARE
+      SYSTEM registry hive,ntfs,C:\Windows\System32\config\SYSTEM
+      RegBack registry transaction files,ntfs,C:\Windows\System32\config\RegBack\*.LOG*
+      SAM registry hive (RegBack),ntfs,C:\Windows\System32\config\RegBack\SAM
+      SECURITY registry hive (RegBack),ntfs,C:\Windows\System32\config\RegBack\SECURITY
+      SOFTWARE registry hive (RegBack),ntfs,C:\Windows\System32\config\RegBack\SOFTWARE
+      SYSTEM registry hive (RegBack),ntfs,C:\Windows\System32\config\RegBack\SYSTEM
+      System Profile registry hive,ntfs,C:\Windows\System32\config\systemprofile\ntuser.dat
+      System Profile registry transaction files,ntfs,C:\Windows\System32\config\systemprofile\ntuser.dat.LOG*
+      Local Service registry hive,ntfs,C:\Windows\ServiceProfiles\LocalService\ntuser.dat
+      Local Service registry transaction files,ntfs,C:\Windows\ServiceProfiles\LocalService\ntuser.dat.LOG*
+      Network Service registry hive,ntfs,C:\Windows\ServiceProfiles\NetworkService\ntuser.dat
+      Network Service registry transaction files,ntfs,C:\Windows\ServiceProfiles\NetworkService\ntuser.dat.LOG*
+      System Restore Points Registry Hives (XP),ntfs,C:\System Volume Information\_restore*\RP*\snapshot\_REGISTRY_*
+
 sources:
   - queries:
-      - |
-        SELECT * FROM chain(
-          a1={ SELECT * FROM Artifact.Triage.Collection.Upload(
-               type="ntuser.dat registry hive",
-               accessor="ntfs",
-               path=[
-                 "C:\\Documents and Settings\\*\\ntuser.dat",
-                 "C:\\Users\\*\\ntuser.dat"
-               ])
-          },
-          a2={ SELECT * FROM Artifact.Triage.Collection.Upload(
-               type="ntuser.dat registry transaction files",
-               accessor="ntfs",
-               path="C:\\Users\\*\\ntuser.dat.LOG*")
-          },
-          a3={ SELECT * FROM Artifact.Triage.Collection.Upload(
-               type="UsrClass.dat registry hive",
-               accessor="ntfs",
-               path="C:\\Users\\*\\AppData\\Local\\Microsoft\\Windows\\UsrClass.dat")
-          },
-          a4={ SELECT * FROM Artifact.Triage.Collection.Upload(
-               type="UsrClass.dat registry transaction files",
-               accessor="ntfs",
-               path="C:\\Users\\*\\AppData\\Local\\Microsoft\\Windows\\UsrClass.dat.LOG*")
-          },
-          a5={ SELECT * FROM Artifact.Triage.Collection.Upload(
-               type="SAM registry transaction files",
-               accessor="ntfs",
-               path="C:\\Windows\\System32\\config\\SAM.LOG*")
-          },
-          a6={ SELECT * FROM Artifact.Triage.Collection.Upload(
-               type="SECURITY registry transaction files",
-               accessor="ntfs",
-               path="C:\\Windows\\System32\\config\\SECURITY.LOG*")
-          },
-          a7={ SELECT * FROM Artifact.Triage.Collection.Upload(
-               type="SOFTWARE registry transaction files",
-               accessor="ntfs",
-               path="C:\\Windows\\System32\\config\\SOFTWARE.LOG*")
-          },
-          a8={ SELECT * FROM Artifact.Triage.Collection.Upload(
-               type="SYSTEM registry transaction files",
-               accessor="ntfs",
-               path="C:\\Windows\\System32\\config\\SYSTEM.LOG*")
-          },
-          a9={ SELECT * FROM Artifact.Triage.Collection.Upload(
-               type="SAM registry hive",
-               accessor="ntfs",
-               path="C:\\Windows\\System32\\config\\SAM")
-          },
-          b1={ SELECT * FROM Artifact.Triage.Collection.Upload(
-               type="SECURITY registry hive",
-               accessor="ntfs",
-               path="C:\\Windows\\System32\\config\\SECURITY")
-          },
-          b2={ SELECT * FROM Artifact.Triage.Collection.Upload(
-               type="SOFTWARE registry hive",
-               accessor="ntfs",
-               path="C:\\Windows\\System32\\config\\SOFTWARE")
-          },
-          b3={ SELECT * FROM Artifact.Triage.Collection.Upload(
-               type="SYSTEM registry hive",
-               accessor="ntfs",
-               path="C:\\Windows\\System32\\config\\SYSTEM")
-          },
-          b4={ SELECT * FROM Artifact.Triage.Collection.Upload(
-               type="RegBack registry transaction files",
-               accessor="ntfs",
-               path="C:\\Windows\\System32\\config\\RegBack\\*.LOG*")
-          },
-          b5={ SELECT * FROM Artifact.Triage.Collection.Upload(
-               type="SAM registry hive (RegBack)",
-               accessor="ntfs",
-               path="C:\\Windows\\System32\\config\\RegBack\\SAM")
-          },
-          b6={ SELECT * FROM Artifact.Triage.Collection.Upload(
-               type="SECURITY registry hive (RegBack)",
-               accessor="ntfs",
-               path="C:\\Windows\\System32\\config\\RegBack\\SECURITY")
-          },
-          b7={ SELECT * FROM Artifact.Triage.Collection.Upload(
-               type="SOFTWARE registry hive (RegBack)",
-               accessor="ntfs",
-               path="C:\\Windows\\System32\\config\\RegBack\\SOFTWARE")
-          },
-          b8={ SELECT * FROM Artifact.Triage.Collection.Upload(
-               type="SYSTEM registry hive (RegBack)",
-               accessor="ntfs",
-               path="C:\\Windows\\System32\\config\\RegBack\\SYSTEM")
-          },
-          b9={ SELECT * FROM Artifact.Triage.Collection.Upload(
-               type="SYSTEM registry hive (RegBack)",
-               accessor="ntfs",
-               path="C:\\Windows\\System32\\config\\RegBack\\SYSTEM")
-          },
-          ba={ SELECT * FROM Artifact.Triage.Collection.Upload(
-               type="System Profile registry hive",
-               accessor="ntfs",
-               path="C:\\Windows\\System32\\config\\systemprofile\\ntuser.dat")
-          },
-          c1={ SELECT * FROM Artifact.Triage.Collection.Upload(
-               type="System Profile registry transaction files",
-               accessor="ntfs",
-               path="C:\\Windows\\System32\\config\\systemprofile\\ntuser.dat.LOG*")
-          },
-          c2={ SELECT * FROM Artifact.Triage.Collection.Upload(
-               type="Local Service registry hive",
-               accessor="ntfs",
-               path="C:\\Windows\\ServiceProfiles\\LocalService\\ntuser.dat")
-          },
-          c3={ SELECT * FROM Artifact.Triage.Collection.Upload(
-               type="Local Service registry transaction files",
-               accessor="ntfs",
-               path="C:\\Windows\\ServiceProfiles\\LocalService\\ntuser.dat.LOG*")
-          },
-          c4={ SELECT * FROM Artifact.Triage.Collection.Upload(
-               type="Network Service registry hive",
-               accessor="ntfs",
-               path="C:\\Windows\\ServiceProfiles\\NetworkService\\ntuser.dat")
-          },
-          c5={ SELECT * FROM Artifact.Triage.Collection.Upload(
-               type="Network Service registry transaction files",
-               accessor="ntfs",
-               path="C:\\Windows\\ServiceProfiles\\NetworkService\\ntuser.dat.LOG*")
-          },
-          c6={ SELECT * FROM Artifact.Triage.Collection.Upload(
-               type="System Restore Points Registry Hives (XP)",
-               accessor="ntfs",
-               path="C:\\System Volume Information\\_restore*\\RP*\\snapshot\\_REGISTRY_*")
-          }
-
-        )
+      - SELECT * FROM Artifact.Triage.Collection.UploadTable(
+               triageTable=triageTable)
 ```
    {{% /expand %}}
 
@@ -1205,6 +1037,57 @@ sources:
 ```
    {{% /expand %}}
 
+## Triage.Collection.UploadTable
+
+A Generic uploader used by triaging artifacts. This is similar to
+`Triage.Collection.Upload` but uses a CSV table to drive it.
+
+
+Arg|Default|Description
+---|------|-----------
+triageTable|Type,Accessor,Glob\n|A CSV table controlling upload. Must have the headers: Type, Accessor, Glob.
+
+{{% expand  "View Artifact Source" %}}
+
+
+```
+name: Triage.Collection.UploadTable
+description: |
+  A Generic uploader used by triaging artifacts. This is similar to
+  `Triage.Collection.Upload` but uses a CSV table to drive it.
+
+parameters:
+  - name: triageTable
+    description: "A CSV table controlling upload. Must have the headers: Type, Accessor, Glob."
+    default: |
+      Type,Accessor,Glob
+
+sources:
+  - queries:
+      - |
+        LET results = SELECT FullPath, Size,
+               timestamp(epoch=Mtime.Sec) As Modifed,
+               Type, {
+                 SELECT * FROM upload(files=FullPath, accessor=Accessor)
+               } AS FileDetails
+        FROM glob(globs=split(string=Glob, sep=","), accessor=Accessor)
+        WHERE NOT IsDir
+
+      - |
+        SELECT * FROM foreach(
+         row={
+           SELECT * FROM parse_csv(filename=triageTable, accessor='data')
+         },
+         query={
+           SELECT FullPath, Size, Modifed, Type,
+               FileDetails.Path AS ZipPath,
+               FileDetails.Md5 as Md5,
+               FileDetails.Sha256 as SHA256
+          FROM results
+        })
+```
+   {{% /expand %}}
+
 ## Windows.Forensics.Bam
 
 The Background Activity Moderator (BAM) is a Windows service that
@@ -1217,7 +1100,7 @@ system and last execution date/time
 
 Arg|Default|Description
 ---|------|-----------
-bamKeys|HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\bam\\UserSettings\\*|
+bamKeys|HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\bam\\UserSettings\\*\\*,HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\bam\\State\\UserSettings\\*\\*|
 
 {{% expand  "View Artifact Source" %}}
 
@@ -1237,7 +1120,7 @@ reference:
 
 parameters:
     - name: bamKeys
-      default: HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\bam\UserSettings\*
+      default: HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\bam\UserSettings\*\*,HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\bam\State\UserSettings\*\*
 
 sources:
   - precondition:
@@ -1247,13 +1130,282 @@ sources:
         LET users <= SELECT Name, UUID FROM Artifact.Windows.Sys.Users()
       - |
         SELECT basename(path=dirname(path=FullPath)) as SID, {
-            SELECT Name FROM users WHERE UUID = basename(path=dirname(path=FullPath))
+            SELECT Name FROM users
+            WHERE UUID = basename(path=dirname(path=FullPath))
           } As UserName,
           Name as Binary,
           timestamp(winfiletime=binary_parse(
-          string=Data.value, target="int64").AsInteger) as Bam_time
-        FROM glob(globs=bamKeys + "\\*", accessor="reg")
+               string=Data.value,
+               target="int64").AsInteger) as Bam_time
+        FROM glob(globs=split(string=bamKeys, sep=","), accessor="reg")
         WHERE Data.type = "BINARY"
+```
+   {{% /expand %}}
+
+## Windows.Forensics.FilenameSearch
+
+Did a specific file exist on this machine in the past or does it
+still exist on this machine?
+
+This common question comes up frequently in cases of IP theft,
+discovery and other matters. One way to answer this question is to
+search the $MFT file for any references to the specific filename. If
+the filename is fairly unique then a positive hit on that name
+generally means the file was present.
+
+Simply determining that a filename existed on an endpoint in the
+past is significant for some investigations.
+
+This artifact applies a YARA search for a set of filenames of
+interest on the $MFT file. For any hit, the artifact then identified
+the MFT entry where the hit was found and attempts to resolve that
+to an actual filename.
+
+
+Arg|Default|Description
+---|------|-----------
+yaraRule|wide nocase:my secret file.txt|
+Device|\\\\.\\c:|
+
+{{% expand  "View Artifact Source" %}}
+
+
+```
+name: Windows.Forensics.FilenameSearch
+description: |
+  Did a specific file exist on this machine in the past or does it
+  still exist on this machine?
+
+  This common question comes up frequently in cases of IP theft,
+  discovery and other matters. One way to answer this question is to
+  search the $MFT file for any references to the specific filename. If
+  the filename is fairly unique then a positive hit on that name
+  generally means the file was present.
+
+  Simply determining that a filename existed on an endpoint in the
+  past is significant for some investigations.
+
+  This artifact applies a YARA search for a set of filenames of
+  interest on the $MFT file. For any hit, the artifact then identified
+  the MFT entry where the hit was found and attempts to resolve that
+  to an actual filename.
+
+parameters:
+    - name: yaraRule
+      default: wide nocase:my secret file.txt
+    - name: Device
+      default: "\\\\.\\c:"
+
+sources:
+  - queries:
+      - |
+        SELECT String.Offset AS Offset,
+               String.HexData AS HexData,
+               parse_ntfs(device=Device,
+                          mft=String.Offset / 1024) AS MFT
+        FROM yara(
+             rules=yaraRule, files=Device + "/$MFT",
+             end=10000000000,
+             number_of_hits=1000,
+             accessor="ntfs")
+```
+   {{% /expand %}}
+
+## Windows.Forensics.Prefetch
+
+Windows keeps a cache of prefetch files. When an executable is run,
+the system records properties about the executable to make it faster
+to run next time. By parsing this information we are able to
+determine when binaries are run in the past. On Windows10 we can see
+the last 8 execution times.
+
+
+Arg|Default|Description
+---|------|-----------
+prefetchGlobs|C:\\Windows\\Prefetch\\*.pf|
+
+{{% expand  "View Artifact Source" %}}
+
+
+```
+name: Windows.Forensics.Prefetch
+description: |
+  Windows keeps a cache of prefetch files. When an executable is run,
+  the system records properties about the executable to make it faster
+  to run next time. By parsing this information we are able to
+  determine when binaries are run in the past. On Windows10 we can see
+  the last 8 execution times.
+
+reference:
+  - https://www.forensicswiki.org/wiki/Prefetch
+
+parameters:
+    - name: prefetchGlobs
+      default: C:\Windows\Prefetch\*.pf
+
+precondition: SELECT OS From info() where OS = 'windows'
+
+sources:
+  - queries:
+      - |
+        SELECT * FROM foreach(
+          row={
+             SELECT * FROM glob(globs=prefetchGlobs)
+          },
+          query={
+             SELECT Name AS PrefetchFileName,
+                    Executable, FileSize, LastRunTimes,
+                    LastRunTimes.Unix AS LastExecutionTS,
+                    RunCount
+             FROM prefetch(filename=FullPath)
+          })
+```
+   {{% /expand %}}
+
+## Windows.Forensics.RecentApps
+
+GUI Program execution launched on the Win10 system is tracked in the
+RecentApps key
+
+
+Arg|Default|Description
+---|------|-----------
+UserFilter||If specified we filter by this user ID.
+ExecutionTimeAfter||If specified only show executions after this time.
+RecentAppsKey|Software\\Microsoft\\Windows\\CurrentVersion\\Search\\RecentApps\\*|
+UserHomes|C:\\Users\\*\\NTUSER.DAT|
+
+{{% expand  "View Artifact Source" %}}
+
+
+```
+name: Windows.Forensics.RecentApps
+description: |
+  GUI Program execution launched on the Win10 system is tracked in the
+  RecentApps key
+
+reference:
+  - https://www.sans.org/security-resources/posters/windows-forensics-evidence-of/75/download
+
+precondition: SELECT OS From info() where OS = 'windows'
+
+parameters:
+  - name: UserFilter
+    default: ""
+    description: If specified we filter by this user ID.
+
+  - name: ExecutionTimeAfter
+    default: ""
+    type: timestamp
+    description: If specified only show executions after this time.
+
+  - name: RecentAppsKey
+    default: Software\Microsoft\Windows\CurrentVersion\Search\RecentApps\*
+
+  - name: UserHomes
+    default: C:\Users\*\NTUSER.DAT
+
+sources:
+  - queries:
+      - LET TMP = SELECT * FROM foreach(
+         row={
+            SELECT FullPath FROM glob(globs=UserHomes)
+         },
+         query={
+            SELECT AppId, AppPath, LaunchCount,
+                   timestamp(winfiletime=LastAccessedTime) AS LastExecution,
+                   timestamp(winfiletime=LastAccessedTime).Unix AS LastExecutionTS,
+                   parse_string_with_regex(
+                      string=Key.FullPath,
+                      regex="/Users/(?P<User>[^/]+)/ntuser.dat").User AS User
+            FROM read_reg_key(
+               globs=url(scheme="ntfs",
+                  path=FullPath,
+                  fragment=RecentAppsKey).String,
+               accessor="raw_reg")
+         })
+
+      - LET A1 = SELECT * FROM if(
+          condition=UserFilter,
+          then={
+            SELECT * FROM TMP WHERE User =~ UserFilter
+          }, else=TMP)
+
+      - SELECT * FROM if(
+          condition=ExecutionTimeAfter,
+          then={
+            SELECT * FROM A1 WHERE LastExecutionTS > ExecutionTimeAfter
+          }, else=A1)
+```
+   {{% /expand %}}
+
+## Windows.Forensics.Timeline
+
+Win10 records recently used applications and files in a “timeline”
+accessible via the “WIN+TAB” key. The data is recorded in a SQLite
+database.
+
+
+Arg|Default|Description
+---|------|-----------
+UserFilter||If specified we filter by this user ID.
+ExecutionTimeAfter||If specified only show executions after this time.
+Win10TimelineGlob|C:\\Users\\*\\AppData\\Local\\ConnectedDevicesPlatform\\L.*\\ActivitiesCache.db|
+
+{{% expand  "View Artifact Source" %}}
+
+
+```
+name: Windows.Forensics.Timeline
+description: |
+  Win10 records recently used applications and files in a “timeline”
+  accessible via the “WIN+TAB” key. The data is recorded in a SQLite
+  database.
+
+parameters:
+  - name: UserFilter
+    default: ""
+    description: If specified we filter by this user ID.
+
+  - name: ExecutionTimeAfter
+    default: ""
+    type: timestamp
+    description: If specified only show executions after this time.
+
+  - name: Win10TimelineGlob
+    default: C:\Users\*\AppData\Local\ConnectedDevicesPlatform\L.*\ActivitiesCache.db
+
+precondition: SELECT OS From info() where OS = 'windows'
+
+sources:
+  - queries:
+      - LET timeline = SELECT * FROM foreach(
+         row={
+            SELECT FullPath FROM glob(globs=Win10TimelineGlob)
+         },
+         query={
+            SELECT AppId, FullPath, LastModifiedTime
+            FROM sqlite(file=FullPath, query="SELECT * FROM Activity")
+         })
+      - LET TMP = SELECT get(
+               item=parse_json_array(data=AppId).application,
+               member="0") AS Application,
+             parse_string_with_regex(
+               string=FullPath,
+               regex="\\\\L.(?P<User>[^\\\\]+)\\\\").User AS User,
+               LastModifiedTime,
+               LastModifiedTime.Unix as LastExecutionTS
+        FROM timeline
+      - LET A1 = SELECT * FROM if(
+          condition=UserFilter,
+          then={
+            SELECT * FROM TMP WHERE User =~ UserFilter
+          }, else=TMP)
+      - SELECT * FROM if(
+          condition=ExecutionTimeAfter,
+          then={
+            SELECT * FROM A1 WHERE LastExecutionTS > ExecutionTimeAfter
+          }, else=A1)
 ```
    {{% /expand %}}
 

@@ -6,42 +6,24 @@
     <description>Recent content in Categories on Velociraptor - Digging Deeper!</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 01 Feb 2016 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 10 Aug 2018 04:10:06 +0000</lastBuildDate>
     
 	<atom:link href="/categories/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>About Velociraptor</title>
-      <link>/categories/about-velociraptor/</link>
-      <pubDate>Mon, 01 Feb 2016 00:00:00 +0000</pubDate>
-      
-      <guid>/categories/about-velociraptor/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>Blog</title>
       <link>/categories/blog/</link>
-      <pubDate>Sat, 02 Mar 2019 04:10:06 +0000</pubDate>
+      <pubDate>Fri, 10 Aug 2018 04:10:06 +0000</pubDate>
       
       <guid>/categories/blog/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Docs</title>
-      <link>/categories/docs/</link>
-      <pubDate>Fri, 01 Feb 2019 00:00:00 +0000</pubDate>
-      
-      <guid>/categories/docs/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>Getting Started</title>
       <link>/categories/getting-started/</link>
-      <pubDate>Fri, 01 Feb 2019 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>/categories/getting-started/</guid>
       <description></description>

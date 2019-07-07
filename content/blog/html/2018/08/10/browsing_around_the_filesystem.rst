@@ -10,6 +10,7 @@ description:  |
 title: Browsing around the filesystem.
 url: /blog/html/2018/08/10/browsing_around_the_filesystem.html
 categories: ["Blog"]
+weight: 10
 ---
 
 The Virtual File System

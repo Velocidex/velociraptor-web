@@ -253,6 +253,13 @@
           </a>
         </div>
     </li>
+      <li data-nav-id="/docs/vql_reference/tips/" class="dd-item">
+        <div>
+          <a href="/docs/vql_reference/tips/">
+            Artifact Tips
+          </a>
+        </div>
+    </li>
         </ul>
     </li>
     <li data-nav-id="/docs/artifacts/" class="dd-item parent haschildren
@@ -262,17 +269,17 @@
             <i class="fa fa-angle-down fa-lg category-icon"></i>
       </div>
         <ul>
-      <li data-nav-id="/docs/artifacts/linux/linux/" class="dd-item">
+      <li data-nav-id="/docs/artifacts/linux/" class="dd-item">
         <div>
-          <a href="/docs/artifacts/linux/linux/">
+          <a href="/docs/artifacts/linux/">
             Linux Artifacts
           </a>
         </div>
     </li>
-      <li data-nav-id="/docs/artifacts/misc/" class="dd-item active">
+      <li data-nav-id="/docs/artifacts/windows_system/" class="dd-item">
         <div>
-          <a href="/docs/artifacts/misc/">
-            Miscelaneous
+          <a href="/docs/artifacts/windows_system/">
+            Windows System
           </a>
         </div>
     </li>
@@ -280,6 +287,13 @@
         <div>
           <a href="/docs/artifacts/server/">
             Server Artifacts
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/artifacts/triage/" class="dd-item">
+        <div>
+          <a href="/docs/artifacts/triage/">
+            Windows Triage
           </a>
         </div>
     </li>
@@ -297,17 +311,17 @@
           </a>
         </div>
     </li>
-      <li data-nav-id="/docs/artifacts/windows_system/" class="dd-item">
+      <li data-nav-id="/docs/artifacts/misc/" class="dd-item active">
         <div>
-          <a href="/docs/artifacts/windows_system/">
-            Windows System
+          <a href="/docs/artifacts/misc/">
+            Miscelaneous
           </a>
         </div>
     </li>
-      <li data-nav-id="/docs/artifacts/triage/" class="dd-item">
+      <li data-nav-id="/docs/artifacts/linux/linux/" class="dd-item">
         <div>
-          <a href="/docs/artifacts/triage/">
-            Windows Triage
+          <a href="/docs/artifacts/linux/linux/">
+            Linux Artifacts
           </a>
         </div>
     </li>
@@ -322,7 +336,7 @@
       <li data-nav-id="/docs/presentations/crikeycon2019/" class="dd-item">
         <div>
           <a href="/docs/presentations/crikeycon2019/">
-            CrikeyCon 2019
+            Crikeycon 2019 Training Workshop
           </a>
         </div>
     </li>
@@ -350,6 +364,13 @@
       <a href="/blog/">Velociraptor Blog</a><i class="fa fa-angle-right fa-lg category-icon"></i>
       </div>
         <ul>
+      <li data-nav-id="/blog/html/2018/08/10/browsing_around_the_filesystem.html" class="dd-item">
+        <div>
+          <a href="/blog/html/2018/08/10/browsing_around_the_filesystem.html">
+            Browsing around the filesystem.
+          </a>
+        </div>
+    </li>
       <li data-nav-id="/blog/html/2019/03/02/agentless_hunting_with_velociraptor.html" class="dd-item">
         <div>
           <a href="/blog/html/2019/03/02/agentless_hunting_with_velociraptor.html">
@@ -459,13 +480,6 @@
         <div>
           <a href="/blog/html/2018/08/20/velociraptor_artifacts.html">
             Velociraptor Artifacts
-          </a>
-        </div>
-    </li>
-      <li data-nav-id="/blog/html/2018/08/10/browsing_around_the_filesystem.html" class="dd-item">
-        <div>
-          <a href="/blog/html/2018/08/10/browsing_around_the_filesystem.html">
-            Browsing around the filesystem.
           </a>
         </div>
     </li>
@@ -583,9 +597,17 @@
 <li><a href="#network-externalipaddress">Network.ExternalIpAddress</a></li>
 <li><a href="#reporting-hunts-details">Reporting.Hunts.Details</a></li>
 <li><a href="#system-hunt-participation">System.Hunt.Participation</a></li>
+<li><a href="#windows-analysis-evidenceofexecution">Windows.Analysis.EvidenceOfExecution</a></li>
 <li><a href="#windows-applications-chocolateypackages">Windows.Applications.ChocolateyPackages</a></li>
+<li><a href="#windows-applications-chrome-cookies">Windows.Applications.Chrome.Cookies</a></li>
 <li><a href="#windows-applications-chrome-extensions">Windows.Applications.Chrome.Extensions</a></li>
+<li><a href="#windows-applications-chrome-history">Windows.Applications.Chrome.History</a></li>
 <li><a href="#windows-applications-officemacros">Windows.Applications.OfficeMacros</a></li>
+<li><a href="#windows-attack-parentprocess">Windows.Attack.ParentProcess</a>
+<ul>
+<li><a href="#references">References:</a></li>
+</ul></li>
+<li><a href="#windows-attack-prefetch">Windows.Attack.Prefetch</a></li>
 <li><a href="#windows-eventlogs-dhcp">Windows.EventLogs.DHCP</a></li>
 <li><a href="#windows-network-arpcache">Windows.Network.ArpCache</a></li>
 <li><a href="#windows-network-interfaceaddresses">Windows.Network.InterfaceAddresses</a></li>
@@ -593,9 +615,11 @@
 <li><a href="#windows-network-netstat">Windows.Network.Netstat</a></li>
 <li><a href="#windows-packs-autoexec">Windows.Packs.Autoexec</a></li>
 <li><a href="#windows-packs-persistence">Windows.Packs.Persistence</a></li>
+<li><a href="#windows-registery-appcompatcache">Windows.Registery.AppCompatCache</a></li>
 <li><a href="#windows-registry-ntuser">Windows.Registry.NTUser</a></li>
 <li><a href="#windows-registry-ntuser-upload">Windows.Registry.NTUser.Upload</a></li>
 <li><a href="#windows-registry-sysinternals-eulacheck">Windows.Registry.Sysinternals.Eulacheck</a></li>
+<li><a href="#windows-registry-userassist">Windows.Registry.UserAssist</a></li>
 <li><a href="#windows-search-filefinder">Windows.Search.FileFinder</a></li>
 <li><a href="#performance-note">Performance Note</a></li>
 </ul></li>
@@ -1196,11 +1220,11 @@ sources:
                OfficeMtime,
                OfficeSize,
                File.ModTime as InternalMtime,
-               Strings.HexData as HexContext
+               String.HexData as HexContext
          FROM foreach(
            row=office_docs,
            query={
-              SELECT File, Strings, OfficePath,
+              SELECT File, String, OfficePath,
                      OfficeMtime, OfficeSize
               FROM yara(
                  rules=yaraRule,
@@ -1639,6 +1663,58 @@ reports:
     </div>
 </div>
 
+<h2 id="windows-analysis-evidenceofexecution">Windows.Analysis.EvidenceOfExecution</h2>
+
+<p>In many investigations it is useful to find evidence of program execution.</p>
+
+<p>This artifact combines the findings of several other collectors into
+an overview of all program execution artifacts. The associated
+report walks the user through the analysis of the findings.</p>
+
+<div class="expand">
+    <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fa fa-chevron-down' : 'fa fa-chevron-right';});});">
+        <i style="font-size:x-small;" class="fa fa-chevron-right"></i>
+        <span>
+        
+        
+        View Artifact Source
+        
+        </span>
+    </div>
+    <div class="expand-content" style="display: none;">
+<pre><code>name: Windows.Analysis.EvidenceOfExecution
+description: |
+  In many investigations it is useful to find evidence of program execution.
+
+  This artifact combines the findings of several other collectors into
+  an overview of all program execution artifacts. The associated
+  report walks the user through the analysis of the findings.
+
+sources:
+  - name: UserAssist
+    queries:
+      - SELECT * FROM Artifact.Windows.Registry.UserAssist()
+
+  - name: Timeline
+    queries:
+      - SELECT * FROM Artifact.Windows.Forensics.Timeline()
+
+  - name: Recent Apps
+    queries:
+      - SELECT * FROM Artifact.Windows.Forensics.RecentApps()
+
+  - name: ShimCache
+    queries:
+      - SELECT * FROM Artifact.Windows.Registery.AppCompatCache()
+
+  - name: Prefetch
+    queries:
+      - SELECT * FROM Artifact.Windows.Forensics.Prefetch()
+</code></pre>
+
+    </div>
+</div>
+
 <h2 id="windows-applications-chocolateypackages">Windows.Applications.ChocolateyPackages</h2>
 
 <p>Chocolatey packages installed in a system.</p>
@@ -1708,6 +1784,108 @@ sources:
                    Metadata.package.metadata.licenseUrl as License
             FROM files
         })
+</code></pre>
+
+    </div>
+</div>
+
+<h2 id="windows-applications-chrome-cookies">Windows.Applications.Chrome.Cookies</h2>
+
+<p>Enumerate the users chrome cookies.</p>
+
+<p>The cookies are typically encrypted by the DPAPI using the user&rsquo;s
+credentials. Since Velociraptor is typically not running in the user
+context we can not decrypt these. It may be possible to decrypt the
+cookies off line.</p>
+
+<p>The pertinant information from a forensic point of view is the
+user&rsquo;s Created and LastAccess timestamp and the fact that the user
+has actually visited the site and obtained a cookie.</p>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>cookieGlobs</td>
+<td>\AppData\Local\Google\Chrome\User Data\*\Cookies</td>
+<td></td>
+</tr>
+
+<tr>
+<td>cookieSQLQuery</td>
+<td>SELECT creation_utc, host_key, name, value, path, expires_utc,\n       last_access_utc, encrypted_value\nFROM cookies\n</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+<div class="expand">
+    <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fa fa-chevron-down' : 'fa fa-chevron-right';});});">
+        <i style="font-size:x-small;" class="fa fa-chevron-right"></i>
+        <span>
+        
+        
+        View Artifact Source
+        
+        </span>
+    </div>
+    <div class="expand-content" style="display: none;">
+<pre><code>name: Windows.Applications.Chrome.Cookies
+description: |
+  Enumerate the users chrome cookies.
+
+  The cookies are typically encrypted by the DPAPI using the user's
+  credentials. Since Velociraptor is typically not running in the user
+  context we can not decrypt these. It may be possible to decrypt the
+  cookies off line.
+
+  The pertinant information from a forensic point of view is the
+  user's Created and LastAccess timestamp and the fact that the user
+  has actually visited the site and obtained a cookie.
+
+parameters:
+  - name: cookieGlobs
+    default: \AppData\Local\Google\Chrome\User Data\*\Cookies
+  - name: cookieSQLQuery
+    default: |
+      SELECT creation_utc, host_key, name, value, path, expires_utc,
+             last_access_utc, encrypted_value
+      FROM cookies
+
+precondition: SELECT OS From info() where OS = 'windows'
+
+sources:
+  - queries:
+      - |
+        LET cookie_files = SELECT * from foreach(
+          row={
+             SELECT Uid, Name AS User, Directory
+             FROM Artifact.Windows.Sys.Users()
+          },
+          query={
+             SELECT User, FullPath, Mtime from glob(
+               globs=Directory + cookieGlobs)
+          })
+
+      - |
+        SELECT * FROM foreach(row=cookie_files,
+          query={
+            SELECT timestamp(winfiletime=creation_utc * 10) as Created,
+                   timestamp(winfiletime=last_access_utc * 10) as LastAccess,
+                   timestamp(winfiletime=expires_utc * 10) as Expires,
+                   host_key, name, path, value,
+                   base64encode(string=encrypted_value) as EncryptedValue
+            FROM sqlite(
+              file=FullPath,
+              query=cookieSQLQuery)
+          })
 </code></pre>
 
     </div>
@@ -1888,6 +2066,90 @@ sources:
     </div>
 </div>
 
+<h2 id="windows-applications-chrome-history">Windows.Applications.Chrome.History</h2>
+
+<p>Enumerate the users chrome history.</p>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>historyGlobs</td>
+<td>\AppData\Local\Google\Chrome\User Data\*\History</td>
+<td></td>
+</tr>
+
+<tr>
+<td>urlSQLQuery</td>
+<td>SELECT url as visited_url, title, visit_count,\n       typed_count, last_visit_time\nFROM urls\n</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+<div class="expand">
+    <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fa fa-chevron-down' : 'fa fa-chevron-right';});});">
+        <i style="font-size:x-small;" class="fa fa-chevron-right"></i>
+        <span>
+        
+        
+        View Artifact Source
+        
+        </span>
+    </div>
+    <div class="expand-content" style="display: none;">
+<pre><code>name: Windows.Applications.Chrome.History
+description: |
+  Enumerate the users chrome history.
+
+parameters:
+  - name: historyGlobs
+    default: \AppData\Local\Google\Chrome\User Data\*\History
+  - name: urlSQLQuery
+    default: |
+      SELECT url as visited_url, title, visit_count,
+             typed_count, last_visit_time
+      FROM urls
+
+precondition: SELECT OS From info() where OS = 'windows'
+
+sources:
+  - queries:
+      - |
+        LET history_files = SELECT * from foreach(
+          row={
+             SELECT Uid, Name AS User, Directory
+             FROM Artifact.Windows.Sys.Users()
+          },
+          query={
+             SELECT User, FullPath, Mtime from glob(
+               globs=Directory + historyGlobs)
+          })
+
+      - |
+        SELECT * FROM foreach(row=history_files,
+          query={
+            SELECT User, FullPath,
+                   timestamp(epoch=Mtime.Sec) as Mtime,
+                   visited_url,
+                   title, visit_count, typed_count,
+                   timestamp(winfiletime=last_visit_time * 10) as last_visit_time
+            FROM sqlite(
+              file=FullPath,
+              query=urlSQLQuery)
+          })
+</code></pre>
+
+    </div>
+</div>
+
 <h2 id="windows-applications-officemacros">Windows.Applications.OfficeMacros</h2>
 
 <p>Office macros are a favourite initial infection vector. Many users
@@ -1964,6 +2226,210 @@ sources:
            query={
                SELECT * from olevba(file=FullPath)
            })
+</code></pre>
+
+    </div>
+</div>
+
+<h2 id="windows-attack-parentprocess">Windows.Attack.ParentProcess</h2>
+
+<p>Maps the Mitre Att&amp;ck framework process executions into artifacts.</p>
+
+<h3 id="references">References:</h3>
+
+<ul>
+<li><a href="https://www.sans.org/security-resources/posters/hunt-evil/165/download">https://www.sans.org/security-resources/posters/hunt-evil/165/download</a></li>
+<li><a href="https://github.com/teoseller/osquery-attck/blob/master/windows-incorrect_parent_process.conf">https://github.com/teoseller/osquery-attck/blob/master/windows-incorrect_parent_process.conf</a></li>
+</ul>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>lookupTable</td>
+<td>ProcessName,ParentRegex\nsmss.exe,System\nruntimebroker.exe,svchost.exe\ntaskhostw.exe,svchost.exe\nservices.exe,wininit.exe\nlsass.exe,wininit.exe\nsvchost.exe,services.exe\ncmd.exe,explorer.exe\npowershell.exe,explorer.exe\niexplore.exe,explorer.exe\nfirefox.exe,explorer.exe\nchrome.exe,explorer.exe\n</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+<div class="expand">
+    <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fa fa-chevron-down' : 'fa fa-chevron-right';});});">
+        <i style="font-size:x-small;" class="fa fa-chevron-right"></i>
+        <span>
+        
+        
+        View Artifact Source
+        
+        </span>
+    </div>
+    <div class="expand-content" style="display: none;">
+<pre><code>name: Windows.Attack.ParentProcess
+description: |
+  Maps the Mitre Att&amp;ck framework process executions into artifacts.
+
+  ### References:
+  * https://www.sans.org/security-resources/posters/hunt-evil/165/download
+  * https://github.com/teoseller/osquery-attck/blob/master/windows-incorrect_parent_process.conf
+
+precondition: SELECT OS From info() where OS = 'windows'
+
+parameters:
+  - name: lookupTable
+    default: |
+       ProcessName,ParentRegex
+       smss.exe,System
+       runtimebroker.exe,svchost.exe
+       taskhostw.exe,svchost.exe
+       services.exe,wininit.exe
+       lsass.exe,wininit.exe
+       svchost.exe,services.exe
+       cmd.exe,explorer.exe
+       powershell.exe,explorer.exe
+       iexplore.exe,explorer.exe
+       firefox.exe,explorer.exe
+       chrome.exe,explorer.exe
+
+sources:
+     - queries:
+       # Build up some cached queries for speed.
+       - LET lookup &lt;= SELECT * FROM parse_csv(filename=lookupTable, accessor='data')
+       - LET processes &lt;= SELECT Name, Pid, Ppid, CommandLine, CreateTime, Exe FROM pslist()
+       - LET processes_lookup &lt;= SELECT Name As ProcessName, Pid As ProcID FROM processes
+       - |
+         // Resolve the Ppid into a parent name using our processes_lookup
+         LET resolved_parent_name = SELECT * FROM foreach(
+         row={ SELECT * FROM processes},
+         query={
+           SELECT Name AS ActualProcessName,
+                  ProcessName AS ActualParentName,
+                  Pid, Ppid, CommandLine, CreateTime, Exe
+           FROM processes_lookup
+           WHERE ProcID = Ppid LIMIT 1
+         })
+
+       - |
+         // Get the expected parent name from the table above.
+         SELECT * FROM foreach(
+           row=resolved_parent_name,
+           query={
+             SELECT ActualProcessName,
+                    ActualParentName,
+                    Pid, Ppid, CommandLine, CreateTime, Exe,
+                    ParentRegex as ExpectedParentName
+             FROM lookup
+             WHERE ActualProcessName =~ ProcessName AND NOT ActualParentName =~ ParentRegex
+         })
+</code></pre>
+
+    </div>
+</div>
+
+<h2 id="windows-attack-prefetch">Windows.Attack.Prefetch</h2>
+
+<p>Maps the Mitre Att&amp;ck framework process executions into
+artifacts. This pack was generated from
+<a href="https://github.com/teoseller/osquery-attck">https://github.com/teoseller/osquery-attck</a></p>
+
+<div class="expand">
+    <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fa fa-chevron-down' : 'fa fa-chevron-right';});});">
+        <i style="font-size:x-small;" class="fa fa-chevron-right"></i>
+        <span>
+        
+        
+        View Artifact Source
+        
+        </span>
+    </div>
+    <div class="expand-content" style="display: none;">
+<pre><code>name: Windows.Attack.Prefetch
+description: |
+   Maps the Mitre Att&amp;ck framework process executions into
+   artifacts. This pack was generated from
+   https://github.com/teoseller/osquery-attck
+
+precondition: SELECT OS From info() where OS = 'windows'
+
+sources:
+     - queries:
+       - SELECT Name, ModTime, Mtime.Sec AS modified
+         FROM glob(globs=&quot;C:/Windows/Prefetch/*&quot;)
+
+# Reports can be MONITORING_DAILY, CLIENT, SERVER_EVENT
+reports:
+  - type: CLIENT
+    parameters:
+      - name: lookupTable
+        default: |
+           signature,description
+           attrib,Attrib Execute is usually used to modify file attributes - ATT&amp;CK T1158
+           schtasks.exe,Schtasks Execute: usaullay used to create a scheduled task - ATT&amp;CK T1053:S0111
+           taskeng.exe,taskeng Execute: usaullay used to create a scheduled task - ATT&amp;CK T1053
+           tscon.exe,tscon.exe Execute: usaullay used to Terminal Services Console - ATT&amp;CK T1076
+           mstsc.exe,mstsc.exe Execute: usaullay used to perform a RDP Session  - ATT&amp;CK T1076
+           at.exe,Schtasks Execute: usaullay used to create a scheduled task - ATT&amp;CK T1053:S0110
+           tasklist.exe,Tasklist Execute: usaullay used to list task - ATT&amp;CK T1057:T1063:T1007:S0057
+           taskkill.exe,Taskkill Execute: usaullay used to kill task
+           mshta.exe,Mshta Execute: is a utility that executes Microsoft HTML Applications (HTA) - ATT&amp;CK T1170
+           whoami.exe,Whoami Execute: used to prints the effective username of the current user
+           xcopy.exe,Xcopy Execute: is used for copying multiple files or entire directory trees from one directory to another and for copying files across a network.
+           esentutl.exe,Esentutl Execute: is a legitimate built-in command-line program it could be used to create a exe from dump raw source.
+           net.exe,Net Execute: is used in command-line operations for control of users: groups: services: and network connections - ATT&amp;CK T1126:T1087:T1201:T1069:S0039:T1018:T1007:T1124
+           vssadmin.exe,Vssadmin Execute: usaullay used to execute activity on Volume Shadow copy
+           InstallUtil.exe,InstallUtil Execute: InstallUtil is a command-line utility that allows for installation and uninstallation of resources by executing specific installer components specified in .NET binaries - ATT&amp;CK T1118
+           cmstp.exe,CMSTP Execute: The Microsoft Connection Manager Profile Installer (CMSTP.exe) is a command-line program used to install Connection Manager service profiles. - ATT&amp;CK T1191
+           cmd.exe,Command-Line Interface Execute: CMD execution - ATT&amp;CK T1059
+           cscript.exe,Command-Line Interface Execute: Cscript execution starts a script so that it runs in a command-line environment. - ATT&amp;CK T1216
+           powershell.exe,POWERSHELL Execute: is a powerful interactive command-line interface and scripting environment included in the Windows operating system - ATT&amp;CK T1086
+           regsvr32.exe,POWERSHELL Execute: is a powerful interactive command-line interface and scripting environment included in the Windows operating system - ATT&amp;CK T1117
+           PsExec.exe,PsExec Execute: is a free Microsoft tool that can be used to execute a program on another computer. - ATT&amp;CK T1035:S0029
+           runas.exe,Runas Execute: Allows a user to run specific tools and programs with different permissions than the user's current logon provides. - ATT&amp;CK T1134
+           bitsadmin.exe,Bitsadmin Execute: Windows Background Intelligent Transfer Service (BITS) is a low-bandwidth: asynchronous file transfer mechanism exposed through Component Object Model (COM) - ATT&amp;CK T1197:S0190
+           certutil.exe,Certutil Execute: Certutil.exe is a legitimate built-in command-line program to manage certificates in Windows - ATT&amp;CK T1105:T1140:T1130:S0160
+           netsh.exe,Netsh Execute: Netsh.exe (also referred to as Netshell) is a command-line scripting utility used to interact with the network configuration of a system - ATT&amp;CK T1128:T1063:S0108
+           netstat.exe,Netstat Execute:  is an operating system utility that displays active TCP connections: listening ports: and network statistics. - ATT&amp;CK T1049:S0104
+           reg.exe,Reg Execute: Reg is a Windows utility used to interact with the Windows Registry.  - ATT&amp;CK T1214:T1012:T1063:S0075
+           regedit.exe,Regedit Execute: is a Windows utility used to interact with the Windows Registry. - ATT&amp;CK T1214
+           systeminfo.exe,Systeminfo Execute: Systeminfo is a Windows utility that can be used to gather detailed information about a computer. - ATT&amp;CK T1082:S0096
+           sc.exe,SC.exe Execute: Service Control - Create: Start: Stop: Query or Delete any Windows SERVICE. . - ATT&amp;CK T1007
+
+
+    template: |
+      {{ .Description }}
+
+      The below shows any prefetch files of interest and what they
+      could potentially mean.
+
+      {{ define &quot;query&quot; }}
+         LET lookup &lt;= SELECT * FROM parse_csv(filename=lookupTable, accessor='data')
+      {{ end }}
+
+      {{ define &quot;data&quot;}}
+        LET data &lt;= SELECT * FROM source()
+      {{ end }}
+
+      {{ range (Query &quot;data&quot; &quot;query&quot; &quot;SELECT * FROM lookup&quot;) }}
+          {{ $rows := Query (printf &quot;SELECT * FROM source() WHERE Name =~ '%v'&quot; (Get . &quot;signature&quot;) ) }}
+          {{ if $rows }}
+
+      ## {{ Get $rows &quot;0.Name&quot; }}
+      Modified on {{ Get $rows &quot;0.ModTime&quot; }}.
+
+      {{ Get . &quot;description&quot; }}
+
+          {{ end }}
+      {{ end }}
+
+      # Timeline
+
+      {{ Query &quot;SELECT modified * 1000, Name FROM foreach(row=lookup, query={ SELECT * FROM data WHERE Name =~ signature})&quot; | Timeline }}
 </code></pre>
 
     </div>
@@ -2495,6 +2961,64 @@ sources:
     </div>
 </div>
 
+<h2 id="windows-registery-appcompatcache">Windows.Registery.AppCompatCache</h2>
+
+<p>Parses the system&rsquo;s app compatibility cache.</p>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>AppCompatCacheKey</td>
+<td>HKEY_LOCAL_MACHINE/System/CurrentControlSet/Control/Session Manager/AppCompatCache/AppCompatCache</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+<div class="expand">
+    <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fa fa-chevron-down' : 'fa fa-chevron-right';});});">
+        <i style="font-size:x-small;" class="fa fa-chevron-right"></i>
+        <span>
+        
+        
+        View Artifact Source
+        
+        </span>
+    </div>
+    <div class="expand-content" style="display: none;">
+<pre><code>name: Windows.Registery.AppCompatCache
+description: |
+  Parses the system's app compatibility cache.
+
+parameters:
+  - name: AppCompatCacheKey
+    default: HKEY_LOCAL_MACHINE/System/CurrentControlSet/Control/Session Manager/AppCompatCache/AppCompatCache
+
+precondition: SELECT OS From info() where OS = 'windows'
+
+sources:
+  - queries:
+      - |
+        SELECT * FROM foreach(
+          row={
+              SELECT Data FROM read_file(
+                  filenames=AppCompatCacheKey, accessor='reg')
+          }, query={
+              SELECT name, epoch, time FROM appcompatcache(value=Data)
+        }) WHERE epoch &lt; 2000000000
+</code></pre>
+
+    </div>
+</div>
+
 <h2 id="windows-registry-ntuser">Windows.Registry.NTUser</h2>
 
 <p>This artifact searches for keys or values within the user&rsquo;s
@@ -2512,6 +3036,15 @@ hives to search for the glob provided.</p>
 
 <p>This artifact is designed to be reused by other artifacts that need
 to access user data.</p>
+
+<div class="notices note" ><p>Any artifacts that look into the HKEY_USERS registry hive should
+  be using the <code>Windows.Registry.NTUser</code> artifact instead of
+  accessing the hive via the API. The API only makes the currently
+  logged in users available in that hive and so if we rely on the
+  windows API we will likely miss any settings for users not
+  currently logged on.</p>
+</div>
+
 
 <table>
 <thead>
@@ -2566,9 +3099,22 @@ description: |
   This artifact is designed to be reused by other artifacts that need
   to access user data.
 
+  &lt;div class=&quot;notices note&quot; &gt;&lt;pre&gt;&lt;code&gt;Any artifacts that look into the HKEY_USERS registry hive should
+be using the `Windows.Registry.NTUser` artifact instead of
+accessing the hive via the API. The API only makes the currently
+logged in users available in that hive and so if we rely on the
+windows API we will likely miss any settings for users not
+currently logged on.
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+
+precondition: SELECT OS From info() where OS = 'windows'
+
 parameters:
  - name: KeyGlob
    default: Software\Microsoft\Windows\CurrentVersion\Explorer\ComDlg32\**
+
  - name: UserHomes
    default: C:\Users\*\NTUSER.DAT
 
@@ -2721,6 +3267,148 @@ sources:
     </div>
 </div>
 
+<h2 id="windows-registry-userassist">Windows.Registry.UserAssist</h2>
+
+<p>Windows systems maintain a set of keys in the registry database
+(UserAssist keys) to keep track of programs that executed. The
+number of executions and last execution date and time are available
+in these keys.</p>
+
+<p>The information within the binary UserAssist values contains only
+statistical data on the applications launched by the user via
+Windows Explorer. Programs launched via the command­line (cmd.exe)
+do not appear in these registry keys.</p>
+
+<p>From a forensics perspective, being able to decode this information
+can be very useful.</p>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>UserFilter</td>
+<td></td>
+<td>If specified we filter by this user ID.</td>
+</tr>
+
+<tr>
+<td>ExecutionTimeAfter</td>
+<td></td>
+<td>If specified only show executions after this time.</td>
+</tr>
+
+<tr>
+<td>UserAssistKey</td>
+<td>Software\Microsoft\Windows\CurrentVersion\Explorer\UserAssist\*\Count\*</td>
+<td></td>
+</tr>
+
+<tr>
+<td>userAssistProfile</td>
+<td>{\n  &ldquo;Win10&rdquo;: [0, {\n    &ldquo;NumeberOfExecutions&rdquo;: [4, [&ldquo;unsigned int&rdquo;]],\n    &ldquo;LastExecution&rdquo;: [60, [&ldquo;unsigned long long&rdquo;]]\n  }]\n}\n</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+<div class="expand">
+    <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fa fa-chevron-down' : 'fa fa-chevron-right';});});">
+        <i style="font-size:x-small;" class="fa fa-chevron-right"></i>
+        <span>
+        
+        
+        View Artifact Source
+        
+        </span>
+    </div>
+    <div class="expand-content" style="display: none;">
+<pre><code>name: Windows.Registry.UserAssist
+description: |
+  Windows systems maintain a set of keys in the registry database
+  (UserAssist keys) to keep track of programs that executed. The
+  number of executions and last execution date and time are available
+  in these keys.
+
+  The information within the binary UserAssist values contains only
+  statistical data on the applications launched by the user via
+  Windows Explorer. Programs launched via the command­line (cmd.exe)
+  do not appear in these registry keys.
+
+  From a forensics perspective, being able to decode this information
+  can be very useful.
+
+reference:
+  - https://www.aldeid.com/wiki/Windows-userassist-keys
+
+precondition: SELECT OS From info() where OS = 'windows'
+
+parameters:
+  - name: UserFilter
+    default: &quot;&quot;
+    description: If specified we filter by this user ID.
+
+  - name: ExecutionTimeAfter
+    default: &quot;&quot;
+    type: timestamp
+    description: If specified only show executions after this time.
+
+  - name: UserAssistKey
+    default: Software\Microsoft\Windows\CurrentVersion\Explorer\UserAssist\*\Count\*
+
+  - name: userAssistProfile
+    default: |
+      {
+        &quot;Win10&quot;: [0, {
+          &quot;NumeberOfExecutions&quot;: [4, [&quot;unsigned int&quot;]],
+          &quot;LastExecution&quot;: [60, [&quot;unsigned long long&quot;]]
+        }]
+      }
+
+sources:
+  - queries:
+      - LET TMP = SELECT rot13(string=regex_replace(
+             source=url(parse=FullPath).Fragment,
+             re=&quot;^.+/Count/&quot;,
+             replace=&quot;&quot;)) AS Name,
+             binary_parse(
+               string=Data.value,
+               profile=userAssistProfile,
+               target=&quot;Win10&quot;
+             ) As UserAssist,
+             parse_string_with_regex(
+               string=FullPath,
+               regex=&quot;Users/(?P&lt;User&gt;[^/]+)/NTUSER&quot;).User AS User
+        FROM Artifact.Windows.Registry.NTUser(KeyGlob=UserAssistKey)
+      - LET UserAssist = SELECT Name,
+               User,
+               timestamp(
+                  winfiletime=UserAssist.LastExecution.AsInteger) As LastExecution,
+               timestamp(
+                  winfiletime=UserAssist.LastExecution.AsInteger).Unix AS LastExecutionTS,
+               UserAssist.NumeberOfExecutions.AsInteger AS NumeberOfExecutions
+        FROM TMP
+      - LET A1 = SELECT * FROM if(
+          condition=UserFilter,
+          then={
+            SELECT * FROM UserAssist WHERE User =~ UserFilter
+          }, else=UserAssist)
+      - SELECT * FROM if(
+          condition=ExecutionTimeAfter,
+          then={
+            SELECT * FROM A1 WHERE LastExecutionTS &gt; ExecutionTimeAfter
+          }, else=A1)
+</code></pre>
+
+    </div>
+</div>
+
 <h2 id="windows-search-filefinder">Windows.Search.FileFinder</h2>
 
 <p>Find files on the filesystem using the filename or content.</p>
@@ -2733,7 +3421,7 @@ content. To minimize the impact on the endpoint we recommend this
 artifact is collected with a rate limited way (about 20-50 ops per
 second).</p>
 
-<p>This artifact is usefull in the following scenarios:</p>
+<p>This artifact is useful in the following scenarios:</p>
 
 <ul>
 <li><p>We need to locate all the places on our network where customer
@@ -2777,7 +3465,7 @@ locate other similar files</p></li>
 
 <tr>
 <td>Use_Raw_NTFS</td>
-<td>Y</td>
+<td>N</td>
 <td></td>
 </tr>
 
@@ -2831,7 +3519,7 @@ description: |
   artifact is collected with a rate limited way (about 20-50 ops per
   second).
 
-  This artifact is usefull in the following scenarios:
+  This artifact is useful in the following scenarios:
 
     * We need to locate all the places on our network where customer
       data has been copied.
@@ -2863,7 +3551,7 @@ parameters:
     description: A comma delimited list of strings to search for.
 
   - name: Use_Raw_NTFS
-    default: Y
+    default: N
     type: bool
 
   - name: Upload_File
@@ -2886,54 +3574,66 @@ parameters:
 sources:
   - queries:
     - |
-      LET ntfs_search = SELECT FullPath,
-               Sys.mft as Inode,
-               Mode.String AS Mode, Size,
-               Mtime.Sec AS Modified,
-               timestamp(epoch=Atime.Sec) AS ATime,
-               timestamp(epoch=Mtime.Sec) AS MTime,
-               timestamp(epoch=Ctime.Sec) AS CTime,
-               if(condition=(Upload_File = &quot;Y&quot; and NOT IsDir ),
-                  then=upload(file=FullPath, accessor=&quot;ntfs&quot;)) AS Upload,
-               if(condition=(Calculate_Hash = &quot;Y&quot; and NOT IsDir ),
-                  then=hash(path=FullPath, accessor=&quot;ntfs&quot;)) AS Hash
-        FROM glob(globs=SearchFilesGlob, accessor=&quot;ntfs&quot;)
-
-    - |
       LET file_search = SELECT FullPath,
                Sys.mft as Inode,
                Mode.String AS Mode, Size,
                Mtime.Sec AS Modified,
                timestamp(epoch=Atime.Sec) AS ATime,
                timestamp(epoch=Mtime.Sec) AS MTime,
-               timestamp(epoch=Ctime.Sec) AS CTime,
-               if(condition=(Upload_File = &quot;Y&quot; and NOT IsDir ),
-                  then=upload(file=FullPath, accessor=&quot;file&quot;)) AS Upload,
-               if(condition=(Calculate_Hash = &quot;Y&quot; and NOT IsDir ),
-                  then=hash(path=FullPath, accessor=&quot;file&quot;)) AS Hash
-        FROM glob(globs=SearchFilesGlob, accessor=&quot;file&quot;)
-
-    - |
-      LET combined_search = SELECT * FROM if(
-        condition=(Use_Raw_NTFS = &quot;Y&quot;),
-        then=ntfs_search,
-        else=file_search)
+               timestamp(epoch=Ctime.Sec) AS CTime, IsDir
+        FROM glob(globs=SearchFilesGlob,
+                  accessor=if(condition=Use_Raw_NTFS = &quot;Y&quot;,
+                              then=&quot;ntfs&quot;, else=&quot;file&quot;))
 
     - |
       LET more_recent = SELECT * FROM if(
         condition=MoreRecentThan,
         then={
-          SELECT * FROM combined_search
-          WHERE Modified &gt; atoi(string=MoreRecentThan)
-        }, else=combined_search)
+          SELECT * FROM file_search
+          WHERE Modified &gt; parse_float(string=MoreRecentThan)
+        }, else=file_search)
 
     - |
-      SELECT * FROM if(
+      LET modified_before = SELECT * FROM if(
         condition=ModifiedBefore,
         then={
           SELECT * FROM more_recent
-          WHERE Modified &lt; atoi(string=ModifiedBefore)
+          WHERE Modified &lt; parse_float(string=ModifiedBefore)
         }, else=more_recent)
+
+    - |
+      LET keyword_search = SELECT * FROM if(
+        condition=Keywords,
+        then={
+          SELECT * FROM foreach(
+            row={
+               SELECT * FROM modified_before
+            },
+            query={
+               SELECT FullPath, Inode, Mode,
+                      Size, Modified, ATime, MTime, CTime,
+                      str(str=String.Data) As Keywords
+
+               FROM yara(files=FullPath,
+                         key=Keywords,
+                         rules=&quot;wide nocase ascii:&quot;+Keywords,
+                         accessor=if(condition=Use_Raw_NTFS = &quot;Y&quot;,
+                                          then=&quot;ntfs&quot;, else=&quot;file&quot;))
+            })
+        }, else=modified_before)
+
+    - |
+      SELECT FullPath, Inode, Mode, Size, Modified, ATime,
+             MTime, CTime, Keywords,
+               if(condition=(Upload_File = &quot;Y&quot; and NOT IsDir ),
+                  then=upload(file=FullPath,
+                              accessor=if(condition=Use_Raw_NTFS = &quot;Y&quot;,
+                                          then=&quot;ntfs&quot;, else=&quot;file&quot;))) AS Upload,
+               if(condition=(Calculate_Hash = &quot;Y&quot; and NOT IsDir ),
+                  then=hash(path=FullPath,
+                            accessor=if(condition=Use_Raw_NTFS = &quot;Y&quot;,
+                                        then=&quot;ntfs&quot;, else=&quot;file&quot;))) AS Hash
+      FROM keyword_search
 </code></pre>
 
     </div>
@@ -2949,8 +3649,8 @@ sources:
 </div>
 
 <div id="navigation">
-<a class="nav nav-prev" href="/docs/artifacts/linux/linux/" title="Linux Artifacts"> <i class="fa fa-chevron-left"></i><label>Linux Artifacts</label></a>
-    <a class="nav nav-next" href="/docs/artifacts/server/" title="Server Artifacts" style="margin-right: 0px;"><label>Server Artifacts</label><i class="fa fa-chevron-right"></i></a></div>
+<a class="nav nav-prev" href="/docs/artifacts/events/" title="Windows Event Monitoring"> <i class="fa fa-chevron-left"></i><label>Windows Event Monitoring</label></a>
+    <a class="nav nav-next" href="/docs/artifacts/linux/linux/" title="Linux Artifacts" style="margin-right: 0px;"><label>Linux Artifacts</label><i class="fa fa-chevron-right"></i></a></div>
 
 </section>
 <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">

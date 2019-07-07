@@ -56,6 +56,14 @@ string | A string to decode | string (required)
 
 Decodes a base64 encoded string.
 
+## base64encode
+
+Arg | Description | Type
+----|-------------|-----
+string | A string to encode | string (required)
+
+Encodes a binary string to base64.
+
 ## basename
 
 Arg | Description | Type
@@ -75,6 +83,34 @@ iterator | An iterator to begin with. | string
 target | The target type to fetch. | string
 
 Parse a binary string with profile based parser.
+
+This plugin extract binary data from strings. It works by applying a
+profile to the binary string and generating an object from that. Profiles use the same syntax as Rekall or Volatility. For example a profile might be:
+
+```json
+{
+  "StructName": [10, {
+     "field1": [2, ["unsigned int"]],
+     "field2": [6, ["unsigned long long"]],
+  }]
+}
+```
+
+The profile is compiled and overlayed on top of the offset specified,
+then the object is emitted with its required fields.
+
+### Example:
+
+```
+velociraptor query 'select binary_parse(profile=profile, string="hello world", target="X", offset=2) as Item from scope()' --env profile='{"X":[10,{"field1":[0,["unsigned short"]]}]}'
+[
+ {
+  "Item": {
+    "field1": "27756"
+   }
+ }
+]
+```
 
 ## collect
 
@@ -201,7 +237,20 @@ Arg | Description | Type
 item |  | vfilter.Any (required)
 member |  | string (required)
 
-Gets the member field from item.
+Gets the member field from item. This is useful to index an item from
+an array. For example:
+
+### Example
+
+```sql
+select get(item=[dict(foo=3), 2, 3, 4], member='0.foo') AS Foo from scope()
+
+[
+ {
+   "Foo": 3
+ }
+]
+```
 
 ## getpid
 

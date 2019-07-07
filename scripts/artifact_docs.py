@@ -75,7 +75,8 @@ if __name__ == "__main__" :
             prefix = [prefix]
 
         with open(filename, "w") as fd:
-            fd.write("---\n%s\n---\n" % yaml.dump(file_config))
+            fd.write("---\n%s\n---\n" % yaml.dump(
+                file_config, default_flow_style=False))
             for prefix_item in prefix:
                 output_artifacts(fd, prefix_item)
 

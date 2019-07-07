@@ -12,24 +12,23 @@
     
     <item>
       <title>Linux Artifacts</title>
-      <link>/docs/artifacts/linux/linux/</link>
+      <link>/docs/artifacts/linux/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>/docs/artifacts/linux/linux/</guid>
+      <guid>/docs/artifacts/linux/</guid>
       <description>Linux.Applications.Chrome.Extensions Fetch Chrome extensions.
 Chrome extensions are installed into the user&amp;rsquo;s home directory. We search for manifest.json files in a known path within each system user&amp;rsquo;s home directory. We then parse the manifest file as JSON.
 Many extensions use locale packs to resolve strings like name and description. In this case we detect the default locale and load those locale files. We then resolve the extension&amp;rsquo;s name and description from there.</description>
     </item>
     
     <item>
-      <title>Miscelaneous Artifacts</title>
-      <link>/docs/artifacts/misc/</link>
+      <title>Windows System</title>
+      <link>/docs/artifacts/windows_system/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>/docs/artifacts/misc/</guid>
-      <description>Admin.Client.Upgrade Remotely push new client updates.
-NOTE: The updates can be pulled from any web server. You need to ensure they are properly secured with SSL and at least a random nonce in their path. You may configure the Velociraptor server to serve these through the public directory.
-   Arg Default Description     clientURL http://127.0.0.1:8000/public/velociraptor.exe    configURL http://127.0.0.1:8000/public/client.config.yaml       View Artifact Source   name: Admin.</description>
+      <guid>/docs/artifacts/windows_system/</guid>
+      <description>Windows.Sys.AppcompatShims Application Compatibility shims are a way to persist malware. This table presents the AppCompat Shim information from the registry in a nice format.
+   Arg Default Description     shimKeys HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\InstalledSDB\*    customKeys HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Custom\*\*       View Artifact Source   name: Windows.Sys.AppcompatShims description: | Application Compatibility shims are a way to persist malware. This table presents the AppCompat Shim information from the registry in a nice format.</description>
     </item>
     
     <item>
@@ -41,6 +40,16 @@ NOTE: The updates can be pulled from any web server. You need to ensure they are
       <description>Server.Alerts.PsExec Send an email if execution of the psexec service was detected on any client. This is a server side artifact.
 Note this requires that the Windows.Event.ProcessCreation monitoring artifact be collected from clients.
    Arg Default Description     EmailAddress admin@example.com    MessageTemplate PsExec execution detected at %v: %v for client %v\n       View Artifact Source   name: Server.</description>
+    </item>
+    
+    <item>
+      <title>Windows Triage Artifacts</title>
+      <link>/docs/artifacts/triage/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/artifacts/triage/</guid>
+      <description>Windows.Triage.Collectors.Amcache    Arg Default Description     triageTable Type,Accessor,Glob\nAmcache,ntfs,C:\Windows\AppCompat\Programs\Amcache.hve\nAmcache transaction files,ntfs,C:\Windows\AppCompat\Programs\Amcache.hve.LOG*\n       View Artifact Source   name: Windows.Triage.Collectors.Amcache precondition: SELECT OS From info() where OS = &#39;windows&#39; parameters: - name: triageTable default: | Type,Accessor,Glob Amcache,ntfs,C:\Windows\AppCompat\Programs\Amcache.hve Amcache transaction files,ntfs,C:\Windows\AppCompat\Programs\Amcache.hve.LOG* sources: - queries: - SELECT * FROM Artifact.Triage.Collection.UploadTable(triageTable=triageTable)    Windows.Triage.Collectors.BCD Boot Configuration Files.
+  View Artifact Source   name: Windows.</description>
     </item>
     
     <item>
@@ -65,23 +74,25 @@ It is recommended to collect this artifact and just archive the results.</descri
     </item>
     
     <item>
-      <title>Windows System</title>
-      <link>/docs/artifacts/windows_system/</link>
+      <title>Miscelaneous Artifacts</title>
+      <link>/docs/artifacts/misc/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>/docs/artifacts/windows_system/</guid>
-      <description>Windows.Sys.AppcompatShims Application Compatibility shims are a way to persist malware. This table presents the AppCompat Shim information from the registry in a nice format.
-   Arg Default Description     shimKeys HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\InstalledSDB\*    customKeys HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Custom\*\*       View Artifact Source   name: Windows.Sys.AppcompatShims description: | Application Compatibility shims are a way to persist malware. This table presents the AppCompat Shim information from the registry in a nice format.</description>
+      <guid>/docs/artifacts/misc/</guid>
+      <description>Admin.Client.Upgrade Remotely push new client updates.
+NOTE: The updates can be pulled from any web server. You need to ensure they are properly secured with SSL and at least a random nonce in their path. You may configure the Velociraptor server to serve these through the public directory.
+   Arg Default Description     clientURL http://127.0.0.1:8000/public/velociraptor.exe    configURL http://127.0.0.1:8000/public/client.config.yaml       View Artifact Source   name: Admin.</description>
     </item>
     
     <item>
-      <title>Windows Triage Artifacts</title>
-      <link>/docs/artifacts/triage/</link>
+      <title>Linux Artifacts</title>
+      <link>/docs/artifacts/linux/linux/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>/docs/artifacts/triage/</guid>
-      <description>Windows.Triage.Collectors.Amcache   View Artifact Source   name: Windows.Triage.Collectors.Amcache precondition: SELECT OS From info() where OS = &#39;windows&#39; sources: - queries: - | SELECT * FROM chain( a1={ SELECT * FROM Artifact.Triage.Collection.Upload( type=&amp;quot;Amcache&amp;quot;, accessor=&amp;quot;ntfs&amp;quot;, path=&amp;quot;C:\\Windows\\AppCompat\\Programs\\Amcache.hve&amp;quot;) }, a2={ SELECT * FROM Artifact.Triage.Collection.Upload( type=&amp;quot;Amcache transaction files&amp;quot;, accessor=&amp;quot;ntfs&amp;quot;, path=&amp;quot;C:\\Windows\\AppCompat\\Programs\\Amcache.hve.LOG*&amp;quot;) })    Windows.Triage.Collectors.BCD Boot Configuration Files.
-  View Artifact Source   name: Windows.Triage.Collectors.BCD description: | Boot Configuration Files. precondition: SELECT OS From info() where OS = &#39;windows&#39; sources: - queries: - | SELECT * FROM chain( a1={ SELECT * FROM Artifact.</description>
+      <guid>/docs/artifacts/linux/linux/</guid>
+      <description>Linux.Applications.Chrome.Extensions Fetch Chrome extensions.
+Chrome extensions are installed into the user&amp;rsquo;s home directory. We search for manifest.json files in a known path within each system user&amp;rsquo;s home directory. We then parse the manifest file as JSON.
+Many extensions use locale packs to resolve strings like name and description. In this case we detect the default locale and load those locale files. We then resolve the extension&amp;rsquo;s name and description from there.</description>
     </item>
     
   </channel>

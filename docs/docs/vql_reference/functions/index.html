@@ -254,6 +254,13 @@
           </a>
         </div>
     </li>
+      <li data-nav-id="/docs/vql_reference/tips/" class="dd-item">
+        <div>
+          <a href="/docs/vql_reference/tips/">
+            Artifact Tips
+          </a>
+        </div>
+    </li>
         </ul>
     </li>
     <li data-nav-id="/docs/artifacts/" class="dd-item haschildren
@@ -262,17 +269,17 @@
       <a href="/docs/artifacts/">Artifact Reference</a><i class="fa fa-angle-right fa-lg category-icon"></i>
       </div>
         <ul>
-      <li data-nav-id="/docs/artifacts/linux/linux/" class="dd-item">
+      <li data-nav-id="/docs/artifacts/linux/" class="dd-item">
         <div>
-          <a href="/docs/artifacts/linux/linux/">
+          <a href="/docs/artifacts/linux/">
             Linux Artifacts
           </a>
         </div>
     </li>
-      <li data-nav-id="/docs/artifacts/misc/" class="dd-item">
+      <li data-nav-id="/docs/artifacts/windows_system/" class="dd-item">
         <div>
-          <a href="/docs/artifacts/misc/">
-            Miscelaneous
+          <a href="/docs/artifacts/windows_system/">
+            Windows System
           </a>
         </div>
     </li>
@@ -280,6 +287,13 @@
         <div>
           <a href="/docs/artifacts/server/">
             Server Artifacts
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/artifacts/triage/" class="dd-item">
+        <div>
+          <a href="/docs/artifacts/triage/">
+            Windows Triage
           </a>
         </div>
     </li>
@@ -297,17 +311,17 @@
           </a>
         </div>
     </li>
-      <li data-nav-id="/docs/artifacts/windows_system/" class="dd-item">
+      <li data-nav-id="/docs/artifacts/misc/" class="dd-item">
         <div>
-          <a href="/docs/artifacts/windows_system/">
-            Windows System
+          <a href="/docs/artifacts/misc/">
+            Miscelaneous
           </a>
         </div>
     </li>
-      <li data-nav-id="/docs/artifacts/triage/" class="dd-item">
+      <li data-nav-id="/docs/artifacts/linux/linux/" class="dd-item">
         <div>
-          <a href="/docs/artifacts/triage/">
-            Windows Triage
+          <a href="/docs/artifacts/linux/linux/">
+            Linux Artifacts
           </a>
         </div>
     </li>
@@ -322,7 +336,7 @@
       <li data-nav-id="/docs/presentations/crikeycon2019/" class="dd-item">
         <div>
           <a href="/docs/presentations/crikeycon2019/">
-            CrikeyCon 2019
+            Crikeycon 2019 Training Workshop
           </a>
         </div>
     </li>
@@ -350,6 +364,13 @@
       <a href="/blog/">Velociraptor Blog</a><i class="fa fa-angle-right fa-lg category-icon"></i>
       </div>
         <ul>
+      <li data-nav-id="/blog/html/2018/08/10/browsing_around_the_filesystem.html" class="dd-item">
+        <div>
+          <a href="/blog/html/2018/08/10/browsing_around_the_filesystem.html">
+            Browsing around the filesystem.
+          </a>
+        </div>
+    </li>
       <li data-nav-id="/blog/html/2019/03/02/agentless_hunting_with_velociraptor.html" class="dd-item">
         <div>
           <a href="/blog/html/2019/03/02/agentless_hunting_with_velociraptor.html">
@@ -462,13 +483,6 @@
           </a>
         </div>
     </li>
-      <li data-nav-id="/blog/html/2018/08/10/browsing_around_the_filesystem.html" class="dd-item">
-        <div>
-          <a href="/blog/html/2018/08/10/browsing_around_the_filesystem.html">
-            Browsing around the filesystem.
-          </a>
-        </div>
-    </li>
       <li data-nav-id="/blog/html/2018/08/10/design_differences_between_velociraptor_and_grr.html" class="dd-item">
         <div>
           <a href="/blog/html/2018/08/10/design_differences_between_velociraptor_and_grr.html">
@@ -576,8 +590,12 @@
 <li><a href="#atoi">atoi</a></li>
 <li><a href="#authenticode">authenticode</a></li>
 <li><a href="#base64decode">base64decode</a></li>
+<li><a href="#base64encode">base64encode</a></li>
 <li><a href="#basename">basename</a></li>
-<li><a href="#binary-parse">binary_parse</a></li>
+<li><a href="#binary-parse">binary_parse</a>
+<ul>
+<li><a href="#example">Example:</a></li>
+</ul></li>
 <li><a href="#collect">collect</a></li>
 <li><a href="#compress">compress</a></li>
 <li><a href="#count">count</a></li>
@@ -589,7 +607,10 @@
 <li><a href="#file-store">file_store</a></li>
 <li><a href="#filter">filter</a></li>
 <li><a href="#format">format</a></li>
-<li><a href="#get">get</a></li>
+<li><a href="#get">get</a>
+<ul>
+<li><a href="#example-1">Example</a></li>
+</ul></li>
 <li><a href="#getpid">getpid</a></li>
 <li><a href="#grep">grep</a></li>
 <li><a href="#hash">hash</a></li>
@@ -602,11 +623,11 @@
 <li><a href="#lowcase">lowcase</a></li>
 <li><a href="#max">max</a>
 <ul>
-<li><a href="#example">Example</a></li>
+<li><a href="#example-2">Example</a></li>
 </ul></li>
 <li><a href="#min">min</a>
 <ul>
-<li><a href="#example-1">Example</a></li>
+<li><a href="#example-3">Example</a></li>
 </ul></li>
 <li><a href="#now">now</a></li>
 <li><a href="#parse-float">parse_float</a></li>
@@ -739,6 +760,28 @@ signature. Since we use the windows API this can only work with the
 
 <p>Decodes a base64 encoded string.</p>
 
+<h2 id="base64encode">base64encode</h2>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>string</td>
+<td>A string to encode</td>
+<td>string (required)</td>
+</tr>
+</tbody>
+</table>
+
+<p>Encodes a binary string to base64.</p>
+
 <h2 id="basename">basename</h2>
 
 <table>
@@ -806,6 +849,32 @@ signature. Since we use the windows API this can only work with the
 </table>
 
 <p>Parse a binary string with profile based parser.</p>
+
+<p>This plugin extract binary data from strings. It works by applying a
+profile to the binary string and generating an object from that. Profiles use the same syntax as Rekall or Volatility. For example a profile might be:</p>
+
+<pre><code class="language-json">{
+  &quot;StructName&quot;: [10, {
+     &quot;field1&quot;: [2, [&quot;unsigned int&quot;]],
+     &quot;field2&quot;: [6, [&quot;unsigned long long&quot;]],
+  }]
+}
+</code></pre>
+
+<p>The profile is compiled and overlayed on top of the offset specified,
+then the object is emitted with its required fields.</p>
+
+<h3 id="example">Example:</h3>
+
+<pre><code>velociraptor query 'select binary_parse(profile=profile, string=&quot;hello world&quot;, target=&quot;X&quot;, offset=2) as Item from scope()' --env profile='{&quot;X&quot;:[10,{&quot;field1&quot;:[0,[&quot;unsigned short&quot;]]}]}'
+[
+ {
+  &quot;Item&quot;: {
+    &quot;field1&quot;: &quot;27756&quot;
+   }
+ }
+]
+</code></pre>
 
 <h2 id="collect">collect</h2>
 
@@ -1113,7 +1182,19 @@ package</a>.</p>
 </tbody>
 </table>
 
-<p>Gets the member field from item.</p>
+<p>Gets the member field from item. This is useful to index an item from
+an array. For example:</p>
+
+<h3 id="example-1">Example</h3>
+
+<pre><code class="language-sql">select get(item=[dict(foo=3), 2, 3, 4], member='0.foo') AS Foo from scope()
+
+[
+ {
+   &quot;Foo&quot;: 3
+ }
+]
+</code></pre>
 
 <h2 id="getpid">getpid</h2>
 
@@ -1414,7 +1495,7 @@ encoded as an array of 8 bytes which makes it easy to format using the
 <p>This finds the smallest number in the aggregate. It is only meaningful
 in a group by query.</p>
 
-<h3 id="example">Example</h3>
+<h3 id="example-2">Example</h3>
 
 <p>The following query lists all the processes and shows the largest
 bash pid of all bash processes.</p>
@@ -1445,7 +1526,7 @@ bash pid of all bash processes.</p>
 <p>This finds the smallest number in the aggregate. It is only meaningful
 in a group by query.</p>
 
-<h3 id="example-1">Example</h3>
+<h3 id="example-3">Example</h3>
 
 <p>The following query lists all the processes and shows the smallest
 bash pid of all bash processes.</p>

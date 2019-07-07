@@ -253,6 +253,13 @@
           </a>
         </div>
     </li>
+      <li data-nav-id="/docs/vql_reference/tips/" class="dd-item">
+        <div>
+          <a href="/docs/vql_reference/tips/">
+            Artifact Tips
+          </a>
+        </div>
+    </li>
         </ul>
     </li>
     <li data-nav-id="/docs/artifacts/" class="dd-item parent haschildren
@@ -262,17 +269,17 @@
             <i class="fa fa-angle-down fa-lg category-icon"></i>
       </div>
         <ul>
-      <li data-nav-id="/docs/artifacts/linux/linux/" class="dd-item">
+      <li data-nav-id="/docs/artifacts/linux/" class="dd-item">
         <div>
-          <a href="/docs/artifacts/linux/linux/">
+          <a href="/docs/artifacts/linux/">
             Linux Artifacts
           </a>
         </div>
     </li>
-      <li data-nav-id="/docs/artifacts/misc/" class="dd-item">
+      <li data-nav-id="/docs/artifacts/windows_system/" class="dd-item">
         <div>
-          <a href="/docs/artifacts/misc/">
-            Miscelaneous
+          <a href="/docs/artifacts/windows_system/">
+            Windows System
           </a>
         </div>
     </li>
@@ -280,6 +287,13 @@
         <div>
           <a href="/docs/artifacts/server/">
             Server Artifacts
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/artifacts/triage/" class="dd-item">
+        <div>
+          <a href="/docs/artifacts/triage/">
+            Windows Triage
           </a>
         </div>
     </li>
@@ -297,17 +311,17 @@
           </a>
         </div>
     </li>
-      <li data-nav-id="/docs/artifacts/windows_system/" class="dd-item">
+      <li data-nav-id="/docs/artifacts/misc/" class="dd-item">
         <div>
-          <a href="/docs/artifacts/windows_system/">
-            Windows System
+          <a href="/docs/artifacts/misc/">
+            Miscelaneous
           </a>
         </div>
     </li>
-      <li data-nav-id="/docs/artifacts/triage/" class="dd-item">
+      <li data-nav-id="/docs/artifacts/linux/linux/" class="dd-item">
         <div>
-          <a href="/docs/artifacts/triage/">
-            Windows Triage
+          <a href="/docs/artifacts/linux/linux/">
+            Linux Artifacts
           </a>
         </div>
     </li>
@@ -322,7 +336,7 @@
       <li data-nav-id="/docs/presentations/crikeycon2019/" class="dd-item">
         <div>
           <a href="/docs/presentations/crikeycon2019/">
-            CrikeyCon 2019
+            Crikeycon 2019 Training Workshop
           </a>
         </div>
     </li>
@@ -350,6 +364,13 @@
       <a href="/blog/">Velociraptor Blog</a><i class="fa fa-angle-right fa-lg category-icon"></i>
       </div>
         <ul>
+      <li data-nav-id="/blog/html/2018/08/10/browsing_around_the_filesystem.html" class="dd-item">
+        <div>
+          <a href="/blog/html/2018/08/10/browsing_around_the_filesystem.html">
+            Browsing around the filesystem.
+          </a>
+        </div>
+    </li>
       <li data-nav-id="/blog/html/2019/03/02/agentless_hunting_with_velociraptor.html" class="dd-item">
         <div>
           <a href="/blog/html/2019/03/02/agentless_hunting_with_velociraptor.html">
@@ -462,13 +483,6 @@
           </a>
         </div>
     </li>
-      <li data-nav-id="/blog/html/2018/08/10/browsing_around_the_filesystem.html" class="dd-item">
-        <div>
-          <a href="/blog/html/2018/08/10/browsing_around_the_filesystem.html">
-            Browsing around the filesystem.
-          </a>
-        </div>
-    </li>
       <li data-nav-id="/blog/html/2018/08/10/design_differences_between_velociraptor_and_grr.html" class="dd-item">
         <div>
           <a href="/blog/html/2018/08/10/design_differences_between_velociraptor_and_grr.html">
@@ -573,6 +587,7 @@
 <li>
 <ul>
 <li><a href="#server-alerts-psexec">Server.Alerts.PsExec</a></li>
+<li><a href="#server-alerts-winpmem">Server.Alerts.WinPmem</a></li>
 <li><a href="#server-analysis-triage-powershellconsole">Server.Analysis.Triage.PowershellConsole</a></li>
 <li><a href="#server-hunts-list">Server.Hunts.List</a></li>
 <li><a href="#server-hunts-results">Server.Hunts.Results</a></li>
@@ -683,6 +698,82 @@ sources:
               body=format(
               format=MessageTemplate,
               args=[Timestamp, CommandLine, ClientId])
+          )
+        })
+</code></pre>
+
+    </div>
+</div>
+
+<h2 id="server-alerts-winpmem">Server.Alerts.WinPmem</h2>
+
+<p>Send an email if the pmem service has been installed on any of the
+endpoints.</p>
+
+<p>Note this requires that the Windows.Event.ServiceCreation
+monitoring artifact be collected from clients.</p>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>EmailAddress</td>
+<td>admin@example.com</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+<div class="expand">
+    <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fa fa-chevron-down' : 'fa fa-chevron-right';});});">
+        <i style="font-size:x-small;" class="fa fa-chevron-right"></i>
+        <span>
+        
+        
+        View Artifact Source
+        
+        </span>
+    </div>
+    <div class="expand-content" style="display: none;">
+<pre><code>name: Server.Alerts.WinPmem
+description: |
+   Send an email if the pmem service has been installed on any of the
+   endpoints.
+
+   Note this requires that the Windows.Event.ServiceCreation
+   monitoring artifact be collected from clients.
+
+type: SERVER_EVENT
+
+parameters:
+  - name: EmailAddress
+    default: admin@example.com
+
+sources:
+  - queries:
+      - |
+        SELECT * FROM foreach(
+          row={
+            SELECT * from watch_monitoring(
+              artifact='Windows.Events.ServiceCreation')
+            WHERE ServiceName =~ 'pmem'
+          },
+          query={
+            SELECT * FROM mail(
+              to=EmailAddress,
+              subject='Pmem launched on host',
+              period=60,
+              body=format(
+                 format=&quot;WinPmem execution detected at %s for client %v&quot;,
+                 args=[Timestamp, ClientId]
+              )
           )
         })
 </code></pre>
@@ -1158,7 +1249,8 @@ reports:
                SELECT _ts as Timestamp,
                   CPUPercent,
                   MemoryUse
-               FROM source(source=&quot;Prometheus&quot;)
+               FROM source(source=&quot;Prometheus&quot;,
+                           artifact=&quot;Server.Monitor.Health&quot;)
              })
       {{ end }}
 
@@ -1169,7 +1261,8 @@ reports:
                SELECT _ts as Timestamp,
                   client_comms_current_connections,
                   client_comms_concurrency
-               FROM source(source=&quot;Prometheus&quot;)
+               FROM source(source=&quot;Prometheus&quot;,
+                           artifact=&quot;Server.Monitor.Health&quot;)
             })
       {{ end }}
 
@@ -1313,21 +1406,23 @@ sources:
       - |
         LET stats = SELECT parse_string_with_regex(string=Content,
            regex=[
-             'process_resident_memory_bytes (?P&lt;process_resident_memory_bytes&gt;[^\\s]+)',
              'client_comms_concurrency (?P&lt;client_comms_concurrency&gt;[^\\s]+)',
              'client_comms_current_connections (?P&lt;client_comms_current_connections&gt;[^\\s]+)',
              'flow_completion (?P&lt;flow_completion&gt;[^\\s]+)',
              'process_open_fds (?P&lt;process_open_fds&gt;[^\\s]+)',
-             'process_cpu_seconds_total (?P&lt;process_cpu_seconds_total&gt;[^\\s]+)',
              'stats_client_one_day_actives{version=&quot;[^&quot;]+&quot;} (?P&lt;one_day_active&gt;[^\\s]+)',
              'stats_client_seven_day_actives{version=&quot;[^&quot;]+&quot;} (?P&lt;seven_day_active&gt;[^\\s]+)'
-           ]) AS Stat
-        FROM  http_client(url=MetricsURL, chunk=50000)
+           ]) AS Stat, {
+              // On Windows Prometheus does not provide these so we get our own.
+              SELECT Times.user + Times.system as CPU,
+                     MemoryInfo.RSS as RSS
+              FROM pslist(pid=getpid())
+           } AS PslistStats
+        FROM  http_client(url=MetricsURL, chunk_size=50000)
 
       - |
         SELECT now() AS Timestamp,
-               parse_float(string=Stat.process_resident_memory_bytes)
-                      AS process_resident_memory_bytes,
+               PslistStats.RSS AS process_resident_memory_bytes,
                parse_float(string=Stat.client_comms_concurrency)
                       AS client_comms_concurrency,
                parse_float(string=Stat.client_comms_current_connections)
@@ -1335,8 +1430,7 @@ sources:
                parse_float(string=Stat.flow_completion) AS flow_completion,
                parse_float(string=Stat.process_open_fds)
                      AS process_open_fds,
-               parse_float(string=Stat.process_cpu_seconds_total)
-                     AS process_cpu_seconds_total,
+               PslistStats.CPU AS process_cpu_seconds_total,
                parse_float(string=Stat.one_day_active)
                      AS one_day_active,
                parse_float(string=Stat.seven_day_active)
@@ -1510,8 +1604,8 @@ reports:
 </div>
 
 <div id="navigation">
-<a class="nav nav-prev" href="/docs/artifacts/misc/" title="Miscelaneous Artifacts"> <i class="fa fa-chevron-left"></i><label>Miscelaneous Artifacts</label></a>
-    <a class="nav nav-next" href="/docs/artifacts/detection/" title="Windows Malware Detection" style="margin-right: 0px;"><label>Windows Malware Detection</label><i class="fa fa-chevron-right"></i></a></div>
+<a class="nav nav-prev" href="/docs/artifacts/windows_system/" title="Windows System"> <i class="fa fa-chevron-left"></i><label>Windows System</label></a>
+    <a class="nav nav-next" href="/docs/artifacts/triage/" title="Windows Triage Artifacts" style="margin-right: 0px;"><label>Windows Triage Artifacts</label><i class="fa fa-chevron-right"></i></a></div>
 
 </section>
 <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">

@@ -253,6 +253,13 @@
           </a>
         </div>
     </li>
+      <li data-nav-id="/docs/vql_reference/tips/" class="dd-item">
+        <div>
+          <a href="/docs/vql_reference/tips/">
+            Artifact Tips
+          </a>
+        </div>
+    </li>
         </ul>
     </li>
     <li data-nav-id="/docs/artifacts/" class="dd-item parent haschildren
@@ -262,17 +269,17 @@
             <i class="fa fa-angle-down fa-lg category-icon"></i>
       </div>
         <ul>
-      <li data-nav-id="/docs/artifacts/linux/linux/" class="dd-item">
+      <li data-nav-id="/docs/artifacts/linux/" class="dd-item">
         <div>
-          <a href="/docs/artifacts/linux/linux/">
+          <a href="/docs/artifacts/linux/">
             Linux Artifacts
           </a>
         </div>
     </li>
-      <li data-nav-id="/docs/artifacts/misc/" class="dd-item">
+      <li data-nav-id="/docs/artifacts/windows_system/" class="dd-item">
         <div>
-          <a href="/docs/artifacts/misc/">
-            Miscelaneous
+          <a href="/docs/artifacts/windows_system/">
+            Windows System
           </a>
         </div>
     </li>
@@ -280,6 +287,13 @@
         <div>
           <a href="/docs/artifacts/server/">
             Server Artifacts
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/artifacts/triage/" class="dd-item">
+        <div>
+          <a href="/docs/artifacts/triage/">
+            Windows Triage
           </a>
         </div>
     </li>
@@ -297,17 +311,17 @@
           </a>
         </div>
     </li>
-      <li data-nav-id="/docs/artifacts/windows_system/" class="dd-item">
+      <li data-nav-id="/docs/artifacts/misc/" class="dd-item">
         <div>
-          <a href="/docs/artifacts/windows_system/">
-            Windows System
+          <a href="/docs/artifacts/misc/">
+            Miscelaneous
           </a>
         </div>
     </li>
-      <li data-nav-id="/docs/artifacts/triage/" class="dd-item">
+      <li data-nav-id="/docs/artifacts/linux/linux/" class="dd-item">
         <div>
-          <a href="/docs/artifacts/triage/">
-            Windows Triage
+          <a href="/docs/artifacts/linux/linux/">
+            Linux Artifacts
           </a>
         </div>
     </li>
@@ -322,7 +336,7 @@
       <li data-nav-id="/docs/presentations/crikeycon2019/" class="dd-item">
         <div>
           <a href="/docs/presentations/crikeycon2019/">
-            CrikeyCon 2019
+            Crikeycon 2019 Training Workshop
           </a>
         </div>
     </li>
@@ -350,6 +364,13 @@
       <a href="/blog/">Velociraptor Blog</a><i class="fa fa-angle-right fa-lg category-icon"></i>
       </div>
         <ul>
+      <li data-nav-id="/blog/html/2018/08/10/browsing_around_the_filesystem.html" class="dd-item">
+        <div>
+          <a href="/blog/html/2018/08/10/browsing_around_the_filesystem.html">
+            Browsing around the filesystem.
+          </a>
+        </div>
+    </li>
       <li data-nav-id="/blog/html/2019/03/02/agentless_hunting_with_velociraptor.html" class="dd-item">
         <div>
           <a href="/blog/html/2019/03/02/agentless_hunting_with_velociraptor.html">
@@ -459,13 +480,6 @@
         <div>
           <a href="/blog/html/2018/08/20/velociraptor_artifacts.html">
             Velociraptor Artifacts
-          </a>
-        </div>
-    </li>
-      <li data-nav-id="/blog/html/2018/08/10/browsing_around_the_filesystem.html" class="dd-item">
-        <div>
-          <a href="/blog/html/2018/08/10/browsing_around_the_filesystem.html">
-            Browsing around the filesystem.
           </a>
         </div>
     </li>
@@ -676,7 +690,7 @@ sources:
         LET hits = SELECT * FROM foreach(
           row=processes,
           query={
-             SELECT ProcessName, CommandLine, Pid, Strings.Offset as Offsets
+             SELECT ProcessName, CommandLine, Pid, String.Offset as Offsets
              FROM proc_yara(rules=yaraRule, pid=Pid)
           })
 
@@ -755,7 +769,7 @@ parameters:
 sources:
   - queries:
       - |
-        LET file_scan = SELECT File, Rule, Strings, now() AS Timestamp,
+        LET file_scan = SELECT File, Rule, String, now() AS Timestamp,
                Name, ServiceType
         FROM yara(rules=yaraRule, files=PathName)
         WHERE Rule
@@ -1058,7 +1072,7 @@ Win32_Process WMI object.</p>
 
 <p>This can be easily done via the wmic.exe command or via powershell:</p>
 
-<pre><code>wmic process create cmd.exe
+<pre><code class="language-bash">wmic process call create cmd.exe
 </code></pre>
 
 <div class="expand">
@@ -1080,21 +1094,20 @@ description: |
 
   This can be easily done via the wmic.exe command or via powershell:
 
+  ```bash
+  wmic process call create cmd.exe
 </code></pre>
 
-<p>wmic process create cmd.exe</p>
+<p>type: CLIENT_EVENT</p>
 
-<pre><code>
-type: CLIENT_EVENT
-
-sources:
+<p>sources:
   - queries:
       - |
         SELECT Parse from wmi_events(
-          query=&quot;SELECT * FROM MSFT_WmiProvider_ExecMethodAsyncEvent_Pre WHERE ObjectPath=\&quot;Win32_Process\&quot; AND MethodName=\&quot;Create\&quot;&quot;,
-          namespace=&quot;ROOT/CIMV2&quot;,
+          query=&ldquo;SELECT * FROM MSFT_WmiProvider_ExecMethodAsyncEvent_Pre WHERE ObjectPath=\&ldquo;Win32_Process\&rdquo; AND MethodName=\&ldquo;Create\&ldquo;&rdquo;,
+          namespace=&ldquo;ROOT/CIMV2&rdquo;,
           wait=50000000)
-</code></pre>
+```</p>
 
     </div>
 </div>
@@ -1324,8 +1337,8 @@ sources:
         },
         query={
           SELECT File.FullPath As FullPath,
-                 Strings.Offset AS Off,
-                 Strings.HexData As Hex,
+                 String.Offset AS Off,
+                 String.HexData As Hex,
                  upload(file=File.FullPath, accessor=&quot;ntfs&quot;) AS Upload
               FROM yara(
               files=&quot;\\\\.\\&quot; + HomeDir + &quot;\\ntuser.dat&quot;,
@@ -1347,7 +1360,7 @@ sources:
 </div>
 
 <div id="navigation">
-<a class="nav nav-prev" href="/docs/artifacts/server/" title="Server Artifacts"> <i class="fa fa-chevron-left"></i><label>Server Artifacts</label></a>
+<a class="nav nav-prev" href="/docs/artifacts/triage/" title="Windows Triage Artifacts"> <i class="fa fa-chevron-left"></i><label>Windows Triage Artifacts</label></a>
     <a class="nav nav-next" href="/docs/artifacts/events/" title="Windows Event Monitoring" style="margin-right: 0px;"><label>Windows Event Monitoring</label><i class="fa fa-chevron-right"></i></a></div>
 
 </section>

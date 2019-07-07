@@ -254,6 +254,13 @@
           </a>
         </div>
     </li>
+      <li data-nav-id="/docs/vql_reference/tips/" class="dd-item">
+        <div>
+          <a href="/docs/vql_reference/tips/">
+            Artifact Tips
+          </a>
+        </div>
+    </li>
         </ul>
     </li>
     <li data-nav-id="/docs/artifacts/" class="dd-item haschildren
@@ -262,17 +269,17 @@
       <a href="/docs/artifacts/">Artifact Reference</a><i class="fa fa-angle-right fa-lg category-icon"></i>
       </div>
         <ul>
-      <li data-nav-id="/docs/artifacts/linux/linux/" class="dd-item">
+      <li data-nav-id="/docs/artifacts/linux/" class="dd-item">
         <div>
-          <a href="/docs/artifacts/linux/linux/">
+          <a href="/docs/artifacts/linux/">
             Linux Artifacts
           </a>
         </div>
     </li>
-      <li data-nav-id="/docs/artifacts/misc/" class="dd-item">
+      <li data-nav-id="/docs/artifacts/windows_system/" class="dd-item">
         <div>
-          <a href="/docs/artifacts/misc/">
-            Miscelaneous
+          <a href="/docs/artifacts/windows_system/">
+            Windows System
           </a>
         </div>
     </li>
@@ -280,6 +287,13 @@
         <div>
           <a href="/docs/artifacts/server/">
             Server Artifacts
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/artifacts/triage/" class="dd-item">
+        <div>
+          <a href="/docs/artifacts/triage/">
+            Windows Triage
           </a>
         </div>
     </li>
@@ -297,17 +311,17 @@
           </a>
         </div>
     </li>
-      <li data-nav-id="/docs/artifacts/windows_system/" class="dd-item">
+      <li data-nav-id="/docs/artifacts/misc/" class="dd-item">
         <div>
-          <a href="/docs/artifacts/windows_system/">
-            Windows System
+          <a href="/docs/artifacts/misc/">
+            Miscelaneous
           </a>
         </div>
     </li>
-      <li data-nav-id="/docs/artifacts/triage/" class="dd-item">
+      <li data-nav-id="/docs/artifacts/linux/linux/" class="dd-item">
         <div>
-          <a href="/docs/artifacts/triage/">
-            Windows Triage
+          <a href="/docs/artifacts/linux/linux/">
+            Linux Artifacts
           </a>
         </div>
     </li>
@@ -322,7 +336,7 @@
       <li data-nav-id="/docs/presentations/crikeycon2019/" class="dd-item">
         <div>
           <a href="/docs/presentations/crikeycon2019/">
-            CrikeyCon 2019
+            Crikeycon 2019 Training Workshop
           </a>
         </div>
     </li>
@@ -350,6 +364,13 @@
       <a href="/blog/">Velociraptor Blog</a><i class="fa fa-angle-right fa-lg category-icon"></i>
       </div>
         <ul>
+      <li data-nav-id="/blog/html/2018/08/10/browsing_around_the_filesystem.html" class="dd-item">
+        <div>
+          <a href="/blog/html/2018/08/10/browsing_around_the_filesystem.html">
+            Browsing around the filesystem.
+          </a>
+        </div>
+    </li>
       <li data-nav-id="/blog/html/2019/03/02/agentless_hunting_with_velociraptor.html" class="dd-item">
         <div>
           <a href="/blog/html/2019/03/02/agentless_hunting_with_velociraptor.html">
@@ -459,13 +480,6 @@
         <div>
           <a href="/blog/html/2018/08/20/velociraptor_artifacts.html">
             Velociraptor Artifacts
-          </a>
-        </div>
-    </li>
-      <li data-nav-id="/blog/html/2018/08/10/browsing_around_the_filesystem.html" class="dd-item">
-        <div>
-          <a href="/blog/html/2018/08/10/browsing_around_the_filesystem.html">
-            Browsing around the filesystem.
           </a>
         </div>
     </li>
@@ -580,6 +594,7 @@
 <li><a href="#oauth-identity-management">OAuth Identity management</a></li>
 <li><a href="#registering-velociraptor-as-an-oauth-application">Registering Velociraptor as an OAuth application</a></li>
 </ul></li>
+<li><a href="#deploying-to-the-cloud">Deploying to the cloud</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -621,9 +636,12 @@ presents it. Therefore SSL goes hand in hand with DNS. It is not
 currently possible to get a Letsencrypt certificate for an IP address.</p>
 
 <p>Therefore the first thing you need to do is to buy a DNS domain from
-any provider. Once there, you need to set up a DNS A Record to point at
-your Velociraptor server&rsquo;s external IP.  You can use a dynamic DNS
-client such as ddclient to update your DNS-&gt;IP mapping dynamically.</p>
+any provider. Once there, you need to set up a DNS A Record to point
+at your Velociraptor server&rsquo;s external IP.  You can use a dynamic DNS
+client such as ddclient to update your DNS-&gt;IP mapping
+dynamically. Alternative, Velociraptor directly supports updating
+Google Domains Dynamic DNS so this is the easiest option since it
+requires the least amount of configuration.</p>
 
 <p>In this example we use Google Domains to purchase our domain, but any
 other domain provider would work as well.</p>
@@ -663,44 +681,8 @@ credentials in the <code>ddclient</code> configuration file on our server VM.</p
 
 <p><img src="../sso2.png" alt="Credentials" /></p>
 
-<p>Next we install ddclient on our VM. This will update our dynamic IP
-address whenever the external interface changes. Configure the file
-<code>/etc/ddclient.conf</code>:</p>
-
-<pre><code class="language-text">   protocol=dyndns2
-   use=web
-   server=domains.google.com
-   ssl=yes
-   login=X13342342XYZ
-   password='slk43521kj'
-   velociraptor.rekall-innovations.com
-</code></pre>
-
-<p>Next configure the service to start by editing <code>/etc/default/ddclient</code>:</p>
-
-<pre><code class="language-bash">   # Configuration for ddclient scripts
-   # generated from debconf on Tue Oct 23 20:25:23 AEST 2018
-   #
-   # /etc/default/ddclient
-
-   # Set to &quot;true&quot; if ddclient should be run every time DHCP client ('dhclient'
-   # from package isc-dhcp-client) updates the systems IP address.
-   run_dhclient=&quot;false&quot;
-
-   # Set to &quot;true&quot; if ddclient should be run every time a new ppp connection is
-   # established. This might be useful, if you are using dial-on-demand.
-   run_ipup=&quot;false&quot;
-
-   # Set to &quot;true&quot; if ddclient should run in daemon mode
-   # If this is changed to true, run_ipup and run_dhclient must be set to false.
-   run_daemon=&quot;true&quot;
-
-   # Set the time interval between the updates of the dynamic DNS name in seconds.
-   # This option only takes effect if the ddclient runs in daemon mode.
-   daemon_interval=&quot;300&quot;
-</code></pre>
-
-<p>Run <code>dhclient</code> and check that it updates the address correctly.</p>
+<p>We will need these credential during the interactive configuration
+process below.</p>
 
 <h2 id="configure-velociraptor-to-use-autocert">Configure Velociraptor to use autocert</h2>
 
@@ -850,8 +832,22 @@ Generating keys please wait....
 ? What is the public DNS name of the Frontend (e.g. www.example.com): www.example.com
 ? Enter the Google OAuth Client ID? 1234xxxxxx.apps.googleusercontent.com
 ? Enter the Google OAuth Client Secret? qsadlkjhdaslkjasd
+? Are you using Google Domains DynDNS? Yes
+? Google Domains DynDNS Username XXXXXXXXX
+? Google Domains DynDNS Password YYYYYYYYY
 ? Path to the datastore directory. (/tmp)
+? GUI Username or email address to authorize (empty to end):mic
+? GUI Username or email address to authorize (empty to end):
 </code></pre>
+
+<p>The DynDNS Username and Password field simply contain the values
+generated earlier by the Google Domains console.</p>
+
+<p>The configuration allows you to add authorized usernames at this
+stage. Note that username authorization is written to the data store
+and so it will only work on the same machine we are deploying to. If
+you are creating the configuration on another machine, you will need
+to explicitely add users later as demonstrated below.</p>
 
 <p>Now we can start the Velociraptor frontend:</p>
 
@@ -902,6 +898,67 @@ will need to re-grant OAuth credentials. Therefore revoking a user
 from the Google Admin console may take a full day to take effect. To
 remove access sooner you should use <code>velociraptor --config
 server.config.yaml user lock MyUserName</code> at the console.</p>
+</div>
+
+
+<h2 id="deploying-to-the-cloud">Deploying to the cloud</h2>
+
+<p>We saw how to start the frontend manually, but in practice we would
+rather have it run as a service, so it can be started in case the node
+is rebooted.</p>
+
+<p>We recommend that Velociraptor be deployed on an Ubuntu or Debian
+Linux based VM. We therefore provided an easy way to build a deb
+package:</p>
+
+<pre><code class="language-bash">$ ./velociraptor --config ~/server.config.yaml debian server
+$ ls -l velociraptor_0.3.0_server.deb
+-rw-r--r-- 1 mic mic 12710596 Jul  7 01:35 velociraptor_0.3.0_server.deb
+</code></pre>
+
+<p>The produced deb package will install Velociraptor as a service and
+the config file we just generated. You simply need to copy the deb to
+the node and install it.</p>
+
+<div class="notices note" ><p>You need to ensure that directories you specify in the config file
+actually exist on the node. For example, we normally purchase a node
+with large attached storage (say 500Gb) to hold the collected
+artifacts. We then format the additional partition (using <code>mkext2</code>)
+and mount it on a specific directory (e.g. <code>/data/</code>). We then need to
+add the new partition to <code>/etc/mtab</code> to ensure it gets mounted on
+boot. This needs to happen before we start the velociraptor service or
+it will fail to start.</p>
+</div>
+
+
+<p>You can check the installtion using <code>service velociraptor_server status</code>.</p>
+
+<pre><code class="language-bash">$ sudo dpkg -i velociraptor_0.3.0_server.deb
+Selecting previously unselected package velociraptor-server.
+(Reading database ... 384556 files and directories currently installed.)
+Preparing to unpack velociraptor_0.3.0_server.deb ...
+Unpacking velociraptor-server (0.3.0) ...
+Setting up velociraptor-server (0.3.0) ...
+Created symlink /etc/systemd/system/multi-user.target.wants/velociraptor_server.service → /etc/systemd/system/velociraptor_server.service.
+
+$ sudo service velociraptor_server status
+● velociraptor_server.service - Velociraptor linux amd64
+   Loaded: loaded (/etc/systemd/system/velociraptor_server.service; enabled; vendor preset: enabled)
+   Active: active (running) since Sun 2019-07-07 08:49:24 AEST; 17s ago
+ Main PID: 2275 (velociraptor)
+    Tasks: 13 (limit: 4915)
+   Memory: 30.2M
+   CGroup: /system.slice/velociraptor_server.service
+           └─2275 /usr/local/bin/velociraptor --config /etc/velociraptor/server.config.yaml frontend
+
+Jul 07 08:49:24 mic-Inspiron systemd[1]: Started Velociraptor linux amd64.
+</code></pre>
+
+<div class="notices tip" ><p>You do not need to build the deb package on a Linux machine. If you
+prefer to use Windows for your day to day work, you may build the deb
+on your windows machine but you must specify the <code>--binary</code> flag to
+the <code>debian server</code> command with a path to the linux binary. Yoy can
+obtain a copy of the linux binary from the Github releases page.</p>
 </div>
 
 

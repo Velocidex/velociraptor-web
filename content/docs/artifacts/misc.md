@@ -1,10 +1,9 @@
 ---
 description: Various Artifacts which do not fit into other categories.
 linktitle: Miscelaneous
-menu:
-  docs: {parent: Artifacts, weight: 30}
 title: Miscelaneous Artifacts
 toc: true
+weight: 70
 
 ---
 ## Admin.Client.Upgrade
@@ -468,11 +467,11 @@ sources:
                OfficeMtime,
                OfficeSize,
                File.ModTime as InternalMtime,
-               Strings.HexData as HexContext
+               String.HexData as HexContext
          FROM foreach(
            row=office_docs,
            query={
-              SELECT File, Strings, OfficePath,
+              SELECT File, String, OfficePath,
                      OfficeMtime, OfficeSize
               FROM yara(
                  rules=yaraRule,
@@ -798,6 +797,50 @@ reports:
 ```
    {{% /expand %}}
 
+## Windows.Analysis.EvidenceOfExecution
+
+In many investigations it is useful to find evidence of program execution.
+
+This artifact combines the findings of several other collectors into
+an overview of all program execution artifacts. The associated
+report walks the user through the analysis of the findings.
+
+
+{{% expand  "View Artifact Source" %}}
+
+
+```
+name: Windows.Analysis.EvidenceOfExecution
+description: |
+  In many investigations it is useful to find evidence of program execution.
+
+  This artifact combines the findings of several other collectors into
+  an overview of all program execution artifacts. The associated
+  report walks the user through the analysis of the findings.
+
+sources:
+  - name: UserAssist
+    queries:
+      - SELECT * FROM Artifact.Windows.Registry.UserAssist()
+
+  - name: Timeline
+    queries:
+      - SELECT * FROM Artifact.Windows.Forensics.Timeline()
+
+  - name: Recent Apps
+    queries:
+      - SELECT * FROM Artifact.Windows.Forensics.RecentApps()
+
+  - name: ShimCache
+    queries:
+      - SELECT * FROM Artifact.Windows.Registery.AppCompatCache()
+
+  - name: Prefetch
+    queries:
+      - SELECT * FROM Artifact.Windows.Forensics.Prefetch()
+```
+   {{% /expand %}}
+
 ## Windows.Applications.ChocolateyPackages
 
 Chocolatey packages installed in a system.
@@ -846,6 +889,81 @@ sources:
                    Metadata.package.metadata.licenseUrl as License
             FROM files
         })
+```
+   {{% /expand %}}
+
+## Windows.Applications.Chrome.Cookies
+
+Enumerate the users chrome cookies.
+
+The cookies are typically encrypted by the DPAPI using the user's
+credentials. Since Velociraptor is typically not running in the user
+context we can not decrypt these. It may be possible to decrypt the
+cookies off line.
+
+The pertinant information from a forensic point of view is the
+user's Created and LastAccess timestamp and the fact that the user
+has actually visited the site and obtained a cookie.
+
+
+Arg|Default|Description
+---|------|-----------
+cookieGlobs|\\AppData\\Local\\Google\\Chrome\\User Data\\*\\Cookies|
+cookieSQLQuery|SELECT creation_utc, host_key, name, value, path, expires_utc,\n       last_access_utc, encrypted_value\nFROM cookies\n|
+
+{{% expand  "View Artifact Source" %}}
+
+
+```
+name: Windows.Applications.Chrome.Cookies
+description: |
+  Enumerate the users chrome cookies.
+
+  The cookies are typically encrypted by the DPAPI using the user's
+  credentials. Since Velociraptor is typically not running in the user
+  context we can not decrypt these. It may be possible to decrypt the
+  cookies off line.
+
+  The pertinant information from a forensic point of view is the
+  user's Created and LastAccess timestamp and the fact that the user
+  has actually visited the site and obtained a cookie.
+
+parameters:
+  - name: cookieGlobs
+    default: \AppData\Local\Google\Chrome\User Data\*\Cookies
+  - name: cookieSQLQuery
+    default: |
+      SELECT creation_utc, host_key, name, value, path, expires_utc,
+             last_access_utc, encrypted_value
+      FROM cookies
+
+precondition: SELECT OS From info() where OS = 'windows'
+
+sources:
+  - queries:
+      - |
+        LET cookie_files = SELECT * from foreach(
+          row={
+             SELECT Uid, Name AS User, Directory
+             FROM Artifact.Windows.Sys.Users()
+          },
+          query={
+             SELECT User, FullPath, Mtime from glob(
+               globs=Directory + cookieGlobs)
+          })
+
+      - |
+        SELECT * FROM foreach(row=cookie_files,
+          query={
+            SELECT timestamp(winfiletime=creation_utc * 10) as Created,
+                   timestamp(winfiletime=last_access_utc * 10) as LastAccess,
+                   timestamp(winfiletime=expires_utc * 10) as Expires,
+                   host_key, name, path, value,
+                   base64encode(string=encrypted_value) as EncryptedValue
+            FROM sqlite(
+              file=FullPath,
+              query=cookieSQLQuery)
+          })
 ```
    {{% /expand %}}
 
@@ -1002,6 +1120,63 @@ sources:
 ```
    {{% /expand %}}
 
+## Windows.Applications.Chrome.History
+
+Enumerate the users chrome history.
+
+
+Arg|Default|Description
+---|------|-----------
+historyGlobs|\\AppData\\Local\\Google\\Chrome\\User Data\\*\\History|
+urlSQLQuery|SELECT url as visited_url, title, visit_count,\n       typed_count, last_visit_time\nFROM urls\n|
+
+{{% expand  "View Artifact Source" %}}
+
+
+```
+name: Windows.Applications.Chrome.History
+description: |
+  Enumerate the users chrome history.
+
+parameters:
+  - name: historyGlobs
+    default: \AppData\Local\Google\Chrome\User Data\*\History
+  - name: urlSQLQuery
+    default: |
+      SELECT url as visited_url, title, visit_count,
+             typed_count, last_visit_time
+      FROM urls
+
+precondition: SELECT OS From info() where OS = 'windows'
+
+sources:
+  - queries:
+      - |
+        LET history_files = SELECT * from foreach(
+          row={
+             SELECT Uid, Name AS User, Directory
+             FROM Artifact.Windows.Sys.Users()
+          },
+          query={
+             SELECT User, FullPath, Mtime from glob(
+               globs=Directory + historyGlobs)
+          })
+
+      - |
+        SELECT * FROM foreach(row=history_files,
+          query={
+            SELECT User, FullPath,
+                   timestamp(epoch=Mtime.Sec) as Mtime,
+                   visited_url,
+                   title, visit_count, typed_count,
+                   timestamp(winfiletime=last_visit_time * 10) as last_visit_time
+            FROM sqlite(
+              file=FullPath,
+              query=urlSQLQuery)
+          })
+```
+   {{% /expand %}}
+
 ## Windows.Applications.OfficeMacros
 
 Office macros are a favourite initial infection vector. Many users
@@ -1053,6 +1228,177 @@ sources:
            query={
                SELECT * from olevba(file=FullPath)
            })
+```
+   {{% /expand %}}
+
+## Windows.Attack.ParentProcess
+
+Maps the Mitre Att&ck framework process executions into artifacts.
+
+### References:
+* https://www.sans.org/security-resources/posters/hunt-evil/165/download
+* https://github.com/teoseller/osquery-attck/blob/master/windows-incorrect_parent_process.conf
+
+
+Arg|Default|Description
+---|------|-----------
+lookupTable|ProcessName,ParentRegex\nsmss.exe,System\nruntimebroker.exe,svchost.exe\ntaskhostw.exe,svchost.exe\nservices.exe,wininit.exe\nlsass.exe,wininit.exe\nsvchost.exe,services.exe\ncmd.exe,explorer.exe\npowershell.exe,explorer.exe\niexplore.exe,explorer.exe\nfirefox.exe,explorer.exe\nchrome.exe,explorer.exe\n|
+
+{{% expand  "View Artifact Source" %}}
+
+
+```
+name: Windows.Attack.ParentProcess
+description: |
+  Maps the Mitre Att&ck framework process executions into artifacts.
+
+  ### References:
+  * https://www.sans.org/security-resources/posters/hunt-evil/165/download
+  * https://github.com/teoseller/osquery-attck/blob/master/windows-incorrect_parent_process.conf
+
+precondition: SELECT OS From info() where OS = 'windows'
+
+parameters:
+  - name: lookupTable
+    default: |
+       ProcessName,ParentRegex
+       smss.exe,System
+       runtimebroker.exe,svchost.exe
+       taskhostw.exe,svchost.exe
+       services.exe,wininit.exe
+       lsass.exe,wininit.exe
+       svchost.exe,services.exe
+       cmd.exe,explorer.exe
+       powershell.exe,explorer.exe
+       iexplore.exe,explorer.exe
+       firefox.exe,explorer.exe
+       chrome.exe,explorer.exe
+
+sources:
+     - queries:
+       # Build up some cached queries for speed.
+       - LET lookup <= SELECT * FROM parse_csv(filename=lookupTable, accessor='data')
+       - LET processes <= SELECT Name, Pid, Ppid, CommandLine, CreateTime, Exe FROM pslist()
+       - LET processes_lookup <= SELECT Name As ProcessName, Pid As ProcID FROM processes
+       - |
+         // Resolve the Ppid into a parent name using our processes_lookup
+         LET resolved_parent_name = SELECT * FROM foreach(
+         row={ SELECT * FROM processes},
+         query={
+           SELECT Name AS ActualProcessName,
+                  ProcessName AS ActualParentName,
+                  Pid, Ppid, CommandLine, CreateTime, Exe
+           FROM processes_lookup
+           WHERE ProcID = Ppid LIMIT 1
+         })
+
+       - |
+         // Get the expected parent name from the table above.
+         SELECT * FROM foreach(
+           row=resolved_parent_name,
+           query={
+             SELECT ActualProcessName,
+                    ActualParentName,
+                    Pid, Ppid, CommandLine, CreateTime, Exe,
+                    ParentRegex as ExpectedParentName
+             FROM lookup
+             WHERE ActualProcessName =~ ProcessName AND NOT ActualParentName =~ ParentRegex
+         })
+```
+   {{% /expand %}}
+
+## Windows.Attack.Prefetch
+
+Maps the Mitre Att&ck framework process executions into
+artifacts. This pack was generated from
+https://github.com/teoseller/osquery-attck
+
+
+{{% expand  "View Artifact Source" %}}
+
+
+```
+name: Windows.Attack.Prefetch
+description: |
+   Maps the Mitre Att&ck framework process executions into
+   artifacts. This pack was generated from
+   https://github.com/teoseller/osquery-attck
+
+precondition: SELECT OS From info() where OS = 'windows'
+
+sources:
+     - queries:
+       - SELECT Name, ModTime, Mtime.Sec AS modified
+         FROM glob(globs="C:/Windows/Prefetch/*")
+
+# Reports can be MONITORING_DAILY, CLIENT, SERVER_EVENT
+reports:
+  - type: CLIENT
+    parameters:
+      - name: lookupTable
+        default: |
+           signature,description
+           attrib,Attrib Execute is usually used to modify file attributes - ATT&CK T1158
+           schtasks.exe,Schtasks Execute: usaullay used to create a scheduled task - ATT&CK T1053:S0111
+           taskeng.exe,taskeng Execute: usaullay used to create a scheduled task - ATT&CK T1053
+           tscon.exe,tscon.exe Execute: usaullay used to Terminal Services Console - ATT&CK T1076
+           mstsc.exe,mstsc.exe Execute: usaullay used to perform a RDP Session  - ATT&CK T1076
+           at.exe,Schtasks Execute: usaullay used to create a scheduled task - ATT&CK T1053:S0110
+           tasklist.exe,Tasklist Execute: usaullay used to list task - ATT&CK T1057:T1063:T1007:S0057
+           taskkill.exe,Taskkill Execute: usaullay used to kill task
+           mshta.exe,Mshta Execute: is a utility that executes Microsoft HTML Applications (HTA) - ATT&CK T1170
+           whoami.exe,Whoami Execute: used to prints the effective username of the current user
+           xcopy.exe,Xcopy Execute: is used for copying multiple files or entire directory trees from one directory to another and for copying files across a network.
+           esentutl.exe,Esentutl Execute: is a legitimate built-in command-line program it could be used to create a exe from dump raw source.
+           net.exe,Net Execute: is used in command-line operations for control of users: groups: services: and network connections - ATT&CK T1126:T1087:T1201:T1069:S0039:T1018:T1007:T1124
+           vssadmin.exe,Vssadmin Execute: usaullay used to execute activity on Volume Shadow copy
+           InstallUtil.exe,InstallUtil Execute: InstallUtil is a command-line utility that allows for installation and uninstallation of resources by executing specific installer components specified in .NET binaries - ATT&CK T1118
+           cmstp.exe,CMSTP Execute: The Microsoft Connection Manager Profile Installer (CMSTP.exe) is a command-line program used to install Connection Manager service profiles. - ATT&CK T1191
+           cmd.exe,Command-Line Interface Execute: CMD execution - ATT&CK T1059
+           cscript.exe,Command-Line Interface Execute: Cscript execution starts a script so that it runs in a command-line environment. - ATT&CK T1216
+           powershell.exe,POWERSHELL Execute: is a powerful interactive command-line interface and scripting environment included in the Windows operating system - ATT&CK T1086
+           regsvr32.exe,POWERSHELL Execute: is a powerful interactive command-line interface and scripting environment included in the Windows operating system - ATT&CK T1117
+           PsExec.exe,PsExec Execute: is a free Microsoft tool that can be used to execute a program on another computer. - ATT&CK T1035:S0029
+           runas.exe,Runas Execute: Allows a user to run specific tools and programs with different permissions than the user's current logon provides. - ATT&CK T1134
+           bitsadmin.exe,Bitsadmin Execute: Windows Background Intelligent Transfer Service (BITS) is a low-bandwidth: asynchronous file transfer mechanism exposed through Component Object Model (COM) - ATT&CK T1197:S0190
+           certutil.exe,Certutil Execute: Certutil.exe is a legitimate built-in command-line program to manage certificates in Windows - ATT&CK T1105:T1140:T1130:S0160
+           netsh.exe,Netsh Execute: Netsh.exe (also referred to as Netshell) is a command-line scripting utility used to interact with the network configuration of a system - ATT&CK T1128:T1063:S0108
+           netstat.exe,Netstat Execute:  is an operating system utility that displays active TCP connections: listening ports: and network statistics. - ATT&CK T1049:S0104
+           reg.exe,Reg Execute: Reg is a Windows utility used to interact with the Windows Registry.  - ATT&CK T1214:T1012:T1063:S0075
+           regedit.exe,Regedit Execute: is a Windows utility used to interact with the Windows Registry. - ATT&CK T1214
+           systeminfo.exe,Systeminfo Execute: Systeminfo is a Windows utility that can be used to gather detailed information about a computer. - ATT&CK T1082:S0096
+           sc.exe,SC.exe Execute: Service Control - Create: Start: Stop: Query or Delete any Windows SERVICE. . - ATT&CK T1007
+
+
+    template: |
+      {{ .Description }}
+
+      The below shows any prefetch files of interest and what they
+      could potentially mean.
+
+      {{ define "query" }}
+         LET lookup <= SELECT * FROM parse_csv(filename=lookupTable, accessor='data')
+      {{ end }}
+
+      {{ define "data"}}
+        LET data <= SELECT * FROM source()
+      {{ end }}
+
+      {{ range (Query "data" "query" "SELECT * FROM lookup") }}
+          {{ $rows := Query (printf "SELECT * FROM source() WHERE Name =~ '%v'" (Get . "signature") ) }}
+          {{ if $rows }}
+
+      ## {{ Get $rows "0.Name" }}
+      Modified on {{ Get $rows "0.ModTime" }}.
+
+      {{ Get . "description" }}
+
+          {{ end }}
+      {{ end }}
+
+      # Timeline
+
+      {{ Query "SELECT modified * 1000, Name FROM foreach(row=lookup, query={ SELECT * FROM data WHERE Name =~ signature})" | Timeline }}
 ```
    {{% /expand %}}
 
@@ -1469,6 +1815,42 @@ sources:
 ```
    {{% /expand %}}
 
+## Windows.Registery.AppCompatCache
+
+Parses the system's app compatibility cache.
+
+
+Arg|Default|Description
+---|------|-----------
+AppCompatCacheKey|HKEY_LOCAL_MACHINE/System/CurrentControlSet/Control/Session Manager/AppCompatCache/AppCompatCache|
+
+{{% expand  "View Artifact Source" %}}
+
+
+```
+name: Windows.Registery.AppCompatCache
+description: |
+  Parses the system's app compatibility cache.
+
+parameters:
+  - name: AppCompatCacheKey
+    default: HKEY_LOCAL_MACHINE/System/CurrentControlSet/Control/Session Manager/AppCompatCache/AppCompatCache
+
+precondition: SELECT OS From info() where OS = 'windows'
+
+sources:
+  - queries:
+      - |
+        SELECT * FROM foreach(
+          row={
+              SELECT Data FROM read_file(
+                  filenames=AppCompatCacheKey, accessor='reg')
+          }, query={
+              SELECT name, epoch, time FROM appcompatcache(value=Data)
+        }) WHERE epoch < 2000000000
+```
+   {{% /expand %}}
+
 ## Windows.Registry.NTUser
 
 This artifact searches for keys or values within the user's
@@ -1486,6 +1868,17 @@ hives to search for the glob provided.
 
 This artifact is designed to be reused by other artifacts that need
 to access user data.
+
+{{% notice note %}}
+
+  Any artifacts that look into the HKEY_USERS registry hive should
+  be using the `Windows.Registry.NTUser` artifact instead of
+  accessing the hive via the API. The API only makes the currently
+  logged in users available in that hive and so if we rely on the
+  windows API we will likely miss any settings for users not
+  currently logged on.
+
+{{% /notice %}}
 
 
 Arg|Default|Description
@@ -1515,9 +1908,23 @@ description: |
   This artifact is designed to be reused by other artifacts that need
   to access user data.
 
+  {{% notice note %}}
+
+    Any artifacts that look into the HKEY_USERS registry hive should
+    be using the `Windows.Registry.NTUser` artifact instead of
+    accessing the hive via the API. The API only makes the currently
+    logged in users available in that hive and so if we rely on the
+    windows API we will likely miss any settings for users not
+    currently logged on.
+
+  {{% /notice %}}
+
+precondition: SELECT OS From info() where OS = 'windows'
+
 parameters:
  - name: KeyGlob
    default: Software\Microsoft\Windows\CurrentVersion\Explorer\ComDlg32\**
+
  - name: UserHomes
    default: C:\Users\*\NTUSER.DAT
 
@@ -1638,6 +2045,111 @@ sources:
 ```
    {{% /expand %}}
 
+## Windows.Registry.UserAssist
+
+Windows systems maintain a set of keys in the registry database
+(UserAssist keys) to keep track of programs that executed. The
+number of executions and last execution date and time are available
+in these keys.
+
+The information within the binary UserAssist values contains only
+statistical data on the applications launched by the user via
+Windows Explorer. Programs launched via the command­line (cmd.exe)
+do not appear in these registry keys.
+
+From a forensics perspective, being able to decode this information
+can be very useful.
+
+
+Arg|Default|Description
+---|------|-----------
+UserFilter||If specified we filter by this user ID.
+ExecutionTimeAfter||If specified only show executions after this time.
+UserAssistKey|Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\UserAssist\\*\\Count\\*|
+userAssistProfile|{\n  "Win10": [0, {\n    "NumeberOfExecutions": [4, ["unsigned int"]],\n    "LastExecution": [60, ["unsigned long long"]]\n  }]\n}\n|
+
+{{% expand  "View Artifact Source" %}}
+
+
+```
+name: Windows.Registry.UserAssist
+description: |
+  Windows systems maintain a set of keys in the registry database
+  (UserAssist keys) to keep track of programs that executed. The
+  number of executions and last execution date and time are available
+  in these keys.
+
+  The information within the binary UserAssist values contains only
+  statistical data on the applications launched by the user via
+  Windows Explorer. Programs launched via the command­line (cmd.exe)
+  do not appear in these registry keys.
+
+  From a forensics perspective, being able to decode this information
+  can be very useful.
+
+reference:
+  - https://www.aldeid.com/wiki/Windows-userassist-keys
+
+precondition: SELECT OS From info() where OS = 'windows'
+
+parameters:
+  - name: UserFilter
+    default: ""
+    description: If specified we filter by this user ID.
+
+  - name: ExecutionTimeAfter
+    default: ""
+    type: timestamp
+    description: If specified only show executions after this time.
+
+  - name: UserAssistKey
+    default: Software\Microsoft\Windows\CurrentVersion\Explorer\UserAssist\*\Count\*
+
+  - name: userAssistProfile
+    default: |
+      {
+        "Win10": [0, {
+          "NumeberOfExecutions": [4, ["unsigned int"]],
+          "LastExecution": [60, ["unsigned long long"]]
+        }]
+      }
+
+sources:
+  - queries:
+      - LET TMP = SELECT rot13(string=regex_replace(
+             source=url(parse=FullPath).Fragment,
+             re="^.+/Count/",
+             replace="")) AS Name,
+             binary_parse(
+               string=Data.value,
+               profile=userAssistProfile,
+               target="Win10"
+             ) As UserAssist,
+             parse_string_with_regex(
+               string=FullPath,
+               regex="Users/(?P<User>[^/]+)/NTUSER").User AS User
+        FROM Artifact.Windows.Registry.NTUser(KeyGlob=UserAssistKey)
+      - LET UserAssist = SELECT Name,
+               User,
+               timestamp(
+                  winfiletime=UserAssist.LastExecution.AsInteger) As LastExecution,
+               timestamp(
+                  winfiletime=UserAssist.LastExecution.AsInteger).Unix AS LastExecutionTS,
+               UserAssist.NumeberOfExecutions.AsInteger AS NumeberOfExecutions
+        FROM TMP
+      - LET A1 = SELECT * FROM if(
+          condition=UserFilter,
+          then={
+            SELECT * FROM UserAssist WHERE User =~ UserFilter
+          }, else=UserAssist)
+      - SELECT * FROM if(
+          condition=ExecutionTimeAfter,
+          then={
+            SELECT * FROM A1 WHERE LastExecutionTS > ExecutionTimeAfter
+          }, else=A1)
+```
+   {{% /expand %}}
+
 ## Windows.Search.FileFinder
 
 Find files on the filesystem using the filename or content.
@@ -1651,7 +2163,7 @@ content. To minimize the impact on the endpoint we recommend this
 artifact is collected with a rate limited way (about 20-50 ops per
 second).
 
-This artifact is usefull in the following scenarios:
+This artifact is useful in the following scenarios:
 
   * We need to locate all the places on our network where customer
     data has been copied.
@@ -1674,7 +2186,7 @@ Arg|Default|Description
 ---|------|-----------
 SearchFilesGlob|C:\\Users\\**|Use a glob to define the files that will be searched.
 Keywords|None|A comma delimited list of strings to search for.
-Use_Raw_NTFS|Y|
+Use_Raw_NTFS|N|
 Upload_File|N|
 Calculate_Hash|N|
 MoreRecentThan||
@@ -1697,7 +2209,7 @@ description: |
   artifact is collected with a rate limited way (about 20-50 ops per
   second).
 
-  This artifact is usefull in the following scenarios:
+  This artifact is useful in the following scenarios:
 
     * We need to locate all the places on our network where customer
       data has been copied.
@@ -1729,7 +2241,7 @@ parameters:
     description: A comma delimited list of strings to search for.
 
   - name: Use_Raw_NTFS
-    default: Y
+    default: N
     type: bool
 
   - name: Upload_File
@@ -1752,54 +2264,66 @@ parameters:
 sources:
   - queries:
     - |
-      LET ntfs_search = SELECT FullPath,
-               Sys.mft as Inode,
-               Mode.String AS Mode, Size,
-               Mtime.Sec AS Modified,
-               timestamp(epoch=Atime.Sec) AS ATime,
-               timestamp(epoch=Mtime.Sec) AS MTime,
-               timestamp(epoch=Ctime.Sec) AS CTime,
-               if(condition=(Upload_File = "Y" and NOT IsDir ),
-                  then=upload(file=FullPath, accessor="ntfs")) AS Upload,
-               if(condition=(Calculate_Hash = "Y" and NOT IsDir ),
-                  then=hash(path=FullPath, accessor="ntfs")) AS Hash
-        FROM glob(globs=SearchFilesGlob, accessor="ntfs")
-
-    - |
       LET file_search = SELECT FullPath,
                Sys.mft as Inode,
                Mode.String AS Mode, Size,
                Mtime.Sec AS Modified,
                timestamp(epoch=Atime.Sec) AS ATime,
                timestamp(epoch=Mtime.Sec) AS MTime,
-               timestamp(epoch=Ctime.Sec) AS CTime,
-               if(condition=(Upload_File = "Y" and NOT IsDir ),
-                  then=upload(file=FullPath, accessor="file")) AS Upload,
-               if(condition=(Calculate_Hash = "Y" and NOT IsDir ),
-                  then=hash(path=FullPath, accessor="file")) AS Hash
-        FROM glob(globs=SearchFilesGlob, accessor="file")
-
-    - |
-      LET combined_search = SELECT * FROM if(
-        condition=(Use_Raw_NTFS = "Y"),
-        then=ntfs_search,
-        else=file_search)
+               timestamp(epoch=Ctime.Sec) AS CTime, IsDir
+        FROM glob(globs=SearchFilesGlob,
+                  accessor=if(condition=Use_Raw_NTFS = "Y",
+                              then="ntfs", else="file"))
 
     - |
       LET more_recent = SELECT * FROM if(
         condition=MoreRecentThan,
         then={
-          SELECT * FROM combined_search
-          WHERE Modified > atoi(string=MoreRecentThan)
-        }, else=combined_search)
+          SELECT * FROM file_search
+          WHERE Modified > parse_float(string=MoreRecentThan)
+        }, else=file_search)
 
     - |
-      SELECT * FROM if(
+      LET modified_before = SELECT * FROM if(
         condition=ModifiedBefore,
         then={
           SELECT * FROM more_recent
-          WHERE Modified < atoi(string=ModifiedBefore)
+          WHERE Modified < parse_float(string=ModifiedBefore)
         }, else=more_recent)
+
+    - |
+      LET keyword_search = SELECT * FROM if(
+        condition=Keywords,
+        then={
+          SELECT * FROM foreach(
+            row={
+               SELECT * FROM modified_before
+            },
+            query={
+               SELECT FullPath, Inode, Mode,
+                      Size, Modified, ATime, MTime, CTime,
+                      str(str=String.Data) As Keywords
+
+               FROM yara(files=FullPath,
+                         key=Keywords,
+                         rules="wide nocase ascii:"+Keywords,
+                         accessor=if(condition=Use_Raw_NTFS = "Y",
+                                          then="ntfs", else="file"))
+            })
+        }, else=modified_before)
+
+    - |
+      SELECT FullPath, Inode, Mode, Size, Modified, ATime,
+             MTime, CTime, Keywords,
+               if(condition=(Upload_File = "Y" and NOT IsDir ),
+                  then=upload(file=FullPath,
+                              accessor=if(condition=Use_Raw_NTFS = "Y",
+                                          then="ntfs", else="file"))) AS Upload,
+               if(condition=(Calculate_Hash = "Y" and NOT IsDir ),
+                  then=hash(path=FullPath,
+                            accessor=if(condition=Use_Raw_NTFS = "Y",
+                                        then="ntfs", else="file"))) AS Hash
+      FROM keyword_search
 ```
    {{% /expand %}}
 
