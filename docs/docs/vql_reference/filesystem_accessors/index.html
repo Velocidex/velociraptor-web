@@ -5,7 +5,7 @@
     
       <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<title>Velociraptor Blog :: Velociraptor - Digging Deeper!</title>
+<title>Filesystem Accessors :: Velociraptor - Digging Deeper!</title>
 <link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon" />
 <link rel="stylesheet" href="/css/bootstrap.min.css">
 <link href="/css/nucleus.css" rel="stylesheet">
@@ -30,7 +30,7 @@
 
     
   </head>
-  <body data-url="/blog/">
+  <body data-url="/docs/vql_reference/filesystem_accessors/">
     
       <div id="headermain"></div>
 <nav id="sidebar" class="">
@@ -89,10 +89,11 @@
     </li>
         </ul>
     </li>
-    <li data-nav-id="/docs/" class="dd-item haschildren
+    <li data-nav-id="/docs/" class="dd-item parent haschildren
         ">
       <div>
-      <a href="/docs/">Velociraptor Documentation</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      <a href="/docs/">Velociraptor Documentation</a>
+            <i class="fa fa-angle-down fa-lg category-icon"></i>
       </div>
         <ul>
     <li data-nav-id="/docs/getting-started/" class="dd-item haschildren
@@ -211,10 +212,11 @@
           </a>
         </div>
     </li>
-    <li data-nav-id="/docs/vql_reference/" class="dd-item haschildren
+    <li data-nav-id="/docs/vql_reference/" class="dd-item parent haschildren
         ">
       <div>
-      <a href="/docs/vql_reference/">VQL Reference</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      <a href="/docs/vql_reference/">VQL Reference</a>
+            <i class="fa fa-angle-down fa-lg category-icon"></i>
       </div>
         <ul>
       <li data-nav-id="/docs/vql_reference/plugins/" class="dd-item">
@@ -259,7 +261,7 @@
           </a>
         </div>
     </li>
-      <li data-nav-id="/docs/vql_reference/filesystem_accessors/" class="dd-item">
+      <li data-nav-id="/docs/vql_reference/filesystem_accessors/" class="dd-item active">
         <div>
           <a href="/docs/vql_reference/filesystem_accessors/">
             Filesystem Accessors
@@ -363,11 +365,10 @@
     </li>
         </ul>
     </li>
-    <li data-nav-id="/blog/" class="dd-item parent active haschildren
+    <li data-nav-id="/blog/" class="dd-item haschildren
         ">
       <div>
-      <a href="/blog/">Velociraptor Blog</a>
-            <i class="fa fa-angle-down fa-lg category-icon"></i>
+      <a href="/blog/">Velociraptor Blog</a><i class="fa fa-angle-right fa-lg category-icon"></i>
       </div>
         <ul>
       <li data-nav-id="/blog/html/2018/08/10/browsing_around_the_filesystem.html" class="dd-item">
@@ -567,7 +568,17 @@
 
 
 
- <a href='/'>Velociraptor - Digging Deeper!</a> > Velociraptor Blog
+
+
+
+
+
+
+ <a href='/'>Velociraptor - Digging Deeper!</a> > <a href='/docs/'>Velociraptor Documentation</a> > <a href='/docs/vql_reference/'>VQL Reference</a> > Filesystem Accessors
+
+ 
+
+ 
 
  
 
@@ -578,7 +589,26 @@
     
     <div class="progress">
         <div class="wrapper">
-    
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#filesystem-accessors">Filesystem Accessors</a></li>
+<li><a href="#simple-filesystem-accessors">Simple filesystem accessors</a>
+<ul>
+<li><a href="#the-file-accessor">The file accessor</a></li>
+<li><a href="#the-ntfs-accessor">The ntfs accessor</a></li>
+<li><a href="#the-registry-accessor">The registry accessor</a></li>
+</ul></li>
+<li><a href="#other-filesystem-accessors">Other filesystem accessors</a>
+<ul>
+<li><a href="#the-data-accessor">The data accessor</a></li>
+<li><a href="#the-zip-accessor">The zip accessor</a></li>
+<li><a href="#the-raw-reg-accessor">The raw_reg accessor</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
         </div>
     </div>
     
@@ -588,7 +618,7 @@
 
 <div id="body-inner">
   
-    <h1>Velociraptor Blog</h1>
+    <h1>Filesystem Accessors</h1>
   
 
 
@@ -596,215 +626,144 @@
     
     
     
+    
 
+<h2 id="filesystem-accessors">Filesystem Accessors</h2>
 
+<p>Many VQL plugins operate on files. However how we read files on the
+endpoint can vary - depending on what we actually mean by a file. For
+example, Velociraptor is able to read files parsed from the NTFS
+parser, compressed files within Zip archives, or even files downloaded
+from a URL. VQL specifies the way a file is read via an <code>accessor</code>
+(essentially a file access driver), and a <code>path</code> which encodes how the
+accessor will actually access the file.</p>
 
-<div class="extra-pagination inner">
-<nav class="pagination" role="navigation">
-	
-	<span class="page-number">Page 1 of 3</span>
-	
-	    <a class="older-posts" href="/blog/page/2/">Next Pages &rarr;</a>
-	
-</nav>
+<h2 id="simple-filesystem-accessors">Simple filesystem accessors</h2>
 
+<h3 id="the-file-accessor">The file accessor</h3>
+
+<p>The <code>file</code> accessor uses the normal OS filesystem APIs to access files
+and directories.</p>
+
+<p>The limitations with this method is that some files are locked if they
+are in use and we are not able to read them. For example, the registry
+hives or the page file.</p>
+
+<p>The path parameter is passed directly to the filesystem
+APIs. Velociraptor supports both forward and reverse slashes on all
+supported operating systems.</p>
+
+<div class="notices note" ><p>On windows, Velociraptor emulates the top level directory as a list
+   of available drives. For example, listing the &ldquo;/&rdquo; directory will
+   yield directories such as &ldquo;C:&ldquo;, &ldquo;D:&rdquo; etc. Therefore Velociraptor
+   paths always have a / at the top level, typically followed by a
+   drive letter then the rest of the path.</p>
 </div>
 
 
-   <article class="post blog">
-    <header class="post-header">
-        <h2 class="post-title"><a href="/blog/html/2018/08/10/browsing_around_the_filesystem.html">Browsing around the filesystem.</a></h2>
-    </header>
-    <section class="post-excerpt">
-        <p>The Virtual File System Like GRR, Velociraptor also maintains a virtual file system view (VFS) of the client's filesystem. GRR's VFS view is generated by adding a row for each file into the database. In order to refresh the view of a certain directory, GRR issues a ListDirectory request and updates the database by storing each newly discovered file in its own row.
-Velociraptor models the client's VFS as a per-directory VQL query. <a class="read-more" href="/blog/html/2018/08/10/browsing_around_the_filesystem.html">&raquo;</a></p>
-    </section>
-    <footer class=" footline" >
-         
-        
+<h3 id="the-ntfs-accessor">The ntfs accessor</h3>
 
-        
-        
+<p>The <code>ntfs</code> accessor uses Velociraptor&rsquo;s built in NTFS parser to
+extract directory information and file contents.</p>
 
-    </footer>
-</article>
+<p>This bypasses the normal file locking mechanism and allows us to
+download and read locked files like registry hives.</p>
 
-   <article class="post blog">
-    <header class="post-header">
-        <h2 class="post-title"><a href="/blog/html/2019/03/02/agentless_hunting_with_velociraptor.html">Agentless hunting with Velociraptor</a></h2>
-    </header>
-    <section class="post-excerpt">
-        <p>There has been a lot of interest lately in Agentless hunting especially using PowerShell. There are many reasons why Agentless hunting is appealing - there are already a ton of endpoint agents and yet another one may not be welcome. Somtimes we need to deploy endpoint agents as part of a DFIR engagement and we may not want to permanently install yet another agent on end points.
-This blog post explores an agentless deployment scenario, where we do not want to install Velociraptor permanently on the end point, but rather push it to end points temporarily to collect specific artifacts. <a class="read-more" href="/blog/html/2019/03/02/agentless_hunting_with_velociraptor.html">&raquo;</a></p>
-    </section>
-    <footer class=" footline" >
-         
-        
+<p>The path is interpreted as a raw device, followed by an NTFS path. For
+example the path <code>\\.\c:\Windows\System32</code> refers to the System32
+directory as parsed by the ntfs parser from the raw device
+<code>\\.\c:</code>. Supported raw devices include volume shadow copies (VSC) as
+well.</p>
 
-        
-        
+<p>As a convenience, the ntfs accessor recognizes a drive letter and
+automatically maps it to the raw device. I.e. the following patths are
+equivalent <code>\\.\c:\Windows</code> and <code>C:\Windows</code>.</p>
 
-    </footer>
-</article>
+<p>Listing the top level directory will display all physical drives and
+Volume Shadow Copies available on the machine.</p>
 
-   <article class="post blog">
-    <header class="post-header">
-        <h2 class="post-title"><a href="/blog/html/2019/02/14/alerting_on_event_patterns.html">Alerting on event patterns</a></h2>
-    </header>
-    <section class="post-excerpt">
-        <p>Alerting on event patterns We have shown in earlier posts how Velociraptor uses VQL to define event queries that can detect specific conditions. These conditions can be used to create alerts and escalation actions.
-One of the most useful types of alerts is detecting a pattern of activity. For example we can detect failed and successful login attempts seperately, but it is the specific pattern of events (say 5 failed login attempts followed by a successful one) that is interesting from a detection point of view. <a class="read-more" href="/blog/html/2019/02/14/alerting_on_event_patterns.html">&raquo;</a></p>
-    </section>
-    <footer class=" footline" >
-         
-        
-
-        
-        
-
-    </footer>
-</article>
-
-   <article class="post blog">
-    <header class="post-header">
-        <h2 class="post-title"><a href="/blog/html/2019/02/10/velociraptor_performance.html">Velociraptor Performance</a></h2>
-    </header>
-    <section class="post-excerpt">
-        <p>Velociraptor Performance We are often asked how many resources does a Velociraptor deployment use? How should one spec a machine for a Velociraptor deployment?
-We have previously said that one of the reasons we developed Velociraptor was to improve on the performance of GRR which was not scalable for our use case.
-We've been working with the team at Klein &amp; Co. on several intrusions over the past several months, which are providing valuable opportunities to deploy and test Velociraptor in a range of real world investigation scenarios. <a class="read-more" href="/blog/html/2019/02/10/velociraptor_performance.html">&raquo;</a></p>
-    </section>
-    <footer class=" footline" >
-         
-        
-
-        
-        
-
-    </footer>
-</article>
-
-   <article class="post blog">
-    <header class="post-header">
-        <h2 class="post-title"><a href="/blog/html/2019/02/09/velociraptor_python_api.html">The Velociraptor Python API</a></h2>
-    </header>
-    <section class="post-excerpt">
-        <p>Velociraptor is very good at collecting artifacts from endpoints. However, in modern DFIR work, the actual collection is only the first step of a much more involved process. Typically we want to post process data using more advanced data mining tools (such as data stacking). Velociraptor usually is only a part of a wider solution which might include a SIEM and SOC integration.
-In order to facilitate interoperability with other tools, Velociraptor now offers an external API. <a class="read-more" href="/blog/html/2019/02/09/velociraptor_python_api.html">&raquo;</a></p>
-    </section>
-    <footer class=" footline" >
-         
-        
-
-        
-        
-
-    </footer>
-</article>
-
-   <article class="post blog">
-    <header class="post-header">
-        <h2 class="post-title"><a href="/blog/html/2018/09/03/velociraptor_s_client_communications.html">Velociraptor&#39;s client communications</a></h2>
-    </header>
-    <section class="post-excerpt">
-        <p>How does the GRR client communicate? The GRR client protocol is depicted below.
-Due to network realities such as NAT, firewalls etc, it is not possible to directly connect to the client, so GRR relies on the client connecting to the server in order to communicate with it.
-The GRR client makes periodic POST requests to the server to both send replies and receive new instructions. Since POST requests are very short lived (most client polls carry no data) the client has to repeat the polls periodically. <a class="read-more" href="/blog/html/2018/09/03/velociraptor_s_client_communications.html">&raquo;</a></p>
-    </section>
-    <footer class=" footline" >
-         
-        
-
-        
-        
-
-    </footer>
-</article>
-
-   <article class="post blog">
-    <header class="post-header">
-        <h2 class="post-title"><a href="/blog/html/2018/12/23/deploying_velociraptor_with_oauth_sso.html">Deploying Velociraptor with OAuth SSO</a></h2>
-    </header>
-    <section class="post-excerpt">
-        <p>In the previous post we saw how to set up Velociraptor's GUI over SSL. This is great, but we still need to create users and assign them passwords manually. The trouble with user account management is that we can not enforce 2 factor authentication, or any password policies or any of the usual enterprise requirements for user account management. It is also difficult for users to remember yet another password for a separate system, and so might make the password easily guessable. <a class="read-more" href="/blog/html/2018/12/23/deploying_velociraptor_with_oauth_sso.html">&raquo;</a></p>
-    </section>
-    <footer class=" footline" >
-         
-        
-
-        
-        
-
-    </footer>
-</article>
-
-   <article class="post blog">
-    <header class="post-header">
-        <h2 class="post-title"><a href="/blog/html/2018/12/22/configuring_velociraptor_for_ssl.html">Configuring Velociraptor for SSL</a></h2>
-    </header>
-    <section class="post-excerpt">
-        <p>We have previously seen how to deploy a new Velociraptor server. For a simple deployment we can have Velociraptor server and clients provisioned in minutes.
-Usually we deploy a specific Velociraptor deployment on our DFIR engagements. We use cloud resources to provision the server and have the clients connect to this cloud VM. A proper secure deployment of Velociraptor will use SSL for securing both client communication and protecting the web GUI. <a class="read-more" href="/blog/html/2018/12/22/configuring_velociraptor_for_ssl.html">&raquo;</a></p>
-    </section>
-    <footer class=" footline" >
-         
-        
-
-        
-        
-
-    </footer>
-</article>
-
-   <article class="post blog">
-    <header class="post-header">
-        <h2 class="post-title"><a href="/blog/html/2018/12/11/velociraptor_interactive_shell.html">Velociraptor Interactive Shell</a></h2>
-    </header>
-    <section class="post-excerpt">
-        <p>One of the interesting new features in the latest release of Velociraptor is an interactive shell. One can interact with the end point over the standard Velociraptor communication mechanism - an encrypted and authenticated channel.
-This feature is implemented by utilizing the Velociraptor event monitoring, server side VQL queries. This post explores how these components come together to deliver a responsive, interactive workflow.
-Endpoint shell access Although we generally try to avoid it, sometimes the easiest way to extract certain information is to run a command and parse its output. <a class="read-more" href="/blog/html/2018/12/11/velociraptor_interactive_shell.html">&raquo;</a></p>
-    </section>
-    <footer class=" footline" >
-         
-        
-
-        
-        
-
-    </footer>
-</article>
-
-   <article class="post blog">
-    <header class="post-header">
-        <h2 class="post-title"><a href="/blog/html/2018/12/10/server_side_vql_queries_and_events.html">Server side VQL queries and Escalation Events</a></h2>
-    </header>
-    <section class="post-excerpt">
-        <p>Previously we have seen how Velociraptor collects information from end points using Velociraptor artifacts. These artifacts encapsulate user created queries using the Velociraptor Query Language (VQL). The power of VQL is that it provides for a very flexible way of specifying exactly what should be collected from the client and how - without needing to modify client code or deploy new clients!
-This is not the whole story though! It is also possible to run VQL queries on the server side! <a class="read-more" href="/blog/html/2018/12/10/server_side_vql_queries_and_events.html">&raquo;</a></p>
-    </section>
-    <footer class=" footline" >
-         
-        
-
-        
-        
-
-    </footer>
-</article>
+<div class="notices note" ><p>The backslash character is considered the path separator only for
+paths following the device name. Supported device names include the
+backslash as part of thier name. For example, listing the top level
+directory will show <code>\\.\c:</code> as a single device, even though it
+contains backslashs.</p>
+</div>
 
 
-<div style="margin-bottom:2rem"></div>
+<h3 id="the-registry-accessor">The registry accessor</h3>
 
-<nav class="pagination" role="navigation">
-	
-	<span class="page-number">Page 1 of 3</span>
-	
-	    <a class="older-posts" href="/blog/page/2/">Next Pages &rarr;</a>
-	
-</nav>
+<p>The <code>registry</code> accessor uses the OS APIs to view the registry as a
+filesystem. You can use this to navigate the endpoint&rsquo;s registry hives
+interactively.</p>
+
+<p>Since registry values are typically small, Velociraptor also gets the
+values in the directory listing as well, so it is not usually
+necessary to download files from the registry hive.</p>
+
+<div class="notices note" ><p>The Windows registry differs from a regular filesystem in that Key names may have forward slash, and value names may contain both forward and backward slashes. Therefore it is difficult to properly split a path into the correct key and value. Velociraptor treats a path as a list of components. Velociraptor will surround component names with quotes if they contain slashes to allow the path to be broken back into components. For example, <code>HKEY_CURRENT_USER\Software\Microsoft\Office\16.0\Word\Security\Trusted Documents\TrustRecords\&quot;%USERPROFILE%/Desktop/test.docx&quot;</code> represents the value named <code>%USERPROFILE%/Desktop/test.docx</code>.</p>
+</div>
 
 
+<h2 id="other-filesystem-accessors">Other filesystem accessors</h2>
+
+<h3 id="the-data-accessor">The data accessor</h3>
+
+<p>Sometimes it is necessary to pass a string to a plugin which expects a
+filename (for example <code>yara()</code> plugin. In this case it is possible to
+specify the <code>data</code> accessor which creates an in memory file from the
+filename path passed to it.</p>
+
+<h3 id="the-zip-accessor">The zip accessor</h3>
+
+<p>Zip files contain compressed members. It is sometimes useful to be
+able to treat members of the zip archive as simple files, then we can
+scan or list them using other plugins.</p>
+
+<p>The <code>zip</code> accessor makes that possible. However the accessor requires
+an underlying file to actually unzip. Therefore the <code>zip</code> accessor
+requires a url:</p>
+
+<ul>
+<li><p>The scheme part is used to specify the underlying accessor to access
+the zip file.</p></li>
+
+<li><p>The path part is used to specify the path to pass to the underlying
+accessor.</p></li>
+
+<li><p>The fragment part is used to specify the path within the zip file to
+access.</p></li>
+</ul>
+
+<div class="notices tip" ><p>Do not attempt to construct the url by manually concatenating parts
+because this does not properly handle escaping. Instead use the
+<code>url()</code> function. For example <code>url(scheme='ntfs',
+path=&quot;C:/Users/Test/my.zip&quot;, fragment=&quot;1.txt&quot;).String</code> will produce
+the required url: <code>ntfs://C:/Users/Test/my.zip#1.txt</code> to access the
+file 1.txt within the my.zip file as extracted by the ntfs raw parser.</p>
+</div>
+
+
+<h3 id="the-raw-reg-accessor">The raw_reg accessor</h3>
+
+<p>Parsing of raw registry hives is provided by the <code>raw_reg</code>
+accessor. Similarly to the zip accessor above, the <code>raw_reg</code> accessor
+requires an undelying file to read. Therefore it also requires a path
+formatted as a url:</p>
+
+<ul>
+<li><p>The scheme part is used to specify the underlying accessor to access
+the raw registry hive file.</p></li>
+
+<li><p>The path part is used to specify the path to pass to the underlying
+accessor.</p></li>
+
+<li><p>The fragment part is used to specify the key or value within the
+registry hive to access.</p></li>
+</ul>
+
+<p>Note that this accessor usually requires an underlying file that is
+accessed by the raw NTFS parser (since registry hives are locked at
+runtime).</p>
 
 
     
@@ -816,8 +775,8 @@ This is not the whole story though! It is also possible to run VQL queries on th
 </div>
 
 <div id="navigation">
-<a class="nav nav-prev" href="/docs/tutorial/" title="Tutorial"> <i class="fa fa-chevron-left"></i><label>Tutorial</label></a>
-    <a class="nav nav-next" href="/blog/html/2018/08/10/browsing_around_the_filesystem.html" title="Browsing around the filesystem." style="margin-right: 0px;"><label>Browsing around the filesystem.</label><i class="fa fa-chevron-right"></i></a></div>
+<a class="nav nav-prev" href="/docs/vql_reference/tips/" title="Artifact Tips"> <i class="fa fa-chevron-left"></i><label>Artifact Tips</label></a>
+    <a class="nav nav-next" href="/docs/artifacts/" title="Artifact Reference" style="margin-right: 0px;"><label>Artifact Reference</label><i class="fa fa-chevron-right"></i></a></div>
 
 </section>
 <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">

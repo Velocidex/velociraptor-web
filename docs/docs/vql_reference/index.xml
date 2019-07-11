@@ -72,5 +72,14 @@ Develop artifacts locally Although the Velociraptor GUI allows to change the art
 Simply create a directory where you store your custom artifact, and run the artifact collector with that directory specified.</description>
     </item>
     
+    <item>
+      <title>Filesystem Accessors</title>
+      <link>/docs/vql_reference/filesystem_accessors/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/vql_reference/filesystem_accessors/</guid>
+      <description>Filesystem Accessors Many VQL plugins operate on files. However how we read files on the endpoint can vary - depending on what we actually mean by a file. For example, Velociraptor is able to read files parsed from the NTFS parser, compressed files within Zip archives, or even files downloaded from a URL. VQL specifies the way a file is read via an accessor (essentially a file access driver), and a path which encodes how the accessor will actually access the file.</description>
+    </item>
+    
   </channel>
 </rss>
