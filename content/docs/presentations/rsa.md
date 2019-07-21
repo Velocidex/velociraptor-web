@@ -11,7 +11,7 @@ At the 2019 RSA Asia Pacific and Japan conference we
 ran a short Velociraptor LAB and also presented a talk. We really
 enjoyed receiving a lot of positive feedback from the community.
 
-{{%expand "View the hands on LAB we presented as RSA" %}}
+{{%expand "View the hands on LAB we presented at RSA" %}}
   {{< pdf "/resources/RSA APJ Lab (LAB-T05_Cohen).pdf" >}}
 {{% /expand%}}
 
