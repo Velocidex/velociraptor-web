@@ -43,10 +43,9 @@
       
 	
   
-    <p><a href="/">
+    <a href="/">
   <img src="/images/logo.svg">
-</a></p>
-
+</a>
   
 
 
@@ -340,17 +339,24 @@
       <a href="/docs/presentations/">Presentations and Workshops</a><i class="fa fa-angle-right fa-lg category-icon"></i>
       </div>
         <ul>
+      <li data-nav-id="/docs/presentations/rsa/" class="dd-item">
+        <div>
+          <a href="/docs/presentations/rsa/">
+            RSA APJ 2019
+          </a>
+        </div>
+    </li>
       <li data-nav-id="/docs/presentations/crikeycon2019/" class="dd-item">
         <div>
           <a href="/docs/presentations/crikeycon2019/">
-            Crikeycon 2019 Training Workshop
+            Crikeycon 2019
           </a>
         </div>
     </li>
       <li data-nav-id="/docs/presentations/nzitf2018/" class="dd-item">
         <div>
           <a href="/docs/presentations/nzitf2018/">
-            NZITF2018
+            NZITF 2018
           </a>
         </div>
     </li>
@@ -665,7 +671,11 @@ process memory is dumped and uploaded to the server.</p>
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-<pre><code>name: Windows.Detection.ProcessMemory
+
+
+
+```
+name: Windows.Detection.ProcessMemory
 description: |
   Scanning process memory for signals is powerfull technique. This
   artifact scans processes for a yara signature and when detected, the
@@ -680,8 +690,8 @@ parameters:
     default: |
       rule Process {
          strings:
-           $a = &quot;this is a secret&quot; nocase wide
-           $b = &quot;this is a secret&quot; nocase
+           $a = "this is a secret" nocase wide
+           $b = "this is a secret" nocase
          condition:
            any of them
       }
@@ -709,8 +719,8 @@ sources:
                    upload(file=FullPath) as CrashDump
             FROM proc_dump(pid=Pid)
           })
-</code></pre>
-
+```
+   
     </div>
 </div>
 
@@ -751,7 +761,11 @@ original psexec binary.</p>
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-<pre><code>name: Windows.Detection.PsexecService
+
+
+
+```
+name: Windows.Detection.PsexecService
 description: |
   PSExec works by installing a new service in the system. The service
   can be renamed using the -r flag and therefore it is not enough to
@@ -766,8 +780,8 @@ parameters:
     default: |
       rule PsExec {
         strings:
-          $a = &quot;psexec&quot; nocase
-          $b = &quot;psexec&quot; nocase wide
+          $a = "psexec" nocase
+          $b = "psexec" nocase wide
 
         condition:
           any of them
@@ -786,16 +800,16 @@ sources:
                Parse.TargetInstance.PathName As PathName,
                Parse.TargetInstance.ServiceType As ServiceType
         FROM wmi_events(
-           query=&quot;SELECT * FROM __InstanceCreationEvent WITHIN 1 WHERE TargetInstance ISA 'Win32_Service'&quot;,
+           query="SELECT * FROM __InstanceCreationEvent WITHIN 1 WHERE TargetInstance ISA 'Win32_Service'",
            wait=5000000,
-           namespace=&quot;ROOT/CIMV2&quot;)
+           namespace="ROOT/CIMV2")
 
       - |
         SELECT * FROM foreach(
           row=service_creation,
           query=file_scan)
-</code></pre>
-
+```
+   
     </div>
 </div>
 
@@ -843,7 +857,11 @@ many files.</p>
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-<pre><code>name: Windows.Detection.Thumbdrives.List
+
+
+
+```
+name: Windows.Detection.Thumbdrives.List
 description: |
   Users inserting Thumb drives or other Removable drive pose a
   constant security risk. The external drive may contain malware or
@@ -863,7 +881,7 @@ type: CLIENT_EVENT
 parameters:
   - name: maxDriveSize
     description: We ignore removable drives larger than this size in bytes.
-    default: &quot;32000000000&quot;
+    default: "32000000000"
 
 
 sources:
@@ -871,15 +889,15 @@ sources:
       - |
         LET removable_disks = SELECT Name AS Drive,
             atoi(string=Data.Size) AS Size
-        FROM glob(globs=&quot;/*&quot;, accessor=&quot;file&quot;)
-        WHERE Data.Description =~ &quot;Removable&quot; AND
-           Size &lt; atoi(string=maxDriveSize)
+        FROM glob(globs="/*", accessor="file")
+        WHERE Data.Description =~ "Removable" AND
+           Size < atoi(string=maxDriveSize)
 
       - |
         LET file_listing = SELECT FullPath,
             timestamp(epoch=Mtime.Sec) As Modified,
             Size
-        FROM glob(globs=Drive+&quot;\\**&quot;, accessor=&quot;file&quot;)
+        FROM glob(globs=Drive+"\\**", accessor="file")
         LIMIT 1000
 
       - |
@@ -889,11 +907,11 @@ sources:
                  row=removable_disks,
                  query=file_listing)
           },
-          key=&quot;FullPath&quot;,
+          key="FullPath",
           period=10)
-          WHERE Diff = &quot;added&quot;
-</code></pre>
-
+          WHERE Diff = "added"
+```
+   
     </div>
 </div>
 
@@ -946,7 +964,11 @@ many files.</p>
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-<pre><code>name: Windows.Detection.Thumbdrives.OfficeKeywords
+
+
+
+```
+name: Windows.Detection.Thumbdrives.OfficeKeywords
 description: |
   Users inserting Thumb drives or other Removable drive pose a
   constant security risk. The external drive may contain malware or
@@ -964,14 +986,14 @@ type: CLIENT_EVENT
 
 parameters:
   - name: officeExtensions
-    default: &quot;\\.(xls|xlsm|doc|docx|ppt|pptm)$&quot;
+    default: "\\.(xls|xlsm|doc|docx|ppt|pptm)$"
   - name: yaraRule
     description: This yara rule will be run on document contents.
     default: |
       rule Hit {
         strings:
-          $a = &quot;this is my secret&quot; wide nocase
-          $b = &quot;this is my secret&quot; nocase
+          $a = "this is my secret" wide nocase
+          $b = "this is my secret" nocase
 
         condition:
           any of them
@@ -987,10 +1009,10 @@ sources:
           },
           query = {
             SELECT * FROM Artifact.Generic.Applications.Office.Keywords(
-              yaraRule=yaraRule, searchGlob=FullPath, documentGlobs=&quot;&quot;)
+              yaraRule=yaraRule, searchGlob=FullPath, documentGlobs="")
           })
-</code></pre>
-
+```
+   
     </div>
 </div>
 
@@ -1036,7 +1058,11 @@ many files.</p>
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-<pre><code>name: Windows.Detection.Thumbdrives.OfficeMacros
+
+
+
+```
+name: Windows.Detection.Thumbdrives.OfficeMacros
 description: |
   Users inserting Thumb drives or other Removable drive pose a
   constant security risk. The external drive may contain malware or
@@ -1053,7 +1079,7 @@ type: CLIENT_EVENT
 
 parameters:
   - name: officeExtensions
-    default: &quot;\\.(xls|xlsm|doc|docx|ppt|pptm)$&quot;
+    default: "\\.(xls|xlsm|doc|docx|ppt|pptm)$"
 
 sources:
   - queries:
@@ -1066,8 +1092,8 @@ sources:
           query = {
             SELECT * from olevba(file=FullPath)
           })
-</code></pre>
-
+```
+   
     </div>
 </div>
 
@@ -1093,7 +1119,11 @@ Win32_Process WMI object.</p>
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-<pre><code>name: Windows.Detection.WMIProcessCreation
+
+
+
+```
+name: Windows.Detection.WMIProcessCreation
 description: |
   WMI Process creation is a common lateral movement technique. The
   attacker simply uses WMI to call the Create() method on the
@@ -1103,19 +1133,19 @@ description: |
 
   ```bash
   wmic process call create cmd.exe
-</code></pre>
+  ```
 
-<p>type: CLIENT_EVENT</p>
+type: CLIENT_EVENT
 
-<p>sources:
+sources:
   - queries:
       - |
         SELECT Parse from wmi_events(
-          query=&ldquo;SELECT * FROM MSFT_WmiProvider_ExecMethodAsyncEvent_Pre WHERE ObjectPath=\&ldquo;Win32_Process\&rdquo; AND MethodName=\&ldquo;Create\&ldquo;&rdquo;,
-          namespace=&ldquo;ROOT/CIMV2&rdquo;,
+          query="SELECT * FROM MSFT_WmiProvider_ExecMethodAsyncEvent_Pre WHERE ObjectPath=\"Win32_Process\" AND MethodName=\"Create\"",
+          namespace="ROOT/CIMV2",
           wait=50000000)
-```</p>
-
+```
+   
     </div>
 </div>
 
@@ -1156,7 +1186,11 @@ same time (with the same privileges).</p>
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-<pre><code>name: Windows.Persistence.Debug
+
+
+
+```
+name: Windows.Persistence.Debug
 description: |
   Windows allows specific configuration of various executables via a
   registry key. Some keys allow defining a debugger to attach to a
@@ -1179,8 +1213,8 @@ sources:
                Debugger FROM read_reg_key(
                   globs=imageFileExecutionOptions)
         WHERE Debugger
-</code></pre>
-
+```
+   
     </div>
 </div>
 
@@ -1221,7 +1255,11 @@ the machine for example.</p>
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-<pre><code>name: Windows.Persistence.PermanentWMIEvents
+
+
+
+```
+name: Windows.Persistence.PermanentWMIEvents
 description: |
    Malware often registers a permanent event listener within WMI. When
    the event fires, the WMI system itself will invoke the consumer to
@@ -1235,36 +1273,36 @@ parameters:
 
 sources:
  - precondition:
-     SELECT OS from info() where OS = &quot;windows&quot;
+     SELECT OS from info() where OS = "windows"
    queries:
    - |
      LET FilterToConsumerBinding = SELECT parse_string_with_regex(
         string=Consumer,
-        regex=['((?P&lt;namespace&gt;^[^:]+):)?(?P&lt;Type&gt;.+?)\\.Name=&quot;(?P&lt;Name&gt;.+)&quot;']) as Consumer,
+        regex=['((?P<namespace>^[^:]+):)?(?P<Type>.+?)\\.Name="(?P<Name>.+)"']) as Consumer,
           parse_string_with_regex(
         string=Filter,
-        regex=['((?P&lt;namespace&gt;^[^:]+):)?(?P&lt;Type&gt;.+?)\\.Name=&quot;(?P&lt;Name&gt;.+)&quot;']) as Filter
+        regex=['((?P<namespace>^[^:]+):)?(?P<Type>.+?)\\.Name="(?P<Name>.+)"']) as Filter
      FROM wmi(
-         query=&quot;SELECT * FROM __FilterToConsumerBinding&quot;,
+         query="SELECT * FROM __FilterToConsumerBinding",
          namespace=namespace)
    - |
      SELECT {
          SELECT * FROM wmi(
-           query=&quot;SELECT * FROM &quot; + Consumer.Type,
+           query="SELECT * FROM " + Consumer.Type,
            namespace=if(condition=Consumer.namespace,
               then=Consumer.namespace,
               else=namespace)) WHERE Name = Consumer.Name
        } AS ConsumerDetails,
        {
          SELECT * FROM wmi(
-           query=&quot;SELECT * FROM &quot; + Filter.Type,
+           query="SELECT * FROM " + Filter.Type,
            namespace=if(condition=Filter.namespace,
               then=Filter.namespace,
               else=namespace)) WHERE Name = Filter.Name
        } AS FilterDetails
      FROM FilterToConsumerBinding
-</code></pre>
-
+```
+   
     </div>
 </div>
 
@@ -1309,7 +1347,11 @@ the registry hive is locked).</p>
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-<pre><code>name: Windows.Persistence.PowershellRegistry
+
+
+
+```
+name: Windows.Persistence.PowershellRegistry
 description: |
   A common way of persistence is to install a hook into a user profile
   registry hive, using powershell. When the user logs in, the
@@ -1346,14 +1388,14 @@ sources:
           SELECT File.FullPath As FullPath,
                  String.Offset AS Off,
                  String.HexData As Hex,
-                 upload(file=File.FullPath, accessor=&quot;ntfs&quot;) AS Upload
+                 upload(file=File.FullPath, accessor="ntfs") AS Upload
               FROM yara(
-              files=&quot;\\\\.\\&quot; + HomeDir + &quot;\\ntuser.dat&quot;,
-              accessor=&quot;ntfs&quot;,
+              files="\\\\.\\" + HomeDir + "\\ntuser.dat",
+              accessor="ntfs",
               rules=yaraRule, context=50)
         })
-</code></pre>
-
+```
+   
     </div>
 </div>
 

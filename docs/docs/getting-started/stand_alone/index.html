@@ -43,10 +43,9 @@
       
 	
   
-    <p><a href="/">
+    <a href="/">
   <img src="/images/logo.svg">
-</a></p>
-
+</a>
   
 
 
@@ -340,17 +339,24 @@
       <a href="/docs/presentations/">Presentations and Workshops</a><i class="fa fa-angle-right fa-lg category-icon"></i>
       </div>
         <ul>
+      <li data-nav-id="/docs/presentations/rsa/" class="dd-item">
+        <div>
+          <a href="/docs/presentations/rsa/">
+            RSA APJ 2019
+          </a>
+        </div>
+    </li>
       <li data-nav-id="/docs/presentations/crikeycon2019/" class="dd-item">
         <div>
           <a href="/docs/presentations/crikeycon2019/">
-            Crikeycon 2019 Training Workshop
+            Crikeycon 2019
           </a>
         </div>
     </li>
       <li data-nav-id="/docs/presentations/nzitf2018/" class="dd-item">
         <div>
           <a href="/docs/presentations/nzitf2018/">
-            NZITF2018
+            NZITF 2018
           </a>
         </div>
     </li>
@@ -718,13 +724,13 @@ frontends (in the above example it will be
 <code>https://www.example.com:8000/</code>), so you need to ensure the port is
 open and DNS names resolve properly.</p>
 
-<div class="notices warning" ><p>It might be tempting to specify an IP address here, especially if you
+<div class="notices warning" >
+It might be tempting to specify an IP address here, especially if you
 have a static IP or this is an internal deployment. This is not
 recommended, since if you need to change the IP address, existing
 clients will continue to attempt to contact the old IP address -
-rendering them unreachable.</p>
+rendering them unreachable.
 </div>
-
 
 <h4 id="configuring-the-data-store">Configuring the data store</h4>
 
@@ -737,13 +743,15 @@ the same location.</p>
 configuration files, then proceed to creating some GUI users. Those
 users will be allowed to log into the admin UI.</p>
 
-<div class="notices tip" ><p>You can always add new users to the GUI using the command
-<code>velociraptor --config server.config.yaml user add MyUserName</code>. User
-credentials are stored in the data store and not in the config
-file. If you need to change a user&rsquo;s password simply add them again
-with the new password.</p>
-</div>
+<div class="notices tip" >
 
+You can always add new users to the GUI using the command
+`velociraptor --config server.config.yaml user add MyUserName`. User
+credentials are stored in the data store and not in the config
+file. If you need to change a user's password simply add them again
+with the new password.
+
+</div>
 
 <h2 id="datastore-management">Datastore management</h2>
 
@@ -777,14 +785,16 @@ verbose output to be shown in the terminal):</p>
 <p>The frontend indicates which port the GUI will listen on
 (i.e. <code>https://127.0.0.1:8889</code>).</p>
 
-<div class="notices note" ><p>Velociraptor currently does not support multiple frontends - all
+<div class="notices note" >
+
+Velociraptor currently does not support multiple frontends - all
 clients connect to the same frontend which performs all roles (serving
 client connections, serving the GUI and running the API server). We
 have used Velociraptor with 5-10k endpoints and it performs quite
 well. Eventually we plan to support horizontal scaling to multiple
-frontends.</p>
-</div>
+frontends.
 
+</div>
 
 <h2 id="verify-the-gui-works">Verify the GUI works</h2>
 

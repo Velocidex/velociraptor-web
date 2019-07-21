@@ -43,10 +43,9 @@
       
 	
   
-    <p><a href="/">
+    <a href="/">
   <img src="/images/logo.svg">
-</a></p>
-
+</a>
   
 
 
@@ -341,17 +340,24 @@
       <a href="/docs/presentations/">Presentations and Workshops</a><i class="fa fa-angle-right fa-lg category-icon"></i>
       </div>
         <ul>
+      <li data-nav-id="/docs/presentations/rsa/" class="dd-item">
+        <div>
+          <a href="/docs/presentations/rsa/">
+            RSA APJ 2019
+          </a>
+        </div>
+    </li>
       <li data-nav-id="/docs/presentations/crikeycon2019/" class="dd-item">
         <div>
           <a href="/docs/presentations/crikeycon2019/">
-            Crikeycon 2019 Training Workshop
+            Crikeycon 2019
           </a>
         </div>
     </li>
       <li data-nav-id="/docs/presentations/nzitf2018/" class="dd-item">
         <div>
           <a href="/docs/presentations/nzitf2018/">
-            NZITF2018
+            NZITF 2018
           </a>
         </div>
     </li>
@@ -632,11 +638,13 @@ entire deployment.</p>
 <p>In exactly the same way, server side VQL queries are encapsulated in
 <code>Server Artifacts</code>.</p>
 
-<div class="notices note" ><p><code>Server Artifacts</code> run once and produce a fixed output at an instance
-in time. They are not the same as <code>Server Event Artifacts</code> which run
-continuously and generate daily event logs.</p>
-</div>
+<div class="notices note" >
 
+`Server Artifacts` run once and produce a fixed output at an instance
+in time. They are not the same as `Server Event Artifacts` which run
+continuously and generate daily event logs.
+
+</div>
 
 <p>Since server artifacts do not themselves collect any information from
 the client, typically Server Artifacts are used to post process client

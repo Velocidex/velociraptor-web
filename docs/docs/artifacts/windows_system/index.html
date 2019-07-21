@@ -43,10 +43,9 @@
       
 	
   
-    <p><a href="/">
+    <a href="/">
   <img src="/images/logo.svg">
-</a></p>
-
+</a>
   
 
 
@@ -340,17 +339,24 @@
       <a href="/docs/presentations/">Presentations and Workshops</a><i class="fa fa-angle-right fa-lg category-icon"></i>
       </div>
         <ul>
+      <li data-nav-id="/docs/presentations/rsa/" class="dd-item">
+        <div>
+          <a href="/docs/presentations/rsa/">
+            RSA APJ 2019
+          </a>
+        </div>
+    </li>
       <li data-nav-id="/docs/presentations/crikeycon2019/" class="dd-item">
         <div>
           <a href="/docs/presentations/crikeycon2019/">
-            Crikeycon 2019 Training Workshop
+            Crikeycon 2019
           </a>
         </div>
     </li>
       <li data-nav-id="/docs/presentations/nzitf2018/" class="dd-item">
         <div>
           <a href="/docs/presentations/nzitf2018/">
-            NZITF2018
+            NZITF 2018
           </a>
         </div>
     </li>
@@ -675,7 +681,11 @@ nice format.</p>
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-<pre><code>name: Windows.Sys.AppcompatShims
+
+
+
+```
+name: Windows.Sys.AppcompatShims
 description: |
   Application Compatibility shims are a way to persist malware. This
   table presents the AppCompat Shim information from the registry in a
@@ -686,10 +696,10 @@ reference:
 
 parameters:
   - name: shimKeys
-    default: &gt;-
+    default: >-
       HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\InstalledSDB\*
   - name: customKeys
-    default: &gt;-
+    default: >-
       HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Custom\*\*
 
 sources:
@@ -697,28 +707,28 @@ sources:
       SELECT OS From info() where OS = 'windows'
     queries:
       - |
-        LET installed_sdb &lt;=
+        LET installed_sdb <=
            SELECT Key, Key.Name as SdbGUID, DatabasePath,
                   DatabaseType, DatabaseDescription,
                   -- Convert windows file time to unix epoch.
                   (DatabaseInstallTimeStamp / 10000000) - 11644473600 AS DatabaseInstallTimeStamp
            FROM read_reg_key(
-             globs=split(string=shimKeys, sep=&quot;,[\\s]*&quot;),
-             accessor=&quot;reg&quot;)
+             globs=split(string=shimKeys, sep=",[\\s]*"),
+             accessor="reg")
       - |
         LET result = SELECT * from foreach(
           row={
             SELECT regex_replace(
                source=FullPath,
-               replace=&quot;$1&quot;,
-               re=&quot;^.+\\\\([^\\\\]+)\\\\[^\\\\]+$&quot;) as Executable,
+               replace="$1",
+               re="^.+\\\\([^\\\\]+)\\\\[^\\\\]+$") as Executable,
               regex_replace(
                source=Name,
-               replace=&quot;$1&quot;,
-               re=&quot;(\\{[^}]+\\}).*$&quot;) as SdbGUIDRef,
+               replace="$1",
+               re="(\\{[^}]+\\}).*$") as SdbGUIDRef,
                Name as ExeName from glob(
-              globs=split(string=customKeys, sep=&quot;,[\\s]*&quot;),
-              accessor=&quot;reg&quot;)
+              globs=split(string=customKeys, sep=",[\\s]*"),
+              accessor="reg")
           },
           query={
             SELECT Executable, DatabasePath, DatabaseType,
@@ -728,8 +738,8 @@ sources:
           })
       - |
         SELECT * from result
-</code></pre>
-
+```
+   
     </div>
 </div>
 
@@ -748,7 +758,11 @@ sources:
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-<pre><code>name: Windows.Sys.CertificateAuthorities
+
+
+
+```
+name: Windows.Sys.CertificateAuthorities
 description: Certificate Authorities installed in Keychains/ca-bundles.
 sources:
   - precondition:
@@ -762,8 +776,8 @@ sources:
                IsSelfSigned, SHA1, SignatureAlgorithm, PublicKeyAlgorithm, KeyStrength,
                NotBefore, NotAfter, HexSerialNumber
                from certificates()
-</code></pre>
-
+```
+   
     </div>
 </div>
 
@@ -782,7 +796,11 @@ sources:
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-<pre><code>name: Windows.Sys.DiskInfo
+
+
+
+```
+name: Windows.Sys.DiskInfo
 description: Retrieve basic information about the physical disks of a system.
 sources:
   - precondition:
@@ -801,10 +819,10 @@ sources:
                SerialNumber,
                Description
         FROM wmi(
-           query=&quot;SELECT * from Win32_DiskDrive&quot;,
-           namespace=&quot;ROOT\\CIMV2&quot;)
-</code></pre>
-
+           query="SELECT * from Win32_DiskDrive",
+           namespace="ROOT\\CIMV2")
+```
+   
     </div>
 </div>
 
@@ -823,7 +841,11 @@ sources:
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-<pre><code>name: Windows.Sys.Drivers
+
+
+
+```
+name: Windows.Sys.Drivers
 description: Details for in-use Windows device drivers. This does not display installed but unused drivers.
 sources:
   - precondition:
@@ -831,10 +853,10 @@ sources:
     queries:
       - |
         SELECT * from wmi(
-            query=&quot;select * from Win32_PnPSignedDriver&quot;,
-            namespace=&quot;ROOT\\CIMV2&quot;)
-</code></pre>
-
+            query="select * from Win32_PnPSignedDriver",
+            namespace="ROOT\\CIMV2")
+```
+   
     </div>
 </div>
 
@@ -871,7 +893,11 @@ sources:
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-<pre><code>name: Windows.Sys.FirewallRules
+
+
+
+```
+name: Windows.Sys.FirewallRules
 description: List windows firewall rules.
 reference:
   - https://social.technet.microsoft.com/Forums/azure/en-US/aaed9c6a-fb8b-4d43-8b69-9f4e0f619a8c/how-to-check-the-windows-firewall-settings-from-netsh-command?forum=winserverGP
@@ -887,17 +913,17 @@ sources:
       - |
         LET rules = SELECT Name as Value,
                parse_string_with_regex(string=Data,
-                 regex=[&quot;Action=(?P&lt;Action&gt;[^|]+)&quot;,
-                        &quot;Active=(?P&lt;Active&gt;[^|]+)&quot;,
-                        &quot;Dir=(?P&lt;Dir&gt;[^|]+)&quot;,
-                        &quot;Protocol=(?P&lt;Protocol&gt;[^|]+)&quot;,
-                        &quot;LPort=(?P&lt;LPort&gt;[^|]+)&quot;,
-                        &quot;Name=(?P&lt;Name&gt;[^|]+)&quot;,
-                        &quot;Desc=(?P&lt;Desc&gt;[^|]+)&quot;,
-                        &quot;App=(?P&lt;App&gt;[^|]+)&quot;]) as Record,
+                 regex=["Action=(?P<Action>[^|]+)",
+                        "Active=(?P<Active>[^|]+)",
+                        "Dir=(?P<Dir>[^|]+)",
+                        "Protocol=(?P<Protocol>[^|]+)",
+                        "LPort=(?P<LPort>[^|]+)",
+                        "Name=(?P<Name>[^|]+)",
+                        "Desc=(?P<Desc>[^|]+)",
+                        "App=(?P<App>[^|]+)"]) as Record,
                Data,
                FullPath
-        FROM glob(globs=regKey, accessor=&quot;reg&quot;)
+        FROM glob(globs=regKey, accessor="reg")
 
       - |
         SELECT Value,
@@ -907,18 +933,18 @@ sources:
                Record.App as App,
                Record.Action as Action,
                Record.Dir as Dir,
-               if(condition=Record.Protocol = &quot;6&quot;,
-                  then=&quot;TCP&quot;,
-                  else=if(condition=Record.Protocol = &quot;17&quot;,
-                          then=&quot;UDP&quot;,
+               if(condition=Record.Protocol = "6",
+                  then="TCP",
+                  else=if(condition=Record.Protocol = "17",
+                          then="UDP",
                           else=Record.Protocol)) as Protocol,
                if(condition=Record.LPort = NULL,
-                  then=&quot;Any&quot;,
+                  then="Any",
                   else=Record.LPort) as LPort,
                Record.Name as Name
         FROM rules
-</code></pre>
-
+```
+   
     </div>
 </div>
 
@@ -938,14 +964,18 @@ simply parses the output from ipconfig /all.</p>
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-<pre><code>name: Windows.Sys.Interfaces
+
+
+
+```
+name: Windows.Sys.Interfaces
 description: |
   Report information about the systems interfaces. This artifact
   simply parses the output from ipconfig /all.
 
 sources:
  - precondition:
-     SELECT OS from info() where OS = &quot;windows&quot;
+     SELECT OS from info() where OS = "windows"
    queries:
    - |
      // Run ipconfig to get all information about interfaces.
@@ -955,22 +985,22 @@ sources:
      LET interfaces = SELECT Name, Data FROM parse_records_with_regex(
         file=ipconfig.Stdout,
         accessor='data',      // This makes the data appear as a file.
-        regex='(?s)Ethernet adapter (?P&lt;Name&gt;[^:]+?):\r\n\r\n(?P&lt;Data&gt;.+?)\r\n(\r\n|$)')
+        regex='(?s)Ethernet adapter (?P<Name>[^:]+?):\r\n\r\n(?P<Data>.+?)\r\n(\r\n|$)')
    - |
      // Now extract interesting things from each interface definition.
      SELECT Name, parse_string_with_regex(
         string=Data,
         regex=[
-          &quot;Description[^:]+: (?P&lt;Description&gt;.+)\r\n&quot;,
-          &quot;Physical Address[^:]+: (?P&lt;MAC&gt;.+)\r\n&quot;,
-          &quot;IPv4 Address[^:]+: (?P&lt;IP&gt;[0-9.]+)&quot;,
-          &quot;Default Gateway[^:]+: (?P&lt;Gateway&gt;.+)\r\n&quot;,
-          &quot;DNS Servers[^:]+: (?P&lt;DNS&gt;.+)\r\n&quot;,
-          &quot;DHCP Server[^:]+: (?P&lt;DHCP&gt;.+)\r\n&quot;
+          "Description[^:]+: (?P<Description>.+)\r\n",
+          "Physical Address[^:]+: (?P<MAC>.+)\r\n",
+          "IPv4 Address[^:]+: (?P<IP>[0-9.]+)",
+          "Default Gateway[^:]+: (?P<Gateway>.+)\r\n",
+          "DNS Servers[^:]+: (?P<DNS>.+)\r\n",
+          "DHCP Server[^:]+: (?P<DHCP>.+)\r\n"
         ]
      ) As Details FROM interfaces
-</code></pre>
-
+```
+   
     </div>
 </div>
 
@@ -1013,7 +1043,11 @@ sources:
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-<pre><code>name: Windows.Sys.PhysicalMemoryRanges
+
+
+
+```
+name: Windows.Sys.PhysicalMemoryRanges
 description: List Windows physical memory ranges.
 reference:
   - https://docs.microsoft.com/en-us/windows-hardware/drivers/ddi/content/wdm/ns-wdm-_cm_resource_list
@@ -1025,29 +1059,29 @@ parameters:
   - name: Profile
     default: |
       {
-        &quot;CM_RESOURCE_LIST&quot;: [0, {
-          &quot;Count&quot;: [0, [&quot;uint32&quot;]],
-          &quot;List&quot;: [4, [&quot;CM_FULL_RESOURCE_DESCRIPTOR&quot;]]
+        "CM_RESOURCE_LIST": [0, {
+          "Count": [0, ["uint32"]],
+          "List": [4, ["CM_FULL_RESOURCE_DESCRIPTOR"]]
          }],
-         &quot;CM_FULL_RESOURCE_DESCRIPTOR&quot;: [0, {
-           &quot;PartialResourceList&quot;: [8, [&quot;CM_PARTIAL_RESOURCE_LIST&quot;]]
+         "CM_FULL_RESOURCE_DESCRIPTOR": [0, {
+           "PartialResourceList": [8, ["CM_PARTIAL_RESOURCE_LIST"]]
          }],
 
-         &quot;CM_PARTIAL_RESOURCE_LIST&quot;: [0, {
-           &quot;Version&quot;: [0, [&quot;uint16&quot;]],
-           &quot;Revision&quot;: [2, [&quot;uint16&quot;]],
-           &quot;Count&quot;: [4, [&quot;uint32&quot;]],
-           &quot;PartialDescriptors&quot;: [8, [&quot;Array&quot;, {
-              &quot;Target&quot;: &quot;CM_PARTIAL_RESOURCE_DESCRIPTOR&quot;
+         "CM_PARTIAL_RESOURCE_LIST": [0, {
+           "Version": [0, ["uint16"]],
+           "Revision": [2, ["uint16"]],
+           "Count": [4, ["uint32"]],
+           "PartialDescriptors": [8, ["Array", {
+              "Target": "CM_PARTIAL_RESOURCE_DESCRIPTOR"
            }]]
          }],
 
-         &quot;CM_PARTIAL_RESOURCE_DESCRIPTOR&quot;: [20, {
-           &quot;Type&quot;: [0, [&quot;char&quot;]],
-           &quot;ShareDisposition&quot;: [1, [&quot;char&quot;]],
-           &quot;Flags&quot;: [2, [&quot;uint16&quot;]],
-           &quot;Start&quot;: [4, [&quot;int64&quot;]],
-           &quot;Length&quot;: [12, [&quot;uint32&quot;]]
+         "CM_PARTIAL_RESOURCE_DESCRIPTOR": [20, {
+           "Type": [0, ["char"]],
+           "ShareDisposition": [1, ["char"]],
+           "Flags": [2, ["uint16"]],
+           "Start": [4, ["int64"]],
+           "Length": [12, ["uint32"]]
          }]
       }
 
@@ -1057,8 +1091,8 @@ sources:
     queries:
       - |
         SELECT Type.AsInteger as Type,
-               format(format=&quot;%#0x&quot;, args=Start.AsInteger) as Start,
-               format(format=&quot;%#0x&quot;, args=Length.AsInteger) as Length
+               format(format="%#0x", args=Start.AsInteger) as Start,
+               format(format="%#0x", args=Length.AsInteger) as Length
         FROM foreach(
           row={
             SELECT Data
@@ -1068,11 +1102,11 @@ sources:
             SELECT Type, Start, Length, Data FROM binary_parse(
               string=Data.value,
               profile=Profile,
-              target=&quot;CM_RESOURCE_LIST&quot;,
-              start=&quot;List.PartialResourceList.PartialDescriptors&quot;)
+              target="CM_RESOURCE_LIST",
+              start="List.PartialResourceList.PartialDescriptors")
           })
-</code></pre>
-
+```
+   
     </div>
 </div>
 
@@ -1111,7 +1145,11 @@ installation details are left to the discretion of the product author.</p>
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-<pre><code>name: Windows.Sys.Programs
+
+
+
+```
+name: Windows.Sys.Programs
 description: |
   Represents products as they are installed by Windows Installer. A product generally
   correlates to one installation package on Windows. Some fields may be blank as Windows
@@ -1121,7 +1159,7 @@ reference:
 
 parameters:
   - name: programKeys
-    default: &gt;-
+    default: >-
       HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\*,
       HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\*,
       HKEY_USERS\*\Software\Microsoft\Windows\CurrentVersion\Uninstall\*
@@ -1142,9 +1180,9 @@ sources:
                UninstallString,
                InstallDate
         FROM read_reg_key(globs=split(string=programKeys, sep=',[\\s]*'),
-                          accessor=&quot;reg&quot;)
-</code></pre>
-
+                          accessor="reg")
+```
+   
     </div>
 </div>
 
@@ -1193,14 +1231,18 @@ sources:
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-<pre><code>name: Windows.Sys.StartupItems
+
+
+
+```
+name: Windows.Sys.StartupItems
 description: Applications that will be started up from the various run key locations.
 reference:
   - https://docs.microsoft.com/en-us/windows/desktop/setupapi/run-and-runonce-registry-keys
 
 parameters:
   - name: runKeyGlobs
-    default: &gt;
+    default: >
       HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Run*\*,
       HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Run*\*,
       HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer\Run*\*
@@ -1208,11 +1250,11 @@ parameters:
       HKEY_USERS\*\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Run*\*,
       HKEY_USERS\*\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer\Run*\*
   - name: startupApprovedGlobs
-    default: &gt;
+    default: >
       HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\StartupApproved\**,
       HKEY_USERS\*\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\StartupApproved\**
   - name: startupFolderDirectories
-    default: &gt;
+    default: >
       C:/ProgramData/Microsoft/Windows/Start Menu/Programs/Startup/**,
       C:/Users/*/AppData/Roaming/Microsoft/Windows/StartMenu/Programs/Startup/**
 
@@ -1222,15 +1264,15 @@ sources:
     queries:
       - |
         /* We need to search this multiple times so we materialize it
-           into a variable (using the &lt;= operator)
+           into a variable (using the <= operator)
          */
-        LET approved &lt;=
+        LET approved <=
            SELECT Name as ApprovedName,
-                  encode(string=Data, type=&quot;hex&quot;) as Enabled
+                  encode(string=Data, type="hex") as Enabled
            FROM glob(globs=split(
-                     string=startupApprovedGlobs, sep=&quot;[, ]+&quot;),
-                     accessor=&quot;reg&quot;)
-           WHERE Enabled =~ &quot;^0[0-9]0+$&quot;
+                     string=startupApprovedGlobs, sep="[, ]+"),
+                     accessor="reg")
+           WHERE Enabled =~ "^0[0-9]0+$"
 
       - |
         LET registry_runners = SELECT Name,
@@ -1240,10 +1282,10 @@ sources:
                 SELECT Enabled from approved
                 WHERE Name = ApprovedName
            },
-           then=&quot;enabled&quot;, else=&quot;disabled&quot;) as Enabled
+           then="enabled", else="disabled") as Enabled
           FROM glob(
-           globs=split(string=runKeyGlobs, sep=&quot;[, ]+&quot;),
-           accessor=&quot;reg&quot;)
+           globs=split(string=runKeyGlobs, sep="[, ]+"),
+           accessor="reg")
 
       - |
         LET file_runners = SELECT * FROM foreach(
@@ -1251,9 +1293,9 @@ sources:
               SELECT Name, FullPath
               FROM glob(
                  globs=split(string=startupFolderDirectories,
-                 sep=&quot;,\\s*&quot;))
+                 sep=",\\s*"))
            }, query={
-              SELECT Name, FullPath, &quot;enable&quot; as Enabled,
+              SELECT Name, FullPath, "enable" as Enabled,
                   encode(string=Data, type='utf16') as Command
               FROM read_file(filenames=FullPath)
            })
@@ -1262,8 +1304,8 @@ sources:
         SELECT * from chain(
            first=registry_runners,
            second=file_runners)
-</code></pre>
-
+```
+   
     </div>
 </div>
 
@@ -1301,7 +1343,11 @@ the NetUserEnum() call and the list of SIDs in the registry.</p>
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-<pre><code>name: Windows.Sys.Users
+
+
+
+```
+name: Windows.Sys.Users
 description: |
   List User accounts. We combine two data sources - the output from
   the NetUserEnum() call and the list of SIDs in the registry.
@@ -1315,7 +1361,7 @@ sources:
       SELECT OS From info() where OS = 'windows'
     queries:
       - |
-        LET roaming_users &lt;= SELECT &quot;&quot; as Uid, &quot;&quot; as Gid,
+        LET roaming_users <= SELECT "" as Uid, "" as Gid,
                lookupSID(
                  sid=basename(path=Key.FullPath)
                ) as Name,
@@ -1323,13 +1369,13 @@ sources:
                ProfileImagePath as Directory,
                basename(path=Key.FullPath) as UUID,
                Key.Mtime.Sec as Mtime,
-               &quot;roaming&quot; as Type
-           FROM read_reg_key(globs=remoteRegKey, accessor=&quot;reg&quot;)
+               "roaming" as Type
+           FROM read_reg_key(globs=remoteRegKey, accessor="reg")
       - |
-        LET local_users &lt;= select User_id as Uid, Primary_group_id as Gid, Name,
+        LET local_users <= select User_id as Uid, Primary_group_id as Gid, Name,
                Comment as Description, {
                  SELECT Directory from roaming_users WHERE User_sid = UUID
-               } as Directory, User_sid as UUID, 0 AS Mtime, &quot;local&quot; AS Type
+               } as Directory, User_sid as UUID, 0 AS Mtime, "local" AS Type
         FROM users()
 
       - |
@@ -1361,12 +1407,12 @@ reports:
       compromised and the attackers are laterally moving through the
       network.
 
-      {{ define &quot;users&quot; }}
+      {{ define "users" }}
          SELECT Name, UUID, Fqdn, timestamp(epoch=Mtime) as LastMod FROM source()
-         WHERE NOT UUID =~ &quot;(-5..$|S-1-5-18|S-1-5-19|S-1-5-20)&quot;
+         WHERE NOT UUID =~ "(-5..$|S-1-5-18|S-1-5-19|S-1-5-20)"
       {{ end }}
 
-      {{ Query &quot;users&quot; | Table }}
+      {{ Query "users" | Table }}
 
   - type: CLIENT
     template: |
@@ -1383,14 +1429,14 @@ reports:
 
       * Local users show the mtime of their home directory.
 
-      {{ define &quot;users&quot; }}
-         LET users &lt;= SELECT Name, UUID, Type,
+      {{ define "users" }}
+         LET users <= SELECT Name, UUID, Type,
                timestamp(epoch=Mtime) as Mtime
          FROM source()
       {{ end }}
-      {{ Query &quot;users&quot; &quot;SELECT Name, UUID, Type, Mtime FROM users&quot; | Table }}
-</code></pre>
-
+      {{ Query "users" "SELECT Name, UUID, Type, Mtime FROM users" | Table }}
+```
+   
     </div>
 </div>
 
@@ -1444,7 +1490,11 @@ can then be used to find the executed program.</p>
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-<pre><code>name: Windows.System.Amcache
+
+
+
+```
+name: Windows.System.Amcache
 description: |
   Get information from the system's amcache.
 
@@ -1461,7 +1511,7 @@ description: |
 
 parameters:
   - name: amCacheGlob
-    default: &quot;%SYSTEMROOT%/appcompat/Programs/Amcache.hve&quot;
+    default: "%SYSTEMROOT%/appcompat/Programs/Amcache.hve"
   - name: amCacheRegPath
     default: /Root/InventoryApplicationFile/*
 
@@ -1501,9 +1551,9 @@ sources:
           row={
             SELECT FullPath from glob(globs=expand(path=amCacheGlob))
           }, query={
-            SELECT get(item=scope(), member=&quot;100&quot;) As ProductId,
-                   get(item=scope(), member=&quot;101&quot;) As SHA1,
-                   get(item=scope(), member=&quot;15&quot;) As FullPath,
+            SELECT get(item=scope(), member="100") As ProductId,
+                   get(item=scope(), member="101") As SHA1,
+                   get(item=scope(), member="15") As FullPath,
                    timestamp(epoch=Key.Mtime.Sec) as LastModifiedKey
             FROM read_reg_key(
                globs=url(scheme='ntfs', path=FullPath,
@@ -1515,17 +1565,17 @@ sources:
 reports:
   - type: CLIENT
     template: |
-      {{define &quot;recent_executions&quot;}}
-           LET recent_executions &lt;= SELECT LastModified, Name, count(items=Name) As Count,
+      {{define "recent_executions"}}
+           LET recent_executions <= SELECT LastModified, Name, count(items=Name) As Count,
                   int(int=_LastModified/3600) AS Hour
-           FROM source(source=&quot;InventoryApplicationFile&quot;)
+           FROM source(source="InventoryApplicationFile")
            GROUP BY Hour
            LIMIT 500
       {{ end }}
 
-      {{ define &quot;timeline&quot; }}
+      {{ define "timeline" }}
          SELECT LastModified,
-                format(format=&quot;%s (%d)&quot;, args=[Name, Count]) As TotalCount
+                format(format="%s (%d)", args=[Name, Count]) As TotalCount
          FROM recent_executions
       {{ end }}
 
@@ -1546,17 +1596,17 @@ reports:
       binaries are grouped in an hour interval. The label is the first
       binary name and the total number of binaries within that hour.
 
-      &gt; For clarity we hide the names of all other binaries, and just
+      > For clarity we hide the names of all other binaries, and just
         show the total count.
 
-      {{ Query &quot;recent_executions&quot; &quot;timeline&quot; | Timeline }}
+      {{ Query "recent_executions" "timeline" | Timeline }}
 
 
       Here is the same data in tabular form.
 
-      {{ Query &quot;timeline&quot; | Table }}
-</code></pre>
-
+      {{ Query "timeline" | Table }}
+```
+   
     </div>
 </div>
 
@@ -1605,7 +1655,11 @@ installed at all, it will not be shown.</p>
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-<pre><code>name: Windows.System.CriticalServices
+
+
+
+```
+name: Windows.System.CriticalServices
 description: |
   This artifact returns information about any services which are
   considered critical.
@@ -1613,7 +1667,7 @@ description: |
   The default list contains virus scanners. If the software is not
   installed at all, it will not be shown.
 
-  ATT&amp;CK: T1089
+  ATT&CK: T1089
 
   ### References:
   * https://github.com/teoseller/osquery-attck/blob/master/windows_critical_service_status.conf
@@ -1634,15 +1688,15 @@ parameters:
 
 sources:
      - queries:
-       - LET lookup &lt;= SELECT * FROM parse_csv(filename=lookupTable, accessor='data')
+       - LET lookup <= SELECT * FROM parse_csv(filename=lookupTable, accessor='data')
        - |
          SELECT Name, DisplayName, Created, State, {
             SELECT * FROM lookup WHERE Name =~ ServiceName
          } AS Critical
          FROM Artifact.Windows.System.Services()
-         WHERE Critical AND State != &quot;Running&quot;
-</code></pre>
-
+         WHERE Critical AND State != "Running"
+```
+   
     </div>
 </div>
 
@@ -1679,7 +1733,11 @@ sources:
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-<pre><code>name: Windows.System.Pslist
+
+
+
+```
+name: Windows.System.Pslist
 description: |
   List processes and their running binaries.
 
@@ -1696,8 +1754,8 @@ sources:
                Username, WorkingSetSize
         FROM pslist()
         WHERE Name =~ processRegex
-</code></pre>
-
+```
+   
     </div>
 </div>
 
@@ -1721,7 +1779,11 @@ parents if the parent is not also named services.exe.</p>
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-<pre><code>name: Windows.System.SVCHost
+
+
+
+```
+name: Windows.System.SVCHost
 description: |
   Typically a windows system will have many svchost.exe
   processes. Sometimes attackers name their processes svchost.exe to
@@ -1737,11 +1799,11 @@ sources:
     queries:
       - |
         // Cache the pslist output in memory.
-        LET processes &lt;= SELECT * FROM pslist()
+        LET processes <= SELECT * FROM pslist()
 
       - |
         // Get the pids of all procecesses named services.exe
-        LET services &lt;= SELECT Pid FROM processes where Name =~ &quot;services.exe&quot;
+        LET services <= SELECT Pid FROM processes where Name =~ "services.exe"
 
       - |
         // The interesting processes are those which are not spawned by services.exe
@@ -1750,7 +1812,7 @@ sources:
             Exe as SVCHostExe,
             CommandLine as SVCHostCommandLine
         FROM processes
-        WHERE Name =~ &quot;svchost&quot; AND NOT Ppid in services.Pid
+        WHERE Name =~ "svchost" AND NOT Ppid in services.Pid
 
       - |
         // Now for each such process we display its actual parent.
@@ -1763,8 +1825,8 @@ sources:
               FROM processes
               WHERE Pid=SVCHostPpid
           })
-</code></pre>
-
+```
+   
     </div>
 </div>
 
@@ -1801,7 +1863,11 @@ sources:
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-<pre><code>name: Windows.System.Services
+
+
+
+```
+name: Windows.System.Services
 description: |
   List all the installed services.
 
@@ -1823,11 +1889,11 @@ sources:
                   FROM stat(filename=servicesKeyGlob + Name, accessor='reg')
                } AS Created,
                {
-                 SELECT ServiceDll FROM read_reg_key(globs=servicesKeyGlob + Name + &quot;\\Parameters&quot;)
+                 SELECT ServiceDll FROM read_reg_key(globs=servicesKeyGlob + Name + "\\Parameters")
                } AS ServiceDll
-        FROM wmi(query=&quot;SELECT * From Win32_service&quot;, namespace=&quot;root/CIMV2&quot;)
-</code></pre>
-
+        FROM wmi(query="SELECT * From Win32_service", namespace="root/CIMV2")
+```
+   
     </div>
 </div>
 
@@ -1875,7 +1941,11 @@ binaries so many will not be signed (e.g. conhost.exe).</p>
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-<pre><code>name: Windows.System.UntrustedBinaries
+
+
+
+```
+name: Windows.System.UntrustedBinaries
 description: |
   Windows runs a number of services and binaries as part of the
   operating system. Sometimes malware pretends to run as those well
@@ -1913,8 +1983,8 @@ sources:
                Authenticode.IssuerName as Issuer,
                Authenticode.SubjectName as Subject,
                Authenticode.Trusted as Trusted from auth
-</code></pre>
-
+```
+   
     </div>
 </div>
 

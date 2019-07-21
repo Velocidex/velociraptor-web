@@ -43,10 +43,9 @@
       
 	
   
-    <p><a href="/">
+    <a href="/">
   <img src="/images/logo.svg">
-</a></p>
-
+</a>
   
 
 
@@ -340,17 +339,24 @@
       <a href="/docs/presentations/">Presentations and Workshops</a><i class="fa fa-angle-right fa-lg category-icon"></i>
       </div>
         <ul>
+      <li data-nav-id="/docs/presentations/rsa/" class="dd-item">
+        <div>
+          <a href="/docs/presentations/rsa/">
+            RSA APJ 2019
+          </a>
+        </div>
+    </li>
       <li data-nav-id="/docs/presentations/crikeycon2019/" class="dd-item">
         <div>
           <a href="/docs/presentations/crikeycon2019/">
-            Crikeycon 2019 Training Workshop
+            Crikeycon 2019
           </a>
         </div>
     </li>
       <li data-nav-id="/docs/presentations/nzitf2018/" class="dd-item">
         <div>
           <a href="/docs/presentations/nzitf2018/">
-            NZITF2018
+            NZITF 2018
           </a>
         </div>
     </li>
@@ -663,14 +669,16 @@ recommend to start with a modest amount of storage and then either
 backup data as it gets collected or increase the storage volume as
 needed.</p>
 
-<div class="notices warning" ><p>It is essential to ensure that inbound filtering ACLs allow our
-virtual machine to receive connections over <strong>both</strong> ports 80 and 443.
-When using SSL both the client communication <strong>and</strong> the GUI are served
-over the same ports to benefit from SSL transport encryption. The
-Letsencrypt protocol requires Letsencrypt&rsquo;s servers to connect to the
-VM on port 80 - however the GUI itself will only be served over SSL.</p>
-</div>
+<div class="notices warning" >
 
+It is essential to ensure that inbound filtering ACLs allow our
+virtual machine to receive connections over **both** ports 80 and 443.
+When using SSL both the client communication **and** the GUI are served
+over the same ports to benefit from SSL transport encryption. The
+Letsencrypt protocol requires Letsencrypt's servers to connect to the
+VM on port 80 - however the GUI itself will only be served over SSL.
+
+</div>
 
 <p>When we deploy our Virtual Machine we may choose either a static IP
 address or allow the cloud provider to assign a dynamic IP address. We
@@ -723,14 +731,16 @@ to the internet.</p></li>
 <li><p>Clients will connect to the public DNS name over SSL.</p></li>
 </ol>
 
-<div class="notices tip" ><p>You must have both ports 80 and 443 publicly accessible by allowing
+<div class="notices tip" >
+
+You must have both ports 80 and 443 publicly accessible by allowing
 any inbound firewall rules! Letsencrypt uses both to issue
 certificates. If you forgot to open port 80, Letsencrypt will fail to
 issue the certificate and this might result in blocking the domain
 name from getting an SSL certificate for several days. If you find
-this happened, simply change the dyndns name and start again.</p>
-</div>
+this happened, simply change the dyndns name and start again.
 
+</div>
 
 <p>The first time you connect to the GUI or to the frontend, the server
 will obtain its own certificates from letsencrypt (it might take a
@@ -767,13 +777,15 @@ the Velociraptor application with a token that allows the application
 to request information about the user (for example, the username or
 email address).</p>
 
-<div class="notices note" ><p>OAuth is an authentication protocol. This means Velociraptor can be
+<div class="notices note" >
+
+OAuth is an authentication protocol. This means Velociraptor can be
 pretty confident the user is who they claim they are. This does not
 automatically grant them access to the application!  A Velociraptor
 administrator must still manually grant them access before a user may
-log in.</p>
-</div>
+log in.
 
+</div>
 
 <p>Before we can use Google for Authentication, we need to register our
 Velociraptor deployment as an OAuth App with Google.</p>
@@ -800,12 +812,14 @@ first. Navigate to <code>APIs and Services</code> in the GCP console and select
 <p>In order to add an Authorized domain we need to <em>verify it</em>. Google&rsquo;s
 help pages explain it further:</p>
 
-<div class="notices tip" ><p><strong>Authorized domains</strong>: To protect you and your users, Google
+<div class="notices tip" >
+
+**Authorized domains**: To protect you and your users, Google
    restricts your OAuth 2.0 application to using Authorized
    Domains. If you have verified the domain with Google, you can use
-   any Top Private Domain as an Authorized Domain.</p>
-</div>
+   any Top Private Domain as an Authorized Domain.
 
+</div>
 
 <p>In this example we assume that you purchased your domain with Google
 domains which makes this step easier since it is already verified.</p>
@@ -900,13 +914,15 @@ eye candy :-).</p>
 
 <p><img src="../dashboard.png" alt="Velociraptor Dashboard" /></p>
 
-<div class="notices note" ><p>Velociraptor will retain its OAuth token for 24 hours. Each day users
+<div class="notices note" >
+
+Velociraptor will retain its OAuth token for 24 hours. Each day users
 will need to re-grant OAuth credentials. Therefore revoking a user
 from the Google Admin console may take a full day to take effect. To
-remove access sooner you should use <code>velociraptor --config
-server.config.yaml user lock MyUserName</code> at the console.</p>
-</div>
+remove access sooner you should use `velociraptor --config
+server.config.yaml user lock MyUserName` at the console.
 
+</div>
 
 <h2 id="deploying-to-the-cloud">Deploying to the cloud</h2>
 
@@ -927,16 +943,18 @@ $ ls -l velociraptor_0.3.0_server.deb
 the config file we just generated. You simply need to copy the deb to
 the node and install it.</p>
 
-<div class="notices note" ><p>You need to ensure that directories you specify in the config file
+<div class="notices note" >
+
+You need to ensure that directories you specify in the config file
 actually exist on the node. For example, we normally purchase a node
 with large attached storage (say 500Gb) to hold the collected
-artifacts. We then format the additional partition (using <code>mkext2</code>)
-and mount it on a specific directory (e.g. <code>/data/</code>). We then need to
-add the new partition to <code>/etc/mtab</code> to ensure it gets mounted on
+artifacts. We then format the additional partition (using `mkext2`)
+and mount it on a specific directory (e.g. `/data/`). We then need to
+add the new partition to `/etc/mtab` to ensure it gets mounted on
 boot. This needs to happen before we start the velociraptor service or
-it will fail to start.</p>
-</div>
+it will fail to start.
 
+</div>
 
 <p>You can check the installtion using <code>service velociraptor_server status</code>.</p>
 
@@ -961,13 +979,15 @@ $ sudo service velociraptor_server status
 Jul 07 08:49:24 mic-Inspiron systemd[1]: Started Velociraptor linux amd64.
 </code></pre>
 
-<div class="notices tip" ><p>You do not need to build the deb package on a Linux machine. If you
-prefer to use Windows for your day to day work, you may build the deb
-on your windows machine but you must specify the <code>--binary</code> flag to
-the <code>debian server</code> command with a path to the linux binary. Yoy can
-obtain a copy of the linux binary from the Github releases page.</p>
-</div>
+<div class="notices tip" >
 
+You do not need to build the deb package on a Linux machine. If you
+prefer to use Windows for your day to day work, you may build the deb
+on your windows machine but you must specify the `--binary` flag to
+the `debian server` command with a path to the linux binary. Yoy can
+obtain a copy of the linux binary from the Github releases page.
+
+</div>
 
 
     

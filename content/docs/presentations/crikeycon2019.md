@@ -1,8 +1,17 @@
 ---
 title: Crikeycon 2019 Training Workshop
-weight: 10
+linktitle: Crikeycon 2019
+weight: 190
 ---
 
-At CrikeyCon 2019 we presented a full day training workshop.
+{{% panel header="24th February 2018" %}}
 
-The training material can be downloaded from [Velociraptor CrikeyCon2019 training](/resources/crikeycon_2019.pdf)
+At CrikeyCon 2019 we presented a full day training
+workshop. It was a lot of fun and we received some great feedback. You
+can read the slides below.
+
+{{%expand "View our presentation" %}}
+ {{< pdf "/resources/crikeycon_2019.pdf" >}}
+{{% /expand %}}
+
+{{% /panel %}}

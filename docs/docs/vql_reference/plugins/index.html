@@ -43,10 +43,9 @@
       
 	
   
-    <p><a href="/">
+    <a href="/">
   <img src="/images/logo.svg">
-</a></p>
-
+</a>
   
 
 
@@ -340,17 +339,24 @@
       <a href="/docs/presentations/">Presentations and Workshops</a><i class="fa fa-angle-right fa-lg category-icon"></i>
       </div>
         <ul>
+      <li data-nav-id="/docs/presentations/rsa/" class="dd-item">
+        <div>
+          <a href="/docs/presentations/rsa/">
+            RSA APJ 2019
+          </a>
+        </div>
+    </li>
       <li data-nav-id="/docs/presentations/crikeycon2019/" class="dd-item">
         <div>
           <a href="/docs/presentations/crikeycon2019/">
-            Crikeycon 2019 Training Workshop
+            Crikeycon 2019
           </a>
         </div>
     </li>
       <li data-nav-id="/docs/presentations/nzitf2018/" class="dd-item">
         <div>
           <a href="/docs/presentations/nzitf2018/">
-            NZITF2018
+            NZITF 2018
           </a>
         </div>
     </li>
@@ -681,13 +687,15 @@ further filtered by the query.</p>
 <p>This allows VQL statements to be chained naturally since plugin args
 may also be other queries.</p>
 
-<div class="notices note" ><p>VQL plugins are not the same as VQL functions. A plugin is the subject
-of the VQL query - i.e. plugins always follow the <code>FROM</code> keyword,
-while functions (which return a single value instead of a sequence of
-rows) are only present in column specification (e.g. after <code>SELECT</code>)
-or in condition clauses (i.e. after the <code>WHERE</code> keyword).</p>
-</div>
+<div class="notices note" >
 
+VQL plugins are not the same as VQL functions. A plugin is the subject
+of the VQL query - i.e. plugins always follow the `FROM` keyword,
+while functions (which return a single value instead of a sequence of
+rows) are only present in column specification (e.g. after `SELECT`)
+or in condition clauses (i.e. after the `WHERE` keyword).
+
+</div>
 
 <h2 id="certificates">certificates</h2>
 
@@ -955,15 +963,17 @@ integrity. This is required to connect to self signed ssl web
 sites. For example many API handlers are exposed over such
 connections.</p>
 
-<div class="notices note" ><p>When connecting to the Velociraptor frontend itself, even in self
+<div class="notices note" >
+
+When connecting to the Velociraptor frontend itself, even in self
 signed mode, we will ensure certs are properly verified. You can
-therefore safely export files from the Frontend&rsquo;s public directory
+therefore safely export files from the Frontend's public directory
 over self signed SSL. When connecting to a self signed Velociraptor
 frontend, we ensure the self signed certificate was issued by the
-Velociraptor internal CA - i.e. we pin the Frontend&rsquo;s certificate in
-the binary.</p>
-</div>
+Velociraptor internal CA - i.e. we pin the Frontend's certificate in
+the binary.
 
+</div>
 
 <p>The <code>http_client()</code> plugin allows use to interact with any web
 services. If the web service returns a json blob, we can parse it with
@@ -1365,9 +1375,11 @@ it.</p>
 
 <p>This plugin uses yara&rsquo;s own engine to scan process memory for the signatures.</p>
 
-<div class="notices note" ><p>Process memory access depends on having the <a href="https://support.microsoft.com/en-au/help/131065/how-to-obtain-a-handle-to-any-process-with-sedebugprivilege">SeDebugPrivilege</a> which depends on how Velociraptor was started. Even when running as System, some processes are not accessible.</p>
-</div>
+<div class="notices note" >
 
+Process memory access depends on having the [SeDebugPrivilege](https://support.microsoft.com/en-au/help/131065/how-to-obtain-a-handle-to-any-process-with-sedebugprivilege) which depends on how Velociraptor was started. Even when running as System, some processes are not accessible.
+
+</div>
 
 <h2 id="pslist">pslist</h2>
 
@@ -1893,10 +1905,12 @@ keywords. The specification before the <code>:</code> means the same thing as th
 yara DSL and the following combinations are supported <code>wide</code>, <code>wide
 ascii</code>, <code>wide nocase</code>, <code>wide nocase ascii</code>.</p>
 
-<div class="notices note" ><p>By default only the first 100mb of the file are scanned and
-scanning stops after one hit is found.</p>
-</div>
+<div class="notices note" >
 
+By default only the first 100mb of the file are scanned and
+scanning stops after one hit is found.
+
+</div>
 
 
     

@@ -43,10 +43,9 @@
       
 	
   
-    <p><a href="/">
+    <a href="/">
   <img src="/images/logo.svg">
-</a></p>
-
+</a>
   
 
 
@@ -340,17 +339,24 @@
       <a href="/docs/presentations/">Presentations and Workshops</a><i class="fa fa-angle-right fa-lg category-icon"></i>
       </div>
         <ul>
+      <li data-nav-id="/docs/presentations/rsa/" class="dd-item">
+        <div>
+          <a href="/docs/presentations/rsa/">
+            RSA APJ 2019
+          </a>
+        </div>
+    </li>
       <li data-nav-id="/docs/presentations/crikeycon2019/" class="dd-item">
         <div>
           <a href="/docs/presentations/crikeycon2019/">
-            Crikeycon 2019 Training Workshop
+            Crikeycon 2019
           </a>
         </div>
     </li>
       <li data-nav-id="/docs/presentations/nzitf2018/" class="dd-item">
         <div>
           <a href="/docs/presentations/nzitf2018/">
-            NZITF2018
+            NZITF 2018
           </a>
         </div>
     </li>
@@ -681,7 +687,11 @@
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-<pre><code>name: Windows.Triage.Collectors.Amcache
+
+
+
+```
+name: Windows.Triage.Collectors.Amcache
 
 precondition: SELECT OS From info() where OS = 'windows'
 
@@ -695,8 +705,8 @@ parameters:
 sources:
   - queries:
       - SELECT * FROM Artifact.Triage.Collection.UploadTable(triageTable=triageTable)
-</code></pre>
-
+```
+   
     </div>
 </div>
 
@@ -715,7 +725,11 @@ sources:
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-<pre><code>name: Windows.Triage.Collectors.BCD
+
+
+
+```
+name: Windows.Triage.Collectors.BCD
 description: |
   Boot Configuration Files.
 
@@ -726,15 +740,15 @@ sources:
       - |
         SELECT * FROM chain(
           a1={ SELECT * FROM Artifact.Triage.Collection.Upload(
-               type=&quot;BCD&quot;,
+               type="BCD",
                path=[
-                  &quot;C:\\Boot\\BCD&quot;,
-                  &quot;C:\\Boot\\BCD.LOG*&quot;
+                  "C:\\Boot\\BCD",
+                  "C:\\Boot\\BCD.LOG*"
                ])
           }
         )
-</code></pre>
-
+```
+   
     </div>
 </div>
 
@@ -771,7 +785,11 @@ sources:
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-<pre><code>name: Windows.Triage.Collectors.Chrome
+
+
+
+```
+name: Windows.Triage.Collectors.Chrome
 description: |
   Collect Chrome related artifacts.
 
@@ -813,8 +831,8 @@ parameters:
 sources:
   - queries:
       - SELECT * FROM Artifact.Triage.Collection.UploadTable(triageTable=triageTable)
-</code></pre>
-
+```
+   
     </div>
 </div>
 
@@ -851,7 +869,11 @@ sources:
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-<pre><code>name: Windows.Triage.Collectors.Edge
+
+
+
+```
+name: Windows.Triage.Collectors.Edge
 description: |
   Collect Edge related artifacts.
 
@@ -867,8 +889,8 @@ parameters:
 sources:
   - queries:
       - SELECT * FROM Artifact.Triage.Collection.UploadTable(triageTable=triageTable)
-</code></pre>
-
+```
+   
     </div>
 </div>
 
@@ -905,7 +927,11 @@ sources:
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-<pre><code>name: Windows.Triage.Collectors.EventLogs
+
+
+
+```
+name: Windows.Triage.Collectors.EventLogs
 description: |
   Collect event log files.
 
@@ -919,10 +945,10 @@ sources:
   - queries:
       - |
         SELECT * FROM Artifact.Triage.Collection.Upload(
-           type=&quot;EventLogs&quot;,
-           path=split(string=EventLogGlobs, sep=&quot;,&quot;))
-</code></pre>
-
+           type="EventLogs",
+           path=split(string=EventLogGlobs, sep=","))
+```
+   
     </div>
 </div>
 
@@ -941,7 +967,11 @@ sources:
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-<pre><code>name: Windows.Triage.Collectors.EventTraceLogs
+
+
+
+```
+name: Windows.Triage.Collectors.EventTraceLogs
 description: |
   Collect event trace log files.
 
@@ -952,27 +982,27 @@ sources:
       - |
         SELECT * FROM chain(
           a1={ SELECT * FROM Artifact.Triage.Collection.Upload(
-            type=&quot;WDI Trace Logs&quot;,
+            type="WDI Trace Logs",
             path=[
-              &quot;C:\\Windows\\System32\\WDI\\LogFiles\\*.etl*&quot;,
-              &quot;C:\\Windows\\System32\\WDI\\{*&quot;
+              "C:\\Windows\\System32\\WDI\\LogFiles\\*.etl*",
+              "C:\\Windows\\System32\\WDI\\{*"
             ])
           },
           a2={ SELECT * FROM Artifact.Triage.Collection.Upload(
-            type=&quot;WMI Trace Logs&quot;,
-            path=&quot;C:\\Windows\\System32\\LogFiles\\WMI\\*&quot;)
+            type="WMI Trace Logs",
+            path="C:\\Windows\\System32\\LogFiles\\WMI\\*")
           },
           a3={ SELECT * FROM Artifact.Triage.Collection.Upload(
-            type=&quot;SleepStudy Trace Logs&quot;,
-            path=&quot;C:\\Windows\\System32\\SleepStudy*&quot;)
+            type="SleepStudy Trace Logs",
+            path="C:\\Windows\\System32\\SleepStudy*")
           },
           a4={ SELECT * FROM Artifact.Triage.Collection.Upload(
-            type=&quot;Energy-NTKL Trace Logs&quot;,
-            path=&quot;C:\\ProgramData\\Microsoft\\Windows\\PowerEfficiency Diagnostics\\energy-ntkl.etl&quot;)
+            type="Energy-NTKL Trace Logs",
+            path="C:\\ProgramData\\Microsoft\\Windows\\PowerEfficiency Diagnostics\\energy-ntkl.etl")
           }
         )
-</code></pre>
-
+```
+   
     </div>
 </div>
 
@@ -989,7 +1019,11 @@ sources:
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-<pre><code>name: Windows.Triage.Collectors.EvidenceOfExecution
+
+
+
+```
+name: Windows.Triage.Collectors.EvidenceOfExecution
 
 precondition: SELECT OS From info() where OS = 'windows'
 
@@ -998,16 +1032,16 @@ sources:
       - |
         SELECT * FROM chain(
           a1={ SELECT * FROM Artifact.Triage.Collection.Upload(
-               type=&quot;Prefetch&quot;,
-               path=&quot;C:\\Windows\\prefetch\\*.pf&quot;)
+               type="Prefetch",
+               path="C:\\Windows\\prefetch\\*.pf")
           },
           a2={ SELECT * FROM Artifact.Triage.Collection.Upload(
-               type=&quot;RecentFileCache&quot;,
-               path=&quot;C:\\Windows\\AppCompat\\Programs\\RecentFileCache.bcf&quot;)
+               type="RecentFileCache",
+               path="C:\\Windows\\AppCompat\\Programs\\RecentFileCache.bcf")
           }
         )
-</code></pre>
-
+```
+   
     </div>
 </div>
 
@@ -1044,7 +1078,11 @@ sources:
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-<pre><code>name: Windows.Triage.Collectors.Firefox
+
+
+
+```
+name: Windows.Triage.Collectors.Firefox
 description: |
   Collect Firefox related artifacts.
 
@@ -1060,44 +1098,44 @@ sources:
       - |
         SELECT * FROM chain(
           a1={ SELECT * FROM Artifact.Triage.Collection.Upload(
-               type=&quot;Places&quot;,
-               path=split(string=baseLocations, sep=&quot;,&quot;) + &quot;places.sqlite*&quot;)
+               type="Places",
+               path=split(string=baseLocations, sep=",") + "places.sqlite*")
           },
           a2={ SELECT * FROM Artifact.Triage.Collection.Upload(
-               type=&quot;Downloads&quot;,
-               path=split(string=baseLocations, sep=&quot;,&quot;) + &quot;downloads.sqlite*&quot;)
+               type="Downloads",
+               path=split(string=baseLocations, sep=",") + "downloads.sqlite*")
           },
           a3={ SELECT * FROM Artifact.Triage.Collection.Upload(
-               type=&quot;Form history&quot;,
-               path=split(string=baseLocations, sep=&quot;,&quot;) + &quot;formhistory.sqlite*&quot;)
+               type="Form history",
+               path=split(string=baseLocations, sep=",") + "formhistory.sqlite*")
           },
           a4={ SELECT * FROM Artifact.Triage.Collection.Upload(
-               type=&quot;Cookies&quot;,
-               path=split(string=baseLocations, sep=&quot;,&quot;) + &quot;cookies.sqlite*&quot;)
+               type="Cookies",
+               path=split(string=baseLocations, sep=",") + "cookies.sqlite*")
           },
           a5={ SELECT * FROM Artifact.Triage.Collection.Upload(
-               type=&quot;Signons&quot;,
-               path=split(string=baseLocations, sep=&quot;,&quot;) + &quot;signons.sqlite*&quot;)
+               type="Signons",
+               path=split(string=baseLocations, sep=",") + "signons.sqlite*")
           },
           a6={ SELECT * FROM Artifact.Triage.Collection.Upload(
-               type=&quot;Webappstore&quot;,
-               path=split(string=baseLocations, sep=&quot;,&quot;) + &quot;webappstore.sqlite*&quot;)
+               type="Webappstore",
+               path=split(string=baseLocations, sep=",") + "webappstore.sqlite*")
           },
           a7={ SELECT * FROM Artifact.Triage.Collection.Upload(
-               type=&quot;Favicons&quot;,
-               path=split(string=baseLocations, sep=&quot;,&quot;) + &quot;favicons.sqlite*&quot;)
+               type="Favicons",
+               path=split(string=baseLocations, sep=",") + "favicons.sqlite*")
           },
           a8={ SELECT * FROM Artifact.Triage.Collection.Upload(
-               type=&quot;Addons&quot;,
-               path=split(string=baseLocations, sep=&quot;,&quot;) + &quot;addons.sqlite*&quot;)
+               type="Addons",
+               path=split(string=baseLocations, sep=",") + "addons.sqlite*")
           },
           a9={ SELECT * FROM Artifact.Triage.Collection.Upload(
-               type=&quot;Search&quot;,
-               path=split(string=baseLocations, sep=&quot;,&quot;) + &quot;search.sqlite*&quot;)
+               type="Search",
+               path=split(string=baseLocations, sep=",") + "search.sqlite*")
           }
           )
-</code></pre>
-
+```
+   
     </div>
 </div>
 
@@ -1134,7 +1172,11 @@ sources:
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-<pre><code>name: Windows.Triage.Collectors.InternetExplorer
+
+
+
+```
+name: Windows.Triage.Collectors.InternetExplorer
 description: |
   Collect Firefox related artifacts.
 
@@ -1164,8 +1206,8 @@ parameters:
 sources:
   - queries:
       - SELECT * FROM Artifact.Triage.Collection.UploadTable(triageTable=triageTable)
-</code></pre>
-
+```
+   
     </div>
 </div>
 
@@ -1184,7 +1226,11 @@ sources:
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-<pre><code>name: Windows.Triage.Collectors.Jabber
+
+
+
+```
+name: Windows.Triage.Collectors.Jabber
 description: |
   Jabber.
 
@@ -1195,15 +1241,15 @@ sources:
       - |
         SELECT * FROM chain(
           a1={ SELECT * FROM Artifact.Triage.Collection.Upload(
-               type=&quot;Cisco Jabber Database&quot;,
-               accessor=&quot;ntfs&quot;,
+               type="Cisco Jabber Database",
+               accessor="ntfs",
                path=[
-                 &quot;C:\\Users\\*\\AppData\\Local\\Cisco\\Unified Communications\\Jabber\\CSF\\History\\*.db&quot;
+                 "C:\\Users\\*\\AppData\\Local\\Cisco\\Unified Communications\\Jabber\\CSF\\History\\*.db"
                ])
           }
         )
-</code></pre>
-
+```
+   
     </div>
 </div>
 
@@ -1222,7 +1268,11 @@ sources:
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-<pre><code>name: Windows.Triage.Collectors.LnkFiles
+
+
+
+```
+name: Windows.Triage.Collectors.LnkFiles
 description: |
   Lnk files and jump lists.
 
@@ -1233,27 +1283,27 @@ sources:
       - |
         SELECT * FROM chain(
           a1={ SELECT * FROM Artifact.Triage.Collection.Upload(
-               type=&quot;Lnk files from Recent&quot;,
+               type="Lnk files from Recent",
                path=[
-                 &quot;C:\\Users\\*\\AppData\\Roaming\\Microsoft\\Windows\\Recent\\**&quot;,
-                 &quot;C:\\Users\\*\\AppData\\Roaming\\Microsoft\\Office\\Recent\\**&quot;,
-                 &quot;C:\\Documents and Settings\\*\\Recent\\**&quot;
+                 "C:\\Users\\*\\AppData\\Roaming\\Microsoft\\Windows\\Recent\\**",
+                 "C:\\Users\\*\\AppData\\Roaming\\Microsoft\\Office\\Recent\\**",
+                 "C:\\Documents and Settings\\*\\Recent\\**"
                ])
           },
           a2={ SELECT * FROM Artifact.Triage.Collection.Upload(
-               type=&quot;Desktop lnk files&quot;,
+               type="Desktop lnk files",
                path=[
-                 &quot;C:\\Documents and Settings\\*\\Desktop\\*.lnk&quot;,
-                 &quot;C:\\Users\\*\\Desktop\\*.lnk&quot;
+                 "C:\\Documents and Settings\\*\\Desktop\\*.lnk",
+                 "C:\\Users\\*\\Desktop\\*.lnk"
               ])
           },
           a3={ SELECT * FROM Artifact.Triage.Collection.Upload(
-               type=&quot;Restore point lnk files XP&quot;,
-               path=&quot;C:\\System Volume Information\\_restore*\\RP*\\*.lnk&quot;)
+               type="Restore point lnk files XP",
+               path="C:\\System Volume Information\\_restore*\\RP*\\*.lnk")
           }
         )
-</code></pre>
-
+```
+   
     </div>
 </div>
 
@@ -1270,7 +1320,11 @@ sources:
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-<pre><code>name: Windows.Triage.Collectors.NTFSMetadata
+
+
+
+```
+name: Windows.Triage.Collectors.NTFSMetadata
 
 precondition: SELECT OS From info() where OS = 'windows'
 
@@ -1282,19 +1336,19 @@ sources:
     queries:
       - |
         SELECT * FROM Artifact.Triage.Collection.Upload(
-        type=&quot;NTFS Metadata Files&quot;,
-        accessor=&quot;ntfs&quot;,
+        type="NTFS Metadata Files",
+        accessor="ntfs",
         path=[
-            &quot;C:\\$MFT&quot;,
-            &quot;C:\\$LogFile&quot;,
-            &quot;C:\\$Extend\\$UsnJrnl:$J&quot;,
-            &quot;C:\\$Extend\\$UsnJrnl:$Max&quot;,
-            &quot;C:\\$Secure:$SDS&quot;,
-            &quot;C:\\$Boot&quot;,
-            &quot;C:\\$Extend\\$RmMetadata\\$TxfLog\\$Tops:$T&quot;
+            "C:\\$MFT",
+            "C:\\$LogFile",
+            "C:\\$Extend\\$UsnJrnl:$J",
+            "C:\\$Extend\\$UsnJrnl:$Max",
+            "C:\\$Secure:$SDS",
+            "C:\\$Boot",
+            "C:\\$Extend\\$RmMetadata\\$TxfLog\\$Tops:$T"
         ])
-</code></pre>
-
+```
+   
     </div>
 </div>
 
@@ -1313,7 +1367,11 @@ sources:
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-<pre><code>name: Windows.Triage.Collectors.OutlookPST
+
+
+
+```
+name: Windows.Triage.Collectors.OutlookPST
 description: |
   Outlook PST and OST files.
 
@@ -1324,22 +1382,22 @@ sources:
       - |
         SELECT * FROM chain(
           a1={ SELECT * FROM Artifact.Triage.Collection.Upload(
-               type=&quot;PST&quot;,
+               type="PST",
                path=[
-                 &quot;C:\\Documents and Settings\\*\\Local Settings\\Application Data\\Microsoft\\Outlook\\*.pst&quot;,
-                 &quot;C:\\Users\\*\\AppData\\Local\\Microsoft\\Outlook\\*.pst&quot;
+                 "C:\\Documents and Settings\\*\\Local Settings\\Application Data\\Microsoft\\Outlook\\*.pst",
+                 "C:\\Users\\*\\AppData\\Local\\Microsoft\\Outlook\\*.pst"
                ])
           },
           a2={ SELECT * FROM Artifact.Triage.Collection.Upload(
-               type=&quot;OST&quot;,
+               type="OST",
                path=[
-                 &quot;C:\\Documents and Settings\\*\\Local Settings\\Application Data\\Microsoft\\Outlook\\*.ost&quot;,
-                 &quot;C:\\Users\\*\\AppData\\Local\\Microsoft\\Outlook\\*.ost&quot;
+                 "C:\\Documents and Settings\\*\\Local Settings\\Application Data\\Microsoft\\Outlook\\*.ost",
+                 "C:\\Users\\*\\AppData\\Local\\Microsoft\\Outlook\\*.ost"
               ])
           }
         )
-</code></pre>
-
+```
+   
     </div>
 </div>
 
@@ -1358,7 +1416,11 @@ sources:
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-<pre><code>name: Windows.Triage.Collectors.PowershellConsoleLogs
+
+
+
+```
+name: Windows.Triage.Collectors.PowershellConsoleLogs
 description: |
   PowerShell Console Log File.
 
@@ -1369,12 +1431,12 @@ sources:
       - |
         SELECT * FROM chain(
           a1={ SELECT * FROM Artifact.Triage.Collection.Upload(
-               type=&quot;PowerShell Console Log&quot;,
-               path=&quot;C:\\users\\*\\Appdata\\Roaming\\Microsoft\\Windows\\PowerShell\\PSReadline\\ConsoleHost_history.txt&quot;)
+               type="PowerShell Console Log",
+               path="C:\\users\\*\\Appdata\\Roaming\\Microsoft\\Windows\\PowerShell\\PSReadline\\ConsoleHost_history.txt")
           }
         )
-</code></pre>
-
+```
+   
     </div>
 </div>
 
@@ -1393,7 +1455,11 @@ sources:
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-<pre><code>name: Windows.Triage.Collectors.RecycleBin
+
+
+
+```
+name: Windows.Triage.Collectors.RecycleBin
 description: |
   Collect contents of Recycle Bin.
 
@@ -1405,15 +1471,15 @@ sources:
       - |
         SELECT * FROM chain(
           a1={ SELECT * FROM Artifact.Triage.Collection.Upload(
-               type=&quot;Recycle.Bin&quot;,
+               type="Recycle.Bin",
                path=[
-                 &quot;C:\\$Recycle.Bin\\**&quot;,
-                 &quot;C:\\RECYCLER\\**&quot;
+                 "C:\\$Recycle.Bin\\**",
+                 "C:\\RECYCLER\\**"
                ])
           }
         )
-</code></pre>
-
+```
+   
     </div>
 </div>
 
@@ -1450,7 +1516,11 @@ sources:
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-<pre><code>name: Windows.Triage.Collectors.RegistryHives
+
+
+
+```
+name: Windows.Triage.Collectors.RegistryHives
 description: |
   System and user related Registry hives.
 
@@ -1493,8 +1563,8 @@ sources:
   - queries:
       - SELECT * FROM Artifact.Triage.Collection.UploadTable(
                triageTable=triageTable)
-</code></pre>
-
+```
+   
     </div>
 </div>
 
@@ -1513,7 +1583,11 @@ sources:
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-<pre><code>name: Windows.Triage.Collectors.SRUM
+
+
+
+```
+name: Windows.Triage.Collectors.SRUM
 description: |
   System Resource Usage Monitor (SRUM) Data.
 
@@ -1524,12 +1598,12 @@ sources:
       - |
         SELECT * FROM chain(
           a1={ SELECT * FROM Artifact.Triage.Collection.Upload(
-               type=&quot;SRUM&quot;,
-               path=&quot;C:\\Windows\\System32\\SRU\\**&quot;)
+               type="SRUM",
+               path="C:\\Windows\\System32\\SRU\\**")
           }
         )
-</code></pre>
-
+```
+   
     </div>
 </div>
 
@@ -1548,7 +1622,11 @@ sources:
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-<pre><code>name: Windows.Triage.Collectors.ScheduledTasks
+
+
+
+```
+name: Windows.Triage.Collectors.ScheduledTasks
 description: |
   Scheduled tasks (*.job and XML).
 
@@ -1559,20 +1637,20 @@ sources:
       - |
         SELECT * FROM chain(
           a1={ SELECT * FROM Artifact.Triage.Collection.Upload(
-               type=&quot;at .job&quot;,
-               path=&quot;C:\\Windows\\Tasks\\*.job&quot;)
+               type="at .job",
+               path="C:\\Windows\\Tasks\\*.job")
           },
           a1={ SELECT * FROM Artifact.Triage.Collection.Upload(
-               type=&quot;at SchedLgU.txt&quot;,
-               path=&quot;C:\\Windows\\SchedLgU.txt&quot;)
+               type="at SchedLgU.txt",
+               path="C:\\Windows\\SchedLgU.txt")
           },
           a2={ SELECT * FROM Artifact.Triage.Collection.Upload(
-               type=&quot;XML&quot;,
-               path=&quot;C:\\Windows\\system32\\Tasks\\**&quot;)
+               type="XML",
+               path="C:\\Windows\\system32\\Tasks\\**")
           }
         )
-</code></pre>
-
+```
+   
     </div>
 </div>
 
@@ -1591,7 +1669,11 @@ sources:
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-<pre><code>name: Windows.Triage.Collectors.Skype
+
+
+
+```
+name: Windows.Triage.Collectors.Skype
 description: |
   Skype.
 
@@ -1602,16 +1684,16 @@ sources:
       - |
         SELECT * FROM chain(
           a1={ SELECT * FROM Artifact.Triage.Collection.Upload(
-               type=&quot;main.db&quot;,
+               type="main.db",
                path=[
-                  &quot;C:\\Users\\*\\AppData\\Local\\Packages\\Microsoft.SkypeApp_*\\LocalState\\*\\main.db&quot;,
-                  &quot;C:\\Documents and Settings\\*\\Application Data\\Skype\\*\\main.db&quot;,
-                  &quot;C:\\Users\\*\\AppData\\Roaming\\Skype\\*\\main.db&quot;
+                  "C:\\Users\\*\\AppData\\Local\\Packages\\Microsoft.SkypeApp_*\\LocalState\\*\\main.db",
+                  "C:\\Documents and Settings\\*\\Application Data\\Skype\\*\\main.db",
+                  "C:\\Users\\*\\AppData\\Roaming\\Skype\\*\\main.db"
                ])
           }
         )
-</code></pre>
-
+```
+   
     </div>
 </div>
 
@@ -1630,7 +1712,11 @@ sources:
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-<pre><code>name: Windows.Triage.Collectors.StartupInfo
+
+
+
+```
+name: Windows.Triage.Collectors.StartupInfo
 description: |
   StartupInfo XML Files.
 
@@ -1641,14 +1727,14 @@ sources:
       - |
         SELECT * FROM chain(
           a1={ SELECT * FROM Artifact.Triage.Collection.Upload(
-               type=&quot;StartupInfo XML Files&quot;,
+               type="StartupInfo XML Files",
                path=[
-                  &quot;C:\\Windows\\System32\\WDI\\LogFiles\\StartupInfo\\*.xml&quot;
+                  "C:\\Windows\\System32\\WDI\\LogFiles\\StartupInfo\\*.xml"
                ])
           }
         )
-</code></pre>
-
+```
+   
     </div>
 </div>
 
@@ -1667,7 +1753,11 @@ sources:
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-<pre><code>name: Windows.Triage.Collectors.TeraCopy
+
+
+
+```
+name: Windows.Triage.Collectors.TeraCopy
 description: |
   TeraCopy log history.
 
@@ -1678,14 +1768,14 @@ sources:
       - |
         SELECT * FROM chain(
           a1={ SELECT * FROM Artifact.Triage.Collection.Upload(
-               type=&quot;TeraCopy&quot;,
+               type="TeraCopy",
                path=[
-                  &quot;C:\\Users\\*\\AppData\\Roaming\\TeraCopy&quot;
+                  "C:\\Users\\*\\AppData\\Roaming\\TeraCopy"
                ])
           }
         )
-</code></pre>
-
+```
+   
     </div>
 </div>
 
@@ -1704,7 +1794,11 @@ sources:
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-<pre><code>name: Windows.Triage.Collectors.ThumbDB
+
+
+
+```
+name: Windows.Triage.Collectors.ThumbDB
 description: |
   Thumbcache DB.
 
@@ -1715,14 +1809,14 @@ sources:
       - |
         SELECT * FROM chain(
           a1={ SELECT * FROM Artifact.Triage.Collection.Upload(
-               type=&quot;Thumbcache DB&quot;,
+               type="Thumbcache DB",
                path=[
-                  &quot;C:\\Users\\*\\AppData\\Local\\Microsoft\\Windows\\Explorer\\thumbcache_*.db&quot;
+                  "C:\\Users\\*\\AppData\\Local\\Microsoft\\Windows\\Explorer\\thumbcache_*.db"
                ])
           }
         )
-</code></pre>
-
+```
+   
     </div>
 </div>
 
@@ -1741,7 +1835,11 @@ sources:
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-<pre><code>name: Windows.Triage.Collectors.USBDeviceLogs
+
+
+
+```
+name: Windows.Triage.Collectors.USBDeviceLogs
 description: |
   USB devices log files.
 
@@ -1752,15 +1850,15 @@ sources:
       - |
         SELECT * FROM chain(
           a1={ SELECT * FROM Artifact.Triage.Collection.Upload(
-               type=&quot;Setupapi.log&quot;,
+               type="Setupapi.log",
                path=[
-                  &quot;C:\\Windows\\setupapi.log&quot;,
-                  &quot;C:\\Windows\\inf\\setupapi.dev.log&quot;
+                  "C:\\Windows\\setupapi.log",
+                  "C:\\Windows\\inf\\setupapi.dev.log"
                ])
           }
         )
-</code></pre>
-
+```
+   
     </div>
 </div>
 
@@ -1779,7 +1877,11 @@ sources:
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-<pre><code>name: Windows.Triage.Collectors.WBEM
+
+
+
+```
+name: Windows.Triage.Collectors.WBEM
 description: |
   Web-Based Enterprise Management (WBEM).
 
@@ -1790,14 +1892,14 @@ sources:
       - |
         SELECT * FROM chain(
           a1={ SELECT * FROM Artifact.Triage.Collection.Upload(
-               type=&quot;WBEM&quot;,
+               type="WBEM",
                path=[
-                 &quot;C:\\Windows\\System32\\wbem\\Repository&quot;
+                 "C:\\Windows\\System32\\wbem\\Repository"
                ])
           }
         )
-</code></pre>
-
+```
+   
     </div>
 </div>
 
@@ -1816,7 +1918,11 @@ sources:
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-<pre><code>name: Windows.Triage.Collectors.WindowsFirewall
+
+
+
+```
+name: Windows.Triage.Collectors.WindowsFirewall
 description: |
   Windows Firewall Logs.
 
@@ -1827,12 +1933,12 @@ sources:
       - |
         SELECT * FROM chain(
           a1={ SELECT * FROM Artifact.Triage.Collection.Upload(
-               type=&quot;Windows Firewall Logs&quot;,
-               path=&quot;C:\\Windows\\System32\\LogFiles\\Firewall\\pfirewall.*&quot;)
+               type="Windows Firewall Logs",
+               path="C:\\Windows\\System32\\LogFiles\\Firewall\\pfirewall.*")
           }
         )
-</code></pre>
-
+```
+   
     </div>
 </div>
 
@@ -1851,7 +1957,11 @@ sources:
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-<pre><code>name: Windows.Triage.Collectors.WindowsIndex
+
+
+
+```
+name: Windows.Triage.Collectors.WindowsIndex
 description: |
   Windows Index Search.
 
@@ -1862,12 +1972,12 @@ sources:
       - |
         SELECT * FROM chain(
           a1={ SELECT * FROM Artifact.Triage.Collection.Upload(
-               type=&quot;WindowsIndexSearch&quot;,
-               path=&quot;C:\\programdata\\microsoft\\search\\data\\applications\\windows\\Windows.edb&quot;)
+               type="WindowsIndexSearch",
+               path="C:\\programdata\\microsoft\\search\\data\\applications\\windows\\Windows.edb")
           }
         )
-</code></pre>
-
+```
+   
     </div>
 </div>
 
@@ -1904,7 +2014,11 @@ sources:
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-<pre><code>name: Windows.Triage.ProcessMemory
+
+
+
+```
+name: Windows.Triage.ProcessMemory
 description: |
   Dump process memory and upload to the server
 
@@ -1929,8 +2043,8 @@ sources:
                    upload(file=FullPath) as CrashDump
             FROM proc_dump(pid=Pid)
           })
-</code></pre>
-
+```
+   
     </div>
 </div>
 
@@ -1949,7 +2063,11 @@ sources:
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-<pre><code>name: Windows.Triage.WebBrowsers
+
+
+
+```
+name: Windows.Triage.WebBrowsers
 description: |
   A high level artifact for selecting all browser related artifacts.
 
@@ -1964,8 +2082,8 @@ sources:
           a3={ SELECT * FROM Artifact.Windows.Triage.Collectors.Edge() },
           a4={ SELECT * FROM Artifact.Windows.Triage.Collectors.InternetExplorer() }
         )
-</code></pre>
-
+```
+   
     </div>
 </div>
 
@@ -2014,7 +2132,11 @@ sources:
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-<pre><code>name: Triage.Collection.Upload
+
+
+
+```
+name: Triage.Collection.Upload
 description: |
   A Generic uploader used by triaging artifacts.
 
@@ -2042,8 +2164,8 @@ sources:
                FileDetails.Md5 as Md5,
                FileDetails.Sha256 as SHA256
         FROM results
-</code></pre>
-
+```
+   
     </div>
 </div>
 
@@ -2081,14 +2203,18 @@ sources:
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-<pre><code>name: Triage.Collection.UploadTable
+
+
+
+```
+name: Triage.Collection.UploadTable
 description: |
   A Generic uploader used by triaging artifacts. This is similar to
   `Triage.Collection.Upload` but uses a CSV table to drive it.
 
 parameters:
   - name: triageTable
-    description: &quot;A CSV table controlling upload. Must have the headers: Type, Accessor, Glob.&quot;
+    description: "A CSV table controlling upload. Must have the headers: Type, Accessor, Glob."
     default: |
       Type,Accessor,Glob
 
@@ -2100,7 +2226,7 @@ sources:
                Type, {
                  SELECT * FROM upload(files=FullPath, accessor=Accessor)
                } AS FileDetails
-        FROM glob(globs=split(string=Glob, sep=&quot;,&quot;), accessor=Accessor)
+        FROM glob(globs=split(string=Glob, sep=","), accessor=Accessor)
         WHERE NOT IsDir
 
       - |
@@ -2115,8 +2241,8 @@ sources:
                FileDetails.Sha256 as SHA256
           FROM results
         })
-</code></pre>
-
+```
+   
     </div>
 </div>
 
@@ -2158,7 +2284,11 @@ system and last execution date/time</p>
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-<pre><code>name: Windows.Forensics.Bam
+
+
+
+```
+name: Windows.Forensics.Bam
 description: |
   The Background Activity Moderator (BAM) is a Windows service that
   Controls activity of background applications.  This service exists
@@ -2176,10 +2306,10 @@ parameters:
 
 sources:
   - precondition:
-      SELECT OS from info() where OS = &quot;windows&quot;
+      SELECT OS from info() where OS = "windows"
     queries:
       - |
-        LET users &lt;= SELECT Name, UUID FROM Artifact.Windows.Sys.Users()
+        LET users <= SELECT Name, UUID FROM Artifact.Windows.Sys.Users()
       - |
         SELECT basename(path=dirname(path=FullPath)) as SID, {
             SELECT Name FROM users
@@ -2188,11 +2318,11 @@ sources:
           Name as Binary,
           timestamp(winfiletime=binary_parse(
                string=Data.value,
-               target=&quot;int64&quot;).AsInteger) as Bam_time
-        FROM glob(globs=split(string=bamKeys, sep=&quot;,&quot;), accessor=&quot;reg&quot;)
-        WHERE Data.type = &quot;BINARY&quot;
-</code></pre>
-
+               target="int64").AsInteger) as Bam_time
+        FROM glob(globs=split(string=bamKeys, sep=","), accessor="reg")
+        WHERE Data.type = "BINARY"
+```
+   
     </div>
 </div>
 
@@ -2250,7 +2380,11 @@ to an actual filename.</p>
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-<pre><code>name: Windows.Forensics.FilenameSearch
+
+
+
+```
+name: Windows.Forensics.FilenameSearch
 description: |
   Did a specific file exist on this machine in the past or does it
   still exist on this machine?
@@ -2273,7 +2407,7 @@ parameters:
     - name: yaraRule
       default: wide nocase:my secret file.txt
     - name: Device
-      default: &quot;\\\\.\\c:&quot;
+      default: "\\\\.\\c:"
 
 sources:
   - queries:
@@ -2283,12 +2417,12 @@ sources:
                parse_ntfs(device=Device,
                           mft=String.Offset / 1024) AS MFT
         FROM yara(
-             rules=yaraRule, files=Device + &quot;/$MFT&quot;,
+             rules=yaraRule, files=Device + "/$MFT",
              end=10000000000,
              number_of_hits=1000,
-             accessor=&quot;ntfs&quot;)
-</code></pre>
-
+             accessor="ntfs")
+```
+   
     </div>
 </div>
 
@@ -2329,7 +2463,11 @@ the last 8 execution times.</p>
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-<pre><code>name: Windows.Forensics.Prefetch
+
+
+
+```
+name: Windows.Forensics.Prefetch
 description: |
   Windows keeps a cache of prefetch files. When an executable is run,
   the system records properties about the executable to make it faster
@@ -2360,8 +2498,8 @@ sources:
                     RunCount
              FROM prefetch(filename=FullPath)
           })
-</code></pre>
-
+```
+   
     </div>
 </div>
 
@@ -2417,7 +2555,11 @@ RecentApps key</p>
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-<pre><code>name: Windows.Forensics.RecentApps
+
+
+
+```
+name: Windows.Forensics.RecentApps
 description: |
   GUI Program execution launched on the Win10 system is tracked in the
   RecentApps key
@@ -2429,11 +2571,11 @@ precondition: SELECT OS From info() where OS = 'windows'
 
 parameters:
   - name: UserFilter
-    default: &quot;&quot;
+    default: ""
     description: If specified we filter by this user ID.
 
   - name: ExecutionTimeAfter
-    default: &quot;&quot;
+    default: ""
     type: timestamp
     description: If specified only show executions after this time.
 
@@ -2455,12 +2597,12 @@ sources:
                    timestamp(winfiletime=LastAccessedTime).Unix AS LastExecutionTS,
                    parse_string_with_regex(
                       string=Key.FullPath,
-                      regex=&quot;/Users/(?P&lt;User&gt;[^/]+)/ntuser.dat&quot;).User AS User
+                      regex="/Users/(?P<User>[^/]+)/ntuser.dat").User AS User
             FROM read_reg_key(
-               globs=url(scheme=&quot;ntfs&quot;,
+               globs=url(scheme="ntfs",
                   path=FullPath,
                   fragment=RecentAppsKey).String,
-               accessor=&quot;raw_reg&quot;)
+               accessor="raw_reg")
          })
 
       - LET A1 = SELECT * FROM if(
@@ -2472,10 +2614,10 @@ sources:
       - SELECT * FROM if(
           condition=ExecutionTimeAfter,
           then={
-            SELECT * FROM A1 WHERE LastExecutionTS &gt; ExecutionTimeAfter
+            SELECT * FROM A1 WHERE LastExecutionTS > ExecutionTimeAfter
           }, else=A1)
-</code></pre>
-
+```
+   
     </div>
 </div>
 
@@ -2526,7 +2668,11 @@ database.</p>
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-<pre><code>name: Windows.Forensics.Timeline
+
+
+
+```
+name: Windows.Forensics.Timeline
 description: |
   Win10 records recently used applications and files in a “timeline”
   accessible via the “WIN+TAB” key. The data is recorded in a SQLite
@@ -2534,11 +2680,11 @@ description: |
 
 parameters:
   - name: UserFilter
-    default: &quot;&quot;
+    default: ""
     description: If specified we filter by this user ID.
 
   - name: ExecutionTimeAfter
-    default: &quot;&quot;
+    default: ""
     type: timestamp
     description: If specified only show executions after this time.
 
@@ -2555,14 +2701,14 @@ sources:
          },
          query={
             SELECT AppId, FullPath, LastModifiedTime
-            FROM sqlite(file=FullPath, query=&quot;SELECT * FROM Activity&quot;)
+            FROM sqlite(file=FullPath, query="SELECT * FROM Activity")
          })
       - LET TMP = SELECT get(
                item=parse_json_array(data=AppId).application,
-               member=&quot;0&quot;) AS Application,
+               member="0") AS Application,
              parse_string_with_regex(
                string=FullPath,
-               regex=&quot;\\\\L.(?P&lt;User&gt;[^\\\\]+)\\\\&quot;).User AS User,
+               regex="\\\\L.(?P<User>[^\\\\]+)\\\\").User AS User,
                LastModifiedTime,
                LastModifiedTime.Unix as LastExecutionTS
         FROM timeline
@@ -2574,10 +2720,10 @@ sources:
       - SELECT * FROM if(
           condition=ExecutionTimeAfter,
           then={
-            SELECT * FROM A1 WHERE LastExecutionTS &gt; ExecutionTimeAfter
+            SELECT * FROM A1 WHERE LastExecutionTS > ExecutionTimeAfter
           }, else=A1)
-</code></pre>
-
+```
+   
     </div>
 </div>
 
