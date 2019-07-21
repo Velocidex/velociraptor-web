@@ -8,6 +8,7 @@ description:  |
 title: Deploying Velociraptor with OAuth SSO
 url: /blog/html/2018/12/23/deploying_velociraptor_with_oauth_sso.html
 categories: ["Blog"]
+hidden: true
 ---
 
 In the previous post we saw how to set up Velociraptor's GUI over

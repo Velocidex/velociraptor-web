@@ -8,6 +8,7 @@ description: |
 title: Detecting powershell persistence with Velociraptor and Yara
 url: /blog/html/2018/09/29/detecting_powershell_persistence_with_velociraptor_and_yara.html
 categories: ["Blog"]
+hidden: true
 ---
 
 .. admonition:: Update

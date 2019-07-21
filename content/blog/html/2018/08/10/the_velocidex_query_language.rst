@@ -8,6 +8,7 @@ description:  |
 title: Velocidex Query Language (VQL)
 url: /blog/html/2018/08/10/the_velocidex_query_language.html
 categories: ["Blog"]
+hidden: true
 ---
 
 VQL Overview

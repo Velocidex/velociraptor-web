@@ -22,6 +22,15 @@ Velociraptor models the client&#39;s VFS as a per-directory VQL query.</descript
     </item>
     
     <item>
+      <title>Calendar</title>
+      <link>/blog/calendar/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/blog/calendar/</guid>
+      <description>2018      October   MonTueWedThuFriSatSun 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31        November    MonTueWedThuFriSatSun    1 2 3 4 5 6 7 8 91 10 11 12 131 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30          December    MonTueWedThuFriSatSun      1 2 3 4 5 6 7 8 91 101 111 12 13 14 15 16 17 18 19 20 21 221 231 24 25 26 27 28 29 30 31</description>
+    </item>
+    
+    <item>
       <title>Agentless hunting with Velociraptor</title>
       <link>/blog/html/2019/03/02/agentless_hunting_with_velociraptor.html</link>
       <pubDate>Sat, 02 Mar 2019 04:10:06 +0000</pubDate>
@@ -37,7 +46,7 @@ This blog post explores an agentless deployment scenario, where we do not want t
       <pubDate>Thu, 14 Feb 2019 04:10:06 +0000</pubDate>
       
       <guid>/blog/html/2019/02/14/alerting_on_event_patterns.html</guid>
-      <description>Alerting on event patterns We have shown in earlier posts how Velociraptor uses VQL to define event queries that can detect specific conditions. These conditions can be used to create alerts and escalation actions.
+      <description>We have shown in earlier posts how Velociraptor uses VQL to define event queries that can detect specific conditions. These conditions can be used to create alerts and escalation actions.
 One of the most useful types of alerts is detecting a pattern of activity. For example we can detect failed and successful login attempts seperately, but it is the specific pattern of events (say 5 failed login attempts followed by a successful one) that is interesting from a detection point of view.</description>
     </item>
     

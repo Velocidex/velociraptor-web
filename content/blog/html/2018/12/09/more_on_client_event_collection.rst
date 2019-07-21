@@ -13,6 +13,7 @@ description:  |
 title: More on client event collection
 url: /blog/html/2018/12/09/more_on_client_event_collection.html
 categories: ["Blog"]
+hidden: true
 ---
 
 Periodic Event queries

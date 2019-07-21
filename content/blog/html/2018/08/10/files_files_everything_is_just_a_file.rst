@@ -6,8 +6,10 @@ description:  |
   is now the FileBasedDataStore which stores all data in flat files.
 
 title:  Files, files everything is just a file!
+linktitle:  20180810 Files, files everything is just a file!
 url: /blog/html/2018/02/09/files_files_everything_is_just_a_file.html
 categories: ["Blog"]
+hidden: true
 ---
 
 GRR's original design abstracted the data storage to a simple

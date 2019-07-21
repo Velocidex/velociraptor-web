@@ -7,6 +7,7 @@ API."
 title: "The Velociraptor Python API"
 url: /blog/html/2019/02/09/velociraptor_python_api.html
 categories: ["Blog"]
+hidden: true
 ---
 
 

@@ -11,6 +11,7 @@ description: |
 title: Velociraptor's client communications
 url: /blog/html/2018/09/03/velociraptor_s_client_communications.html
 categories: ["Blog"]
+hidden: true
 ---
 
 How does the GRR client communicate?

@@ -9,6 +9,7 @@ description:  |
 title: Velociraptor Artifacts
 url: /blog/html/2018/08/20/velociraptor_artifacts.html
 categories: ["Blog"]
+hidden: true
 ---
 
 First a bit of history. When we first started writing endpoint

@@ -11,6 +11,7 @@ description:  |
 title: Hunting - What Velociraptors do best!
 url: /blog/html/2018/08/10/hunting_what_velociraptors_do_best.html
 categories: ["Blog"]
+hidden: true
 ---
 
 Velociraptor has completely redesigned the way that hunts are

@@ -6,6 +6,7 @@ description:  |
 title: Configuring Velociraptor for SSL
 url: /blog/html/2018/12/22/configuring_velociraptor_for_ssl.html
 categories: ["Blog"]
+hidden: true
 ---
 
 We have previously seen how to deploy a new Velociraptor server. For a

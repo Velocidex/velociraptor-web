@@ -9,8 +9,10 @@ description:  |
   and leaving behind a fast, lean and mean raptor!
 
 title: Design differences between Velociraptor and GRR
+linktitle: 20180810 Design differences between Velociraptor and GRR
 url: /blog/html/2018/08/10/design_differences_between_velociraptor_and_grr.html
 categories: ["Blog"]
+hidden: true
 ---
 
 Velociraptor Clients run full VQL queries

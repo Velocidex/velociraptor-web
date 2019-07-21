@@ -9,6 +9,7 @@ description:  |
 title: Server side VQL queries and Escalation Events
 url: /blog/html/2018/12/10/server_side_vql_queries_and_events.html
 categories: ["Blog"]
+hidden: true
 ---
 
 Previously we have seen how Velociraptor collects information from end

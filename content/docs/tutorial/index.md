@@ -3,6 +3,7 @@ title: Tutorial
 categories: [getting started]
 keywords: [usage,docs]
 weight: 100
+hidden: true
 ---
 
 In this tutorial we will deploy Velociraptor locally to our machine,

@@ -7,8 +7,10 @@ description:  |
   DFIR tool.
 
 title:  Introducing Velociraptor
+linktitle: 20180209 Introducing Velociraptor
 url: /blog/html/2018/08/10/introducing_velociraptor.html
 categories: ["Blog"]
+hidden: true
 ---
 
 Hunting and responding like a raptor!

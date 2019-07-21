@@ -42,11 +42,6 @@
   </url>
   
   <url>
-    <loc>/about/features/</loc>
-    <lastmod>2017-02-01T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>/docs/user-interface/artifacts/client_events/</loc>
   </url>
   
@@ -121,6 +116,10 @@
   
   <url>
     <loc>/docs/artifacts/</loc>
+  </url>
+  
+  <url>
+    <loc>/blog/calendar/</loc>
   </url>
   
   <url>

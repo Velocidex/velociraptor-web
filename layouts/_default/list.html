@@ -1,0 +1,50 @@
+{{ define "main" }}
+{{if .Content}}
+{{ .Content }}
+{{else }}
+
+{{ $pages := .Data.Pages  }}
+{{ $sorted := ($pages.ByParam "date").Reverse }}
+
+{{ $paginator := .Paginate $sorted 7 }}
+
+<div class="extra-pagination inner">
+{{ partial "pagination.html" $paginator }}
+</div>
+
+{{ range $index, $page := $paginator.Pages }}
+{{ if $page.Params.date }}
+<article class="post {{ .Section }}">
+    <header class="post-header">
+      <h2 class="post-title"><a href="{{ .RelPermalink }}">
+          {{ .Title }}
+      </a></h2>
+      <h4>          {{ dateFormat "2006-01-02" .Params.date }} </h4>
+    </header>
+    <section class="post-excerpt">
+        <p>{{ .Params.Description }} <a class="read-more" href="{{.RelPermalink}}">&raquo;</a></p>
+    </section>
+    <footer class=" footline" >
+
+        {{with .Params.LastModifierDisplayName}}
+            <i class='fa fa-user'></i> <a href="mailto:{{ $.Params.LastModifierEmail }}">{{ . }}</a> {{with $.Date}} <i class='fa fa-calendar'></i> {{ .Format "02/01/2006" }}{{end}}
+        {{end}}
+
+
+        {{if .Params.tags }}
+            {{ range $index, $tag := .Params.tags }}
+                <a class="label label-default" href="{{$.Site.BaseURL}}tags/{{ $tag | urlize }}/">{{ $tag }}</a>
+            {{ end }}
+        {{end}}
+
+    </footer>
+</article>
+{{ end }}
+{{ end }}
+
+<div style="margin-bottom:2rem"></div>
+
+{{ partial "pagination.html" $paginator }}
+
+{{end}}
+{{end}}

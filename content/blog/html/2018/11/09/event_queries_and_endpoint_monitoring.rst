@@ -15,6 +15,7 @@ description: |
 title: Event Queries and Endpoint Monitoring
 url: /blog/html/2018/11/09/event_queries_and_endpoint_monitoring.html
 categories: ["Blog"]
+hidden: true
 ---
 
 

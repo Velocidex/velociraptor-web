@@ -8,9 +8,11 @@ description:  |
   way that the VFS is stored in the datastore.
 
 title: Browsing around the filesystem.
+linktitle: 20180810 Browsing around the filesystem.
 url: /blog/html/2018/08/10/browsing_around_the_filesystem.html
 categories: ["Blog"]
 weight: 10
+hidden: true
 ---
 
 The Virtual File System

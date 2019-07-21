@@ -37,7 +37,7 @@ This blog post explores an agentless deployment scenario, where we do not want t
       <pubDate>Thu, 14 Feb 2019 04:10:06 +0000</pubDate>
       
       <guid>/blog/html/2019/02/14/alerting_on_event_patterns.html</guid>
-      <description>Alerting on event patterns We have shown in earlier posts how Velociraptor uses VQL to define event queries that can detect specific conditions. These conditions can be used to create alerts and escalation actions.
+      <description>We have shown in earlier posts how Velociraptor uses VQL to define event queries that can detect specific conditions. These conditions can be used to create alerts and escalation actions.
 One of the most useful types of alerts is detecting a pattern of activity. For example we can detect failed and successful login attempts seperately, but it is the specific pattern of events (say 5 failed login attempts followed by a successful one) that is interesting from a detection point of view.</description>
     </item>
     
