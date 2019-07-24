@@ -1,6 +1,6 @@
 +++
 type = "mainpage"
 layout = "faq"
-title = "Velociraptor - Digging Deeper!"
+title = "Velociraptor / Dig deeper"
 description = "Velociraptor's homepage"
 +++

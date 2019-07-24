@@ -42,6 +42,11 @@
   </url>
   
   <url>
+    <loc>/about/features/</loc>
+    <lastmod>2017-02-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/docs/user-interface/artifacts/client_events/</loc>
   </url>
   
@@ -110,11 +115,6 @@
   </url>
   
   <url>
-    <loc>/blog/</loc>
-    <lastmod>2019-03-02T04:10:06+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>/docs/artifacts/</loc>
   </url>
   
@@ -128,6 +128,11 @@
   
   <url>
     <loc>/docs/vql_reference/templates/</loc>
+  </url>
+  
+  <url>
+    <loc>/blog/</loc>
+    <lastmod>2018-08-10T04:10:06+00:00</lastmod>
   </url>
   
   <url>
@@ -176,23 +181,6 @@
   
   <url>
     <loc>/blog/html/2019/03/02/agentless_hunting_with_velociraptor.html</loc>
-    <lastmod>2019-03-02T04:10:06+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/categories/blog/</loc>
-    <lastmod>2019-03-02T04:10:06+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>/categories/</loc>
-    <lastmod>2019-03-02T04:10:06+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>/</loc>
     <lastmod>2019-03-02T04:10:06+00:00</lastmod>
   </url>
   
@@ -303,6 +291,22 @@
   
   <url>
     <loc>/_header/</loc>
+  </url>
+  
+  <url>
+    <loc>/categories/blog/</loc>
+    <lastmod>2018-08-10T04:10:06+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/categories/</loc>
+    <lastmod>2018-08-10T04:10:06+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/categories/getting-started/</loc>
     <priority>0</priority>
   </url>
   
@@ -324,16 +328,16 @@
   </url>
   
   <url>
+    <loc>/</loc>
+    <lastmod>2018-08-10T04:10:06+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/faq/</loc>
   </url>
   
   <url>
-    <loc>/index.html</loc>
-  </url>
-  
-  <url>
-    <loc>/categories/getting-started/</loc>
-    <priority>0</priority>
+    <loc>/</loc>
   </url>
   
 </urlset>

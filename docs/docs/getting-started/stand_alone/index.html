@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Velociraptor - Digging Deeper!</title>
+    <title>Velociraptor / Dig deeper</title>
     
       <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<title>Standalone Deployment :: Velociraptor - Digging Deeper!</title>
+<title>Standalone Deployment :: Velociraptor / Dig deeper</title>
 <link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon" />
 <link rel="stylesheet" href="/css/bootstrap.min.css">
 <link href="/css/nucleus.css" rel="stylesheet">
@@ -43,9 +43,10 @@
       
 	
   
-    <a href="/">
+    <p><a href="/">
   <img src="/images/logo.svg">
-</a>
+</a></p>
+
   
 
 
@@ -72,6 +73,13 @@
       <a href="/about/">About Velociraptor</a><i class="fa fa-angle-right fa-lg category-icon"></i>
       </div>
         <ul>
+      <li data-nav-id="/about/features/" class="dd-item">
+        <div>
+          <a href="/about/features/">
+            Velociraptor Features
+          </a>
+        </div>
+    </li>
       <li data-nav-id="/about/license/" class="dd-item">
         <div>
           <a href="/about/license/">
@@ -398,7 +406,7 @@
 
 
 
- <a href='/'>Velociraptor - Digging Deeper!</a> > <a href='/docs/'>Velociraptor Documentation</a> > <a href='/docs/getting-started/'>Getting Started</a> > Standalone Deployment
+ <a href='/'>Velociraptor / Dig deeper</a> > <a href='/docs/'>Velociraptor Documentation</a> > <a href='/docs/getting-started/'>Getting Started</a> > Standalone Deployment
 
  
 
@@ -417,18 +425,30 @@
 <ul>
 <li>
 <ul>
-<li><a href="#system-overview">System overview</a></li>
-<li><a href="#interactive-configuration">Interactive configuration.</a>
+<li><a href="#overview">Overview</a></li>
+<li><a href="#1-decide-where-to-locate-the-velociraptor-server">1. Decide where to locate the Velociraptor server</a>
 <ul>
 <li>
 <ul>
-<li><a href="#configuring-dns-and-ports">Configuring DNS and ports</a></li>
+<li><a href="#server-inside-the-network">Server inside the network</a></li>
+<li><a href="#server-outside-the-network">Server outside the network</a></li>
+<li><a href="#inside-the-network-with-external-accessibility">Inside the network, with external accessibility</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#2-configure-dns-and-ports-as-required">2. Configure DNS and ports as required</a></li>
+<li><a href="#3-generate-the-server-and-client-configuration-files">3. Generate the server and client configuration files</a>
+<ul>
+<li>
+<ul>
+<li><a href="#self-signed-ssl-certificates">Self-signed SSL certificates</a></li>
 <li><a href="#configuring-the-data-store">Configuring the data store</a></li>
+<li><a href="#configuration-files-generated">Configuration files generated</a></li>
+<li><a href="#creating-gui-users">Creating GUI users</a></li>
 </ul></li>
 </ul></li>
-<li><a href="#datastore-management">Datastore management</a></li>
-<li><a href="#start-the-server">Start the server</a></li>
-<li><a href="#verify-the-gui-works">Verify the GUI works</a></li>
+<li><a href="#4-start-the-server">4. Start the server</a></li>
+<li><a href="#5-verify-the-gui-works">5. Verify the GUI works</a></li>
+<li><a href="#server-setup-complete">Server setup complete</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -451,39 +471,145 @@
     
     
 
-<p>The simplest way to deploy a Velociraptor server is via a self signed,
-stand alone deployment. Later we will see how to deploy Velociraptor
-in production, but this page will help you deploy a stand alone test
+<p>The simplest way to deploy Velociraptor is via a self-signed,
+stand-alone deployment. Later we&rsquo;ll see how to deploy Velociraptor in
+production, but this page will help you deploy a stand-alone test
 environment.</p>
 
-<h2 id="system-overview">System overview</h2>
+<h2 id="overview">Overview</h2>
 
-<p>Before we start it is useful to see how a Velociraptor deployment
+<p>Before we start, it&rsquo;s useful to see how a Velociraptor deployment
 looks at a high level:</p>
 
 <p><img src="../overview.png" alt="Architecture Overview" /></p>
 
-<p>The administrator uses their browser to connect to the Velociraptor
-GUI over SSL. Endpoint systems (Called <em>Clients</em>) are in turn connected
-to the frontend, where they may be queried by the user in order to
-collect forensic artifacts.</p>
+<p>Endpoint systems (also called <em>clients</em>) connect to the server (also
+called the <em>frontend</em>). The administrator (digital forensic
+investigator, threat hunter, SOC analyst, IT security operations,
+etc.) uses their browser to connect to the Velociraptor GUI over
+SSL. The administrator can query endpoints to collect forensic
+artifacts or for continual real-time monitoring.</p>
 
-<p>The Velociraptor binary distributed through the Github releases page
-contains all functionality in the same binary. The same executable can
-act as a server or a client depending on command line options. This
-makes it easier to deploy and use.</p>
+<p>The Velociraptor binary distributed through our <a href="https://github.com/velocidex/velociraptor">Github
+releases</a> page contains all
+Velociraptor functionality in one binary, without any libraries or
+external dependencies. The same executable can act as a server or a
+client depending on command line options, making it easy to deploy and
+use. Just ensure you use the correct binary for the operating system
+on your server and endpoints - Windows, Linux or Mac (Darwin).</p>
 
-<h2 id="interactive-configuration">Interactive configuration.</h2>
+<p>A Velociraptor server will also operate with Velociraptor endpoints
+from any supported operating system. For example, a Velociraptor
+server running on Linux will support endpoints running Windows, Linux
+and Mac, so long as the server and endpoints have correct and
+corresponding configuration files - see below.</p>
 
-<p>Velociraptor uses a configuration file to control the server and
-client. Before making a new deployment, you need to generate new
-configuration files. The server configuration file also contains key
-material used to secure communications with your clients.</p>
+<h2 id="1-decide-where-to-locate-the-velociraptor-server">1. Decide where to locate the Velociraptor server</h2>
 
-<p>Therefore our first step is to generate new configuration files. The
-easiest way to get started is using the interactive config generator
-which will build a pre-configured deployment type (You can tweak this
-deployment later if you want):</p>
+<p>For testing purposes, you don&rsquo;t even need two computers. You can
+simply run both the Velociraptor server and a client on the same
+computer. You can even use the same Velociraptor executable - just
+specify the appropriate configuration files when starting the server
+and client processes (see below).</p>
+
+<p>For more interesting testing, you&rsquo;ll want to setup a dedicated server
+and deploy to a group of endpoints. You can use virtual machines, but
+it&rsquo;s not essential, since Velociraptor requires no libraries or
+external dependencies and has an extremely light installation
+footprint, only writing the configuration, state and history files it
+needs, all of which can easily be deleted after testing, along with
+the executable.</p>
+
+<p>However when setting up a longer-term deployment, the main decision is
+whether the Velociraptor server should be inside or outside your
+network. Here are some considerations:</p>
+
+<h4 id="server-inside-the-network">Server inside the network</h4>
+
+<ul>
+<li><p>Doesn&rsquo;t require external server space nor an external domain</p></li>
+
+<li><p>Doesn&rsquo;t require allowing egress from inside your network, since all
+client-server communications remain inside the network</p></li>
+
+<li><p>However clients are only accessible when they&rsquo;re inside the network (or possibly when connecting via VPN).</p></li>
+</ul>
+
+<h4 id="server-outside-the-network">Server outside the network</h4>
+
+<ul>
+<li>Requires external server space; we recommend a cloud-based platform such as AWS</li>
+
+<li><p>Works best with an external resolvable DNS name - dynamic DNS is useful here</p></li>
+
+<li><p>Requires allowing egress connections from inside your network to the
+Velociraptor server, which can be locked down to only the default
+service ports - TCP/8000 for client-server comms and TCP/8889 for
+the administrator to access the GUI</p></li>
+
+<li><p>A significant benefit is that clients will still communicate with
+the server when outside your network perimeter, providing excellent
+accessibility.</p></li>
+</ul>
+
+<h4 id="inside-the-network-with-external-accessibility">Inside the network, with external accessibility</h4>
+
+<p>Another possibility is setting up the Velociraptor server outside the
+network, but allowing clients to connect from the Internet. This
+provides most of the benefits of both deployment options described
+above, however will require allowing ingress access and possibly NAT
+on your network perimeter.</p>
+
+<h2 id="2-configure-dns-and-ports-as-required">2. Configure DNS and ports as required</h2>
+
+<p>If you want endpoints to reach the Velociraptor server across the
+Internet, you must provide an external DNS name for the server. If you
+use a dynamic external IP address you might want to use dynamic DNS as
+well. The DNS name will be used by the clients to connect to the
+frontends, so you need to ensure the port is open and DNS names
+resolve properly.</p>
+
+<p>The default service ports listening on the server are as follows,
+although please note that these can be easily changed in the client
+and server config files that we&rsquo;ll soon be creating:</p>
+
+<ul>
+<li>TCP/8000 for client-server communications</li>
+<li>TCP/8889 for access to the GUI, which is only required for users of the server</li>
+<li>TCP/8001 if you require access to the API, which is not required by default.</li>
+</ul>
+
+<div class="notices warning" ><p>It might be tempting to specify an IP address here, especially if you
+have a static IP or this is an internal deployment. This is not
+recommended, since if you need to change the IP address, existing
+clients will continue to attempt to contact the old IP address,
+rendering them unreachable.</p>
+</div>
+
+
+<h2 id="3-generate-the-server-and-client-configuration-files">3. Generate the server and client configuration files</h2>
+
+<p>Now that you&rsquo;ve decided on your server location and setup any
+necessary networking, it&rsquo;s time to create the server and client
+configuration files.</p>
+
+<p>Velociraptor uses a pair of configuration files to control the server
+and endpoints. These define settings such as the location of the
+server, the communication ports and the encryption keys used to secure
+client-server comms.</p>
+
+<p>Therefore our next step is to generate configuration files for our new
+deployment. The easiest way to get started is using the interactive
+config generator, which will build a pre-configured deployment
+type. These files are plain-text and you can easily edit them later to
+change settings if required.</p>
+
+<p>Start the interactive config generator as shown below. The various
+options presented by the config generator are described further
+below. Note these examples demonstrate configuration on a Linux
+server, however the commands for Windows are almost identical; only
+the locations of the folders you choose for the data stores will
+differ.</p>
 
 <pre><code class="language-text">$ velociraptor config generate -i
 ?
@@ -496,29 +622,29 @@ begin by identifying what type of deployment you need.
   [Use arrows to move, space to select, type to filter]
   &gt; Self Signed SSL
     Automatically provision certificates with Lets Encrypt
+    Authenticate users with Google OAuth SSO
 </code></pre>
 
-<p>We will cover Self Signed SSL deployment in this page. This mode of
-operation has the following aspects:</p>
+<h4 id="self-signed-ssl-certificates">Self-signed SSL certificates</h4>
 
-<ul>
-<li><p>Frontend and GUI Communication occurs over TLS with self signed
-certificates.</p>
+<p>In a self-signed SSL deployment, communication between the user and
+frontend occurs over TLS with self-signed certificates.</p>
 
-<ul>
-<li>Note that in this mode, the clients will pin the server&rsquo;s self
-signed certificate, and refuse to talk with a server that is
-signed via a public CA. (This is actually more secure than
-standard PKI because even a compromised public CA can not signs
-for the server).</li>
-</ul></li>
+<p>In this mode of operation, the endpoints will pin the server&rsquo;s
+self-signed certificate and will in fact refuse to communicate with a
+server signed via a public CA. This is actually more secure than
+standard PKI, because even a compromised public CA can not sign for
+the Velociraptor server.</p>
 
-<li><p>GUI Communications are authenticated with basic Auth.</p></li>
+<p>GUI communications are authenticated with basic Auth and the GUI will
+bind to localhost only on port 8889 by default -
+i.e. <a href="https://localhost:8889/">https://localhost:8889/</a></p>
 
-<li><p>GUI will bind to localhost only on port 8889 (i.e. <a href="https://localhost:8889/">https://localhost:8889/</a>)</p></li>
-</ul>
+<p>Selecting <code>Self Signed SSL</code> proceeds to ask the following questions
+and suggests default options.</p>
 
-<p>Selecting &ldquo;Self Signed SSL&rdquo; proceeds to ask the following questions:</p>
+<p>Continue below for details about the options presented in this
+interactive configuration wizard.</p>
 
 <pre><code class="language-text"> Self Signed SSL
  Generating keys please wait....
@@ -532,60 +658,74 @@ for the server).</li>
  ? Password *********
 </code></pre>
 
-<h4 id="configuring-dns-and-ports">Configuring DNS and ports</h4>
-
-<p>If you want clients to be able to reach the server from the internet
-you must provide an external DNS name for the server (if you use a
-dynamic external IP address you might want to use dynamic DNS as
-well). The DNS name will be used by the clients to connect to the
-frontends (in the above example it will be
-<code>https://www.example.com:8000/</code>), so you need to ensure the port is
-open and DNS names resolve properly.</p>
-
-<div class="notices warning" >
-It might be tempting to specify an IP address here, especially if you
-have a static IP or this is an internal deployment. This is not
-recommended, since if you need to change the IP address, existing
-clients will continue to attempt to contact the old IP address -
-rendering them unreachable.
-</div>
-
 <h4 id="configuring-the-data-store">Configuring the data store</h4>
 
-<p>Next you should specify the paths to the data store where Velociraptor
-will write collected data. This should be a large enough disk to hold
-all the data you intend to collect. Audit logs can also be written to
-the same location.</p>
+<p>Velociraptor uses two locations for data storage - you&rsquo;ll notice the
+config generator asks where you want to put these.</p>
 
-<p>The guided installer will now create both a client and server
-configuration files, then proceed to creating some GUI users. Those
-users will be allowed to log into the admin UI.</p>
+<ul>
+<li><strong>Data Store</strong> - holds details about clients and GUI users</li>
+<li><strong>Logs</strong> - holds audit logs.</li>
+</ul>
 
-<div class="notices tip" >
+<p>Pick locations with a reasonable amount of disk space, although this
+will vary according to your requirements for collecting data from
+endpoints and running hunts across your network.</p>
 
-You can always add new users to the GUI using the command
-`velociraptor --config server.config.yaml user add MyUserName`. User
-credentials are stored in the data store and not in the config
-file. If you need to change a user's password simply add them again
-with the new password.
-
-</div>
-
-<h2 id="datastore-management">Datastore management</h2>
+<p>These locations can also be changed by editing the configuration
+files. If you want to move these, you&rsquo;ll need to move the folders and
+edit the server configuration file. Note that clients and servers hold
+different information in their respective data stores.</p>
 
 <p>Velociraptor does not enforce any particular data retention
-policies. At any time the data store can be wiped, and the server
+policies. At any time the data store can be wiped and the server
 restarted. If this happens, all the currently deployed clients will be
-automatically re-enrolled with their existing client IDs (You might
-want to archive any custom artifacts that you wrote however).</p>
+automatically re-enrolled with their existing client IDs. You might
+want to archive any custom artifacts that you wrote however.</p>
 
-<p>Since Velociraptor uses plain files, it is possible to archive the
-entire deployment, or simply delete older files with a cron job.</p>
+<p>Since Velociraptor uses plain text files for its configuration, it&rsquo;s
+possible to archive the entire deployment, or simply delete older
+files with a scheduled or automated task, or a cron job.</p>
 
-<h2 id="start-the-server">Start the server</h2>
+<h4 id="configuration-files-generated">Configuration files generated</h4>
 
-<p>We start the server using the &ldquo;frontend&rdquo; command (The -v flag causes
-verbose output to be shown in the terminal):</p>
+<p>The interactive config generator will now create both a client and
+server configuration file, which by default are stored in the local
+folder and named as follows:</p>
+
+<ul>
+<li>server.config.yaml</li>
+<li>client.config.yaml</li>
+</ul>
+
+<p>You can inspect these after the config generator is finished - they&rsquo;re
+just plain text files.</p>
+
+<h4 id="creating-gui-users">Creating GUI users</h4>
+
+<p>The configuration process will now create some GUI users, who will be
+allowed to log into the admin GUI.</p>
+
+<div class="notices note" ><p>Note that the accounts you create here are not related to any
+operating system user accounts. They are completely separate and have
+no security relationship, unless you choose to implement SSO via
+Google OAuth.</p>
+</div>
+
+
+<p>You can always add new users to the GUI using the command
+<code>velociraptor --config server.config.yaml user add MyUserName</code>. User
+credentials are stored in the data store and not in the config
+file. If you need to change a user&rsquo;s password simply add them again
+with the new password.</p>
+
+<h2 id="4-start-the-server">4. Start the server</h2>
+
+<p>Now that you&rsquo;ve generated a server configuration file -
+<code>server.config.yaml</code> - it&rsquo;s time to start your Velociraptor server.</p>
+
+<p>We start the server using the <code>frontend</code> command like so (the <code>-v</code>
+flag causes verbose output to be shown in the terminal):</p>
 
 <pre><code class="language-text"># velociraptor --config server.config.yaml frontend -v
 [INFO] 2019-04-01T14:44:40+10:00 Starting Frontend. {&quot;build_time&quot;:&quot;2019-04-01T00:25:49+10:00&quot;,&quot;commit&quot;:&quot;503b1cf&quot;,&quot;version&quot;:&quot;0.2.8&quot;}
@@ -600,35 +740,45 @@ verbose output to be shown in the terminal):</p>
 [INFO] 2019-04-01T14:44:40+10:00 Starting stats collector.
 </code></pre>
 
-<p>The frontend indicates which port the GUI will listen on
-(i.e. <code>https://127.0.0.1:8889</code>).</p>
+<p>The info messages will indicate which port the GUI will listen on,
+i.e. <code>https://127.0.0.1:8889</code></p>
 
-<div class="notices note" >
-
-Velociraptor currently does not support multiple frontends - all
-clients connect to the same frontend which performs all roles (serving
-client connections, serving the GUI and running the API server). We
-have used Velociraptor with 5-10k endpoints and it performs quite
-well. Eventually we plan to support horizontal scaling to multiple
-frontends.
-
+<div class="notices note" ><p>Velociraptor currently does not support multiple frontends - all
+clients connect to the same frontend which performs all roles
+(client-server connections, serving the GUI and running the API
+server). We have used Velociraptor with deployments of around 5,000
+endpoints and it performs quite well. Eventually we plan to support
+horizontal scaling to multiple frontends.</p>
 </div>
 
-<h2 id="verify-the-gui-works">Verify the GUI works</h2>
 
-<p>Start a browser and point it at your GUI URL. In this mode, the GUI is
-served over TSL with a self signed certificate. This shows up as an
-untrusted certificate in browsers. You would need to log in as the
-user you created earlier.</p>
+<h2 id="5-verify-the-gui-works">5. Verify the GUI works</h2>
+
+<p>Start a browser and visit your GUI URL (remember, use HTTPS and the
+default port is TCP/8889). In this mode, the GUI is served over TSL
+with a self-signed certificate. Your browser will likely report an
+error due to the unsigned certificate (which as mentioned above, can
+actually be more secure than a certificate signed by a CA). <strong>This is
+perfectly fine</strong> and you can click through these messages and continue
+to the GUI web page.</p>
+
+<p>You will now be presented with a login screen; login as the user you
+created earlier during the configuration phase.</p>
 
 <p><img src="../self_signed.png" alt="Velociraptor GUI" /></p>
 
-<p>If you want to have an SSL certificate issued by Letsencrypt (so the
-browser warning does not show up) see the next section (Deployment in
-the cloud).</p>
+<p>You can also obtain an SSL certificate from Let&rsquo;s Encrypt, to avoid
+the browser warning being displayed. Details are provided in <a href="../cloud">Cloud
+Deployment</a>.</p>
 
-<p>Thats it! you have a Velociraptor server up and running. Next you will
-need to distribute and install your clients.</p>
+<h2 id="server-setup-complete">Server setup complete</h2>
+
+<p>Thats it! Well done.</p>
+
+<p>You now have a Velociraptor server running and waiting for clients to
+connect.</p>
+
+<p>Now let&rsquo;s install some clients.</p>
 
 
     

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Velociraptor Documentation on Velociraptor - Digging Deeper!</title>
+    <title>Velociraptor Documentation on Velociraptor / Dig deeper</title>
     <link>/docs/</link>
-    <description>Recent content in Velociraptor Documentation on Velociraptor - Digging Deeper!</description>
+    <description>Recent content in Velociraptor Documentation on Velociraptor / Dig deeper</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Thu, 02 Mar 2017 12:00:00 -0500</lastBuildDate>

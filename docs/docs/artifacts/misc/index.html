@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Velociraptor - Digging Deeper!</title>
+    <title>Velociraptor / Dig deeper</title>
     
       <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<title>Miscelaneous Artifacts :: Velociraptor - Digging Deeper!</title>
+<title>Miscelaneous Artifacts :: Velociraptor / Dig deeper</title>
 <link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon" />
 <link rel="stylesheet" href="/css/bootstrap.min.css">
 <link href="/css/nucleus.css" rel="stylesheet">
@@ -43,9 +43,10 @@
       
 	
   
-    <a href="/">
+    <p><a href="/">
   <img src="/images/logo.svg">
-</a>
+</a></p>
+
   
 
 
@@ -72,6 +73,13 @@
       <a href="/about/">About Velociraptor</a><i class="fa fa-angle-right fa-lg category-icon"></i>
       </div>
         <ul>
+      <li data-nav-id="/about/features/" class="dd-item">
+        <div>
+          <a href="/about/features/">
+            Velociraptor Features
+          </a>
+        </div>
+    </li>
       <li data-nav-id="/about/license/" class="dd-item">
         <div>
           <a href="/about/license/">
@@ -398,7 +406,7 @@
 
 
 
- <a href='/'>Velociraptor - Digging Deeper!</a> > <a href='/docs/'>Velociraptor Documentation</a> > <a href='/docs/artifacts/'>Artifact Reference</a> > Miscelaneous Artifacts
+ <a href='/'>Velociraptor / Dig deeper</a> > <a href='/docs/'>Velociraptor Documentation</a> > <a href='/docs/artifacts/'>Artifact Reference</a> > Miscelaneous Artifacts
 
  
 
@@ -448,6 +456,11 @@
 <li><a href="#windows-packs-persistence">Windows.Packs.Persistence</a></li>
 <li><a href="#windows-registery-appcompatcache">Windows.Registery.AppCompatCache</a></li>
 <li><a href="#windows-registry-ntuser">Windows.Registry.NTUser</a></li>
+<li><a href="#windows-registry-ntuser-upload">Windows.Registry.NTUser.Upload</a></li>
+<li><a href="#windows-registry-sysinternals-eulacheck">Windows.Registry.Sysinternals.Eulacheck</a></li>
+<li><a href="#windows-registry-userassist">Windows.Registry.UserAssist</a></li>
+<li><a href="#windows-search-filefinder">Windows.Search.FileFinder</a></li>
+<li><a href="#performance-note">Performance Note</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -514,11 +527,7 @@ serve these through the public directory.</p>
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-
-
-
-```
-name: Admin.Client.Upgrade
+<pre><code>name: Admin.Client.Upgrade
 description: |
   Remotely push new client updates.
 
@@ -542,12 +551,12 @@ sources:
          temp files. Note that tempfiles will be automatically
          cleaned at query end.
          */
-        LET tmpfiles <= SELECT tempfile(
+        LET tmpfiles &lt;= SELECT tempfile(
            data=query(vql={
              SELECT Content
              FROM http_client(url=clientURL, chunk_size=30000000)
            }),
-           extension=".exe") as Binary,
+           extension=&quot;.exe&quot;) as Binary,
         tempfile(
            data=query(vql={
              SELECT Content
@@ -560,11 +569,11 @@ sources:
          row=tmpfiles,
          query={
             SELECT * from execve(
-               argv=[Binary, "--config", Config, "-v", "service", "install"]
+               argv=[Binary, &quot;--config&quot;, Config, &quot;-v&quot;, &quot;service&quot;, &quot;install&quot;]
             )
          })
-```
-   
+</code></pre>
+
     </div>
 </div>
 
@@ -616,11 +625,7 @@ result set.</p>
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-
-
-
-```
-name: Admin.Events.PostProcessUploads
+<pre><code>name: Admin.Events.PostProcessUploads
 description: |
   Sometimes we would like to post process uploads collected as part of
   the hunt's artifact collections
@@ -641,7 +646,7 @@ parameters:
       The command to run - must be a json array of strings! The list
       of files will be appended to the end of the command.
     default: |
-      ["/bin/ls", "-l"]
+      [&quot;/bin/ls&quot;, &quot;-l&quot;]
 
   - name: uploadPostProcessArtifact
     description: |
@@ -667,8 +672,8 @@ sources:
                     Stdout, Stderr, ReturnCode
              FROM execve(argv=Argv)
           })
-```
-   
+</code></pre>
+
     </div>
 </div>
 
@@ -722,11 +727,7 @@ text/hexdump etc.</p>
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-
-
-
-```
-name: Admin.System.CompressUploads
+<pre><code>name: Admin.System.CompressUploads
 description: |
   Compresses all uploaded files.
 
@@ -739,10 +740,11 @@ description: |
   In order to run this artifact you would normally run it as part of
   an artifact acquisition process:
 
-  ```
-  $ velociraptor --config /etc/server.config.yaml artifacts acquire Admin.System.CompressUploads
-  ```
+</code></pre>
 
+<p>$ velociraptor &ndash;config /etc/server.config.yaml artifacts acquire Admin.System.CompressUploads</p>
+
+<pre><code>
   Note that there is nothing special about compressed files - you can
   also just run `find` and `gzip` in the file store. Velociraptor will
   automatically decompress the file when displaying it in the GUI
@@ -770,8 +772,8 @@ sources:
         SELECT ClientId, Flow, Files,
                compress(path=Files) as CompressedFiles
         FROM files
-```
-   
+</code></pre>
+
     </div>
 </div>
 
@@ -837,11 +839,7 @@ information than just times (i.e. who logged on to where etc).</p>
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-
-
-
-```
-name: Demo.Plugins.Fifo
+<pre><code>name: Demo.Plugins.Fifo
 description: |
   This is a demo of the fifo() plugin. The Fifo plugin collects and
   caches rows from its inner query. Every subsequent execution of the
@@ -877,15 +875,15 @@ description: |
   .. code-block:: json
 
       {
-        "Count": 5,
-        "FailedTime": [
+        &quot;Count&quot;: 5,
+        &quot;FailedTime&quot;: [
           1549527272,
           1549527273,
           1549527274,
           1549527275,
           1549527276
         ],
-        "SuccessTime": 1549527277
+        &quot;SuccessTime&quot;: 1549527277
       }
 
   Of course in the real artifact we would want to include more
@@ -909,7 +907,7 @@ sources:
       # start until it is first called (i.e. the first successful
       # login and we will miss the failed events before hand).
       - |
-        LET foo <= SELECT * FROM last_5_events
+        LET foo &lt;= SELECT * FROM last_5_events
 
       # This simulates successful logon - we assume every 3 seonds.
       - |
@@ -927,9 +925,9 @@ sources:
               enumerate(items=FailedTime) as FailedTime,
               count(items=FailedTime) as Count
            FROM last_5_events GROUP BY SuccessTime
-          }) WHERE Count > 3
-```
-   
+          }) WHERE Count &gt; 3
+</code></pre>
+
     </div>
 </div>
 
@@ -998,11 +996,7 @@ initially created.</p>
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-
-
-
-```
-name: Generic.Applications.Office.Keywords
+<pre><code>name: Generic.Applications.Office.Keywords
 description: |
   Microsoft Office documents among other document format (such as
   LibraOffice) are actually stored in zip files. The zip file contain
@@ -1035,8 +1029,8 @@ parameters:
     default: |
       rule Hit {
         strings:
-          $a = "secret" wide nocase
-          $b = "secret" nocase
+          $a = &quot;secret&quot; wide nocase
+          $b = &quot;secret&quot; nocase
 
         condition:
           any of them
@@ -1055,9 +1049,9 @@ sources:
         LET document_parts = SELECT OfficePath,
              FullPath AS ZipMemberPath
           FROM glob(globs=url(
-             scheme="file", path=OfficePath, fragment="/**").String,
+             scheme=&quot;file&quot;, path=OfficePath, fragment=&quot;/**&quot;).String,
              accessor='zip')
-          WHERE not IsDir and Size > 0
+          WHERE not IsDir and Size &gt; 0
 
       # For each document, scan all its parts for the keyword.
       - |
@@ -1077,8 +1071,8 @@ sources:
                  context=200,
                  accessor='zip')
          })
-```
-   
+</code></pre>
+
     </div>
 </div>
 
@@ -1115,16 +1109,12 @@ sources:
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-
-
-
-```
-name: Generic.Client.Stats
+<pre><code>name: Generic.Client.Stats
 description: An Event artifact which generates client's CPU and memory statistics.
 parameters:
   - name: Frequency
     description: Return stats every this many seconds.
-    default: "10"
+    default: &quot;10&quot;
 type: CLIENT_EVENT
 
 sources:
@@ -1145,29 +1135,29 @@ sources:
 reports:
   - type: SERVER_EVENT
     template: |
-      {{ define "resources" }}
+      {{ define &quot;resources&quot; }}
            SELECT Timestamp, rate(x=CPU, y=Timestamp) * 100 As CPUPercent,
                   RSS / 1000000 AS MemoryUse
            FROM source()
-           WHERE CPUPercent >= 0
+           WHERE CPUPercent &gt;= 0
       {{ end }}
 
-      {{ Query "resources" | LineChart "xaxis_mode" "time" "RSS.yaxis" 2 }}
+      {{ Query &quot;resources&quot; | LineChart &quot;xaxis_mode&quot; &quot;time&quot; &quot;RSS.yaxis&quot; 2 }}
 
   - type: MONITORING_DAILY
     template: |
-      {{ define "resources" }}
+      {{ define &quot;resources&quot; }}
            SELECT Timestamp, rate(x=CPU, y=Timestamp) * 100 As CPUPercent,
                   RSS / 1000000 AS MemoryUse
            FROM source()
-           WHERE CPUPercent >= 0
+           WHERE CPUPercent &gt;= 0
       {{ end }}
 
-      {{ $client_info := Query "SELECT * FROM clients(client_id=ClientId) LIMIT 1" }}
+      {{ $client_info := Query &quot;SELECT * FROM clients(client_id=ClientId) LIMIT 1&quot; }}
 
-      # Client Footprint for {{ Get $client_info "0.OsInfo.Fqdn" }}
+      # Client Footprint for {{ Get $client_info &quot;0.OsInfo.Fqdn&quot; }}
 
-      The client has a client ID of {{ Get $client_info "0.ClientId" }}.
+      The client has a client ID of {{ Get $client_info &quot;0.ClientId&quot; }}.
       Clients report the Velociraptor process footprint to the
       server every 10 seconds. The data includes the total CPU
       utilization, and the resident memory size used by the client.
@@ -1180,20 +1170,20 @@ reports:
       idle, but if a heavy hunt is running this might climb
       substantially.
 
-      {{ Query "resources" | LineChart "xaxis_mode" "time" "RSS.yaxis" 2 }}
+      {{ Query &quot;resources&quot; | LineChart &quot;xaxis_mode&quot; &quot;time&quot; &quot;RSS.yaxis&quot; 2 }}
 
       ## VQL Query
 
       The following VQL query was used to plot the graph above.
 
       ```sql
-      {{ template "resources" }}
+      {{ template &quot;resources&quot; }}
       ```
 
-      > To learn about managing end point performance with Velociraptor see
+      &gt; To learn about managing end point performance with Velociraptor see
         the [blog post](https://docs.velociraptor.velocidex.com/blog/html/2019/02/10/velociraptor_performance.html).
-```
-   
+</code></pre>
+
     </div>
 </div>
 
@@ -1231,11 +1221,7 @@ any files - we simply carve anything that looks like a URL.</p>
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-
-
-
-```
-name: Generic.Forensic.Carving.URLs
+<pre><code>name: Generic.Forensic.Carving.URLs
 description: |
   Carve URLs from files located in a glob. Note that we do not parse
   any files - we simply carve anything that looks like a URL.
@@ -1244,15 +1230,15 @@ description: |
 parameters:
   - name: UrlGlob
     default: |
-      ["C:/Documents and Settings/*/Local Settings/Application Data/Google/Chrome/User Data/**",
-       "C:/Users/*/AppData/Local/Google/Chrome/User Data/**",
-       "C:/Documents and Settings/*/Local Settings/History/**",
-       "C:/Documents and Settings/*/Local Settings/Temporary Internet Files/**",
-       "C:/Users/*/AppData/Local/Microsoft/Windows/WebCache/**",
-       "C:/Users/*/AppData/Local/Microsoft/Windows/INetCache/**",
-       "C:/Users/*/AppData/Local/Microsoft/Windows/INetCookies/**",
-       "C:/Users/*/AppData/Roaming/Mozilla/Firefox/Profiles/**",
-       "C:/Documents and Settings/*/Application Data/Mozilla/Firefox/Profiles/**"
+      [&quot;C:/Documents and Settings/*/Local Settings/Application Data/Google/Chrome/User Data/**&quot;,
+       &quot;C:/Users/*/AppData/Local/Google/Chrome/User Data/**&quot;,
+       &quot;C:/Documents and Settings/*/Local Settings/History/**&quot;,
+       &quot;C:/Documents and Settings/*/Local Settings/Temporary Internet Files/**&quot;,
+       &quot;C:/Users/*/AppData/Local/Microsoft/Windows/WebCache/**&quot;,
+       &quot;C:/Users/*/AppData/Local/Microsoft/Windows/INetCache/**&quot;,
+       &quot;C:/Users/*/AppData/Local/Microsoft/Windows/INetCookies/**&quot;,
+       &quot;C:/Users/*/AppData/Roaming/Mozilla/Firefox/Profiles/**&quot;,
+       &quot;C:/Documents and Settings/*/Application Data/Mozilla/Firefox/Profiles/**&quot;
        ]
 
 sources:
@@ -1266,10 +1252,10 @@ sources:
           query={
             SELECT FullPath,
                    URL FROM parse_records_with_regex(file=FullPath,
-               regex="(?P<URL>https?:\\/\\/[\\w\\.-]+[\\/\\w \\.-]*)")
+               regex=&quot;(?P&lt;URL&gt;https?:\\/\\/[\\w\\.-]+[\\/\\w \\.-]*)&quot;)
           })
-```
-   
+</code></pre>
+
     </div>
 </div>
 
@@ -1314,11 +1300,7 @@ expensive.</p>
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-
-
-
-```
-name: Generic.Forensic.Timeline
+<pre><code>name: Generic.Forensic.Timeline
 description: |
   This artifact generates a timeline of a file glob in bodyfile
   format. We currently do not calculate the md5 because it is quite
@@ -1353,8 +1335,8 @@ sources:
                Mode.String AS Mode, Sys.Uid AS Uid, Sys.Gid AS Gid, Size,
                Atime.Sec AS Atime, Mtime.Sec AS Mtime, Ctime.Sec AS Ctime
         FROM glob(globs=timelineGlob, accessor=timelineAccessor)
-```
-   
+</code></pre>
+
     </div>
 </div>
 
@@ -1391,11 +1373,7 @@ sources:
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-
-
-
-```
-name: Network.ExternalIpAddress
+<pre><code>name: Network.ExternalIpAddress
 description: Detect the external ip address of the end point.
 parameters:
   - name: externalUrl
@@ -1406,8 +1384,8 @@ sources:
     queries:
       - |
         SELECT Content as IP from http_client(url=externalUrl)
-```
-   
+</code></pre>
+
     </div>
 </div>
 
@@ -1427,11 +1405,7 @@ and if it has completed.</p>
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-
-
-
-```
-name: Reporting.Hunts.Details
+<pre><code>name: Reporting.Hunts.Details
 description: |
   Report details about which client ran each hunt, how long it took
   and if it has completed.
@@ -1459,8 +1433,8 @@ sources:
         FROM hunt_flows(hunt_id=hunt_id) order by create_time desc
       - |
         SELECT * from foreach(row=hunts, query=flows)
-```
-   
+</code></pre>
+
     </div>
 </div>
 
@@ -1482,11 +1456,7 @@ each system participated in.</p>
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-
-
-
-```
-name: System.Hunt.Participation
+<pre><code>name: System.Hunt.Participation
 description: |
      Endpoints may participate in hunts. This artifact collects which hunt
      each system participated in.
@@ -1496,8 +1466,8 @@ description: |
 reports:
   - type: MONITORING_DAILY
     template: |
-      {{ define "all_hunts" }}LET allhunts <= SELECT * FROM hunts(){{ end }}
-      {{ define "hunts" }}
+      {{ define &quot;all_hunts&quot; }}LET allhunts &lt;= SELECT * FROM hunts(){{ end }}
+      {{ define &quot;hunts&quot; }}
            SELECT * FROM foreach(
              row={ SELECT timestamp(epoch=Timestamp) AS Scheduled,
                           HuntId as ParticipatedHuntId
@@ -1513,22 +1483,22 @@ reports:
              })
       {{ end }}
 
-      {{ $client_info := Query "SELECT * FROM clients(client_id=ClientId) LIMIT 1" }}
+      {{ $client_info := Query &quot;SELECT * FROM clients(client_id=ClientId) LIMIT 1&quot; }}
 
-      # Hunt participation for {{ Get $client_info "0.OsInfo.Fqdn" }}
+      # Hunt participation for {{ Get $client_info &quot;0.OsInfo.Fqdn&quot; }}
 
-      The client with a client ID of {{ Get $client_info "0.ClientId" }} participated in some hunts today.
+      The client with a client ID of {{ Get $client_info &quot;0.ClientId&quot; }} participated in some hunts today.
 
-      {{ Query "all_hunts" "hunts" | Table }}
+      {{ Query &quot;all_hunts&quot; &quot;hunts&quot; | Table }}
 
       ## VQL Query
       The following VQL query was used to plot the graph above.
 
       ```sql
-      {{ template "hunts" }}
+      {{ template &quot;hunts&quot; }}
       ```
-```
-   
+</code></pre>
+
     </div>
 </div>
 
@@ -1551,11 +1521,7 @@ report walks the user through the analysis of the findings.</p>
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-
-
-
-```
-name: Windows.Analysis.EvidenceOfExecution
+<pre><code>name: Windows.Analysis.EvidenceOfExecution
 description: |
   In many investigations it is useful to find evidence of program execution.
 
@@ -1583,8 +1549,8 @@ sources:
   - name: Prefetch
     queries:
       - SELECT * FROM Artifact.Windows.Forensics.Prefetch()
-```
-   
+</code></pre>
+
     </div>
 </div>
 
@@ -1621,15 +1587,11 @@ sources:
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-
-
-
-```
-name: Windows.Applications.ChocolateyPackages
+<pre><code>name: Windows.Applications.ChocolateyPackages
 description: Chocolatey packages installed in a system.
 parameters:
   - name: ChocolateyInstall
-    default: ""
+    default: &quot;&quot;
 
 sources:
   - precondition:
@@ -1650,7 +1612,7 @@ sources:
             SELECT * FROM if(
                condition=ChocolateyInstall,
                then=ChocolateyInstall,
-               else=environ(var="ChocolateyInstall"))
+               else=environ(var=&quot;ChocolateyInstall&quot;))
           },
         then={
             SELECT FullPath,
@@ -1661,8 +1623,8 @@ sources:
                    Metadata.package.metadata.licenseUrl as License
             FROM files
         })
-```
-   
+</code></pre>
+
     </div>
 </div>
 
@@ -1714,11 +1676,7 @@ has actually visited the site and obtained a cookie.</p>
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-
-
-
-```
-name: Windows.Applications.Chrome.Cookies
+<pre><code>name: Windows.Applications.Chrome.Cookies
 description: |
   Enumerate the users chrome cookies.
 
@@ -1767,8 +1725,8 @@ sources:
               file=FullPath,
               query=cookieSQLQuery)
           })
-```
-   
+</code></pre>
+
     </div>
 </div>
 
@@ -1814,11 +1772,7 @@ description from there.</p>
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-
-
-
-```
-name: Windows.Applications.Chrome.Extensions
+<pre><code>name: Windows.Applications.Chrome.Extensions
 description: |
   Fetch Chrome extensions.
 
@@ -1871,17 +1825,17 @@ sources:
                          -- Munge the filename to get the messages.json path.
                          filenames=regex_replace(
                            source=ManifestFilename,
-                           replace="\\_locales\\" + Manifest.default_locale +
-                                   "\\messages.json",
-                           re="\\\\manifest.json$"))
+                           replace=&quot;\\_locales\\&quot; + Manifest.default_locale +
+                                   &quot;\\messages.json&quot;,
+                           re=&quot;\\\\manifest.json$&quot;))
               },
               else={
                   -- Just fill in empty Locale results.
                   SELECT Manifest,
                          Uid, User,
-                         "" AS LocaleFilename,
-                         "" AS ManifestFilename,
-                         "" AS LocaleManifest
+                         &quot;&quot; AS LocaleFilename,
+                         &quot;&quot; AS ManifestFilename,
+                         &quot;&quot; AS LocaleManifest
                   FROM scope()
               })
 
@@ -1908,46 +1862,46 @@ sources:
                   resolves the Name column either to the main manifest or
                   the locale manifest.
                */
-               if(condition="__MSG_" in Manifest.name,
+               if(condition=&quot;__MSG_&quot; in Manifest.name,
                   then=get(item=LocaleManifest,
                      member=regex_replace(
                         source=Manifest.name,
-                        replace="$1",
-                        re="(?:__MSG_(.+)__)")).message,
+                        replace=&quot;$1&quot;,
+                        re=&quot;(?:__MSG_(.+)__)&quot;)).message,
                   else=Manifest.name) as Name,
 
-               if(condition="__MSG_" in Manifest.description,
+               if(condition=&quot;__MSG_&quot; in Manifest.description,
                   then=get(item=LocaleManifest,
                      member=regex_replace(
                         source=Manifest.description,
-                        replace="$1",
-                        re="(?:__MSG_(.+)__)")).message,
+                        replace=&quot;$1&quot;,
+                        re=&quot;(?:__MSG_(.+)__)&quot;)).message,
                   else=Manifest.description) as Description,
 
                /* Get the Identifier and Version from the manifest filename */
                regex_replace(
                  source=ManifestFilename,
-                 replace="$1",
-                 re="(?:.+Extensions\\\\([^\\\\]+)\\\\([^\\\\]+)\\\\manifest.json)$") AS Identifier,
+                 replace=&quot;$1&quot;,
+                 re=&quot;(?:.+Extensions\\\\([^\\\\]+)\\\\([^\\\\]+)\\\\manifest.json)$&quot;) AS Identifier,
                regex_replace(
                  source=ManifestFilename,
-                 replace="$2",
-                 re="(?:.+Extensions\\\\([^\\\\]+)\\\\([^\\\\]+)\\\\manifest.json)$") AS Version,
+                 replace=&quot;$2&quot;,
+                 re=&quot;(?:.+Extensions\\\\([^\\\\]+)\\\\([^\\\\]+)\\\\manifest.json)$&quot;) AS Version,
 
                Manifest.author as Author,
                Manifest.background.persistent AS Persistent,
                regex_replace(
                  source=ManifestFilename,
-                 replace="$1",
-                 re="(.+Extensions\\\\.+\\\\)manifest.json$") AS Path,
+                 replace=&quot;$1&quot;,
+                 re=&quot;(.+Extensions\\\\.+\\\\)manifest.json$&quot;) AS Path,
 
                Manifest.oauth2.scopes as Scopes,
                Manifest.permissions as Permissions,
                Manifest.key as Key
 
         FROM parsed_manifest_files
-```
-   
+</code></pre>
+
     </div>
 </div>
 
@@ -1990,11 +1944,7 @@ sources:
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-
-
-
-```
-name: Windows.Applications.Chrome.History
+<pre><code>name: Windows.Applications.Chrome.History
 description: |
   Enumerate the users chrome history.
 
@@ -2034,8 +1984,8 @@ sources:
               file=FullPath,
               query=urlSQLQuery)
           })
-```
-   
+</code></pre>
+
     </div>
 </div>
 
@@ -2086,11 +2036,7 @@ suspicious!</p>
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-
-
-
-```
-name: Windows.Applications.OfficeMacros
+<pre><code>name: Windows.Applications.OfficeMacros
 description: |
   Office macros are a favourite initial infection vector. Many users
   click through the warning dialogs.
@@ -2104,7 +2050,7 @@ description: |
 
 parameters:
   - name: officeExtensions
-    default: "*.{xls,xlsm,doc,docx,ppt,pptm}"
+    default: &quot;*.{xls,xlsm,doc,docx,ppt,pptm}&quot;
   - name: officeFileSearchGlob
     default: C:\Users\**\
     description: The directory to search for office documents.
@@ -2119,8 +2065,8 @@ sources:
            query={
                SELECT * from olevba(file=FullPath)
            })
-```
-   
+</code></pre>
+
     </div>
 </div>
 
@@ -2164,13 +2110,9 @@ sources:
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-
-
-
-```
-name: Windows.Attack.ParentProcess
+<pre><code>name: Windows.Attack.ParentProcess
 description: |
-  Maps the Mitre Att&ck framework process executions into artifacts.
+  Maps the Mitre Att&amp;ck framework process executions into artifacts.
 
   ### References:
   * https://www.sans.org/security-resources/posters/hunt-evil/165/download
@@ -2197,9 +2139,9 @@ parameters:
 sources:
      - queries:
        # Build up some cached queries for speed.
-       - LET lookup <= SELECT * FROM parse_csv(filename=lookupTable, accessor='data')
-       - LET processes <= SELECT Name, Pid, Ppid, CommandLine, CreateTime, Exe FROM pslist()
-       - LET processes_lookup <= SELECT Name As ProcessName, Pid As ProcID FROM processes
+       - LET lookup &lt;= SELECT * FROM parse_csv(filename=lookupTable, accessor='data')
+       - LET processes &lt;= SELECT Name, Pid, Ppid, CommandLine, CreateTime, Exe FROM pslist()
+       - LET processes_lookup &lt;= SELECT Name As ProcessName, Pid As ProcID FROM processes
        - |
          // Resolve the Ppid into a parent name using our processes_lookup
          LET resolved_parent_name = SELECT * FROM foreach(
@@ -2224,8 +2166,8 @@ sources:
              FROM lookup
              WHERE ActualProcessName =~ ProcessName AND NOT ActualParentName =~ ParentRegex
          })
-```
-   
+</code></pre>
+
     </div>
 </div>
 
@@ -2246,13 +2188,9 @@ artifacts. This pack was generated from
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-
-
-
-```
-name: Windows.Attack.Prefetch
+<pre><code>name: Windows.Attack.Prefetch
 description: |
-   Maps the Mitre Att&ck framework process executions into
+   Maps the Mitre Att&amp;ck framework process executions into
    artifacts. This pack was generated from
    https://github.com/teoseller/osquery-attck
 
@@ -2261,7 +2199,7 @@ precondition: SELECT OS From info() where OS = 'windows'
 sources:
      - queries:
        - SELECT Name, ModTime, Mtime.Sec AS modified
-         FROM glob(globs="C:/Windows/Prefetch/*")
+         FROM glob(globs=&quot;C:/Windows/Prefetch/*&quot;)
 
 # Reports can be MONITORING_DAILY, CLIENT, SERVER_EVENT
 reports:
@@ -2270,36 +2208,36 @@ reports:
       - name: lookupTable
         default: |
            signature,description
-           attrib,Attrib Execute is usually used to modify file attributes - ATT&CK T1158
-           schtasks.exe,Schtasks Execute: usaullay used to create a scheduled task - ATT&CK T1053:S0111
-           taskeng.exe,taskeng Execute: usaullay used to create a scheduled task - ATT&CK T1053
-           tscon.exe,tscon.exe Execute: usaullay used to Terminal Services Console - ATT&CK T1076
-           mstsc.exe,mstsc.exe Execute: usaullay used to perform a RDP Session  - ATT&CK T1076
-           at.exe,Schtasks Execute: usaullay used to create a scheduled task - ATT&CK T1053:S0110
-           tasklist.exe,Tasklist Execute: usaullay used to list task - ATT&CK T1057:T1063:T1007:S0057
+           attrib,Attrib Execute is usually used to modify file attributes - ATT&amp;CK T1158
+           schtasks.exe,Schtasks Execute: usaullay used to create a scheduled task - ATT&amp;CK T1053:S0111
+           taskeng.exe,taskeng Execute: usaullay used to create a scheduled task - ATT&amp;CK T1053
+           tscon.exe,tscon.exe Execute: usaullay used to Terminal Services Console - ATT&amp;CK T1076
+           mstsc.exe,mstsc.exe Execute: usaullay used to perform a RDP Session  - ATT&amp;CK T1076
+           at.exe,Schtasks Execute: usaullay used to create a scheduled task - ATT&amp;CK T1053:S0110
+           tasklist.exe,Tasklist Execute: usaullay used to list task - ATT&amp;CK T1057:T1063:T1007:S0057
            taskkill.exe,Taskkill Execute: usaullay used to kill task
-           mshta.exe,Mshta Execute: is a utility that executes Microsoft HTML Applications (HTA) - ATT&CK T1170
+           mshta.exe,Mshta Execute: is a utility that executes Microsoft HTML Applications (HTA) - ATT&amp;CK T1170
            whoami.exe,Whoami Execute: used to prints the effective username of the current user
            xcopy.exe,Xcopy Execute: is used for copying multiple files or entire directory trees from one directory to another and for copying files across a network.
            esentutl.exe,Esentutl Execute: is a legitimate built-in command-line program it could be used to create a exe from dump raw source.
-           net.exe,Net Execute: is used in command-line operations for control of users: groups: services: and network connections - ATT&CK T1126:T1087:T1201:T1069:S0039:T1018:T1007:T1124
+           net.exe,Net Execute: is used in command-line operations for control of users: groups: services: and network connections - ATT&amp;CK T1126:T1087:T1201:T1069:S0039:T1018:T1007:T1124
            vssadmin.exe,Vssadmin Execute: usaullay used to execute activity on Volume Shadow copy
-           InstallUtil.exe,InstallUtil Execute: InstallUtil is a command-line utility that allows for installation and uninstallation of resources by executing specific installer components specified in .NET binaries - ATT&CK T1118
-           cmstp.exe,CMSTP Execute: The Microsoft Connection Manager Profile Installer (CMSTP.exe) is a command-line program used to install Connection Manager service profiles. - ATT&CK T1191
-           cmd.exe,Command-Line Interface Execute: CMD execution - ATT&CK T1059
-           cscript.exe,Command-Line Interface Execute: Cscript execution starts a script so that it runs in a command-line environment. - ATT&CK T1216
-           powershell.exe,POWERSHELL Execute: is a powerful interactive command-line interface and scripting environment included in the Windows operating system - ATT&CK T1086
-           regsvr32.exe,POWERSHELL Execute: is a powerful interactive command-line interface and scripting environment included in the Windows operating system - ATT&CK T1117
-           PsExec.exe,PsExec Execute: is a free Microsoft tool that can be used to execute a program on another computer. - ATT&CK T1035:S0029
-           runas.exe,Runas Execute: Allows a user to run specific tools and programs with different permissions than the user's current logon provides. - ATT&CK T1134
-           bitsadmin.exe,Bitsadmin Execute: Windows Background Intelligent Transfer Service (BITS) is a low-bandwidth: asynchronous file transfer mechanism exposed through Component Object Model (COM) - ATT&CK T1197:S0190
-           certutil.exe,Certutil Execute: Certutil.exe is a legitimate built-in command-line program to manage certificates in Windows - ATT&CK T1105:T1140:T1130:S0160
-           netsh.exe,Netsh Execute: Netsh.exe (also referred to as Netshell) is a command-line scripting utility used to interact with the network configuration of a system - ATT&CK T1128:T1063:S0108
-           netstat.exe,Netstat Execute:  is an operating system utility that displays active TCP connections: listening ports: and network statistics. - ATT&CK T1049:S0104
-           reg.exe,Reg Execute: Reg is a Windows utility used to interact with the Windows Registry.  - ATT&CK T1214:T1012:T1063:S0075
-           regedit.exe,Regedit Execute: is a Windows utility used to interact with the Windows Registry. - ATT&CK T1214
-           systeminfo.exe,Systeminfo Execute: Systeminfo is a Windows utility that can be used to gather detailed information about a computer. - ATT&CK T1082:S0096
-           sc.exe,SC.exe Execute: Service Control - Create: Start: Stop: Query or Delete any Windows SERVICE. . - ATT&CK T1007
+           InstallUtil.exe,InstallUtil Execute: InstallUtil is a command-line utility that allows for installation and uninstallation of resources by executing specific installer components specified in .NET binaries - ATT&amp;CK T1118
+           cmstp.exe,CMSTP Execute: The Microsoft Connection Manager Profile Installer (CMSTP.exe) is a command-line program used to install Connection Manager service profiles. - ATT&amp;CK T1191
+           cmd.exe,Command-Line Interface Execute: CMD execution - ATT&amp;CK T1059
+           cscript.exe,Command-Line Interface Execute: Cscript execution starts a script so that it runs in a command-line environment. - ATT&amp;CK T1216
+           powershell.exe,POWERSHELL Execute: is a powerful interactive command-line interface and scripting environment included in the Windows operating system - ATT&amp;CK T1086
+           regsvr32.exe,POWERSHELL Execute: is a powerful interactive command-line interface and scripting environment included in the Windows operating system - ATT&amp;CK T1117
+           PsExec.exe,PsExec Execute: is a free Microsoft tool that can be used to execute a program on another computer. - ATT&amp;CK T1035:S0029
+           runas.exe,Runas Execute: Allows a user to run specific tools and programs with different permissions than the user's current logon provides. - ATT&amp;CK T1134
+           bitsadmin.exe,Bitsadmin Execute: Windows Background Intelligent Transfer Service (BITS) is a low-bandwidth: asynchronous file transfer mechanism exposed through Component Object Model (COM) - ATT&amp;CK T1197:S0190
+           certutil.exe,Certutil Execute: Certutil.exe is a legitimate built-in command-line program to manage certificates in Windows - ATT&amp;CK T1105:T1140:T1130:S0160
+           netsh.exe,Netsh Execute: Netsh.exe (also referred to as Netshell) is a command-line scripting utility used to interact with the network configuration of a system - ATT&amp;CK T1128:T1063:S0108
+           netstat.exe,Netstat Execute:  is an operating system utility that displays active TCP connections: listening ports: and network statistics. - ATT&amp;CK T1049:S0104
+           reg.exe,Reg Execute: Reg is a Windows utility used to interact with the Windows Registry.  - ATT&amp;CK T1214:T1012:T1063:S0075
+           regedit.exe,Regedit Execute: is a Windows utility used to interact with the Windows Registry. - ATT&amp;CK T1214
+           systeminfo.exe,Systeminfo Execute: Systeminfo is a Windows utility that can be used to gather detailed information about a computer. - ATT&amp;CK T1082:S0096
+           sc.exe,SC.exe Execute: Service Control - Create: Start: Stop: Query or Delete any Windows SERVICE. . - ATT&amp;CK T1007
 
 
     template: |
@@ -2308,31 +2246,31 @@ reports:
       The below shows any prefetch files of interest and what they
       could potentially mean.
 
-      {{ define "query" }}
-         LET lookup <= SELECT * FROM parse_csv(filename=lookupTable, accessor='data')
+      {{ define &quot;query&quot; }}
+         LET lookup &lt;= SELECT * FROM parse_csv(filename=lookupTable, accessor='data')
       {{ end }}
 
-      {{ define "data"}}
-        LET data <= SELECT * FROM source()
+      {{ define &quot;data&quot;}}
+        LET data &lt;= SELECT * FROM source()
       {{ end }}
 
-      {{ range (Query "data" "query" "SELECT * FROM lookup") }}
-          {{ $rows := Query (printf "SELECT * FROM source() WHERE Name =~ '%v'" (Get . "signature") ) }}
+      {{ range (Query &quot;data&quot; &quot;query&quot; &quot;SELECT * FROM lookup&quot;) }}
+          {{ $rows := Query (printf &quot;SELECT * FROM source() WHERE Name =~ '%v'&quot; (Get . &quot;signature&quot;) ) }}
           {{ if $rows }}
 
-      ## {{ Get $rows "0.Name" }}
-      Modified on {{ Get $rows "0.ModTime" }}.
+      ## {{ Get $rows &quot;0.Name&quot; }}
+      Modified on {{ Get $rows &quot;0.ModTime&quot; }}.
 
-      {{ Get . "description" }}
+      {{ Get . &quot;description&quot; }}
 
           {{ end }}
       {{ end }}
 
       # Timeline
 
-      {{ Query "SELECT modified * 1000, Name FROM foreach(row=lookup, query={ SELECT * FROM data WHERE Name =~ signature})" | Timeline }}
-```
-   
+      {{ Query &quot;SELECT modified * 1000, Name FROM foreach(row=lookup, query={ SELECT * FROM data WHERE Name =~ signature})&quot; | Timeline }}
+</code></pre>
+
     </div>
 </div>
 
@@ -2409,11 +2347,7 @@ wireless router with no log retention).</p>
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-
-
-
-```
-name: Windows.EventLogs.DHCP
+<pre><code>name: Windows.EventLogs.DHCP
 description: |
 
   This artifact parses the windows dhcp event log looking for evidence
@@ -2465,10 +2399,10 @@ sources:
            query={
               SELECT System.TimeCreated.SystemTime as Time,
                      System.Computer AS Computer,
-                     format(format="%x:%x:%x:%x:%x:%x", args=[EventData.HWAddress]) AS MAC,
+                     format(format=&quot;%x:%x:%x:%x:%x:%x&quot;, args=[EventData.HWAddress]) AS MAC,
                      ip(netaddr4_le=EventData.Address1) AS ClientIP,
                      ip(netaddr4_le=EventData.Address2) AS DHCPServer,
-                     "Lease Rejected" AS Type
+                     &quot;Lease Rejected&quot; AS Type
               FROM parse_evtx(filename=FullPath, accessor=accessor)
               WHERE System.EventID.Value = 1002
            })
@@ -2490,7 +2424,7 @@ sources:
                      EventData.InterfaceGuid AS MAC,
                      ip(netaddr4_le=EventData.Address1) AS ClientIP,
                      ip(netaddr4_le=EventData.Address2) AS DHCPServer,
-                     "Lease Assigned" AS Type
+                     &quot;Lease Assigned&quot; AS Type
               FROM parse_evtx(filename=FullPath, accessor=accessor)
               WHERE System.EventID.Value = 60000
            })
@@ -2504,14 +2438,14 @@ reports:
 
       {{ .Description }}
 
-      {{ define "assigned_dhcp" }}
+      {{ define &quot;assigned_dhcp&quot; }}
             SELECT Computer, ClientIP,
                    count(items=Timestamp) AS Total,
                    enumerate(items=Timestamp) AS Times
             FROM source(source='AssignedDHCP')
             GROUP BY ClientIP
       {{ end }}
-      {{ define "rejected_dhcp" }}
+      {{ define &quot;rejected_dhcp&quot; }}
             SELECT Computer, ClientIP,
                    count(items=Timestamp) AS Total,
                    enumerate(items=Timestamp) AS Times
@@ -2519,7 +2453,7 @@ reports:
             GROUP BY ClientIP
       {{ end }}
 
-      {{ $assigned := Query "assigned_dhcp"}}
+      {{ $assigned := Query &quot;assigned_dhcp&quot;}}
       {{ if $assigned }}
       ## Operational logs
 
@@ -2529,7 +2463,7 @@ reports:
 
       ## Timeline
 
-      {{ Query "SELECT _Time * 1000, ClientIP FROM source(source='AssignedDHCP')" | Timeline }}
+      {{ Query &quot;SELECT _Time * 1000, ClientIP FROM source(source='AssignedDHCP')&quot; | Timeline }}
 
       {{ end }}
 
@@ -2541,11 +2475,11 @@ reports:
       environment. For example, the machine has been moved to a
       different network.
 
-      {{ Query "rejected_dhcp" | Table }}
+      {{ Query &quot;rejected_dhcp&quot; | Table }}
 
-      {{ Query "SELECT _Time * 1000, ClientIP FROM source(source='RejectedDHCP')" | Timeline }}
-```
-   
+      {{ Query &quot;SELECT _Time * 1000, ClientIP FROM source(source='RejectedDHCP')&quot; | Timeline }}
+</code></pre>
+
     </div>
 </div>
 
@@ -2594,11 +2528,7 @@ reports:
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-
-
-
-```
-name: Windows.Network.ArpCache
+<pre><code>name: Windows.Network.ArpCache
 description: Address resolution cache, both static and dynamic (from ARP, NDP).
 parameters:
   - name: wmiQuery
@@ -2612,14 +2542,14 @@ parameters:
   - name: kMapOfState
     default: |
      {
-      "0": "Unreachable",
-      "1": "Incomplete",
-      "2": "Probe",
-      "3": "Delay",
-      "4": "Stale",
-      "5": "Reachable",
-      "6": "Permanent",
-      "7": "TBD"
+      &quot;0&quot;: &quot;Unreachable&quot;,
+      &quot;1&quot;: &quot;Incomplete&quot;,
+      &quot;2&quot;: &quot;Probe&quot;,
+      &quot;3&quot;: &quot;Delay&quot;,
+      &quot;4&quot;: &quot;Stale&quot;,
+      &quot;5&quot;: &quot;Reachable&quot;,
+      &quot;6&quot;: &quot;Permanent&quot;,
+      &quot;7&quot;: &quot;TBD&quot;
      }
 
 sources:
@@ -2627,22 +2557,22 @@ sources:
       SELECT OS From info() where OS = 'windows'
     queries:
       - |
-        LET interfaces <=
+        LET interfaces &lt;=
           SELECT Index, HardwareAddr, IP
           FROM Artifact.Windows.Network.InterfaceAddresses()
 
       - |
         LET arp_cache = SELECT if(condition=AddressFamily=23,
-                    then="IPv6",
+                    then=&quot;IPv6&quot;,
                   else=if(condition=AddressFamily=2,
-                    then="IPv4",
+                    then=&quot;IPv4&quot;,
                   else=AddressFamily)) as AddressFamily,
 
                if(condition=Store=0,
-                    then="Persistent",
+                    then=&quot;Persistent&quot;,
                   else=if(condition=(Store=1),
-                    then="Active",
-                  else="?")) as Store,
+                    then=&quot;Active&quot;,
+                  else=&quot;?&quot;)) as Store,
 
                get(item=parse_json(data=kMapOfState),
                    member=encode(string=State, type='string')) AS State,
@@ -2659,8 +2589,8 @@ sources:
              FROM interfaces
              WHERE InterfaceIndex = Index
           })
-```
-   
+</code></pre>
+
     </div>
 </div>
 
@@ -2679,11 +2609,7 @@ sources:
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-
-
-
-```
-name: Windows.Network.InterfaceAddresses
+<pre><code>name: Windows.Network.InterfaceAddresses
 description: Network interfaces and relevant metadata.
 sources:
   - precondition:
@@ -2698,8 +2624,8 @@ sources:
         SELECT Index, MTU, Name, HardwareAddr.String As HardwareAddr,
            Flags, Addrs.IP as IP, Addrs.Mask.String as Mask
         FROM flatten(query=interface_address)
-```
-   
+</code></pre>
+
     </div>
 </div>
 
@@ -2718,18 +2644,14 @@ sources:
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-
-
-
-```
-name: Windows.Network.ListeningPorts
+<pre><code>name: Windows.Network.ListeningPorts
 description: Processes with listening (bound) network sockets/ports.
 sources:
   - precondition:
       SELECT OS From info() where OS = 'windows'
     queries:
       - |
-        LET process <= SELECT Name, Pid from pslist()
+        LET process &lt;= SELECT Name, Pid from pslist()
 
       - |
         SELECT * from foreach(
@@ -2743,8 +2665,8 @@ sources:
             SELECT Pid, Name, Port, Protocol, Family, Address
             FROM process where Pid = PortPid
           })
-```
-   
+</code></pre>
+
     </div>
 </div>
 
@@ -2764,11 +2686,7 @@ socket was first bound is also shown.</p>
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-
-
-
-```
-name: Windows.Network.Netstat
+<pre><code>name: Windows.Network.Netstat
 description: |
   Show information about open sockets. On windows the time when the
   socket was first bound is also shown.
@@ -2785,8 +2703,8 @@ sources:
                Raddr.IP, Raddr.Port,
                Timestamp
                FROM netstat()
-```
-   
+</code></pre>
+
     </div>
 </div>
 
@@ -2807,11 +2725,7 @@ services, scheduled_tasks, startup_items and more.</p>
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-
-
-
-```
-name: Windows.Packs.Autoexec
+<pre><code>name: Windows.Packs.Autoexec
 description: |
   Aggregate of executables that will automatically execute on the
   target machine. This is an amalgamation of other tables like
@@ -2824,11 +2738,11 @@ sources:
       - |
         SELECT * from chain(
           q1={
-            SELECT Name, Command AS Path, "StartupItems" as Source
+            SELECT Name, Command AS Path, &quot;StartupItems&quot; as Source
             FROM Artifact.Windows.Sys.StartupItems()
           })
-```
-   
+</code></pre>
+
     </div>
 </div>
 
@@ -2847,21 +2761,17 @@ sources:
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-
-
-
-```
-name: Windows.Packs.Persistence
+<pre><code>name: Windows.Packs.Persistence
 description: |
   This artifact pack collects various persistence mechanisms in Windows.
 
 precondition:
-  SELECT OS from info() where OS = "windows"
+  SELECT OS from info() where OS = &quot;windows&quot;
 
 sources:
   - name: WMI Event Filters
     description: |
-      {{ DocFrom "Windows.Persistence.PermanentWMIEvents" }}
+      {{ DocFrom &quot;Windows.Persistence.PermanentWMIEvents&quot; }}
 
     queries:
       - |
@@ -2869,7 +2779,7 @@ sources:
 
   - name: Startup Items
     description: |
-      {{ DocFrom "Windows.Sys.StartupItems" }}
+      {{ DocFrom &quot;Windows.Sys.StartupItems&quot; }}
 
     queries:
       - |
@@ -2877,7 +2787,7 @@ sources:
 
   - name: Debug Bootstraping
     description: |
-      {{ DocFrom "Windows.Persistence.Debug" }}
+      {{ DocFrom &quot;Windows.Persistence.Debug&quot; }}
 
       If there are any rows in the table below then executing the
       program will also launch the program listed under the Debugger
@@ -2885,8 +2795,8 @@ sources:
 
     queries:
       - SELECT * FROM Artifact.Windows.Persistence.Debug()
-```
-   
+</code></pre>
+
     </div>
 </div>
 
@@ -2923,11 +2833,7 @@ sources:
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-
-
-
-```
-name: Windows.Registery.AppCompatCache
+<pre><code>name: Windows.Registery.AppCompatCache
 description: |
   Parses the system's app compatibility cache.
 
@@ -2946,9 +2852,9 @@ sources:
                   filenames=AppCompatCacheKey, accessor='reg')
           }, query={
               SELECT name, epoch, time FROM appcompatcache(value=Data)
-        }) WHERE epoch < 2000000000
-```
-   
+        }) WHERE epoch &lt; 2000000000
+</code></pre>
+
     </div>
 </div>
 
@@ -2970,16 +2876,14 @@ hives to search for the glob provided.</p>
 <p>This artifact is designed to be reused by other artifacts that need
 to access user data.</p>
 
-<div class="notices note" >
-
-  Any artifacts that look into the HKEY_USERS registry hive should
-  be using the `Windows.Registry.NTUser` artifact instead of
+<div class="notices note" ><p>Any artifacts that look into the HKEY_USERS registry hive should
+  be using the <code>Windows.Registry.NTUser</code> artifact instead of
   accessing the hive via the API. The API only makes the currently
   logged in users available in that hive and so if we rely on the
   windows API we will likely miss any settings for users not
-  currently logged on.
-
+  currently logged on.</p>
 </div>
+
 
 <table>
 <thead>
@@ -3016,17 +2920,13 @@ to access user data.</p>
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-
-
-
-```
-name: Windows.Registry.NTUser
+<pre><code>name: Windows.Registry.NTUser
 description: |
   This artifact searches for keys or values within the user's
   NTUser.dat registry hives.
 
   When a user logs into a windows machine the system creates their own
-  "profile" which consists of a registry hive mapped into the
+  &quot;profile&quot; which consists of a registry hive mapped into the
   HKEY_USERS hive. This hive file is locked as long as the user is
   logged in. If the user is not logged in, the file is not mapped at
   all.
@@ -3038,27 +2938,26 @@ description: |
   This artifact is designed to be reused by other artifacts that need
   to access user data.
 
-  <div class="notices note" ><pre><code>Any artifacts that look into the HKEY_USERS registry hive should
+  &lt;div class=&quot;notices note&quot; &gt;&lt;pre&gt;&lt;code&gt;Any artifacts that look into the HKEY_USERS registry hive should
 be using the `Windows.Registry.NTUser` artifact instead of
 accessing the hive via the API. The API only makes the currently
 logged in users available in that hive and so if we rely on the
 windows API we will likely miss any settings for users not
 currently logged on.
-</code></pre>
-</div>
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 
-<p>precondition: SELECT OS From info() where OS = &lsquo;windows&rsquo;</p>
 
-<p>parameters:
+precondition: SELECT OS From info() where OS = 'windows'
+
+parameters:
  - name: KeyGlob
-   default: Software\Microsoft\Windows\CurrentVersion\Explorer\ComDlg32**</p>
+   default: Software\Microsoft\Windows\CurrentVersion\Explorer\ComDlg32\**
 
-<ul>
-<li>name: UserHomes
-default: C:\Users*\NTUSER.DAT</li>
-</ul>
+ - name: UserHomes
+   default: C:\Users\*\NTUSER.DAT
 
-<p>sources:
+sources:
  - queries:
      - |
        SELECT * FROM foreach(
@@ -3067,243 +2966,264 @@ default: C:\Users*\NTUSER.DAT</li>
          },
          query={
             SELECT FullPath, Data, Mtime.Sec AS Mtime FROM glob(
-               globs=url(scheme=&ldquo;ntfs&rdquo;,
+               globs=url(scheme=&quot;ntfs&quot;,
                   path=FullPath,
                   fragment=KeyGlob).String,
-               accessor=&ldquo;raw_reg&rdquo;)
-         })</p>
+               accessor=&quot;raw_reg&quot;)
+         })
+</code></pre>
 
-<pre><code>   
-    &lt;/div&gt;
-&lt;/div&gt;
+    </div>
+</div>
 
-## Windows.Registry.NTUser.Upload
+<h2 id="windows-registry-ntuser-upload">Windows.Registry.NTUser.Upload</h2>
 
-This artifact collects all the user's NTUser.dat registry hives.
+<p>This artifact collects all the user&rsquo;s NTUser.dat registry hives.</p>
 
-When a user logs into a windows machine the system creates their own
-&quot;profile&quot; which consists of a registry hive mapped into the
+<p>When a user logs into a windows machine the system creates their own
+&ldquo;profile&rdquo; which consists of a registry hive mapped into the
 HKEY_USERS hive. This hive file is locked as long as the user is
-logged in.
+logged in.</p>
 
-This artifact bypasses the locking mechanism by extracting the
+<p>This artifact bypasses the locking mechanism by extracting the
 registry hives using raw NTFS parsing. We then just upload all hives
-to the server.
+to the server.</p>
 
-
-&lt;div class=&quot;expand&quot;&gt;
-    &lt;div class=&quot;expand-label&quot; style=&quot;cursor: pointer;&quot; onclick=&quot;$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fa fa-chevron-down' : 'fa fa-chevron-right';});});&quot;&gt;
-        &lt;i style=&quot;font-size:x-small;&quot; class=&quot;fa fa-chevron-right&quot;&gt;&lt;/i&gt;
-        &lt;span&gt;
+<div class="expand">
+    <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fa fa-chevron-down' : 'fa fa-chevron-right';});});">
+        <i style="font-size:x-small;" class="fa fa-chevron-right"></i>
+        <span>
         
         
         View Artifact Source
         
-        &lt;/span&gt;
-    &lt;/div&gt;
-    &lt;div class=&quot;expand-content&quot; style=&quot;display: none;&quot;&gt;
-
-
-
-</code></pre>
-
-<p>name: Windows.Registry.NTUser.Upload
+        </span>
+    </div>
+    <div class="expand-content" style="display: none;">
+<pre><code>name: Windows.Registry.NTUser.Upload
 description: |
-  This artifact collects all the user&rsquo;s NTUser.dat registry hives.</p>
+  This artifact collects all the user's NTUser.dat registry hives.
 
-<p>When a user logs into a windows machine the system creates their own
-  &ldquo;profile&rdquo; which consists of a registry hive mapped into the
+  When a user logs into a windows machine the system creates their own
+  &quot;profile&quot; which consists of a registry hive mapped into the
   HKEY_USERS hive. This hive file is locked as long as the user is
-  logged in.</p>
+  logged in.
 
-<p>This artifact bypasses the locking mechanism by extracting the
+  This artifact bypasses the locking mechanism by extracting the
   registry hives using raw NTFS parsing. We then just upload all hives
-  to the server.</p>
+  to the server.
 
-<p>sources:
+sources:
   - precondition: |
-      SELECT OS From info() where OS = &lsquo;windows&rsquo;
+      SELECT OS From info() where OS = 'windows'
     queries:
       - |
         LET users = SELECT Name, Directory as HomeDir
             FROM Artifact.Windows.Sys.Users()
-            WHERE Directory</p>
+            WHERE Directory
 
-<pre><code>  - |
-    SELECT upload(file=&quot;\\\\.\\&quot; + HomeDir + &quot;\\ntuser.dat&quot;,
-                  accessor=&quot;ntfs&quot;) as Upload
-    FROM users
+      - |
+        SELECT upload(file=&quot;\\\\.\\&quot; + HomeDir + &quot;\\ntuser.dat&quot;,
+                      accessor=&quot;ntfs&quot;) as Upload
+        FROM users
 </code></pre>
 
-<pre><code>   
-    &lt;/div&gt;
-&lt;/div&gt;
+    </div>
+</div>
 
-## Windows.Registry.Sysinternals.Eulacheck
+<h2 id="windows-registry-sysinternals-eulacheck">Windows.Registry.Sysinternals.Eulacheck</h2>
 
-Checks for the Accepted Sysinternals EULA from the registry key
-&quot;HKCU\Software\Sysinternals\[TOOL]\&quot;.  When a Sysinternals tool is
+<p>Checks for the Accepted Sysinternals EULA from the registry key
+&ldquo;HKCU\Software\Sysinternals[TOOL]\&ldquo;.  When a Sysinternals tool is
 first run on a system, the EULA must be accepted. This writes a
-value called EulaAccepted under that key.
-
-Note: This artifact uses HKEY_USERS and therefore will not detect
-users that are not currently logged on.
-
-
-Arg|Default|Description
----|------|-----------
-Sysinternals_Reg_Key|HKEY_USERS\\*\\Software\\Sysinternals\\*|
-
-&lt;div class=&quot;expand&quot;&gt;
-    &lt;div class=&quot;expand-label&quot; style=&quot;cursor: pointer;&quot; onclick=&quot;$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fa fa-chevron-down' : 'fa fa-chevron-right';});});&quot;&gt;
-        &lt;i style=&quot;font-size:x-small;&quot; class=&quot;fa fa-chevron-right&quot;&gt;&lt;/i&gt;
-        &lt;span&gt;
-        
-        
-        View Artifact Source
-        
-        &lt;/span&gt;
-    &lt;/div&gt;
-    &lt;div class=&quot;expand-content&quot; style=&quot;display: none;&quot;&gt;
-
-
-
-</code></pre>
-
-<p>name: Windows.Registry.Sysinternals.Eulacheck
-description: |
-  Checks for the Accepted Sysinternals EULA from the registry key
-  &ldquo;HKCU\Software\Sysinternals[TOOL]\&ldquo;.  When a Sysinternals tool is
-  first run on a system, the EULA must be accepted. This writes a
-  value called EulaAccepted under that key.</p>
+value called EulaAccepted under that key.</p>
 
 <p>Note: This artifact uses HKEY_USERS and therefore will not detect
-  users that are not currently logged on.</p>
+users that are not currently logged on.</p>
 
-<p>parameters:
-   - name: Sysinternals_Reg_Key
-     default: HKEY_USERS*\Software\Sysinternals*</p>
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
 
-<p>sources:
-  - precondition:
-      SELECT OS From info() where OS = &lsquo;windows&rsquo;</p>
+<tbody>
+<tr>
+<td>Sysinternals_Reg_Key</td>
+<td>HKEY_USERS\*\Software\Sysinternals\*</td>
+<td></td>
+</tr>
+</tbody>
+</table>
 
-<pre><code>queries:
-- |
-  LET users &lt;= SELECT Name, UUID FROM Artifact.Windows.Sys.Users()
-- |
-  SELECT Key.Name as ProgramName,
-         Key.FullPath as Key,
-         timestamp(epoch=Key.Mtime.Sec) AS TimeAccepted,
-         {
-            SELECT Name FROM users WHERE UUID=regex_replace(
-               source=Key.FullPath, re=&quot;.+\\\\(S-[^\\\\]+)\\\\.+&quot;, replace=&quot;$1&quot;)
-         } as User,
-         EulaAccepted
-  FROM read_reg_key(globs=split(string=Sysinternals_Reg_Key, sep=',[\\s]*'))
-</code></pre>
-
-<pre><code>   
-    &lt;/div&gt;
-&lt;/div&gt;
-
-## Windows.Registry.UserAssist
-
-Windows systems maintain a set of keys in the registry database
-(UserAssist keys) to keep track of programs that executed. The
-number of executions and last execution date and time are available
-in these keys.
-
-The information within the binary UserAssist values contains only
-statistical data on the applications launched by the user via
-Windows Explorer. Programs launched via the command­line (cmd.exe)
-do not appear in these registry keys.
-
-From a forensics perspective, being able to decode this information
-can be very useful.
-
-
-Arg|Default|Description
----|------|-----------
-UserFilter||If specified we filter by this user ID.
-ExecutionTimeAfter||If specified only show executions after this time.
-UserAssistKey|Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\UserAssist\\*\\Count\\*|
-userAssistProfile|{\n  &quot;Win10&quot;: [0, {\n    &quot;NumeberOfExecutions&quot;: [4, [&quot;unsigned int&quot;]],\n    &quot;LastExecution&quot;: [60, [&quot;unsigned long long&quot;]]\n  }]\n}\n|
-
-&lt;div class=&quot;expand&quot;&gt;
-    &lt;div class=&quot;expand-label&quot; style=&quot;cursor: pointer;&quot; onclick=&quot;$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fa fa-chevron-down' : 'fa fa-chevron-right';});});&quot;&gt;
-        &lt;i style=&quot;font-size:x-small;&quot; class=&quot;fa fa-chevron-right&quot;&gt;&lt;/i&gt;
-        &lt;span&gt;
+<div class="expand">
+    <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fa fa-chevron-down' : 'fa fa-chevron-right';});});">
+        <i style="font-size:x-small;" class="fa fa-chevron-right"></i>
+        <span>
         
         
         View Artifact Source
         
-        &lt;/span&gt;
-    &lt;/div&gt;
-    &lt;div class=&quot;expand-content&quot; style=&quot;display: none;&quot;&gt;
+        </span>
+    </div>
+    <div class="expand-content" style="display: none;">
+<pre><code>name: Windows.Registry.Sysinternals.Eulacheck
+description: |
+  Checks for the Accepted Sysinternals EULA from the registry key
+  &quot;HKCU\Software\Sysinternals\[TOOL]\&quot;.  When a Sysinternals tool is
+  first run on a system, the EULA must be accepted. This writes a
+  value called EulaAccepted under that key.
 
+  Note: This artifact uses HKEY_USERS and therefore will not detect
+  users that are not currently logged on.
 
+parameters:
+   - name: Sysinternals_Reg_Key
+     default: HKEY_USERS\*\Software\Sysinternals\*
 
+sources:
+  - precondition:
+      SELECT OS From info() where OS = 'windows'
+
+    queries:
+    - |
+      LET users &lt;= SELECT Name, UUID FROM Artifact.Windows.Sys.Users()
+    - |
+      SELECT Key.Name as ProgramName,
+             Key.FullPath as Key,
+             timestamp(epoch=Key.Mtime.Sec) AS TimeAccepted,
+             {
+                SELECT Name FROM users WHERE UUID=regex_replace(
+                   source=Key.FullPath, re=&quot;.+\\\\(S-[^\\\\]+)\\\\.+&quot;, replace=&quot;$1&quot;)
+             } as User,
+             EulaAccepted
+      FROM read_reg_key(globs=split(string=Sysinternals_Reg_Key, sep=',[\\s]*'))
 </code></pre>
 
-<p>name: Windows.Registry.UserAssist
+    </div>
+</div>
+
+<h2 id="windows-registry-userassist">Windows.Registry.UserAssist</h2>
+
+<p>Windows systems maintain a set of keys in the registry database
+(UserAssist keys) to keep track of programs that executed. The
+number of executions and last execution date and time are available
+in these keys.</p>
+
+<p>The information within the binary UserAssist values contains only
+statistical data on the applications launched by the user via
+Windows Explorer. Programs launched via the command­line (cmd.exe)
+do not appear in these registry keys.</p>
+
+<p>From a forensics perspective, being able to decode this information
+can be very useful.</p>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>UserFilter</td>
+<td></td>
+<td>If specified we filter by this user ID.</td>
+</tr>
+
+<tr>
+<td>ExecutionTimeAfter</td>
+<td></td>
+<td>If specified only show executions after this time.</td>
+</tr>
+
+<tr>
+<td>UserAssistKey</td>
+<td>Software\Microsoft\Windows\CurrentVersion\Explorer\UserAssist\*\Count\*</td>
+<td></td>
+</tr>
+
+<tr>
+<td>userAssistProfile</td>
+<td>{\n  &ldquo;Win10&rdquo;: [0, {\n    &ldquo;NumeberOfExecutions&rdquo;: [4, [&ldquo;unsigned int&rdquo;]],\n    &ldquo;LastExecution&rdquo;: [60, [&ldquo;unsigned long long&rdquo;]]\n  }]\n}\n</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+<div class="expand">
+    <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fa fa-chevron-down' : 'fa fa-chevron-right';});});">
+        <i style="font-size:x-small;" class="fa fa-chevron-right"></i>
+        <span>
+        
+        
+        View Artifact Source
+        
+        </span>
+    </div>
+    <div class="expand-content" style="display: none;">
+<pre><code>name: Windows.Registry.UserAssist
 description: |
   Windows systems maintain a set of keys in the registry database
   (UserAssist keys) to keep track of programs that executed. The
   number of executions and last execution date and time are available
-  in these keys.</p>
+  in these keys.
 
-<p>The information within the binary UserAssist values contains only
+  The information within the binary UserAssist values contains only
   statistical data on the applications launched by the user via
   Windows Explorer. Programs launched via the command­line (cmd.exe)
-  do not appear in these registry keys.</p>
+  do not appear in these registry keys.
 
-<p>From a forensics perspective, being able to decode this information
-  can be very useful.</p>
+  From a forensics perspective, being able to decode this information
+  can be very useful.
 
-<p>reference:
-  - <a href="https://www.aldeid.com/wiki/Windows-userassist-keys">https://www.aldeid.com/wiki/Windows-userassist-keys</a></p>
+reference:
+  - https://www.aldeid.com/wiki/Windows-userassist-keys
 
-<p>precondition: SELECT OS From info() where OS = &lsquo;windows&rsquo;</p>
+precondition: SELECT OS From info() where OS = 'windows'
 
-<p>parameters:
+parameters:
   - name: UserFilter
-    default: &ldquo;&rdquo;
-    description: If specified we filter by this user ID.</p>
+    default: &quot;&quot;
+    description: If specified we filter by this user ID.
 
-<ul>
-<li><p>name: ExecutionTimeAfter
-default: &ldquo;&rdquo;
-type: timestamp
-description: If specified only show executions after this time.</p></li>
+  - name: ExecutionTimeAfter
+    default: &quot;&quot;
+    type: timestamp
+    description: If specified only show executions after this time.
 
-<li><p>name: UserAssistKey
-default: Software\Microsoft\Windows\CurrentVersion\Explorer\UserAssist*\Count*</p></li>
+  - name: UserAssistKey
+    default: Software\Microsoft\Windows\CurrentVersion\Explorer\UserAssist\*\Count\*
 
-<li><p>name: userAssistProfile
-default: |
-  {
-    &ldquo;Win10&rdquo;: [0, {
-      &ldquo;NumeberOfExecutions&rdquo;: [4, [&ldquo;unsigned int&rdquo;]],
-      &ldquo;LastExecution&rdquo;: [60, [&ldquo;unsigned long long&rdquo;]]
-    }]
-  }</p></li>
-</ul>
+  - name: userAssistProfile
+    default: |
+      {
+        &quot;Win10&quot;: [0, {
+          &quot;NumeberOfExecutions&quot;: [4, [&quot;unsigned int&quot;]],
+          &quot;LastExecution&quot;: [60, [&quot;unsigned long long&quot;]]
+        }]
+      }
 
-<p>sources:
+sources:
   - queries:
       - LET TMP = SELECT rot13(string=regex_replace(
              source=url(parse=FullPath).Fragment,
-             re=&ldquo;^.+/Count/&rdquo;,
-             replace=&ldquo;&rdquo;)) AS Name,
+             re=&quot;^.+/Count/&quot;,
+             replace=&quot;&quot;)) AS Name,
              binary_parse(
                string=Data.value,
                profile=userAssistProfile,
-               target=&ldquo;Win10&rdquo;
+               target=&quot;Win10&quot;
              ) As UserAssist,
              parse_string_with_regex(
                string=FullPath,
-               regex=&ldquo;Users/(?P<User>[^/]+)/NTUSER&rdquo;).User AS User
+               regex=&quot;Users/(?P&lt;User&gt;[^/]+)/NTUSER&quot;).User AS User
         FROM Artifact.Windows.Registry.NTUser(KeyGlob=UserAssistKey)
       - LET UserAssist = SELECT Name,
                User,
@@ -3322,136 +3242,175 @@ default: |
           condition=ExecutionTimeAfter,
           then={
             SELECT * FROM A1 WHERE LastExecutionTS &gt; ExecutionTimeAfter
-          }, else=A1)</p>
+          }, else=A1)
+</code></pre>
 
-<pre><code>   
-    &lt;/div&gt;
-&lt;/div&gt;
+    </div>
+</div>
 
-## Windows.Search.FileFinder
+<h2 id="windows-search-filefinder">Windows.Search.FileFinder</h2>
 
-Find files on the filesystem using the filename or content.
+<p>Find files on the filesystem using the filename or content.</p>
 
+<h2 id="performance-note">Performance Note</h2>
 
-## Performance Note
-
-This artifact can be quite expensive, especially if we search file
+<p>This artifact can be quite expensive, especially if we search file
 content. It will require opening each file and reading its entire
 content. To minimize the impact on the endpoint we recommend this
 artifact is collected with a rate limited way (about 20-50 ops per
-second).
+second).</p>
 
-This artifact is useful in the following scenarios:
+<p>This artifact is useful in the following scenarios:</p>
 
-  * We need to locate all the places on our network where customer
-    data has been copied.
+<ul>
+<li><p>We need to locate all the places on our network where customer
+data has been copied.</p></li>
 
-  * We’ve identified malware in a data breach, named using short
-    random strings in specific folders and need to search for other
-    instances across the network.
+<li><p>We’ve identified malware in a data breach, named using short
+random strings in specific folders and need to search for other
+instances across the network.</p></li>
 
-  * We believe our user account credentials have been dumped and
-    need to locate them.
+<li><p>We believe our user account credentials have been dumped and
+need to locate them.</p></li>
 
-  * We need to search for exposed credit card data to satisfy PCI
-    requirements.
+<li><p>We need to search for exposed credit card data to satisfy PCI
+requirements.</p></li>
 
-  * We have a sample of data that has been disclosed and need to
-    locate other similar files
+<li><p>We have a sample of data that has been disclosed and need to
+locate other similar files</p></li>
+</ul>
 
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
 
-Arg|Default|Description
----|------|-----------
-SearchFilesGlob|C:\\Users\\**|Use a glob to define the files that will be searched.
-Keywords|None|A comma delimited list of strings to search for.
-Use_Raw_NTFS|N|
-Upload_File|N|
-Calculate_Hash|N|
-MoreRecentThan||
-ModifiedBefore||
+<tbody>
+<tr>
+<td>SearchFilesGlob</td>
+<td>C:\Users\**</td>
+<td>Use a glob to define the files that will be searched.</td>
+</tr>
 
-&lt;div class=&quot;expand&quot;&gt;
-    &lt;div class=&quot;expand-label&quot; style=&quot;cursor: pointer;&quot; onclick=&quot;$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fa fa-chevron-down' : 'fa fa-chevron-right';});});&quot;&gt;
-        &lt;i style=&quot;font-size:x-small;&quot; class=&quot;fa fa-chevron-right&quot;&gt;&lt;/i&gt;
-        &lt;span&gt;
+<tr>
+<td>Keywords</td>
+<td>None</td>
+<td>A comma delimited list of strings to search for.</td>
+</tr>
+
+<tr>
+<td>Use_Raw_NTFS</td>
+<td>N</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Upload_File</td>
+<td>N</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Calculate_Hash</td>
+<td>N</td>
+<td></td>
+</tr>
+
+<tr>
+<td>MoreRecentThan</td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td>ModifiedBefore</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+<div class="expand">
+    <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fa fa-chevron-down' : 'fa fa-chevron-right';});});">
+        <i style="font-size:x-small;" class="fa fa-chevron-right"></i>
+        <span>
         
         
         View Artifact Source
         
-        &lt;/span&gt;
-    &lt;/div&gt;
-    &lt;div class=&quot;expand-content&quot; style=&quot;display: none;&quot;&gt;
-
-
-
-</code></pre>
-
-<p>name: Windows.Search.FileFinder
+        </span>
+    </div>
+    <div class="expand-content" style="display: none;">
+<pre><code>name: Windows.Search.FileFinder
 description: |
-  Find files on the filesystem using the filename or content.</p>
+  Find files on the filesystem using the filename or content.
 
-<p>## Performance Note</p>
 
-<p>This artifact can be quite expensive, especially if we search file
+  ## Performance Note
+
+  This artifact can be quite expensive, especially if we search file
   content. It will require opening each file and reading its entire
   content. To minimize the impact on the endpoint we recommend this
   artifact is collected with a rate limited way (about 20-50 ops per
-  second).</p>
+  second).
 
-<p>This artifact is useful in the following scenarios:</p>
+  This artifact is useful in the following scenarios:
 
-<pre><code>* We need to locate all the places on our network where customer
-  data has been copied.
+    * We need to locate all the places on our network where customer
+      data has been copied.
 
-* We’ve identified malware in a data breach, named using short
-  random strings in specific folders and need to search for other
-  instances across the network.
+    * We’ve identified malware in a data breach, named using short
+      random strings in specific folders and need to search for other
+      instances across the network.
 
-* We believe our user account credentials have been dumped and
-  need to locate them.
+    * We believe our user account credentials have been dumped and
+      need to locate them.
 
-* We need to search for exposed credit card data to satisfy PCI
-  requirements.
+    * We need to search for exposed credit card data to satisfy PCI
+      requirements.
 
-* We have a sample of data that has been disclosed and need to
-  locate other similar files
-</code></pre>
+    * We have a sample of data that has been disclosed and need to
+      locate other similar files
 
-<p>precondition:
-  SELECT * FROM info() where OS = &lsquo;windows&rsquo;</p>
 
-<p>parameters:
+precondition:
+  SELECT * FROM info() where OS = 'windows'
+
+parameters:
   - name: SearchFilesGlob
-    default: C:\Users**
-    description: Use a glob to define the files that will be searched.</p>
+    default: C:\Users\**
+    description: Use a glob to define the files that will be searched.
 
-<ul>
-<li><p>name: Keywords
-default:
-description: A comma delimited list of strings to search for.</p></li>
+  - name: Keywords
+    default:
+    description: A comma delimited list of strings to search for.
 
-<li><p>name: Use_Raw_NTFS
-default: N
-type: bool</p></li>
+  - name: Use_Raw_NTFS
+    default: N
+    type: bool
 
-<li><p>name: Upload_File
-default: N
-type: bool</p></li>
+  - name: Upload_File
+    default: N
+    type: bool
 
-<li><p>name: Calculate_Hash
-default: N
-type: bool</p></li>
+  - name: Calculate_Hash
+    default: N
+    type: bool
 
-<li><p>name: MoreRecentThan
-default: &ldquo;&rdquo;
-type: timestamp</p></li>
+  - name: MoreRecentThan
+    default: &quot;&quot;
+    type: timestamp
 
-<li><p>name: ModifiedBefore
-default: &ldquo;&rdquo;
-type: timestamp</p></li>
-</ul>
+  - name: ModifiedBefore
+    default: &quot;&quot;
+    type: timestamp
 
-<p>sources:
+
+sources:
   - queries:
     - |
       LET file_search = SELECT FullPath,
@@ -3462,66 +3421,62 @@ type: timestamp</p></li>
                timestamp(epoch=Mtime.Sec) AS MTime,
                timestamp(epoch=Ctime.Sec) AS CTime, IsDir
         FROM glob(globs=SearchFilesGlob,
-                  accessor=if(condition=Use_Raw_NTFS = &ldquo;Y&rdquo;,
-                              then=&ldquo;ntfs&rdquo;, else=&ldquo;file&rdquo;))</p>
+                  accessor=if(condition=Use_Raw_NTFS = &quot;Y&quot;,
+                              then=&quot;ntfs&quot;, else=&quot;file&quot;))
 
-<pre><code>- |
-  LET more_recent = SELECT * FROM if(
-    condition=MoreRecentThan,
-    then={
-      SELECT * FROM file_search
-      WHERE Modified &gt; parse_float(string=MoreRecentThan)
-    }, else=file_search)
+    - |
+      LET more_recent = SELECT * FROM if(
+        condition=MoreRecentThan,
+        then={
+          SELECT * FROM file_search
+          WHERE Modified &gt; parse_float(string=MoreRecentThan)
+        }, else=file_search)
 
-- |
-  LET modified_before = SELECT * FROM if(
-    condition=ModifiedBefore,
-    then={
-      SELECT * FROM more_recent
-      WHERE Modified &lt; parse_float(string=ModifiedBefore)
-    }, else=more_recent)
+    - |
+      LET modified_before = SELECT * FROM if(
+        condition=ModifiedBefore,
+        then={
+          SELECT * FROM more_recent
+          WHERE Modified &lt; parse_float(string=ModifiedBefore)
+        }, else=more_recent)
 
-- |
-  LET keyword_search = SELECT * FROM if(
-    condition=Keywords,
-    then={
-      SELECT * FROM foreach(
-        row={
-           SELECT * FROM modified_before
-        },
-        query={
-           SELECT FullPath, Inode, Mode,
-                  Size, Modified, ATime, MTime, CTime,
-                  str(str=String.Data) As Keywords
+    - |
+      LET keyword_search = SELECT * FROM if(
+        condition=Keywords,
+        then={
+          SELECT * FROM foreach(
+            row={
+               SELECT * FROM modified_before
+            },
+            query={
+               SELECT FullPath, Inode, Mode,
+                      Size, Modified, ATime, MTime, CTime,
+                      str(str=String.Data) As Keywords
 
-           FROM yara(files=FullPath,
-                     key=Keywords,
-                     rules=&quot;wide nocase ascii:&quot;+Keywords,
-                     accessor=if(condition=Use_Raw_NTFS = &quot;Y&quot;,
-                                      then=&quot;ntfs&quot;, else=&quot;file&quot;))
-        })
-    }, else=modified_before)
+               FROM yara(files=FullPath,
+                         key=Keywords,
+                         rules=&quot;wide nocase ascii:&quot;+Keywords,
+                         accessor=if(condition=Use_Raw_NTFS = &quot;Y&quot;,
+                                          then=&quot;ntfs&quot;, else=&quot;file&quot;))
+            })
+        }, else=modified_before)
 
-- |
-  SELECT FullPath, Inode, Mode, Size, Modified, ATime,
-         MTime, CTime, Keywords,
-           if(condition=(Upload_File = &quot;Y&quot; and NOT IsDir ),
-              then=upload(file=FullPath,
-                          accessor=if(condition=Use_Raw_NTFS = &quot;Y&quot;,
-                                      then=&quot;ntfs&quot;, else=&quot;file&quot;))) AS Upload,
-           if(condition=(Calculate_Hash = &quot;Y&quot; and NOT IsDir ),
-              then=hash(path=FullPath,
-                        accessor=if(condition=Use_Raw_NTFS = &quot;Y&quot;,
-                                    then=&quot;ntfs&quot;, else=&quot;file&quot;))) AS Hash
-  FROM keyword_search
+    - |
+      SELECT FullPath, Inode, Mode, Size, Modified, ATime,
+             MTime, CTime, Keywords,
+               if(condition=(Upload_File = &quot;Y&quot; and NOT IsDir ),
+                  then=upload(file=FullPath,
+                              accessor=if(condition=Use_Raw_NTFS = &quot;Y&quot;,
+                                          then=&quot;ntfs&quot;, else=&quot;file&quot;))) AS Upload,
+               if(condition=(Calculate_Hash = &quot;Y&quot; and NOT IsDir ),
+                  then=hash(path=FullPath,
+                            accessor=if(condition=Use_Raw_NTFS = &quot;Y&quot;,
+                                        then=&quot;ntfs&quot;, else=&quot;file&quot;))) AS Hash
+      FROM keyword_search
 </code></pre>
 
-<p>```</p>
-
-<pre><code>&lt;/div&gt;
-</code></pre>
-
-<p></div></p>
+    </div>
+</div>
 
 
     

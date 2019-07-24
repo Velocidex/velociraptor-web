@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Velociraptor - Digging Deeper!</title>
+    <title>Velociraptor / Dig deeper</title>
     
       <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<title>Server Event Artifacts :: Velociraptor - Digging Deeper!</title>
+<title>Server Event Artifacts :: Velociraptor / Dig deeper</title>
 <link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon" />
 <link rel="stylesheet" href="/css/bootstrap.min.css">
 <link href="/css/nucleus.css" rel="stylesheet">
@@ -43,9 +43,10 @@
       
 	
   
-    <a href="/">
+    <p><a href="/">
   <img src="/images/logo.svg">
-</a>
+</a></p>
+
   
 
 
@@ -72,6 +73,13 @@
       <a href="/about/">About Velociraptor</a><i class="fa fa-angle-right fa-lg category-icon"></i>
       </div>
         <ul>
+      <li data-nav-id="/about/features/" class="dd-item">
+        <div>
+          <a href="/about/features/">
+            Velociraptor Features
+          </a>
+        </div>
+    </li>
       <li data-nav-id="/about/license/" class="dd-item">
         <div>
           <a href="/about/license/">
@@ -402,7 +410,7 @@
 
 
 
- <a href='/'>Velociraptor - Digging Deeper!</a> > <a href='/docs/'>Velociraptor Documentation</a> > <a href='/docs/user-interface/'>User Interface</a> > <a href='/docs/user-interface/artifacts/'>Velociraptor Artifacts</a> > Server Event Artifacts
+ <a href='/'>Velociraptor / Dig deeper</a> > <a href='/docs/'>Velociraptor Documentation</a> > <a href='/docs/user-interface/'>User Interface</a> > <a href='/docs/user-interface/artifacts/'>Velociraptor Artifacts</a> > Server Event Artifacts
 
  
 
@@ -466,16 +474,14 @@ clients (as collected by the <code>Windows.Events.ProcessCreation</code> client
 monitoring artifact) and when a Powershell process with encoded
 scripts are run, it simply decodes the script.</p>
 
-<div class="notices note" >
-
-Powershell is a common tool used by many adversaries for lateral
+<div class="notices note" ><p>Powershell is a common tool used by many adversaries for lateral
 movement. Typically attackers encode their malicious scripts so they
 can be sent over remote connections. This makes it difficult to see
 what the command will do when looking at a plain process execution
-log. The `Server.Powershell.EncodedCommands` simply decodes these for
-further inspection.
-
+log. The <code>Server.Powershell.EncodedCommands</code> simply decodes these for
+further inspection.</p>
 </div>
+
 
 <h2 id="updating-server-event-monitoring">Updating server event monitoring</h2>
 
@@ -493,18 +499,16 @@ any potential parameters.</p>
 artifact which compresses uploads as soon as they are collected from
 endpoints in order to keep server disk usage to a minimum.</p>
 
-<div class="notices tip" >
-
-The `Admin.System.CompressUploads` artifact is an example of a server
+<div class="notices tip" ><p>The <code>Admin.System.CompressUploads</code> artifact is an example of a server
 event monitoring artifact specifically designed to post process a
 specific type of collected files. In this case we watch for the
 collection flow to complete, then simply compress all files
 uploaded. However one can think of similar post processing scenarios
 such as parsing file of a particular type, or uploading the files to
 virus reputation sites (e.g. Virus Total). Your imagination is really
-the limit of what can be done using this mechanism.
-
+the limit of what can be done using this mechanism.</p>
 </div>
+
 
 
     

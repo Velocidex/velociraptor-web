@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Velociraptor - Digging Deeper!</title>
+    <title>Velociraptor / Dig deeper</title>
     
       <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<title>Report Templates :: Velociraptor - Digging Deeper!</title>
+<title>Report Templates :: Velociraptor / Dig deeper</title>
 <link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon" />
 <link rel="stylesheet" href="/css/bootstrap.min.css">
 <link href="/css/nucleus.css" rel="stylesheet">
@@ -43,9 +43,10 @@
       
 	
   
-    <a href="/">
+    <p><a href="/">
   <img src="/images/logo.svg">
-</a>
+</a></p>
+
   
 
 
@@ -72,6 +73,13 @@
       <a href="/about/">About Velociraptor</a><i class="fa fa-angle-right fa-lg category-icon"></i>
       </div>
         <ul>
+      <li data-nav-id="/about/features/" class="dd-item">
+        <div>
+          <a href="/about/features/">
+            Velociraptor Features
+          </a>
+        </div>
+    </li>
       <li data-nav-id="/about/license/" class="dd-item">
         <div>
           <a href="/about/license/">
@@ -398,7 +406,7 @@
 
 
 
- <a href='/'>Velociraptor - Digging Deeper!</a> > <a href='/docs/'>Velociraptor Documentation</a> > <a href='/docs/vql_reference/'>VQL Reference</a> > Report Templates
+ <a href='/'>Velociraptor / Dig deeper</a> > <a href='/docs/'>Velociraptor Documentation</a> > <a href='/docs/vql_reference/'>VQL Reference</a> > Report Templates
 
  
 
@@ -507,14 +515,12 @@ of the Query plugin. Here is an example from <code>Windows.Sys.Users</code> arti
       {{ Query &quot;users&quot; &quot;SELECT Name, UUID, Type, Mtime FROM users&quot; | Table }}
 </code></pre>
 
-<div class="notices note" >
-
-The `source()` VQL plugin is very useful in reports since it generates
+<div class="notices note" ><p>The <code>source()</code> VQL plugin is very useful in reports since it generates
 all the results from the currently collected artifact. For artifacts
 with multiple named sources, you can specify which source you want
-using the `source` parameter (i.e. `source(source="foo")`
-
+using the <code>source</code> parameter (i.e. <code>source(source=&quot;foo&quot;)</code></p>
 </div>
+
 
 <h3 id="the-table-plugin">The Table plugin</h3>
 
@@ -553,13 +559,11 @@ and specify some parameters to it.</p>
 
 <p><img src="../report_chart.png" alt="Report Chart" /></p>
 
-<div class="notices note" >
-
-Note that in the above query the `source()` automatically incorporated
+<div class="notices note" ><p>Note that in the above query the <code>source()</code> automatically incorporated
 the start and end times as set by the report viewer. The report author
-does not need to do anything special.
-
+does not need to do anything special.</p>
 </div>
+
 
 
     

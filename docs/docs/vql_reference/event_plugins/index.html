@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Velociraptor - Digging Deeper!</title>
+    <title>Velociraptor / Dig deeper</title>
     
       <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<title>VQL Event PLugins :: Velociraptor - Digging Deeper!</title>
+<title>VQL Event PLugins :: Velociraptor / Dig deeper</title>
 <link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon" />
 <link rel="stylesheet" href="/css/bootstrap.min.css">
 <link href="/css/nucleus.css" rel="stylesheet">
@@ -43,9 +43,10 @@
       
 	
   
-    <a href="/">
+    <p><a href="/">
   <img src="/images/logo.svg">
-</a>
+</a></p>
+
   
 
 
@@ -72,6 +73,13 @@
       <a href="/about/">About Velociraptor</a><i class="fa fa-angle-right fa-lg category-icon"></i>
       </div>
         <ul>
+      <li data-nav-id="/about/features/" class="dd-item">
+        <div>
+          <a href="/about/features/">
+            Velociraptor Features
+          </a>
+        </div>
+    </li>
       <li data-nav-id="/about/license/" class="dd-item">
         <div>
           <a href="/about/license/">
@@ -398,7 +406,7 @@
 
 
 
- <a href='/'>Velociraptor - Digging Deeper!</a> > <a href='/docs/'>Velociraptor Documentation</a> > <a href='/docs/vql_reference/'>VQL Reference</a> > VQL Event PLugins
+ <a href='/'>Velociraptor / Dig deeper</a> > <a href='/docs/'>Velociraptor Documentation</a> > <a href='/docs/vql_reference/'>VQL Reference</a> > VQL Event PLugins
 
  
 
@@ -544,14 +552,12 @@ simpler non-event queries.</p>
 <p>The <code>key</code> parameter is the name of the column which is used to
 determine row equivalency.</p>
 
-<div class="notices note" >
-
-There is only a single equivalence row specified by the `key`
+<div class="notices note" ><p>There is only a single equivalence row specified by the <code>key</code>
 parameter, and it must be a string. If you need to watch multiple
 columns you need to create a new column which is the concatenation of
-other columns. For example `format(format="%s%d", args=[Name, Pid])`
-
+other columns. For example <code>format(format=&quot;%s%d&quot;, args=[Name, Pid])</code></p>
 </div>
+
 
 <h3 id="example-1">Example</h3>
 
@@ -578,18 +584,16 @@ SELECT * FROM diff(
 <p>Monitor dns queries. This plugin opens a raw socket and monitors
 network traffic for DNS questions and answers.</p>
 
-<div class="notices note" >
-
-When Velociraptor attempts to open a raw socket, sometimes Windows
+<div class="notices note" ><p>When Velociraptor attempts to open a raw socket, sometimes Windows
 Defender treats that as suspicious behavior and quaranteens the
 Velociraptor binary. This can be avoided by signing the binary which
-signals to Windows Defender that the binary is legitimate.
+signals to Windows Defender that the binary is legitimate.</p>
 
-If you do not intend to build Velociraptor from source, use the
+<p>If you do not intend to build Velociraptor from source, use the
 official signed Velociraptor binaries which should not trigger alerts
-from Windows Defender.
-
+from Windows Defender.</p>
 </div>
+
 
 <h2 id="fifo">fifo</h2>
 
@@ -731,15 +735,13 @@ grows this plugin will emit the new rows.</p>
 <p>Watch an EVTX file and stream events from it. This is the Event plugin
 version of <code>parse_evtx()</code>.</p>
 
-<div class="notices note" >
-
-It often takes several seconds for events to be flushed to the event
-log and so this plugin's event may be delayed. For some applications
+<div class="notices note" ><p>It often takes several seconds for events to be flushed to the event
+log and so this plugin&rsquo;s event may be delayed. For some applications
 this results in a race condition with the event itself - for example,
 files mentioned in the event may already be removed by the time the
-event is triggered.
-
+event is triggered.</p>
 </div>
+
 
 <h2 id="watch-monitoring">watch_monitoring</h2>
 

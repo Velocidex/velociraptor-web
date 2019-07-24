@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>getting started on Velociraptor - Digging Deeper!</title>
+    <title>Getting Started on Velociraptor / Dig deeper</title>
     <link>/categories/getting-started/</link>
-    <description>Recent content in getting started on Velociraptor - Digging Deeper!</description>
+    <description>Recent content in Getting Started on Velociraptor / Dig deeper</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     
@@ -16,9 +16,10 @@
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>/docs/getting-started/</guid>
-      <description>Velociraptor can be used in a number of contexts and deployed in a number of different way. The following pages will help you get started quickly.
-Most people want to start a single server and client and check out the GUI. This way you can see how Velociraptor can be useful to you immediately. You can read about this installation method in the &amp;ldquo;Standalone Deployment&amp;rdquo; page.
-If you deploy the server in the cloud it is possible to use automatically minted SSL certificates and Single Sign On for authentication.</description>
+      <description>Quick start Just want the latest version? Sure, it&amp;rsquo;s freely available on our Github releases page.
+We also recommend you review our Getting Started documentation, which guides you through setup and running your first hunts.
+Other setup options Velociraptor can be used in many different contexts and deployed in different ways.
+ Stand alone - Most people want to start with a single client / server and check out the GUI.</description>
     </item>
     
     <item>
@@ -33,17 +34,6 @@ This page highlights some of the more interesting presentations we gave. It can 
     </item>
     
     <item>
-      <title>Tutorial</title>
-      <link>/docs/tutorial/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>/docs/tutorial/</guid>
-      <description>In this tutorial we will deploy Velociraptor locally to our machine, and connect a client to it. This is the bare minimum required to demonstrate Velociraptor&amp;rsquo;s capabilities and walk through the GUI.
-Velociraptor can be used in a number of different ways, but in this tutorial we will use it as an end point visibility tool, collect some artifacts and set up endpoint monitoring.
-Overview Before we start it is useful to see how a Velociraptor deployment looks at a high level:</description>
-    </item>
-    
-    <item>
       <title>Triaging</title>
       <link>/docs/getting-started/triaging/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
@@ -53,6 +43,17 @@ Overview Before we start it is useful to see how a Velociraptor deployment looks
 We certainly can do this!
 Triaging a system. When triaging a system our goal is to collect and preserve as much data from the system as possible, as quickly as possible.
 First lets see what artifacts come built in with Velociraptor:</description>
+    </item>
+    
+    <item>
+      <title>Tutorial</title>
+      <link>/docs/tutorial/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/tutorial/</guid>
+      <description>In this tutorial we will deploy Velociraptor locally to our machine, and connect a client to it. This is the bare minimum required to demonstrate Velociraptor&amp;rsquo;s capabilities and walk through the GUI.
+Velociraptor can be used in a number of different ways, but in this tutorial we will use it as an end point visibility tool, collect some artifacts and set up endpoint monitoring.
+Overview Before we start it is useful to see how a Velociraptor deployment looks at a high level:</description>
     </item>
     
   </channel>

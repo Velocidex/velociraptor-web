@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Velociraptor - Digging Deeper!</title>
+    <title>Velociraptor / Dig deeper</title>
     
       <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<title>Deploying Clients :: Velociraptor - Digging Deeper!</title>
+<title>Deploying Clients :: Velociraptor / Dig deeper</title>
 <link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon" />
 <link rel="stylesheet" href="/css/bootstrap.min.css">
 <link href="/css/nucleus.css" rel="stylesheet">
@@ -43,9 +43,10 @@
       
 	
   
-    <a href="/">
+    <p><a href="/">
   <img src="/images/logo.svg">
-</a>
+</a></p>
+
   
 
 
@@ -72,6 +73,13 @@
       <a href="/about/">About Velociraptor</a><i class="fa fa-angle-right fa-lg category-icon"></i>
       </div>
         <ul>
+      <li data-nav-id="/about/features/" class="dd-item">
+        <div>
+          <a href="/about/features/">
+            Velociraptor Features
+          </a>
+        </div>
+    </li>
       <li data-nav-id="/about/license/" class="dd-item">
         <div>
           <a href="/about/license/">
@@ -398,7 +406,7 @@
 
 
 
- <a href='/'>Velociraptor - Digging Deeper!</a> > <a href='/docs/'>Velociraptor Documentation</a> > <a href='/docs/getting-started/'>Getting Started</a> > Deploying Clients
+ <a href='/'>Velociraptor / Dig deeper</a> > <a href='/docs/'>Velociraptor Documentation</a> > <a href='/docs/getting-started/'>Getting Started</a> > Deploying Clients
 
  
 
@@ -418,16 +426,17 @@
 <li>
 <ul>
 <li><a href="#running-clients-interactively">Running clients interactively</a></li>
-<li><a href="#installing-an-msi">Installing an MSI</a>
-<ul>
+<li><a href="#installing-an-msi">Installing an MSI</a></li>
 <li><a href="#official-release-msi">Official release MSI</a></li>
 <li><a href="#installing-using-custom-msi-package">Installing using custom MSI package</a></li>
-</ul></li>
 <li><a href="#installing-the-client-as-a-service">Installing the client as a service</a></li>
 <li><a href="#agentless-deployment">Agentless deployment</a>
 <ul>
-<li><a href="#creating-a-network-share">Creating a network share</a></li>
-<li><a href="#creating-the-group-policy-object">Creating the group policy object</a></li>
+<li>
+<ul>
+<li><a href="#create-a-network-share">Create a network share</a></li>
+<li><a href="#create-the-group-policy-object">Create the Group Policy object</a></li>
+</ul></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -452,100 +461,115 @@
     
 
 <p>Velociraptor endpoint agents are called <code>clients</code>. Clients connect to
-the server and wait for instructions (which mostly consist of VQL
-statements), they then run any VQL queries and return the result to
-the server.</p>
+the server and wait for instructions, which mostly consist of VQL
+statements, then run any VQL queries and return the result to the
+server.</p>
 
-<p>There are a number of ways to run clients, depending on your
-needs. Ultimately, however, the same Velociraptor binary is run with
-the client configuration file generated in the previous steps
+<p>There are several ways to run clients, depending on your
+needs. Ultimately however, the same Velociraptor binary is run with
+the client configuration file generated in the previous setup steps,
 providing it with the key material and configuration.</p>
 
-<p>This page summarizes the recommended ways to run the clients, and
+<p>This page summarizes the recommended ways to run the clients and
 discusses the pros and cons of each approach.</p>
 
-<p>Note that all Velociraptor binaries are the same - there is no
-distinction between client binaries or server binaries. Therefore you
-can run the server or the client on each supported platform. It is
-simply command line options telling the binary to behave as a server
-or client.</p>
+<p>Note that all Velociraptor binaries (for a particular operating
+system) are the same. There is no distinction between the client
+binaries and server binaries. Therefore you can run the server or the
+client on each supported platform. It&rsquo;s simply command line options
+telling the binary to behave as a server or client.</p>
 
 <h2 id="running-clients-interactively">Running clients interactively</h2>
 
 <p>This method is most suitable for testing your deployment. In a command
-shell simply run the client using the client configuration.</p>
+shell, simply run the client using the client configuration.</p>
 
 <pre><code class="language-shell">$ velociraptor --config client.config.yaml client -v
 </code></pre>
 
-<p>The first time the client connects it will <code>enroll</code>. The enrollment
-process requires the client to reveal basic information about itself.</p>
+<p>The first time the client connects it will <code>enroll</code>. The enrolment
+process requires the client to reveal basic information about itself
+to the server.</p>
 
 <h2 id="installing-an-msi">Installing an MSI</h2>
 
-<p>An MSI is a standard windows installer
-package. The advantages of using a standard packaging format is that
-most enterprise system administration tools are used to deploying
-software in MSI packages. Therefore you can use SCCM or group policy
-to add the MSI to the assigned software group. See <a href="https://support.microsoft.com/en-us/help/816102/how-to-use-group-policy-to-remotely-install-software-in-windows-server">How to use Group Policy to remotely install software in Windows Server 2008 and in Windows Server 2003</a></p>
+<p>An MSI is a standard Windows installer package. The advantages are
+that most enterprise system administration tools are used to deploying
+software in MSI packages. Therefore you can use SCCM or Group Policy
+to add the MSI to the assigned software group.</p>
 
-<h3 id="official-release-msi">Official release MSI</h3>
+<p>For more information, see <a href="https://support.microsoft.com/en-us/help/816102/how-to-use-group-policy-to-remotely-install-software-in-windows-server">How to use Group Policy to remotely install
+software in Windows Server 2008 and in Windows Server
+2003</a></p>
 
-<p>The recommended way to install Velociraptor is via the release MSI on
-the Github release page. Since the Velociraptor client requires a
-configuration file to specifically tell it where to connect to, we can
-not package the configuration file in the official release. Therefore
-the official MSI does not include a configuration file.</p>
+<h2 id="official-release-msi">Official release MSI</h2>
 
-<p>The official release installs the Velociraptor service into
-<code>C:\Program Files\Velociraptor\</code>. When the service starts, it attempts
-to load the configuration file from <code>C:\Program
-Files\Velociraptor\Velociraptor.config.yaml</code>.</p>
+<p>The recommended way to install Velociraptor as a client on Windows is
+via the release MSI on the Github release page.</p>
+
+<div class="notices note" ><p>One of the main benefits in using the official Velociraptor MSI is
+that the MSI and the executable are signed. Windows Defender
+aggressively quarantines unsigned binaries, so it is highly
+recommended that Velociraptor be signed.</p>
+</div>
+
+
+<p>Since the Velociraptor client requires a configuration file to
+identify the location of the server, we can&rsquo;t package the
+configuration file in the official release. Therefore the official MSI
+does not include a configuration file.</p>
+
+<p>The official release installs the Velociraptor executable into
+<code>C:\Program Files\Velociraptor\</code> then creates a new Windows service
+that points to this executable and starts automatically at boot
+time. If an existing Velociraptor service is already installed, it
+will be overwritten.</p>
+
+<p>When the service starts, it attempts to load the configuration file
+from <code>C:\Program Files\Velociraptor\Velociraptor.config.yaml</code>. Note
+that this is a different name to the configuration file generated by
+the interactive config generator, which was <code>client.config.yaml</code>. If
+your client config file is named otherwise, simply rename it to
+<code>Velociraptor.config.yaml</code> (case insensitive) and move it into the
+<code>C:\Program Files\Velociraptor</code> folder.</p>
 
 <p>If that file is not found, Velociraptor will wait and retry
 periodically to locate the configuration file. When the file is found,
 the client will be started.</p>
 
-<p>Therefore when installing from the official MSI package you need to:</p>
+<p>So to summarise, when installing from the official MSI package you
+need to:</p>
 
 <ol>
 <li><p>Assign the MSI via Group Policy.</p></li>
 
 <li><p>Copy the configuration file from a share to the Velociraptor
-directory. This can be done via Group Policy Scheduled tasks or
-another way (See the Group Policy procedure outlined below).</p></li>
+program directory. This can be done via Group Policy Scheduled
+tasks or another way (see the <strong>Group Policy</strong> procedure outlined
+below).</p></li>
 </ol>
 
 <p>As soon as the configuration file is copied, Velociraptor will begin
 communicating with the server.</p>
 
-<div class="notices note" >
+<h2 id="installing-using-custom-msi-package">Installing using custom MSI package</h2>
 
-One of the main benefits in using the official Velociraptor MSI is
-that the MSI and the executable are signed. Windows defender
-aggressively quarantines unsigned binaries, so it is highly
-recommended that Velociraptor be signed.
+<p>The official Velociraptor MSI package installs a Windows service with
+a predictable name. If you want to obfuscate Velociraptor, you might
+want to build your own MSI package with different binary names,
+service name, etc.</p>
 
-</div>
+<p>To do so, follow follow the instructions
+<a href="https://github.com/Velocidex/velociraptor/tree/master/docs/wix">here</a></p>
 
-<h3 id="installing-using-custom-msi-package">Installing using custom MSI package</h3>
-
-<p>The official Velociraptor MSI package installs a service with a
-predictable name. If you want to obfuscate Velociraptor a bit, you
-might want to build your own MSI package with different binary names,
-service name etc.</p>
-
-<p>To create one of these follow the instructions
-<a href="https://github.com/Velocidex/velociraptor/tree/master/docs/wix">here</a>.</p>
-
-<p>If building your own MSI you might as well just include your own
-configuration file in it. Then you simply assign your MSI to the group
-policy and have it installed everywhere. You may want to also sign the
+<p>If building your own MSI, you might as well just package your own
+configuration file in it. Then you simply assign your MSI to the Group
+Policy and have it installed everywhere. You may also want to sign the
 MSI.</p>
 
 <h2 id="installing-the-client-as-a-service">Installing the client as a service</h2>
 
-<p>It is possible to tell the executable to install itself as a
+<p>It&rsquo;s also possible to tell the executable to install itself as a
 service. This option is not recommended because it does not use a
 proper package manager, and therefore Velociraptor can not be easily
 uninstalled.</p>
@@ -558,59 +582,64 @@ command:</p>
 </code></pre>
 
 <p>This will copy the binary to the location specified in the
-configuration file under <code>Client.windows_installer</code>. You can change
-the name of the binary and the service name.</p>
+configuration file under <code>Client.windows_installer</code>. You can also
+change the name of the binary and the service name if you wish.</p>
 
 <h2 id="agentless-deployment">Agentless deployment</h2>
 
-<p>There has been a lot of interest lately in &ldquo;Agentless hunting&rdquo;
-especially using PowerShell. There are many reasons why Agentless
-hunting is appealing - there are already a ton of endpoint agents and
-yet another one may not be welcome. Sometimes we need to deploy
-endpoint agents as part of a DFIR engagement and we may not want to
-permanently install yet another agent on end points.</p>
+<p>There has been a lot of interest in &ldquo;agentless hunting&rdquo; especially
+using PowerShell.</p>
 
-<p>In the agentless deployment scenario we simply run the binary from a
-network share using group policy settings. The downside to this
+<p>There are many reasons why agentless hunting is appealing - there are
+already a ton of endpoint agents and yet another one may not be
+welcome. Sometimes we need to deploy endpoint agents as part of a DFIR
+engagement and we may not want to permanently install yet another
+agent on endpoints.</p>
+
+<p>In the agentless deployment scenario, we simply run the binary from a
+network share using Group Policy settings. The downside to this
 approach is that the endpoint needs to be on the domain network to
-receive the group policy update (and have the network share
-accessible) before it can run Velociraptor. When we run in Agentless
-mode we are typically after collecting a bunch of artifacts via hunts
-and then exiting - the agent will not restart after a reboot. So this
-method is suitable for quick hunts on corporate (non roaming) assets.</p>
+receive the Group Policy update (and have the network share
+accessible) before it can run Velociraptor.</p>
 
-<p>See this <a href="/blog/html/2019/03/02/agentless_hunting_with_velociraptor.html">blog
-post</a>
-for the details of how to deploy Velociraptor in this mode.</p>
+<p>When we run in agentless mode, we are typically interested in
+collecting a bunch of artifacts via hunts and then exiting - the agent
+will not restart after a reboot. So this method is suitable for quick
+hunts on corporate (non roaming) assets.</p>
 
-<h3 id="creating-a-network-share">Creating a network share</h3>
+<!--
+See this [blog post](/blog/html/2019/03/02/agentless_hunting_with_velociraptor.html) for details of how to deploy Velociraptor in agentless mode.
+-->
+
+<h4 id="create-a-network-share">Create a network share</h4>
 
 <p>The first step is to create a network share with the Velociraptor
 binary and its configuration file. We will run the binary from the
 share in this example, but for more reliability you may want to copy
 the binary into e.g. a temp folder on the end point in case the system
-becomes disconnected from the domain. For quick hunts though it should
-be fine.</p>
+becomes disconnected from the domain. For quick hunts though, it
+should be fine.</p>
 
-<p>We create a directory on the server (I will create it on the domain
-controller but you should probably not do that - find another machine
-to host the share).</p>
+<p>We create a directory on the server. Note that in the below example,
+we&rsquo;re creating on a Domain Controller, but we strongly recommend using
+another location on real deployments.</p>
 
 <p><img src="../1.png" alt="Create Share" /></p>
 
-<p>I created a directory <code>C:\Users\Deployment</code> and ensured that it is
-read only. I have shared the directory as the name <code>Deployment</code>.</p>
+<p>In this example we created a directory called <code>C:\Users\Deployment</code>
+and ensured that it&rsquo;s read-only. We shared the directory as the name
+<code>Deployment</code>.</p>
 
-<p>I now place the Velociraptor executable and client config file in that
-directory and verify that I can run the binary from the network
+<p>We now place the Velociraptor executable and client config file in
+that directory and verify that it can run the binary from the network
 share. The binary should be accessible via
 <code>\\DC\Deployment\velociraptor.exe</code>:</p>
 
 <p><img src="../2.png" alt="Testing Client Locally" /></p>
 
-<h3 id="creating-the-group-policy-object">Creating the group policy object</h3>
+<h4 id="create-the-group-policy-object">Create the Group Policy object</h4>
 
-<p>Next we create the group policy object which forces all domain
+<p>Next we create the Group Policy object, which forces all domain
 connected machines to run the Velociraptor client. We use the Group
 Policy Management Console:</p>
 
@@ -626,18 +655,20 @@ Policy Management Console:</p>
 
 <p>We will create a new scheduled task. Rather than schedule it at a
 particular time, we will select to run it immediately. This will force
-the command to run as soon as the endpoint updates its group policy
-settings (i.e. we do not want to wait for the next reboot of the
-endpoint).</p>
+the command to run as soon as the endpoint updates its Group Policy
+settings, because we don&rsquo;t want to wait for the next reboot of the
+endpoint.</p>
 
 <p><img src="../6.png" alt="Scheduled Task" /></p>
 
 <p>Next we give the task a name and a description. In order to allow
 Velociraptor to access raw devices (e.g. to collect memory or NTFS
 artifacts) we can specify that the client will run at
-<code>NT_AUTHORITY\SYSTEM</code> privileges, and run without any user being
-logged on. It is also worth ticking the &ldquo;hidden&rdquo; checkbox here to
-prevent a console box from appearing.</p>
+<code>NT_AUTHORITY\SYSTEM</code> privileges and run without any user being logged
+on.</p>
+
+<p>It&rsquo;s also worth ticking the &ldquo;hidden&rdquo; checkbox here to prevent a
+console box from appearing.</p>
 
 <p><img src="../7.png" alt="7" /></p>
 
@@ -649,22 +680,26 @@ it the arguments allowing it to read the provided configuration file
 
 <p><img src="../8.png" alt="8" /></p>
 
-<p>In the setting tab we can control how long we want the client to
-run. For a quick hunt this may be an hour or two but maybe for a DFIR
-engagement it might be a few days. The GPO will ensure the client is
-killed after the allotted time.</p>
+<p>In the &ldquo;Setting&rdquo; tab we can control how long we want the client to
+run. For a quick hunt, this may be an hour or two depending on the
+network size and hunt scope. For a more comprehensive DFIR collection,
+be prepared to wait several hours or even days while user machines are
+naturally disconnected and reconnected from the network. The GPO will
+ensure the client is killed after the allotted time.</p>
 
 <p><img src="../9.png" alt="8" /></p>
 
 <p>Once the GPO is installed it becomes active for all domain
 machines. You can now schedule any hunts you wish using the
-Velociraptor GUI. When a domain machine refreshes its group policy it
-will run the client, which will enroll and immediately participate in
+Velociraptor GUI. When a domain machine refreshes its Group Policy, it
+will run the client, which will enrol and immediately participate in
 any outstanding hunts - thus collecting and delivering its artifacts
-to the server. After the allotted time has passed, the client will
-shut down without having installed anything on the endpoint.</p>
+to the server.</p>
 
-<p>You can force a group policy update by running the <code>gpupdate</code>
+<p>After the allotted time has passed, the client will shut down without
+having installed anything on the endpoint.</p>
+
+<p>You can force a Group Policy update by running the <code>gpupdate</code>
 program. Now you can verify that Velociraptor is running:</p>
 
 <p><img src="../10.png" alt="8" /></p>

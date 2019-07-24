@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Artifact Reference on Velociraptor - Digging Deeper!</title>
+    <title>Artifact Reference on Velociraptor / Dig deeper</title>
     <link>/docs/artifacts/</link>
-    <description>Recent content in Artifact Reference on Velociraptor - Digging Deeper!</description>
+    <description>Recent content in Artifact Reference on Velociraptor / Dig deeper</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     
@@ -28,7 +28,7 @@ Many extensions use locale packs to resolve strings like name and description. I
       
       <guid>/docs/artifacts/windows_system/</guid>
       <description>Windows.Sys.AppcompatShims Application Compatibility shims are a way to persist malware. This table presents the AppCompat Shim information from the registry in a nice format.
-   Arg Default Description     shimKeys HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\InstalledSDB\*    customKeys HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Custom\*\*       View Artifact Source   ``` name: Windows.Sys.AppcompatShims description: | Application Compatibility shims are a way to persist malware. This table presents the AppCompat Shim information from the registry in a nice format.</description>
+   Arg Default Description     shimKeys HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\InstalledSDB\*    customKeys HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Custom\*\*       View Artifact Source   name: Windows.Sys.AppcompatShims description: | Application Compatibility shims are a way to persist malware. This table presents the AppCompat Shim information from the registry in a nice format.</description>
     </item>
     
     <item>
@@ -39,7 +39,7 @@ Many extensions use locale packs to resolve strings like name and description. I
       <guid>/docs/artifacts/server/</guid>
       <description>Server.Alerts.PsExec Send an email if execution of the psexec service was detected on any client. This is a server side artifact.
 Note this requires that the Windows.Event.ProcessCreation monitoring artifact be collected from clients.
-   Arg Default Description     EmailAddress admin@example.com    MessageTemplate PsExec execution detected at %v: %v for client %v\n       View Artifact Source   ``` name: Server.</description>
+   Arg Default Description     EmailAddress admin@example.com    MessageTemplate PsExec execution detected at %v: %v for client %v\n       View Artifact Source   name: Server.</description>
     </item>
     
     <item>
@@ -48,8 +48,8 @@ Note this requires that the Windows.Event.ProcessCreation monitoring artifact be
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>/docs/artifacts/triage/</guid>
-      <description>Windows.Triage.Collectors.Amcache    Arg Default Description     triageTable Type,Accessor,Glob\nAmcache,ntfs,C:\Windows\AppCompat\Programs\Amcache.hve\nAmcache transaction files,ntfs,C:\Windows\AppCompat\Programs\Amcache.hve.LOG*\n       View Artifact Source   ``` name: Windows.Triage.Collectors.Amcache precondition: SELECT OS From info() where OS = &#39;windows&#39; parameters: - name: triageTable default: | Type,Accessor,Glob Amcache,ntfs,C:\Windows\AppCompat\Programs\Amcache.hve Amcache transaction files,ntfs,C:\Windows\AppCompat\Programs\Amcache.hve.LOG* sources: - queries: - SELECT * FROM Artifact.Triage.Collection.UploadTable(triageTable=triageTable) ```   Windows.Triage.Collectors.BCD Boot Configuration Files.
-  View Artifact Source   ``` name: Windows.</description>
+      <description>Windows.Triage.Collectors.Amcache    Arg Default Description     triageTable Type,Accessor,Glob\nAmcache,ntfs,C:\Windows\AppCompat\Programs\Amcache.hve\nAmcache transaction files,ntfs,C:\Windows\AppCompat\Programs\Amcache.hve.LOG*\n       View Artifact Source   name: Windows.Triage.Collectors.Amcache precondition: SELECT OS From info() where OS = &#39;windows&#39; parameters: - name: triageTable default: | Type,Accessor,Glob Amcache,ntfs,C:\Windows\AppCompat\Programs\Amcache.hve Amcache transaction files,ntfs,C:\Windows\AppCompat\Programs\Amcache.hve.LOG* sources: - queries: - SELECT * FROM Artifact.Triage.Collection.UploadTable(triageTable=triageTable)    Windows.Triage.Collectors.BCD Boot Configuration Files.
+  View Artifact Source   name: Windows.</description>
     </item>
     
     <item>
@@ -59,7 +59,7 @@ Note this requires that the Windows.Event.ProcessCreation monitoring artifact be
       
       <guid>/docs/artifacts/detection/</guid>
       <description>Windows.Detection.ProcessMemory Scanning process memory for signals is powerfull technique. This artifact scans processes for a yara signature and when detected, the process memory is dumped and uploaded to the server.
-   Arg Default Description     processRegex notepad    yaraRule rule Process {\n strings:\n $a = &amp;ldquo;this is a secret&amp;rdquo; nocase wide\n $b = &amp;ldquo;this is a secret&amp;rdquo; nocase\n condition:\n any of them\n}\n       View Artifact Source   ``` name: Windows.</description>
+   Arg Default Description     processRegex notepad    yaraRule rule Process {\n strings:\n $a = &amp;ldquo;this is a secret&amp;rdquo; nocase wide\n $b = &amp;ldquo;this is a secret&amp;rdquo; nocase\n condition:\n any of them\n}\n       View Artifact Source   name: Windows.</description>
     </item>
     
     <item>
@@ -81,7 +81,7 @@ It is recommended to collect this artifact and just archive the results.</descri
       <guid>/docs/artifacts/misc/</guid>
       <description>Admin.Client.Upgrade Remotely push new client updates.
 NOTE: The updates can be pulled from any web server. You need to ensure they are properly secured with SSL and at least a random nonce in their path. You may configure the Velociraptor server to serve these through the public directory.
-   Arg Default Description     clientURL http://127.0.0.1:8000/public/velociraptor.exe    configURL http://127.0.0.1:8000/public/client.config.yaml       View Artifact Source   ``` name: Admin.</description>
+   Arg Default Description     clientURL http://127.0.0.1:8000/public/velociraptor.exe    configURL http://127.0.0.1:8000/public/client.config.yaml       View Artifact Source   name: Admin.</description>
     </item>
     
     <item>

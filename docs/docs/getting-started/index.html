@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Velociraptor - Digging Deeper!</title>
+    <title>Velociraptor / Dig deeper</title>
     
       <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<title>Getting Started :: Velociraptor - Digging Deeper!</title>
+<title>Getting Started :: Velociraptor / Dig deeper</title>
 <link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon" />
 <link rel="stylesheet" href="/css/bootstrap.min.css">
 <link href="/css/nucleus.css" rel="stylesheet">
@@ -43,9 +43,10 @@
       
 	
   
-    <a href="/">
+    <p><a href="/">
   <img src="/images/logo.svg">
-</a>
+</a></p>
+
   
 
 
@@ -72,6 +73,13 @@
       <a href="/about/">About Velociraptor</a><i class="fa fa-angle-right fa-lg category-icon"></i>
       </div>
         <ul>
+      <li data-nav-id="/about/features/" class="dd-item">
+        <div>
+          <a href="/about/features/">
+            Velociraptor Features
+          </a>
+        </div>
+    </li>
       <li data-nav-id="/about/license/" class="dd-item">
         <div>
           <a href="/about/license/">
@@ -395,7 +403,7 @@
 
 
 
- <a href='/'>Velociraptor - Digging Deeper!</a> > <a href='/docs/'>Velociraptor Documentation</a> > Getting Started
+ <a href='/'>Velociraptor / Dig deeper</a> > <a href='/docs/'>Velociraptor Documentation</a> > Getting Started
 
  
 
@@ -408,7 +416,15 @@
     
     <div class="progress">
         <div class="wrapper">
-    
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#quick-start">Quick start</a></li>
+<li><a href="#other-setup-options">Other setup options</a></li>
+</ul></li>
+</ul>
+</nav>
         </div>
     </div>
     
@@ -427,24 +443,41 @@
     
     
 
-<p>Velociraptor can be used in a number of contexts and deployed in a
-number of different way. The following pages will help you get started
-quickly.</p>
 
-<p>Most people want to start a single server and client and check out the
-GUI. This way you can see how Velociraptor can be useful to you
-immediately. You can read about this installation method in the
-&ldquo;Standalone Deployment&rdquo; page.</p>
 
-<p>If you deploy the server in the cloud it is possible to use
-automatically minted SSL certificates and Single Sign On for
-authentication. You can read about this approach in the &ldquo;Cloud
-Deployment&rdquo; page.</p>
+<h2 id="quick-start">Quick start</h2>
 
-<p>Alternatively Velociraptor can simply be used for triaging - simply
-collecting artifacts interactivly from systems for later analysis and
-preservation. You can read more about this mode in the &ldquo;Triaging&rdquo;
-page.</p>
+<p><strong>Just want the latest version?</strong> Sure, it&rsquo;s freely available on our
+  <a href="https://github.com/velocidex/velociraptor">Github releases</a> page.</p>
+
+<!-- **Want some ideas on what Velociraptor can do?** Have a look at
+some [Use Cases](../use_cases) that we've developed based on real-life
+cases.  -->
+
+<p>We also recommend you review our <a href="../getting-started">Getting Started</a>
+documentation, which guides you through setup and running your first
+hunts.</p>
+
+<h2 id="other-setup-options">Other setup options</h2>
+
+<p>Velociraptor can be used in many different contexts and deployed in
+different ways.</p>
+
+<ul>
+<li><p><strong>Stand alone</strong> - Most people want to start with a single client /
+server and check out the GUI. This installation method is covered
+under <a href="./stand_alone">Standalone Deployment</a>.</p></li>
+
+<li><p><strong>Cloud deployment</strong> - If you deploy the server in a cloud platform
+such as AWS, it&rsquo;s possible to use automatically minted SSL
+certificates and single sign-on for authentication. This is
+covered under <a href="./cloud">Cloud Deployment</a>.</p></li>
+
+<li><p><strong>Triage mode</strong> - Velociraptor can also be used to simply collect
+artefacts from multiple endpoints simultaneously, for later
+analysis and preservation, as described under
+<a href="./triaging">Triaging</a></p></li>
+</ul>
 
 
 

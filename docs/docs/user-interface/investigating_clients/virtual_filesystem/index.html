@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Velociraptor - Digging Deeper!</title>
+    <title>Velociraptor / Dig deeper</title>
     
       <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<title>The Virtual File System :: Velociraptor - Digging Deeper!</title>
+<title>The Virtual File System :: Velociraptor / Dig deeper</title>
 <link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon" />
 <link rel="stylesheet" href="/css/bootstrap.min.css">
 <link href="/css/nucleus.css" rel="stylesheet">
@@ -43,9 +43,10 @@
       
 	
   
-    <a href="/">
+    <p><a href="/">
   <img src="/images/logo.svg">
-</a>
+</a></p>
+
   
 
 
@@ -72,6 +73,13 @@
       <a href="/about/">About Velociraptor</a><i class="fa fa-angle-right fa-lg category-icon"></i>
       </div>
         <ul>
+      <li data-nav-id="/about/features/" class="dd-item">
+        <div>
+          <a href="/about/features/">
+            Velociraptor Features
+          </a>
+        </div>
+    </li>
       <li data-nav-id="/about/license/" class="dd-item">
         <div>
           <a href="/about/license/">
@@ -402,7 +410,7 @@
 
 
 
- <a href='/'>Velociraptor - Digging Deeper!</a> > <a href='/docs/'>Velociraptor Documentation</a> > <a href='/docs/user-interface/'>User Interface</a> > <a href='/docs/user-interface/investigating_clients/'>Investigating Clients</a> > The Virtual File System
+ <a href='/'>Velociraptor / Dig deeper</a> > <a href='/docs/'>Velociraptor Documentation</a> > <a href='/docs/user-interface/'>User Interface</a> > <a href='/docs/user-interface/investigating_clients/'>Investigating Clients</a> > The Virtual File System
 
  
 
@@ -491,15 +499,13 @@ client and refresh the server&rsquo;s cache.</p>
 <p>It is also possible to refresh directories recursively by clicking the
 &ldquo;Recursively Refresh directory&rdquo; button.</p>
 
-<div class="notices warning" >
-
-It may be tempting to just recursively refresh the entire endpoint's
+<div class="notices warning" ><p>It may be tempting to just recursively refresh the entire endpoint&rsquo;s
 filesystem but can take a long time and download a lot of
 data. Nevertheless it may be convenient sometimes. Note that queries
 have a 10 minute timeout by default so it may not completely cover the
-entire filesystem in this time either.
-
+entire filesystem in this time either.</p>
 </div>
+
 
 <h2 id="downloading-files">Downloading files</h2>
 

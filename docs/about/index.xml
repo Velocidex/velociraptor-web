@@ -1,15 +1,25 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>About Velociraptor on Velociraptor - Digging Deeper!</title>
+    <title>About Velociraptor on Velociraptor / Dig deeper</title>
     <link>/about/</link>
-    <description>Recent content in About Velociraptor on Velociraptor - Digging Deeper!</description>
+    <description>Recent content in About Velociraptor on Velociraptor / Dig deeper</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Fri, 01 Feb 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/about/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Velociraptor Features</title>
+      <link>/about/features/</link>
+      <pubDate>Wed, 01 Feb 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/about/features/</guid>
+      <description>To give you a taste of what Velociraptor can do, here are some of the more interesting features:
+Easy setup and deployment  Velociraptor ships as a singe executable which has no dependencies and requires no installation routine Settings are defined by a pair of config files - one for the server and one for each endpoint All comms between endpoints and the server are encrypted The GUI supports SSL and SSO via Google Auth for strong identity management Once an endpoint is started, it&amp;rsquo;s instantly available on the server dashboard (after a browser refresh).</description>
+    </item>
     
     <item>
       <title>GNU Affero General Public License</title>

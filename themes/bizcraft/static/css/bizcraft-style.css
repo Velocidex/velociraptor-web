@@ -3790,3 +3790,8 @@ img.logo {
 h1, h2, h3 {
     font-family: "fontastique";
 }
+
+
+div.pp_details {
+    display: none;
+}

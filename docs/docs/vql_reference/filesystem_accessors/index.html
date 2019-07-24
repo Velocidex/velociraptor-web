@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Velociraptor - Digging Deeper!</title>
+    <title>Velociraptor / Dig deeper</title>
     
       <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<title>Filesystem Accessors :: Velociraptor - Digging Deeper!</title>
+<title>Filesystem Accessors :: Velociraptor / Dig deeper</title>
 <link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon" />
 <link rel="stylesheet" href="/css/bootstrap.min.css">
 <link href="/css/nucleus.css" rel="stylesheet">
@@ -43,9 +43,10 @@
       
 	
   
-    <a href="/">
+    <p><a href="/">
   <img src="/images/logo.svg">
-</a>
+</a></p>
+
   
 
 
@@ -72,6 +73,13 @@
       <a href="/about/">About Velociraptor</a><i class="fa fa-angle-right fa-lg category-icon"></i>
       </div>
         <ul>
+      <li data-nav-id="/about/features/" class="dd-item">
+        <div>
+          <a href="/about/features/">
+            Velociraptor Features
+          </a>
+        </div>
+    </li>
       <li data-nav-id="/about/license/" class="dd-item">
         <div>
           <a href="/about/license/">
@@ -398,7 +406,7 @@
 
 
 
- <a href='/'>Velociraptor - Digging Deeper!</a> > <a href='/docs/'>Velociraptor Documentation</a> > <a href='/docs/vql_reference/'>VQL Reference</a> > Filesystem Accessors
+ <a href='/'>Velociraptor / Dig deeper</a> > <a href='/docs/'>Velociraptor Documentation</a> > <a href='/docs/vql_reference/'>VQL Reference</a> > Filesystem Accessors
 
  
 
@@ -477,15 +485,13 @@ hives or the page file.</p>
 APIs. Velociraptor supports both forward and reverse slashes on all
 supported operating systems.</p>
 
-<div class="notices note" >
-
-   On windows, Velociraptor emulates the top level directory as a list
-   of available drives. For example, listing the "/" directory will
-   yield directories such as "C:", "D:" etc. Therefore Velociraptor
+<div class="notices note" ><p>On windows, Velociraptor emulates the top level directory as a list
+   of available drives. For example, listing the &ldquo;/&rdquo; directory will
+   yield directories such as &ldquo;C:&ldquo;, &ldquo;D:&rdquo; etc. Therefore Velociraptor
    paths always have a / at the top level, typically followed by a
-   drive letter then the rest of the path.
-
+   drive letter then the rest of the path.</p>
 </div>
+
 
 <h3 id="the-ntfs-accessor">The ntfs accessor</h3>
 
@@ -508,15 +514,13 @@ equivalent <code>\\.\c:\Windows</code> and <code>C:\Windows</code>.</p>
 <p>Listing the top level directory will display all physical drives and
 Volume Shadow Copies available on the machine.</p>
 
-<div class="notices note" >
-
-The backslash character is considered the path separator only for
+<div class="notices note" ><p>The backslash character is considered the path separator only for
 paths following the device name. Supported device names include the
 backslash as part of thier name. For example, listing the top level
-directory will show `\\.\c:` as a single device, even though it
-contains backslashs.
-
+directory will show <code>\\.\c:</code> as a single device, even though it
+contains backslashs.</p>
 </div>
+
 
 <h3 id="the-registry-accessor">The registry accessor</h3>
 
@@ -528,11 +532,9 @@ interactively.</p>
 values in the directory listing as well, so it is not usually
 necessary to download files from the registry hive.</p>
 
-<div class="notices note" >
-
-The Windows registry differs from a regular filesystem in that Key names may have forward slash, and value names may contain both forward and backward slashes. Therefore it is difficult to properly split a path into the correct key and value. Velociraptor treats a path as a list of components. Velociraptor will surround component names with quotes if they contain slashes to allow the path to be broken back into components. For example, `HKEY_CURRENT_USER\Software\Microsoft\Office\16.0\Word\Security\Trusted Documents\TrustRecords\"%USERPROFILE%/Desktop/test.docx"` represents the value named `%USERPROFILE%/Desktop/test.docx`.
-
+<div class="notices note" ><p>The Windows registry differs from a regular filesystem in that Key names may have forward slash, and value names may contain both forward and backward slashes. Therefore it is difficult to properly split a path into the correct key and value. Velociraptor treats a path as a list of components. Velociraptor will surround component names with quotes if they contain slashes to allow the path to be broken back into components. For example, <code>HKEY_CURRENT_USER\Software\Microsoft\Office\16.0\Word\Security\Trusted Documents\TrustRecords\&quot;%USERPROFILE%/Desktop/test.docx&quot;</code> represents the value named <code>%USERPROFILE%/Desktop/test.docx</code>.</p>
 </div>
+
 
 <h2 id="other-filesystem-accessors">Other filesystem accessors</h2>
 
@@ -564,16 +566,14 @@ accessor.</p></li>
 access.</p></li>
 </ul>
 
-<div class="notices tip" >
-
-Do not attempt to construct the url by manually concatenating parts
+<div class="notices tip" ><p>Do not attempt to construct the url by manually concatenating parts
 because this does not properly handle escaping. Instead use the
-`url()` function. For example `url(scheme='ntfs',
-path="C:/Users/Test/my.zip", fragment="1.txt").String` will produce
-the required url: `ntfs://C:/Users/Test/my.zip#1.txt` to access the
-file 1.txt within the my.zip file as extracted by the ntfs raw parser.
-
+<code>url()</code> function. For example <code>url(scheme='ntfs',
+path=&quot;C:/Users/Test/my.zip&quot;, fragment=&quot;1.txt&quot;).String</code> will produce
+the required url: <code>ntfs://C:/Users/Test/my.zip#1.txt</code> to access the
+file 1.txt within the my.zip file as extracted by the ntfs raw parser.</p>
 </div>
+
 
 <h3 id="the-raw-reg-accessor">The raw_reg accessor</h3>
 

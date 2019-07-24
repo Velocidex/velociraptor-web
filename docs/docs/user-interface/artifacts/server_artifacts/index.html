@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Velociraptor - Digging Deeper!</title>
+    <title>Velociraptor / Dig deeper</title>
     
       <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<title>Server Artifacts :: Velociraptor - Digging Deeper!</title>
+<title>Server Artifacts :: Velociraptor / Dig deeper</title>
 <link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon" />
 <link rel="stylesheet" href="/css/bootstrap.min.css">
 <link href="/css/nucleus.css" rel="stylesheet">
@@ -43,9 +43,10 @@
       
 	
   
-    <a href="/">
+    <p><a href="/">
   <img src="/images/logo.svg">
-</a>
+</a></p>
+
   
 
 
@@ -72,6 +73,13 @@
       <a href="/about/">About Velociraptor</a><i class="fa fa-angle-right fa-lg category-icon"></i>
       </div>
         <ul>
+      <li data-nav-id="/about/features/" class="dd-item">
+        <div>
+          <a href="/about/features/">
+            Velociraptor Features
+          </a>
+        </div>
+    </li>
       <li data-nav-id="/about/license/" class="dd-item">
         <div>
           <a href="/about/license/">
@@ -402,7 +410,7 @@
 
 
 
- <a href='/'>Velociraptor - Digging Deeper!</a> > <a href='/docs/'>Velociraptor Documentation</a> > <a href='/docs/user-interface/'>User Interface</a> > <a href='/docs/user-interface/artifacts/'>Velociraptor Artifacts</a> > Server Artifacts
+ <a href='/'>Velociraptor / Dig deeper</a> > <a href='/docs/'>Velociraptor Documentation</a> > <a href='/docs/user-interface/'>User Interface</a> > <a href='/docs/user-interface/artifacts/'>Velociraptor Artifacts</a> > Server Artifacts
 
  
 
@@ -456,13 +464,11 @@ entire deployment.</p>
 <p>In exactly the same way, server side VQL queries are encapsulated in
 <code>Server Artifacts</code>.</p>
 
-<div class="notices note" >
-
-`Server Artifacts` run once and produce a fixed output at an instance
-in time. They are not the same as `Server Event Artifacts` which run
-continuously and generate daily event logs.
-
+<div class="notices note" ><p><code>Server Artifacts</code> run once and produce a fixed output at an instance
+in time. They are not the same as <code>Server Event Artifacts</code> which run
+continuously and generate daily event logs.</p>
 </div>
+
 
 <p>Since server artifacts do not themselves collect any information from
 the client, typically Server Artifacts are used to post process client

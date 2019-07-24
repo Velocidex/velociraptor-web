@@ -8,7 +8,7 @@ theme = ["docdock", "bizcraft"]
 enableGitInfo = false
 version = "0.15.0"
 publishDir = "docs"
-title = "Velociraptor - Digging Deeper!"
+title = "Velociraptor / Dig deeper"
 
 [outputs]
   home = ["HTML", "JSON"]
@@ -23,8 +23,8 @@ title = "Velociraptor - Digging Deeper!"
 [params]
   #  Settings from https://learn.netlify.com/en/basics/configuration/
   name = "Velociraptor"
-  title = "Velociraptor: Digging Deeper!"
-  description = "Velociraptor: Digging Deeper!"
+  title = "Velociraptor / Dig deeper"
+  description = "Velociraptor / Dig deeper"
   images = ["/images/velo_small.png"]
   themeVariant = "mine"
   themeStyle = "original"
@@ -72,19 +72,16 @@ title = "Velociraptor - Digging Deeper!"
 
   [[params.navbar]]
   title = "Home"
-  link = "/index.md"
-
-  [[params.navbar]]
-  title = "FAQ"
-  link = "/faq.md"
+  link = "/"
 
   [[params.navbar]]
   title = "Documentation"
   link = "/docs"
 
   [[params.navbar]]
-  title = "Contact"
-  link = "/contact"
+  title = "Download"
+  link = ""
+  url = "https://github.com/Velocidex/velociraptor"
 
   [[params.navbar]]
   title = "<i class=\"fab fa-github\"></i>"

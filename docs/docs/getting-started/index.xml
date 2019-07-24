@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Getting Started on Velociraptor - Digging Deeper!</title>
+    <title>Getting Started on Velociraptor / Dig deeper</title>
     <link>/docs/getting-started/</link>
-    <description>Recent content in Getting Started on Velociraptor - Digging Deeper!</description>
+    <description>Recent content in Getting Started on Velociraptor / Dig deeper</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     
@@ -16,9 +16,9 @@
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>/docs/getting-started/stand_alone/</guid>
-      <description>The simplest way to deploy a Velociraptor server is via a self signed, stand alone deployment. Later we will see how to deploy Velociraptor in production, but this page will help you deploy a stand alone test environment.
-System overview Before we start it is useful to see how a Velociraptor deployment looks at a high level:
-The administrator uses their browser to connect to the Velociraptor GUI over SSL.</description>
+      <description>The simplest way to deploy Velociraptor is via a self-signed, stand-alone deployment. Later we&amp;rsquo;ll see how to deploy Velociraptor in production, but this page will help you deploy a stand-alone test environment.
+Overview Before we start, it&amp;rsquo;s useful to see how a Velociraptor deployment looks at a high level:
+Endpoint systems (also called clients) connect to the server (also called the frontend). The administrator (digital forensic investigator, threat hunter, SOC analyst, IT security operations, etc.</description>
     </item>
     
     <item>
@@ -27,8 +27,8 @@ The administrator uses their browser to connect to the Velociraptor GUI over SSL
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>/docs/getting-started/deploying_clients/</guid>
-      <description>Velociraptor endpoint agents are called clients. Clients connect to the server and wait for instructions (which mostly consist of VQL statements), they then run any VQL queries and return the result to the server.
-There are a number of ways to run clients, depending on your needs. Ultimately, however, the same Velociraptor binary is run with the client configuration file generated in the previous steps providing it with the key material and configuration.</description>
+      <description>Velociraptor endpoint agents are called clients. Clients connect to the server and wait for instructions, which mostly consist of VQL statements, then run any VQL queries and return the result to the server.
+There are several ways to run clients, depending on your needs. Ultimately however, the same Velociraptor binary is run with the client configuration file generated in the previous setup steps, providing it with the key material and configuration.</description>
     </item>
     
     <item>

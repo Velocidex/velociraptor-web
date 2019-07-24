@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Velociraptor - Digging Deeper!</title>
+    <title>Velociraptor / Dig deeper</title>
     
       <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<title>Server Artifacts :: Velociraptor - Digging Deeper!</title>
+<title>Server Artifacts :: Velociraptor / Dig deeper</title>
 <link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon" />
 <link rel="stylesheet" href="/css/bootstrap.min.css">
 <link href="/css/nucleus.css" rel="stylesheet">
@@ -43,9 +43,10 @@
       
 	
   
-    <a href="/">
+    <p><a href="/">
   <img src="/images/logo.svg">
-</a>
+</a></p>
+
   
 
 
@@ -72,6 +73,13 @@
       <a href="/about/">About Velociraptor</a><i class="fa fa-angle-right fa-lg category-icon"></i>
       </div>
         <ul>
+      <li data-nav-id="/about/features/" class="dd-item">
+        <div>
+          <a href="/about/features/">
+            Velociraptor Features
+          </a>
+        </div>
+    </li>
       <li data-nav-id="/about/license/" class="dd-item">
         <div>
           <a href="/about/license/">
@@ -398,7 +406,7 @@
 
 
 
- <a href='/'>Velociraptor - Digging Deeper!</a> > <a href='/docs/'>Velociraptor Documentation</a> > <a href='/docs/artifacts/'>Artifact Reference</a> > Server Artifacts
+ <a href='/'>Velociraptor / Dig deeper</a> > <a href='/docs/'>Velociraptor Documentation</a> > <a href='/docs/artifacts/'>Artifact Reference</a> > Server Artifacts
 
  
 
@@ -495,11 +503,7 @@ monitoring artifact be collected from clients.</p>
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-
-
-
-```
-name: Server.Alerts.PsExec
+<pre><code>name: Server.Alerts.PsExec
 description: |
    Send an email if execution of the psexec service was detected on
    any client. This is a server side artifact.
@@ -535,8 +539,8 @@ sources:
               args=[Timestamp, CommandLine, ClientId])
           )
         })
-```
-   
+</code></pre>
+
     </div>
 </div>
 
@@ -577,11 +581,7 @@ monitoring artifact be collected from clients.</p>
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-
-
-
-```
-name: Server.Alerts.WinPmem
+<pre><code>name: Server.Alerts.WinPmem
 description: |
    Send an email if the pmem service has been installed on any of the
    endpoints.
@@ -610,13 +610,13 @@ sources:
               subject='Pmem launched on host',
               period=60,
               body=format(
-                 format="WinPmem execution detected at %s for client %v",
+                 format=&quot;WinPmem execution detected at %s for client %v&quot;,
                  args=[Timestamp, ClientId]
               )
           )
         })
-```
-   
+</code></pre>
+
     </div>
 </div>
 
@@ -659,11 +659,7 @@ their content in the same table.</p>
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-
-
-
-```
-name: Server.Analysis.Triage.PowershellConsole
+<pre><code>name: Server.Analysis.Triage.PowershellConsole
 description: |
   This artifact post processes the artifact
   Windows.Triage.Collectors.PowershellConsoleLogs. While that artifact
@@ -692,7 +688,7 @@ sources:
 
       # A lookup between client id and FQDN
       - |
-        LET clients <= SELECT ClientId, os_info.fqdn AS FQDN from clients()
+        LET clients &lt;= SELECT ClientId, os_info.fqdn AS FQDN from clients()
 
       - |
         SELECT * FROM foreach(
@@ -704,8 +700,8 @@ sources:
               Filename, Data
             FROM read_file(filenames=LogFiles)
         })
-```
-   
+</code></pre>
+
     </div>
 </div>
 
@@ -724,11 +720,7 @@ sources:
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-
-
-
-```
-name: Server.Hunts.List
+<pre><code>name: Server.Hunts.List
 description: |
   List Hunts currently scheduled on the server.
 
@@ -745,8 +737,8 @@ sources:
                State
         FROM hunts()
         WHERE start_request.flow_name = 'ArtifactCollector'
-```
-   
+</code></pre>
+
     </div>
 </div>
 
@@ -789,11 +781,7 @@ sources:
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-
-
-
-```
-name: Server.Hunts.Results
+<pre><code>name: Server.Hunts.Results
 description: |
   Show the results from each artifact collection hunt.
 parameters:
@@ -811,8 +799,8 @@ sources:
     queries:
       - |
         SELECT * FROM hunt_results(hunt_id=huntId, artifact=ArtifactName)
-```
-   
+</code></pre>
+
     </div>
 </div>
 
@@ -837,11 +825,7 @@ collected recently.</p>
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-
-
-
-```
-name: Server.Information.Clients
+<pre><code>name: Server.Information.Clients
 description: |
   This artifact returns the total list of clients, their hostnames and
   the last times they were seen.
@@ -875,10 +859,10 @@ sources:
         /* For each client, also list its users. */
         SELECT client_id,
                HostName, OS, Release, LastSeenAt, LastIP,
-               join(array=names.Name, sep=",") AS Users
+               join(array=names.Name, sep=&quot;,&quot;) AS Users
         FROM client_info
-```
-   
+</code></pre>
+
     </div>
 </div>
 
@@ -923,11 +907,7 @@ never collected it for this machine, there will be no results.</p>
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-
-
-
-```
-name: Server.Information.Users
+<pre><code>name: Server.Information.Users
 description: |
   List the user names and SIDs on each machine. We get this
   information from the last time we collected Windows.Sys.Users. If we
@@ -940,7 +920,7 @@ parameters:
     default:
   - name: StandardUserAccounts
     description: Well known SIDs to hide from the output.
-    default: "(-5..$|S-1-5-18|S-1-5-19|S-1-5-20)"
+    default: &quot;(-5..$|S-1-5-18|S-1-5-19|S-1-5-20)&quot;
 
 sources:
   - queries:
@@ -964,8 +944,8 @@ sources:
                  client_id=ClientId)
               WHERE NOT UUID =~ StandardUserAccounts
             })
-```
-   
+</code></pre>
+
     </div>
 </div>
 
@@ -982,16 +962,12 @@ sources:
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-
-
-
-```
-name: Server.Internal.ArtifactDescription
+<pre><code>name: Server.Internal.ArtifactDescription
 
 reports:
   - type: INTERNAL
     template: |
-      {{ $artifact := Scope "artifact" }}
+      {{ $artifact := Scope &quot;artifact&quot; }}
 
       ## {{ $artifact.Name }}
 
@@ -1003,13 +979,13 @@ reports:
 
       ### Parameters
 
-      <table class="table table-striped table-hover">
-      <thead><tr><th>Name</th><th>Default</th></tr></thead>
-      <tbody>
+      &lt;table class=&quot;table table-striped table-hover&quot;&gt;
+      &lt;thead&gt;&lt;tr&gt;&lt;th&gt;Name&lt;/th&gt;&lt;th&gt;Default&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
+      &lt;tbody&gt;
       {{ range $item := $artifact.Parameters }}
-         <tr><td> {{ $item.Name }}</td><td><pre>{{ $item.Default }}</pre></td></tr>
+         &lt;tr&gt;&lt;td&gt; {{ $item.Name }}&lt;/td&gt;&lt;td&gt;&lt;pre&gt;{{ $item.Default }}&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;
       {{ end }}
-      </tbody></table>
+      &lt;/tbody&gt;&lt;/table&gt;
 
       {{ end }}
 
@@ -1022,8 +998,8 @@ reports:
       {{ end }}
       ```
       {{ end }}
-```
-   
+</code></pre>
+
     </div>
 </div>
 
@@ -1061,11 +1037,7 @@ homescreen and enabled by default on all new installs.</p>
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-
-
-
-```
-name: Server.Monitor.Health
+<pre><code>name: Server.Monitor.Health
 description: |
   This is the main server health dashboard. It is shown on the
   homescreen and enabled by default on all new installs.
@@ -1075,13 +1047,13 @@ type: SERVER_EVENT
 parameters:
   - name: Frequency
     description: Return stats every this many seconds.
-    default: "15"
+    default: &quot;15&quot;
 
 sources:
   - name: Prometheus
     queries:
       - |
-        LET metrics_url <= SELECT format(format='http://%s:%d/metrics', args=[
+        LET metrics_url &lt;= SELECT format(format='http://%s:%d/metrics', args=[
               server_config.Monitoring.bind_address,
               server_config.Monitoring.bind_port]) as URL
         FROM scope()
@@ -1099,60 +1071,60 @@ sources:
           query={
              SELECT * FROM Artifact.Server.Monitor.VeloMetrics(MetricsURL=metrics_url.URL[0])
           })
-        WHERE CPUPercent >= 0
+        WHERE CPUPercent &gt;= 0
 
 
 reports:
   - type: SERVER_EVENT
     parameters:
       - name: Sample
-        default: "4"
+        default: &quot;4&quot;
 
     template: |
-      {{ define "CPU" }}
+      {{ define &quot;CPU&quot; }}
            SELECT * FROM sample(
              n=atoi(string=Sample),
              query={
                SELECT _ts as Timestamp,
                   CPUPercent,
                   MemoryUse
-               FROM source(source="Prometheus",
-                           artifact="Server.Monitor.Health")
+               FROM source(source=&quot;Prometheus&quot;,
+                           artifact=&quot;Server.Monitor.Health&quot;)
              })
       {{ end }}
 
-      {{ define "CurrentConnections" }}
+      {{ define &quot;CurrentConnections&quot; }}
            SELECT * FROM sample(
              n=atoi(string=Sample),
              query={
                SELECT _ts as Timestamp,
                   client_comms_current_connections,
                   client_comms_concurrency
-               FROM source(source="Prometheus",
-                           artifact="Server.Monitor.Health")
+               FROM source(source=&quot;Prometheus&quot;,
+                           artifact=&quot;Server.Monitor.Health&quot;)
             })
       {{ end }}
 
-      {{ $CurrentMetrics := Query "SELECT * FROM Artifact.Server.Monitor.VeloMetrics()" }}
+      {{ $CurrentMetrics := Query &quot;SELECT * FROM Artifact.Server.Monitor.VeloMetrics()&quot; }}
 
       ## Server status
 
-      Currently there are {{ Get $CurrentMetrics "0.client_comms_current_connections" }} clients connected.
+      Currently there are {{ Get $CurrentMetrics &quot;0.client_comms_current_connections&quot; }} clients connected.
 
-      <span class="container">
-        <span class="row">
-          <span class="col-sm panel">
+      &lt;span class=&quot;container&quot;&gt;
+        &lt;span class=&quot;row&quot;&gt;
+          &lt;span class=&quot;col-sm panel&quot;&gt;
            CPU and Memory Utilization
-           {{ Query "CPU" | LineChart "xaxis_mode" "time" "RSS.yaxis" 2 }}
-          </span>
-          <span class="col-sm panel">
+           {{ Query &quot;CPU&quot; | LineChart &quot;xaxis_mode&quot; &quot;time&quot; &quot;RSS.yaxis&quot; 2 }}
+          &lt;/span&gt;
+          &lt;span class=&quot;col-sm panel&quot;&gt;
            Currently Connected Clients
-           {{ Query "CurrentConnections" | LineChart "xaxis_mode" "time" "RSS.yaxis" 2 }}
-          </span>
-        </span>
-      </span>
-```
-   
+           {{ Query &quot;CurrentConnections&quot; | LineChart &quot;xaxis_mode&quot; &quot;time&quot; &quot;RSS.yaxis&quot; 2 }}
+          &lt;/span&gt;
+        &lt;/span&gt;
+      &lt;/span&gt;
+</code></pre>
+
     </div>
 </div>
 
@@ -1182,11 +1154,7 @@ clients into the same log file.</p>
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-
-
-
-```
-name: Server.Monitor.Shell
+<pre><code>name: Server.Monitor.Shell
 description: |
    Velociraptor can get an interactive shell on the endpoint by using
    the shell command. In order to use it, the user must be directly
@@ -1195,7 +1163,7 @@ description: |
    Obviously being able to run arbitrary commands on the end point is
    a powerful feature and should be used sparingly. There is an audit
    trail for shell commands executed and their output available by
-   streaming all shell commands to the "Shell" client evnt monitoring
+   streaming all shell commands to the &quot;Shell&quot; client evnt monitoring
    artifact.
 
    This server event artifact centralizes all shell access from all
@@ -1207,7 +1175,7 @@ type: SERVER_EVENT
 sources:
   - queries:
     - |
-      SELECT * FROM watch_monitoring(artifact="Shell")
+      SELECT * FROM watch_monitoring(artifact=&quot;Shell&quot;)
 
 # Reports can be MONITORING_DAILY, CLIENT
 reports:
@@ -1215,19 +1183,19 @@ reports:
     template: |
       {{ .Description }}
 
-      {{ $rows := Query "SELECT timestamp(epoch=Timestamp) AS Timestamp, Argv, Stdout FROM source()" }}
+      {{ $rows := Query &quot;SELECT timestamp(epoch=Timestamp) AS Timestamp, Argv, Stdout FROM source()&quot; }}
 
       {{ range $row := $rows }}
 
-         * On {{ Get $row "Timestamp" }} we ran {{ Get $row "Argv" }}
+         * On {{ Get $row &quot;Timestamp&quot; }} we ran {{ Get $row &quot;Argv&quot; }}
 
          ```text
-         {{ Get $row "Stdout" }}
+         {{ Get $row &quot;Stdout&quot; }}
          ```
 
       {{end}}
-```
-   
+</code></pre>
+
     </div>
 </div>
 
@@ -1264,11 +1232,7 @@ reports:
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-
-
-
-```
-name: Server.Monitor.VeloMetrics
+<pre><code>name: Server.Monitor.VeloMetrics
 description: |
   Get Velociraptor server metrics.
 
@@ -1281,12 +1245,12 @@ sources:
       - |
         LET stats = SELECT parse_string_with_regex(string=Content,
            regex=[
-             'client_comms_concurrency (?P<client_comms_concurrency>[^\\s]+)',
-             'client_comms_current_connections (?P<client_comms_current_connections>[^\\s]+)',
-             'flow_completion (?P<flow_completion>[^\\s]+)',
-             'process_open_fds (?P<process_open_fds>[^\\s]+)',
-             'stats_client_one_day_actives{version="[^"]+"} (?P<one_day_active>[^\\s]+)',
-             'stats_client_seven_day_actives{version="[^"]+"} (?P<seven_day_active>[^\\s]+)'
+             'client_comms_concurrency (?P&lt;client_comms_concurrency&gt;[^\\s]+)',
+             'client_comms_current_connections (?P&lt;client_comms_current_connections&gt;[^\\s]+)',
+             'flow_completion (?P&lt;flow_completion&gt;[^\\s]+)',
+             'process_open_fds (?P&lt;process_open_fds&gt;[^\\s]+)',
+             'stats_client_one_day_actives{version=&quot;[^&quot;]+&quot;} (?P&lt;one_day_active&gt;[^\\s]+)',
+             'stats_client_seven_day_actives{version=&quot;[^&quot;]+&quot;} (?P&lt;seven_day_active&gt;[^\\s]+)'
            ]) AS Stat, {
               // On Windows Prometheus does not provide these so we get our own.
               SELECT Times.user + Times.system as CPU,
@@ -1311,8 +1275,8 @@ sources:
                parse_float(string=Stat.seven_day_active)
                      AS seven_day_active
         FROM stats
-```
-   
+</code></pre>
+
     </div>
 </div>
 
@@ -1368,11 +1332,7 @@ the deployment.</p>
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-
-
-
-```
-name: Server.Monitoring.ClientCount
+<pre><code>name: Server.Monitoring.ClientCount
 
 description: |
    An artifact that sends an email every hour of the current state of
@@ -1386,9 +1346,9 @@ parameters:
    - name: CCAddress
      default:
    - name: Subject
-     default: "Deployment statistics for Velociraptor"
+     default: &quot;Deployment statistics for Velociraptor&quot;
    - name: Period
-     default: "3600"
+     default: &quot;3600&quot;
 
 sources:
   - queries:
@@ -1410,8 +1370,8 @@ sources:
                      args=[metrics.client_comms_current_connections])
             )
         })
-```
-   
+</code></pre>
+
     </div>
 </div>
 
@@ -1434,11 +1394,7 @@ event artifact to retrieve process execution logs.</p>
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-
-
-
-```
-name: Server.Powershell.EncodedCommand
+<pre><code>name: Server.Powershell.EncodedCommand
 description: |
   It is possible to pass powershell an encoded script. This artifact
   decodes the scripts.
@@ -1455,7 +1411,7 @@ sources:
           string=base64decode(
              string=parse_string_with_regex(
                 string=CommandLine,
-                regex='-encodedcommand (?P<Encoded>[^ ]+)'
+                regex='-encodedcommand (?P&lt;Encoded&gt;[^ ]+)'
              ).Encoded)) AS Script
         FROM watch_monitoring(artifact='Windows.Events.ProcessCreation')
         WHERE CommandLine =~ '-encodedcommand'
@@ -1471,9 +1427,9 @@ reports:
 
       ## Decoded Powershell commands.
 
-      {{ Query "SELECT ClientId, { SELECT os_info.Fqdn from clients(client_id=ClientId) } AS FQDN, Script FROM source()" | Table }}
-```
-   
+      {{ Query &quot;SELECT ClientId, { SELECT os_info.Fqdn from clients(client_id=ClientId) } AS FQDN, Script FROM source()&quot; | Table }}
+</code></pre>
+
     </div>
 </div>
 
