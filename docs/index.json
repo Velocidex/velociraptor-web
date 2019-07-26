@@ -249,7 +249,7 @@
         "title": "Presentations and Workshops",
         "tags": [],
         "description": "",
-        "content": "We present about Velociraptor frequently in conferences and workshops.\nThis page highlights some of the more interesting presentations we gave. It can be used as reference material. Note the dates of presentation as some material may be outdated.\n RSA Asia Pacific and Japan 2019   Crikeycon 2019 Training Workshop   New Zealand Internet Task Force Conference 2018   "
+        "content": "We present about Velociraptor frequently in conferences and workshops.\nThis page highlights some of the more interesting presentations we gave. It can be used as reference material. Note the dates of presentation as some material may be outdated.\n SANS Summit 2019   RSA Asia Pacific and Japan 2019   Crikeycon 2019 Training Workshop   New Zealand Internet Task Force Conference 2018   "
 },
 {
         "uri": "/docs/artifacts/events/",
@@ -278,6 +278,13 @@
         "tags": [],
         "description": "",
         "content": " In this tutorial we will deploy Velociraptor locally to our machine, and connect a client to it. This is the bare minimum required to demonstrate Velociraptor\u0026rsquo;s capabilities and walk through the GUI.\nVelociraptor can be used in a number of different ways, but in this tutorial we will use it as an end point visibility tool, collect some artifacts and set up endpoint monitoring.\nOverview Before we start it is useful to see how a Velociraptor deployment looks at a high level:\nmermaid.initialize({startOnLoad:true}); graph TD; A(User) --|Browser| B(Velociraptor GUI server) B -- C[Frontend] C -- D[fab:fa-apple] C -- E[fab:fa-linux] C -- F[fab:fa-windows]  Create a new deployment Velociraptor clients connect back to the server using an encrypted communication channel. Each deployment has its own unique cryptographic keys ensuring the security and authenticity of the server.\nTherefore before we can start the server we will create a new server configuration file:\n$ velociraptor.exe config generate \u0026gt; server.config.yaml  This command generates a new configuration file and redirect it to the file server.config.yaml. This file contains key material that controls this specific deployment.\n"
+},
+{
+        "uri": "/docs/presentations/sans_dfir_summit2019/",
+        "title": "SANS Summit 2019",
+        "tags": [],
+        "description": "",
+        "content": "26th July 2019 We were really happy to present the keynote at the SANS DFIR Summit in Austin, TX. Thanks everyone for the warm welcome and interesting discussions.\n  View our presentation   This browser does not support PDFs. Please download the PDF to view it: Download PDF.\n \n    "
 },
 {
         "uri": "/docs/presentations/rsa/",
