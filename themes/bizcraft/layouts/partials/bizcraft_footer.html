@@ -1,3 +1,4 @@
+{{- $page := . -}}
 
 <!-- Footer start -->
 <footer id="footer" class="footer">
@@ -6,25 +7,19 @@
       <div class="col-md-4 col-sm-12 footer-widget">
         <h3 class="widget-title">Recent articles</h3>
 
+        {{ range .Params.recent_posts }}
+
         <div class="latest-post-items media">
           <div class="latest-post-content media-body">
-            <h4><a href="/docs/presentations/sans_2019/">Keynote presentation at the SANS Digital Forensics and Incident Response Summit, Austin TX</a></h4>
+            <h4><a href="{{ ref $page .link }}">{{ .title }}</a></h4>
             <p class="post-meta">
-              <span class="date"><i class="icon icon-calendar"></i>26 July 2019</span>
+              <span class="date"><i class="icon icon-calendar"></i>{{ .date }}</span>
             </p>
           </div>
         </div>
 
-        <div class="latest-post-items media">
-          <div class="latest-post-content media-body">
-            <h4><a href="/docs/presentations/rsa/">Velociraptor presentation and hands-on lab at RSA Conference, APJ 2019 (with slides)</a></h4>
-            <p class="post-meta">
-              <span class="date"><i class="icon icon-calendar"></i>16 July 2019</span>
-            </p>
-          </div>
-        </div>
+        {{ end }}
       </div><!--/ End Recent Posts-->
-
 
       <div class="col-md-4 col-sm-12 footer-widget">
       </div><!--/ end flickr -->
