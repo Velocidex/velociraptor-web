@@ -43,10 +43,9 @@
       
 	
   
-    <p><a href="/">
+    <a href="/">
   <img src="/images/logo.svg">
-</a></p>
-
+</a>
   
 
 
@@ -481,14 +480,16 @@ clients (as collected by the <code>Windows.Events.ProcessCreation</code> client
 monitoring artifact) and when a Powershell process with encoded
 scripts are run, it simply decodes the script.</p>
 
-<div class="notices note" ><p>Powershell is a common tool used by many adversaries for lateral
+<div class="notices note" >
+
+Powershell is a common tool used by many adversaries for lateral
 movement. Typically attackers encode their malicious scripts so they
 can be sent over remote connections. This makes it difficult to see
 what the command will do when looking at a plain process execution
-log. The <code>Server.Powershell.EncodedCommands</code> simply decodes these for
-further inspection.</p>
-</div>
+log. The `Server.Powershell.EncodedCommands` simply decodes these for
+further inspection.
 
+</div>
 
 <h2 id="updating-server-event-monitoring">Updating server event monitoring</h2>
 
@@ -506,16 +507,18 @@ any potential parameters.</p>
 artifact which compresses uploads as soon as they are collected from
 endpoints in order to keep server disk usage to a minimum.</p>
 
-<div class="notices tip" ><p>The <code>Admin.System.CompressUploads</code> artifact is an example of a server
+<div class="notices tip" >
+
+The `Admin.System.CompressUploads` artifact is an example of a server
 event monitoring artifact specifically designed to post process a
 specific type of collected files. In this case we watch for the
 collection flow to complete, then simply compress all files
 uploaded. However one can think of similar post processing scenarios
 such as parsing file of a particular type, or uploading the files to
 virus reputation sites (e.g. Virus Total). Your imagination is really
-the limit of what can be done using this mechanism.</p>
-</div>
+the limit of what can be done using this mechanism.
 
+</div>
 
 
     

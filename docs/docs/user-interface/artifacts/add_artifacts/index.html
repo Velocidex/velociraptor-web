@@ -43,10 +43,9 @@
       
 	
   
-    <p><a href="/">
+    <a href="/">
   <img src="/images/logo.svg">
-</a></p>
-
+</a>
   
 
 
@@ -475,11 +474,13 @@ format which encapsulate VQL queries. Artifacts are readable and
 editable by end users, and are supposed to be reused and adapted as
 seen fit.</p>
 
-<div class="notices tip" ><p>When thinking about writing a new artifact, you should check out any
-similar artifacts that already exist. It is way easier to adapt an
-existing artifact which does something similar to what you need.</p>
-</div>
+<div class="notices tip" >
 
+When thinking about writing a new artifact, you should check out any
+similar artifacts that already exist. It is way easier to adapt an
+existing artifact which does something similar to what you need.
+
+</div>
 
 <h2 id="viewing-existing-artifacts">Viewing existing artifacts</h2>
 
@@ -556,16 +557,18 @@ creating a new artifact only takes minutes. This provides you with
 great hunting power - from idea to implementation and execution of a
 hunt may only take a few minutes!</p>
 
-<div class="notices warning" ><p><strong>A note about security</strong>: Being able to add new artifacts gives a
-user absolute control over clients <strong>and</strong> the server. This is because
-a user can add arbitrary VQL to either a <code>Client Artifact</code> (so it can
-run on the client with system level access) or to a <code>Server Artifact</code>
+<div class="notices warning" >
+
+**A note about security**: Being able to add new artifacts gives a
+user absolute control over clients **and** the server. This is because
+a user can add arbitrary VQL to either a `Client Artifact` (so it can
+run on the client with system level access) or to a `Server Artifact`
 (which has access to all clients). Currently Velociraptor has a 2 tier
 security model (Readonly users can not add artifacts, and full users
 can do anything). This might change in future but until then you need
-to be aware that Velociraptor admins are extremely privileged.</p>
-</div>
+to be aware that Velociraptor admins are extremely privileged.
 
+</div>
 
 
     

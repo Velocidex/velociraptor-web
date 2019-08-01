@@ -43,10 +43,9 @@
       
 	
   
-    <p><a href="/">
+    <a href="/">
   <img src="/images/logo.svg">
-</a></p>
-
+</a>
   
 
 
@@ -502,7 +501,11 @@ have contacted this C&amp;C.</p>
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-<pre><code>name: Windows.Events.DNSQueries
+
+
+
+```
+name: Windows.Events.DNSQueries
 description: |
   Monitor all DNS Queries and responses.
 
@@ -514,8 +517,8 @@ description: |
 
   It is recommended to collect this artifact and just archive the
   results. When threat intelligence emerges about a watering hole or a
-  bad C&amp;C you can use this archive to confirm if any of your endpoints
-  have contacted this C&amp;C.
+  bad C&C you can use this archive to confirm if any of your endpoints
+  have contacted this C&C.
 
 type: CLIENT_EVENT
 
@@ -526,7 +529,7 @@ parameters:
 
 sources:
  - precondition:
-     SELECT OS from info() where OS = &quot;windows&quot;
+     SELECT OS from info() where OS = "windows"
 
    queries:
       - |
@@ -537,19 +540,19 @@ sources:
 reports:
 - type: MONITORING_DAILY
   template: |
-    {{ define &quot;dns&quot; }}
+    {{ define "dns" }}
        SELECT count(items=Name) AS Total, Name
        FROM source(client_id=ClientId,
                    artifact='Windows.Events.DNSQueries')
-      WHERE EventType = &quot;Q&quot; and not Name =~ &quot;.home.$&quot;
+      WHERE EventType = "Q" and not Name =~ ".home.$"
       GROUP BY Name
       ORDER BY Total desc
       LIMIT 1000
     {{ end }}
 
-    {{ $client_info := Query &quot;SELECT * FROM clients(client_id=ClientId) LIMIT 1&quot; }}
+    {{ $client_info := Query "SELECT * FROM clients(client_id=ClientId) LIMIT 1" }}
 
-    # DNS Questions for {{ Get $client_info &quot;0.OsInfo.Fqdn&quot; }}
+    # DNS Questions for {{ Get $client_info "0.OsInfo.Fqdn" }}
 
     The 1000 most common DNS Queries on this day are listed in the
     below table. Typically we are looking for two interesting
@@ -557,16 +560,16 @@ reports:
 
     1. Sorting by count for the most frequently called domains. If you
        do not recognize these it may be possible that a malware is
-       frequently calling out to its C&amp;C.
+       frequently calling out to its C&C.
 
     2. Examining some of the least commonly used DNS names might
        indicate DNS exfiltration.
 
-    {{ Query &quot;dns&quot; | Table }}
+    {{ Query "dns" | Table }}
 
-    &gt; The following domains are filtered out: `.home.`
-</code></pre>
-
+    > The following domains are filtered out: `.home.`
+```
+   
     </div>
 </div>
 
@@ -634,7 +637,11 @@ Computer Configuration\Windows Settings\Security Settings\Local Policies\Audit P
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-<pre><code>name: Windows.Events.FailedLogBeforeSuccess
+
+
+
+```
+name: Windows.Events.FailedLogBeforeSuccess
 description: |
   Sometimes attackers will brute force an local user's account's
   password. If the account password is strong, brute force attacks are
@@ -660,7 +667,7 @@ type: CLIENT_EVENT
 
 parameters:
   - name: securityLogFile
-    default: &gt;-
+    default: >-
       C:/Windows/System32/Winevt/Logs/Security.evtx
 
   - name: failureCount
@@ -688,7 +695,7 @@ sources:
 
       # Force the fifo to materialize.
       - |
-        LET foo &lt;= SELECT * FROM last_5_events
+        LET foo <= SELECT * FROM last_5_events
 
       - |
         LET success_logon = SELECT EventData as SuccessEventData,
@@ -707,9 +714,9 @@ sources:
            FROM last_5_events
            WHERE FailedEventData.SubjectUserName = SuccessEventData.SubjectUserName
            GROUP BY LogonTime
-          })  WHERE Count &gt; atoi(string=failureCount)
-</code></pre>
-
+          })  WHERE Count > atoi(string=failureCount)
+```
+   
     </div>
 </div>
 
@@ -752,7 +759,11 @@ sources:
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-<pre><code>name: Windows.Events.ProcessCreation
+
+
+
+```
+name: Windows.Events.ProcessCreation
 description: |
   Collect all process creation events.
 
@@ -781,23 +792,23 @@ sources:
                Parse.ProcessName as Name, {
                  SELECT CommandLine
                  FROM wmi(
-                   query=&quot;SELECT * FROM Win32_Process WHERE ProcessID = &quot; +
-                    format(format=&quot;%v&quot;, args=Parse.ProcessID),
-                   namespace=&quot;ROOT/CIMV2&quot;)
+                   query="SELECT * FROM Win32_Process WHERE ProcessID = " +
+                    format(format="%v", args=Parse.ProcessID),
+                   namespace="ROOT/CIMV2")
                } AS CommandLine,
                {
                  SELECT CommandLine
                  FROM wmi(
-                   query=&quot;SELECT * FROM Win32_Process WHERE ProcessID = &quot; +
-                    format(format=&quot;%v&quot;, args=Parse.ParentProcessID),
-                   namespace=&quot;ROOT/CIMV2&quot;)
+                   query="SELECT * FROM Win32_Process WHERE ProcessID = " +
+                    format(format="%v", args=Parse.ParentProcessID),
+                   namespace="ROOT/CIMV2")
                } AS ParentInfo
         FROM wmi_events(
            query=eventQuery,
            wait=5000000,   // Do not time out.
-           namespace=&quot;ROOT/CIMV2&quot;)
-</code></pre>
-
+           namespace="ROOT/CIMV2")
+```
+   
     </div>
 </div>
 
@@ -842,7 +853,11 @@ event log and records them on the server.</p>
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-<pre><code>name: Windows.Events.ServiceCreation
+
+
+
+```
+name: Windows.Events.ServiceCreation
 description: |
   Monitor for creation of new services.
 
@@ -857,12 +872,12 @@ type: CLIENT_EVENT
 
 parameters:
   - name: systemLogFile
-    default: &gt;-
+    default: >-
       C:/Windows/System32/Winevt/Logs/System.evtx
 
 sources:
  - precondition:
-     SELECT OS from info() where OS = &quot;windows&quot;
+     SELECT OS from info() where OS = "windows"
 
    queries:
       - |
@@ -875,8 +890,8 @@ sources:
                EventData as _EventData,
                System as _System
         FROM watch_evtx(filename=systemLogFile) WHERE EventID = 7045
-</code></pre>
-
+```
+   
     </div>
 </div>
 

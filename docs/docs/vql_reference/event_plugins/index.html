@@ -43,10 +43,9 @@
       
 	
   
-    <p><a href="/">
+    <a href="/">
   <img src="/images/logo.svg">
-</a></p>
-
+</a>
   
 
 
@@ -559,12 +558,14 @@ simpler non-event queries.</p>
 <p>The <code>key</code> parameter is the name of the column which is used to
 determine row equivalency.</p>
 
-<div class="notices note" ><p>There is only a single equivalence row specified by the <code>key</code>
+<div class="notices note" >
+
+There is only a single equivalence row specified by the `key`
 parameter, and it must be a string. If you need to watch multiple
 columns you need to create a new column which is the concatenation of
-other columns. For example <code>format(format=&quot;%s%d&quot;, args=[Name, Pid])</code></p>
-</div>
+other columns. For example `format(format="%s%d", args=[Name, Pid])`
 
+</div>
 
 <h3 id="example-1">Example</h3>
 
@@ -591,16 +592,18 @@ SELECT * FROM diff(
 <p>Monitor dns queries. This plugin opens a raw socket and monitors
 network traffic for DNS questions and answers.</p>
 
-<div class="notices note" ><p>When Velociraptor attempts to open a raw socket, sometimes Windows
+<div class="notices note" >
+
+When Velociraptor attempts to open a raw socket, sometimes Windows
 Defender treats that as suspicious behavior and quaranteens the
 Velociraptor binary. This can be avoided by signing the binary which
-signals to Windows Defender that the binary is legitimate.</p>
+signals to Windows Defender that the binary is legitimate.
 
-<p>If you do not intend to build Velociraptor from source, use the
+If you do not intend to build Velociraptor from source, use the
 official signed Velociraptor binaries which should not trigger alerts
-from Windows Defender.</p>
-</div>
+from Windows Defender.
 
+</div>
 
 <h2 id="fifo">fifo</h2>
 
@@ -742,13 +745,15 @@ grows this plugin will emit the new rows.</p>
 <p>Watch an EVTX file and stream events from it. This is the Event plugin
 version of <code>parse_evtx()</code>.</p>
 
-<div class="notices note" ><p>It often takes several seconds for events to be flushed to the event
-log and so this plugin&rsquo;s event may be delayed. For some applications
+<div class="notices note" >
+
+It often takes several seconds for events to be flushed to the event
+log and so this plugin's event may be delayed. For some applications
 this results in a race condition with the event itself - for example,
 files mentioned in the event may already be removed by the time the
-event is triggered.</p>
-</div>
+event is triggered.
 
+</div>
 
 <h2 id="watch-monitoring">watch_monitoring</h2>
 

@@ -8,7 +8,7 @@ weight: 5
 ## Quick start
 
 **Just want the latest version?** Sure, it's freely available on our
-  [Github releases](https://github.com/velocidex/velociraptor) page.
+  [Github releases](https://github.com/Velocidex/velociraptor/releases) page.
 
 <!-- **Want some ideas on what Velociraptor can do?** Have a look at
 some [Use Cases](../use_cases) that we've developed based on real-life

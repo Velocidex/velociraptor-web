@@ -43,10 +43,9 @@
       
 	
   
-    <p><a href="/">
+    <a href="/">
   <img src="/images/logo.svg">
-</a></p>
-
+</a>
   
 
 
@@ -522,12 +521,14 @@ of the Query plugin. Here is an example from <code>Windows.Sys.Users</code> arti
       {{ Query &quot;users&quot; &quot;SELECT Name, UUID, Type, Mtime FROM users&quot; | Table }}
 </code></pre>
 
-<div class="notices note" ><p>The <code>source()</code> VQL plugin is very useful in reports since it generates
+<div class="notices note" >
+
+The `source()` VQL plugin is very useful in reports since it generates
 all the results from the currently collected artifact. For artifacts
 with multiple named sources, you can specify which source you want
-using the <code>source</code> parameter (i.e. <code>source(source=&quot;foo&quot;)</code></p>
-</div>
+using the `source` parameter (i.e. `source(source="foo")`
 
+</div>
 
 <h3 id="the-table-plugin">The Table plugin</h3>
 
@@ -566,11 +567,13 @@ and specify some parameters to it.</p>
 
 <p><img src="../report_chart.png" alt="Report Chart" /></p>
 
-<div class="notices note" ><p>Note that in the above query the <code>source()</code> automatically incorporated
-the start and end times as set by the report viewer. The report author
-does not need to do anything special.</p>
-</div>
+<div class="notices note" >
 
+Note that in the above query the `source()` automatically incorporated
+the start and end times as set by the report viewer. The report author
+does not need to do anything special.
+
+</div>
 
 
     
