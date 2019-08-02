@@ -47,7 +47,7 @@ Server VQL queries can also be event driven which allows one to set up higher or
       
       <guid>/docs/vql_reference/functions/</guid>
       <description>VQL Functions operate on value to return other values. Functions are useful to transform values obtained from a VQL row.
-VQL plugins are not the same as VQL functions. A plugin is the subject of the VQL query - i.e. plugins always follow the `FROM` keyword, while functions (which return a single value instead of a sequence of rows) are only present in column specification (e.g. after `SELECT`) or in condition clauses (i.</description>
+VQL plugins are not the same as VQL functions. A plugin is the subject of the VQL query - i.e. plugins always follow the FROM keyword, while functions (which return a single value instead of a sequence of rows) are only present in column specification (e.g. after SELECT) or in condition clauses (i.</description>
     </item>
     
     <item>

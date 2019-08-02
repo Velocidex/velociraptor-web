@@ -43,9 +43,10 @@
       
 	
   
-    <a href="/">
+    <p><a href="/">
   <img src="/images/logo.svg">
-</a>
+</a></p>
+
   
 
 
@@ -585,15 +586,13 @@ and server config files that we&rsquo;ll soon be creating:</p>
 <li>TCP/8001 if you require access to the API, which is not required by default.</li>
 </ul>
 
-<div class="notices warning" >
-
-It might be tempting to specify an IP address here, especially if you
+<div class="notices warning" ><p>It might be tempting to specify an IP address here, especially if you
 have a static IP or this is an internal deployment. This is not
 recommended, since if you need to change the IP address, existing
 clients will continue to attempt to contact the old IP address,
-rendering them unreachable.
-
+rendering them unreachable.</p>
 </div>
+
 
 <h2 id="3-generate-the-server-and-client-configuration-files">3. Generate the server and client configuration files</h2>
 
@@ -714,14 +713,12 @@ just plain text files.</p>
 <p>The configuration process will now create some GUI users, who will be
 allowed to log into the admin GUI.</p>
 
-<div class="notices note" >
-
-Note that the accounts you create here are not related to any
+<div class="notices note" ><p>Note that the accounts you create here are not related to any
 operating system user accounts. They are completely separate and have
 no security relationship, unless you choose to implement SSO via
-Google OAuth.
-
+Google OAuth.</p>
 </div>
+
 
 <p>You can always add new users to the GUI using the command
 <code>velociraptor --config server.config.yaml user add MyUserName</code>. User
@@ -753,16 +750,14 @@ flag causes verbose output to be shown in the terminal):</p>
 <p>The info messages will indicate which port the GUI will listen on,
 i.e. <code>https://127.0.0.1:8889</code></p>
 
-<div class="notices note" >
-
-Velociraptor currently does not support multiple frontends - all
+<div class="notices note" ><p>Velociraptor currently does not support multiple frontends - all
 clients connect to the same frontend which performs all roles
 (client-server connections, serving the GUI and running the API
 server). We have used Velociraptor with deployments of around 5,000
 endpoints and it performs quite well. Eventually we plan to support
-horizontal scaling to multiple frontends.
-
+horizontal scaling to multiple frontends.</p>
 </div>
+
 
 <h2 id="5-verify-the-gui-works">5. Verify the GUI works</h2>
 

@@ -43,9 +43,10 @@
       
 	
   
-    <a href="/">
+    <p><a href="/">
   <img src="/images/logo.svg">
-</a>
+</a></p>
+
   
 
 
@@ -511,11 +512,7 @@ description from there.</p>
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-
-
-
-```
-name: Linux.Applications.Chrome.Extensions
+<pre><code>name: Linux.Applications.Chrome.Extensions
 description: |
   Fetch Chrome extensions.
 
@@ -568,17 +565,17 @@ sources:
                          -- Munge the filename to get the messages.json path.
                          filenames=regex_replace(
                            source=ManifestFilename,
-                           replace="/_locales/" + Manifest.default_locale +
-                                   "/messages.json",
-                           re="/manifest.json$"))
+                           replace=&quot;/_locales/&quot; + Manifest.default_locale +
+                                   &quot;/messages.json&quot;,
+                           re=&quot;/manifest.json$&quot;))
               },
               else={
                   -- Just fill in empty Locale results.
                   SELECT Manifest,
                          Uid, User,
-                         "" AS LocaleFilename,
-                         "" AS ManifestFilename,
-                         "" AS LocaleManifest
+                         &quot;&quot; AS LocaleFilename,
+                         &quot;&quot; AS ManifestFilename,
+                         &quot;&quot; AS LocaleManifest
                   FROM scope()
               })
 
@@ -605,46 +602,46 @@ sources:
                   resolves the Name column either to the main manifest or
                   the locale manifest.
                */
-               if(condition="__MSG_" in Manifest.name,
+               if(condition=&quot;__MSG_&quot; in Manifest.name,
                   then=get(item=LocaleManifest,
                      member=regex_replace(
                         source=Manifest.name,
-                        replace="$1",
-                        re="(?:__MSG_(.+)__)")).message,
+                        replace=&quot;$1&quot;,
+                        re=&quot;(?:__MSG_(.+)__)&quot;)).message,
                   else=Manifest.name) as Name,
 
-               if(condition="__MSG_" in Manifest.description,
+               if(condition=&quot;__MSG_&quot; in Manifest.description,
                   then=get(item=LocaleManifest,
                      member=regex_replace(
                         source=Manifest.description,
-                        replace="$1",
-                        re="(?:__MSG_(.+)__)")).message,
+                        replace=&quot;$1&quot;,
+                        re=&quot;(?:__MSG_(.+)__)&quot;)).message,
                   else=Manifest.description) as Description,
 
                /* Get the Identifier and Version from the manifest filename */
                regex_replace(
                  source=ManifestFilename,
-                 replace="$1",
-                 re="(?:.+Extensions/([^/]+)/([^/]+)/manifest.json)$") AS Identifier,
+                 replace=&quot;$1&quot;,
+                 re=&quot;(?:.+Extensions/([^/]+)/([^/]+)/manifest.json)$&quot;) AS Identifier,
                regex_replace(
                  source=ManifestFilename,
-                 replace="$2",
-                 re="(?:.+Extensions/([^/]+)/([^/]+)/manifest.json)$") AS Version,
+                 replace=&quot;$2&quot;,
+                 re=&quot;(?:.+Extensions/([^/]+)/([^/]+)/manifest.json)$&quot;) AS Version,
 
                Manifest.author as Author,
                Manifest.background.persistent AS Persistent,
                regex_replace(
                  source=ManifestFilename,
-                 replace="$1",
-                 re="(.+Extensions/.+/)manifest.json$") AS Path,
+                 replace=&quot;$1&quot;,
+                 re=&quot;(.+Extensions/.+/)manifest.json$&quot;) AS Path,
 
                Manifest.oauth2.scopes as Scopes,
                Manifest.permissions as Permissions,
                Manifest.key as Key
 
         FROM parsed_manifest_files
-```
-   
+</code></pre>
+
     </div>
 </div>
 
@@ -684,11 +681,7 @@ extension files in user&rsquo;s home directory.</p>
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-
-
-
-```
-name: Linux.Applications.Chrome.Extensions.Upload
+<pre><code>name: Linux.Applications.Chrome.Extensions.Upload
 description: |
   Upload all users chrome extension.
 
@@ -714,8 +707,8 @@ sources:
                     upload(file=FullPath) as Upload
              FROM glob(globs=Homedir + '/' + extensionGlobs)
           })
-```
-   
+</code></pre>
+
     </div>
 </div>
 
@@ -752,11 +745,7 @@ sources:
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-
-
-
-```
-name: Linux.Applications.Docker.Info
+<pre><code>name: Linux.Applications.Docker.Info
 description: Get Dockers info by connecting to its socket.
 parameters:
   - name: dockerSocket
@@ -769,7 +758,7 @@ sources:
     queries:
       - |
         LET data = SELECT parse_json(data=Content) as JSON
-        FROM http_client(url=dockerSocket + ":unix/info")
+        FROM http_client(url=dockerSocket + &quot;:unix/info&quot;)
       - |
         SELECT JSON.ID as ID,
                JSON.Containers as Containers,
@@ -804,8 +793,8 @@ sources:
                JSON.ServerVersion as ServerVersion,
                JSON.DockerRootDir as DockerRootDir
         FROM data
-```
-   
+</code></pre>
+
     </div>
 </div>
 
@@ -842,11 +831,7 @@ sources:
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-
-
-
-```
-name: Linux.Applications.Docker.Version
+<pre><code>name: Linux.Applications.Docker.Version
 description: Get Dockers version by connecting to its socket.
 parameters:
   - name: dockerSocket
@@ -859,7 +844,7 @@ sources:
     queries:
       - |
         LET data = SELECT parse_json(data=Content) as JSON
-        FROM http_client(url=dockerSocket + ":unix/version")
+        FROM http_client(url=dockerSocket + &quot;:unix/version&quot;)
       - |
         SELECT JSON.Version as Version,
                JSON.ApiVersion as ApiVersion,
@@ -871,8 +856,8 @@ sources:
                JSON.KernelVersion as KernelVersion,
                JSON.BuildTime as BuildTime
         FROM data
-```
-   
+</code></pre>
+
     </div>
 </div>
 
@@ -927,11 +912,7 @@ metadata from it. If not we leave those columns empty.</p>
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-
-
-
-```
-name: Linux.Debian.AptSources
+<pre><code>name: Linux.Debian.AptSources
 description: |
   Parse Debian apt sources.
 
@@ -942,7 +923,7 @@ description: |
      deb http://us.archive.ubuntu.com/ubuntu/ bionic main restricted
 
   For each line we construct the cache file by spliting off the
-  section (last component) and replacing / and " " with _.
+  section (last component) and replacing / and &quot; &quot; with _.
 
   We then try to open the file. If the file exists we parse some
   metadata from it. If not we leave those columns empty.
@@ -964,7 +945,7 @@ sources:
          /* Search for files which may contain apt sources. The user can
             pass new globs here. */
          LET files = SELECT FullPath from glob(
-           globs=split(string=linuxAptSourcesGlobs, sep=","))
+           globs=split(string=linuxAptSourcesGlobs, sep=&quot;,&quot;))
 
        - |
          /* Read each line in the sources which is not commented.
@@ -975,9 +956,9 @@ sources:
          LET deb_sources = SELECT *
            FROM parse_records_with_regex(
              file=files.FullPath,
-             regex="(?m)^ *(?P<Type>deb(-src)?) (?:\\[arch=(?P<Arch>[^\\]]+)\\] )?" +
-                  "(?P<URL>https?://(?P<base_uri>[^ ]+))" +
-                  " +(?P<components>.+)")
+             regex=&quot;(?m)^ *(?P&lt;Type&gt;deb(-src)?) (?:\\[arch=(?P&lt;Arch&gt;[^\\]]+)\\] )?&quot; +
+                  &quot;(?P&lt;URL&gt;https?://(?P&lt;base_uri&gt;[^ ]+))&quot; +
+                  &quot; +(?P&lt;components&gt;.+)&quot;)
 
        - |
          /* We try to get at the Release file in /var/lib/apt/ by munging
@@ -986,15 +967,15 @@ sources:
            add _Release to get the filename.
          */
          LET parsed_apt_lines = SELECT Arch, URL,
-            base_uri + " " + components as Name, Type,
+            base_uri + &quot; &quot; + components as Name, Type,
             FullPath as Source, aptCacheDirectory + regex_replace(
-              replace="_",
-              re="_+",
+              replace=&quot;_&quot;,
+              re=&quot;_+&quot;,
               source=regex_replace(
-                replace="_", re="[ /]",
-                source=base_uri + "_dists_" + regex_replace(
+                replace=&quot;_&quot;, re=&quot;[ /]&quot;,
+                source=base_uri + &quot;_dists_&quot; + regex_replace(
                    source=components,
-                   replace="", re=" +[^ ]+$")) + "_Release"
+                   replace=&quot;&quot;, re=&quot; +[^ ]+$&quot;)) + &quot;_Release&quot;
               )  as cache_file
          FROM deb_sources
 
@@ -1005,12 +986,12 @@ sources:
          LET parsed_cache_files = SELECT Name, Arch, URL, Type,
            Source, parse_string_with_regex(
                 string=Record,
-                regex=["Codename: (?P<Release>[^\\s]+)",
-                       "Version: (?P<Version>[^\\s]+)",
-                       "Origin: (?P<Maintainer>[^\\s]+)",
-                       "Architectures: (?P<Architectures>[^\\s]+)",
-                       "Components: (?P<Components>[^\\s]+)"]) as Record
-           FROM parse_records_with_regex(file=cache_file, regex="(?sm)(?P<Record>.+)")
+                regex=[&quot;Codename: (?P&lt;Release&gt;[^\\s]+)&quot;,
+                       &quot;Version: (?P&lt;Version&gt;[^\\s]+)&quot;,
+                       &quot;Origin: (?P&lt;Maintainer&gt;[^\\s]+)&quot;,
+                       &quot;Architectures: (?P&lt;Architectures&gt;[^\\s]+)&quot;,
+                       &quot;Components: (?P&lt;Components&gt;[^\\s]+)&quot;]) as Record
+           FROM parse_records_with_regex(file=cache_file, regex=&quot;(?sm)(?P&lt;Record&gt;.+)&quot;)
 
        - |
          // Foreach row in the parsed cache file, collect the FileInfo too.
@@ -1043,8 +1024,8 @@ sources:
          SELECT * from foreach(
              row=parsed_apt_lines,
              query=parse_cache_or_pass)
-```
-   
+</code></pre>
+
     </div>
 </div>
 
@@ -1081,11 +1062,7 @@ sources:
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-
-
-
-```
-name: Linux.Debian.Packages
+<pre><code>name: Linux.Debian.Packages
 description: Parse dpkg status file.
 parameters:
   - name: linuxDpkgStatus
@@ -1102,22 +1079,22 @@ sources:
         */
         LET packages = SELECT parse_string_with_regex(
             string=Record,
-            regex=['Package:\\s(?P<Package>.+)',
-                   'Installed-Size:\\s(?P<InstalledSize>.+)',
-                   'Version:\\s(?P<Version>.+)',
-                   'Source:\\s(?P<Source>.+)',
-                   'Architecture:\\s(?P<Architecture>.+)']) as Record
+            regex=['Package:\\s(?P&lt;Package&gt;.+)',
+                   'Installed-Size:\\s(?P&lt;InstalledSize&gt;.+)',
+                   'Version:\\s(?P&lt;Version&gt;.+)',
+                   'Source:\\s(?P&lt;Source&gt;.+)',
+                   'Architecture:\\s(?P&lt;Architecture&gt;.+)']) as Record
             FROM parse_records_with_regex(
                    file=linuxDpkgStatus,
-                   regex='(?sm)^(?P<Record>Package:.+?)\\n\\n')
+                   regex='(?sm)^(?P&lt;Record&gt;Package:.+?)\\n\\n')
       - |
         SELECT Record.Package as Package,
                atoi(string=Record.InstalledSize) as InstalledSize,
                Record.Version as Version,
                Record.Source as Source,
                Record.Architecture as Architecture from packages
-```
-   
+</code></pre>
+
     </div>
 </div>
 
@@ -1154,11 +1131,7 @@ sources:
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-
-
-
-```
-name: Linux.Mounts
+<pre><code>name: Linux.Mounts
 description: List mounted filesystems by reading /proc/mounts
 parameters:
   - name: ProcMounts
@@ -1168,13 +1141,13 @@ sources:
       SELECT OS From info() where OS = 'linux'
     queries:
       - |
-        SELECT Device, Mount, FSType, split(string=Opts, sep=",") As Options
+        SELECT Device, Mount, FSType, split(string=Opts, sep=&quot;,&quot;) As Options
                FROM parse_records_with_regex(
                    file=ProcMounts,
-                   regex='(?m)^(?P<Device>[^ ]+) (?P<Mount>[^ ]+) (?P<FSType>[^ ]+) '+
-                         '(?P<Opts>[^ ]+)')
-```
-   
+                   regex='(?m)^(?P&lt;Device&gt;[^ ]+) (?P&lt;Mount&gt;[^ ]+) (?P&lt;FSType&gt;[^ ]+) '+
+                         '(?P&lt;Opts&gt;[^ ]+)')
+</code></pre>
+
     </div>
 </div>
 
@@ -1211,11 +1184,7 @@ sources:
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-
-
-
-```
-name: Linux.Proc.Arp
+<pre><code>name: Linux.Proc.Arp
 description: ARP table via /proc/net/arp.
 parameters:
   - name: ProcNetArp
@@ -1230,8 +1199,8 @@ sources:
            filenames=ProcNetArp,
            regex='\\s{3,20}',
            first_row_is_headers=true)
-```
-   
+</code></pre>
+
     </div>
 </div>
 
@@ -1268,11 +1237,7 @@ sources:
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-
-
-
-```
-name: Linux.Proc.Modules
+<pre><code>name: Linux.Proc.Modules
 description: Module listing via /proc/modules.
 parameters:
   - name: ProcModules
@@ -1292,8 +1257,8 @@ sources:
            filenames=ProcModules,
            regex='\\s+',
            columns=['Name', 'Size', 'UseCount', 'UsedBy', 'Status', 'Address'])
-```
-   
+</code></pre>
+
     </div>
 </div>
 
@@ -1330,11 +1295,7 @@ sources:
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-
-
-
-```
-name: Linux.Ssh.AuthorizedKeys
+<pre><code>name: Linux.Ssh.AuthorizedKeys
 description: Find and parse ssh authorized keys files.
 parameters:
   - name: sshKeyFiles
@@ -1360,10 +1321,10 @@ sources:
           row=authorized_keys,
           query={
             SELECT Uid, User, FullPath, Key from split_records(
-               filenames=FullPath, regex="\n", columns=["Key"])
+               filenames=FullPath, regex=&quot;\n&quot;, columns=[&quot;Key&quot;])
           })
-```
-   
+</code></pre>
+
     </div>
 </div>
 
@@ -1400,11 +1361,7 @@ sources:
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-
-
-
-```
-name: Linux.Ssh.KnownHosts
+<pre><code>name: Linux.Ssh.KnownHosts
 description: Find and parse ssh known hosts files.
 parameters:
   - name: sshKnownHostsFiles
@@ -1429,12 +1386,12 @@ sources:
           row=authorized_keys,
           query={
             SELECT Uid, User, FullPath, Line from split_records(
-               filenames=FullPath, regex="\n", columns=["Line"])
+               filenames=FullPath, regex=&quot;\n&quot;, columns=[&quot;Line&quot;])
             /* Ignore comment lines. */
-            WHERE not Line =~ "^[^#]+#"
+            WHERE not Line =~ &quot;^[^#]+#&quot;
           })
-```
-   
+</code></pre>
+
     </div>
 </div>
 
@@ -1471,11 +1428,7 @@ sources:
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-
-
-
-```
-name: Linux.Sys.ACPITables
+<pre><code>name: Linux.Sys.ACPITables
 description: Firmware ACPI functional table common metadata and content.
 reference:
   - https://osquery.io/schema/3.2.6#acpi_tables
@@ -1491,8 +1444,8 @@ sources:
                      FROM glob(globs=kLinuxACPIPath + '/*')
       - |
         SELECT Name, Size, Hash.MD5, Hash.SHA1, Hash.SHA256 from hashes
-```
-   
+</code></pre>
+
     </div>
 </div>
 
@@ -1530,11 +1483,7 @@ cores spent in different parts of the system.</p>
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-
-
-
-```
-name: Linux.Sys.CPUTime
+<pre><code>name: Linux.Sys.CPUTime
 description: |
   Displays information from /proc/stat file about the time the cpu
   cores spent in different parts of the system.
@@ -1565,8 +1514,8 @@ sources:
                atoi(string=steal) as Steal,
                atoi(string=guest) as Guest,
                atoi(string=guest_nice) as GuestNice FROM raw
-```
-   
+</code></pre>
+
     </div>
 </div>
 
@@ -1603,11 +1552,7 @@ sources:
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-
-
-
-```
-name: Linux.Sys.Crontab
+<pre><code>name: Linux.Sys.Crontab
 description: |
   Displays parsed information from crontab.
 parameters:
@@ -1620,27 +1565,27 @@ sources:
       - |
         LET raw = SELECT * FROM foreach(
           row={
-            SELECT FullPath from glob(globs=split(string=cronTabGlob, sep=","))
+            SELECT FullPath from glob(globs=split(string=cronTabGlob, sep=&quot;,&quot;))
           },
           query={
             SELECT FullPath, data, parse_string_with_regex(
               string=data,
               regex=[
                  /* Regex for event (Starts with @) */
-                 "^(?P<Event>@[a-zA-Z]+)\\s+(?P<Command>.+)",
+                 &quot;^(?P&lt;Event&gt;@[a-zA-Z]+)\\s+(?P&lt;Command&gt;.+)&quot;,
 
                  /* Regex for regular command. */
-                 "^(?P<Minute>[^\\s]+)\\s+"+
-                 "(?P<Hour>[^\\s]+)\\s+"+
-                 "(?P<DayOfMonth>[^\\s]+)\\s+"+
-                 "(?P<Month>[^\\s]+)\\s+"+
-                 "(?P<DayOfWeek>[^\\s]+)\\s+"+
-                 "(?P<Command>.+)$"]) as Record
+                 &quot;^(?P&lt;Minute&gt;[^\\s]+)\\s+&quot;+
+                 &quot;(?P&lt;Hour&gt;[^\\s]+)\\s+&quot;+
+                 &quot;(?P&lt;DayOfMonth&gt;[^\\s]+)\\s+&quot;+
+                 &quot;(?P&lt;Month&gt;[^\\s]+)\\s+&quot;+
+                 &quot;(?P&lt;DayOfWeek&gt;[^\\s]+)\\s+&quot;+
+                 &quot;(?P&lt;Command&gt;.+)$&quot;]) as Record
 
-            /* Read lines from the file and filter ones that start with "#" */
+            /* Read lines from the file and filter ones that start with &quot;#&quot; */
             FROM split_records(
                filenames=FullPath,
-               regex="\n", columns=["data"]) WHERE not data =~ "^\\s*#"
+               regex=&quot;\n&quot;, columns=[&quot;data&quot;]) WHERE not data =~ &quot;^\\s*#&quot;
             }) WHERE Record.Command
 
       - |
@@ -1653,8 +1598,8 @@ sources:
                Record.Command AS Command,
                FullPath AS Path
         FROM raw
-```
-   
+</code></pre>
+
     </div>
 </div>
 
@@ -1697,11 +1642,7 @@ sources:
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-
-
-
-```
-name: Linux.Sys.LastUserLogin
+<pre><code>name: Linux.Sys.LastUserLogin
 description: Find and parse system wtmp files. This indicate when the
              user last logged in.
 parameters:
@@ -1713,62 +1654,62 @@ parameters:
     # rekall dwarfparser /tmp/test.o
 
     # And 1.c is:
-    # #include "utmp.h"
+    # #include &quot;utmp.h&quot;
     # struct utmp x;
 
   - name: wtmpProfile
     default: |
        {
-         "timeval": [8, {
-          "tv_sec": [0, ["int"]],
-          "tv_usec": [4, ["int"]]
+         &quot;timeval&quot;: [8, {
+          &quot;tv_sec&quot;: [0, [&quot;int&quot;]],
+          &quot;tv_usec&quot;: [4, [&quot;int&quot;]]
          }],
-         "exit_status": [4, {
-          "e_exit": [2, ["short int"]],
-          "e_termination": [0, ["short int"]]
+         &quot;exit_status&quot;: [4, {
+          &quot;e_exit&quot;: [2, [&quot;short int&quot;]],
+          &quot;e_termination&quot;: [0, [&quot;short int&quot;]]
          }],
-         "timezone": [8, {
-          "tz_dsttime": [4, ["int"]],
-          "tz_minuteswest": [0, ["int"]]
+         &quot;timezone&quot;: [8, {
+          &quot;tz_dsttime&quot;: [4, [&quot;int&quot;]],
+          &quot;tz_minuteswest&quot;: [0, [&quot;int&quot;]]
          }],
-         "utmp": [384, {
-          "__glibc_reserved": [364, ["Array", {
-           "count": 20,
-           "target": "char",
-           "target_args": null
+         &quot;utmp&quot;: [384, {
+          &quot;__glibc_reserved&quot;: [364, [&quot;Array&quot;, {
+           &quot;count&quot;: 20,
+           &quot;target&quot;: &quot;char&quot;,
+           &quot;target_args&quot;: null
           }]],
-          "ut_addr_v6": [348, ["Array", {
-           "count": 4,
-           "target": "int",
-           "target_args": null
+          &quot;ut_addr_v6&quot;: [348, [&quot;Array&quot;, {
+           &quot;count&quot;: 4,
+           &quot;target&quot;: &quot;int&quot;,
+           &quot;target_args&quot;: null
           }]],
-          "ut_exit": [332, ["exit_status"]],
-          "ut_host": [76, ["String", {
-           "length": 256
+          &quot;ut_exit&quot;: [332, [&quot;exit_status&quot;]],
+          &quot;ut_host&quot;: [76, [&quot;String&quot;, {
+           &quot;length&quot;: 256
           }]],
-          "ut_id": [40, ["String", {
-           "length": 4
+          &quot;ut_id&quot;: [40, [&quot;String&quot;, {
+           &quot;length&quot;: 4
           }]],
-          "ut_line": [8, ["String", {
-           "length": 32
+          &quot;ut_line&quot;: [8, [&quot;String&quot;, {
+           &quot;length&quot;: 32
           }]],
-          "ut_pid": [4, ["int"]],
-          "ut_session": [336, ["int"]],
-          "ut_tv": [340, ["timeval"]],
-          "ut_type": [0, ["Enumeration", {
-            "target": "short int",
-            "choices": {
-               "0": "EMPTY",
-               "1": "RUN_LVL",
-               "2": "BOOT_TIME",
-               "5": "INIT_PROCESS",
-               "6": "LOGIN_PROCESS",
-               "7": "USER_PROCESS",
-               "8": "DEAD_PROCESS"
+          &quot;ut_pid&quot;: [4, [&quot;int&quot;]],
+          &quot;ut_session&quot;: [336, [&quot;int&quot;]],
+          &quot;ut_tv&quot;: [340, [&quot;timeval&quot;]],
+          &quot;ut_type&quot;: [0, [&quot;Enumeration&quot;, {
+            &quot;target&quot;: &quot;short int&quot;,
+            &quot;choices&quot;: {
+               &quot;0&quot;: &quot;EMPTY&quot;,
+               &quot;1&quot;: &quot;RUN_LVL&quot;,
+               &quot;2&quot;: &quot;BOOT_TIME&quot;,
+               &quot;5&quot;: &quot;INIT_PROCESS&quot;,
+               &quot;6&quot;: &quot;LOGIN_PROCESS&quot;,
+               &quot;7&quot;: &quot;USER_PROCESS&quot;,
+               &quot;8&quot;: &quot;DEAD_PROCESS&quot;
              }
           }]],
-          "ut_user": [44, ["String", {
-           "length": 32
+          &quot;ut_user&quot;: [44, [&quot;String&quot;, {
+           &quot;length&quot;: 32
           }]]
          }]
        }
@@ -1780,7 +1721,7 @@ sources:
       - |
         SELECT * from foreach(
           row={
-            SELECT FullPath from glob(globs=split(string=wtmpGlobs, sep=","))
+            SELECT FullPath from glob(globs=split(string=wtmpGlobs, sep=&quot;,&quot;))
           },
           query={
             SELECT ut_type, ut_id, ut_host.AsString as Host,
@@ -1789,12 +1730,12 @@ sources:
             FROM binary_parse(
                    file=FullPath,
                    profile=wtmpProfile,
-                   target="Array",
-                   args=dict(Target="utmp")
+                   target=&quot;Array&quot;,
+                   args=dict(Target=&quot;utmp&quot;)
                  )
           })
-```
-   
+</code></pre>
+
     </div>
 </div>
 
@@ -1831,11 +1772,7 @@ sources:
         </span>
     </div>
     <div class="expand-content" style="display: none;">
-
-
-
-```
-name: Linux.Sys.Users
+<pre><code>name: Linux.Sys.Users
 description: Get User specific information like homedir, group etc from /etc/passwd.
 parameters:
   - name: PasswordFile
@@ -1849,11 +1786,11 @@ sources:
         SELECT User, Description, Uid, Gid, Homedir, Shell
           FROM parse_records_with_regex(
             file=PasswordFile,
-            regex='(?m)^(?P<User>[^:]+):([^:]+):' +
-                  '(?P<Uid>[^:]+):(?P<Gid>[^:]+):(?P<Description>[^:]*):' +
-                  '(?P<Homedir>[^:]+):(?P<Shell>[^:\\s]+)')
-```
-   
+            regex='(?m)^(?P&lt;User&gt;[^:]+):([^:]+):' +
+                  '(?P&lt;Uid&gt;[^:]+):(?P&lt;Gid&gt;[^:]+):(?P&lt;Description&gt;[^:]*):' +
+                  '(?P&lt;Homedir&gt;[^:]+):(?P&lt;Shell&gt;[^:\\s]+)')
+</code></pre>
+
     </div>
 </div>
 
