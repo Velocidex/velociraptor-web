@@ -43,10 +43,9 @@
       
 	
   
-    <p><a href="/">
+    <a href="/">
   <img src="/images/logo.svg">
-</a></p>
-
+</a>
   
 
 
@@ -499,6 +498,8 @@ monitoring artifact be collected from clients.</p>
 </tbody>
 </table>
 
+
+
 <div class="expand">
     <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fa fa-chevron-down' : 'fa fa-chevron-right';});});">
         <i style="font-size:x-small;" class="fa fa-chevron-right"></i>
@@ -551,6 +552,7 @@ sources:
     </div>
 </div>
 
+
 <h2 id="server-alerts-winpmem">Server.Alerts.WinPmem</h2>
 
 <p>Send an email if the pmem service has been installed on any of the
@@ -576,6 +578,8 @@ monitoring artifact be collected from clients.</p>
 </tr>
 </tbody>
 </table>
+
+
 
 <div class="expand">
     <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fa fa-chevron-down' : 'fa fa-chevron-right';});});">
@@ -627,6 +631,7 @@ sources:
     </div>
 </div>
 
+
 <h2 id="server-analysis-triage-powershellconsole">Server.Analysis.Triage.PowershellConsole</h2>
 
 <p>This artifact post processes the artifact
@@ -654,6 +659,8 @@ their content in the same table.</p>
 </tr>
 </tbody>
 </table>
+
+
 
 <div class="expand">
     <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fa fa-chevron-down' : 'fa fa-chevron-right';});});">
@@ -712,9 +719,12 @@ sources:
     </div>
 </div>
 
+
 <h2 id="server-hunts-list">Server.Hunts.List</h2>
 
 <p>List Hunts currently scheduled on the server.</p>
+
+
 
 <div class="expand">
     <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fa fa-chevron-down' : 'fa fa-chevron-right';});});">
@@ -749,6 +759,7 @@ sources:
     </div>
 </div>
 
+
 <h2 id="server-hunts-results">Server.Hunts.Results</h2>
 
 <p>Show the results from each artifact collection hunt.</p>
@@ -776,6 +787,8 @@ sources:
 </tr>
 </tbody>
 </table>
+
+
 
 <div class="expand">
     <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fa fa-chevron-down' : 'fa fa-chevron-right';});});">
@@ -811,6 +824,7 @@ sources:
     </div>
 </div>
 
+
 <h2 id="server-information-clients">Server.Information.Clients</h2>
 
 <p>This artifact returns the total list of clients, their hostnames and
@@ -820,6 +834,8 @@ the last times they were seen.</p>
 the last Windows.Sys.Users artifact that was collected. Note that
 the list of usernames may be outdated if that artifact was not
 collected recently.</p>
+
+
 
 <div class="expand">
     <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fa fa-chevron-down' : 'fa fa-chevron-right';});});">
@@ -873,6 +889,7 @@ sources:
     </div>
 </div>
 
+
 <h2 id="server-information-users">Server.Information.Users</h2>
 
 <p>List the user names and SIDs on each machine. We get this
@@ -902,6 +919,8 @@ never collected it for this machine, there will be no results.</p>
 </tr>
 </tbody>
 </table>
+
+
 
 <div class="expand">
     <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fa fa-chevron-down' : 'fa fa-chevron-right';});});">
@@ -956,7 +975,10 @@ sources:
     </div>
 </div>
 
+
 <h2 id="server-internal-artifactdescription">Server.Internal.ArtifactDescription</h2>
+
+
 
 <div class="expand">
     <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fa fa-chevron-down' : 'fa fa-chevron-right';});});">
@@ -1010,6 +1032,7 @@ reports:
     </div>
 </div>
 
+
 <h2 id="server-monitor-health">Server.Monitor.Health</h2>
 
 <p>This is the main server health dashboard. It is shown on the
@@ -1032,6 +1055,8 @@ homescreen and enabled by default on all new installs.</p>
 </tr>
 </tbody>
 </table>
+
+
 
 <div class="expand">
     <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fa fa-chevron-down' : 'fa fa-chevron-right';});});">
@@ -1135,6 +1160,7 @@ reports:
     </div>
 </div>
 
+
 <h2 id="server-monitor-shell">Server.Monitor.Shell</h2>
 
 <p>Velociraptor can get an interactive shell on the endpoint by using
@@ -1149,6 +1175,8 @@ artifact.</p>
 
 <p>This server event artifact centralizes all shell access from all
 clients into the same log file.</p>
+
+
 
 <div class="expand">
     <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fa fa-chevron-down' : 'fa fa-chevron-right';});});">
@@ -1206,6 +1234,7 @@ reports:
     </div>
 </div>
 
+
 <h2 id="server-monitor-velometrics">Server.Monitor.VeloMetrics</h2>
 
 <p>Get Velociraptor server metrics.</p>
@@ -1227,6 +1256,8 @@ reports:
 </tr>
 </tbody>
 </table>
+
+
 
 <div class="expand">
     <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fa fa-chevron-down' : 'fa fa-chevron-right';});});">
@@ -1287,6 +1318,7 @@ sources:
     </div>
 </div>
 
+
 <h2 id="server-monitoring-clientcount">Server.Monitoring.ClientCount</h2>
 
 <p>An artifact that sends an email every hour of the current state of
@@ -1327,6 +1359,8 @@ the deployment.</p>
 </tr>
 </tbody>
 </table>
+
+
 
 <div class="expand">
     <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fa fa-chevron-down' : 'fa fa-chevron-right';});});">
@@ -1382,6 +1416,7 @@ sources:
     </div>
 </div>
 
+
 <h2 id="server-powershell-encodedcommand">Server.Powershell.EncodedCommand</h2>
 
 <p>It is possible to pass powershell an encoded script. This artifact
@@ -1389,6 +1424,8 @@ decodes the scripts.</p>
 
 <p>NOTE: The client must be running the Windows.Events.ProcessCreation
 event artifact to retrieve process execution logs.</p>
+
+
 
 <div class="expand">
     <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fa fa-chevron-down' : 'fa fa-chevron-right';});});">
@@ -1439,6 +1476,7 @@ reports:
 
     </div>
 </div>
+
 
 
     

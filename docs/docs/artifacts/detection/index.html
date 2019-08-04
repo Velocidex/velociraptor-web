@@ -43,10 +43,9 @@
       
 	
   
-    <p><a href="/">
+    <a href="/">
   <img src="/images/logo.svg">
-</a></p>
-
+</a>
   
 
 
@@ -493,6 +492,8 @@ process memory is dumped and uploaded to the server.</p>
 </tbody>
 </table>
 
+
+
 <div class="expand">
     <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fa fa-chevron-down' : 'fa fa-chevron-right';});});">
         <i style="font-size:x-small;" class="fa fa-chevron-right"></i>
@@ -553,6 +554,7 @@ sources:
     </div>
 </div>
 
+
 <h2 id="windows-detection-psexecservice">Windows.Detection.PsexecService</h2>
 
 <p>PSExec works by installing a new service in the system. The service
@@ -578,6 +580,8 @@ original psexec binary.</p>
 </tr>
 </tbody>
 </table>
+
+
 
 <div class="expand">
     <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fa fa-chevron-down' : 'fa fa-chevron-right';});});">
@@ -638,6 +642,7 @@ sources:
     </div>
 </div>
 
+
 <h2 id="windows-detection-thumbdrives-list">Windows.Detection.Thumbdrives.List</h2>
 
 <p>Users inserting Thumb drives or other Removable drive pose a
@@ -670,6 +675,8 @@ many files.</p>
 </tr>
 </tbody>
 </table>
+
+
 
 <div class="expand">
     <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fa fa-chevron-down' : 'fa fa-chevron-right';});});">
@@ -736,6 +743,7 @@ sources:
     </div>
 </div>
 
+
 <h2 id="windows-detection-thumbdrives-officekeywords">Windows.Detection.Thumbdrives.OfficeKeywords</h2>
 
 <p>Users inserting Thumb drives or other Removable drive pose a
@@ -773,6 +781,8 @@ many files.</p>
 </tr>
 </tbody>
 </table>
+
+
 
 <div class="expand">
     <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fa fa-chevron-down' : 'fa fa-chevron-right';});});">
@@ -833,6 +843,7 @@ sources:
     </div>
 </div>
 
+
 <h2 id="windows-detection-thumbdrives-officemacros">Windows.Detection.Thumbdrives.OfficeMacros</h2>
 
 <p>Users inserting Thumb drives or other Removable drive pose a
@@ -863,6 +874,8 @@ many files.</p>
 </tr>
 </tbody>
 </table>
+
+
 
 <div class="expand">
     <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fa fa-chevron-down' : 'fa fa-chevron-right';});});">
@@ -910,6 +923,7 @@ sources:
     </div>
 </div>
 
+
 <h2 id="windows-detection-wmiprocesscreation">Windows.Detection.WMIProcessCreation</h2>
 
 <p>WMI Process creation is a common lateral movement technique. The
@@ -920,6 +934,8 @@ Win32_Process WMI object.</p>
 
 <pre><code class="language-bash">wmic process call create cmd.exe
 </code></pre>
+
+
 
 <div class="expand">
     <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fa fa-chevron-down' : 'fa fa-chevron-right';});});">
@@ -940,23 +956,26 @@ description: |
 
   This can be easily done via the wmic.exe command or via powershell:
 
-  ```bash
-  wmic process call create cmd.exe
 </code></pre>
 
-<p>type: CLIENT_EVENT</p>
+<p>bash
+  wmic process call create cmd.exe</p>
 
-<p>sources:
+<pre><code>
+type: CLIENT_EVENT
+
+sources:
   - queries:
       - |
         SELECT Parse from wmi_events(
-          query=&ldquo;SELECT * FROM MSFT_WmiProvider_ExecMethodAsyncEvent_Pre WHERE ObjectPath=\&ldquo;Win32_Process\&rdquo; AND MethodName=\&ldquo;Create\&ldquo;&rdquo;,
-          namespace=&ldquo;ROOT/CIMV2&rdquo;,
+          query=&quot;SELECT * FROM MSFT_WmiProvider_ExecMethodAsyncEvent_Pre WHERE ObjectPath=\&quot;Win32_Process\&quot; AND MethodName=\&quot;Create\&quot;&quot;,
+          namespace=&quot;ROOT/CIMV2&quot;,
           wait=50000000)
-```</p>
+</code></pre>
 
     </div>
 </div>
+
 
 <h2 id="windows-persistence-debug">Windows.Persistence.Debug</h2>
 
@@ -983,6 +1002,8 @@ same time (with the same privileges).</p>
 </tr>
 </tbody>
 </table>
+
+
 
 <div class="expand">
     <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fa fa-chevron-down' : 'fa fa-chevron-right';});});">
@@ -1023,6 +1044,7 @@ sources:
     </div>
 </div>
 
+
 <h2 id="windows-persistence-permanentwmievents">Windows.Persistence.PermanentWMIEvents</h2>
 
 <p>Malware often registers a permanent event listener within WMI. When
@@ -1048,6 +1070,8 @@ the machine for example.</p>
 </tr>
 </tbody>
 </table>
+
+
 
 <div class="expand">
     <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fa fa-chevron-down' : 'fa fa-chevron-right';});});">
@@ -1107,6 +1131,7 @@ sources:
     </div>
 </div>
 
+
 <h2 id="windows-persistence-powershellregistry">Windows.Persistence.PowershellRegistry</h2>
 
 <p>A common way of persistence is to install a hook into a user profile
@@ -1136,6 +1161,8 @@ the registry hive is locked).</p>
 </tr>
 </tbody>
 </table>
+
+
 
 <div class="expand">
     <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fa fa-chevron-down' : 'fa fa-chevron-right';});});">
@@ -1195,6 +1222,7 @@ sources:
 
     </div>
 </div>
+
 
 
     
