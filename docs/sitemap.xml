@@ -87,11 +87,11 @@
   </url>
   
   <url>
-    <loc>/docs/vql_reference/server/</loc>
+    <loc>/docs/user-interface/artifacts/</loc>
   </url>
   
   <url>
-    <loc>/docs/user-interface/artifacts/</loc>
+    <loc>/docs/vql_reference/server/</loc>
   </url>
   
   <url>
@@ -191,13 +191,11 @@
   <url>
     <loc>/categories/blog/</loc>
     <lastmod>2019-03-02T04:10:06+00:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
     <loc>/categories/</loc>
     <lastmod>2019-03-02T04:10:06+00:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -316,12 +314,15 @@
   </url>
   
   <url>
+    <loc>/categories/getting-started/</loc>
+  </url>
+  
+  <url>
     <loc>/docs/artifacts/linux/linux/</loc>
   </url>
   
   <url>
     <loc>/tags/</loc>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -334,11 +335,6 @@
   
   <url>
     <loc>/faq/</loc>
-  </url>
-  
-  <url>
-    <loc>/categories/getting-started/</loc>
-    <priority>0</priority>
   </url>
   
 </urlset>

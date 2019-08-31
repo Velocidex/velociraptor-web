@@ -11,29 +11,6 @@
     
     
     <item>
-      <title>Getting Started</title>
-      <link>/docs/getting-started/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>/docs/getting-started/</guid>
-      <description>Quick start Just want the latest version? Sure, it&amp;rsquo;s freely available on our Github releases page.
-We also recommend you review our Getting Started documentation, which guides you through setup and running your first hunts.
-Other setup options Velociraptor can be used in many different contexts and deployed in different ways.
- Stand alone - Most people want to start with a single client / server and check out the GUI.</description>
-    </item>
-    
-    <item>
-      <title>Presentations and Workshops</title>
-      <link>/docs/presentations/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>/docs/presentations/</guid>
-      <description>We present about Velociraptor frequently in conferences and workshops.
-This page highlights some of the more interesting presentations we gave. It can be used as reference material. Note the dates of presentation as some material may be outdated.
- SANS Summit 2019   RSA Asia Pacific and Japan 2019   Crikeycon 2019 Training Workshop   New Zealand Internet Task Force Conference 2018   </description>
-    </item>
-    
-    <item>
       <title>Tutorial</title>
       <link>/docs/tutorial/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>

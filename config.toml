@@ -84,6 +84,11 @@ title = "Velociraptor / Dig deeper"
   url = "https://github.com/Velocidex/velociraptor"
 
   [[params.navbar]]
+  title = "Support"
+  link = ""
+  url = "https://groups.google.com/forum/#!forum/velociraptor-discuss"
+
+  [[params.navbar]]
   title = "<i class=\"fab fa-github\"></i>"
   link = ""
   url = "https://github.com/Velocidex/velociraptor"
