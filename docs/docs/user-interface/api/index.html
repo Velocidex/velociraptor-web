@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Velociraptor / Dig deeper</title>
+    
+      <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>The Velociraptor API :: Velociraptor / Dig deeper</title>
+<link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon" />
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<link href="/css/nucleus.css" rel="stylesheet">
+<link href="/css/font-awesome.min.css" rel="stylesheet">
+<link href="/css/hybrid.css" rel="stylesheet">
+<link href="/css/featherlight.min.css" rel="stylesheet">
+<link href="/css/auto-complete.css" rel="stylesheet">
+<link href="/theme-original/style.css" rel="stylesheet">
+
+  <link href="/theme-original/variant-mine.css" rel="stylesheet">
+
+
+<script src="/js/jquery-2.x.min.js"></script>
+<style type="text/css">
+  :root #header + #content > #left > #rlblock_left {
+    display:none !important;
+  }
+</style>
+<link rel="stylesheet" href="/css/theme-mine.css">
+<script src="/js/custom.js"></script>
+
+
+    
+  </head>
+  <body data-url="/docs/user-interface/api/">
+    
+      <div id="headermain"></div>
+<nav id="sidebar" class="">
+
+
+
+<div class="highlightable">
+  <div id="header-wrapper">
+    <div id="header">
+      
+	
+  
+    <a href="/">
+  <img src="/images/logo.svg">
+</a>
+  
+
+
+    </div>
+        <div class="searchbox">
+		    <label for="search-by"><i class="fa fa-search"></i></label>
+		    <input data-search-input id="search-by" type="text" placeholder="Search...">
+		    <span data-search-clear=""><i class="fa fa-close"></i></span>
+		</div>
+		<script type="text/javascript" src="/js/lunr.min.js"></script>
+		<script type="text/javascript" src="/js/auto-complete.js"></script>
+		<script type="text/javascript">
+        
+            var baseurl = "\/";
+        
+		</script>
+		<script type="text/javascript" src="/js/search.js"></script>
+  </div>
+
+      <ul class="topics">
+    <li data-nav-id="/about/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/about/">About Velociraptor</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/about/features/" class="dd-item">
+        <div>
+          <a href="/about/features/">
+            Velociraptor Features
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/about/license/" class="dd-item">
+        <div>
+          <a href="/about/license/">
+            License
+          </a>
+        </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/docs/" class="dd-item parent haschildren
+        ">
+      <div>
+      <a href="/docs/">Velociraptor Documentation</a>
+            <i class="fa fa-angle-down fa-lg category-icon"></i>
+      </div>
+        <ul>
+    <li data-nav-id="/docs/getting-started/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/docs/getting-started/">Getting Started</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/docs/getting-started/stand_alone/" class="dd-item">
+        <div>
+          <a href="/docs/getting-started/stand_alone/">
+            Standalone Deployment
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/getting-started/deploying_clients/" class="dd-item">
+        <div>
+          <a href="/docs/getting-started/deploying_clients/">
+            Deploying Clients
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/getting-started/cloud/" class="dd-item">
+        <div>
+          <a href="/docs/getting-started/cloud/">
+            Deploying in the cloud
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/getting-started/triaging/" class="dd-item">
+        <div>
+          <a href="/docs/getting-started/triaging/">
+            Triaging
+          </a>
+        </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/docs/user-interface/" class="dd-item parent haschildren
+        ">
+      <div>
+      <a href="/docs/user-interface/">User Interface</a>
+            <i class="fa fa-angle-down fa-lg category-icon"></i>
+      </div>
+        <ul>
+    <li data-nav-id="/docs/user-interface/investigating_clients/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/docs/user-interface/investigating_clients/">Investigating Clients</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/docs/user-interface/investigating_clients/searching_clients/" class="dd-item">
+        <div>
+          <a href="/docs/user-interface/investigating_clients/searching_clients/">
+            Searching for clients
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/user-interface/investigating_clients/virtual_filesystem/" class="dd-item">
+        <div>
+          <a href="/docs/user-interface/investigating_clients/virtual_filesystem/">
+            Client VFS
+          </a>
+        </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/docs/user-interface/artifacts/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/docs/user-interface/artifacts/">Velociraptor Artifacts</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/docs/user-interface/artifacts/client_artifacts/" class="dd-item">
+        <div>
+          <a href="/docs/user-interface/artifacts/client_artifacts/">
+            Client Artifacts
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/user-interface/artifacts/client_events/" class="dd-item">
+        <div>
+          <a href="/docs/user-interface/artifacts/client_events/">
+            Client Event Artifacts
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/user-interface/artifacts/server_artifacts/" class="dd-item">
+        <div>
+          <a href="/docs/user-interface/artifacts/server_artifacts/">
+            Server Artifacts
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/user-interface/artifacts/server_events/" class="dd-item">
+        <div>
+          <a href="/docs/user-interface/artifacts/server_events/">
+            Server Event Artifacts
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/user-interface/artifacts/add_artifacts/" class="dd-item">
+        <div>
+          <a href="/docs/user-interface/artifacts/add_artifacts/">
+            Customizing Artifacts
+          </a>
+        </div>
+    </li>
+        </ul>
+    </li>
+      <li data-nav-id="/docs/user-interface/api/" class="dd-item active">
+        <div>
+          <a href="/docs/user-interface/api/">
+            The Velociraptor API
+          </a>
+        </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/docs/vql_reference/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/docs/vql_reference/">VQL Reference</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/docs/vql_reference/plugins/" class="dd-item">
+        <div>
+          <a href="/docs/vql_reference/plugins/">
+            VQL PLugins
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/vql_reference/event_plugins/" class="dd-item">
+        <div>
+          <a href="/docs/vql_reference/event_plugins/">
+            VQL Event PLugins
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/vql_reference/server/" class="dd-item">
+        <div>
+          <a href="/docs/vql_reference/server/">
+            VQL Server Plugins
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/vql_reference/functions/" class="dd-item">
+        <div>
+          <a href="/docs/vql_reference/functions/">
+            VQL Functions
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/vql_reference/templates/" class="dd-item">
+        <div>
+          <a href="/docs/vql_reference/templates/">
+            Report Templates
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/vql_reference/tips/" class="dd-item">
+        <div>
+          <a href="/docs/vql_reference/tips/">
+            Artifact Tips
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/vql_reference/filesystem_accessors/" class="dd-item">
+        <div>
+          <a href="/docs/vql_reference/filesystem_accessors/">
+            Filesystem Accessors
+          </a>
+        </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/docs/artifacts/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/docs/artifacts/">Artifact Reference</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/docs/artifacts/linux/" class="dd-item">
+        <div>
+          <a href="/docs/artifacts/linux/">
+            Linux Artifacts
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/artifacts/windows_system/" class="dd-item">
+        <div>
+          <a href="/docs/artifacts/windows_system/">
+            Windows System
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/artifacts/server/" class="dd-item">
+        <div>
+          <a href="/docs/artifacts/server/">
+            Server Artifacts
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/artifacts/triage/" class="dd-item">
+        <div>
+          <a href="/docs/artifacts/triage/">
+            Windows Triage
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/artifacts/detection/" class="dd-item">
+        <div>
+          <a href="/docs/artifacts/detection/">
+            Windows Detection
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/artifacts/events/" class="dd-item">
+        <div>
+          <a href="/docs/artifacts/events/">
+            Windows Monitoring
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/artifacts/misc/" class="dd-item">
+        <div>
+          <a href="/docs/artifacts/misc/">
+            Miscelaneous
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/artifacts/linux/linux/" class="dd-item">
+        <div>
+          <a href="/docs/artifacts/linux/linux/">
+            Linux Artifacts
+          </a>
+        </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/docs/presentations/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/docs/presentations/">Presentations and Workshops</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/docs/presentations/sans_dfir_summit2019/" class="dd-item">
+        <div>
+          <a href="/docs/presentations/sans_dfir_summit2019/">
+            SANS 2019
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/presentations/rsa/" class="dd-item">
+        <div>
+          <a href="/docs/presentations/rsa/">
+            RSA APJ 2019
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/presentations/crikeycon2019/" class="dd-item">
+        <div>
+          <a href="/docs/presentations/crikeycon2019/">
+            Crikeycon 2019
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/presentations/nzitf2018/" class="dd-item">
+        <div>
+          <a href="/docs/presentations/nzitf2018/">
+            NZITF 2018
+          </a>
+        </div>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/blog/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/blog/">Velociraptor Blog</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+        </ul>
+    </li>
+
+
+
+
+    <hr />
+    <li></li>
+    
+    </ul>
+
+ <section id="footer">
+    </section>
+  </div>
+</nav>
+
+
+
+<section id="body">
+<div id="overlay"></div>
+<div class="padding highlightable">
+
+  <div id="top-bar">
+    <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+        <span id="sidebar-toggle-span">
+          <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+            <i class="fa fa-bars"></i>
+          </a>
+        </span>
+        <span id="toc-menu"><i class="fa fa-list-alt"></i></span>
+        <span class="links">
+        
+
+
+
+
+
+
+
+
+
+
+ <a href='/'>Velociraptor / Dig deeper</a> > <a href='/docs/'>Velociraptor Documentation</a> > <a href='/docs/user-interface/'>User Interface</a> > The Velociraptor API
+
+ 
+
+ 
+
+ 
+
+   
+        </span>
+    </div>
+    
+    
+    <div class="progress">
+        <div class="wrapper">
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#the-velociraptor-api-server">The Velociraptor API Server</a>
+<ul>
+<li><a href="#using-the-api-from-python">Using the API from Python</a></li>
+<li><a href="#how-does-this-look-like-in-code">How does this look like in code?</a></li>
+<li><a href="#code-walk-through">Code walk through</a></li>
+<li><a href="#what-can-we-do-with-this">What can we do with this?</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+        </div>
+    </div>
+    
+
+  </div>
+
+
+<div id="body-inner">
+  
+    <h1>The Velociraptor API</h1>
+  
+
+
+
+    
+    
+    
+    
+
+<p>Velociraptor is very good at collecting artifacts from
+endpoints. However, in modern DFIR work, the actual collection is only
+the first step of a much more involved process. Typically we want to
+post process data using more advanced data mining tools (such as data
+stacking), or export the data to other systems. Velociraptor usually
+is only a part of a wider solution which might include a SIEM and SOC
+integration.</p>
+
+<p>In order to facilitate interoperability with other tools, Velociraptor
+offers an external API. The API is offered via gRPC so it can be used
+in any language which gRPC supports (e.g. Java, C++, Python etc). In
+this document we illustrate the Python API but any language should
+work in a similar way (consult the gRPC documentation for your
+language).</p>
+
+<h2 id="the-velociraptor-api-server">The Velociraptor API Server</h2>
+
+<p>The API server exposes an endpoint ready to accept gRPC
+connections. By default the API server listen only on the loopback
+interface (127.0.0.1) but it is easy to change to be externally
+accessible if you need by changing the <code>server.config.yaml</code> file:</p>
+
+<pre><code>  API:
+    bind_address: 127.0.0.1
+    bind_port: 8001
+</code></pre>
+
+<p>Client programs simply connect directly to this API and call gRPC
+methods on it.</p>
+
+<p><img src="../api_diagram.png" alt="Image" /></p>
+
+<p>The connection is encrypted using TLS and authenticated using mutual
+certificates. When we initially created the Velociraptor configuration
+file, we created a CA certificate and embedded it in the
+<code>server.config.yaml</code> file. It is this CA certificate which is used to
+verify that the certificate each end presents was issued by the
+Velociraptor CA.</p>
+
+<div class="notices tip" ><p>If you need to have extra security in your environment you should
+  keep the original <code>server.config.yaml</code> file generated in an offline
+  location, then deploy a redacted file (without the CA.private_key
+  value) on the server. This way api client certificates can only be
+  issued offline.</p>
+</div>
+
+
+<p>Before the client may connect to the API server they must have a
+certificate issued by the Velociraptor CA. This is easy to generate:</p>
+
+<pre><code>   $ velociraptor --config server.config.yaml \
+        config api_client --name Fred &gt; api_client.yaml
+</code></pre>
+
+<p>Will generate something like:</p>
+
+<pre><code>   ca_certificate: |
+     -----BEGIN CERTIFICATE-----
+     MIIDITCCAgmgAwIBAgIRAI1oswXLBFqWVSYZx1VibMkwDQYJKoZIhvcNAQELBQAw
+     -----END CERTIFICATE-----
+   client_cert: |
+     -----BEGIN CERTIFICATE-----
+     2e1ftQuzHGD2XPquqfuVzL1rtEIA1tiC82L6smYbeOe0p4pqpsHN1sEDkdfhBA==
+     -----END CERTIFICATE-----
+   client_private_key: |
+     -----BEGIN RSA PRIVATE KEY-----
+     sVr9HvR2kBzM/3yVwvb752h0qDOYDfzLRENjA7dySeOgLtBSvd2gRg==
+     -----END RSA PRIVATE KEY-----
+   api_connection_string: 127.0.0.1:8001
+   name: Fred
+</code></pre>
+
+<p>The certificate generated has a common name as specified by the
+<code>--name</code> flag. This name will be logged in the server&rsquo;s audit logs so
+you can use this to keep track of which programs have access. This
+file keeps both private key and certificate as well as the CA
+certificate which must be used to authenticate the server in a single
+file for convenience.</p>
+
+<h3 id="using-the-api-from-python">Using the API from Python</h3>
+
+<p>Although the API exposes a bunch of functions used by the GUI, the
+main function (which is not exposed through the GUI) is the <code>Query()</code>
+method. This function simply executes one or more VQL queries, and
+streams their results back to the caller.</p>
+
+<p>The function requires an argument which is a protobuf of type
+VQLCollectorArgs:</p>
+
+<pre><code>   VQLCollectorArgs:
+        env:  list of VQLEnv(string key, string value)
+        Query: list of VQLRequest(string Name, string VQL)
+        max_row: int
+        max_wait: int
+        ops_per_second: float
+</code></pre>
+
+<p>This very simple structure allows the caller to specify one or more
+VQL queries to run. The call can set up environment variables prior to
+the query execution. The max_row and max_wait parameters indicate how
+many rows to return in a single result set and how long to wait for
+additional rows before returning a result set.</p>
+
+<p>The call simply executes the VQL queries and returns result sets as
+VQLResponse protobufs:</p>
+
+<pre><code>   VQLResponse:
+      Response: json encoded string
+      Columns: list of string
+      total_rows: total number of rows in this packet
+</code></pre>
+
+<p>The VQL query may return many responses - each represents a set of
+rows. These responses may be returned over a long time, the API call
+will simply wait until new responses are available. For example, the
+VQL may represent an event query - i.e. watch for the occurrence of
+some event in the system - in this case it will never actually
+terminate, but keep streaming response packets.</p>
+
+<h3 id="how-does-this-look-like-in-code">How does this look like in code?</h3>
+
+<p>All the files needed for python integration can be found in the
+<code>bindings/python</code> directory of the <a href="https://github.com/Velocidex/velociraptor/tree/master/bindings/python">source distribution</a>:</p>
+
+<ul>
+<li><p>The <code>requirements.txt</code> file can be used to install exactly the right
+version of dependencies (We recommend using a virtual env for
+python):</p>
+
+<pre><code>$ pip install -r requirements.txt
+</code></pre></li>
+
+<li><p>The <code>api.proto</code> file specifies the exact protobufs required to
+connect to the API. There is no need to compile the file with the
+protobuf compiler - simply use the pre-compiled python files
+<code>api_pb2_grpc.py</code> and <code>api_pb2.py</code> by copying them into your
+project.</p></li>
+
+<li><p>The file <code>client_example.py</code> is a fully working client example. You
+can use this example to connect with the server and run any VQL
+queries.</p></li>
+</ul>
+
+<h3 id="code-walk-through">Code walk through</h3>
+
+<p>The following will cover an example implementation in python. The
+first step is to prepare credentials for making the gRPC call. We
+parse the <code>api_client.yaml</code> file and prepare a credential object:</p>
+
+<pre><code class="language-python">   config = yaml.load(open(&quot;api_client.yaml&quot;).read())
+   creds = grpc.ssl_channel_credentials(
+        root_certificates=config[&quot;ca_certificate&quot;].encode(&quot;utf8&quot;),
+        private_key=config[&quot;client_private_key&quot;].encode(&quot;utf8&quot;),
+        certificate_chain=config[&quot;client_cert&quot;].encode(&quot;utf8&quot;))
+
+   options = (('grpc.ssl_target_name_override', &quot;VelociraptorServer&quot;,),)
+</code></pre>
+
+<p>Next we connect the channel to the API server:</p>
+
+<pre><code class="language-python">    with grpc.secure_channel(config[&quot;api_connection_string&quot;],
+                             creds, options) as channel:
+        stub = api_pb2_grpc.APIStub(channel)
+</code></pre>
+
+<p>The stub is the object we use to make calls with. We can then issue
+our call:</p>
+
+<pre><code class="language-python">   request = api_pb2.VQLCollectorArgs(
+            Query=[api_pb2.VQLRequest(
+                VQL=query,
+            )])
+
+   for response in stub.Query(request):
+       rows = json.loads(response.Response)
+       for row in rows:
+           print(row)
+</code></pre>
+
+<p>We issue the query and then just wait for the call to generate
+response packets. Each packet may contain several rows which will all
+be encoded as JSON in the Response field. Each row is simply a dict
+with keys being the column names, and the values being possibly nested
+dicts or simple data depending on the query.</p>
+
+<h3 id="what-can-we-do-with-this">What can we do with this?</h3>
+
+<p>The Velociraptor API is deliberately open ended - meaning we do not
+pose any limitations on what can be done with it. It is conceptually a
+very simple API - just issue the query and look at the results,
+however this makes it extremely powerful.</p>
+
+<p>We already have a number of very useful server side VQL plugins you
+can use. We also plan to add a number of other plugins in future -
+this means that the Velociraptor API can easily be extended in a
+backwards compatible way by simply adding new VQL plugins. New queries
+can do more, without breaking existing queries.</p>
+
+
+    
+    
+          <footer class=" footline" >
+	
+</footer>
+  </div>
+</div>
+
+<div id="navigation">
+<a class="nav nav-prev" href="/docs/user-interface/artifacts/add_artifacts/" title="Customizing Artifacts"> <i class="fa fa-chevron-left"></i><label>Customizing Artifacts</label></a>
+    <a class="nav nav-next" href="/docs/vql_reference/" title="VQL Reference" style="margin-right: 0px;"><label>VQL Reference</label><i class="fa fa-chevron-right"></i></a></div>
+
+</section>
+<div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+  <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+</div>    
+
+<script src="/js/clipboard.min.js"></script>
+<script src="/js/featherlight.min.js"></script>
+<script src="/js/html5shiv-printshiv.min.js"></script>
+
+<script src="/js/modernizr.custom.71422.js"></script>
+<script src="/js/docdock.js"></script>
+<script src="/theme-original/script.js"></script>
+
+
+    
+
+    
+    
+
+    
+  </body>
+</html>

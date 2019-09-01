@@ -42,6 +42,11 @@
   </url>
   
   <url>
+    <loc>/docs/user-interface/</loc>
+    <lastmod>2019-02-09T04:10:06+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/about/features/</loc>
     <lastmod>2017-02-01T00:00:00+00:00</lastmod>
   </url>
@@ -56,10 +61,6 @@
   
   <url>
     <loc>/docs/user-interface/investigating_clients/searching_clients/</loc>
-  </url>
-  
-  <url>
-    <loc>/docs/user-interface/</loc>
   </url>
   
   <url>
@@ -87,11 +88,11 @@
   </url>
   
   <url>
-    <loc>/docs/user-interface/artifacts/</loc>
+    <loc>/docs/vql_reference/server/</loc>
   </url>
   
   <url>
-    <loc>/docs/vql_reference/server/</loc>
+    <loc>/docs/user-interface/artifacts/</loc>
   </url>
   
   <url>
@@ -116,7 +117,7 @@
   
   <url>
     <loc>/blog/</loc>
-    <lastmod>2019-03-02T04:10:06+00:00</lastmod>
+    <lastmod>2019-08-26T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -160,6 +161,11 @@
   </url>
   
   <url>
+    <loc>/docs/user-interface/api/</loc>
+    <lastmod>2019-02-09T04:10:06+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/docs/vql_reference/filesystem_accessors/</loc>
   </url>
   
@@ -184,22 +190,29 @@
   </url>
   
   <url>
-    <loc>/blog/html/2019/03/02/agentless_hunting_with_velociraptor.html</loc>
-    <lastmod>2019-03-02T04:10:06+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>/categories/blog/</loc>
-    <lastmod>2019-03-02T04:10:06+00:00</lastmod>
+    <lastmod>2019-08-26T00:00:00+00:00</lastmod>
+    <priority>0</priority>
   </url>
   
   <url>
     <loc>/categories/</loc>
-    <lastmod>2019-03-02T04:10:06+00:00</lastmod>
+    <lastmod>2019-08-26T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/blog/html/2019/08/28/the_velociraptor_api/</loc>
+    <lastmod>2019-08-26T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>/</loc>
+    <lastmod>2019-08-26T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/html/2019/03/02/agentless_hunting_with_velociraptor.html</loc>
     <lastmod>2019-03-02T04:10:06+00:00</lastmod>
   </url>
   
@@ -314,15 +327,12 @@
   </url>
   
   <url>
-    <loc>/categories/getting-started/</loc>
-  </url>
-  
-  <url>
     <loc>/docs/artifacts/linux/linux/</loc>
   </url>
   
   <url>
     <loc>/tags/</loc>
+    <priority>0</priority>
   </url>
   
   <url>
@@ -335,6 +345,11 @@
   
   <url>
     <loc>/faq/</loc>
+  </url>
+  
+  <url>
+    <loc>/categories/getting-started/</loc>
+    <priority>0</priority>
   </url>
   
 </urlset>

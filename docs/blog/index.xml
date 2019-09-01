@@ -6,7 +6,7 @@
     <description>Recent content in Velociraptor Blog on Velociraptor / Dig deeper</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 02 Mar 2019 04:10:06 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 26 Aug 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/blog/index.xml" rel="self" type="application/rss+xml" />
     
@@ -28,6 +28,16 @@ Velociraptor models the client&#39;s VFS as a per-directory VQL query.</descript
       
       <guid>/blog/calendar/</guid>
       <description>2018      October   MonTueWedThuFriSatSun 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31        November    MonTueWedThuFriSatSun    1 2 3 4 5 6 7 8 91 10 11 12 131 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30          December    MonTueWedThuFriSatSun      1 2 3 4 5 6 7 8 91 101 111 12 13 14 15 16 17 18 19 20 21 221 231 24 25 26 27 28 29 30 31</description>
+    </item>
+    
+    <item>
+      <title>The Velociraptor API and FUSE</title>
+      <link>/blog/html/2019/08/28/the_velociraptor_api/</link>
+      <pubDate>Mon, 26 Aug 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/blog/html/2019/08/28/the_velociraptor_api/</guid>
+      <description>The Velociraptor GUI is very useful, but for the power user, the Velociraptor API provides a powerful mechanism to integrate and automate. We previously discussed how the Velociraptor API can be used by external programs. This post explore a sample program that uses the API and presents a client&amp;rsquo;s VFS as a FUSE directory.
+This allows us to navigate the remote end point&amp;rsquo;s file system as if it was mounted locally - we can list directories or fetch files, or even open remote files using third party programs.</description>
     </item>
     
     <item>

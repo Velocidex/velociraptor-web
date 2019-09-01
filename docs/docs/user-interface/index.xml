@@ -6,9 +6,19 @@
     <description>Recent content in User Interface on Velociraptor / Dig deeper</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
+    <lastBuildDate>Sat, 09 Feb 2019 04:10:06 +0000</lastBuildDate>
     
 	<atom:link href="/docs/user-interface/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>The Velociraptor API</title>
+      <link>/docs/user-interface/api/</link>
+      <pubDate>Sat, 09 Feb 2019 04:10:06 +0000</pubDate>
+      
+      <guid>/docs/user-interface/api/</guid>
+      <description>Velociraptor is very good at collecting artifacts from endpoints. However, in modern DFIR work, the actual collection is only the first step of a much more involved process. Typically we want to post process data using more advanced data mining tools (such as data stacking), or export the data to other systems. Velociraptor usually is only a part of a wider solution which might include a SIEM and SOC integration.</description>
+    </item>
     
   </channel>
 </rss>
