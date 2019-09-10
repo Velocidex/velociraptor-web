@@ -233,7 +233,7 @@ depending on its expiration policy - so we always see recent rows.
 
 You can use this to build queries which consider historical events
 together with current events at the same time. In this example, we
-check for a successful logon preceeded by a number of failed logon
+check for a successful logon preceded by a number of failed logon
 attempts.
 
 In this example, we use the clock() plugin to simulate events. We
@@ -251,7 +251,7 @@ FailedTime for every unique SuccessTime).
 If we receive more than 3 events, we emit the row.
 
 This now represents a high value signal! It will only occur when a
-successful logon event is preceeded by at least 3 failed logon
+successful logon event is preceded by at least 3 failed logon
 events in the last hour. It is now possible to escalate this on the
 server via email or other alerts.
 
@@ -288,7 +288,7 @@ description: |
 
   You can use this to build queries which consider historical events
   together with current events at the same time. In this example, we
-  check for a successful logon preceeded by a number of failed logon
+  check for a successful logon preceded by a number of failed logon
   attempts.
 
   In this example, we use the clock() plugin to simulate events. We
@@ -306,7 +306,7 @@ description: |
   If we receive more than 3 events, we emit the row.
 
   This now represents a high value signal! It will only occur when a
-  successful logon event is preceeded by at least 3 failed logon
+  successful logon event is preceded by at least 3 failed logon
   events in the last hour. It is now possible to escalate this on the
   server via email or other alerts.
 
@@ -901,7 +901,7 @@ credentials. Since Velociraptor is typically not running in the user
 context we can not decrypt these. It may be possible to decrypt the
 cookies off line.
 
-The pertinant information from a forensic point of view is the
+The pertinent information from a forensic point of view is the
 user's Created and LastAccess timestamp and the fact that the user
 has actually visited the site and obtained a cookie.
 
@@ -924,7 +924,7 @@ description: |
   context we can not decrypt these. It may be possible to decrypt the
   cookies off line.
 
-  The pertinant information from a forensic point of view is the
+  The pertinent information from a forensic point of view is the
   user's Created and LastAccess timestamp and the fact that the user
   has actually visited the site and obtained a cookie.
 
@@ -2066,7 +2066,7 @@ Arg|Default|Description
 UserFilter||If specified we filter by this user ID.
 ExecutionTimeAfter||If specified only show executions after this time.
 UserAssistKey|Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\UserAssist\\*\\Count\\*|
-userAssistProfile|{\n  "Win10": [0, {\n    "NumeberOfExecutions": [4, ["unsigned int"]],\n    "LastExecution": [60, ["unsigned long long"]]\n  }]\n}\n|
+userAssistProfile|{\n  "Win10": [0, {\n    "NumberOfExecutions": [4, ["unsigned int"]],\n    "LastExecution": [60, ["unsigned long long"]]\n  }]\n}\n|
 
 {{% expand  "View Artifact Source" %}}
 

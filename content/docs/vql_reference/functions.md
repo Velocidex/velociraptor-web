@@ -534,7 +534,7 @@ file | The file to upload | string (required)
 name | The name of the file that should be stored on the server | string
 
 This function uploads the specified file to the server. If Velociraptor
-is run locally the file will be copied tothe `--dump_dir` path or
+is run locally the file will be copied to the `--dump_dir` path or
 added to the triage evidence container.
 
 ## url
@@ -556,7 +556,7 @@ URL](https://golang.org/pkg/net/url/#URL) and can be serialized again
 using its `String` method.
 
 This function is important when constructing parameters for certain
-accessors which receive a URL. For exampel the `zip` accessor requires
+accessors which receive a URL. For example the `zip` accessor requires
 its file names to consist of URLs. The Zip accessor interprets the URL
 in the following way:
 
@@ -565,7 +565,7 @@ in the following way:
 - The fragment is used by the zip accessor to retrieve the zip member itself.
 
 In this case it is critical to properly escape each level - it is not
-possible in the geenral case to simply append strings. You need to use
+possible in the general case to simply append strings. You need to use
 the `url()` function to build the proper url.
 
 ## utf16

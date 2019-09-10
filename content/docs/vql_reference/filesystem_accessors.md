@@ -54,7 +54,7 @@ directory as parsed by the ntfs parser from the raw device
 well.
 
 As a convenience, the ntfs accessor recognizes a drive letter and
-automatically maps it to the raw device. I.e. the following patths are
+automatically maps it to the raw device. I.e. the following paths are
 equivalent `\\.\c:\Windows` and `C:\Windows`.
 
 Listing the top level directory will display all physical drives and
@@ -64,9 +64,9 @@ Volume Shadow Copies available on the machine.
 
 The backslash character is considered the path separator only for
 paths following the device name. Supported device names include the
-backslash as part of thier name. For example, listing the top level
+backslash as part of their name. For example, listing the top level
 directory will show `\\.\c:` as a single device, even though it
-contains backslashs.
+contains backslashes.
 
 {{% /notice %}}
 
@@ -130,7 +130,7 @@ file 1.txt within the my.zip file as extracted by the ntfs raw parser.
 
 Parsing of raw registry hives is provided by the `raw_reg`
 accessor. Similarly to the zip accessor above, the `raw_reg` accessor
-requires an undelying file to read. Therefore it also requires a path
+requires an underlying file to read. Therefore it also requires a path
 formatted as a url:
 
 * The scheme part is used to specify the underlying accessor to access

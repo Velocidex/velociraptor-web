@@ -29,7 +29,7 @@ termed a `flow` in Velociraptor. It has the following columns:
 
 2. The `FlowId` is a unique internal ID given to each flow
    Velociraptor runs. You will need this ID if you need to compose VQL
-   quries for post processing the flow.
+   queries for post processing the flow.
 
 3. The `Artifacts Collected` column is a list of artifacts collected
    by this flow. It is possible to schedule multiple artifacts to be

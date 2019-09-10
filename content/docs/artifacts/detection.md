@@ -7,7 +7,7 @@ weight: 50
 ---
 ## Windows.Detection.ProcessMemory
 
-Scanning process memory for signals is powerfull technique. This
+Scanning process memory for signals is powerful technique. This
 artifact scans processes for a yara signature and when detected, the
 process memory is dumped and uploaded to the server.
 
@@ -23,7 +23,7 @@ yaraRule|rule Process {\n   strings:\n     $a = "this is a secret" nocase wide\n
 ```
 name: Windows.Detection.ProcessMemory
 description: |
-  Scanning process memory for signals is powerfull technique. This
+  Scanning process memory for signals is powerful technique. This
   artifact scans processes for a yara signature and when detected, the
   process memory is dumped and uploaded to the server.
 

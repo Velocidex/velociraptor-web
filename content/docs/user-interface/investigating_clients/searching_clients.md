@@ -12,7 +12,7 @@ typing a search term and the UI will suggest matches.
 ![Front page](../search.png)
 
 We may search for the client by host name, label or client id. Simply
-click on the seach bar without any search term to show some random
+click on the search bar without any search term to show some random
 clients. The search box features a type ahead completion, so simply
 start typing the hostname and Velociraptor will show some suggestions.
 
@@ -63,7 +63,7 @@ The table contains three columns:
 Hosts may have labels attached to them. A label is any name associated
 with a host. Labels are useful when we need to hunt for a well defined
 group of hosts, then we can restrict the hunt to one or more labels to
-avoid collecting unnecesary data or accessing machines we should not
+avoid collecting unnecessary data or accessing machines we should not
 be.
 
 It is possible to manipulate the labels via the search screen. Simply
@@ -71,7 +71,7 @@ select the hosts in the GUI and then click the "add labels" button.
 
 ![Adding labels](../labels.png)
 
-Although it is possible to manipulate lables via the GUI, It is
+Although it is possible to manipulate labels via the GUI, It is
 usually easier to use VQL queries to add or remove labels via the
 [label()]({{< ref "/docs/vql_reference/server.md#label" >}}) plugin.
 

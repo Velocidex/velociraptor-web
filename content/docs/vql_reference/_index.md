@@ -27,7 +27,7 @@ termed the `filter clause`.
 
 ## Column Specification
 
-The column specification is a comma delimeted list of expressions
+The column specification is a comma delimited list of expressions
 which may consist of operations or VQL functions. The expressions
 operate on each row returned from the plugin. Each expression
 specifies a single Column to add to the transformed row. Alternatively

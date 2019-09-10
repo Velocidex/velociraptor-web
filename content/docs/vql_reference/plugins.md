@@ -58,7 +58,7 @@ the var parameter is provided, only those variables will be provided.
 Arg | Description | Type
 ----|-------------|-----
 argv | Argv to run the command with. |  list of string (required)
-sep | The serparator that will be used to split the stdout into rows. | string
+sep | The separator that will be used to split the stdout into rows. | string
 length | Size of buffer to capture output per row. | int6
 
 This plugin launches an external command and captures its STDERR,
@@ -376,7 +376,7 @@ SELECT parse_string_with_regex(
 
 ## partitions
 
-List all partititions
+List all partitions
 
 ## proc_dump
 
@@ -404,7 +404,7 @@ blocksize | Blocksize for scanning (1mb). | int64
 rules | Yara rules in the yara DSL. | string (required)
 files | The list of files to scan. |  list of string (required)
 accessor | Accessor (e.g. NTFS) | string
-key | A unique key used to cache the yara rule so it does not need to be recomiled | string
+key | A unique key used to cache the yara rule so it does not need to be recompiled | string
 
 This plugin uses yara's own engine to scan process memory for the signatures.
 
@@ -500,7 +500,7 @@ first_row_is_headers | A bool indicating if we should get column names from the 
 Arg | Description
 ----|------------
 filenames|One or more files to parse
-accessor|The accessor to use for openning the file.
+accessor|The accessor to use for opening the file.
 regex|The split regular expression (e.g. a comma)
 columns|If the first row is not the headers, this arg must provide a list of column names for each value.
 first_row_is_headers|A bool indicating if we should get column names from the first row.

@@ -33,7 +33,7 @@ filter the result set. The trouble is that you can not actually see
 the results of the expression - the expression is simply evaluated for
 a boolean true/false.
 
-It is more producting to place the complex expression in the column
+It is more productive to place the complex expression in the column
 specification and then you can see what it evaluates to for each row.
 
 ```

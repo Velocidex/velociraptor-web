@@ -1022,14 +1022,14 @@ sources:
   - queries:
       - |
         LET results = SELECT FullPath, Size,
-               timestamp(epoch=Mtime.Sec) As Modifed,
+               timestamp(epoch=Mtime.Sec) As Modified,
                type AS Type, {
                  SELECT * FROM upload(files=FullPath, accessor=accessor)
                } AS FileDetails
         FROM glob(globs=path, accessor=accessor)
         WHERE NOT IsDir
       - |
-        SELECT FullPath, Size, Modifed, Type,
+        SELECT FullPath, Size, Modified, Type,
                FileDetails.Path AS ZipPath,
                FileDetails.Md5 as Md5,
                FileDetails.Sha256 as SHA256
@@ -1066,7 +1066,7 @@ sources:
   - queries:
       - |
         LET results = SELECT FullPath, Size,
-               timestamp(epoch=Mtime.Sec) As Modifed,
+               timestamp(epoch=Mtime.Sec) As Modified,
                Type, {
                  SELECT * FROM upload(files=FullPath, accessor=Accessor)
                } AS FileDetails
@@ -1079,7 +1079,7 @@ sources:
            SELECT * FROM parse_csv(filename=triageTable, accessor='data')
          },
          query={
-           SELECT FullPath, Size, Modifed, Type,
+           SELECT FullPath, Size, Modified, Type,
                FileDetails.Path AS ZipPath,
                FileDetails.Md5 as Md5,
                FileDetails.Sha256 as SHA256

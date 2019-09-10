@@ -6,7 +6,7 @@ weight: 30
 Many users choose to deploy Velociraptor in the cloud. This is a
 convenient and reliable option. One of the advantages of cloud
 deployment is the possibility of minting a proper SSL certificate
-using the free Letsencrypt CA. This elimintates the bad certificate
+using the free Letsencrypt CA. This eliminates the bad certificate
 browser warning seen in the Self Signed Deployment
 method. Velociraptor is able to use the Letsencrypt protocol to obtain
 and manage its own certificates (and automatically rotate them when
@@ -246,7 +246,7 @@ The configuration allows you to add authorized usernames at this
 stage. Note that username authorization is written to the data store
 and so it will only work on the same machine we are deploying to. If
 you are creating the configuration on another machine, you will need
-to explicitely add users later as demonstrated below.
+to explicitly add users later as demonstrated below.
 
 Now we can start the Velociraptor frontend:
 
@@ -338,7 +338,7 @@ it will fail to start.
 
 {{% /notice %}}
 
-You can check the installtion using `service velociraptor_server status`.
+You can check the installation using `service velociraptor_server status`.
 
 ```bash
 $ sudo dpkg -i velociraptor_0.3.0_server.deb
@@ -368,7 +368,7 @@ Jul 07 08:49:24 mic-Inspiron systemd[1]: Started Velociraptor linux amd64.
 You do not need to build the deb package on a Linux machine. If you
 prefer to use Windows for your day to day work, you may build the deb
 on your windows machine but you must specify the `--binary` flag to
-the `debian server` command with a path to the linux binary. Yoy can
+the `debian server` command with a path to the linux binary. You can
 obtain a copy of the linux binary from the Github releases page.
 
 {{% /notice %}}

@@ -17,13 +17,13 @@ higher order escalations and alerting based on client side events.
 
 Arg | Description | Type
 ----|-------------|-----
-search | Client search string. Can have the following prefixes: 'lable:', 'host:' | string
+search | Client search string. Can have the following prefixes: 'label:', 'host:' | string
 client_id |  | string
 
 This plugin returns all clients retrieved by the search term. The
 search term is the same as in the GUI and may consist of:
 
-- a plain word searchs for a host name
+- a plain word searches for a host name
 - May contain wild cards (`my*hostname`)
 - May contain a prefix such as host:, label:, user:
 
@@ -99,7 +99,7 @@ Arg | Description | Type
 subject | The subject. | string
 body | The body of the mail. | string (required)
 period | How long to wait before sending the next mail - help to throttle mails. | int64 (required)
-to | Receipient of the mail |  list of string (required)
+to | Recipient of the mail |  list of string (required)
 cc | A cc for the mail |  list of string
 
 This plugin sends a mail. In order to use it you must have the Mail
@@ -159,7 +159,7 @@ stored in the monitoring CSV file it is also relayed to this plugin
 (We are essentially tailing the monitoring CSV files).
 
 This allows us to implement an event query which watches for client
-side events and acts on them (e.g. by esclating or responding).
+side events and acts on them (e.g. by escalating or responding).
 
 If the client id is not specified, we watch for events from all
 clients.

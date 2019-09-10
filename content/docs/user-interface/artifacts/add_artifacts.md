@@ -49,9 +49,9 @@ Note that artifacts have a **Type** which indicates in which context a
 particular artifact can be used. Currently artifacts can be:
 
 1. **CLIENT**: Will run on the client once and return a single collection bundle.
-2. **CLIENT_EVENT**: Will run contineuously on the client as an event monitor.
+2. **CLIENT_EVENT**: Will run continuously on the client as an event monitor.
 3. **SERVER**: Will run on the server once and return a single collection bundle.
-4. **SERVER_EVENT**: Will run contineuously on the server as an event monitor.
+4. **SERVER_EVENT**: Will run continuously on the server as an event monitor.
 
 In the above example we see the `Server.Monitoring.ClientCount`
 artifact. This is a server event monitoring artifact which sends an

@@ -67,7 +67,7 @@ We can see the main sections:
 
 1. The `name` of the artifact is a dot separated string used to
    identify the Artifact in the UI. We typically name the artifact
-   using a heirarchical category based naming scheme.
+   using a hierarchical category based naming scheme.
 
 2. The `description` section contains a human readable description of
    the purpose of this artifact, how it works and when to use it. The
@@ -179,4 +179,4 @@ Therefore we have 4 types of artifacts:
    deployment for specific conditions. For example, a server event
    artifact might monitor process execution logs from all clients and
    automatically decode encoded powershell command lines, alerting on
-   suspicious occurances.
+   suspicious occurrences.
