@@ -58,7 +58,7 @@ Note this requires that the Windows.Event.ProcessCreation monitoring artifact be
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>/docs/artifacts/detection/</guid>
-      <description>Windows.Detection.ProcessMemory Scanning process memory for signals is powerfull technique. This artifact scans processes for a yara signature and when detected, the process memory is dumped and uploaded to the server.
+      <description>Windows.Detection.ProcessMemory Scanning process memory for signals is powerful technique. This artifact scans processes for a yara signature and when detected, the process memory is dumped and uploaded to the server.
    Arg Default Description     processRegex notepad    yaraRule rule Process {\n strings:\n $a = &amp;ldquo;this is a secret&amp;rdquo; nocase wide\n $b = &amp;ldquo;this is a secret&amp;rdquo; nocase\n condition:\n any of them\n}\n       View Artifact Source   name: Windows.</description>
     </item>
     

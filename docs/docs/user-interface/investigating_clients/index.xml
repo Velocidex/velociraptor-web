@@ -17,7 +17,7 @@
       
       <guid>/docs/user-interface/investigating_clients/searching_clients/</guid>
       <description>Before we can interactively examine a client, we need to select it in the GUI. The best way is to search for it. The search bar is present at the top of every page making it easily accessible. Just start typing a search term and the UI will suggest matches.
-We may search for the client by host name, label or client id. Simply click on the seach bar without any search term to show some random clients.</description>
+We may search for the client by host name, label or client id. Simply click on the search bar without any search term to show some random clients.</description>
     </item>
     
     <item>

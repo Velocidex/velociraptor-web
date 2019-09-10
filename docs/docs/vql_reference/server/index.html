@@ -493,7 +493,7 @@ higher order escalations and alerting based on client side events.</p>
 <tbody>
 <tr>
 <td>search</td>
-<td>Client search string. Can have the following prefixes: &lsquo;lable:&lsquo;, &lsquo;host:&rsquo;</td>
+<td>Client search string. Can have the following prefixes: &lsquo;label:&lsquo;, &lsquo;host:&rsquo;</td>
 <td>string</td>
 </tr>
 
@@ -509,7 +509,7 @@ higher order escalations and alerting based on client side events.</p>
 search term is the same as in the GUI and may consist of:</p>
 
 <ul>
-<li>a plain word searchs for a host name</li>
+<li>a plain word searches for a host name</li>
 <li>May contain wild cards (<code>my*hostname</code>)</li>
 <li>May contain a prefix such as host:, label:, user:</li>
 </ul>
@@ -690,7 +690,7 @@ further narrowing the hunt result on demand.</p>
 
 <tr>
 <td>to</td>
-<td>Receipient of the mail</td>
+<td>Recipient of the mail</td>
 <td>list of string (required)</td>
 </tr>
 
@@ -861,7 +861,7 @@ stored in the monitoring CSV file it is also relayed to this plugin
 (We are essentially tailing the monitoring CSV files).</p>
 
 <p>This allows us to implement an event query which watches for client
-side events and acts on them (e.g. by esclating or responding).</p>
+side events and acts on them (e.g. by escalating or responding).</p>
 
 <p>If the client id is not specified, we watch for events from all
 clients.</p>

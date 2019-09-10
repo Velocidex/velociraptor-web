@@ -37,7 +37,7 @@ There are several ways to run clients, depending on your needs. Ultimately howev
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>/docs/getting-started/cloud/</guid>
-      <description>Many users choose to deploy Velociraptor in the cloud. This is a convenient and reliable option. One of the advantages of cloud deployment is the possibility of minting a proper SSL certificate using the free Letsencrypt CA. This elimintates the bad certificate browser warning seen in the Self Signed Deployment method. Velociraptor is able to use the Letsencrypt protocol to obtain and manage its own certificates (and automatically rotate them when they expire).</description>
+      <description>Many users choose to deploy Velociraptor in the cloud. This is a convenient and reliable option. One of the advantages of cloud deployment is the possibility of minting a proper SSL certificate using the free Letsencrypt CA. This eliminates the bad certificate browser warning seen in the Self Signed Deployment method. Velociraptor is able to use the Letsencrypt protocol to obtain and manage its own certificates (and automatically rotate them when they expire).</description>
     </item>
     
     <item>
