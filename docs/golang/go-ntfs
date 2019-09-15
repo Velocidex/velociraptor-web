@@ -1,6 +1,6 @@
 <html>
 <head>
-<meta name="go-import" content="www.velocidex.com/golang/go-ntfs/parser git https://github.com/Velocidex/go-ntfs.git">
+<meta name="go-import" content="www.velocidex.com/golang/go-ntfs git https://github.com/Velocidex/go-ntfs.git">
 <meta http-equiv="refresh" content="0;https://github.com/Velocidex/go-ntfs.git" />
 </head>
 <body>
