@@ -526,9 +526,14 @@ specify the appropriate configuration files when starting the server
 and client processes (see below).</p>
 
 <p>For more interesting testing, you&rsquo;ll want to setup a dedicated server
-and deploy to a group of endpoints. This can easily be facilitated with virtual machines.</p>
+and deploy to a group of endpoints. You can use virtual machines, but
+it&rsquo;s not essential, since Velociraptor requires no libraries or
+external dependencies and has an extremely light installation
+footprint, only writing the configuration, state and history files it
+needs, all of which can easily be deleted after testing, along with
+the executable.</p>
 
-<p>When setting up a longer-term deployment, the main decision is
+<p>However when setting up a longer-term deployment, the main decision is
 whether the Velociraptor server should be inside or outside your
 network. Here are some considerations:</p>
 
@@ -589,7 +594,7 @@ and server config files that we&rsquo;ll soon be creating:</p>
 
 <div class="notices warning" ><p>It might be tempting to specify an IP address here, especially if you
 have a static IP or this is an internal deployment. This is not
-recommended. If you need to change the IP address existing
+recommended, since if you need to change the IP address, existing
 clients will continue to attempt to contact the old IP address,
 rendering them unreachable.</p>
 </div>
