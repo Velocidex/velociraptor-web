@@ -1,7 +1,7 @@
 +++
 title = "OleParser"
 type = "code"
-vanity = "https://github.com/Velocidex/oleparser.git"
+vanity = "https://github.com/Velocidex/oleparser"
 aliases = [
     "oleparser/cmd",
     "oleparser/fixtures",

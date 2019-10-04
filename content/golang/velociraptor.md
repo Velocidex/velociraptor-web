@@ -1,7 +1,7 @@
 +++
 title = "Velociraptor"
 type = "code"
-vanity = "https://github.com/Velocidex/velociraptor.git"
+vanity = "https://github.com/Velocidex/velociraptor"
 aliases = [
 "velociraptor/gui/assets",
 "velociraptor/testing",

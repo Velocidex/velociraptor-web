@@ -1,7 +1,7 @@
 <!DOCTYPE html><html>
   <head>
     {{ if .Page -}}{{ if .Page.Params -}}
-      <meta name="go-import" content="www.velocidex.com{{substr .Page.RelPermalink 0 -1}} git {{ .Page.Params.vanity }}">
+      <meta name="go-import" content="www.velocidex.com{{substr .Page.RelPermalink 0 -1}} git {{ .Page.Params.vanity }}.git">
       <meta name="go-source" content="www.velocidex.com{{substr .Page.RelPermalink 0 -1}} {{ .Page.Params.vanity }} {{ .Page.Params.vanity }}/tree/master{/dir} {{ .Page.Params.vanity }}/blob/master{/dir}/{file}#L{line}">
     {{- end }}{{ end }}
     <title>{{ .Permalink }}</title>
