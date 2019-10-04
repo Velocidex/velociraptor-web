@@ -40,7 +40,7 @@
       </div>
       {{- if ne $numberOfPages 0 }}
         <ul>
-          {{- $pages := (.Pages | union .Sections) }}
+        {{- $pages := (.Pages | union .Sections) }}
 
         {{- if eq .Site.Params.ordersectionsby "title"}}
           {{- range $pages.ByTitle }}

@@ -1,6 +1,6 @@
 ---
 title: "Calendar"
-aliases: [/archive/]
+aliases: []
 weight: 50
 hidden: true
 ---

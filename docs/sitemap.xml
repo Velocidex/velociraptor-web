@@ -327,7 +327,43 @@
   </url>
   
   <url>
+    <loc>/golang/binparsergen/</loc>
+  </url>
+  
+  <url>
+    <loc>/ci/</loc>
+  </url>
+  
+  <url>
+    <loc>/discord/</loc>
+  </url>
+  
+  <url>
+    <loc>/golang/go-ntfs/</loc>
+  </url>
+  
+  <url>
+    <loc>/golang/go-pe/</loc>
+  </url>
+  
+  <url>
+    <loc>/golang/go-prefetch/</loc>
+  </url>
+  
+  <url>
     <loc>/docs/artifacts/linux/linux/</loc>
+  </url>
+  
+  <url>
+    <loc>/golang/oleparser/</loc>
+  </url>
+  
+  <url>
+    <loc>/golang/</loc>
+  </url>
+  
+  <url>
+    <loc>/golang/regparser/</loc>
   </url>
   
   <url>
@@ -336,7 +372,15 @@
   </url>
   
   <url>
+    <loc>/golang/timetracker/</loc>
+  </url>
+  
+  <url>
     <loc>/docs/getting-started/triaging/</loc>
+  </url>
+  
+  <url>
+    <loc>/golang/velociraptor/</loc>
   </url>
   
   <url>
@@ -345,6 +389,14 @@
   
   <url>
     <loc>/faq/</loc>
+  </url>
+  
+  <url>
+    <loc>/golang/vfilter/</loc>
+  </url>
+  
+  <url>
+    <loc>/golang/vtypes/</loc>
   </url>
   
   <url>

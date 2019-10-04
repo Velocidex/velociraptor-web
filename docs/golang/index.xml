@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Other Velocidex Projects on Velociraptor / Dig deeper</title>
+    <link>/golang/</link>
+    <description>Recent content in Other Velocidex Projects on Velociraptor / Dig deeper</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    
+	<atom:link href="/golang/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Binparsergen</title>
+      <link>/golang/binparsergen/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/golang/binparsergen/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Go-NTFS</title>
+      <link>/golang/go-ntfs/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/golang/go-ntfs/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Go-PE</title>
+      <link>/golang/go-pe/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/golang/go-pe/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Go-Prefetch</title>
+      <link>/golang/go-prefetch/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/golang/go-prefetch/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>OleParser</title>
+      <link>/golang/oleparser/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/golang/oleparser/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Regparser</title>
+      <link>/golang/regparser/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/golang/regparser/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Timetracker</title>
+      <link>/golang/timetracker/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/golang/timetracker/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Velociraptor</title>
+      <link>/golang/velociraptor/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/golang/velociraptor/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Vfilter</title>
+      <link>/golang/vfilter/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/golang/vfilter/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Vtypes</title>
+      <link>/golang/vtypes/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/golang/vtypes/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

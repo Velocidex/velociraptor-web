@@ -13,7 +13,7 @@ menu:
     weight: 1
 weight: 1
 draft: false
-aliases: [/about-hugo/,/docs/]
+aliases: [/docs/]
 toc: false
 ---
 
