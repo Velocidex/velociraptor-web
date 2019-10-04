@@ -339,6 +339,10 @@
   </url>
   
   <url>
+    <loc>/golang/evtx/</loc>
+  </url>
+  
+  <url>
     <loc>/golang/go-ntfs/</loc>
   </url>
   

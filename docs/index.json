@@ -525,6 +525,13 @@
         "content": ""
 },
 {
+        "uri": "/golang/evtx/",
+        "title": "EVTX",
+        "tags": [],
+        "description": "",
+        "content": ""
+},
+{
         "uri": "/golang/go-ntfs/",
         "title": "Go-NTFS",
         "tags": [],
