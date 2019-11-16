@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
@@ -88,11 +88,11 @@
   </url>
   
   <url>
-    <loc>/docs/vql_reference/server/</loc>
+    <loc>/docs/user-interface/artifacts/</loc>
   </url>
   
   <url>
-    <loc>/docs/user-interface/artifacts/</loc>
+    <loc>/docs/vql_reference/server/</loc>
   </url>
   
   <url>
@@ -117,7 +117,7 @@
   
   <url>
     <loc>/blog/</loc>
-    <lastmod>2019-08-26T00:00:00+00:00</lastmod>
+    <lastmod>2019-11-15T00:38:44+00:00</lastmod>
   </url>
   
   <url>
@@ -190,24 +190,52 @@
   </url>
   
   <url>
+    <loc>/blog/medium/2019-11-15_recovering-deleted-ntfs-files-with-velociraptor-1fcf09855311/</loc>
+    <lastmod>2019-11-15T00:38:44+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/</loc>
+    <lastmod>2019-11-15T00:38:44+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/medium/2019-11-12_windows-event-logs-d8d8e615c9ca/</loc>
+    <lastmod>2019-11-12T10:40:24+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/medium/2019-10-08_triage-with-velociraptor-pt-3-d6f63215f579/</loc>
+    <lastmod>2019-10-08T09:03:34+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/medium/2019-10-04_triage-with-velociraptor-pt-2-d0f79066ca0e/</loc>
+    <lastmod>2019-10-04T23:50:52+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/medium/2019-10-02_triage-with-velociraptor-pt-1-253f57ce96c0/</loc>
+    <lastmod>2019-10-02T13:32:39+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/medium/2019-09-11_velociraptor-s-client-side-buffer-3ce03697a4e6/</loc>
+    <lastmod>2019-09-11T00:31:39+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/categories/blog/</loc>
     <lastmod>2019-08-26T00:00:00+00:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
     <loc>/categories/</loc>
     <lastmod>2019-08-26T00:00:00+00:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
     <loc>/blog/html/2019/08/28/the_velociraptor_api/</loc>
-    <lastmod>2019-08-26T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/</loc>
     <lastmod>2019-08-26T00:00:00+00:00</lastmod>
   </url>
   
@@ -343,6 +371,10 @@
   </url>
   
   <url>
+    <loc>/categories/getting-started/</loc>
+  </url>
+  
+  <url>
     <loc>/golang/go-ntfs/</loc>
   </url>
   
@@ -352,6 +384,10 @@
   
   <url>
     <loc>/golang/go-prefetch/</loc>
+  </url>
+  
+  <url>
+    <loc>/training/gold_coast_jan_20_2020/</loc>
   </url>
   
   <url>
@@ -372,11 +408,14 @@
   
   <url>
     <loc>/tags/</loc>
-    <priority>0</priority>
   </url>
   
   <url>
     <loc>/golang/timetracker/</loc>
+  </url>
+  
+  <url>
+    <loc>/training/</loc>
   </url>
   
   <url>
@@ -401,11 +440,6 @@
   
   <url>
     <loc>/golang/vtypes/</loc>
-  </url>
-  
-  <url>
-    <loc>/categories/getting-started/</loc>
-    <priority>0</priority>
   </url>
   
 </urlset>

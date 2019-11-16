@@ -376,6 +376,48 @@
             <i class="fa fa-angle-down fa-lg category-icon"></i>
       </div>
         <ul>
+      <li data-nav-id="/blog/medium/2019-11-15_recovering-deleted-ntfs-files-with-velociraptor-1fcf09855311/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-11-15_recovering-deleted-ntfs-files-with-velociraptor-1fcf09855311/">
+            Recovering deleted NTFS Files with Velociraptor
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-11-12_windows-event-logs-d8d8e615c9ca/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-11-12_windows-event-logs-d8d8e615c9ca/">
+            Windows Event Logs
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-10-08_triage-with-velociraptor-pt-3-d6f63215f579/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-10-08_triage-with-velociraptor-pt-3-d6f63215f579/">
+            Triage with Velociraptor — Pt 3
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-10-04_triage-with-velociraptor-pt-2-d0f79066ca0e/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-10-04_triage-with-velociraptor-pt-2-d0f79066ca0e/">
+            Triage with Velociraptor — Pt 2
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-10-02_triage-with-velociraptor-pt-1-253f57ce96c0/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-10-02_triage-with-velociraptor-pt-1-253f57ce96c0/">
+            Triage with Velociraptor — Pt 1
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-09-11_velociraptor-s-client-side-buffer-3ce03697a4e6/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-09-11_velociraptor-s-client-side-buffer-3ce03697a4e6/">
+            Velociraptor’s client side buffer
+          </a>
+        </div>
+    </li>
         </ul>
     </li>
 
@@ -428,7 +470,16 @@
     
     <div class="progress">
         <div class="wrapper">
-    
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#server-side-vql-queries">Server Side VQL Queries.</a></li>
+<li><a href="#client-event-monitoring">Client Event Monitoring</a></li>
+<li><a href="#server-side-event-queries">Server side event queries</a></li>
+<li><a href="#responding-to-server-side-events">Responding to server side events</a></li>
+<li><a href="#tying-it-all-together-server-side-event-artifacts">Tying it all together: Server Side Event Artifacts</a></li>
+<li><a href="#conclusions">Conclusions</a></li>
+</ul>
+</nav>
         </div>
     </div>
     
@@ -446,313 +497,362 @@
     
     
     
-    <div class="document">
-
+    
 
 <p>Previously we have seen how Velociraptor collects information from end
 points using Velociraptor artifacts. These artifacts encapsulate user
 created queries using the Velociraptor Query Language (VQL). The power
-of VQL is that it provides for a very flexible way of specifying
-exactly what should be collected from the client and how - without
-needing to modify client code or deploy new clients!</p>
+of VQL is that it provides for a very flexible way of specifying exactly
+what should be collected from the client and how - without needing to
+modify client code or deploy new clients!</p>
+
 <p>This is not the whole story though! It is also possible to run VQL
-queries on the server side! Similarly server side Velociraptor
-artifacts can be used to customize the operation of the server -
-without modifying any code or redeploying the server components.</p>
-<div class="section" id="server-side-vql-queries">
-<h2>Server Side VQL Queries.</h2>
-<p>By now you are probably familiar with Velociraptor and VQL. We have
-seen that it is possible to run a VQL query interactively from the
-commandline. For example to find all processes matching the 'gimp':</p>
-<pre class="code bash literal-block">
-$ velociraptor query <span class="literal string escape">\
-</span>   <span class="literal string double">&quot;SELECT Pid, Exe, Cmdline FROM pslist() WHERE Exe =~ 'gimp'&quot;</span>
-<span class="operator">[</span>
- <span class="operator">{</span>
-  <span class="literal string double">&quot;Cmdline&quot;</span>: <span class="literal string double">&quot;gimp-2.10&quot;</span>,
-  <span class="literal string double">&quot;Exe&quot;</span>: <span class="literal string double">&quot;/usr/bin/gimp-2.10&quot;</span>,
-  <span class="literal string double">&quot;Pid&quot;</span>: <span class="literal number">13207</span>
- <span class="operator">}</span>
-<span class="operator">]</span>
-</pre>
+queries on the server side! Similarly server side Velociraptor artifacts
+can be used to customize the operation of the server -without modifying
+any code or redeploying the server components.</p>
+
+<h1 id="server-side-vql-queries">Server Side VQL Queries.</h1>
+
+<p>By now you are probably familiar with Velociraptor and VQL. We have seen
+that it is possible to run a VQL query interactively from the
+commandline. For example to find all processes matching the \&lsquo;gimp\&rsquo;:</p>
+
+<pre><code class="language-.sourceCode">$ velociraptor query \
+   &quot;SELECT Pid, Exe, Cmdline FROM pslist() WHERE Exe =~ 'gimp'&quot;
+[
+ {
+  &quot;Cmdline&quot;: &quot;gimp-2.10&quot;,
+  &quot;Exe&quot;: &quot;/usr/bin/gimp-2.10&quot;,
+  &quot;Pid&quot;: 13207
+ }
+]
+</code></pre>
+
 <p>We have used this feature previously in order to perfect and test our
 queries by interactively building the query as we go along.</p>
-<p>However it is also possible to run queries on the server itself in
-order to collect information about the server. There is nothing
-special about this as such - it is simply that some VQL plugins are
-able to operate on the server's internal data store and therefore
-provide a way to interact with the server via VQL queries.</p>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p>Other endpoint monitoring tools export a rich API and even an API
-client library to enable users to customize and control their
-installation. For example, GRR expects users write python scripts
-using the GRR client API library.</p>
-<p class="last">Velociraptor's approach is different - the functionality typically
+
+<dl>
+<dt>interact with the server via VQL queries.</dt>
+<dt>::: {.note}
+::: {.admonition-title}
+Note
+:::</dt>
+</dl>
+
+<dl>
+<dt>interact with the server via VQL queries.</dt>
+<dt>::: {.note}
+::: {.admonition-title}
+Note
+:::</dt>
+</dl>
+
+<dl>
+<dt>interact with the server via VQL queries.</dt>
+<dt>::: {.note}
+::: {.admonition-title}
+Note
+:::</dt>
+</dl>
+
+<dl>
+<dt>interact with the server via VQL queries.</dt>
+<dt>::: {.note}
+::: {.admonition-title}
+Note
+:::</dt>
+</dl>
+
+<p>itle}
+Note
+:::</p>
+
+<p>Other endpoint monitoring tools export a rich API and even an API client
+library to enable users to customize and control their installation. For
+example, GRR expects users write python scripts using the GRR client API
+library.</p>
+
+<p>Velociraptor\&rsquo;s approach is different - the functionality typically
 available via APIs is made available to VQL queries via VQL plugins
-(e.g. client information, flow information and results
-collected). In this way the VQL itself forms an API with which one
-controls the server and deployment. There is no need to write any
-code - simply use existing VQL plugins in any combination that
-makes sense to create new functionality - then encapsulates these
-queries inside Velociraptor artifacts for reuse and sharing.</p>
-</div>
+(e.g. client information, flow information and results collected). In
+this way the VQL itself forms an API with which one controls the server
+and deployment. There is no need to write any code - simply use existing
+VQL plugins in any combination that makes sense to create new
+functionality - then encapsulates these queries inside Velociraptor
+artifacts for reuse and sharing.
+:::</p>
+
 <p>For example, to see all the clients and their hostnames:</p>
-<pre class="code bash literal-block">
-$ velociraptor query <span class="literal string escape">\
-</span>   <span class="literal string double">&quot;SELECT os_info.fqdn as Hostname, client_id from clients()&quot;</span> --format text
+
+<pre><code class="language-.sourceCode">$ velociraptor query \
+   &quot;SELECT os_info.fqdn as Hostname, client_id from clients()&quot; --format text
 +-----------------+--------------------+
-<span class="punctuation">|</span>    Hostname     <span class="punctuation">|</span>     client_id      <span class="punctuation">|</span>
+|    Hostname     |     client_id      |
 +-----------------+--------------------+
-<span class="punctuation">|</span> mic-Inspiron    <span class="punctuation">|</span> C.772d16449719317f <span class="punctuation">|</span>
-<span class="punctuation">|</span> TestComputer    <span class="punctuation">|</span> C.11a3013cca8f826e <span class="punctuation">|</span>
-<span class="punctuation">|</span> trek            <span class="punctuation">|</span> C.952156a4b022ddee <span class="punctuation">|</span>
-<span class="punctuation">|</span> DESKTOP-IOME2K5 <span class="punctuation">|</span> C.c916a7e445eb0868 <span class="punctuation">|</span>
+| mic-Inspiron    | C.772d16449719317f |
+| TestComputer    | C.11a3013cca8f826e |
+| trek            | C.952156a4b022ddee |
+| DESKTOP-IOME2K5 | C.c916a7e445eb0868 |
 +-----------------+--------------------+
 SELECT os_info.fqdn AS Hostname,
-client_id FROM clients<span class="operator">()</span>
-</pre>
+client_id FROM clients()
+</code></pre>
+
 <p>To inspect what flows were run on a client:</p>
-<pre class="code bash literal-block">
-$ velociraptor query <span class="literal string escape">\
-</span>   <span class="literal string double">&quot;SELECT runner_args.creator, runner_args.flow_name, \
+
+<pre><code class="language-.sourceCode">$ velociraptor query \
+   &quot;SELECT runner_args.creator, runner_args.flow_name, \
     runner_args.start_time FROM \
-    flows(client_id='C.772d16449719317f')&quot;</span>
-<span class="operator">[</span>
-<span class="operator">{</span>
-  <span class="literal string double">&quot;runner_args.creator&quot;</span>: <span class="literal string double">&quot;&quot;</span>,
-  <span class="literal string double">&quot;runner_args.flow_name&quot;</span>: <span class="literal string double">&quot;MonitoringFlow&quot;</span>,
-  <span class="literal string double">&quot;runner_args.start_time&quot;</span>: <span class="literal number">1544338661236625</span>
-<span class="operator">}</span>,
-<span class="operator">{</span>
-  <span class="literal string double">&quot;runner_args.creator&quot;</span>: <span class="literal string double">&quot;mic&quot;</span>,
-  <span class="literal string double">&quot;runner_args.flow_name&quot;</span>: <span class="literal string double">&quot;VFSDownloadFile&quot;</span>,
-  <span class="literal string double">&quot;runner_args.start_time&quot;</span>: <span class="literal number">1544087705756469</span>
-<span class="operator">}</span>,
+    flows(client_id='C.772d16449719317f')&quot;
+[
+{
+  &quot;runner_args.creator&quot;: &quot;&quot;,
+  &quot;runner_args.flow_name&quot;: &quot;MonitoringFlow&quot;,
+  &quot;runner_args.start_time&quot;: 1544338661236625
+},
+{
+  &quot;runner_args.creator&quot;: &quot;mic&quot;,
+  &quot;runner_args.flow_name&quot;: &quot;VFSDownloadFile&quot;,
+  &quot;runner_args.start_time&quot;: 1544087705756469
+},
 ...
-</pre>
-</div>
-<div class="section" id="client-event-monitoring">
-<h2>Client Event Monitoring</h2>
-<p>We have also previously seen that Velociraptor can collect event
-streams from clients. For example, the client's process execution logs
-can be streamed to the server. Clients can also receive event queries
-which forward selected events from the windows event logs.</p>
+</code></pre>
+
+<h1 id="client-event-monitoring">Client Event Monitoring</h1>
+
+<p>We have also previously seen that Velociraptor can collect event streams
+from clients. For example, the client\&rsquo;s process execution logs can be
+streamed to the server. Clients can also receive event queries which
+forward selected events from the windows event logs.</p>
+
 <p>When we covered those features in earlier blog posts, we stressed that
 the Velociraptor server does not actually do anything with the client
 events, other than save them to a file. The server just writes the
-client's events in simple Comma Separated files (CSV files) on the
+client\&rsquo;s events in simple Comma Separated files (CSV files) on the
 server.</p>
+
 <p>We mentioned that it is possible to import this file into another tool
-(e.g. a spreadsheet or database) for post-processing. An alternative
-is to perform post-processing with Velociraptor itself using server
-side VQL queries.</p>
-<p>For example, we can filter a client's process execution log using a
-VQL query:</p>
-<pre class="code bash literal-block">
-$ velociraptor query <span class="literal string double">&quot;SELECT * from monitoring(
+(e.g. a spreadsheet or database) for post-processing. An alternative is
+to perform post-processing with Velociraptor itself using server side
+VQL queries.</p>
+
+<p>For example, we can filter a client\&rsquo;s process execution log using a VQL
+query:</p>
+
+<pre><code class="language-.sourceCode">$ velociraptor query &quot;SELECT * from monitoring(
       client_id='C.87b19dba006fcddb',
       artifact='Windows.Events.ProcessCreation')
-    WHERE Name =~ '(?i)psexesvc' &quot;</span>
-<span class="operator">[</span>
- <span class="operator">{</span>
-  <span class="literal string double">&quot;CommandLine&quot;</span>: <span class="literal string double">&quot;\&quot;C:\\\\Windows\\\\PSEXESVC.exe\&quot;&quot;</span>,
-  <span class="literal string double">&quot;Name&quot;</span>: <span class="literal string double">&quot;\&quot;PSEXESVC.exe\&quot;&quot;</span>,
-  <span class="literal string double">&quot;PID&quot;</span>: <span class="literal string double">&quot;452&quot;</span>,
-  <span class="literal string double">&quot;PPID&quot;</span>: <span class="literal string double">&quot;512&quot;</span>,
-  <span class="literal string double">&quot;Timestamp&quot;</span>: <span class="literal string double">&quot;\&quot;2018-12-09T23:30:42-08:00\&quot;&quot;</span>,
-  <span class="literal string double">&quot;artifact&quot;</span>: <span class="literal string double">&quot;Windows.Events.ProcessCreation&quot;</span>,
-  <span class="literal string double">&quot;client_id&quot;</span>: <span class="literal string double">&quot;C.87b19dba006fcddb&quot;</span>
- <span class="operator">}</span>
-<span class="operator">]</span>
-</pre>
-<p>The above query finds running instances of psexec's service
-component - a popular method of lateral movement and privilege
-escalation.</p>
-<p>This query uses the <cite>monitoring()</cite> VQL plugin which opens each of the
-CSV event monitoring logs for the specified artifact on the server,
-decodes the CSV file and emits all the rows within it into the VQL
-Query. The rows are then filtered by applying the regular expression
-to the name.</p>
-</div>
-<div class="section" id="server-side-event-queries">
-<h2>Server side event queries</h2>
+    WHERE Name =~ '(?i)psexesvc' &quot;
+[
+ {
+  &quot;CommandLine&quot;: &quot;\&quot;C:\\\\Windows\\\\PSEXESVC.exe\&quot;&quot;,
+  &quot;Name&quot;: &quot;\&quot;PSEXESVC.exe\&quot;&quot;,
+  &quot;PID&quot;: &quot;452&quot;,
+  &quot;PPID&quot;: &quot;512&quot;,
+  &quot;Timestamp&quot;: &quot;\&quot;2018-12-09T23:30:42-08:00\&quot;&quot;,
+  &quot;artifact&quot;: &quot;Windows.Events.ProcessCreation&quot;,
+  &quot;client_id&quot;: &quot;C.87b19dba006fcddb&quot;
+ }
+]
+</code></pre>
+
+<p>The above query finds running instances of psexec\&rsquo;s service component -
+a popular method of lateral movement and privilege escalation.</p>
+
+<p>This query uses the monitoring() VQL plugin which opens each of the CSV
+event monitoring logs for the specified artifact on the server, decodes
+the CSV file and emits all the rows within it into the VQL Query. The
+rows are then filtered by applying the regular expression to the name.</p>
+
+<h1 id="server-side-event-queries">Server side event queries</h1>
+
 <p>VQL queries do not have to terminate at all. Some VQL plugins can run
 indefinitely, emitting rows at random times - usually in response to
-some events. These are called Event Queries since they never
-terminate. We saw this property when monitoring the client - the above
-<cite>Windows.Events.ProcessCreation</cite> artifact uses an event query which
-emits a single row for each process execution on the end point.</p>
-<p>However, we can also have Event Queries on the server. When used in
-this way the query triggers in response to data collected by the
-server of various clients.</p>
-<p>For example, consider the above query to detect instances of <cite>psexec</cite>
+some events. These are called Event Queries since they never terminate.
+We saw this property when monitoring the client - the above
+Windows.Events.ProcessCreation artifact uses an event query which emits
+a single row for each process execution on the end point.</p>
+
+<p>However, we can also have Event Queries on the server. When used in this
+way the query triggers in response to data collected by the server of
+various clients.</p>
+
+<p>For example, consider the above query to detect instances of psexec
 executions. While we can detect this by filtering existing monitoring
 event logs, it would be nice to be able to respond to such an event
 dynamically.</p>
-<p>One way is to repeatedly run the same query (say every minute) and
-look for newly reported instances of <cite>psexec</cite> executions. But this
-approach is not terribly efficient. A better approach is to install
-a watcher on the monitoring event log:</p>
-<pre class="code bash literal-block">
-$ velociraptor query <span class="literal string double">&quot;SELECT * from watch_monitoring(
+
+<p>One way is to repeatedly run the same query (say every minute) and look
+for newly reported instances of psexec executions. But this approach is
+not terribly efficient. A better approach is to install a watcher on the
+monitoring event log:</p>
+
+<pre><code class="language-.sourceCode">$ velociraptor query &quot;SELECT * from watch_monitoring(
      client_id='C.87b19dba006fcddb',
-     artifact='Windows.Events.ProcessCreation') where Name =~ '(?i)psexesvc' &quot;</span>
-<span class="operator">[</span>
- <span class="operator">{</span>
-  <span class="literal string double">&quot;CommandLine&quot;</span>: <span class="literal string double">&quot;\&quot;C:\\\\Windows\\\\PSEXESVC.exe\&quot;&quot;</span>,
-  <span class="literal string double">&quot;Name&quot;</span>: <span class="literal string double">&quot;\&quot;PSEXESVC.exe\&quot;&quot;</span>,
-  <span class="literal string double">&quot;PID&quot;</span>: <span class="literal string double">&quot;4592&quot;</span>,
-  <span class="literal string double">&quot;PPID&quot;</span>: <span class="literal string double">&quot;512&quot;</span>,
-  <span class="literal string double">&quot;Timestamp&quot;</span>: <span class="literal string double">&quot;\&quot;2018-12-10T01:18:06-08:00\&quot;&quot;</span>,
-  <span class="literal string double">&quot;artifact&quot;</span>: <span class="literal string double">&quot;Windows.Events.ProcessCreation&quot;</span>,
-  <span class="literal string double">&quot;client_id&quot;</span>: <span class="literal string double">&quot;C.87b19dba006fcddb&quot;</span>
- <span class="operator">}</span>
-<span class="operator">]</span>
-</pre>
+     artifact='Windows.Events.ProcessCreation') where Name =~ '(?i)psexesvc' &quot;
+[
+ {
+  &quot;CommandLine&quot;: &quot;\&quot;C:\\\\Windows\\\\PSEXESVC.exe\&quot;&quot;,
+  &quot;Name&quot;: &quot;\&quot;PSEXESVC.exe\&quot;&quot;,
+  &quot;PID&quot;: &quot;4592&quot;,
+  &quot;PPID&quot;: &quot;512&quot;,
+  &quot;Timestamp&quot;: &quot;\&quot;2018-12-10T01:18:06-08:00\&quot;&quot;,
+  &quot;artifact&quot;: &quot;Windows.Events.ProcessCreation&quot;,
+  &quot;client_id&quot;: &quot;C.87b19dba006fcddb&quot;
+ }
+]
+</code></pre>
+
 <p>The watcher efficiently follows the monitoring CSV file to detect new
 events. These events are then emitted into the VQL query and
 subsequently filtered. When the query processes all rows in the file,
 the plugin just sleeps and waits for the file to grow again. The
-<cite>watch_monitoring()</cite> plugin essentially tails the CSV file as it is
-being written. Note that due to the fact that log files are never
-truncated and always grow, and that CSV file format is a simple, one
-row per line format it is possible to both read and write to the same
-file without locking. This makes following a growing log file
-extremely efficient and safe - even from another process.</p>
-</div>
-<div class="section" id="responding-to-server-side-events">
-<h2>Responding to server side events</h2>
-<p>The previous query will return a row when psexec is run on the
-client. This is a very suspicious event in our environment and we
-would like to escalate this by sending us an email.</p>
+watch_monitoring() plugin essentially tails the CSV file as it is being
+written. Note that due to the fact that log files are never truncated
+and always grow, and that CSV file format is a simple, one row per line
+format it is possible to both read and write to the same file without
+locking. This makes following a growing log file extremely efficient and
+safe - even from another process.</p>
+
+<h1 id="responding-to-server-side-events">Responding to server side events</h1>
+
+<p>The previous query will return a row when psexec is run on the client.
+This is a very suspicious event in our environment and we would like to
+escalate this by sending us an email.</p>
+
 <p>We can modify the above query to send an email for each event:</p>
-<pre class="code psql literal-block">
-<span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> <span class="name">foreach</span><span class="punctuation">(</span>
-   <span class="keyword">row</span><span class="operator">=</span><span class="punctuation">{</span>
-     <span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">from</span> <span class="name">watch_monitoring</span><span class="punctuation">(</span>
-       <span class="name">client_id</span><span class="operator">=</span><span class="literal string single">'C.87b19dba006fcddb'</span><span class="punctuation">,</span>
-       <span class="name">artifact</span><span class="operator">=</span><span class="literal string single">'Windows.Events.ProcessCreation'</span><span class="punctuation">)</span>
-    <span class="keyword">WHERE</span> <span class="keyword">Name</span> <span class="operator">=~</span> <span class="literal string single">'(?i)psexesvc'</span>
-   <span class="punctuation">},</span>
-   <span class="name">query</span><span class="operator">=</span><span class="punctuation">{</span>
-     <span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> <span class="name">mail</span><span class="punctuation">(</span>
-       <span class="keyword">to</span><span class="operator">=</span><span class="literal string single">'admin&#64;example.com'</span><span class="punctuation">,</span>
-       <span class="name">subject</span><span class="operator">=</span><span class="literal string single">'PsExec launched on host'</span><span class="punctuation">,</span>
-       <span class="name">period</span><span class="operator">=</span><span class="literal number float">60</span><span class="punctuation">,</span>
-       <span class="name">body</span><span class="operator">=</span><span class="name">format</span><span class="punctuation">(</span><span class="name">format</span><span class="operator">=</span><span class="literal string single">'PsExec execution detected at %v: %v'</span><span class="punctuation">,</span>
-                   <span class="name">args</span><span class="operator">=</span><span class="punctuation">[</span><span class="name builtin">Timestamp</span><span class="punctuation">,</span> <span class="name">Commandline</span><span class="punctuation">])</span>
-     <span class="punctuation">)</span>
-   <span class="punctuation">})</span>
-</pre>
+
+<pre><code class="language-.sourceCode">SELECT * FROM foreach(
+   row={
+     SELECT * from watch_monitoring(
+       client_id='C.87b19dba006fcddb',
+       artifact='Windows.Events.ProcessCreation')
+    WHERE Name =~ '(?i)psexesvc'
+   },
+   query={
+     SELECT * FROM mail(
+       to='admin@example.com',
+       subject='PsExec launched on host',
+       period=60,
+       body=format(format='PsExec execution detected at %v: %v',
+                   args=[Timestamp, Commandline])
+     )
+   })
+</code></pre>
+
 <p>The query sends an email from each event emitted. The message body is
-formatted using the <cite>format()</cite> VQL function and this includes
-important information from the generated event. Note that the <cite>mail()</cite>
-plugin restricts the frequency of mails to prevent triggering the mail
-server's spam filters. So if two psexec executions occur within 60
+formatted using the format() VQL function and this includes important
+information from the generated event. Note that the mail() plugin
+restricts the frequency of mails to prevent triggering the mail
+server\&rsquo;s spam filters. So if two psexec executions occur within 60
 seconds we will only get one email.</p>
+
 <p>In order for Velociraptor to be able to send mail you must configure
-SMTP parameters in the server's configuration file. The following
-example uses gmail to send mails (other mail providers will have
-similar authentication requirements).</p>
-<pre class="code yaml literal-block">
-<span class="name tag">Mail</span><span class="punctuation">:</span>
-  <span class="name tag">server</span><span class="punctuation">:</span> <span class="literal string">&quot;smtp.gmail.com&quot;</span>
-  <span class="name tag">auth_username</span><span class="punctuation">:</span> <span class="literal scalar plain">someuser&#64;gmail.com</span>
-  <span class="name tag">auth_password</span><span class="punctuation">:</span> <span class="literal scalar plain">zldifhjsdflkjfsdlie</span>
-</pre>
+SMTP parameters in the server\&rsquo;s configuration file. The following
+example uses gmail to send mails (other mail providers will have similar
+authentication requirements).</p>
+
+<pre><code class="language-.sourceCode">Mail:
+  server: &quot;smtp.gmail.com&quot;
+  auth_username: someuser@gmail.com
+  auth_password: zldifhjsdflkjfsdlie
+</code></pre>
+
 <p>The password in the configuration is an application specific password
 obtained from
-<a class="reference external" href="https://security.google.com/settings/security/apppasswords">https://security.google.com/settings/security/apppasswords</a></p>
-<img alt="app_password.png" src="app_password.png" />
-</div>
-<div class="section" id="tying-it-all-together-server-side-event-artifacts">
-<h2>Tying it all together: Server Side Event Artifacts</h2>
+<a href="https://security.google.com/settings/security/apppasswords">https://security.google.com/settings/security/apppasswords</a></p>
+
+<p><img src="app_password.png" alt="image" /></p>
+
+<h1 id="tying-it-all-together-server-side-event-artifacts">Tying it all together: Server Side Event Artifacts</h1>
+
 <p>As always we really want to encapsulate VQL queries in artifact
 definitions. This way we can design specific alerts, document them and
 invoke them by name. Let us encapsulate the above queries in a new
 artifact:</p>
-<pre class="code yaml literal-block">
-<span class="name tag">name</span><span class="punctuation">:</span> <span class="literal scalar plain">Server.Alerts.PsExec</span>
-<span class="name tag">description</span><span class="punctuation">:</span>  <span class="punctuation indicator">|</span>
-   <span class="name constant">Send an email if execution of the psexec service was detected on any client.</span>
 
-   <span class="name constant">Note this requires that the Windows.Event.ProcessCreation</span>
-   <span class="name constant">monitoring artifact be collected.</span>
+<pre><code class="language-.sourceCode">name: Server.Alerts.PsExec
+description:  |
+   Send an email if execution of the psexec service was detected on any client.
 
-<span class="name tag">parameters</span><span class="punctuation">:</span>
-  <span class="punctuation indicator">-</span> <span class="name tag">name</span><span class="punctuation">:</span> <span class="literal scalar plain">EmailAddress</span>
-    <span class="name tag">default</span><span class="punctuation">:</span> <span class="literal scalar plain">admin&#64;example.com</span>
-  <span class="punctuation indicator">-</span> <span class="name tag">name</span><span class="punctuation">:</span> <span class="literal scalar plain">MessageTemplate</span>
-    <span class="name tag">default</span><span class="punctuation">:</span> <span class="punctuation indicator">|</span>
-      <span class="name constant">PsExec execution detected at %v: %v for client %v</span>
+   Note this requires that the Windows.Event.ProcessCreation
+   monitoring artifact be collected.
 
-<span class="name tag">sources</span><span class="punctuation">:</span>
-  <span class="punctuation indicator">-</span> <span class="name tag">queries</span><span class="punctuation">:</span>
-     <span class="punctuation indicator">-</span> <span class="punctuation indicator">|</span>
-       <span class="name constant">SELECT * FROM foreach(</span>
-         <span class="name constant">row={</span>
-           <span class="name constant">SELECT * from watch_monitoring(</span>
-             <span class="name constant">artifact='Windows.Events.ProcessCreation')</span>
-           <span class="name constant">WHERE Name =~ '(?i)psexesvc'</span>
-         <span class="name constant">},</span>
-         <span class="name constant">query={</span>
-           <span class="name constant">SELECT * FROM mail(</span>
-             <span class="name constant">to=EmailAddress,</span>
-             <span class="name constant">subject='PsExec launched on host',</span>
-             <span class="name constant">period=60,</span>
-             <span class="name constant">body=format(</span>
-               <span class="name constant">format=MessageTemplate,</span>
-               <span class="name constant">args=[Timestamp, CommandLine, ClientId])</span>
-          <span class="name constant">)</span>
-       <span class="name constant">})</span>
-</pre>
-<p>We create a new directory called <cite>my_artifact_directory</cite> and store
-that file inside as <cite>psexesvc.yaml</cite>. Now, on the server we invoke the
-artifact collector and instruct it to also add our private artifacts:</p>
-<pre class="code bash literal-block">
-$ velociraptor --definitions my_artifact_directory/ <span class="literal string escape">\
-</span>    --config ~/server.config.yaml <span class="literal string escape">\
-</span>    --format json <span class="literal string escape">\
-</span>    artifacts collect Server.Alerts.PsExec
-INFO:2018/12/10 <span class="literal number">21</span>:36:27 Loaded <span class="literal number">40</span> built in artifacts
-INFO:2018/12/10 <span class="literal number">21</span>:36:27 Loading artifacts my_artifact_directory/
-<span class="operator">[][</span>
- <span class="operator">{</span>
-  <span class="literal string double">&quot;To&quot;</span>: <span class="operator">[</span>
-    <span class="literal string double">&quot;admin&#64;example.com&quot;</span>
-  <span class="operator">]</span>,
-  <span class="literal string double">&quot;CC&quot;</span>: null,
-  <span class="literal string double">&quot;Subject&quot;</span>: <span class="literal string double">&quot;PsExec launched on host&quot;</span>,
-  <span class="literal string double">&quot;Body&quot;</span>: <span class="literal string double">&quot;PsExec execution detected at \&quot;2018-12-10T03:36:49-08:00\&quot;: \&quot;C:\\\\Windows\\\\PSEXESVC.exe\&quot;&quot;</span>,
-  <span class="literal string double">&quot;Period&quot;</span>: <span class="literal number">60</span>
- <span class="operator">}</span>
-<span class="operator">]</span>
-</pre>
-</div>
-<div class="section" id="conclusions">
-<h2>Conclusions</h2>
-<p>This blog post demonstrates how VQL can be used on the server to
-create a full featured incident response framework. Velociraptor does
-not dictate a particular workflow, since all its actions are governed
-by VQL queries and artifacts. Using the same basic building blocks,
-users can fashion their own highly customized incident response
-workflow. Here is a brainstorm of possible actions:</p>
-<ol class="arabic simple">
-<li>An artifact can be written to automatically collect a memory
-capture if a certain event is detected.</li>
-<li>Using the <cite>http_client()</cite> VQL plugin, when certain events are
+parameters:
+  - name: EmailAddress
+    default: admin@example.com
+  - name: MessageTemplate
+    default: |
+      PsExec execution detected at %v: %v for client %v
+
+sources:
+  - queries:
+     - |
+       SELECT * FROM foreach(
+         row={
+           SELECT * from watch_monitoring(
+             artifact='Windows.Events.ProcessCreation')
+           WHERE Name =~ '(?i)psexesvc'
+         },
+         query={
+           SELECT * FROM mail(
+             to=EmailAddress,
+             subject='PsExec launched on host',
+             period=60,
+             body=format(
+               format=MessageTemplate,
+               args=[Timestamp, CommandLine, ClientId])
+          )
+       })
+</code></pre>
+
+<p>We create a new directory called my_artifact_directory and store that
+file inside as psexesvc.yaml. Now, on the server we invoke the artifact
+collector and instruct it to also add our private artifacts:</p>
+
+<pre><code class="language-.sourceCode">$ velociraptor --definitions my_artifact_directory/ \
+    --config ~/server.config.yaml \
+    --format json \
+    artifacts collect Server.Alerts.PsExec
+INFO:2018/12/10 21:36:27 Loaded 40 built in artifacts
+INFO:2018/12/10 21:36:27 Loading artifacts my_artifact_directory/
+[][
+ {
+  &quot;To&quot;: [
+    &quot;admin@example.com&quot;
+  ],
+  &quot;CC&quot;: null,
+  &quot;Subject&quot;: &quot;PsExec launched on host&quot;,
+  &quot;Body&quot;: &quot;PsExec execution detected at \&quot;2018-12-10T03:36:49-08:00\&quot;: \&quot;C:\\\\Windows\\\\PSEXESVC.exe\&quot;&quot;,
+  &quot;Period&quot;: 60
+ }
+]
+</code></pre>
+
+<h1 id="conclusions">Conclusions</h1>
+
+<p>This blog post demonstrates how VQL can be used on the server to create
+a full featured incident response framework. Velociraptor does not
+dictate a particular workflow, since all its actions are governed by VQL
+queries and artifacts. Using the same basic building blocks, users can
+fashion their own highly customized incident response workflow. Here is
+a brainstorm of possible actions:</p>
+
+<ol>
+<li>An artifact can be written to automatically collect a memory capture
+if a certain event is detected.</li>
+<li>Using the http_client() VQL plugin, when certain events are
 detected on the server open a ticket automatically (using a SOAP or
 JSON API).</li>
-<li>If a particular event is detected, immediately shut the machine
-down or quarantine it (by running shell commands on the compromised
+<li>If a particular event is detected, immediately shut the machine down
+or quarantine it (by running shell commands on the compromised
 host).</li>
 </ol>
+
 <p>The possibilities are truly endless. Comment below if you have more
-interesting ideas and do not hesitate to contribute artifact
-definitions to address your real world use cases.</p>
-</div>
-</div>
+interesting ideas and do not hesitate to contribute artifact definitions
+to address your real world use cases.</p>
+
 
     
     
@@ -764,7 +864,7 @@ definitions to address your real world use cases.</p>
 
 <div id="navigation">
 <a class="nav nav-prev" href="/docs/presentations/nzitf2018/" title="New Zealand Internet Task Force Conference 2018"> <i class="fa fa-chevron-left"></i><label>New Zealand Internet Task Force Conference 2018</label></a>
-    <a class="nav nav-next" href="/about/" title="About Velociraptor" style="margin-right: 0px;"><label>About Velociraptor</label><i class="fa fa-chevron-right"></i></a></div>
+    <a class="nav nav-next" href="/blog/medium/2019-11-15_recovering-deleted-ntfs-files-with-velociraptor-1fcf09855311/" title="Recovering deleted NTFS Files with Velociraptor" style="margin-right: 0px;"><label>Recovering deleted NTFS Files with Velociraptor</label><i class="fa fa-chevron-right"></i></a></div>
 
 </section>
 <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">

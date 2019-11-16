@@ -376,6 +376,48 @@
             <i class="fa fa-angle-down fa-lg category-icon"></i>
       </div>
         <ul>
+      <li data-nav-id="/blog/medium/2019-11-15_recovering-deleted-ntfs-files-with-velociraptor-1fcf09855311/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-11-15_recovering-deleted-ntfs-files-with-velociraptor-1fcf09855311/">
+            Recovering deleted NTFS Files with Velociraptor
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-11-12_windows-event-logs-d8d8e615c9ca/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-11-12_windows-event-logs-d8d8e615c9ca/">
+            Windows Event Logs
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-10-08_triage-with-velociraptor-pt-3-d6f63215f579/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-10-08_triage-with-velociraptor-pt-3-d6f63215f579/">
+            Triage with Velociraptor — Pt 3
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-10-04_triage-with-velociraptor-pt-2-d0f79066ca0e/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-10-04_triage-with-velociraptor-pt-2-d0f79066ca0e/">
+            Triage with Velociraptor — Pt 2
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-10-02_triage-with-velociraptor-pt-1-253f57ce96c0/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-10-02_triage-with-velociraptor-pt-1-253f57ce96c0/">
+            Triage with Velociraptor — Pt 1
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-09-11_velociraptor-s-client-side-buffer-3ce03697a4e6/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-09-11_velociraptor-s-client-side-buffer-3ce03697a4e6/">
+            Velociraptor’s client side buffer
+          </a>
+        </div>
+    </li>
         </ul>
     </li>
 
@@ -428,7 +470,13 @@
     
     <div class="progress">
         <div class="wrapper">
-    
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#how-are-hunts-scheduled">How are hunts scheduled?</a></li>
+<li><a href="#the-hunt-s-life-cycle">The hunt\&rsquo;s life cycle</a></li>
+<li><a href="#the-hunt-manager">The hunt manager</a></li>
+</ul>
+</nav>
         </div>
     </div>
     
@@ -446,98 +494,140 @@
     
     
     
-    <div class="document">
-
+    
 
 <p>Velociraptor has completely redesigned the way that hunts are
 implemented in order to avoid database locking and increase hunt
 processing efficiency.</p>
+
 <p>Now we hunt like this:</p>
-<img alt="image4.jpg" class="align-center" src="image4.jpg" />
-<div class="section" id="how-are-hunts-scheduled">
-<h2>How are hunts scheduled?</h2>
+
+<p><img src="image4.jpg" alt="image" />{.align-center}</p>
+
+<h1 id="how-are-hunts-scheduled">How are hunts scheduled?</h1>
+
 <p>GRR allows hunts to be scheduled by a few client properties such as OS
 type, label, users etc. This works because GRR has an extensive data
-model of endpoint properties. However, this requires that the data
-model be refreshed periodically to be kept accurate. For example, to
-run a hunt of all machines with a suspected compromised user account
-we can schedule the run on all machines where the user has logged in,
-but because GRR uses its data model to decide if a machine should be
-issued the hunt, the data model may be out of date and GRR will not
-schedule the hunt on machines which have only recently been logged
-into. For this reason we typically run the Interrogate hunt very
-frequently causing a lot of extra load on the system and clients
-hoping to minimize the time window where the data model is out of date
-with reality.</p>
-<p>Velociraptor's approach is different - since Velociraptor does not
-really maintain a data model server side, we check the client's
-information for every hunt, before we even decide if the hunt should
-be scheduled for this client. This is done by issuing a VQL query to
-the client.</p>
-<p>Sometimes we don't necessarily want the client to know exactly why we
+model of endpoint properties. However, this requires that the data model
+be refreshed periodically to be kept accurate. For example, to run a
+hunt of all machines with a suspected compromised user account we can
+schedule the run on all machines where the user has logged in, but
+because GRR uses its data model to decide if a machine should be issued
+the hunt, the data model may be out of date and GRR will not schedule
+the hunt on machines which have only recently been logged into. For this
+reason we typically run the Interrogate hunt very frequently causing a
+lot of extra load on the system and clients hoping to minimize the time
+window where the data model is out of date with reality.</p>
+
+<p>Velociraptor\&rsquo;s approach is different - since Velociraptor does not
+really maintain a data model server side, we check the client\&rsquo;s
+information for every hunt, before we even decide if the hunt should be
+scheduled for this client. This is done by issuing a VQL query to the
+client.</p>
+
+<p>Sometimes we don\&rsquo;t necessarily want the client to know exactly why we
 are scheduling the hunt (e.g. in the compromised user account case we
-don't want to advertise the exact username we are looking for). In
+don\&rsquo;t want to advertise the exact username we are looking for). In
 these cases we run another VQL query on the server side.</p>
+
 <p>So hunt selection is managed by two different VQL queries - a client
 side one and a server side on.</p>
-<p>The default client side VQL queries simply collects the usual facts
-like OS version, Username etc, while the server side query filters the
-results with more specific conditions. This approach does not reveal
-to the client the hunt's condition:</p>
-<pre class="code sql literal-block">
-<span class="name">Client</span> <span class="name">side</span> <span class="name">VQL</span><span class="punctuation">:</span>
-    <span class="keyword">SELECT</span> <span class="name">OS</span><span class="punctuation">,</span> <span class="name">Architecture</span><span class="punctuation">,</span> <span class="name">Fqdn</span><span class="punctuation">,</span> <span class="name">Platform</span><span class="punctuation">,</span>
-      <span class="name">config</span><span class="punctuation">.</span><span class="name">Client_labels</span> <span class="keyword">AS</span> <span class="name">Labels</span>
-      <span class="keyword">FROM</span> <span class="name">info</span><span class="punctuation">()</span>
 
-<span class="name">Server</span> <span class="name">side</span> <span class="name">VQL</span><span class="punctuation">:</span>
-    <span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">from</span> <span class="keyword">rows</span>
-      <span class="keyword">WHERE</span> <span class="name">Fqdn</span> <span class="operator">=~</span> <span class="literal string single">'(?i)myhostname.+'</span> <span class="keyword">AND</span> <span class="literal string single">'MY_LABEL'</span> <span class="keyword">IN</span> <span class="name">Labels</span>
-</pre>
-</div>
-<div class="section" id="the-hunt-s-life-cycle">
-<h2>The hunt's life cycle</h2>
-<p>When the hunt is started, the server updates its in-memory list of
-active hunts managed by the Foreman. Clients then poll the foreman for
-new hunts they should participate in. Clients remember the last hunt
-they participated in and so they present this hunt's timestamp to the
-foreman. If a new hunt is available, the foreman can immediately
-launch the CheckHuntCondition flow on the client.</p>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">The clients themselves are actively keeping track of the hunts they
-participated in. This avoids the server having to check the
-client's DB record.</p>
-</div>
-<p>The CheckHuntCondition flow issues the client side VQL queries and
-then runs the server side query on the results. If the query matches
-(i.e. the hunt should be scheduled for this client), the client's
-record is written into the hunt's &quot;pending&quot; queue.</p>
-</div>
-<div class="section" id="the-hunt-manager">
-<h2>The hunt manager</h2>
+<p>The default client side VQL queries simply collects the usual facts like
+OS version, Username etc, while the server side query filters the
+results with more specific conditions. This approach does not reveal to
+the client the hunt\&rsquo;s condition:</p>
+
+<pre><code class="language-.sourceCode">Client side VQL:
+    SELECT OS, Architecture, Fqdn, Platform,
+      config.Client_labels AS Labels
+      FROM info()
+
+Server side VQL:
+    SELECT * from rows
+      WHERE Fqdn =~ '(?i)myhostname.+' AND 'MY_LABEL' IN Labels
+</code></pre>
+
+<h1 id="the-hunt-s-life-cycle">The hunt\&rsquo;s life cycle</h1>
+
+<dl>
+<dt>the CheckHuntCondition flow on the client.</dt>
+<dt>::: {.note}
+::: {.admonition-title}
+Note
+:::</dt>
+</dl>
+
+<dl>
+<dt>the CheckHuntCondition flow on the client.</dt>
+<dt>::: {.note}
+::: {.admonition-title}
+Note
+:::</dt>
+</dl>
+
+<dl>
+<dt>the CheckHuntCondition flow on the client.</dt>
+<dt>::: {.note}
+::: {.admonition-title}
+Note
+:::</dt>
+</dl>
+
+<dl>
+<dt>the CheckHuntCondition flow on the client.</dt>
+<dt>::: {.note}
+::: {.admonition-title}
+Note
+:::</dt>
+</dl>
+
+<dl>
+<dt>untCondition flow on the client.</dt>
+<dt>::: {.note}
+::: {.admonition-title}
+Note
+:::</dt>
+</dl>
+
+<p>The clients themselves are actively keeping track of the hunts they
+participated in. This avoids the server having to check the client\&rsquo;s DB
+record.
+:::</p>
+
+<p>The CheckHuntCondition flow issues the client side VQL queries and then
+runs the server side query on the results. If the query matches (i.e.
+the hunt should be scheduled for this client), the client\&rsquo;s record is
+written into the hunt\&rsquo;s \&ldquo;pending\&rdquo; queue.</p>
+
+<h1 id="the-hunt-manager">The hunt manager</h1>
+
 <p>Each hunt specifies its own client recruitment rate (i.e. how many
 clients will be started per minute). The hunt manager is a component
 which periodically reads all hunts and schedules flows for these hunts
-if the hunts' client rate allows for more clients to be scheduled. It
-does this by moving clients from the pending queue to the running
-queue and starting respective flows for them.</p>
-<p>Once each of those flows completes, the record is moved from the
-running queue to the completed queue or the results queue if the flow
-produced any results. We can observe how many clients exist in each
-queue using the GUI.</p>
-<img alt="image2.png" src="image2.png" />
-<p>The flows that hunts launch arn the client. However, when they
-complete, a small record is made in the hunts's results queue pointing
-to the flow. It is therefore possible to retrieve all results from the
-hunt from all client's. For example, the GUI allows downloading a zip
-file of all the results and files uploaded:</p>
-<img alt="image7.png" src="image7.png" />
+if the hunts\&rsquo; client rate allows for more clients to be scheduled. It
+does this by moving clients from the pending queue to the running queue
+and starting respective flows for them.</p>
+
+<p>Once each of those flows completes, the record is moved from the running
+queue to the completed queue or the results queue if the flow produced
+any results. We can observe how many clients exist in each queue using
+the GUI.</p>
+
+<p><img src="image2.png" alt="image" /></p>
+
+<p>The flows that hunts launch arn the client. However, when they complete,
+a small record is made in the hunts\&rsquo;s results queue pointing to the
+flow. It is therefore possible to retrieve all results from the hunt
+from all client\&rsquo;s. For example, the GUI allows downloading a zip file
+of all the results and files uploaded:</p>
+
+<p><img src="image7.png" alt="image" /></p>
+
 <p>Since hunts invoke regular flows, and Velociraptor flows are much
-lighter than GRR's flows, hunts are much cheaper to run in terms of
+lighter than GRR\&rsquo;s flows, hunts are much cheaper to run in terms of
 resources consumed.</p>
-</div>
-</div>
+
 
     
     
@@ -549,7 +639,7 @@ resources consumed.</p>
 
 <div id="navigation">
 <a class="nav nav-prev" href="/docs/presentations/nzitf2018/" title="New Zealand Internet Task Force Conference 2018"> <i class="fa fa-chevron-left"></i><label>New Zealand Internet Task Force Conference 2018</label></a>
-    <a class="nav nav-next" href="/about/" title="About Velociraptor" style="margin-right: 0px;"><label>About Velociraptor</label><i class="fa fa-chevron-right"></i></a></div>
+    <a class="nav nav-next" href="/blog/medium/2019-11-15_recovering-deleted-ntfs-files-with-velociraptor-1fcf09855311/" title="Recovering deleted NTFS Files with Velociraptor" style="margin-right: 0px;"><label>Recovering deleted NTFS Files with Velociraptor</label><i class="fa fa-chevron-right"></i></a></div>
 
 </section>
 <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">

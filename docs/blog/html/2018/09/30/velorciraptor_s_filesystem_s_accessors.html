@@ -376,6 +376,48 @@
             <i class="fa fa-angle-down fa-lg category-icon"></i>
       </div>
         <ul>
+      <li data-nav-id="/blog/medium/2019-11-15_recovering-deleted-ntfs-files-with-velociraptor-1fcf09855311/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-11-15_recovering-deleted-ntfs-files-with-velociraptor-1fcf09855311/">
+            Recovering deleted NTFS Files with Velociraptor
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-11-12_windows-event-logs-d8d8e615c9ca/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-11-12_windows-event-logs-d8d8e615c9ca/">
+            Windows Event Logs
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-10-08_triage-with-velociraptor-pt-3-d6f63215f579/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-10-08_triage-with-velociraptor-pt-3-d6f63215f579/">
+            Triage with Velociraptor — Pt 3
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-10-04_triage-with-velociraptor-pt-2-d0f79066ca0e/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-10-04_triage-with-velociraptor-pt-2-d0f79066ca0e/">
+            Triage with Velociraptor — Pt 2
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-10-02_triage-with-velociraptor-pt-1-253f57ce96c0/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-10-02_triage-with-velociraptor-pt-1-253f57ce96c0/">
+            Triage with Velociraptor — Pt 1
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-09-11_velociraptor-s-client-side-buffer-3ce03697a4e6/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-09-11_velociraptor-s-client-side-buffer-3ce03697a4e6/">
+            Velociraptor’s client side buffer
+          </a>
+        </div>
+    </li>
         </ul>
     </li>
 
@@ -428,7 +470,13 @@
     
     <div class="progress">
         <div class="wrapper">
-    
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#using-filesystem-accessors-remotely-the-velociraptor-vfs">Using filesystem accessors remotely - The Velociraptor VFS</a></li>
+<li><a href="#a-note-about-filenames">A note about filenames.</a></li>
+<li><a href="#conclusions">Conclusions</a></li>
+</ul>
+</nav>
         </div>
     </div>
     
@@ -446,31 +494,35 @@
     
     
     
-    <div class="document">
+    
 
-
-<p>In addition, Velociraptor can now also read <a class="reference external" href="https://docs.microsoft.com/en-us/windows/desktop/vss/volume-shadow-copy-service-portal">Volume Shadow Copy</a>
+<p>In addition, Velociraptor can now also read <a href="https://docs.microsoft.com/en-us/windows/desktop/vss/volume-shadow-copy-service-portal">Volume Shadow
+Copy</a>
 snapshots. The gives a kind of time-machine ability to allow the
 investigator to look through the drive content at a previous point in
 the past.</p>
+
 <p>This blog post introduces the new features and describe how
-Velociraptor's filesystem accessors work to provide data from multiple
+Velociraptor\&rsquo;s filesystem accessors work to provide data from multiple
 sources to VQL queries.</p>
+
 <p>We have previously seen that Velociraptor can list and download files
-from the client's filesystem, as well as registry keys and values. The
-client's filesystem is made available to VQL plugins such as glob()
-allowing many Artifacts to be written that work on files, registry
-keys and raw NTFS volumes.</p>
+from the client\&rsquo;s filesystem, as well as registry keys and values. The
+client\&rsquo;s filesystem is made available to VQL plugins such as glob()
+allowing many Artifacts to be written that work on files, registry keys
+and raw NTFS volumes.</p>
+
 <p>While Velociraptor is a great remote response tool, everything that it
-can do remotely, it can also do locally using a command line
-interface. This gives the user an opportunity to interactively test
-their VQL queries while writing artifacts.</p>
+can do remotely, it can also do locally using a command line interface.
+This gives the user an opportunity to interactively test their VQL
+queries while writing artifacts.</p>
+
 <p>The latest release adds a couple of convenient command line options
 which allow the user to interact with the filesystem accessors. For
-example, to list the files in a directory we can use the &quot;velociraptor
-fs ls&quot; command:</p>
-<pre class="code console literal-block">
-<span class="generic output">F:\&gt;velociraptor.exe fs ls
+example, to list the files in a directory we can use the \&ldquo;velociraptor
+fs ls\&rdquo; command:</p>
+
+<pre><code class="language-.sourceCode">F:\&gt;velociraptor.exe fs ls
 +------+------+------------+---------------------------+---------------------------------+
 | Name | Size |    Mode    |           mtime           |              Data               |
 +------+------+------------+---------------------------+---------------------------------+
@@ -490,22 +542,24 @@ fs ls&quot; command:</p>
 |      |      |            |                           | VolumeSerialNumber: A993F576    |
 +------+------+------------+---------------------------+---------------------------------+
 SELECT Name, Size, Mode.String AS Mode, timestamp(epoch=Mtime.Sec) AS mtime,
-   Data FROM glob(globs=path, accessor=accessor)</span>
-</pre>
-<p>The &quot;fs ls&quot; command instructs Velociraptor to list directories using
-its internal filesystem accessors. By default it will use the &quot;file&quot;
-accessor - which simply uses the usual Win32 api filesystem calls
-(i.e. CreateFile, FindFirstFile etc).</p>
-<p>On windows, the file accessor lists the drive letters at the root of
-the filesystem, then allows subdirectories to be listed under each
-letter. The above output shows some metadata for each drive letter
-(like its size etc) and below the table we can see the VQL query that
-was used to generate the table. To be clear, the &quot;fs ls&quot; command is
-simply a shortcut for producing a VQL query that ultimately uses the
-filesystem accessor in the glob() VQL plugin. Therefore, we can enter
-any glob expression to find files:</p>
-<pre class="code console literal-block">
-<span class="generic output">F:\&gt;velociraptor.exe fs ls -v &quot;c:\program files\**\*.exe&quot;
+   Data FROM glob(globs=path, accessor=accessor)
+</code></pre>
+
+<p>The \&ldquo;fs ls\&rdquo; command instructs Velociraptor to list directories using
+its internal filesystem accessors. By default it will use the \&ldquo;file\&rdquo;
+accessor - which simply uses the usual Win32 api filesystem calls (i.e.
+CreateFile, FindFirstFile etc).</p>
+
+<p>On windows, the file accessor lists the drive letters at the root of the
+filesystem, then allows subdirectories to be listed under each letter.
+The above output shows some metadata for each drive letter (like its
+size etc) and below the table we can see the VQL query that was used to
+generate the table. To be clear, the \&ldquo;fs ls\&rdquo; command is simply a
+shortcut for producing a VQL query that ultimately uses the filesystem
+accessor in the glob() VQL plugin. Therefore, we can enter any glob
+expression to find files:</p>
+
+<pre><code class="language-.sourceCode">F:\&gt;velociraptor.exe fs ls -v &quot;c:\program files\**\*.exe&quot;
 +--------------------------------+----------+------------+---------------------------+------+
 |            FullPath            |   Size   |    Mode    |           mtime           | Data |
 +--------------------------------+----------+------------+---------------------------+------+
@@ -524,14 +578,15 @@ any glob expression to find files:</p>
 ........
 +--------------------------------+----------+------------+---------------------------+------+
 SELECT FullPath, Size, Mode.String AS Mode, timestamp(epoch=Mtime.Sec) AS mtime, Data FROM
-glob(globs=path, accessor=accessor)</span>
-</pre>
-<p>When using the registry filesystem accessor, the registry appears like
-a filesystem, allowing us to run glob expressions against registry
-keys and values (Note that the registry accessor provides the value in
-the metadata):</p>
-<pre class="code console literal-block">
-<span class="generic output">F:\&gt;velociraptor.exe fs --accessor reg ls &quot;HKEY_USERS\*\Software\Microsoft\Windows\CurrentVersion\{Run,RunOnce}\*&quot;
+glob(globs=path, accessor=accessor)
+</code></pre>
+
+<p>When using the registry filesystem accessor, the registry appears like a
+filesystem, allowing us to run glob expressions against registry keys
+and values (Note that the registry accessor provides the value in the
+metadata):</p>
+
+<pre><code class="language-.sourceCode">F:\&gt;velociraptor.exe fs --accessor reg ls &quot;HKEY_USERS\*\Software\Microsoft\Windows\CurrentVersion\{Run,RunOnce}\*&quot;
 +---------------+------+------------+---------------------------+---------------------------------+
 |     Name      | Size |    Mode    |           mtime           |             Data                |
 +---------------+------+------------+---------------------------+---------------------------------+
@@ -543,14 +598,15 @@ the metadata):</p>
 |               |      |            |                           | OneDriveSetup.exe /thfirstsetup |
 +---------------+------+------------+---------------------------+---------------------------------+
 SELECT Name, Size, Mode.String AS Mode, timestamp(epoch=Mtime.Sec) AS mtime,
-Data FROM glob(globs=path, accessor=accessor)</span>
-</pre>
+Data FROM glob(globs=path, accessor=accessor)
+</code></pre>
+
 <p>Finally, the NTFS accessor can access files by parsing the NTFS
 filesystem directly. At the top level, the accessor shows all NTFS
 formatted partitions. These include regular drives as well as Volume
 Shadow Copies:</p>
-<pre class="code console literal-block">
-<span class="generic output">F:\&gt;velociraptor.exe fs --accessor ntfs ls
+
+<pre><code class="language-.sourceCode">F:\&gt;velociraptor.exe fs --accessor ntfs ls
 +--------------------------------+------+------------+---------------------------------------------------------+
 |              Name              | Size |    Mode    |                             Data                        |
 +--------------------------------+------+------------+---------------------------------------------------------+
@@ -574,14 +630,15 @@ Shadow Copies:</p>
 |                                |      |            | OriginatingMachine: DESKTOP-IOME2K5                     |
 |                                |      |            | VolumeName: \\?\Volume{3dc4b590-0000-000-501f00000000}\ |
 +--------------------------------+------+------------+---------------------------------------------------------+
-SELECT Name, Size, Mode.String AS Mode, timestamp(epoch=Mtime.Sec) AS mtime,, Data FROM glob(globs=path, accessor=accessor) WHERE Sys.name_type != 'DOS'</span>
-</pre>
-<p>The above example shows two volume shadow copies that Windows has
-takens on two different dates (highlighted above). We can browse these
-snapshots just like they were another drive (We can also apply any
-glob expressions to this path):</p>
-<pre class="code console literal-block">
-<span class="generic output">F:\&gt;velociraptor.exe fs --accessor ntfs ls &quot;\\?\GLOBALROOT\Device\HarddiskVolumeShadowCopy1\
+SELECT Name, Size, Mode.String AS Mode, timestamp(epoch=Mtime.Sec) AS mtime,, Data FROM glob(globs=path, accessor=accessor) WHERE Sys.name_type != 'DOS'
+</code></pre>
+
+<p>The above example shows two volume shadow copies that Windows has takens
+on two different dates (highlighted above). We can browse these
+snapshots just like they were another drive (We can also apply any glob
+expressions to this path):</p>
+
+<pre><code class="language-.sourceCode">F:\&gt;velociraptor.exe fs --accessor ntfs ls &quot;\\?\GLOBALROOT\Device\HarddiskVolumeShadowCopy1\
 Users\test\*.exe&quot;
 +------------------+----------+------------+---------------------------+------------------+
 |       Name       |   Size   |    Mode    |           mtime           |       Data       |
@@ -592,68 +649,79 @@ Users\test\*.exe&quot;
 |                  |          |            |                           | name_type: POSIX |
 +------------------+----------+------------+---------------------------+------------------+
 SELECT Name, Size, Mode.String AS Mode, timestamp(epoch=Mtime.Sec) AS mtime, Data FROM
-glob(globs=path, accessor=accessor) WHERE Sys.name_type != 'DOS'</span>
-</pre>
-<p>Volume shadow copies are like a time machine - they can reveal data
-that was stored on the drive days or weeks prior to the time we
-inspected it which makes them very useful for some investigations.</p>
-<div class="section" id="using-filesystem-accessors-remotely-the-velociraptor-vfs">
-<h2>Using filesystem accessors remotely - The Velociraptor VFS</h2>
-<p>The above description shows how Velociraptor's command line interface
+glob(globs=path, accessor=accessor) WHERE Sys.name_type != 'DOS'
+</code></pre>
+
+<p>Volume shadow copies are like a time machine - they can reveal data that
+was stored on the drive days or weeks prior to the time we inspected it
+which makes them very useful for some investigations.</p>
+
+<h1 id="using-filesystem-accessors-remotely-the-velociraptor-vfs">Using filesystem accessors remotely - The Velociraptor VFS</h1>
+
+<p>The above description shows how Velociraptor\&rsquo;s command line interface
 can be used to interact with the various filesystem accessors. This is
 important for writing and collecting artifacts for triage and general
 system state exploration.</p>
+
 <p>However, how do filesystem accessors appear in the Velociraptor GUI?</p>
-<img alt="vfs1.png" src="vfs1.png" />
-<p>The nice thing about Velociraptor's GUI is that it is just a way to
-present the same information that the &quot;fs ls&quot; command is getting by
+
+<p><img src="vfs1.png" alt="image" /></p>
+
+<p>The nice thing about Velociraptor\&rsquo;s GUI is that it is just a way to
+present the same information that the \&ldquo;fs ls\&rdquo; command is getting by
 using the same VQL queries. Therefore the view is very familiar:</p>
-<ol class="arabic simple">
+
+<ol>
 <li>The top level of the Velociraptor VFS represents all the filesystem
 accessors implemented in the client.</li>
-<li>Each of these accessors shows its own view:<ol class="arabic">
+<li>Each of these accessors shows its own view:
+
+<ol>
 <li>The file accessor uses the OS APIs to list files and
 directories. Its top level is a list of mounted drives (which
-may be CDROM's or even network shares).</li>
+may be CDROM\&rsquo;s or even network shares).</li>
 <li>The NTFS accessor shows all NTFS volumes accessible, including
 local drives and Volume Shadow Copies.</li>
 <li>The registry accessor uses Win32 APIs to access the registry and
 shows at the top level a list of all system hives currently
 attached.</li>
+</ol></li>
+<li>For each file listed, the accessor also includes a Data attribute.
+This contains accessor specific metadata about the file (for example
+the MFT entry).</li>
 </ol>
-</li>
-<li>For each file listed, the accessor also includes a Data
-attribute. This contains accessor specific metadata about the file
-(for example the MFT entry).</li>
-</ol>
+
 <p>In the below screenshot we can see how the user may navigate into the
 Volume Shadow Copy and retrieve files from it:</p>
-<img alt="vfs2.png" src="vfs2.png" />
-</div>
-<div class="section" id="a-note-about-filenames">
-<h2>A note about filenames.</h2>
+
+<p><img src="vfs2.png" alt="image" /></p>
+
+<h1 id="a-note-about-filenames">A note about filenames.</h1>
+
 <p>NTFS can have several different names to the same file. Typically, a
 short DOS 8.3 style filename (e.g. PROGRA~1), as well as a Win32 long
 filename (e.g. Program Files). You can see the short name for a file
-using the API GetShortPathName() (or the command dir /x), but a
-program needs to deliberately ask for it. Most programs do not
-explicitly collect or show the short filename of a file.</p>
+using the API GetShortPathName() (or the command dir /x), but a program
+needs to deliberately ask for it. Most programs do not explicitly
+collect or show the short filename of a file.</p>
+
 <p>This can cause problems for DFIR applications. For example, Imagine we
-discovered a Run key to <cite>C:\Users\test\runme.exe</cite>. If we only
+discovered a Run key to C:\\Users\\test\\runme.exe. If we only
 considered the long filename (as for example returned by the Win32API
 FindFile() or the output of the dir command), then we would assume the
-file has been removed and the run key is not active. In reality
-however, the file may be called &quot;This is some long filename.exe&quot; with
-a DOS name of &quot;runme.exe&quot;. Explorer (and most tools) will only show
-the long filename by default, but the runkey will still execute by
-referring to the DOS filename!</p>
-<p>Usually the short filename is some variation of the long filename with
-a ~1 or ~2 at the end. In reality it can be anything. In the snippet
+file has been removed and the run key is not active. In reality however,
+the file may be called \&ldquo;This is some long filename.exe\&rdquo; with a DOS
+name of \&ldquo;runme.exe\&ldquo;. Explorer (and most tools) will only show the long
+filename by default, but the runkey will still execute by referring to
+the DOS filename!</p>
+
+<p>Usually the short filename is some variation of the long filename with a
+~1 or ~2 at the end. In reality it can be anything. In the snippet
 below, I am setting the short filename for the velociraptor.exe binary
-to be something completely unrelated, then I am running the binary
-using the unrelated filename:</p>
-<pre class="code console literal-block">
-<span class="generic output">C:\Users\test&gt;fsutil file setshortname velociraptor.exe runme.exe
+to be something completely unrelated, then I am running the binary using
+the unrelated filename:</p>
+
+<pre><code class="language-.sourceCode">C:\Users\test&gt;fsutil file setshortname velociraptor.exe runme.exe
 C:\Users\test&gt;dir /x *.exe
  Volume in drive C has no label.
  Volume Serial Number is 9459-F443
@@ -666,32 +734,36 @@ C:\Users\test&gt;dir /x *.exe
 C:\Users\test&gt;runme.exe -h
 usage: velociraptor [&lt;flags&gt;] &lt;command&gt; [&lt;args&gt; ...]
 
-An advanced incident response and monitoring agent.</span>
-</pre>
+An advanced incident response and monitoring agent.
+</code></pre>
+
 <p>You can see that Windows explorer shows no trace of the runme.exe file
 since it only displays the Win32 long file name:</p>
-<img alt="vfs3.png" src="vfs3.png" />
-<p>It is important for DFIR investigators to be aware of this and test
-your tools! You can see that sysinternals' autoruns program won't have
-any of these shenanigans when I added a runkey to &quot;runme.exe&quot;. It
-shows the real filename velociraptor.exe even though the runkey
-indicates runme.exe:</p>
-<img alt="vfs4.png" src="vfs4.png" />
-<p>Velocirpator treats a file's DOS name and Win32 Name as distinct
+
+<p><img src="vfs3.png" alt="image" /></p>
+
+<p>It is important for DFIR investigators to be aware of this and test your
+tools! You can see that sysinternals\&rsquo; autoruns program won\&rsquo;t have any
+of these shenanigans when I added a runkey to \&ldquo;runme.exe\&ldquo;. It shows
+the real filename velociraptor.exe even though the runkey indicates
+runme.exe:</p>
+
+<p><img src="vfs4.png" alt="image" /></p>
+
+<p>Velocirpator treats a file\&rsquo;s DOS name and Win32 Name as distinct
 entries in the NTFS directory listing. This allows us to find any
-references to the file by it's DOS name as well as its Win32 name.</p>
-</div>
-<div class="section" id="conclusions">
-<h2>Conclusions</h2>
+references to the file by it\&rsquo;s DOS name as well as its Win32 name.</p>
+
+<h1 id="conclusions">Conclusions</h1>
+
 <p>As Velociraptor gains more functionality, we envision more filesystem
 accessors to become available. The nice thing about these accessors is
 that they just slot in to the rest of the VQL plugins. By providing a
 new accessor, we are able to glob, hash, yara scan etc the new
 abstraction. For example, to yara scan a registry key one simply calls
-the VQL plugin yara with an accessor of reg: <cite>yara(rules=myRules,
-files=my_reg_keys, accessor=&quot;reg&quot;)</cite></p>
-</div>
-</div>
+the VQL plugin yara with an accessor of reg: yara(rules=myRules,
+files=my_reg_keys, accessor=\&ldquo;reg\&ldquo;)</p>
+
 
     
     
@@ -703,7 +775,7 @@ files=my_reg_keys, accessor=&quot;reg&quot;)</cite></p>
 
 <div id="navigation">
 <a class="nav nav-prev" href="/docs/presentations/nzitf2018/" title="New Zealand Internet Task Force Conference 2018"> <i class="fa fa-chevron-left"></i><label>New Zealand Internet Task Force Conference 2018</label></a>
-    <a class="nav nav-next" href="/about/" title="About Velociraptor" style="margin-right: 0px;"><label>About Velociraptor</label><i class="fa fa-chevron-right"></i></a></div>
+    <a class="nav nav-next" href="/blog/medium/2019-11-15_recovering-deleted-ntfs-files-with-velociraptor-1fcf09855311/" title="Recovering deleted NTFS Files with Velociraptor" style="margin-right: 0px;"><label>Recovering deleted NTFS Files with Velociraptor</label><i class="fa fa-chevron-right"></i></a></div>
 
 </section>
 <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">

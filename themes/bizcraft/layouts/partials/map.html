@@ -1,7 +1,7 @@
 <div class="map-item" id="map"></div>
 <script>
   function initMap() {
-    var ve = {lat: -33.8656909, lng: 151.20929479999995};
+      var ve = {lat: {{ .lat }}, lng: {{ .long }} };
     var map = new google.maps.Map(
       document.getElementById('map'), {
         zoom: 15,

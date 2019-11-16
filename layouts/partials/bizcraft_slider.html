@@ -1,0 +1,19 @@
+<!-- Slider start -->
+<section id="home" class="no-padding">
+  <div id="banner-area">
+    <img src="{{ absURL .image }}" alt ="" />
+    <div class="parallax-overlay"></div>
+    <!-- Subpage title start -->
+    <div class="banner-title-content">
+      <div class="text-center cd-hero-slider">
+        <h2>{{.title}}</h2>
+        <p>{{ .subtitle }} </p>
+        {{ range .buttons }}
+        <a href="{{.url}}" class="btn btn-primary white cd-btn">
+          {{.title}}
+        </a>
+        {{ end }}
+      </div>
+    </div><!-- Subpage title end -->
+  </div><!-- Banner area end -->
+</section>

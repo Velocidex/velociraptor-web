@@ -79,6 +79,10 @@ title = "Velociraptor / Dig deeper"
   link = "/docs"
 
   [[params.navbar]]
+  title = "Training"
+  link = "/training"
+
+  [[params.navbar]]
   title = "Download"
   link = ""
   url = "https://github.com/Velocidex/velociraptor"

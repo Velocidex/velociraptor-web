@@ -262,3 +262,8 @@ footer.footline {
     z-index: -1;
     border-radius: 50%;
 }
+
+
+.copyright.angle:before{
+     height: 75px;
+}

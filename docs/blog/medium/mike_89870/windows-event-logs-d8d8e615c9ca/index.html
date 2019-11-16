@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Velociraptor / Dig deeper</title>
+    
+      <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>Windows Event Logs :: Velociraptor / Dig deeper</title>
+<link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon" />
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<link href="/css/nucleus.css" rel="stylesheet">
+<link href="/css/font-awesome.min.css" rel="stylesheet">
+<link href="/css/hybrid.css" rel="stylesheet">
+<link href="/css/featherlight.min.css" rel="stylesheet">
+<link href="/css/auto-complete.css" rel="stylesheet">
+<link href="/theme-original/style.css" rel="stylesheet">
+
+  <link href="/theme-original/variant-mine.css" rel="stylesheet">
+
+
+<script src="/js/jquery-2.x.min.js"></script>
+<style type="text/css">
+  :root #header + #content > #left > #rlblock_left {
+    display:none !important;
+  }
+</style>
+<link rel="stylesheet" href="/css/theme-mine.css">
+<script src="/js/custom.js"></script>
+
+
+    
+  </head>
+  <body data-url="/blog/medium/mike_89870/windows-event-logs-d8d8e615c9ca/">
+    
+      <div id="headermain"></div>
+<nav id="sidebar" class="">
+
+
+
+<div class="highlightable">
+  <div id="header-wrapper">
+    <div id="header">
+      
+	
+  
+    <a href="/">
+  <img src="/images/logo.svg">
+</a>
+  
+
+
+    </div>
+        <div class="searchbox">
+		    <label for="search-by"><i class="fa fa-search"></i></label>
+		    <input data-search-input id="search-by" type="text" placeholder="Search...">
+		    <span data-search-clear=""><i class="fa fa-close"></i></span>
+		</div>
+		<script type="text/javascript" src="/js/lunr.min.js"></script>
+		<script type="text/javascript" src="/js/auto-complete.js"></script>
+		<script type="text/javascript">
+        
+            var baseurl = "http:\/\/192.168.0.6:1313\/";
+        
+		</script>
+		<script type="text/javascript" src="/js/search.js"></script>
+  </div>
+
+      <ul class="topics">
+    <li data-nav-id="/about/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/about/">About Velociraptor</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/about/features/" class="dd-item">
+        <div>
+          <a href="/about/features/">
+            Velociraptor Features
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/about/license/" class="dd-item">
+        <div>
+          <a href="/about/license/">
+            License
+          </a>
+        </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/docs/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/docs/">Velociraptor Documentation</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+    <li data-nav-id="/docs/getting-started/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/docs/getting-started/">Getting Started</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/docs/getting-started/stand_alone/" class="dd-item">
+        <div>
+          <a href="/docs/getting-started/stand_alone/">
+            Standalone Deployment
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/getting-started/deploying_clients/" class="dd-item">
+        <div>
+          <a href="/docs/getting-started/deploying_clients/">
+            Deploying Clients
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/getting-started/cloud/" class="dd-item">
+        <div>
+          <a href="/docs/getting-started/cloud/">
+            Deploying in the cloud
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/getting-started/triaging/" class="dd-item">
+        <div>
+          <a href="/docs/getting-started/triaging/">
+            Triaging
+          </a>
+        </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/docs/user-interface/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/docs/user-interface/">User Interface</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+    <li data-nav-id="/docs/user-interface/investigating_clients/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/docs/user-interface/investigating_clients/">Investigating Clients</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/docs/user-interface/investigating_clients/searching_clients/" class="dd-item">
+        <div>
+          <a href="/docs/user-interface/investigating_clients/searching_clients/">
+            Searching for clients
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/user-interface/investigating_clients/virtual_filesystem/" class="dd-item">
+        <div>
+          <a href="/docs/user-interface/investigating_clients/virtual_filesystem/">
+            Client VFS
+          </a>
+        </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/docs/user-interface/artifacts/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/docs/user-interface/artifacts/">Velociraptor Artifacts</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/docs/user-interface/artifacts/client_artifacts/" class="dd-item">
+        <div>
+          <a href="/docs/user-interface/artifacts/client_artifacts/">
+            Client Artifacts
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/user-interface/artifacts/client_events/" class="dd-item">
+        <div>
+          <a href="/docs/user-interface/artifacts/client_events/">
+            Client Event Artifacts
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/user-interface/artifacts/server_artifacts/" class="dd-item">
+        <div>
+          <a href="/docs/user-interface/artifacts/server_artifacts/">
+            Server Artifacts
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/user-interface/artifacts/server_events/" class="dd-item">
+        <div>
+          <a href="/docs/user-interface/artifacts/server_events/">
+            Server Event Artifacts
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/user-interface/artifacts/add_artifacts/" class="dd-item">
+        <div>
+          <a href="/docs/user-interface/artifacts/add_artifacts/">
+            Customizing Artifacts
+          </a>
+        </div>
+    </li>
+        </ul>
+    </li>
+      <li data-nav-id="/docs/user-interface/api/" class="dd-item">
+        <div>
+          <a href="/docs/user-interface/api/">
+            The Velociraptor API
+          </a>
+        </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/docs/vql_reference/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/docs/vql_reference/">VQL Reference</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/docs/vql_reference/plugins/" class="dd-item">
+        <div>
+          <a href="/docs/vql_reference/plugins/">
+            VQL PLugins
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/vql_reference/event_plugins/" class="dd-item">
+        <div>
+          <a href="/docs/vql_reference/event_plugins/">
+            VQL Event PLugins
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/vql_reference/server/" class="dd-item">
+        <div>
+          <a href="/docs/vql_reference/server/">
+            VQL Server Plugins
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/vql_reference/functions/" class="dd-item">
+        <div>
+          <a href="/docs/vql_reference/functions/">
+            VQL Functions
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/vql_reference/templates/" class="dd-item">
+        <div>
+          <a href="/docs/vql_reference/templates/">
+            Report Templates
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/vql_reference/tips/" class="dd-item">
+        <div>
+          <a href="/docs/vql_reference/tips/">
+            Artifact Tips
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/vql_reference/filesystem_accessors/" class="dd-item">
+        <div>
+          <a href="/docs/vql_reference/filesystem_accessors/">
+            Filesystem Accessors
+          </a>
+        </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/docs/artifacts/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/docs/artifacts/">Artifact Reference</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/docs/artifacts/linux/" class="dd-item">
+        <div>
+          <a href="/docs/artifacts/linux/">
+            Linux Artifacts
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/artifacts/windows_system/" class="dd-item">
+        <div>
+          <a href="/docs/artifacts/windows_system/">
+            Windows System
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/artifacts/server/" class="dd-item">
+        <div>
+          <a href="/docs/artifacts/server/">
+            Server Artifacts
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/artifacts/triage/" class="dd-item">
+        <div>
+          <a href="/docs/artifacts/triage/">
+            Windows Triage
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/artifacts/detection/" class="dd-item">
+        <div>
+          <a href="/docs/artifacts/detection/">
+            Windows Detection
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/artifacts/events/" class="dd-item">
+        <div>
+          <a href="/docs/artifacts/events/">
+            Windows Monitoring
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/artifacts/misc/" class="dd-item">
+        <div>
+          <a href="/docs/artifacts/misc/">
+            Miscelaneous
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/artifacts/linux/linux/" class="dd-item">
+        <div>
+          <a href="/docs/artifacts/linux/linux/">
+            Linux Artifacts
+          </a>
+        </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/docs/presentations/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/docs/presentations/">Presentations and Workshops</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/docs/presentations/sans_dfir_summit2019/" class="dd-item">
+        <div>
+          <a href="/docs/presentations/sans_dfir_summit2019/">
+            SANS 2019
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/presentations/rsa/" class="dd-item">
+        <div>
+          <a href="/docs/presentations/rsa/">
+            RSA APJ 2019
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/presentations/crikeycon2019/" class="dd-item">
+        <div>
+          <a href="/docs/presentations/crikeycon2019/">
+            Crikeycon 2019
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/presentations/nzitf2018/" class="dd-item">
+        <div>
+          <a href="/docs/presentations/nzitf2018/">
+            NZITF 2018
+          </a>
+        </div>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/blog/" class="dd-item parent haschildren
+        ">
+      <div>
+      <a href="/blog/">Velociraptor Blog</a>
+            <i class="fa fa-angle-down fa-lg category-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/blog/html/2019/11/15/velociraptor-ir/recovering-deleted-ntfs-files-with-velociraptor-1fcf09855311/" class="dd-item">
+        <div>
+          <a href="/blog/html/2019/11/15/velociraptor-ir/recovering-deleted-ntfs-files-with-velociraptor-1fcf09855311/">
+            
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-11-15_recovering-deleted-ntfs-files-with-velociraptor-1fcf09855311/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-11-15_recovering-deleted-ntfs-files-with-velociraptor-1fcf09855311/">
+            Recovering deleted NTFS Files with Velociraptor
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/mike_89870/windows-event-logs-d8d8e615c9ca/" class="dd-item active">
+        <div>
+          <a href="/blog/medium/mike_89870/windows-event-logs-d8d8e615c9ca/">
+            Windows Event Logs
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/mike_89870/triage-with-velociraptor-pt-3-d6f63215f579/" class="dd-item">
+        <div>
+          <a href="/blog/medium/mike_89870/triage-with-velociraptor-pt-3-d6f63215f579/">
+            Triage with Velociraptor — Pt 3
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/mike_89870/triage-with-velociraptor-pt-2-d0f79066ca0e/" class="dd-item">
+        <div>
+          <a href="/blog/medium/mike_89870/triage-with-velociraptor-pt-2-d0f79066ca0e/">
+            Triage with Velociraptor — Pt 2
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/mike_89870/triage-with-velociraptor-pt-1-253f57ce96c0/" class="dd-item">
+        <div>
+          <a href="/blog/medium/mike_89870/triage-with-velociraptor-pt-1-253f57ce96c0/">
+            Triage with Velociraptor — Pt 1
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/mike_89870/velociraptors-client-side-buffer-3ce03697a4e6/" class="dd-item">
+        <div>
+          <a href="/blog/medium/mike_89870/velociraptors-client-side-buffer-3ce03697a4e6/">
+            Velociraptor’s client side buffer
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/mike_89870/the-velociraptor-api-and-fuse-2bb28b936399/" class="dd-item">
+        <div>
+          <a href="/blog/medium/mike_89870/the-velociraptor-api-and-fuse-2bb28b936399/">
+            The Velociraptor API And FUSE
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/draft_elastic-velociraptor-5ad253eac2f3/" class="dd-item">
+        <div>
+          <a href="/blog/medium/draft_elastic-velociraptor-5ad253eac2f3/">
+            Elastic Velociraptor
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/draft_extending-vql-plugins-7fb004cb6ec4/" class="dd-item">
+        <div>
+          <a href="/blog/medium/draft_extending-vql-plugins-7fb004cb6ec4/">
+            Extending VQL plugins
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/draft_the-velociraptor-dashboard-bb0e95e553ab/" class="dd-item">
+        <div>
+          <a href="/blog/medium/draft_the-velociraptor-dashboard-bb0e95e553ab/">
+            The Velociraptor dashboard
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/draft_velociraptor-interrogation-46d842c50c42/" class="dd-item">
+        <div>
+          <a href="/blog/medium/draft_velociraptor-interrogation-46d842c50c42/">
+            Velociraptor Interrogation
+          </a>
+        </div>
+    </li>
+        </ul>
+    </li>
+
+
+
+
+    <hr />
+    <li></li>
+    
+    </ul>
+
+ <section id="footer">
+    </section>
+  </div>
+</nav>
+
+
+
+<section id="body">
+<div id="overlay"></div>
+<div class="padding highlightable">
+
+  <div id="top-bar">
+    <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+        <span id="sidebar-toggle-span">
+          <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+            <i class="fa fa-bars"></i>
+          </a>
+        </span>
+        <span id="toc-menu"><i class="fa fa-list-alt"></i></span>
+        <span class="links">
+        
+
+
+
+
+
+
+
+ <a href='/'>Velociraptor / Dig deeper</a> > <a href='/blog/'>Velociraptor Blog</a> > Windows Event Logs
+
+ 
+
+ 
+
+   
+        </span>
+    </div>
+    
+    
+    <div class="progress">
+        <div class="wrapper">
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#responding-to-an-incident">Responding to an incident</a></li>
+<li><a href="#event-messages">Event Messages</a></li>
+<li><a href="#what-could-go-wrong">What could go wrong?</a></li>
+<li><a href="#velociraptor-s-parse-evtx-vql-plugin">Velociraptor’s parse_evtx() VQL plugin</a></li>
+<li><a href="#what-about-existing-evtx-files">What about existing EVTX files?</a></li>
+<li><a href="#enriching-old-event-log-files">Enriching old event log files</a></li>
+<li><a href="#conclusions">Conclusions</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+        </div>
+    </div>
+    
+
+  </div>
+
+
+<div id="body-inner">
+  
+    <h1>Windows Event Logs</h1>
+  
+
+
+
+    
+    
+    
+    
+
+<p><img src="../img/1____Pq____KfTKLBbQffNGN__aHg.jpeg" alt="" /></p>
+
+<p>One of the most critical sources of data when responding to an incident on windows systems is the event logs. Windows event logs record security significant events.</p>
+
+<p>However, unlike more traditional Unix syslogs, the Windows Event Log system is more complex and there are a number of potential problems that an investigator can run into.</p>
+
+<p>In this post we explore the windows event log system from the point of view of the investigator. We then see how tools such as Velociraptor can be used to work around its limitations.</p>
+
+<h4 id="responding-to-an-incident">Responding to an incident</h4>
+
+<p>Consider an incident occurred on one of your systems. You would like to investigate it and so collect all the event log files from <strong>C:\Windows\System32\WinEVT\Logs\*.evtx</strong>.</p>
+
+<p>The logs are stored in binary format so you will need to post process the files. Luckily there are a number of tools out there that will do that for you. Here is a typical output from the <a href="https://github.com/Velocidex/evtx">dumpevtx</a> tool for a particular event from the Security.evtx log file:</p>
+
+<p>This event looks interesting but it is not quite clear what it is really talking about. We see some potentially useful items like <strong>SubjectUserSid</strong> and <strong>PrivilegeList</strong> but we are missing some critical context around this message.</p>
+
+<p>Lets look at the same event with the windows Event Viewer GUI:</p>
+
+<p><img src="../img/1__T4Q8HxIiHlGTJ61EEXvI9Q.png" alt="" /></p>
+
+<p>This is much better! We now know the message indicates the user was assigned some special privileges.</p>
+
+<p>Where does this message come from and why is it not shown by typical EVTX parsers?</p>
+
+<p>It turns out that the message of the event is not actually stored in the EVTX file at all — it is actually stored in a DLL and it is bound to the event in the log via some complicated algorithm.</p>
+
+<h4 id="event-messages">Event Messages</h4>
+
+<p>Windows event logs do not store the full event message. Instead an <strong>Event Provider</strong> registers a message DLL that contains the full message. The event itself simply stores the index of the message in the Message Table as the Event ID. Note that event IDs are just a number into an event table and are commonly reused by different providers. It is the unique combination of channel, provider and Event ID that identifies the message (so for example searching for Event Id 1000 yields many different unrelated messages because many providers reuse that event ID).</p>
+
+<p>The figure below illustrates how the Windows Event Viewer is able to print the proper Event Message:</p>
+
+<p><img src="../img/1__PM4my0gv8exjy__F5KRhdBg.png" alt="How the Windows Event Viewer displays event log messages" />
+How the Windows Event Viewer displays event log messages</p>
+
+<p>When a user selects an event in the Event Viewer, the application reads the <strong>Provider</strong>, <strong>EventID</strong> and <strong>EventData</strong> fields from the event itself — in the above example, the Provider was <strong>Microsoft-Windows-Security-Auditing</strong>, EventID was <strong>4672</strong> and the EventData has items such as <strong>SubjectUserSid</strong> etc.</p>
+
+<p>Next the event viewer consults the registry at the key <strong>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\EventLog\Security\Microsoft-Windows-Security-Auditing</strong> and reads the value <strong>EventMessageFile</strong>.</p>
+
+<p>That value is the location of a dll which contains the messages for this provider. On my system, the DLL is located at <strong>%SystemRoot%\system32\adtschema.dll (</strong>Note that many DLLs use localizations and so the dll could be located in MUI files).</p>
+
+<p><img src="../img/1__SLH4iiByHYIz8HyJyOxAEw.png" alt="" /></p>
+
+<p>The DLL has a resource section with a MESSAGE_TABLE type. The event viewer then uses this to extract the message which looks like:</p>
+
+<blockquote>
+<p>Special privileges assigned to new logon.%n%nSubject:%n%tSecurity ID:%t%t%1%n%tAccount Name:%t%t%2%n%tAccount Domain:%t%t%3%n%tLogon ID:%t%t%4%n%nPrivileges:%t%t%5</p>
+</blockquote>
+
+<p>The event viewer then interpolates the EventData items into the message by their position — for example %1 is replaced with <strong>SubjectUserSid</strong> etc. Additionally %t is a tab and %n is a new line.</p>
+
+<h4 id="what-could-go-wrong">What could go wrong?</h4>
+
+<p>The previous section examined how event logs are actually stored on the system. In practice there are a number of pitfalls with this scheme:</p>
+
+<ol>
+<li>If an EVTX file is taken from one system to another, the relevant DLL may not be present. This is more common with bespoke software that is not commonly used. In this case the investigator has no idea what the message the event is trying to convey.</li>
+<li>If software is uninstalled from the system, the message DLL may be removed. This makes it hard to view events in the event log from the time it was installed (in a sense information is wiped from the event log).</li>
+</ol>
+
+<p>In both of these cases, the investigator will need to figure out the correct event message independently. Luckily in the age of the internet there are many web sites that catalog some of the common event ids and what they mean:</p>
+
+<p><img src="../img/1__GmXWvkFj2vFkPEqa3jSFLQ.png" alt="" /></p>
+
+<p>But it is simply not practical to search every event id. For less commonly used providers the event ids may not be indexed on the web at all. In this case the investigator is left with no idea what a specific event entry means and might miss some critical evidence</p>
+
+<h4 id="velociraptor-s-parse-evtx-vql-plugin">Velociraptor’s parse_evtx() VQL plugin</h4>
+
+<p>In the latest Velociraptor release (<a href="https://github.com/Velocidex/velociraptor/releases">0.3.6</a>), the <strong>parse_evtx()</strong> plugin is now including the event messages directly in the VQL output. This automatically enriches the event log data collected by the Velociraptor host visibility tool.</p>
+
+<p><img src="../img/1__uY97EUuaI__fI3eUBQFToLg.png" alt="Velociraptor can interpolate and attach the event message to every log message it relays" />
+Velociraptor can interpolate and attach the event message to every log message it relays</p>
+
+<p>In the above we see the result of the simple VQL query:</p>
+
+<p><strong>SELECT</strong> <strong>*</strong> <strong>FROM</strong> <strong>parse_evtx(</strong> filename<strong>\=</strong>&lsquo;c:/Windows/System32/Winevt/logs/Security.evtx&rsquo;<strong>)</strong></p>
+
+<p>You can see an additional field now, called <strong>Message</strong> containing the event message with the Event Data interpolated into it. This provides a lot of context around what the event is supposed to do.</p>
+
+<h4 id="what-about-existing-evtx-files">What about existing EVTX files?</h4>
+
+<p>In the last section we saw how Velociraptor can enrich event logs as it is forwarding them to the server but what if we have just the evtx files — possibly we just acquired the files using bulk upload artifacts such as the <strong>Windows.KapeFiles.Targets</strong> artifact?</p>
+
+<p>In that case our analysis machine may not actually have the correct message dlls installed and Velociraptor may fail to retrieve the event messages.</p>
+
+<p>We need a way to maintain a library of event id’s for different providers and the messages they represent. This way we can instantly look up the correct message on demand — without needing to have DLLs installed.</p>
+
+<p><a href="https://www.velocidex.com/">Velocidex</a>, the company behind Velociraptor is an innovative software company crafting many free and open source digital forensics tools. In fact Velociraptor’s EVTX parsing is implemented by the <a href="https://github.com/Velocidex/evtx">Velocidex/evtx</a> project on GitHub. You should check it out!</p>
+
+<p>The project releases a stand along command line tool for parsing and examining windows event log format. In this post, I would like to demonstrate the latest “extract” feature:</p>
+
+<p><img src="../img/1__ABF6klKd0xQ82TvhOEq__hw.png" alt="" /></p>
+
+<p>The <strong>extract</strong> command walks all providers in the registry, gathers their message DLLs and parses the message table resource for each. Then, all the messages are stored in a sqlite database. Sqlite being the de-facto standard for portable databases can be easily consumed by other tools written in many languages. The total size of the database is modest (I have extracted all event log messages on Windows 2019 server to about 23MB sqlite file).</p>
+
+<p>Now we can easily use the database to resolve our provider and event id to a message:</p>
+
+<p><img src="../img/1__SRuWlPV0wk754__jlxI2tMw.png" alt="" /></p>
+
+<p>Alternatively we can simply use sqlite directly to query the database</p>
+
+<p>$ sqlite3 mydb.sqlite
+SQLite version 3.24.0 2018-06-04 19:24:41
+Enter &ldquo;.help&rdquo; for usage hints.
+sqlite&gt; <strong>SELECT message FROM providers join messages on providers.id = messages.provider_id where providers.name = &lsquo;Microsoft-Windows-Security-Auditing&rsquo; and messages.event_id = 4672;</strong>
+<em>Special privileges assigned to new logon.%n%nSubject:%n%tSecurity ID:%t%t%1%n%tAccount Name:%t%t%2%n%tAccount Domain:%t%t%3%n%tLogon ID:%t%t%4%n%nPrivileges:%t%t%5</em></p>
+
+<h4 id="enriching-old-event-log-files">Enriching old event log files</h4>
+
+<p>We have shown how dumpevtx can use our sqlite database to retrieve the messages for each event id individually but this leaves us to interpolate the full data by hand — no fun indeed!</p>
+
+<p>You can also use dumpevtx to export the events into JSON, and automatically resolve event IDs with the sqlite database too by providing the database with the <code>--messagedb</code> flag.</p>
+
+<p>F:\&gt;dumpevtx.exe parse &ndash;messagedb mydb.sqlite c:\Windows\System32\winevt\Logs\Security.evtx</p>
+
+<p><img src="../img/1__Uk794PvLspR__m5WX8ENDZw.png" alt="Parsing the EVTX file with the assistance of the event id database. The message interpolates the Event Data into it." />
+Parsing the EVTX file with the assistance of the event id database. The message interpolates the Event Data into it.</p>
+
+<h4 id="conclusions">Conclusions</h4>
+
+<p>The Windows Event Log system is fairly complex — it is not enough to just copy out the *.evtx files because the information content of the log is spread throughout the filesystem in DLLs and registry keys. For many event types there is enough context in the EventData or UserData fields of the event log but in many cases, without the actual message corresponding to the event ID we lose critical meaning.</p>
+
+<p>It is essential therefore to include the original message for each event log. We have shown how Velociraptor is able to include this critical information automatically. We also present the dumpevtx project which allows collecting messages in a database so events can be matched up quickly and easily with their correct messages without requiring the original program that generated the message to be installed on the analyst system.</p>
+
+
+    
+    
+          <footer class=" footline" >
+	
+</footer>
+  </div>
+</div>
+
+<div id="navigation">
+<a class="nav nav-prev" href="/blog/medium/2019-11-15_recovering-deleted-ntfs-files-with-velociraptor-1fcf09855311/" title="Recovering deleted NTFS Files with Velociraptor"> <i class="fa fa-chevron-left"></i><label>Recovering deleted NTFS Files with Velociraptor</label></a>
+    <a class="nav nav-next" href="/blog/medium/mike_89870/triage-with-velociraptor-pt-3-d6f63215f579/" title="Triage with Velociraptor — Pt 3" style="margin-right: 0px;"><label>Triage with Velociraptor — Pt 3</label><i class="fa fa-chevron-right"></i></a></div>
+
+</section>
+<div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+  <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+</div>    
+
+<script src="/js/clipboard.min.js"></script>
+<script src="/js/featherlight.min.js"></script>
+<script src="/js/html5shiv-printshiv.min.js"></script>
+
+<script src="/js/modernizr.custom.71422.js"></script>
+<script src="/js/docdock.js"></script>
+<script src="/theme-original/script.js"></script>
+
+
+    
+
+    
+    
+
+    
+  </body>
+</html>

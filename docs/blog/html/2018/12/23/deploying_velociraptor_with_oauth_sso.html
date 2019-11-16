@@ -376,6 +376,48 @@
             <i class="fa fa-angle-down fa-lg category-icon"></i>
       </div>
         <ul>
+      <li data-nav-id="/blog/medium/2019-11-15_recovering-deleted-ntfs-files-with-velociraptor-1fcf09855311/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-11-15_recovering-deleted-ntfs-files-with-velociraptor-1fcf09855311/">
+            Recovering deleted NTFS Files with Velociraptor
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-11-12_windows-event-logs-d8d8e615c9ca/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-11-12_windows-event-logs-d8d8e615c9ca/">
+            Windows Event Logs
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-10-08_triage-with-velociraptor-pt-3-d6f63215f579/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-10-08_triage-with-velociraptor-pt-3-d6f63215f579/">
+            Triage with Velociraptor — Pt 3
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-10-04_triage-with-velociraptor-pt-2-d0f79066ca0e/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-10-04_triage-with-velociraptor-pt-2-d0f79066ca0e/">
+            Triage with Velociraptor — Pt 2
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-10-02_triage-with-velociraptor-pt-1-253f57ce96c0/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-10-02_triage-with-velociraptor-pt-1-253f57ce96c0/">
+            Triage with Velociraptor — Pt 1
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-09-11_velociraptor-s-client-side-buffer-3ce03697a4e6/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-09-11_velociraptor-s-client-side-buffer-3ce03697a4e6/">
+            Velociraptor’s client side buffer
+          </a>
+        </div>
+    </li>
         </ul>
     </li>
 
@@ -428,7 +470,12 @@
     
     <div class="progress">
         <div class="wrapper">
-    
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#oauth-identity-management">OAuth Identity management</a></li>
+<li><a href="#registering-velociraptor-as-an-oauth-application">Registering Velociraptor as an OAuth application</a></li>
+</ul>
+</nav>
         </div>
     </div>
     
@@ -446,164 +493,291 @@
     
     
     
-    <div class="document">
+    
 
+<p>In the previous post we saw how to set up Velociraptor\&rsquo;s GUI over SSL.
+This is great, but we still need to create users and assign them
+passwords manually. The trouble with user account management is that we
+can not enforce 2 factor authentication, or any password policies or any
+of the usual enterprise requirements for user account management. It is
+also difficult for users to remember yet another password for a separate
+system, and so might make the password easily guessable.</p>
 
-<p>In the previous post we saw how to set up Velociraptor's GUI over
-SSL. This is great, but we still need to create users and assign them
-passwords manually. The trouble with user account management is that
-we can not enforce 2 factor authentication, or any password policies
-or any of the usual enterprise requirements for user account
-management. It is also difficult for users to remember yet another
-password for a separate system, and so might make the password easily
-guessable.</p>
-<p>Most enterprise systems require an SSO mechanism to manage user
-accounts and passwords. Manual user account management simply does not
-scale!</p>
-<p>In this post we discuss how to enable Google's SSO authentication for
+<p>Most enterprise systems require an SSO mechanism to manage user accounts
+and passwords. Manual user account management simply does not scale!</p>
+
+<p>In this post we discuss how to enable Google\&rsquo;s SSO authentication for
 Velociraptor identity management.</p>
-<div class="section" id="oauth-identity-management">
-<h2>OAuth Identity management</h2>
-<p>Velociraptor can use Google's oauth mechanism to verify a user's
-identity. This requires a user to authenticate to Google via their
-usual mechanism - if their account requires 2 factor authentication,
-then users need to log in this way.</p>
-<p>Once the user authenticates to Google, they are redirected back into
-the Velociraptor application with a token that allows the application
-to request information about the user (for example, the username or
-email address).</p>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">OAuth is an authentication protocol. This means Velociraptor
-can be pretty confident the user is who they claim they
-are. This does not automatically grant them access to the
-application! A Velociraptor administrator must still
-manually grant them access before a user may log in.</p>
-</div>
+
+<h1 id="oauth-identity-management">OAuth Identity management</h1>
+
+<p>Velociraptor can use Google\&rsquo;s oauth mechanism to verify a user\&rsquo;s
+identity. This requires a user to authenticate to Google via their usual
+mechanism - if their account requires 2 factor authentication, then
+users need to log in this way.</p>
+
+<dl>
+<dt>address).</dt>
+<dt>::: {.note}
+::: {.admonition-title}
+Note
+:::</dt>
+</dl>
+
+<dl>
+<dt>address).</dt>
+<dt>::: {.note}
+::: {.admonition-title}
+Note
+:::</dt>
+</dl>
+
+<dl>
+<dt>address).</dt>
+<dt>::: {.note}
+::: {.admonition-title}
+Note
+:::</dt>
+</dl>
+
+<dl>
+<dt>address).</dt>
+<dt>::: {.note}
+::: {.admonition-title}
+Note
+:::</dt>
+</dl>
+
+<p>{.note}
+::: {.admonition-title}
+Note
+:::</p>
+
+<p>OAuth is an authentication protocol. This means Velociraptor can be
+pretty confident the user is who they claim they are. This does not
+automatically grant them access to the application! A Velociraptor
+administrator must still manually grant them access before a user may
+log in.
+:::</p>
+
 <p>Before we can use Google for Authentication, we need to register our
 Velociraptor deployment as an OAuth App with Google. Unfortunately
-Google is not known for having intuitive and easy to follow processes
-so actually doing this is complicated and bounces through many
-seemingly unrelated Google products and services. This post attempts
-to document this process at it exists in this time.</p>
+Google is not known for having intuitive and easy to follow processes so
+actually doing this is complicated and bounces through many seemingly
+unrelated Google products and services. This post attempts to document
+this process at it exists in this time.</p>
+
 <p>For our example we assume that our server is located at
-<a class="reference external" href="https://velociraptor.rekall-innovations.com">https://velociraptor.rekall-innovations.com</a> as we continue on from our
+<a href="https://velociraptor.rekall-innovations.com">https://velociraptor.rekall-innovations.com</a> as we continue on from our
 example in the last post (i.e. it is already configured to use SSL).</p>
-</div>
-<div class="section" id="registering-velociraptor-as-an-oauth-application">
-<h2>Registering Velociraptor as an OAuth application</h2>
+
+<h1 id="registering-velociraptor-as-an-oauth-application">Registering Velociraptor as an OAuth application</h1>
+
 <p>The first step is to register Velociraptor as an OAuth app. We do this
 by accessing the Google cloud console at
-<a class="reference external" href="https://console.cloud.google.com">https://console.cloud.google.com</a> . You will need to set up a cloud
-account first and create a cloud project. Although in this example we
-do not necessarily need to host our application on Google cloud or
-have anything to do with Google cloud, OAuth seems to exist within the
-Google cloud product.</p>
+<a href="https://console.cloud.google.com">https://console.cloud.google.com</a> . You will need to set up a cloud
+account first and create a cloud project. Although in this example we do
+not necessarily need to host our application on Google cloud or have
+anything to do with Google cloud, OAuth seems to exist within the Google
+cloud product.</p>
+
 <p>Our ultimate goal is to obtain OAuth credentials to give our
 Velociraptor app, but we have to have a few things set up first. The
-cloud console is fairly confusing so I usually use the search feature
-to find exactly what I need. Searching for &quot;oauth&quot; at the search bar
-indicates that it is under &quot;APIs and Services&quot;.</p>
-<p>We need to set up the OAuth consent screen first - in which we give
-our application a name to be presented to the user by the OAuth flow:</p>
-<img alt="1.png" src="1.png" />
+cloud console is fairly confusing so I usually use the search feature to
+find exactly what I need. Searching for \&ldquo;oauth\&rdquo; at the search bar
+indicates that it is under \&ldquo;APIs and Services\&ldquo;.</p>
+
+<p>We need to set up the OAuth consent screen first - in which we give our
+application a name to be presented to the user by the OAuth flow:</p>
+
+<p><img src="1.png" alt="image" /></p>
+
 <p>Further down we need to provide an authorized domain</p>
-<img alt="2.png" src="2.png" />
-<p>In order to add an Authorized domain we need to <em>verify it</em>. Google's
-help pages explain it further:</p>
-<div class="admonition admonition-authorized-domains">
-<p class="first admonition-title">Authorized domains</p>
-<p class="last">To protect you and your users, Google restricts your OAuth 2.0
-application to using Authorized Domains. If you have verified the
-domain with Google, you can use any Top Private Domain as an
-Authorized Domain.</p>
-</div>
-<p>And this links to <a class="reference external" href="https://www.google.com/webmasters/tools/home">https://www.google.com/webmasters/tools/home</a> which
+
+<p><img src="2.png" alt="image" /></p>
+
+<dl>
+<dt>help pages explain it further:</dt>
+</dl>
+
+<dl>
+<dt>help pages explain it further:</dt>
+</dl>
+
+<dl>
+<dt>help pages explain it further:</dt>
+</dl>
+
+<dl>
+<dt>ther:</dt>
+</dl>
+
+<p>::: {.admonition}
+Authorized domains</p>
+
+<p>To protect you and your users, Google restricts your OAuth 2.0
+application to using Authorized Domains. If you have verified the domain
+with Google, you can use any Top Private Domain as an Authorized Domain.
+:::</p>
+
+<p>And this links to <a href="https://www.google.com/webmasters/tools/home">https://www.google.com/webmasters/tools/home</a> which
 again seems completely unrelated to OAuth, Velociraptor or even a web
 app (the web masters product is supposed to help sites increase their
 search presence).</p>
-<p>Within this product we now need to &quot;Add a property&quot;:</p>
-<img alt="3.png" src="3.png" />
-<p>Hidden within the settings menu there is an option &quot;Verification
-Details&quot; which allows you to verify that you own the domain. If you
+
+<p>Within this product we now need to \&ldquo;Add a property\&rdquo;:</p>
+
+<p><img src="3.png" alt="image" /></p>
+
+<p>Hidden within the settings menu there is an option \&ldquo;Verification
+Details\&rdquo; which allows you to verify that you own the domain. If you
 purchased your domain from Google Domains then it should already be
 verified - otherwise you can set some TXT records to prove you own the
 domain.</p>
-<img alt="4.png" src="4.png" />
+
+<p><img src="4.png" alt="image" /></p>
+
 <p>After all this we can go back to the cloud console and Create
 Credentials/OAuth client ID:</p>
-<img alt="5.png" src="5.png" />
-<p>Now select &quot;Web App&quot; and we must set the &quot;Authorized redirect URIs&quot; to
-<a class="reference external" href="https://velociraptor.rekall-innovations.com/auth/google/callback">https://velociraptor.rekall-innovations.com/auth/google/callback</a> -
-This is the URL that successful OAuth authentication will direct
-to. Velociraptor accepts this redirect and uses it to log the user on.</p>
-<img alt="6.png" src="6.png" />
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">The UI is a bit confusing here - you must press enter after
-typing the redirect URL to have it registered <strong>before</strong> you
-hit <em>Create</em> otherwise it misses that you typed it
-completely. I spent some time stumped on this UI bug.</p>
-</div>
-<p>If all goes well the Google cloud console will give us a client ID and
-a client secret. We can then copy those into the Velociraptor
-configuration file under the GUI section:</p>
-<pre class="code yaml literal-block">
-<span class="name tag">GUI</span><span class="punctuation">:</span>
-  <span class="name tag">google_oauth_client_id</span><span class="punctuation">:</span> <span class="literal scalar plain">1234xxxxxx.apps.googleusercontent.com</span>
-  <span class="name tag">google_oauth_client_secret</span><span class="punctuation">:</span> <span class="literal scalar plain">qsadlkjhdaslkjasd</span>
-  <span class="name tag">public_url</span><span class="punctuation">:</span> <span class="literal scalar plain">https://velociraptor.rekall-innovations.com/</span>
 
-<span class="name tag">logging</span><span class="punctuation">:</span>
-  <span class="name tag">output_directory</span><span class="punctuation">:</span> <span class="literal scalar plain">/var/log/velociraptor/</span>
-  <span class="name tag">separate_logs_per_component</span><span class="punctuation">:</span> <span class="literal scalar plain">true</span>
-</pre>
+<p><img src="5.png" alt="image" /></p>
+
+<p>Now select \&ldquo;Web App\&rdquo; and we must set the \&ldquo;Authorized redirect URIs\&rdquo;
+to <a href="https://velociraptor.rekall-innovations.com/auth/google/callback">https://velociraptor.rekall-innovations.com/auth/google/callback</a>
+-This is the URL that successful OAuth authentication will direct to.
+Velociraptor accepts this redirect and uses it to log the user on.</p>
+
+<dl>
+<dt><img src="6.png" alt="image" /></dt>
+<dt>::: {.note}
+::: {.admonition-title}
+Note
+:::</dt>
+</dl>
+
+<p>The UI is a bit confusing here - you must press enter after typing the
+redirect URL to have it registered <strong>before</strong> you hit <em>Create</em> otherwise
+it misses that you typed it completely. I spent some time stumped on
+this UI bug.
+:::</p>
+
+<p>If all goes well the Google cloud console will give us a client ID and a
+client secret. We can then copy those into the Velociraptor
+configuration file under the GUI section:</p>
+
+<pre><code class="language-.sourceCode">GUI:
+  google_oauth_client_id: 1234xxxxxx.apps.googleusercontent.com
+  google_oauth_client_secret: qsadlkjhdaslkjasd
+  public_url: https://velociraptor.rekall-innovations.com/
+
+logging:
+  output_directory: /var/log/velociraptor/
+  separate_logs_per_component: true
+</code></pre>
+
 <p>In the above config we also enabled logging (which is important for a
-secure application!). The <cite>separate_logs_per_component</cite> option will
+secure application!). The separate_logs_per_component option will
 create a separate log file for the GUI, Frontend as well as important
 Audit related events.</p>
+
 <p>Now we can start the Velociraptor frontend:</p>
-<pre class="code bash literal-block">
-$ velociraptor --config server.config.yaml frontend
-</pre>
+
+<pre><code class="language-.sourceCode">$ velociraptor --config server.config.yaml frontend
+</code></pre>
+
 <p>Connecting using the browser goes through the familiar OAuth flow and
 arrives at this Velociraptor screen:</p>
-<img alt="7.png" src="7.png" />
-<p>The OAuth flow ensures the user's identity is correct but does not
-give them permission to log into Velociraptor. Note that having an
-OAuth enabled application on the web allows anyone with a Google
-identity to authenticate to the application but the user is still
-required to be authorized. We can see the following in the Audit logs:</p>
-<pre class="code json literal-block">
-<span class="punctuation">{</span>
-  <span class="name tag">&quot;level&quot;</span><span class="punctuation">:</span> <span class="literal string double">&quot;error&quot;</span><span class="punctuation">,</span>
-  <span class="name tag">&quot;method&quot;</span><span class="punctuation">:</span> <span class="literal string double">&quot;GET&quot;</span><span class="punctuation">,</span>
-  <span class="name tag">&quot;msg&quot;</span><span class="punctuation">:</span> <span class="literal string double">&quot;User rejected by GUI&quot;</span><span class="punctuation">,</span>
-  <span class="name tag">&quot;remote&quot;</span><span class="punctuation">:</span> <span class="literal string double">&quot;192.168.0.10:40570&quot;</span><span class="punctuation">,</span>
-  <span class="name tag">&quot;time&quot;</span><span class="punctuation">:</span> <span class="literal string double">&quot;2018-12-21T18:17:47+10:00&quot;</span><span class="punctuation">,</span>
-  <span class="name tag">&quot;user&quot;</span><span class="punctuation">:</span> <span class="literal string double">&quot;mike&#64;velocidex.com&quot;</span>
-<span class="punctuation">}</span>
-</pre>
+
+<p><img src="7.png" alt="image" /></p>
+
+<p>The OAuth flow ensures the user\&rsquo;s identity is correct but does not give
+them permission to log into Velociraptor. Note that having an OAuth
+enabled application on the web allows anyone with a Google identity to
+authenticate to the application but the user is still required to be
+authorized. We can see the following in the Audit logs:</p>
+
+<pre><code class="language-.sourceCode">{
+  &quot;level&quot;: &quot;error&quot;,
+  &quot;method&quot;: &quot;GET&quot;,
+  &quot;msg&quot;: &quot;User rejected by GUI&quot;,
+  &quot;remote&quot;: &quot;192.168.0.10:40570&quot;,
+  &quot;time&quot;: &quot;2018-12-21T18:17:47+10:00&quot;,
+  &quot;user&quot;: &quot;mike@velocidex.com&quot;
+}
+</code></pre>
+
 <p>In order to authorize the user we must explicitly add them using the
 velociraptor admin tool:</p>
-<pre class="code bash literal-block">
-$ velociraptor --config ~/server.config.yaml user add mike&#64;velocidex.com
+
+<pre><code class="language-.sourceCode">$ velociraptor --config ~/server.config.yaml user add mike@velocidex.com
 Authentication will occur via Google - therefore no password needs to be set.
-</pre>
+</code></pre>
+
 <p>Note that this time, Velociraptor does not ask for a password at all,
-since authentication occurs using Google's SSO. If we hit refresh in
+since authentication occurs using Google\&rsquo;s SSO. If we hit refresh in
 the browser we can now see the Velociraptor application:</p>
-<img alt="8.png" src="8.png" />
-<p>We can see that the logged in user is authenticated by Google, and we
-can also see their Google avatar at the top right for some more eye
-candy :-).</p>
-<div class="admonition admonition-thanks">
-<p class="first admonition-title">Thanks</p>
-<p class="last">Shouts to the folks from <a class="reference external" href="https://www.kleinco.com.au/">Klein &amp; Co</a> who sponsored this exciting
-feature!.</p>
-</div>
-</div>
-</div>
+
+<p><img src="8.png" alt="image" /></p>
+
+<dl>
+<dt>candy :-).</dt>
+</dl>
+
+<dl>
+<dt>candy :-).</dt>
+</dl>
+
+<dl>
+<dt>candy :-).</dt>
+</dl>
+
+<dl>
+<dt>candy :-).</dt>
+</dl>
+
+<dl>
+<dt>candy :-).</dt>
+</dl>
+
+<dl>
+<dt>candy :-).</dt>
+</dl>
+
+<dl>
+<dt>candy :-).</dt>
+</dl>
+
+<dl>
+<dt>candy :-).</dt>
+</dl>
+
+<dl>
+<dt>candy :-).</dt>
+</dl>
+
+<dl>
+<dt>candy :-).</dt>
+</dl>
+
+<dl>
+<dt>candy :-).</dt>
+</dl>
+
+<dl>
+<dt>candy :-).</dt>
+</dl>
+
+<dl>
+<dt>:-).</dt>
+</dl>
+
+<p>::: {.admonition}
+Thanks</p>
+
+<p>Shouts to the folks from <a href="https://www.kleinco.com.au/">Klein &amp; Co</a> who
+sponsored this exciting feature!.
+:::</p>
+
 
     
     
@@ -615,7 +789,7 @@ feature!.</p>
 
 <div id="navigation">
 <a class="nav nav-prev" href="/docs/presentations/nzitf2018/" title="New Zealand Internet Task Force Conference 2018"> <i class="fa fa-chevron-left"></i><label>New Zealand Internet Task Force Conference 2018</label></a>
-    <a class="nav nav-next" href="/about/" title="About Velociraptor" style="margin-right: 0px;"><label>About Velociraptor</label><i class="fa fa-chevron-right"></i></a></div>
+    <a class="nav nav-next" href="/blog/medium/2019-11-15_recovering-deleted-ntfs-files-with-velociraptor-1fcf09855311/" title="Recovering deleted NTFS Files with Velociraptor" style="margin-right: 0px;"><label>Recovering deleted NTFS Files with Velociraptor</label><i class="fa fa-chevron-right"></i></a></div>
 
 </section>
 <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">

@@ -376,6 +376,48 @@
             <i class="fa fa-angle-down fa-lg category-icon"></i>
       </div>
         <ul>
+      <li data-nav-id="/blog/medium/2019-11-15_recovering-deleted-ntfs-files-with-velociraptor-1fcf09855311/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-11-15_recovering-deleted-ntfs-files-with-velociraptor-1fcf09855311/">
+            Recovering deleted NTFS Files with Velociraptor
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-11-12_windows-event-logs-d8d8e615c9ca/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-11-12_windows-event-logs-d8d8e615c9ca/">
+            Windows Event Logs
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-10-08_triage-with-velociraptor-pt-3-d6f63215f579/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-10-08_triage-with-velociraptor-pt-3-d6f63215f579/">
+            Triage with Velociraptor — Pt 3
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-10-04_triage-with-velociraptor-pt-2-d0f79066ca0e/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-10-04_triage-with-velociraptor-pt-2-d0f79066ca0e/">
+            Triage with Velociraptor — Pt 2
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-10-02_triage-with-velociraptor-pt-1-253f57ce96c0/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-10-02_triage-with-velociraptor-pt-1-253f57ce96c0/">
+            Triage with Velociraptor — Pt 1
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-09-11_velociraptor-s-client-side-buffer-3ce03697a4e6/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-09-11_velociraptor-s-client-side-buffer-3ce03697a4e6/">
+            Velociraptor’s client side buffer
+          </a>
+        </div>
+    </li>
         </ul>
     </li>
 
@@ -428,7 +470,20 @@
     
     <div class="progress">
         <div class="wrapper">
-    
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#velociraptor-artifacts">Velociraptor Artifacts</a></li>
+<li><a href="#why-would-i-want-to-use-artifacts">Why would I want to use Artifacts?</a></li>
+<li><a href="#so-how-do-i-use-artifacts">So how do I use Artifacts?</a>
+<ul>
+<li><a href="#how-powerful-are-velociraptor-artifacts">How powerful are Velociraptor Artifacts?</a></li>
+<li><a href="#parsing-debian-packages">Parsing debian packages.</a></li>
+<li><a href="#complex-multi-query-example-chrome-extensions">Complex multi-query example: Chrome extensions.</a></li>
+<li><a href="#parsing-binary-data-wtmp-file-parser">Parsing binary data: Wtmp file parser.</a></li>
+<li><a href="#the-future">The future</a></li>
+</ul></li>
+</ul>
+</nav>
         </div>
     </div>
     
@@ -446,143 +501,158 @@
     
     
     
-    <div class="document">
-
+    
 
 <p>First a bit of history. When we first started writing endpoint
-monitoring tools (With GRR then Rekall Agent) we implemented the
-ability to collect files, registry keys and other data. If an analyst
-wanted to collect, say the chrome extensions, they would need to know
-where chrome extensions typically reside (
-<tt class="docutils literal"><span class="pre">%homedir%/.config/google-chrome/Extensions/**</span></tt>) and enter that in
-each time.</p>
+monitoring tools (With GRR then Rekall Agent) we implemented the ability
+to collect files, registry keys and other data. If an analyst wanted to
+collect, say the chrome extensions, they would need to know where chrome
+extensions typically reside (
+<code>%homedir%/.config/google-chrome/Extensions/**</code>) and enter that in each
+time.</p>
+
 <p>We soon realized this was error prone and required too much mental
-overhead for analysts to constantly remember these details. GRR
-inspired the creation of the Forensic Artifacts project. It was
-created in order to solve the problem of documenting and sharing
-knowledge about forensic evidence file and registry location.</p>
+overhead for analysts to constantly remember these details. GRR inspired
+the creation of the Forensic Artifacts project. It was created in order
+to solve the problem of documenting and sharing knowledge about forensic
+evidence file and registry location.</p>
+
 <p>Further, since GRR can only collect files and has limited parsing
 support, the parsing and interpretation of the artifacts is not
 specified. GRR Artifacts can only specify file sets (via globs),
-registry key/value sets and collections of other artifacts. These are
-a bit limited in their expressiveness, and so it means that GRR has to
-augment forensic artifacts with a lot of GRR specific things (like
-post processing, parsing etc) to make them useful. Although Forensic
-Artifacts are supposed to be tool agnostic they carry over a lot of
-GRR implementation details (e.g. the knowledge base interpolations,
-glob patterns etc).</p>
+registry key/value sets and collections of other artifacts. These are a
+bit limited in their expressiveness, and so it means that GRR has to
+augment forensic artifacts with a lot of GRR specific things (like post
+processing, parsing etc) to make them useful. Although Forensic
+Artifacts are supposed to be tool agnostic they carry over a lot of GRR
+implementation details (e.g. the knowledge base interpolations, glob
+patterns etc).</p>
+
 <p>Next came OSQuery with their SQL like syntax. This was a huge
 advancement at the time because it allows users to customize the data
 they obtained from their endpoint, and ask questions from the entire
 enterprise at once. For the first time it was possible to combine data
-from multiple sources (i.e. OSQuery &quot;tables&quot;) in an intelligent way
-and customize the output to fit a processing pipeline, rather than
-write a lot of interface glue code to filter and extract data.</p>
+from multiple sources (i.e. OSQuery \&ldquo;tables\&ldquo;) in an intelligent way
+and customize the output to fit a processing pipeline, rather than write
+a lot of interface glue code to filter and extract data.</p>
+
 <p>Currently OSQuery has grown many tables - each table typically
 implements a specific parser to extract one set of data. In this sense
-OSQuery also solves the same problem as GRR's artifacts - they provide
-a single named entity (called a table in OSQuery) which produces
-results about one type of thing (e.g. arp_cache table produces results
-about the arp cache entries). The user can then just ask for the arp
-cache and doesn't care how we get it.</p>
+OSQuery also solves the same problem as GRR\&rsquo;s artifacts - they provide
+a single named entity (called a table in OSQuery) which produces results
+about one type of thing (e.g. arp_cache table produces results about
+the arp cache entries). The user can then just ask for the arp cache and
+doesn\&rsquo;t care how we get it.</p>
+
 <p>The next logical development was the development of Velociraptor Query
-Language (VQL). VQL is not pure SQL - instead it is an SQL like
-language with a severely reduced feature set. The main difference with
-regular SQL is the ability to provide arguments to table names - that
-is a VQL plugin is a data source that can receive arbitrary arguments.</p>
+Language (VQL). VQL is not pure SQL - instead it is an SQL like language
+with a severely reduced feature set. The main difference with regular
+SQL is the ability to provide arguments to table names - that is a VQL
+plugin is a data source that can receive arbitrary arguments.</p>
+
 <p>This changes the entire game - since we can now provide high level
-functions to control plugin execution. Combined with the VQL ability
-to combine multiple queries into subqueries this opens the door for
-very complex types of queries.</p>
+functions to control plugin execution. Combined with the VQL ability to
+combine multiple queries into subqueries this opens the door for very
+complex types of queries.</p>
+
 <p>For example, consider the OSQuery users table. This table reads the
-system's /etc/passwd file and parses out the different columns. It is
+system\&rsquo;s /etc/passwd file and parses out the different columns. It is
 hard coded into the OSQuery binary. While this is a very simple table,
 it shares its operation with many other similar tables. Other tables
-open similar files, parse them line by line and return each field as
-the query's columns. There are many similar files that contain useful
+open similar files, parse them line by line and return each field as the
+query\&rsquo;s columns. There are many similar files that contain useful
 information on a system. If one was to add a parser for each one in
 OSQuery, then they need to write a small amount of code, recompile the
 binary and push it out to clients.</p>
-<p>Re-deploying new code to endpoints is a difficult task in
-practice. There is testing and release processes to
-employ. Furthermore if a local modification is made to OSQuery one
-needs to submit PRs upstream, otherwise the codebases may diverge and
-maintainance would be difficult.</p>
+
+<p>Re-deploying new code to endpoints is a difficult task in practice.
+There is testing and release processes to employ. Furthermore if a local
+modification is made to OSQuery one needs to submit PRs upstream,
+otherwise the codebases may diverge and maintainance would be difficult.</p>
+
 <p>Rather than have a built in plugin for each such table, Velociraptor
 simply includes a number of generic parsers which may be reused for
-parsing different files. For example, consider the following VQL
-Query:</p>
-<pre class="code sql literal-block">
-<span class="keyword">SELECT</span> <span class="keyword">User</span><span class="punctuation">,</span> <span class="keyword">Desc</span><span class="punctuation">,</span> <span class="name">Uid</span><span class="punctuation">,</span> <span class="name">Gid</span><span class="punctuation">,</span> <span class="name">Homedir</span><span class="punctuation">,</span> <span class="name">Shell</span> <span class="keyword">FROM</span> <span class="name">parse_records_with_regex</span><span class="punctuation">(</span>
-      <span class="name">file</span><span class="operator">=</span><span class="literal string symbol">&quot;/etc/passwd&quot;</span><span class="punctuation">,</span>
-      <span class="name">regex</span><span class="operator">=</span><span class="literal string single">'(?m)^(?P&lt;User&gt;[^:]+):([^:]+):'</span> <span class="operator">+</span>
-            <span class="literal string single">'(?P&lt;Uid&gt;[^:]+):(?P&lt;Gid&gt;[^:]+):(?P&lt;Desc&gt;[^:]*):'</span> <span class="operator">+</span>
-            <span class="literal string single">'(?P&lt;Homedir&gt;[^:]+):(?P&lt;Shell&gt;[^:\\s]+)'</span><span class="punctuation">)</span>
-</pre>
-<p>The <tt class="docutils literal">parse_records_with_regex()</tt> plugin simply applies one or more
-regex to a file and each match is sent as a record. In this case, each
-line is matched and parsed into its components automatically. Note how
-the query produces the same results as OSQuery's users table, but uses
-completely generic parsers.</p>
-<p>The generic parser can be used to parse many other file types. Here is query which parses debian apt-source lines:</p>
-<pre class="code sql literal-block">
-<span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> <span class="name">parse_records_with_regex</span><span class="punctuation">(</span>
-   <span class="name">file</span><span class="operator">=</span><span class="literal string symbol">&quot;/etc/apt/sources.list&quot;</span><span class="punctuation">,</span>
-   <span class="name">regex</span><span class="operator">=</span><span class="literal string symbol">&quot;(?m)^ *(?P&lt;Type&gt;deb(-src)?) &quot;</span><span class="operator">+</span>
-         <span class="literal string symbol">&quot;(?:\\[arch=(?P&lt;Arch&gt;[^\\]]+)\\] )?&quot;</span> <span class="operator">+</span>
-         <span class="literal string symbol">&quot;(?P&lt;URL&gt;https?://(?P&lt;base_uri&gt;[^ ]+))&quot;</span> <span class="operator">+</span>
-         <span class="literal string symbol">&quot; +(?P&lt;components&gt;.+)&quot;</span><span class="punctuation">)</span>
-</pre>
+parsing different files. For example, consider the following VQL Query:</p>
+
+<pre><code class="language-.sourceCode">SELECT User, Desc, Uid, Gid, Homedir, Shell FROM parse_records_with_regex(
+      file=&quot;/etc/passwd&quot;,
+      regex='(?m)^(?P&lt;User&gt;[^:]+):([^:]+):' +
+            '(?P&lt;Uid&gt;[^:]+):(?P&lt;Gid&gt;[^:]+):(?P&lt;Desc&gt;[^:]*):' +
+            '(?P&lt;Homedir&gt;[^:]+):(?P&lt;Shell&gt;[^:\\s]+)')
+</code></pre>
+
+<p>The <code>parse_records_with_regex()</code> plugin simply applies one or more regex
+to a file and each match is sent as a record. In this case, each line is
+matched and parsed into its components automatically. Note how the query
+produces the same results as OSQuery\&rsquo;s users table, but uses completely
+generic parsers.</p>
+
+<p>The generic parser can be used to parse many other file types. Here is
+query which parses debian apt-source lines:</p>
+
+<pre><code class="language-.sourceCode">SELECT * FROM parse_records_with_regex(
+   file=&quot;/etc/apt/sources.list&quot;,
+   regex=&quot;(?m)^ *(?P&lt;Type&gt;deb(-src)?) &quot;+
+         &quot;(?:\\[arch=(?P&lt;Arch&gt;[^\\]]+)\\] )?&quot; +
+         &quot;(?P&lt;URL&gt;https?://(?P&lt;base_uri&gt;[^ ]+))&quot; +
+         &quot; +(?P&lt;components&gt;.+)&quot;)
+</code></pre>
+
 <p>Having the ability to control parsing directly in the query opens up
-many possibilities. What if we need to parse new files which do not
-have an OSQuery parser yet (maybe an enterprise application
-configuration file)? We can easily construct a query using the generic
-parsers and issue it to the endpoint to support new file format.</p>
-<div class="section" id="velociraptor-artifacts">
-<h2>Velociraptor Artifacts</h2>
+many possibilities. What if we need to parse new files which do not have
+an OSQuery parser yet (maybe an enterprise application configuration
+file)? We can easily construct a query using the generic parsers and
+issue it to the endpoint to support new file format.</p>
+
+<h1 id="velociraptor-artifacts">Velociraptor Artifacts</h1>
+
 <p>In the previous section we saw how we can express very complex queries
 to support novel parsing scenarios. However it is hard for users to
 directly issue the queries - who can remember this complex regex and
 type it in every time?</p>
+
 <p>We clearly need some way to record the queries in a simple, reusable
-way. This sounds a lot like GRR's Artifacts! What if we could just
+way. This sounds a lot like GRR\&rsquo;s Artifacts! What if we could just
 write the complex query in a YAML file and then just said to
-Velociraptor - go collect that artifact and the correct queries would
-be issued to the client automatically.</p>
+Velociraptor - go collect that artifact and the correct queries would be
+issued to the client automatically.</p>
+
 <p>Rather than try to make artifacts generic, we define Velociraptor
 Artifacts as YAML files which simply bundle together a bunch of VQL
 statements that together run a particular query. In a sense,
-Velociraptor's artifacts are similar to OSQuery's table definition
-(since they specify output columns), except they are defined
-completely by the YAML definition file, using generic reusable VQL
-plugins, put together with VQL queries.</p>
+Velociraptor\&rsquo;s artifacts are similar to OSQuery\&rsquo;s table definition
+(since they specify output columns), except they are defined completely
+by the YAML definition file, using generic reusable VQL plugins, put
+together with VQL queries.</p>
+
 <p>Here is an example of the the Linux.Sys.Users artifact - this is the
-equivalent artifact to OSQuery's users table:</p>
-<pre class="code yaml literal-block">
-<span class="name tag">name</span><span class="punctuation">:</span> <span class="literal scalar plain">Linux.Sys.Users</span>
-<span class="name tag">description</span><span class="punctuation">:</span> <span class="literal scalar plain">Get User specific information like homedir, group etc from /etc/passwd.</span>
-<span class="name tag">parameters</span><span class="punctuation">:</span>
-  <span class="punctuation indicator">-</span> <span class="name tag">name</span><span class="punctuation">:</span> <span class="literal scalar plain">PasswordFile</span>
-    <span class="name tag">default</span><span class="punctuation">:</span> <span class="literal scalar plain">/etc/passwd</span>
-    <span class="name tag">description</span><span class="punctuation">:</span> <span class="literal scalar plain">The location of the password file.</span>
-<span class="name tag">sources</span><span class="punctuation">:</span>
-  <span class="punctuation indicator">-</span> <span class="name tag">precondition</span><span class="punctuation">:</span> <span class="punctuation indicator">|</span>
-     <span class="name constant">SELECT OS From info() where OS = 'linux'</span>
-    <span class="name tag">queries</span><span class="punctuation">:</span>
-      <span class="punctuation indicator">-</span> <span class="literal scalar plain">SELECT User, Desc, Uid, Gid, Homedir, Shell</span>
-         <span class="literal scalar plain">FROM parse_records_with_regex(</span>
-           <span class="literal scalar plain">file=PasswordFile,</span>
-           <span class="literal scalar plain">regex='(?m)^(?P&lt;User&gt;[^:]+):([^:]+):' +</span>
-                 <span class="literal scalar plain">'(?P&lt;Uid&gt;[^:]+):(?P&lt;Gid&gt;[^:]+):(?P&lt;Desc&gt;[^:]*):' +</span>
-                 <span class="literal scalar plain">'(?P&lt;Homedir&gt;[^:]+):(?P&lt;Shell&gt;[^:\\s]+)')</span>
-</pre>
-<p>The artifact has a specific name (Linux.Sys.Users) and a
-description. The Artifact will only run if the precondition is
-satisfied (i.e. if we are running on a linux system). Running the
-artifact locally produces the following output:</p>
-<pre class="code console literal-block">
-<span class="generic prompt">$</span> velociraptor artifacts collect Linux.Sys.Users
-<span class="generic output">+-------------------+-------------------------+-------+-------+--------------------------+
+equivalent artifact to OSQuery\&rsquo;s users table:</p>
+
+<pre><code class="language-.sourceCode">name: Linux.Sys.Users
+description: Get User specific information like homedir, group etc from /etc/passwd.
+parameters:
+  - name: PasswordFile
+    default: /etc/passwd
+    description: The location of the password file.
+sources:
+  - precondition: |
+     SELECT OS From info() where OS = 'linux'
+    queries:
+      - SELECT User, Desc, Uid, Gid, Homedir, Shell
+         FROM parse_records_with_regex(
+           file=PasswordFile,
+           regex='(?m)^(?P&lt;User&gt;[^:]+):([^:]+):' +
+                 '(?P&lt;Uid&gt;[^:]+):(?P&lt;Gid&gt;[^:]+):(?P&lt;Desc&gt;[^:]*):' +
+                 '(?P&lt;Homedir&gt;[^:]+):(?P&lt;Shell&gt;[^:\\s]+)')
+</code></pre>
+
+<p>The artifact has a specific name (Linux.Sys.Users) and a description.
+The Artifact will only run if the precondition is satisfied (i.e. if we
+are running on a linux system). Running the artifact locally produces
+the following output:</p>
+
+<pre><code class="language-.sourceCode">$ velociraptor artifacts collect Linux.Sys.Users
++-------------------+-------------------------+-------+-------+--------------------------+
 |       USER        |              DESC       |  UID  |  GID  |         HOMEDIR          |
 +-------------------+-------------------------+-------+-------+--------------------------+
 | root              | root                    |     0 |     0 | /root                    |
@@ -593,150 +663,173 @@ artifact locally produces the following output:</p>
 | games             | games                   |     5 |    60 | /usr/games               |
 | man               | man                     |     6 |    12 | /var/cache/man           |
 | lp                | lp                      |     7 |     7 | /var/spool/lpd           |
-| mail              | mail                    |     8 |     8 | /var/mail                |</span>
-</pre>
-</div>
-<div class="section" id="why-would-i-want-to-use-artifacts">
-<h2>Why would I want to use Artifacts?</h2>
-<p>We just demonstrated that Velociraptor's artifact produces the same
-output as OSQuery's users table - so what? Why use an artifact over
+| mail              | mail                    |     8 |     8 | /var/mail                |
+</code></pre>
+
+<h1 id="why-would-i-want-to-use-artifacts">Why would I want to use Artifacts?</h1>
+
+<p>We just demonstrated that Velociraptor\&rsquo;s artifact produces the same
+output as OSQuery\&rsquo;s users table - so what? Why use an artifact over
 hard coding the table in the executable?</p>
+
 <p>Velociraptor is inherently a remote endpoint monitoring agent. Agents
 are installed on many end points and once installed it is often
 difficult to remotely update them. For various reasons, endpoints are
 often difficult to upgrade - for example, they might be off the
 corporate LAN, or have a broken update agent.</p>
+
 <p>In particular, when responding to a major incident, we often have to
 rapidly deploy a new hunt to search for an indicator of compromise. In
-most cases we don't have time to go through proper software deployment
+most cases we don\&rsquo;t have time to go through proper software deployment
 best practice and upgrade our endpoint agent in rapid succession (it
 typically takes weeks to have endpoint agents upgraded).</p>
-<p>However, Velociraptor's artifacts allow us to write a new type of
-parser immediately since it is just a YAML file with VQL statements,
-we can push it immediately to the clients with no code changes,
-rebuild, or redeploy scripts. That is very powerful!</p>
-<p>Not only can we add new artifacts, but we can adapt artifacts on the
-fly to different systems - perhaps there is a slightly different
-version of Linux which keeps files in different locations? Or maybe a
-slightly different format of the file we are trying to parse. Being
-able to adapt rapidly is critical.</p>
-</div>
-<div class="section" id="so-how-do-i-use-artifacts">
-<h2>So how do I use Artifacts?</h2>
-<p>Velociraptor exposes artifacts via two main mechanisms. The first is
-the Artifact Collector flow. This flow presents a special GUI which
-allows us to view the different artifacts, choose which ones we want
-to launch and describes them:</p>
-<img alt="artifacts_how_to.png" src="artifacts_how_to.png" />
+
+<p>However, Velociraptor\&rsquo;s artifacts allow us to write a new type of
+parser immediately since it is just a YAML file with VQL statements, we
+can push it immediately to the clients with no code changes, rebuild, or
+redeploy scripts. That is very powerful!</p>
+
+<p>Not only can we add new artifacts, but we can adapt artifacts on the fly
+to different systems - perhaps there is a slightly different version of
+Linux which keeps files in different locations? Or maybe a slightly
+different format of the file we are trying to parse. Being able to adapt
+rapidly is critical.</p>
+
+<h1 id="so-how-do-i-use-artifacts">So how do I use Artifacts?</h1>
+
+<p>Velociraptor exposes artifacts via two main mechanisms. The first is the
+Artifact Collector flow. This flow presents a special GUI which allows
+us to view the different artifacts, choose which ones we want to launch
+and describes them:</p>
+
+<p><img src="artifacts_how_to.png" alt="image" /></p>
+
 <p>As we can see in the screenshot above, the artifact collector flow
-allows the user to inspect the artifacts, before issuing the VQL to
-the client. The responses are received by the server and displayed as
-part of the same flow:</p>
-<img alt="artifacts2.png" src="artifacts2.png" />
-<p>This is a pretty easy set and forget type system. However,
-Velociraptor makes artifacts available within any VQL query too. The
-artifact simply appears as another VQL plugin. Consider the following
-VQL Query that filters only user accounts which have a real shell:</p>
-<pre class="code console literal-block">
-<span class="generic prompt">$</span> velociraptor query --format text <span class="literal string double">&quot;SELECT * FROM Artifact.Linux.Sys.Users() where Shell =~ 'bash'&quot;</span>
-<span class="generic output">+------+------+------+------+-----------+-----------+
+allows the user to inspect the artifacts, before issuing the VQL to the
+client. The responses are received by the server and displayed as part
+of the same flow:</p>
+
+<p><img src="artifacts2.png" alt="image" /></p>
+
+<p>This is a pretty easy set and forget type system. However, Velociraptor
+makes artifacts available within any VQL query too. The artifact simply
+appears as another VQL plugin. Consider the following VQL Query that
+filters only user accounts which have a real shell:</p>
+
+<pre><code class="language-.sourceCode">$ velociraptor query --format text &quot;SELECT * FROM Artifact.Linux.Sys.Users() where Shell =~ 'bash'&quot;
++------+------+------+------+-----------+-----------+
 | USER | DESC | UID  | GID  |  HOMEDIR  |   SHELL   |
 +------+------+------+------+-----------+-----------+
 | root | root |    0 |    0 | /root     | /bin/bash |
 | mic  |      | 1000 | 1000 | /home/mic | /bin/bash |
 +------+------+------+------+-----------+-----------+
-SELECT * FROM Artifact.Linux.Sys.Users() WHERE Shell =~ 'bash'</span>
-</pre>
-<p>An artifact definition can use other artifacts by simply issuing
-queries against these artifact plugins. This forms a natural system of
+SELECT * FROM Artifact.Linux.Sys.Users() WHERE Shell =~ 'bash'
+</code></pre>
+
+<p>An artifact definition can use other artifacts by simply issuing queries
+against these artifact plugins. This forms a natural system of
 interdependency between artifacts, and leads to artifact reuse.</p>
-<div class="section" id="how-powerful-are-velociraptor-artifacts">
-<h3>How powerful are Velociraptor Artifacts?</h3>
-<p>Previously we described Velociraptor artifacts as having some
-properties in common with GRR's artifacts (pure YAML, reusable and
-server side) and OSQuery's tables (very detailed and potentially
-complex parsers, directly using APIs and libraries). We said that
-Velociraptor attempts to replace many of the specific &quot;one artifact
-per table&quot; model in OSQuery with a set of YAML files referencing
-generic plugins.</p>
-<p>Velociraptor's artifacts can never fully emulate all OSQuery's tables
+
+<h2 id="how-powerful-are-velociraptor-artifacts">How powerful are Velociraptor Artifacts?</h2>
+
+<p>Previously we described Velociraptor artifacts as having some properties
+in common with GRR\&rsquo;s artifacts (pure YAML, reusable and server side)
+and OSQuery\&rsquo;s tables (very detailed and potentially complex parsers,
+directly using APIs and libraries). We said that Velociraptor attempts
+to replace many of the specific \&ldquo;one artifact per table\&rdquo; model in
+OSQuery with a set of YAML files referencing generic plugins.</p>
+
+<p>Velociraptor\&rsquo;s artifacts can never fully emulate all OSQuery\&rsquo;s tables
 because some OSQuery tables call specific APIs and have very complex
-operation. However, most of OSQuery's tables are fairly simple and can
-be easily emulated by Velociraptor artifacts. In this sense -
-Velociraptor lies somewhere in between GRR's simple collect all files
-and registry keys without parsing them, and OSQuery's specialized
-parsers. However VQL is quite capable, as we shall see. Although we
-can not implement all tables using pure VQL queries, the ability to
+operation. However, most of OSQuery\&rsquo;s tables are fairly simple and can
+be easily emulated by Velociraptor artifacts. In this sense
+-Velociraptor lies somewhere in between GRR\&rsquo;s simple collect all files
+and registry keys without parsing them, and OSQuery\&rsquo;s specialized
+parsers. However VQL is quite capable, as we shall see. Although we can
+not implement all tables using pure VQL queries, the ability to
 implement many artifacts this way provides us with unprecedented
 flexibility and enables rapid response to evolving threats.</p>
-<p>Let's looks at some artifacts that demonstrate this flexiblity.</p>
-</div>
-<div class="section" id="parsing-debian-packages">
-<h3>Parsing debian packages.</h3>
-<p>Debian packages keep a manifest file with records delimited by an
-empty line. Each record consists of possible fields.</p>
-<pre class="code sql literal-block">
- <span class="operator">-</span> <span class="name">LET</span> <span class="name">packages</span> <span class="operator">=</span> <span class="keyword">SELECT</span> <span class="name">parse_string_with_regex</span><span class="punctuation">(</span>
-      <span class="name">string</span><span class="operator">=</span><span class="name">Record</span><span class="punctuation">,</span>
-      <span class="name">regex</span><span class="operator">=</span><span class="punctuation">[</span><span class="literal string single">'Package:\\s(?P&lt;Package&gt;.+)'</span><span class="punctuation">,</span>
-             <span class="literal string single">'Installed-Size:\\s(?P&lt;InstalledSize&gt;.+)'</span><span class="punctuation">,</span>
-             <span class="literal string single">'Version:\\s(?P&lt;Version&gt;.+)'</span><span class="punctuation">,</span>
-             <span class="literal string single">'Source:\\s(?P&lt;Source&gt;.+)'</span><span class="punctuation">,</span>
-             <span class="literal string single">'Architecture:\\s(?P&lt;Architecture&gt;.+)'</span><span class="punctuation">])</span> <span class="keyword">as</span> <span class="name">Record</span>
-      <span class="keyword">FROM</span> <span class="name">parse_records_with_regex</span><span class="punctuation">(</span>
-             <span class="name">file</span><span class="operator">=</span><span class="name">linuxDpkgStatus</span><span class="punctuation">,</span>
-             <span class="name">regex</span><span class="operator">=</span><span class="literal string single">'(?sm)^(?P&lt;Record&gt;Package:.+?)\\n\\n'</span><span class="punctuation">)</span>
-<span class="operator">-</span> <span class="keyword">SELECT</span> <span class="name">Record</span><span class="punctuation">.</span><span class="name">Package</span> <span class="keyword">as</span> <span class="name">Package</span><span class="punctuation">,</span>
-         <span class="name">Record</span><span class="punctuation">.</span><span class="name">InstalledSize</span> <span class="keyword">as</span> <span class="name">InstalledSize</span><span class="punctuation">,</span>
-         <span class="name">Record</span><span class="punctuation">.</span><span class="keyword">Version</span> <span class="keyword">as</span> <span class="keyword">Version</span><span class="punctuation">,</span>
-         <span class="name">Record</span><span class="punctuation">.</span><span class="keyword">Source</span> <span class="keyword">as</span> <span class="keyword">Source</span><span class="punctuation">,</span>
-         <span class="name">Record</span><span class="punctuation">.</span><span class="name">Architecture</span> <span class="keyword">as</span> <span class="name">Architecture</span> <span class="keyword">from</span> <span class="name">packages</span>
-</pre>
+
+<p>Let\&rsquo;s looks at some artifacts that demonstrate this flexiblity.</p>
+
+<h2 id="parsing-debian-packages">Parsing debian packages.</h2>
+
+<p>Debian packages keep a manifest file with records delimited by an empty
+line. Each record consists of possible fields.</p>
+
+<pre><code class="language-.sourceCode">- LET packages = SELECT parse_string_with_regex(
+     string=Record,
+     regex=['Package:\\s(?P&lt;Package&gt;.+)',
+            'Installed-Size:\\s(?P&lt;InstalledSize&gt;.+)',
+            'Version:\\s(?P&lt;Version&gt;.+)',
+            'Source:\\s(?P&lt;Source&gt;.+)',
+            'Architecture:\\s(?P&lt;Architecture&gt;.+)']) as Record
+     FROM parse_records_with_regex(
+            file=linuxDpkgStatus,
+            regex='(?sm)^(?P&lt;Record&gt;Package:.+?)\\n\\n')
+</code></pre>
+
+<blockquote>
+<p>-</p>
+
+<pre><code>SELECT Record.Package as Package,
+
+:   Record.InstalledSize as InstalledSize, Record.Version as
+    Version, Record.Source as Source, Record.Architecture as
+    Architecture from packages
+</code></pre>
+
 <p>The above query uses the parse_records_with_regex() plugin to split
-the file into records (anything between the Package: and the next
-empty line). Each record is then parsed separately using the
-parse_string_with_regex() VQL function. Being able to parse in two (or
-more) passes makes writing regexes much easier since they can be
+the file into records (anything between the Package: and the next empty
+line). Each record is then parsed separately using the
+parse_string_with_regex() VQL function. Being able to parse in two
+(or more) passes makes writing regexes much easier since they can be
 simplified greatly.</p>
-</div>
-<div class="section" id="complex-multi-query-example-chrome-extensions">
-<h3>Complex multi-query example: Chrome extensions.</h3>
+</blockquote>
+
+<h2 id="complex-multi-query-example-chrome-extensions">Complex multi-query example: Chrome extensions.</h2>
+
 <p>An example of a sophisticated artifact is the chrome extensions
 artifact. It implements the following algorithm:</p>
-<ol class="arabic simple">
+
+<ol>
 <li>For each user on the system, locate all chrome extension manifest
 files by using a glob expression.</li>
 <li>Parse the manifest file as JSON</li>
-<li>If the manifest contains a &quot;default_locale&quot; item, then locate the locale message file.</li>
+<li>If the manifest contains a \&ldquo;default_locale\&rdquo; item, then locate the
+locale message file.</li>
 <li>Parse the locale message file.</li>
 <li>Extract the extension name - if the extension has default locale
 then return the string from the locale file, otherwise from the
 manifest file.</li>
 </ol>
-<p>The full artifact is rather long so will not be listed here in full,
-but are a couple of interesting VQL plugins which make writing
-artifacts more powerful.</p>
+
+<p>The full artifact is rather long so will not be listed here in full, but
+are a couple of interesting VQL plugins which make writing artifacts
+more powerful.</p>
+
 <p>The foreach() plugin runs a query and for each row produced, a second
-query is run (with the first row present in the scope). This is
-similar to SQL's JOIN operator but more readable. For example the
-following query executes a glob on each user's home directory (as
-obtained from the password file):</p>
-<pre class="code console literal-block">
-<span class="generic output">LET extension_manifests = SELECT * from foreach(
+query is run (with the first row present in the scope). This is similar
+to SQL\&rsquo;s JOIN operator but more readable. For example the following
+query executes a glob on each user\&rsquo;s home directory (as obtained from
+the password file):</p>
+
+<pre><code class="language-.sourceCode">LET extension_manifests = SELECT * from foreach(
  row={
     SELECT Uid, User, Homedir from Artifact.Linux.Sys.Users()
  },
  query={
     SELECT FullPath, Mtime, Ctime, User, Uid from glob(
       globs=Homedir + '/' + extensionGlobs)
- })</span>
-</pre>
-<p>Note how the query is assigned to the variable &quot;extension_manifests&quot;
-which can be used as an input to other queries.  The if() plugin
-evaluates a condition (or a query) and runs the &quot;then&quot; query if true,
-or the &quot;else&quot; query:</p>
-<pre class="code console literal-block">
-<span class="generic output">LET maybe_read_locale_file = SELECT * from if(
+ })
+</code></pre>
+
+<p>Note how the query is assigned to the variable \&ldquo;extension_manifests\&rdquo;
+which can be used as an input to other queries. The if() plugin
+evaluates a condition (or a query) and runs the \&ldquo;then\&rdquo; query if true,
+or the \&ldquo;else\&rdquo; query:</p>
+
+<pre><code class="language-.sourceCode">LET maybe_read_locale_file = SELECT * from if(
      condition={
         select * from scope() where Manifest.default_locale
      },
@@ -754,20 +847,19 @@ or the &quot;else&quot; query:</p>
          -- Just fill in empty Locale results.
          SELECT Manifest, Uid, User, &quot;&quot; AS LocaleFilename, &quot;&quot; AS ManifestFilename,
                 &quot;&quot; AS LocaleManifest FROM scope()
-     })</span>
-</pre>
-</div>
-<div class="section" id="parsing-binary-data-wtmp-file-parser">
-<h3>Parsing binary data: Wtmp file parser.</h3>
+     })
+</code></pre>
+
+<h2 id="parsing-binary-data-wtmp-file-parser">Parsing binary data: Wtmp file parser.</h2>
+
 <p>It is also possible to parse binary files with VQL. For example,
-consider the wtmp file parser implemented in the
-Linux.Sys.LastUserLogin artifact. This artifact uses the
-binary_parser() VQL plugin which accepts a Rekall style profile string
-to instantiate an iterator over the file. Since the wtmp file is
-simply a sequence of wtmp structs, we can iterate over them in a
-query.</p>
-<pre class="code console literal-block">
-<span class="generic output">SELECT * from foreach(
+consider the wtmp file parser implemented in the Linux.Sys.LastUserLogin
+artifact. This artifact uses the binary_parser() VQL plugin which
+accepts a Rekall style profile string to instantiate an iterator over
+the file. Since the wtmp file is simply a sequence of wtmp structs, we
+can iterate over them in a query.</p>
+
+<pre><code class="language-.sourceCode">SELECT * from foreach(
          row={
            SELECT FullPath from glob(globs=split(string=wtmpGlobs, sep=&quot;,&quot;))
          },
@@ -780,18 +872,16 @@ query.</p>
                   iterator=&quot;Array&quot;,
                   Target=&quot;wtmp&quot;
                 )
-         })</span>
-</pre>
-</div>
-<div class="section" id="the-future">
-<h3>The future</h3>
-<p>We started implementing many of the simpler OSQuery tables using
-VQL. For the remaining tables (the ones that need to call out to
-libraries or more complex APIs), we will integrate these using a set
-of specialized VQL plugins over time.</p>
-</div>
-</div>
-</div>
+         })
+</code></pre>
+
+<h2 id="the-future">The future</h2>
+
+<p>We started implementing many of the simpler OSQuery tables using VQL.
+For the remaining tables (the ones that need to call out to libraries or
+more complex APIs), we will integrate these using a set of specialized
+VQL plugins over time.</p>
+
 
     
     
@@ -803,7 +893,7 @@ of specialized VQL plugins over time.</p>
 
 <div id="navigation">
 <a class="nav nav-prev" href="/docs/presentations/nzitf2018/" title="New Zealand Internet Task Force Conference 2018"> <i class="fa fa-chevron-left"></i><label>New Zealand Internet Task Force Conference 2018</label></a>
-    <a class="nav nav-next" href="/about/" title="About Velociraptor" style="margin-right: 0px;"><label>About Velociraptor</label><i class="fa fa-chevron-right"></i></a></div>
+    <a class="nav nav-next" href="/blog/medium/2019-11-15_recovering-deleted-ntfs-files-with-velociraptor-1fcf09855311/" title="Recovering deleted NTFS Files with Velociraptor" style="margin-right: 0px;"><label>Recovering deleted NTFS Files with Velociraptor</label><i class="fa fa-chevron-right"></i></a></div>
 
 </section>
 <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">

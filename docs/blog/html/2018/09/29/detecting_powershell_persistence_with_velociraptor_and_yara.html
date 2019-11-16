@@ -376,6 +376,48 @@
             <i class="fa fa-angle-down fa-lg category-icon"></i>
       </div>
         <ul>
+      <li data-nav-id="/blog/medium/2019-11-15_recovering-deleted-ntfs-files-with-velociraptor-1fcf09855311/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-11-15_recovering-deleted-ntfs-files-with-velociraptor-1fcf09855311/">
+            Recovering deleted NTFS Files with Velociraptor
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-11-12_windows-event-logs-d8d8e615c9ca/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-11-12_windows-event-logs-d8d8e615c9ca/">
+            Windows Event Logs
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-10-08_triage-with-velociraptor-pt-3-d6f63215f579/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-10-08_triage-with-velociraptor-pt-3-d6f63215f579/">
+            Triage with Velociraptor — Pt 3
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-10-04_triage-with-velociraptor-pt-2-d0f79066ca0e/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-10-04_triage-with-velociraptor-pt-2-d0f79066ca0e/">
+            Triage with Velociraptor — Pt 2
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-10-02_triage-with-velociraptor-pt-1-253f57ce96c0/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-10-02_triage-with-velociraptor-pt-1-253f57ce96c0/">
+            Triage with Velociraptor — Pt 1
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-09-11_velociraptor-s-client-side-buffer-3ce03697a4e6/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-09-11_velociraptor-s-client-side-buffer-3ce03697a4e6/">
+            Velociraptor’s client side buffer
+          </a>
+        </div>
+    </li>
         </ul>
     </li>
 
@@ -428,7 +470,19 @@
     
     <div class="progress">
         <div class="wrapper">
-    
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#preparation">Preparation</a></li>
+<li><a href="#defining-the-artifact">Defining the Artifact.</a></li>
+<li><a href="#testing-the-artifact">Testing the artifact</a></li>
+<li><a href="#but-wait-there-is-a-problem">But wait! There is a problem!</a>
+<ul>
+<li><a href="#how-does-hkey-users-hive-work">How does HKEY_USERS hive work?</a></li>
+<li><a href="#how-to-fix-this">How to fix this?</a></li>
+<li><a href="#conclusions">Conclusions</a></li>
+</ul></li>
+</ul>
+</nav>
         </div>
     </div>
     
@@ -446,114 +500,129 @@
     
     
     
-    <div class="document">
+    
 
+<p>::: {.admonition}
+Update</p>
 
-<div class="admonition admonition-update">
-<p class="first admonition-title">Update</p>
-<p class="last">As of the latest release of Velociraptor we have raw
-registry parsing which can also be done via raw NTFS to get
-around file locking. It is no longer necessary to run yara
-scans and parse with regripper as shown here.</p>
-</div>
+<p>As of the latest release of Velociraptor we have raw registry parsing
+which can also be done via raw NTFS to get around file locking. It is no
+longer necessary to run yara scans and parse with regripper as shown
+here.
+:::</p>
+
 <p>I was watching the SANS DFIR Summit 2018 videos on youtube and came
-across Mari DeGrazia's talk titled <a class="reference external" href="https://www.youtube.com/watch?v=JWC7fzhvAY8">&quot;Finding and Decoding Malicious Powershell Scripts&quot;</a>.
-This is an excellent talk and it really contains
-a wealth of information. It seems that Powershell is really popular
-these days, allowing attacker to &quot;live off the land&quot; by installing
-fully functional reverse shells and backdoors, in a few lines of
-obfuscated scripts.</p>
-<p>Mari went through a number of examples and also expanded on some in
-her blog post <a class="reference external" href="http://az4n6.blogspot.com/2018/06/malicious-powershell-in-registry.html">Malicious PowerShell in the Registry: Persistence</a>, where
-she documents persistence through an autorun key launching powershell
-to execute a payload within another registry key.</p>
+across Mari DeGrazia\&rsquo;s talk titled <a href="https://www.youtube.com/watch?v=JWC7fzhvAY8">\&ldquo;Finding and Decoding Malicious
+Powershell Scripts\&rdquo;</a>. This
+is an excellent talk and it really contains a wealth of information. It
+seems that Powershell is really popular these days, allowing attacker to
+\&ldquo;live off the land\&rdquo; by installing fully functional reverse shells and
+backdoors, in a few lines of obfuscated scripts.</p>
+
+<p>Mari went through a number of examples and also expanded on some in her
+blog post <a href="http://az4n6.blogspot.com/2018/06/malicious-powershell-in-registry.html">Malicious PowerShell in the Registry:
+Persistence</a>,
+where she documents persistence through an autorun key launching
+powershell to execute a payload within another registry key.</p>
+
 <p>A similar persistence mechanism is documented by David Kennedy from
-Binary defence in his post <a class="reference external" href="https://blog.binarydefense.com/powershell-injection-diskless-persistence-bypass-techniques">PowerShell Injection with Fileless Payload Persistence and Bypass Techniques</a>. In that case an msha.exe link was
-stored in the user's Run key which executed a payload from another
-registry key.</p>
+Binary defence in his post <a href="https://blog.binarydefense.com/powershell-injection-diskless-persistence-bypass-techniques">PowerShell Injection with Fileless Payload
+Persistence and Bypass
+Techniques</a>.
+In that case an msha.exe link was stored in the user\&rsquo;s Run key which
+executed a payload from another registry key.</p>
+
 <p>I was eager to write a Velociraptor artifact to attempt to detect such
-keys using a YARA signature. Of course signature based detection is
-not as robust as behavioural analysis but it is quick and usually
-quite effective.</p>
-<p>I thought it was still quite instructive to document how one can
-develop the VQL queries for a simple Velociraptor artifact. We will be
+keys using a YARA signature. Of course signature based detection is not
+as robust as behavioural analysis but it is quick and usually quite
+effective.</p>
+
+<p>I thought it was still quite instructive to document how one can develop
+the VQL queries for a simple Velociraptor artifact. We will be
 developing the artifact interactively on a Windows system.</p>
-<div class="section" id="preparation">
-<h2>Preparation</h2>
+
+<h1 id="preparation">Preparation</h1>
+
 <p>Our artifact will attempt to detect the persistence mechanism detailed
-in the above posts. We start by adding a value to our test user
-account under the key</p>
-<pre class="code console literal-block">
-<span class="generic output">Key: &quot;HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run&quot;
+in the above posts. We start by adding a value to our test user account
+under the key</p>
+
+<pre><code class="language-.sourceCode">Key: &quot;HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run&quot;
 Value: &quot;C:\Windows\system32\mshta.exe&quot;
 Data:
   about:&lt;script&gt;c1hop=&quot;X642N10&quot;;R3I=new%20ActiveXObject(&quot;WScript.Shell&quot;);
   QR3iroUf=&quot;I7pL7&quot;;k9To7P=R3I.RegRead(&quot;HKCU\\software\\bkzlq\\zsdnhepyzs&quot;);
-  J7UuF1n=&quot;Q2LnLxas&quot;;eval(k9To7P);JUe5wz3O=&quot;zSfmLod&quot;;&lt;/script&gt;</span>
-</pre>
-</div>
-<div class="section" id="defining-the-artifact">
-<h2>Defining the Artifact.</h2>
-<p>We create a directory called &quot;artifacts&quot; then create a new file inside
+  J7UuF1n=&quot;Q2LnLxas&quot;;eval(k9To7P);JUe5wz3O=&quot;zSfmLod&quot;;&lt;/script&gt;
+</code></pre>
+
+<h1 id="defining-the-artifact">Defining the Artifact.</h1>
+
+<p>We create a directory called \&ldquo;artifacts\&rdquo; then create a new file inside
 it called powershell_persistence.yaml. Velociraptor artifacts are just
 YAML files that can be loaded at runtime using the --definitions flag.</p>
-<p>Every artifact has a name, by convention the name is separated into
-its major categories. We will call ours
-Windows.Persistence.Powershell:</p>
-<pre class="code yaml literal-block">
-<span class="name tag">name</span><span class="punctuation">:</span> <span class="literal scalar plain">Windows.Persistence.Powershell</span>
-</pre>
-<p>This is the minimum required for Velociraptor to identify it. We can
-see a listing of all artifacts Velociraptor knows about using the
-&quot;artifacts list&quot; command:</p>
-<pre class="code console literal-block">
-<span class="generic output">F:\&gt;velociraptor.exe --definitions artifacts artifacts list
+
+<p>Every artifact has a name, by convention the name is separated into its
+major categories. We will call ours Windows.Persistence.Powershell:</p>
+
+<pre><code class="language-.sourceCode">name: Windows.Persistence.Powershell
+</code></pre>
+
+<p>This is the minimum required for Velociraptor to identify it. We can see
+a listing of all artifacts Velociraptor knows about using the
+\&ldquo;artifacts list\&rdquo; command:</p>
+
+<pre><code class="language-.sourceCode">F:\&gt;velociraptor.exe --definitions artifacts artifacts list
 INFO:2018/09/28 07:59:40 Loaded 34 built in artifacts
 Linux.Applications.Chrome.Extensions
 Linux.Applications.Chrome.Extensions.Upload
 …
 Windows.Persistence.Powershell
 ...
-Windows.Sys.Users</span>
-</pre>
-<p>We can collect the artifact simply by using the &quot;artifacts collect&quot;
+Windows.Sys.Users
+</code></pre>
+
+<p>We can collect the artifact simply by using the \&ldquo;artifacts collect\&rdquo;
 command:</p>
-<pre class="code console literal-block">
-<span class="generic output">F:\&gt;velociraptor.exe --definitions artifacts artifacts collect Windows.Persistence.Powershell
-INFO:2018/09/28 20:01:32 Loaded 34 built in artifacts</span>
-</pre>
-<p>Ok so Velociraptor can load and collect this new artifact, but as yet
-it does nothing! We need to think about what exactly we want to
-collect.</p>
-<p>We know we want to search for all values in the Run/RunOnce hive of
-all the users. Let's first see if we can retrieve all the values using
-a glob:</p>
-<pre class="code yaml literal-block">
-<span class="name tag">name</span><span class="punctuation">:</span> <span class="literal scalar plain">Windows.Persistence.Powershell</span>
-<span class="name tag">parameters</span><span class="punctuation">:</span>
-  <span class="punctuation indicator">-</span> <span class="name tag">name</span><span class="punctuation">:</span> <span class="literal scalar plain">keyGlob</span>
-    <span class="name tag">default</span><span class="punctuation">:</span> <span class="literal string">&quot;HKEY_USERS\\*\\Software\\Microsoft\\Windows\
-</span>    <span class="literal string">\\CurrentVersion\\{Run,RunOnce}\\*&quot;</span>
-<span class="name tag">sources</span><span class="punctuation">:</span>
- <span class="punctuation indicator">-</span> <span class="name tag">precondition</span><span class="punctuation">:</span>
-    <span class="literal scalar plain">SELECT OS from info() where OS = &quot;windows&quot;</span>
-   <span class="name tag">queries</span><span class="punctuation">:</span>
-   <span class="punctuation indicator">-</span> <span class="punctuation indicator">|</span>
-    <span class="name constant">SELECT FullPath from glob(</span>
-       <span class="name constant">globs=keyGlob,</span>
-       <span class="name constant">accessor=&quot;reg&quot;</span>
-    <span class="name constant">)</span>
-</pre>
+
+<pre><code class="language-.sourceCode">F:\&gt;velociraptor.exe --definitions artifacts artifacts collect Windows.Persistence.Powershell
+INFO:2018/09/28 20:01:32 Loaded 34 built in artifacts
+</code></pre>
+
+<p>Ok so Velociraptor can load and collect this new artifact, but as yet it
+does nothing! We need to think about what exactly we want to collect.</p>
+
+<p>We know we want to search for all values in the Run/RunOnce hive of all
+the users. Let\&rsquo;s first see if we can retrieve all the values using a
+glob:</p>
+
+<pre><code class="language-.sourceCode">name: Windows.Persistence.Powershell
+parameters:
+  - name: keyGlob
+    default: &quot;HKEY_USERS\\*\\Software\\Microsoft\\Windows\
+    \\CurrentVersion\\{Run,RunOnce}\\*&quot;
+sources:
+ - precondition:
+    SELECT OS from info() where OS = &quot;windows&quot;
+   queries:
+   - |
+    SELECT FullPath from glob(
+       globs=keyGlob,
+       accessor=&quot;reg&quot;
+    )
+</code></pre>
+
 <p>This artifact demonstrates a few concepts:</p>
-<ol class="arabic simple">
-<li>We can define parameters by name, and reference them from within
-the VQL query. This keeps the VQL query clean and more readable.</li>
-<li>We can define a precondition on the artifact. If the precondition
-is not met, the VQL query will not be run.</li>
+
+<ol>
+<li>We can define parameters by name, and reference them from within the
+VQL query. This keeps the VQL query clean and more readable.</li>
+<li>We can define a precondition on the artifact. If the precondition is
+not met, the VQL query will not be run.</li>
 </ol>
+
 <p>Lets run this artifact:</p>
-<pre class="code console literal-block">
-<span class="generic output">F:\&gt;velociraptor.exe --definitions artifacts artifacts collect Windows.Persistence.Powershell
+
+<pre><code class="language-.sourceCode">F:\&gt;velociraptor.exe --definitions artifacts artifacts collect Windows.Persistence.Powershell
 INFO:2018/09/28 20:51:47 Loaded 34 built in artifacts
 +--------------------------------+
 |            FullPath            |
@@ -571,51 +640,52 @@ INFO:2018/09/28 20:51:47 Loaded 34 built in artifacts
 | 32\mshta.exe&quot;                  |
 +--------------------------------+
 Artifact:
-Windows.Persistence.Powershell</span>
-</pre>
+Windows.Persistence.Powershell
+</code></pre>
+
 <p>It returns a couple of results so there are two Run/RunOnce values
 defined. For this artifact, we only want to return those entries which
-match a specific yara signature. We can work later on improving the
-yara signature, but for now let's just detect uses of the eval()
-powershell command within 500 characters of an ActiveXObject
-instantiation. We will try to match each value returned from the Run
-keys with this object:</p>
-<pre class="code yaml literal-block">
-<span class="name tag">name</span><span class="punctuation">:</span> <span class="literal scalar plain">Windows.Persistence.Powershell</span>
-<span class="name tag">parameters</span><span class="punctuation">:</span>
-  <span class="punctuation indicator">-</span> <span class="name tag">name</span><span class="punctuation">:</span> <span class="literal scalar plain">keyGlob</span>
-    <span class="name tag">default</span><span class="punctuation">:</span> <span class="literal string">&quot;HKEY_USERS\\*\\Software\\Microsoft\\Windows\
-</span>             <span class="literal string">\\CurrentVersion\\{Run,RunOnce}\\*&quot;</span>
-  <span class="punctuation indicator">-</span> <span class="name tag">name</span><span class="punctuation">:</span> <span class="literal scalar plain">yaraRule</span>
-    <span class="name tag">default</span><span class="punctuation">:</span> <span class="punctuation indicator">|</span>
-      <span class="name constant">rule Powershell {</span>
-        <span class="name constant">strings:</span>
-        <span class="name constant">$ = /ActiveXObject.{,500}eval/ nocase</span>
-        <span class="name constant">$ = /ActiveXObject.{,500}eval/ wide nocase</span>
-        <span class="name constant">condition:</span>
-        <span class="name constant">any of them</span>
-      <span class="name constant">}</span>
-<span class="name tag">sources</span><span class="punctuation">:</span>
- <span class="punctuation indicator">-</span> <span class="name tag">precondition</span><span class="punctuation">:</span>
-    <span class="literal scalar plain">SELECT OS from info() where OS = &quot;windows&quot;</span>
-   <span class="name tag">queries</span><span class="punctuation">:</span>
-   <span class="punctuation indicator">-</span> <span class="punctuation indicator">|</span>
-     <span class="name constant">// This is a stored query</span>
-     <span class="name constant">LET file = SELECT FullPath from glob(</span>
-       <span class="name constant">globs=keyGlob,</span>
-       <span class="name constant">accessor=&quot;reg&quot;</span>
-     <span class="name constant">)</span>
-   <span class="punctuation indicator">-</span> <span class="punctuation indicator">|</span>
-     <span class="name constant">SELECT * FROM yara(</span>
-       <span class="name constant">rules=yaraRule,</span>
-       <span class="name constant">files=file.FullPath,   // This will expand to a list of paths.</span>
-       <span class="name constant">accessor=&quot;reg&quot;)</span>
-</pre>
+match a specific yara signature. We can work later on improving the yara
+signature, but for now let\&rsquo;s just detect uses of the eval() powershell
+command within 500 characters of an ActiveXObject instantiation. We will
+try to match each value returned from the Run keys with this object:</p>
+
+<pre><code class="language-.sourceCode">name: Windows.Persistence.Powershell
+parameters:
+  - name: keyGlob
+    default: &quot;HKEY_USERS\\*\\Software\\Microsoft\\Windows\
+             \\CurrentVersion\\{Run,RunOnce}\\*&quot;
+  - name: yaraRule
+    default: |
+      rule Powershell {
+        strings:
+        $ = /ActiveXObject.{,500}eval/ nocase
+        $ = /ActiveXObject.{,500}eval/ wide nocase
+        condition:
+        any of them
+      }
+sources:
+ - precondition:
+    SELECT OS from info() where OS = &quot;windows&quot;
+   queries:
+   - |
+     // This is a stored query
+     LET file = SELECT FullPath from glob(
+       globs=keyGlob,
+       accessor=&quot;reg&quot;
+     )
+   - |
+     SELECT * FROM yara(
+       rules=yaraRule,
+       files=file.FullPath,   // This will expand to a list of paths.
+       accessor=&quot;reg&quot;)
+</code></pre>
+
 <p>This version recovers the FullPath of all the Run/RunOnce values and
-stores them in a stored query. We then issue another query that
-applies the yara rule on these values:</p>
-<pre class="code console literal-block">
-<span class="generic output">F:\&gt;velociraptor.exe --definitions artifacts artifacts collect Windows.Persistence.Powershell
+stores them in a stored query. We then issue another query that applies
+the yara rule on these values:</p>
+
+<pre><code class="language-.sourceCode">F:\&gt;velociraptor.exe --definitions artifacts artifacts collect Windows.Persistence.Powershell
 INFO:2018/09/28 21:29:10 Loaded 34 built in artifacts
 +------------+------+------+--------------------------------+--------------------------------+
 |    Rule    | Meta | Tags |            Strings             |              File              |
@@ -640,25 +710,26 @@ INFO:2018/09/28 21:29:10 Loaded 34 built in artifacts
 |            |      |      | e\\\\bkzlq\\\\zsdnh|&quot;,&quot;0000006 | sec&quot;:1538191253,&quot;usec&quot;:1538191 |
 |            |      |      | 0  65 70 79 7a 73 22 29 3b  4a | 253231489700},&quot;Atime&quot;:{&quot;sec&quot;:1 |
 |            |      |      |  37 55 75 46 31 6e 3d  |epyzs\ | 538191253,&quot;usec&quot;:1538191253231 |
-|            |      |      | &quot;);J7UuF1n=|&quot;,&quot;00000070  22 51 | 489700}}                       |</span>
-</pre>
+|            |      |      | &quot;);J7UuF1n=|&quot;,&quot;00000070  22 51 | 489700}}                       |
+</code></pre>
+
 <p>We can see that the last query returns 5 columns, but each column
-actually contains objects with quite a lot of additional
-information. For example, the File column returns information about
-the file that matched the yara rule (its filename, timestamps
-etc). The output is a bit confusing so we just return the relevant
-columns. We can replace the * in the last query with a curated list of
-columns to return:</p>
-<pre class="code sql literal-block">
-<span class="keyword">SELECT</span> <span class="name">File</span><span class="punctuation">.</span><span class="name">FullPath</span> <span class="keyword">as</span> <span class="name">ValueName</span><span class="punctuation">,</span> <span class="name">File</span><span class="punctuation">.</span><span class="keyword">Data</span><span class="punctuation">.</span><span class="name">value</span> <span class="keyword">as</span> <span class="name">Contents</span><span class="punctuation">,</span>
-  <span class="keyword">timestamp</span><span class="punctuation">(</span><span class="name">epoch</span><span class="operator">=</span><span class="name">File</span><span class="punctuation">.</span><span class="name">Mtime</span><span class="punctuation">.</span><span class="name">Sec</span><span class="punctuation">)</span> <span class="keyword">as</span> <span class="name">ModTime</span>
-<span class="keyword">FROM</span> <span class="name">yara</span><span class="punctuation">(</span><span class="name">rules</span><span class="operator">=</span><span class="name">yaraRule</span><span class="punctuation">,</span>
-          <span class="name">files</span><span class="operator">=</span><span class="name">file</span><span class="punctuation">.</span><span class="name">FullPath</span><span class="punctuation">,</span>
-          <span class="name">accessor</span><span class="operator">=</span><span class="literal string symbol">&quot;reg&quot;</span><span class="punctuation">)</span>
-</pre>
+actually contains objects with quite a lot of additional information.
+For example, the File column returns information about the file that
+matched the yara rule (its filename, timestamps etc). The output is a
+bit confusing so we just return the relevant columns. We can replace the
+* in the last query with a curated list of columns to return:</p>
+
+<pre><code class="language-.sourceCode">SELECT File.FullPath as ValueName, File.Data.value as Contents,
+  timestamp(epoch=File.Mtime.Sec) as ModTime
+FROM yara(rules=yaraRule,
+          files=file.FullPath,
+          accessor=&quot;reg&quot;)
+</code></pre>
+
 <p>Which results in the quite readable:</p>
-<pre class="code console literal-block">
-<span class="generic output">F:\&gt;velociraptor.exe --definitions artifacts artifacts collect Windows.Persistence.Powershell
+
+<pre><code class="language-.sourceCode">F:\&gt;velociraptor.exe --definitions artifacts artifacts collect Windows.Persistence.Powershell
 INFO:2018/09/28 21:42:18 Loaded 34 built in artifacts
 +--------------------------------+--------------------------------+---------------------------+
 |           ValueName            |            Contents            |          ModTime          |
@@ -671,67 +742,76 @@ INFO:2018/09/28 21:42:18 Loaded 34 built in artifacts
 |                                | n=&quot;Q2LnLxas&quot;;eval(k9To7P);JUe5 |                           |
 |                                | wz3O=&quot;zSfmLod&quot;;&lt;/script&gt;       |                           |
 +--------------------------------+--------------------------------+---------------------------+
-Artifact: Windows.Persistence.Powershell</span>
-</pre>
-<p>Great! This works and only returns values that match the yara
-signature we developed.</p>
-</div>
-<div class="section" id="testing-the-artifact">
-<h2>Testing the artifact</h2>
-<p>Let's test this artifact for real now. We restart the frontend with
-the --definition flag and this makes the new artifact available in the
-GUI under the Artifact Collector flow. The GUI also shows the entire
+Artifact: Windows.Persistence.Powershell
+</code></pre>
+
+<p>Great! This works and only returns values that match the yara signature
+we developed.</p>
+
+<h1 id="testing-the-artifact">Testing the artifact</h1>
+
+<p>Let\&rsquo;s test this artifact for real now. We restart the frontend with the
+--definition flag and this makes the new artifact available in the GUI
+under the Artifact Collector flow. The GUI also shows the entire
 artifact we defined so we can see what VQL will be run:</p>
-<img alt="powershell1.png" src="powershell1.png" />
-<p>Launching the flow appears to work and shows exactly the same result
-as we collected on the command line:</p>
-<img alt="powershell2.png" src="powershell2.png" />
-</div>
-<div class="section" id="but-wait-there-is-a-problem">
-<h2>But wait! There is a problem!</h2>
+
+<p><img src="powershell1.png" alt="image" /></p>
+
+<p>Launching the flow appears to work and shows exactly the same result as
+we collected on the command line:</p>
+
+<p><img src="powershell2.png" alt="image" /></p>
+
+<h1 id="but-wait-there-is-a-problem">But wait! There is a problem!</h1>
+
 <p>When we log out of the machine, and then rerun the artifact it returns
 no results!</p>
-<img alt="powershell3.png" src="powershell3.png" />
+
+<p><img src="powershell3.png" alt="image" /></p>
+
 <p>Why is that? Experienced incident responders would recognize that any
-artifact that works from the <cite>HKEY_USERS</cite> registry hive is inherently
-unreliable. This is because the <cite>HKEY_USERS</cite> hive is not a real hive -
-it is a place where Windows mounts the user's hive when the user logs
-in.</p>
-<div class="section" id="how-does-hkey-users-hive-work">
-<h3>How does HKEY_USERS hive work?</h3>
+artifact that works from the HKEY_USERS registry hive is inherently
+unreliable. This is because the HKEY_USERS hive is not a real hive -it
+is a place where Windows mounts the user\&rsquo;s hive when the user logs in.</p>
+
+<h2 id="how-does-hkey-users-hive-work">How does HKEY_USERS hive work?</h2>
+
 <p>Windows implements the concept of user profiles. Each user has a
 personal registry hive that stores user specific settings. It is
-actually a file stored on their home directory called ntuser.dat. When
-a user logs into the workstation, the file may be synced from the
-domain controller and then it is mounted under the <cite>HKEY_USERS&lt;sid&gt;</cite>
+actually a file stored on their home directory called ntuser.dat. When a
+user logs into the workstation, the file may be synced from the domain
+controller and then it is mounted under the HKEY_USERS\&lt;sid&gt;
 registry hive.</p>
+
 <p>This means that when the user logs out, their user registry hive is
-unmounted and does not appear in <cite>HKEY_USERS</cite> any longer. Any
-artifacts based around the <cite>HKEY_USERS</cite> hive will work only if the
-collection is run when a user is logged in.</p>
-<p>This is obviously not what we want when we hunt for persistence! We
-want to make sure that none of the users on the system have this
-persistence mechanism installed. You can imagine a case where a system
-has been cleaned up but then a user logs into the machine, thereby
-reinfecting it!</p>
-</div>
-<div class="section" id="how-to-fix-this">
-<h3>How to fix this?</h3>
-<p>Yara is a very powerful tool because it allows us to search for
-patterns in amorphous data (such as process memory and structured
-files) without having to fully understand the structure of the data we
-are searching for. Of course this has its limitations, but yara can
-raise a red flag if the signature matches the file, and we can analyse
-this file more carefully later.</p>
-<p>In this case, we can not rely on globbing the <cite>HKEY_USER</cite> registry
-hive, so maybe we can just search the files that back these hives? We
-know that each user on the system has an <cite>NTUSER.DAT</cite> file in their
-home directory (usually <cite>C:\Users\&lt;username&gt;</cite>), so let's write an
+unmounted and does not appear in HKEY_USERS any longer. Any artifacts
+based around the HKEY_USERS hive will work only if the collection is
+run when a user is logged in.</p>
+
+<p>This is obviously not what we want when we hunt for persistence! We want
+to make sure that none of the users on the system have this persistence
+mechanism installed. You can imagine a case where a system has been
+cleaned up but then a user logs into the machine, thereby reinfecting
+it!</p>
+
+<h2 id="how-to-fix-this">How to fix this?</h2>
+
+<p>Yara is a very powerful tool because it allows us to search for patterns
+in amorphous data (such as process memory and structured files) without
+having to fully understand the structure of the data we are searching
+for. Of course this has its limitations, but yara can raise a red flag
+if the signature matches the file, and we can analyse this file more
+carefully later.</p>
+
+<p>In this case, we can not rely on globbing the HKEY_USER registry hive,
+so maybe we can just search the files that back these hives? We know
+that each user on the system has an NTUSER.DAT file in their home
+directory (usually C:\\Users\\&lt;username&gt;), so let\&rsquo;s write an
 artifact to find these files. We can reuse the artifact
-Windows.Sys.Users that reports all user accounts on a system (we
-display it as JSON to enhance readability):</p>
-<pre class="code console literal-block">
-<span class="generic output">F:\&gt;velociraptor.exe artifacts collect Windows.Sys.Users --format json
+Windows.Sys.Users that reports all user accounts on a system (we display
+it as JSON to enhance readability):</p>
+
+<pre><code class="language-.sourceCode">F:\&gt;velociraptor.exe artifacts collect Windows.Sys.Users --format json
 INFO:2018/09/28 22:44:26 Loaded 34 built in artifacts
 {
  &quot;Description&quot;: &quot;&quot;,
@@ -750,11 +830,12 @@ INFO:2018/09/28 22:44:26 Loaded 34 built in artifacts
  &quot;Type&quot;: &quot;local&quot;,
  &quot;UUID&quot;: &quot;S-1-5-21-546003962-2713609280-610790815-1003&quot;,
  &quot;Uid&quot;: 1003
-},</span>
-</pre>
+},
+</code></pre>
+
 <p>So we just want to YARA scan the NTUSER.DAT file in each home directory:</p>
-<pre class="code console literal-block">
-<span class="generic output">SELECT * from foreach(
+
+<pre><code class="language-.sourceCode">SELECT * from foreach(
 row={
    SELECT Name, Directory as HomeDir
      FROM Artifact.Windows.Sys.Users()
@@ -769,34 +850,39 @@ query={
             files=&quot;\\\\.\\&quot; + HomeDir + &quot;\\ntuser.dat&quot;,
             accessor=&quot;ntfs&quot;,
             rules=yaraRule, context=10)
-      })</span>
-</pre>
+      })
+</code></pre>
+
 <p>This query:</p>
-<ol class="arabic simple">
+
+<ol>
 <li>Selects all the usernames and their home directory from the
 Windows.Sys.Users artifact.</li>
-<li>For each directory prepends <cite>\\.\</cite> and appends &quot;ntuser.dat&quot;. For
-example <cite>c:\Users\test</cite> becomes
-<cite>\\.\c:\Users\test\NTUSER.dat</cite></li>
+<li>For each directory prepends \\\\.\\ and appends
+\&ldquo;ntuser.dat\&ldquo;. For example c:\\Users\\test becomes
+\\\\.\\c:\\Users\\test\\NTUSER.dat</li>
 <li>The file is accessed using the NTFS filesystem accessor. This is
 necessary because the registry hive is locked if the user is logged
-in. Therefore we must access it using raw NTFS parsing to bypass
-the OS locking.</li>
+in. Therefore we must access it using raw NTFS parsing to bypass the
+OS locking.</li>
 <li>For each file that matches the yara expression, we upload the file
 to the server for further analysis.</li>
 </ol>
+
 <p>Lets run this new artifact on the server:</p>
-<img alt="powershell5.png" src="powershell5.png" />
-<p>Unlike the previous artifact, this one simply returns the YARA hit,
-but because we do not have any context on which value contained the
+
+<p><img src="powershell5.png" alt="image" /></p>
+
+<p>Unlike the previous artifact, this one simply returns the YARA hit, but
+because we do not have any context on which value contained the
 signature, or even if it had been deleted. Luckily we uploaded the raw
 registry hive for further analysis, and we can use a tool such as
 RegRipper to extract more information from the hive:</p>
-<pre class="code console literal-block">
-<span class="generic prompt">$</span> wine rip.exe -p user_run -r
-<span class="generic output">/tmp/velociraptor/clients/C.c916a7e445eb0868/uploads/F.078739d6/ntfs/
-</span><span class="generic prompt">%</span>5C%5C.%5CC%3A%5CUsers%5Cuser1%5CNTUSER.DAT
-<span class="generic output">Launching user_run v.20140115
+
+<pre><code class="language-.sourceCode">$ wine rip.exe -p user_run -r
+/tmp/velociraptor/clients/C.c916a7e445eb0868/uploads/F.078739d6/ntfs/
+%5C%5C.%5CC%3A%5CUsers%5Cuser1%5CNTUSER.DAT
+Launching user_run v.20140115
 user_run v.20140115
 (NTUSER.DAT) [Autostart] Get autostart key contents from NTUSER.DAT hive
 
@@ -807,27 +893,27 @@ LastWrite Time Thu Sep 27 01:19:08 2018 (UTC)
  c:\windows\system32\mshta.exe: about:&lt;script&gt;c1hop=&quot;X642N10&quot;;
    R3I=new%20ActiveXObject(&quot;WScript.Shell&quot;);
    QR3iroUf=&quot;I7pL7&quot;;k9To7P=R3I.RegRead(&quot;HKCU\\software\\
-   bkzlq\\zsdnhepyzs&quot;);J7UuF1n=&quot;Q2LnLxas&quot;;eval(k9To7P);JUe5wz3O=&quot;zSfmLod&quot;;&lt;/script&gt;</span>
-</pre>
+   bkzlq\\zsdnhepyzs&quot;);J7UuF1n=&quot;Q2LnLxas&quot;;eval(k9To7P);JUe5wz3O=&quot;zSfmLod&quot;;&lt;/script&gt;
+</code></pre>
+
 <p>Note above how we can simply retrieve the uploaded file from
-Velociraptor's filestore. Velociraptor stores uploaded files on the
-filesystem within the flow's directory.</p>
-</div>
-<div class="section" id="conclusions">
-<h3>Conclusions</h3>
+Velociraptor\&rsquo;s filestore. Velociraptor stores uploaded files on the
+filesystem within the flow\&rsquo;s directory.</p>
+
+<h2 id="conclusions">Conclusions</h2>
+
 <p>In this blog post we saw how to utilize YARA to find suspicious
 powershell persistence mechanisms. YARA is a powerful tool and using
-Velociraptor's artifacts we can apply it to files, registry values,
-and raw NTFS files such as locked registry hives and the pagefile.</p>
+Velociraptor\&rsquo;s artifacts we can apply it to files, registry values, and
+raw NTFS files such as locked registry hives and the pagefile.</p>
+
 <p>We also saw some of the inherent problems with relying on the
-<cite>HKEY_USERS</cite> registry hive for detection - the hive is only present
-when a user is logged in so when we hunt, we might miss those users
-who are currently logged out. We saw how <cite>YARA</cite> can be used to detect
-suspicious patterns in raw registry hive files and how artifacts may
-retrieve those files for further analysis.</p>
-</div>
-</div>
-</div>
+HKEY_USERS registry hive for detection - the hive is only present when
+a user is logged in so when we hunt, we might miss those users who are
+currently logged out. We saw how YARA can be used to detect suspicious
+patterns in raw registry hive files and how artifacts may retrieve those
+files for further analysis.</p>
+
 
     
     
@@ -839,7 +925,7 @@ retrieve those files for further analysis.</p>
 
 <div id="navigation">
 <a class="nav nav-prev" href="/docs/presentations/nzitf2018/" title="New Zealand Internet Task Force Conference 2018"> <i class="fa fa-chevron-left"></i><label>New Zealand Internet Task Force Conference 2018</label></a>
-    <a class="nav nav-next" href="/about/" title="About Velociraptor" style="margin-right: 0px;"><label>About Velociraptor</label><i class="fa fa-chevron-right"></i></a></div>
+    <a class="nav nav-next" href="/blog/medium/2019-11-15_recovering-deleted-ntfs-files-with-velociraptor-1fcf09855311/" title="Recovering deleted NTFS Files with Velociraptor" style="margin-right: 0px;"><label>Recovering deleted NTFS Files with Velociraptor</label><i class="fa fa-chevron-right"></i></a></div>
 
 </section>
 <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">

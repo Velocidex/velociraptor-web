@@ -376,6 +376,48 @@
             <i class="fa fa-angle-down fa-lg category-icon"></i>
       </div>
         <ul>
+      <li data-nav-id="/blog/medium/2019-11-15_recovering-deleted-ntfs-files-with-velociraptor-1fcf09855311/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-11-15_recovering-deleted-ntfs-files-with-velociraptor-1fcf09855311/">
+            Recovering deleted NTFS Files with Velociraptor
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-11-12_windows-event-logs-d8d8e615c9ca/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-11-12_windows-event-logs-d8d8e615c9ca/">
+            Windows Event Logs
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-10-08_triage-with-velociraptor-pt-3-d6f63215f579/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-10-08_triage-with-velociraptor-pt-3-d6f63215f579/">
+            Triage with Velociraptor — Pt 3
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-10-04_triage-with-velociraptor-pt-2-d0f79066ca0e/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-10-04_triage-with-velociraptor-pt-2-d0f79066ca0e/">
+            Triage with Velociraptor — Pt 2
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-10-02_triage-with-velociraptor-pt-1-253f57ce96c0/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-10-02_triage-with-velociraptor-pt-1-253f57ce96c0/">
+            Triage with Velociraptor — Pt 1
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-09-11_velociraptor-s-client-side-buffer-3ce03697a4e6/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-09-11_velociraptor-s-client-side-buffer-3ce03697a4e6/">
+            Velociraptor’s client side buffer
+          </a>
+        </div>
+    </li>
         </ul>
     </li>
 
@@ -428,7 +470,14 @@
     
     <div class="progress">
         <div class="wrapper">
-    
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#endpoint-shell-access">Endpoint shell access</a></li>
+<li><a href="#interactive-shell">Interactive Shell</a></li>
+<li><a href="#how-does-it-work">How does it work?</a></li>
+<li><a href="#auditing">Auditing</a></li>
+</ul>
+</nav>
         </div>
     </div>
     
@@ -446,65 +495,70 @@
     
     
     
-    <div class="document">
-
+    
 
 <p>One of the interesting new features in the latest release of
 Velociraptor is an interactive shell. One can interact with the end
 point over the standard Velociraptor communication mechanism - an
 encrypted and authenticated channel.</p>
+
 <p>This feature is implemented by utilizing the Velociraptor event
 monitoring, server side VQL queries. This post explores how these
-components come together to deliver a responsive, interactive
-workflow.</p>
-<div class="section" id="endpoint-shell-access">
-<h2>Endpoint shell access</h2>
+components come together to deliver a responsive, interactive workflow.</p>
+
+<h1 id="endpoint-shell-access">Endpoint shell access</h1>
+
 <p>Although we generally try to avoid it, sometimes the easiest way to
-extract certain information is to run a command and parse its
-output. For example, consider the windows <cite>ipconfig</cite> command. It is
-possible to extract this information using win32 apis but this
-requires additional code to be written in the client. The <cite>ipconfig</cite>
-command is guaranteed to be available. Soemtimes running a command and
-parsing its output is the easiest option.</p>
-<p>The GRR client has a client action which can run a command. However
-that client action is restricted to run a whitelist of commands, since
-GRR chose to prevent the running of arbitrary commands on the
-endpoint. In practice, though it is difficult to add new commands to
-the whitelist (and rebuild and deploy new clients that have the
-updated whitelist). But users need to run arbitrary commands
-(including their own third party tools) anyway. So in the GRR world,
-most people use &quot;python hacks&quot; routinely to run arbitrary commands.</p>
+extract certain information is to run a command and parse its output.
+For example, consider the windows ipconfig command. It is possible to
+extract this information using win32 apis but this requires additional
+code to be written in the client. The ipconfig command is guaranteed to
+be available. Soemtimes running a command and parsing its output is the
+easiest option.</p>
+
+<p>The GRR client has a client action which can run a command. However that
+client action is restricted to run a whitelist of commands, since GRR
+chose to prevent the running of arbitrary commands on the endpoint. In
+practice, though it is difficult to add new commands to the whitelist
+(and rebuild and deploy new clients that have the updated whitelist).
+But users need to run arbitrary commands (including their own third
+party tools) anyway. So in the GRR world, most people use \&ldquo;python
+hacks\&rdquo; routinely to run arbitrary commands.</p>
+
 <p>When we came to redesign Velociraptor we pondered if arbitrary command
 execution should be included or not. To be sure, this is a dangerous
 capability - effectively giving Velociraptor root level access on the
 endpoint. In our experience restricting it in an arbitrary way (as was
 done in GRR) is not useful because it is harder adapt to real incident
-response needs (you hardly ever know in advance what is needed at 2am
-in the morning when trying to triage an incident!).</p>
-<p>Other endpoint monitoring tools also have a shell interface (For
-example Carbon Black). It is understood that this feature is extremely
-powerful, but it is necessary sometimes.</p>
+response needs (you hardly ever know in advance what is needed at 2am in
+the morning when trying to triage an incident!).</p>
+
+<p>Other endpoint monitoring tools also have a shell interface (For example
+Carbon Black). It is understood that this feature is extremely powerful,
+but it is necessary sometimes.</p>
+
 <p>Velociraptor mitigates this risk in a few ways:</p>
-<ol class="arabic simple">
+
+<ol>
 <li>If an organization deems the ability to run arbitrary commands too
-dangerous, they can completely disable this feature in the client's
+dangerous, they can completely disable this feature in the client\&rsquo;s
 configuration.</li>
 <li>Every shell command run by the client is audited and its output is
 archived. Misuse can be easily detected and investigated.</li>
-<li>This feature is considered high risk and it is not available via
-the GUI. One must use the velociraptor binary on the server itself
-to run the interactive shell.</li>
+<li>This feature is considered high risk and it is not available via the
+GUI. One must use the velociraptor binary on the server itself to
+run the interactive shell.</li>
 </ol>
-</div>
-<div class="section" id="interactive-shell">
-<h2>Interactive Shell</h2>
-<p>The interactive shell feature is accessed by issueing the shell
-command to the velociraptor binary:</p>
-<pre class="code bash literal-block">
-$ velociraptor --config ~/server.config.yaml shell C.7403676ab8664b2b
-C.7403676ab8664b2b <span class="operator">(</span>trek<span class="operator">)</span> &gt;ls /
+
+<h1 id="interactive-shell">Interactive Shell</h1>
+
+<p>The interactive shell feature is accessed by issueing the shell command
+to the velociraptor binary:</p>
+
+<pre><code class="language-.sourceCode">$ velociraptor --config ~/server.config.yaml shell C.7403676ab8664b2b
+C.7403676ab8664b2b (trek) &gt;ls /
 Running ls / on C.7403676ab8664b2b
-Received response at <span class="literal number">2018</span>-12-11 <span class="literal number">13</span>:12:35 +1000 AEST - Return code <span class="literal number">0</span>
+Received response at 2018-12-11 13:12:35 +1000 AEST - Return code 0
 
 bin
 boot
@@ -512,95 +566,107 @@ core
 data
 dev
 
-C.7403676ab8664b2b <span class="operator">(</span>trek<span class="operator">)</span> &gt;id
+C.7403676ab8664b2b (trek) &gt;id
 Running id on C.7403676ab8664b2b
-Received response at <span class="literal number">2018</span>-12-11 <span class="literal number">13</span>:13:05 +1000 AEST - Return code <span class="literal number">0</span>
+Received response at 2018-12-11 13:13:05 +1000 AEST - Return code 0
 
-<span class="name variable">uid</span><span class="operator">=</span><span class="literal number">1000</span><span class="operator">(</span>mic<span class="operator">)</span> <span class="name variable">gid</span><span class="operator">=</span><span class="literal number">1000</span><span class="operator">(</span>mic<span class="operator">)</span> <span class="name variable">groups</span><span class="operator">=</span><span class="literal number">1000</span><span class="operator">(</span>mic<span class="operator">)</span>,4<span class="operator">(</span>adm<span class="operator">)</span>,24<span class="operator">(</span>cdrom<span class="operator">)</span>,27<span class="operator">(</span>sudo<span class="operator">)</span>
+uid=1000(mic) gid=1000(mic) groups=1000(mic),4(adm),24(cdrom),27(sudo)
 
-C.7403676ab8664b2b <span class="operator">(</span>trek<span class="operator">)</span> &gt;whoami
+C.7403676ab8664b2b (trek) &gt;whoami
 Running whoami on C.7403676ab8664b2b
-Received response at <span class="literal number">2018</span>-12-11 <span class="literal number">13</span>:13:10 +1000 AEST - Return code <span class="literal number">0</span>
+Received response at 2018-12-11 13:13:10 +1000 AEST - Return code 0
 
 mic
-</pre>
+</code></pre>
+
 <p>As you can see it is pretty straight forward - type a command, the
-command is sent to the client, and the client responds with the
-output.</p>
-</div>
-<div class="section" id="how-does-it-work">
-<h2>How does it work?</h2>
+command is sent to the client, and the client responds with the output.</p>
+
+<h1 id="how-does-it-work">How does it work?</h1>
+
 <p>The main components are shown in the figure below. Note that the shell
 process is a different process from the frontend:</p>
-<img alt="interactive_shell_workflow.png" src="interactive_shell_workflow.png" />
-<p>The workflow starts when a user issues a command (for example &quot;ls -l
-/&quot;) on the terminal. The shell process schedules a VQL query for the
+
+<p><img src="interactive_shell_workflow.png" alt="image" /></p>
+
+<p>The workflow starts when a user issues a command (for example \&ldquo;ls -l
+/\&ldquo;) on the terminal. The shell process schedules a VQL query for the
 client:</p>
-<pre class="code psql literal-block">
-<span class="keyword">SELECT</span> <span class="name">now</span><span class="punctuation">()</span> <span class="keyword">as</span> <span class="name builtin">Timestamp</span><span class="punctuation">,</span> <span class="name">Argv</span><span class="punctuation">,</span> <span class="keyword">Stdout</span><span class="punctuation">,</span>
-     <span class="name">Stderr</span><span class="punctuation">,</span> <span class="name">ReturnCode</span> <span class="keyword">FROM</span> <span class="name">execve</span><span class="punctuation">(</span><span class="name">argv</span><span class="operator">=</span><span class="punctuation">[</span><span class="literal string single">'ls'</span><span class="punctuation">,</span> <span class="literal string single">'-l'</span><span class="punctuation">,</span> <span class="literal string single">'/'</span><span class="punctuation">])</span>
-</pre>
-<p>However, this query is scheduled as part of the monitoring flow -
-which means it's response will be sent and stored with the monitoring
-logs. As soon as the shell process schedules the VQL query the
-frontend is notified and the client is woken. Note that due to
-Velociraptor's near instantaneous communication protocol this causes
-the client to run the command almost immediately.</p>
-<p>The client executes the query which returns one or more rows
-containing the Stdout of the process. The client will then send the
-response to the server as a monitoring event. The frontend will then
-append the event to a CSV file.</p>
+
+<pre><code class="language-.sourceCode">SELECT now() as Timestamp, Argv, Stdout,
+     Stderr, ReturnCode FROM execve(argv=['ls', '-l', '/'])
+</code></pre>
+
+<p>However, this query is scheduled as part of the monitoring flow -which
+means it\&rsquo;s response will be sent and stored with the monitoring logs.
+As soon as the shell process schedules the VQL query the frontend is
+notified and the client is woken. Note that due to Velociraptor\&rsquo;s near
+instantaneous communication protocol this causes the client to run the
+command almost immediately.</p>
+
+<p>The client executes the query which returns one or more rows containing
+the Stdout of the process. The client will then send the response to the
+server as a monitoring event. The frontend will then append the event to
+a CSV file.</p>
+
 <p>After sending the initial client query, the interactive shell process
 will issue a watch VQL query to watch for the shell response:</p>
-<pre class="code psql literal-block">
-<span class="keyword">SELECT</span> <span class="name">ReturnCode</span><span class="punctuation">,</span> <span class="keyword">Stdout</span><span class="punctuation">,</span> <span class="name">Stderr</span><span class="punctuation">,</span> <span class="name builtin">Timestamp</span><span class="punctuation">,</span> <span class="name">Argv</span>
-<span class="keyword">FROM</span> <span class="name">watch_monitoring</span><span class="punctuation">(</span><span class="name">client_id</span><span class="operator">=</span><span class="name">ClientId</span><span class="punctuation">,</span> <span class="name">artifact</span><span class="operator">=</span><span class="literal string single">'Shell'</span><span class="punctuation">)</span>
-</pre>
+
+<pre><code class="language-.sourceCode">SELECT ReturnCode, Stdout, Stderr, Timestamp, Argv
+FROM watch_monitoring(client_id=ClientId, artifact='Shell')
+</code></pre>
+
 <p>The process now blocks until this second query detects the response
-arrived on the monitoring queue. Now we simply display the result and
-go back to the interactive prompt.</p>
+arrived on the monitoring queue. Now we simply display the result and go
+back to the interactive prompt.</p>
+
 <p>Note that the interactive shell is implemented using the same basic
 building blocks that Velociraptor offers:</p>
-<ol class="arabic simple">
+
+<ol>
 <li>Issuing client VQL queries.</li>
-<li>Waking the client immediately gives instant results (no need for polling).</li>
-<li>Utilizing the event monitoring flow to receive results from queries immediately.</li>
-<li>Writing server side event queries to watch for new events, such as responses from the client.</li>
+<li>Waking the client immediately gives instant results (no need for
+polling).</li>
+<li>Utilizing the event monitoring flow to receive results from queries
+immediately.</li>
+<li>Writing server side event queries to watch for new events, such as
+responses from the client.</li>
 </ol>
-<p>Note that the frontend is very simple and does no specific processing
-of the interactive shell, the feature is implemented completely within
-the interactive shell process itself. This design lowers the load on
-the frontends since their job is very simple, but enables complex post
+
+<p>Note that the frontend is very simple and does no specific processing of
+the interactive shell, the feature is implemented completely within the
+interactive shell process itself. This design lowers the load on the
+frontends since their job is very simple, but enables complex post
 processing and interaction to tbe implemented by other processes.</p>
-</div>
-<div class="section" id="auditing">
-<h2>Auditing</h2>
+
+<h1 id="auditing">Auditing</h1>
+
 <p>We mentioned previously that running shell commands on endpoints is a
 powerful feature and we need to audit its use closely. Since shell
 command output is implemented via the monitored event queues it should
-be obvious that we can monitor all such commands by simply watching
-the Shell artifact event queue:</p>
-<pre class="code bash literal-block">
-$ velociraptor query <span class="literal string double">&quot;select * from watch_monitoring(artifact='Shell')&quot;</span>
-<span class="operator">[</span>
- <span class="operator">{</span>
-  <span class="literal string double">&quot;Argv&quot;</span>: <span class="literal string double">&quot;\&quot;{\\\&quot;Argv\\\&quot;:[\\\&quot;id\\\&quot;]}\&quot;&quot;</span>,
-  <span class="literal string double">&quot;Artifact&quot;</span>: <span class="literal string double">&quot;Shell&quot;</span>,
-  <span class="literal string double">&quot;ClientId&quot;</span>: <span class="literal string double">&quot;C.7403676ab8664b2b&quot;</span>,
-  <span class="literal string double">&quot;ReturnCode&quot;</span>: <span class="literal string double">&quot;0&quot;</span>,
-  <span class="literal string double">&quot;Stderr&quot;</span>: <span class="literal string double">&quot;\&quot;\&quot;&quot;</span>,
-  <span class="literal string double">&quot;Stdout&quot;</span>: <span class="literal string double">&quot;\&quot;uid=1000(mic) gid=1000(mic) groups=1000(mic)\\n\&quot;&quot;</span>,
-  <span class="literal string double">&quot;Timestamp&quot;</span>: <span class="literal string double">&quot;1544499929&quot;</span>
- <span class="operator">}</span>
-<span class="operator">]</span>
-</pre>
+be obvious that we can monitor all such commands by simply watching the
+Shell artifact event queue:</p>
+
+<pre><code class="language-.sourceCode">$ velociraptor query &quot;select * from watch_monitoring(artifact='Shell')&quot;
+[
+ {
+  &quot;Argv&quot;: &quot;\&quot;{\\\&quot;Argv\\\&quot;:[\\\&quot;id\\\&quot;]}\&quot;&quot;,
+  &quot;Artifact&quot;: &quot;Shell&quot;,
+  &quot;ClientId&quot;: &quot;C.7403676ab8664b2b&quot;,
+  &quot;ReturnCode&quot;: &quot;0&quot;,
+  &quot;Stderr&quot;: &quot;\&quot;\&quot;&quot;,
+  &quot;Stdout&quot;: &quot;\&quot;uid=1000(mic) gid=1000(mic) groups=1000(mic)\\n\&quot;&quot;,
+  &quot;Timestamp&quot;: &quot;1544499929&quot;
+ }
+]
+</code></pre>
+
 <p>We can easily write an artifact that escalates any use of the
-interactive shell by sending the admin an mail (See previous blog
-post). This way we can see if someone missused the
-feature. Alternatively we may simply archive the event queue CSV file
-for long term auditing of any interactive shell use.</p>
-</div>
-</div>
+interactive shell by sending the admin an mail (See previous blog post).
+This way we can see if someone missused the feature. Alternatively we
+may simply archive the event queue CSV file for long term auditing of
+any interactive shell use.</p>
+
 
     
     
@@ -612,7 +678,7 @@ for long term auditing of any interactive shell use.</p>
 
 <div id="navigation">
 <a class="nav nav-prev" href="/docs/presentations/nzitf2018/" title="New Zealand Internet Task Force Conference 2018"> <i class="fa fa-chevron-left"></i><label>New Zealand Internet Task Force Conference 2018</label></a>
-    <a class="nav nav-next" href="/about/" title="About Velociraptor" style="margin-right: 0px;"><label>About Velociraptor</label><i class="fa fa-chevron-right"></i></a></div>
+    <a class="nav nav-next" href="/blog/medium/2019-11-15_recovering-deleted-ntfs-files-with-velociraptor-1fcf09855311/" title="Recovering deleted NTFS Files with Velociraptor" style="margin-right: 0px;"><label>Recovering deleted NTFS Files with Velociraptor</label><i class="fa fa-chevron-right"></i></a></div>
 
 </section>
 <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">

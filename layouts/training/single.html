@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  {{- partial "bizcraft_head.html" . -}}
+  <body>
+    {{- partial "bizcraft_header.html" . -}}
+    {{- partial "bizcraft_slider.html" .Page.Params.Slider -}}
+
+  <!-- Blog details page start -->
+    <div class="container">
+      <div class="row">
+
+        <!-- Blog start -->
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2"> </div>
+        <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+
+          {{ .Content }}
+
+          {{ range .Page.Params.Schedule }}
+          <!-- 1st post start -->
+          <div class="post">
+
+            <!-- post image start -->
+            <div class="post-image-wrapper">
+              <img src="{{ .picture }}" class="img-responsive"  alt="" />
+              <span class="blog-date"><a href="#">{{.date}}</a></span>
+            </div><!-- post image end -->
+            <div class="post-header clearfix">
+              <h2 class="post-title">
+                <a href="blog-item.html">{{.title}}</a>
+              </h2>
+            </div><!-- post heading end -->
+            <div class="post-body">
+              <p>
+                {{ .description }}
+              </p>
+            </div>
+            <div class="post-footer">
+              <a href="{{ absURL .outline }}" class="btn btn-primary">View Outline &nbsp;</i></a>
+              {{ if .buyurl }}
+              <a href="{{ absURL .buyurl }}" class="btn btn-primary pull-right">Reserve Your Spot</a>
+
+              {{ end }}
+            </div>
+          </div><!-- 1st post end -->
+
+          {{ end }}
+
+        </div><!--/ Content col end -->
+      </div><!--/ row end -->
+    </div><!--/ container end -->
+
+  <div class="gap-40"></div>
+
+  <!-- Footer start -->
+  <section id="copyright" class="copyright angle">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 text-center">
+          <div class="copyright-info">
+            &copy; Copyright 2019 Velocidex Enterprises.
+          </div>
+        </div>
+      </div><!--/ Row end -->
+      <div id="back-to-top" data-spy="affix" data-offset-top="10" class="back-to-top affix">
+        <button class="btn btn-primary" title="Back to Top"><i class="fa fa-angle-double-up"></i></button>
+      </div>
+    </div><!--/ Container end -->
+  </section><!--/ Footer end -->
+
+  {{- partial "jsfooter.html" . -}}
+  </body>
+</html>

@@ -376,6 +376,48 @@
             <i class="fa fa-angle-down fa-lg category-icon"></i>
       </div>
         <ul>
+      <li data-nav-id="/blog/medium/2019-11-15_recovering-deleted-ntfs-files-with-velociraptor-1fcf09855311/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-11-15_recovering-deleted-ntfs-files-with-velociraptor-1fcf09855311/">
+            Recovering deleted NTFS Files with Velociraptor
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-11-12_windows-event-logs-d8d8e615c9ca/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-11-12_windows-event-logs-d8d8e615c9ca/">
+            Windows Event Logs
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-10-08_triage-with-velociraptor-pt-3-d6f63215f579/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-10-08_triage-with-velociraptor-pt-3-d6f63215f579/">
+            Triage with Velociraptor — Pt 3
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-10-04_triage-with-velociraptor-pt-2-d0f79066ca0e/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-10-04_triage-with-velociraptor-pt-2-d0f79066ca0e/">
+            Triage with Velociraptor — Pt 2
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-10-02_triage-with-velociraptor-pt-1-253f57ce96c0/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-10-02_triage-with-velociraptor-pt-1-253f57ce96c0/">
+            Triage with Velociraptor — Pt 1
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-09-11_velociraptor-s-client-side-buffer-3ce03697a4e6/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-09-11_velociraptor-s-client-side-buffer-3ce03697a4e6/">
+            Velociraptor’s client side buffer
+          </a>
+        </div>
+    </li>
         </ul>
     </li>
 
@@ -428,7 +470,15 @@
     
     <div class="progress">
         <div class="wrapper">
-    
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#event-queries">Event Queries</a></li>
+<li><a href="#time-correlation">Time correlation</a></li>
+<li><a href="#the-fifo-plugin">The fifo() plugin</a></li>
+<li><a href="#server-side-queries">Server side queries.</a></li>
+<li><a href="#conclusions">Conclusions</a></li>
+</ul>
+</nav>
         </div>
     </div>
     
@@ -446,129 +496,151 @@
     
     
     
-    <div class="document">
+    
 
+<p>We have shown in earlier posts how Velociraptor uses VQL to define event
+queries that can detect specific conditions. These conditions can be
+used to create alerts and escalation actions.</p>
 
-<p>We have shown in earlier posts how Velociraptor uses VQL to define
-event queries that can detect specific conditions. These conditions
-can be used to create alerts and escalation actions.</p>
 <p>One of the most useful types of alerts is detecting a pattern of
-activity. For example we can detect failed and successful login
-attempts seperately, but it is the specific pattern of events (say 5
-failed login attempts followed by a successful one) that is
-interesting from a detection point of view.</p>
+activity. For example we can detect failed and successful login attempts
+seperately, but it is the specific pattern of events (say 5 failed login
+attempts followed by a successful one) that is interesting from a
+detection point of view.</p>
+
 <p>This post illustrates how this kind of temporal correlation can be
-expressed in a VQL query. We then use it to create alerts for
-attack patterns commonly seen by intrusions.</p>
-<div class="section" id="event-queries">
-<h2>Event Queries</h2>
-<p>Velociraptor executes queries written in the Velociraptor Query
-Language (VQL). The queries can be executed on the client, and their
-results streamed to the server. Alternatively the queries may be
-executed on the server and process the result of other queries which
-collected information from the client.</p>
+expressed in a VQL query. We then use it to create alerts for attack
+patterns commonly seen by intrusions.</p>
+
+<h1 id="event-queries">Event Queries</h1>
+
+<p>Velociraptor executes queries written in the Velociraptor Query Language
+(VQL). The queries can be executed on the client, and their results
+streamed to the server. Alternatively the queries may be executed on the
+server and process the result of other queries which collected
+information from the client.</p>
+
 <p>A VQL query does not have to terminate at all. VQL queries draw their
 data from a VQL plugin which may simply return data rows at different
-times.  For example, consider the following query:</p>
-<pre class="code SQL literal-block">
-<span class="keyword">SELECT</span> <span class="name">EventData</span> <span class="keyword">as</span> <span class="name">FailedEventData</span><span class="punctuation">,</span>
-       <span class="keyword">System</span> <span class="keyword">as</span> <span class="name">FailedSystem</span>
-<span class="keyword">FROM</span> <span class="name">watch_evtx</span><span class="punctuation">(</span><span class="name">filename</span><span class="operator">=</span><span class="name">securityLogFile</span><span class="punctuation">)</span>
-<span class="keyword">WHERE</span> <span class="keyword">System</span><span class="punctuation">.</span><span class="name">EventID</span> <span class="operator">=</span> <span class="literal number integer">4625</span>
-</pre>
-<p>This query sets up a watcher on a windows event log file. As new
-events are written to the log file, the query will produce those
-events as new rows. The rows will then be filtered so we only see
-event id 4625 (Failed logon event).</p>
-<p>Velociraptor can implement event queries on the client or on the
-server. For example, say we wanted to collect all failed event logs
-with the query above. We would write an artifact that encapsulates
-this query:</p>
-<pre class="code yaml literal-block">
-<span class="name tag">name</span><span class="punctuation">:</span> <span class="literal scalar plain">Windows.System.FailedLoginAttempts</span>
-<span class="name tag">parameters</span><span class="punctuation">:</span>
-  <span class="punctuation indicator">-</span> <span class="name tag">name</span><span class="punctuation">:</span> <span class="literal scalar plain">securityLogFile</span>
-    <span class="name tag">default</span><span class="punctuation">:</span> <span class="literal scalar plain">C:/Windows/System32/Winevt/Logs/Security.evtx</span>
-<span class="name tag">sources</span><span class="punctuation">:</span>
-  <span class="punctuation indicator">-</span> <span class="name tag">queries</span><span class="punctuation">:</span>
-     <span class="punctuation indicator">-</span> <span class="literal scalar plain">SELECT EventData as FailedEventData,</span>
-           <span class="literal scalar plain">System as FailedSystem</span>
-       <span class="literal scalar plain">FROM watch_evtx(filename=securityLogFile)</span>
-       <span class="literal scalar plain">WHERE System.EventID.Value = 4625</span>
-</pre>
+times. For example, consider the following query:</p>
+
+<pre><code class="language-.sourceCode">SELECT EventData as FailedEventData,
+       System as FailedSystem
+FROM watch_evtx(filename=securityLogFile)
+WHERE System.EventID = 4625
+</code></pre>
+
+<p>This query sets up a watcher on a windows event log file. As new events
+are written to the log file, the query will produce those events as new
+rows. The rows will then be filtered so we only see event id 4625
+(Failed logon event).</p>
+
+<p>Velociraptor can implement event queries on the client or on the server.
+For example, say we wanted to collect all failed event logs with the
+query above. We would write an artifact that encapsulates this query:</p>
+
+<pre><code class="language-.sourceCode">name: Windows.System.FailedLoginAttempts
+parameters:
+  - name: securityLogFile
+    default: C:/Windows/System32/Winevt/Logs/Security.evtx
+sources:
+  - queries:
+     - SELECT EventData as FailedEventData,
+           System as FailedSystem
+       FROM watch_evtx(filename=securityLogFile)
+       WHERE System.EventID.Value = 4625
+</code></pre>
+
 <p>Then we simply add that artifact to the monitored artifact list in the
 config file:</p>
-<pre class="code yaml literal-block">
-<span class="name tag">Events</span><span class="punctuation">:</span>
-  <span class="name tag">artifacts</span><span class="punctuation">:</span>
-  <span class="punctuation indicator">-</span> <span class="literal scalar plain">Generic.Client.Stats</span>
-  <span class="punctuation indicator">-</span> <span class="literal scalar plain">Windows.System.FailedLoginAttempts</span>
-  <span class="name tag">version</span><span class="punctuation">:</span> <span class="literal scalar plain">2</span>
-  <span class="name tag">ops_per_second</span><span class="punctuation">:</span> <span class="literal scalar plain">10</span>
-</pre>
-<p>The monitored artifacts are run on all clients connected to the
-server. The output from these queries is streamed to the server and
-stored in the client's monitoring VFS directory.</p>
+
+<pre><code class="language-.sourceCode">Events:
+  artifacts:
+  - Generic.Client.Stats
+  - Windows.System.FailedLoginAttempts
+  version: 2
+  ops_per_second: 10
+</code></pre>
+
+<p>The monitored artifacts are run on all clients connected to the server.
+The output from these queries is streamed to the server and stored in
+the client\&rsquo;s monitoring VFS directory.</p>
+
 <p>Lets test this artifact by trying to run a command using the runas
-windows command. We will be prompted for a password but failing to
-give the correct password will result in a login failure event:</p>
-<img alt="1.png" src="1.png" />
+windows command. We will be prompted for a password but failing to give
+the correct password will result in a login failure event:</p>
+
+<p><img src="1.png" alt="image" /></p>
+
 <p>After a few seconds the event will be written to the windows event log
-and the <cite>watch_evtx()</cite> VQL plugin will emit the row - which will be
-streamed to the VFS monitoring directory on the server, where it can
-be viewed in the GUI:</p>
-<img alt="2.png" src="2.png" />
-<p>The above screenshot shows that the <cite>monitoring</cite> directory now
-contains a subdirectory named after the artifact we created. Inside
-this directory are CSV files for each day and every failed logon
-attempt is detailed there.</p>
-</div>
-<div class="section" id="time-correlation">
-<h2>Time correlation</h2>
+and the watch_evtx() VQL plugin will emit the row - which will be
+streamed to the VFS monitoring directory on the server, where it can be
+viewed in the GUI:</p>
+
+<p><img src="2.png" alt="image" /></p>
+
+<p>The above screenshot shows that the monitoring directory now contains a
+subdirectory named after the artifact we created. Inside this directory
+are CSV files for each day and every failed logon attempt is detailed
+there.</p>
+
+<h1 id="time-correlation">Time correlation</h1>
+
 <p>While it is interesting to see all failed logon attempts in many cases
-these events are just noise. If you put any server on the internet
-(e.g. an RDP or SSH server) you will experience thousands of brute
-force attempts to break in. This is just the nature of the
-internet. If your password policy is strong enough it should not be a
-big problem.</p>
-<p>However, what if someone guesses the password for one of your
-accounts? Then the activity pattern is more like a bunch of failed
-logons followed by a successful logon for the same account.</p>
-<p>This pattern is way more interesting than just watching for a series
-of failed logons (although that is also good to know).</p>
-<p>But how do we write a query to detect this? Essentially the query
-needs to look back in time to see how many failed logon attempts
-preceeded each successful logon.</p>
-<p>This is a typical problem which may be generalized as followed:</p>
-<div class="admonition admonition-goal">
-<p class="first admonition-title">Goal</p>
-<p class="last">We want to detect an event A preceeded by a specified number of
-events B within a defined time window.</p>
-</div>
+these events are just noise. If you put any server on the internet (e.g.
+an RDP or SSH server) you will experience thousands of brute force
+attempts to break in. This is just the nature of the internet. If your
+password policy is strong enough it should not be a big problem.</p>
+
+<p>However, what if someone guesses the password for one of your accounts?
+Then the activity pattern is more like a bunch of failed logons followed
+by a successful logon for the same account.</p>
+
+<p>This pattern is way more interesting than just watching for a series of
+failed logons (although that is also good to know).</p>
+
+<p>But how do we write a query to detect this? Essentially the query needs
+to look back in time to see how many failed logon attempts preceeded
+each successful logon.</p>
+
+<dl>
+<dt>This is a typical problem which may be generalized as followed:</dt>
+</dl>
+
+<p>::: {.admonition}
+Goal</p>
+
+<p>We want to detect an event A preceeded by a specified number of events B
+within a defined time window.
+:::</p>
+
 <p>This problem may be generalized for example:</p>
-<ol class="arabic simple">
+
+<ol>
 <li>Detect a user account created and deleted within a short time
 window.</li>
-<li>A beacon to a specific DNS followed by at least 5 beacons within
-the last 5 hours to same DNS (Event A and B are the same).</li>
+<li>A beacon to a specific DNS followed by at least 5 beacons within the
+last 5 hours to same DNS (Event A and B are the same).</li>
 </ol>
-</div>
-<div class="section" id="the-fifo-plugin">
-<h2>The fifo() plugin</h2>
-<p>How shall we write the VQL query to achieve this? This is made
-possible by use of the fifo() plugin. As its name suggests, the FIFO
-plugin acts as a First In First Out cache for event queries.</p>
-<object data="3.svg" type="image/svg+xml">
-3.svg</object>
-<p>The plugin is given a subquery which is also a VQL query generating
-its own events. As the subquery generates events, each event is kept
-in the fifo plugin's cache in a first in first out manner. Events are
-also expired if they are too old.</p>
+
+<h1 id="the-fifo-plugin">The fifo() plugin</h1>
+
+<p>How shall we write the VQL query to achieve this? This is made possible
+by use of the fifo() plugin. As its name suggests, the FIFO plugin acts
+as a First In First Out cache for event queries.</p>
+
+<p><img src="3.svg" alt="image" /></p>
+
+<p>The plugin is given a subquery which is also a VQL query generating its
+own events. As the subquery generates events, each event is kept in the
+fifo plugin\&rsquo;s cache in a first in first out manner. Events are also
+expired if they are too old.</p>
+
 <p>We typically store the query in a variable. Each time the variable is
 queried the cache is returned at once. To illustrate how this works
 consider the following query:</p>
-<pre class="code text literal-block">
-LET fifo_events = SELECT * FROM fifo(
+
+<pre><code class="language-.sourceCode">LET fifo_events = SELECT * FROM fifo(
   max_rows=5,
   query={
      SELECT * from watch_evtx(filename=securityLogFile)
@@ -582,123 +654,135 @@ SELECT * FROM foreach(
    query={
      SELECT * from fifo_events
    })
-</pre>
+</code></pre>
+
 <p>The first query is stored into the fifo_events variable. When it is
 first defined, the fifo() VQL plugin launches its subquery and simply
 collects its output into its local cache in a fifo manner. This will
 essentially keep the last 5 rows in its cache.</p>
-<p>The second query runs the clock() plugin to receive a clock event
-every 60 seconds. For each of these events, we select from the
-<cite>fifo_events</cite> variable - that is we select the last 5 failed events.</p>
+
+<p>The second query runs the clock() plugin to receive a clock event every
+60 seconds. For each of these events, we select from the fifo_events
+variable - that is we select the last 5 failed events.</p>
+
 <p>You can see that this allows us to query the last 5 events in the fifo
 cache for every clock event. If we now replace the clock event with a
 successful logon event this query will do exactly what we want:</p>
-<pre class="code yaml literal-block">
-<span class="comment single"># This query will generate failed logon events - one per row, as</span>
-<span class="comment single"># they occur.</span>
-<span class="punctuation indicator">-</span> <span class="literal scalar plain">LET failed_logon = SELECT EventData as FailedEventData,</span>
-     <span class="literal scalar plain">System as FailedSystem</span>
-  <span class="literal scalar plain">FROM watch_evtx(filename=securityLogFile)</span>
-  <span class="literal scalar plain">WHERE System.EventID.Value = 4625</span>
 
-<span class="comment single"># This query will create a fifo() to contain the last 5 failed</span>
-<span class="comment single"># logon events.</span>
-<span class="punctuation indicator">-</span> <span class="literal scalar plain">LET last_5_events = SELECT FailedEventData, FailedSystem</span>
-      <span class="literal scalar plain">FROM fifo(query=failed_logon,</span>
-                <span class="literal scalar plain">max_rows=5,</span>
-                <span class="literal scalar plain">max_age=atoi(string=failedLogonTimeWindow))</span>
+<pre><code class="language-.sourceCode"># This query will generate failed logon events - one per row, as
+# they occur.
+- LET failed_logon = SELECT EventData as FailedEventData,
+     System as FailedSystem
+  FROM watch_evtx(filename=securityLogFile)
+  WHERE System.EventID.Value = 4625
 
-<span class="comment single"># This query simply generates successful logon events.</span>
-<span class="punctuation indicator">-</span> <span class="literal scalar plain">LET success_logon = SELECT EventData as SuccessEventData,</span>
-     <span class="literal scalar plain">System as SuccessSystem</span>
-  <span class="literal scalar plain">FROM watch_evtx(filename=securityLogFile)</span>
-  <span class="literal scalar plain">WHERE System.EventID.Value = 4624</span>
+# This query will create a fifo() to contain the last 5 failed
+# logon events.
+- LET last_5_events = SELECT FailedEventData, FailedSystem
+      FROM fifo(query=failed_logon,
+                max_rows=5,
+                max_age=atoi(string=failedLogonTimeWindow))
 
-<span class="comment single"># For each successful event, we select the last 5 failed events</span>
-<span class="comment single"># and count them (using the group by). If the count is greater</span>
-<span class="comment single"># than 3 then we emit the row as an event.</span>
-<span class="punctuation indicator">-</span> <span class="literal scalar plain">SELECT * FROM foreach(</span>
-    <span class="literal scalar plain">row=success_logon,</span>
-    <span class="literal scalar plain">query={</span>
-     <span class="literal scalar plain">SELECT SuccessSystem.TimeCreated.SystemTime AS LogonTime,</span>
-            <span class="literal scalar plain">SuccessSystem, SuccessEventData, FailedEventData,</span>
-            <span class="literal scalar plain">FailedSystem, count(items=SuccessSystem) as Count</span>
-     <span class="literal scalar plain">FROM last_5_events</span>
-     <span class="literal scalar plain">WHERE FailedEventData.SubjectUserName = SuccessEventData.SubjectUserName</span>
-     <span class="literal scalar plain">GROUP BY LogonTime</span>
-    <span class="literal scalar plain">})  WHERE Count &gt; 3</span>
-</pre>
+# This query simply generates successful logon events.
+- LET success_logon = SELECT EventData as SuccessEventData,
+     System as SuccessSystem
+  FROM watch_evtx(filename=securityLogFile)
+  WHERE System.EventID.Value = 4624
+
+# For each successful event, we select the last 5 failed events
+# and count them (using the group by). If the count is greater
+# than 3 then we emit the row as an event.
+- SELECT * FROM foreach(
+    row=success_logon,
+    query={
+     SELECT SuccessSystem.TimeCreated.SystemTime AS LogonTime,
+            SuccessSystem, SuccessEventData, FailedEventData,
+            FailedSystem, count(items=SuccessSystem) as Count
+     FROM last_5_events
+     WHERE FailedEventData.SubjectUserName = SuccessEventData.SubjectUserName
+     GROUP BY LogonTime
+    })  WHERE Count &gt; 3
+</code></pre>
+
 <p>The above query simply watches the event log for failed logins and
 populates a fifo() with the last 5 failed events. At the same time we
 monitor the event log for successful logon events. If we see a
 successful event, we go back and check the last 5 failed events and
 count them.</p>
+
 <p>If the failed events are for the same user and there are more than 3
 then we report this as an event. We now have a high value event.</p>
-<p>Let's see what it looks like when such an event is triggered:</p>
-<img alt="3.png" src="3.png" />
+
+<p>Let\&rsquo;s see what it looks like when such an event is triggered:</p>
+
+<p><img src="3.png" alt="image" /></p>
+
 <p>Just like before, the events are written to a daily CSV log, one event
-per CSV row. It is a bit hard to see in the GUI since there is a lot
-of data, (We probably need some GUI work to improve this) but there is
-a single row emitted for each event, and the FailedEventData column
+per CSV row. It is a bit hard to see in the GUI since there is a lot of
+data, (We probably need some GUI work to improve this) but there is a
+single row emitted for each event, and the FailedEventData column
 contains a list of all the failed login attempts stored in the fifo().</p>
-</div>
-<div class="section" id="server-side-queries">
-<h2>Server side queries.</h2>
+
+<h1 id="server-side-queries">Server side queries.</h1>
+
 <p>We have seen how the fifo() plugin can be used in the monitoring
 artifact itself to have the client detect its own events. However, the
 endpoint is usually only able to see its own events in isolation. It
 would be nice to be able to detect patterns only evident by seeing
 concerted behaviour from multiple endpoints at the same time.</p>
-<p>For example, consider the pattern of an attacker who compromised
-domain credentials running multiple PowerShell Remoting commands
-across the entire domain. A command like:</p>
-<pre class="code text literal-block">
-PS C:\WINDOWS\system32&gt; Invoke-Command –ComputerName testcomputer -ScriptBlock {Hostname}
+
+<p>For example, consider the pattern of an attacker who compromised domain
+credentials running multiple PowerShell Remoting commands across the
+entire domain. A command like:</p>
+
+<pre><code class="language-.sourceCode">PS C:\WINDOWS\system32&gt; Invoke-Command –ComputerName testcomputer -ScriptBlock {Hostname}
 TestComputer
-</pre>
+</code></pre>
+
 <p>This command will generate multiple event log entries, including event
 4624 (logon) on each host. While in isolation, on each individual
 endpoint this event is not suspicious, we might consider seeing this
 event repeated within a short time across the domain suspicious.</p>
+
 <p>To set that up we would run the following artifact as a monitoring
 artifact on all endpoints:</p>
-<pre class="code yaml literal-block">
-<span class="name tag">name</span><span class="punctuation">:</span> <span class="literal scalar plain">Windows.Event.SuccessfulLogon</span>
-<span class="name tag">sources</span><span class="punctuation">:</span>
- <span class="punctuation indicator">-</span> <span class="name tag">queries</span><span class="punctuation">:</span>
-   <span class="punctuation indicator">-</span> <span class="literal scalar plain">SELECT EventData as SuccessEventData,</span>
-        <span class="literal scalar plain">System as SuccessSystem</span>
-     <span class="literal scalar plain">FROM watch_evtx(filename=securityLogFile)</span>
-     <span class="literal scalar plain">WHERE System.EventID.Value = 4624</span>
-</pre>
-<p>On the server we simple install a watcher on all monitoring events
-from this artifact and feed the result to the fifo(). This fills the
-fifo() with the last 500 successful logon events from all clients
-within the last 60 seconds:</p>
-<pre class="code SQL literal-block">
-<span class="name">LET</span> <span class="name">last_successful_logons</span> <span class="operator">=</span> <span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> <span class="name">fifo</span><span class="punctuation">(</span>
-   <span class="name">max_rows</span><span class="operator">=</span><span class="literal number integer">500</span><span class="punctuation">,</span>
-   <span class="name">max_time</span><span class="operator">=</span><span class="literal number integer">60</span><span class="punctuation">,</span>
-   <span class="name">query</span><span class="operator">=</span><span class="error">{</span>
-     <span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> <span class="name">watch_monitoring</span><span class="punctuation">(</span>
-        <span class="name">artifact</span><span class="operator">=</span><span class="literal string symbol">&quot;Windows.Event.SuccessfulLogon&quot;</span><span class="punctuation">)</span>
-   <span class="error">}</span><span class="punctuation">)</span>
-</pre>
+
+<pre><code class="language-.sourceCode">name: Windows.Event.SuccessfulLogon
+sources:
+ - queries:
+   - SELECT EventData as SuccessEventData,
+        System as SuccessSystem
+     FROM watch_evtx(filename=securityLogFile)
+     WHERE System.EventID.Value = 4624
+</code></pre>
+
+<p>On the server we simple install a watcher on all monitoring events from
+this artifact and feed the result to the fifo(). This fills the fifo()
+with the last 500 successful logon events from all clients within the
+last 60 seconds:</p>
+
+<pre><code class="language-.sourceCode">LET last_successful_logons = SELECT * FROM fifo(
+   max_rows=500,
+   max_time=60,
+   query={
+     SELECT * FROM watch_monitoring(
+        artifact=&quot;Windows.Event.SuccessfulLogon&quot;)
+   })
+</code></pre>
+
 <p>By counting the number of such unique events we can determine if there
 were too many successful logon events from different hosts within the
 last minute. This might indicate a scripted use of powershell remoting
 across the domain.</p>
-</div>
-<div class="section" id="conclusions">
-<h2>Conclusions</h2>
+
+<h1 id="conclusions">Conclusions</h1>
+
 <p>In this post we have seen how to write artifacts which capture a time
 ordered pattern of behavior. This technique is useful to codify common
-attack techniques. The technique is general and we can use the same
-idea on server side queries to correlate events from many hosts at the
-same time.</p>
-</div>
-</div>
+attack techniques. The technique is general and we can use the same idea
+on server side queries to correlate events from many hosts at the same
+time.</p>
+
 
     
     
@@ -710,7 +794,7 @@ same time.</p>
 
 <div id="navigation">
 <a class="nav nav-prev" href="/docs/presentations/nzitf2018/" title="New Zealand Internet Task Force Conference 2018"> <i class="fa fa-chevron-left"></i><label>New Zealand Internet Task Force Conference 2018</label></a>
-    <a class="nav nav-next" href="/about/" title="About Velociraptor" style="margin-right: 0px;"><label>About Velociraptor</label><i class="fa fa-chevron-right"></i></a></div>
+    <a class="nav nav-next" href="/blog/medium/2019-11-15_recovering-deleted-ntfs-files-with-velociraptor-1fcf09855311/" title="Recovering deleted NTFS Files with Velociraptor" style="margin-right: 0px;"><label>Recovering deleted NTFS Files with Velociraptor</label><i class="fa fa-chevron-right"></i></a></div>
 
 </section>
 <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
