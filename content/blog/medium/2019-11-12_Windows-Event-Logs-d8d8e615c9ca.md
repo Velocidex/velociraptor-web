@@ -20,6 +20,8 @@ Consider an incident occurred on one of your systems. You would like to investig
 
 The logs are stored in binary format so you will need to post process the files. Luckily there are a number of tools out there that will do that for you. Here is a typical output from the [dumpevtx](https://github.com/Velocidex/evtx) tool for a particular event from the Security.evtx log file:
 
+<script src="https://gist.github.com/scudette/0b88f27e258021eecf7de9b8c0861184.js"></script>
+
 This event looks interesting but it is not quite clear what it is really talking about. We see some potentially useful items like **SubjectUserSid** and **PrivilegeList** but we are missing some critical context around this message.
 
 Lets look at the same event with the windows Event Viewer GUI:
