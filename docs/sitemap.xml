@@ -395,10 +395,6 @@
   </url>
   
   <url>
-    <loc>/training/sydney_feb_2020/</loc>
-  </url>
-  
-  <url>
     <loc>/docs/artifacts/linux/linux/</loc>
   </url>
   
@@ -440,6 +436,14 @@
   
   <url>
     <loc>/faq/</loc>
+  </url>
+  
+  <url>
+    <loc>/training/melbourne_march_2020/</loc>
+  </url>
+  
+  <url>
+    <loc>/training/sydney_feb_2020/</loc>
   </url>
   
   <url>

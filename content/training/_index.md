@@ -32,6 +32,30 @@ schedule:
   buyurl: https://www.eventbrite.com.au/e/83754884113
   picture: https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Sydney_Opera_House%2C_botanic_gardens_1.jpg/1280px-Sydney_Opera_House%2C_botanic_gardens_1.jpg
 
+- title: Velociraptor training in Melbourne, Australia
+  date: 10th March 2020
+  description: |
+      The life of an information security professional is a hectic one. It
+      seems like you are fighting fires every day and always behind the
+      eight ball. You know you should be proactively hunting for emerging
+      threats in your network but the tools at your disposal simply do not
+      scale. You can check each machine individually for hardening and
+      policy compliance but you have many thousands of endpoints deployed,
+      it is hard enough to keep up with the alerts.
+
+      This 2 day course is an introduction to forensic analysis and incident
+      response for information security professionals. We use a new open
+      source endpoint visibility tool called Velociraptor, developed by
+      Velocidex Enterprises. Velociraptor is a powerful endpoint tool – you
+      can hunt for artifacts in minutes across thousands of endpoints and
+      perform advanced forensic analysis on the endpoint, rapidly and at
+      scale. Welcome to the future of DFIR!
+
+  outline: /training/melbourne_march_2020
+  buyurl: https://www.eventbrite.com.au/e/83755800855/
+  picture: https://live.staticflickr.com/4205/34672198760_b1396d4e33_b.jpg
+
+
 - title: Velociraptor Tutorial at Linux.Conf.Au
   date: 15th January 2020
   description: |

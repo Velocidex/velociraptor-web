@@ -1,14 +1,14 @@
 ---
-title: Velociraptor training in Sydney, Australia
+title: Velociraptor training in Melbourne, Australia
 type: bizcraft_page
 layout: single
 slider:
   image: /images/slider/bg3.jpg
-  title: Enterprise Hunting and Incident Response in Sydney, Australia
+  title: Enterprise Hunting and Incident Response in Melbourne, Australia
   subtitle: Digging deeper with Velociraptor!
   buttons:
    - title: Book now!
-     url: https://www.eventbrite.com.au/e/83754884113
+     url: https://www.eventbrite.com.au/e/83755800855/
 ---
 
 The life of an information security professional is a hectic one. It
@@ -202,5 +202,4 @@ Sydney CBD.  The venue is a short walk from Wynyard station.
 Attendees should bring their own laptop. We will be working on cloud
 instances so a current web browser such as Chrome is essential.
 
-
-<iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3827.566184878819!2d151.2041623617613!3d-33.86650789472744!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xa54bd46bfdd2a74c!2sSaxons%20Training%20Facilities%20-%20Sydney!5e0!3m2!1sen!2sau!4v1575457638993!5m2!1sen!2sau" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
+<iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d12607.29233642912!2d144.9574838!3d-37.8176127!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x5af12b0970f865e1!2sSaxons%20Training%20Facilities%20-%20Melbourne!5e0!3m2!1sen!2sau!4v1575460270600!5m2!1sen!2sau" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
