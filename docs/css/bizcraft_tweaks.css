@@ -2,3 +2,9 @@
 .copyright.angle:before{
      height: 75px;
 }
+
+
+li p {
+    margin-top: 5px;
+    margin-bottom: 0px;
+}

@@ -9,15 +9,29 @@ slider:
   subtitle: Get training from the developers and practitioners who use Velociraptor every day to dig deeper!
 
 schedule:
-- title: Velociraptor training on the sunny Gold Coast, Queensland, Australia
-  date: 20th January 2020
+- title: Velociraptor training in Sydney, Australia
+  date: 25th February 2020
   description: |
+      The life of an information security professional is a hectic one. It
+      seems like you are fighting fires every day and always behind the
+      eight ball. You know you should be proactively hunting for emerging
+      threats in your network but the tools at your disposal simply do not
+      scale. You can check each machine individually for hardening and
+      policy compliance but you have many thousands of endpoints deployed,
+      it is hard enough to keep up with the alerts.
 
-    This training event is scheduled to coincide with the annual Linux.Conf.Au conference. You will learn from the developers and practitioners who use Velociraptor every day to respond to incidents and investigate breaches. The course is run in person over 2 days with hands on practical instructor led classes. Course material and detailed preparation instructions will be distributed to participants the week prior to the course.
+      This 2 day course is an introduction to forensic analysis and incident
+      response for information security professionals. We use a new open
+      source endpoint visibility tool called Velociraptor, developed by
+      Velocidex Enterprises. Velociraptor is a powerful endpoint tool – you
+      can hunt for artifacts in minutes across thousands of endpoints and
+      perform advanced forensic analysis on the endpoint, rapidly and at
+      scale. Welcome to the future of DFIR!
 
-  outline: /training/gold_coast_jan_20_2020
-  buyurl: https://www.eventbrite.com.au/e/velo101-velociraptor-training-tickets-73094115467
-  picture: https://cdn2.queensland.com/~/media/b8ccdc25f6524a47ba68beb6309d5060.ashx?vs=1&d=20170925T102322
+  outline: /training/sydney_feb_2020
+  buyurl: https://www.eventbrite.com.au/e/83754884113
+  picture: https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Sydney_Opera_House%2C_botanic_gardens_1.jpg/1280px-Sydney_Opera_House%2C_botanic_gardens_1.jpg
+
 - title: Velociraptor Tutorial at Linux.Conf.Au
   date: 15th January 2020
   description: |

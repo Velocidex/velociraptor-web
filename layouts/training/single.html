@@ -21,7 +21,9 @@
 
             <!-- post image start -->
             <div class="post-image-wrapper">
-              <img src="{{ .picture }}" class="img-responsive"  alt="" />
+              <a href="{{ absURL .outline }}">
+                <img src="{{ .picture }}" class="img-responsive"  alt="" />
+              </a>
               <span class="blog-date"><a href="#">{{.date}}</a></span>
             </div><!-- post image end -->
             <div class="post-header clearfix">
