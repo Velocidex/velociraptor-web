@@ -197,7 +197,7 @@ with speed and precision.
 # The Venue
 
 This training event will be held at Saxons Training Facilities in the
-Sydney CBD.  The venue is a short walk from Wynyard station.
+Melbourne CBD.
 
 Attendees should bring their own laptop. We will be working on cloud
 instances so a current web browser such as Chrome is essential.
