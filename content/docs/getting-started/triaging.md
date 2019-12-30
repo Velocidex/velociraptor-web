@@ -28,7 +28,7 @@ data from the system as possible, as quickly as possible.
 First lets see what artifacts come built in with Velociraptor:
 
 ```shell
-$ velociraptor artifact list
+$ velociraptor artifacts list
 Admin.Client.Upgrade
 Admin.Events.PostProcessUploads
 Admin.System.CompressUploads
