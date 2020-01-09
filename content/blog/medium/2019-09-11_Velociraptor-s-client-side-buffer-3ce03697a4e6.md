@@ -8,6 +8,8 @@ categories: []
 keywords: []
 ---
 
+#### By Mike Cohen
+
 ![](../img/1__SLf0Z8PXOXTWfjXyuTk__Xg.png)
 
 The recent [Velociraptor](https://www.velocidex.com/) [release](https://github.com/Velocidex/velociraptor/releases) (0.3.3) features a client side buffer. What does this do and how does it change Velociraptor’s approach to incident response?

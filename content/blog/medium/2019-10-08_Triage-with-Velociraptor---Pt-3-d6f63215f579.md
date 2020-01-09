@@ -6,6 +6,8 @@ categories: []
 keywords: []
 ---
 
+#### By Mike Cohen
+
 ![](../img/1__AN0KYVpqc581I2OYcKQ0zg.jpeg)
 
 This is the final part of this three part series of articles describing how to use Velociraptor to collect files from an endpoint. Our [first part](https://medium.com/@mike_89870/triage-with-velociraptor-pt-1-253f57ce96c0) shows how we can use the Velociraptor agent in a typical client/server setting to collect artifacts from one or many endpoints at the push of a button, within seconds.

@@ -6,6 +6,8 @@ categories: []
 keywords: []
 ---
 
+#### By Mike Cohen
+
 ![](../img/1__8JNwZw22dHvjNnRAKqFz2g.jpeg)
 
 This is part 1 of the 3 part series focused around triaging and file collection.

@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Velociraptor / Dig deeper</title>
+    
+      <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>Event Plugins :: Velociraptor / Dig deeper</title>
+<link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon" />
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<link href="/css/nucleus.css" rel="stylesheet">
+<link href="/css/font-awesome.min.css" rel="stylesheet">
+<link href="/css/hybrid.css" rel="stylesheet">
+<link href="/css/featherlight.min.css" rel="stylesheet">
+<link href="/css/auto-complete.css" rel="stylesheet">
+<link href="/theme-original/style.css" rel="stylesheet">
+
+  <link href="/theme-original/variant-mine.css" rel="stylesheet">
+
+
+<script src="/js/jquery-2.x.min.js"></script>
+<style type="text/css">
+  :root #header + #content > #left > #rlblock_left {
+    display:none !important;
+  }
+</style>
+<link rel="stylesheet" href="/css/theme-mine.css">
+<script src="/js/custom.js"></script>
+
+
+    
+  </head>
+  <body data-url="/docs/vql_reference/event/">
+    
+      <div id="headermain"></div>
+<nav id="sidebar" class="">
+
+
+
+<div class="highlightable">
+  <div id="header-wrapper">
+    <div id="header">
+      
+	
+  
+    <a href="/">
+  <img src="/images/logo.svg">
+</a>
+  
+
+
+    </div>
+        <div class="searchbox">
+		    <label for="search-by"><i class="fa fa-search"></i></label>
+		    <input data-search-input id="search-by" type="text" placeholder="Search...">
+		    <span data-search-clear=""><i class="fa fa-close"></i></span>
+		</div>
+		<script type="text/javascript" src="/js/lunr.min.js"></script>
+		<script type="text/javascript" src="/js/auto-complete.js"></script>
+		<script type="text/javascript">
+        
+            var baseurl = "\/";
+        
+		</script>
+		<script type="text/javascript" src="/js/search.js"></script>
+  </div>
+
+      <ul class="topics">
+    <li data-nav-id="/about/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/about/">About Velociraptor</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/about/features/" class="dd-item">
+        <div>
+          <a href="/about/features/">
+            Velociraptor Features
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/about/license/" class="dd-item">
+        <div>
+          <a href="/about/license/">
+            License
+          </a>
+        </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/docs/" class="dd-item parent haschildren
+        ">
+      <div>
+      <a href="/docs/">Velociraptor Documentation</a>
+            <i class="fa fa-angle-down fa-lg category-icon"></i>
+      </div>
+        <ul>
+    <li data-nav-id="/docs/getting-started/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/docs/getting-started/">Getting Started</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/docs/getting-started/stand_alone/" class="dd-item">
+        <div>
+          <a href="/docs/getting-started/stand_alone/">
+            Standalone Deployment
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/getting-started/deploying_clients/" class="dd-item">
+        <div>
+          <a href="/docs/getting-started/deploying_clients/">
+            Deploying Clients
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/getting-started/cloud/" class="dd-item">
+        <div>
+          <a href="/docs/getting-started/cloud/">
+            Deploying in the cloud
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/getting-started/triaging/" class="dd-item">
+        <div>
+          <a href="/docs/getting-started/triaging/">
+            Triaging
+          </a>
+        </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/docs/user-interface/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/docs/user-interface/">User Interface</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+    <li data-nav-id="/docs/user-interface/investigating_clients/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/docs/user-interface/investigating_clients/">Investigating Clients</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/docs/user-interface/investigating_clients/searching_clients/" class="dd-item">
+        <div>
+          <a href="/docs/user-interface/investigating_clients/searching_clients/">
+            Searching for clients
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/user-interface/investigating_clients/virtual_filesystem/" class="dd-item">
+        <div>
+          <a href="/docs/user-interface/investigating_clients/virtual_filesystem/">
+            Client VFS
+          </a>
+        </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/docs/user-interface/artifacts/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/docs/user-interface/artifacts/">Velociraptor Artifacts</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/docs/user-interface/artifacts/client_artifacts/" class="dd-item">
+        <div>
+          <a href="/docs/user-interface/artifacts/client_artifacts/">
+            Client Artifacts
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/user-interface/artifacts/client_events/" class="dd-item">
+        <div>
+          <a href="/docs/user-interface/artifacts/client_events/">
+            Client Event Artifacts
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/user-interface/artifacts/server_artifacts/" class="dd-item">
+        <div>
+          <a href="/docs/user-interface/artifacts/server_artifacts/">
+            Server Artifacts
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/user-interface/artifacts/server_events/" class="dd-item">
+        <div>
+          <a href="/docs/user-interface/artifacts/server_events/">
+            Server Event Artifacts
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/user-interface/artifacts/add_artifacts/" class="dd-item">
+        <div>
+          <a href="/docs/user-interface/artifacts/add_artifacts/">
+            Customizing Artifacts
+          </a>
+        </div>
+    </li>
+        </ul>
+    </li>
+      <li data-nav-id="/docs/user-interface/api/" class="dd-item">
+        <div>
+          <a href="/docs/user-interface/api/">
+            The Velociraptor API
+          </a>
+        </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/docs/vql_reference/" class="dd-item parent haschildren
+        ">
+      <div>
+      <a href="/docs/vql_reference/">VQL Reference</a>
+            <i class="fa fa-angle-down fa-lg category-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/docs/vql_reference/basic/" class="dd-item">
+        <div>
+          <a href="/docs/vql_reference/basic/">
+            Basic VQL
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/vql_reference/windows/" class="dd-item">
+        <div>
+          <a href="/docs/vql_reference/windows/">
+            Windows
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/vql_reference/parsers/" class="dd-item">
+        <div>
+          <a href="/docs/vql_reference/parsers/">
+            Parsers
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/vql_reference/server/" class="dd-item">
+        <div>
+          <a href="/docs/vql_reference/server/">
+            Server
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/vql_reference/plugin/" class="dd-item">
+        <div>
+          <a href="/docs/vql_reference/plugin/">
+            Client
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/vql_reference/event/" class="dd-item active">
+        <div>
+          <a href="/docs/vql_reference/event/">
+            Event Plugins
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/vql_reference/experimental/" class="dd-item">
+        <div>
+          <a href="/docs/vql_reference/experimental/">
+            Experimental
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/vql_reference/filesystem_accessors/" class="dd-item">
+        <div>
+          <a href="/docs/vql_reference/filesystem_accessors/">
+            Filesystem Accessors
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/vql_reference/templates/" class="dd-item">
+        <div>
+          <a href="/docs/vql_reference/templates/">
+            Report Templates
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/vql_reference/tips/" class="dd-item">
+        <div>
+          <a href="/docs/vql_reference/tips/">
+            Artifact Tips
+          </a>
+        </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/docs/artifacts/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/docs/artifacts/">Artifact Reference</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/docs/artifacts/linux/" class="dd-item">
+        <div>
+          <a href="/docs/artifacts/linux/">
+            Linux Artifacts
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/artifacts/windows_system/" class="dd-item">
+        <div>
+          <a href="/docs/artifacts/windows_system/">
+            Windows System
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/artifacts/server/" class="dd-item">
+        <div>
+          <a href="/docs/artifacts/server/">
+            Server Artifacts
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/artifacts/triage/" class="dd-item">
+        <div>
+          <a href="/docs/artifacts/triage/">
+            Windows Triage
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/artifacts/detection/" class="dd-item">
+        <div>
+          <a href="/docs/artifacts/detection/">
+            Windows Detection
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/artifacts/events/" class="dd-item">
+        <div>
+          <a href="/docs/artifacts/events/">
+            Windows Monitoring
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/artifacts/misc/" class="dd-item">
+        <div>
+          <a href="/docs/artifacts/misc/">
+            Miscelaneous
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/artifacts/linux/linux/" class="dd-item">
+        <div>
+          <a href="/docs/artifacts/linux/linux/">
+            Linux Artifacts
+          </a>
+        </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/docs/presentations/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/docs/presentations/">Presentations and Workshops</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/docs/presentations/sans_dfir_summit2019/" class="dd-item">
+        <div>
+          <a href="/docs/presentations/sans_dfir_summit2019/">
+            SANS 2019
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/presentations/rsa/" class="dd-item">
+        <div>
+          <a href="/docs/presentations/rsa/">
+            RSA APJ 2019
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/presentations/crikeycon2019/" class="dd-item">
+        <div>
+          <a href="/docs/presentations/crikeycon2019/">
+            Crikeycon 2019
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/presentations/nzitf2018/" class="dd-item">
+        <div>
+          <a href="/docs/presentations/nzitf2018/">
+            NZITF 2018
+          </a>
+        </div>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/blog/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/blog/">Velociraptor Blog</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/blog/medium/2019-12-31_digging-into-the-system-resource-usage-monitor-srum-afbadb1a375/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-12-31_digging-into-the-system-resource-usage-monitor-srum-afbadb1a375/">
+            Digging into the System Resource Usage Monitor (SRUM)
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-12-08-velociraptor-to-elasticsearch-3a9fc02c6568/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-12-08-velociraptor-to-elasticsearch-3a9fc02c6568/">
+            Velociraptor to Elasticsearch
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-11-15_recovering-deleted-ntfs-files-with-velociraptor-1fcf09855311/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-11-15_recovering-deleted-ntfs-files-with-velociraptor-1fcf09855311/">
+            Recovering deleted NTFS Files with Velociraptor
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-11-12_windows-event-logs-d8d8e615c9ca/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-11-12_windows-event-logs-d8d8e615c9ca/">
+            Windows Event Logs
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-10-08_triage-with-velociraptor-pt-3-d6f63215f579/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-10-08_triage-with-velociraptor-pt-3-d6f63215f579/">
+            Triage with Velociraptor — Pt 3
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-10-04_triage-with-velociraptor-pt-2-d0f79066ca0e/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-10-04_triage-with-velociraptor-pt-2-d0f79066ca0e/">
+            Triage with Velociraptor — Pt 2
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-10-02_triage-with-velociraptor-pt-1-253f57ce96c0/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-10-02_triage-with-velociraptor-pt-1-253f57ce96c0/">
+            Triage with Velociraptor — Pt 1
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-09-11_velociraptor-s-client-side-buffer-3ce03697a4e6/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-09-11_velociraptor-s-client-side-buffer-3ce03697a4e6/">
+            Velociraptor’s client side buffer
+          </a>
+        </div>
+    </li>
+        </ul>
+    </li>
+
+
+
+
+    <hr />
+    <li></li>
+    
+    </ul>
+
+ <section id="footer">
+    </section>
+  </div>
+</nav>
+
+
+
+<section id="body">
+<div id="overlay"></div>
+<div class="padding highlightable">
+
+  <div id="top-bar">
+    <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+        <span id="sidebar-toggle-span">
+          <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+            <i class="fa fa-bars"></i>
+          </a>
+        </span>
+        <span id="toc-menu"><i class="fa fa-list-alt"></i></span>
+        <span class="links">
+        
+
+
+
+
+
+
+
+
+
+
+ <a href='/'>Velociraptor / Dig deeper</a> > <a href='/docs/'>Velociraptor Documentation</a> > <a href='/docs/vql_reference/'>VQL Reference</a> > Event Plugins
+
+ 
+
+ 
+
+ 
+
+   
+        </span>
+    </div>
+    
+    
+    <div class="progress">
+        <div class="wrapper">
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#clock-span-class-vql-type-pull-right-plugin-span">clock <span class='vql_type pull-right'>Plugin</span></a>
+<ul>
+<li><a href="#example">Example</a></li>
+</ul></li>
+<li><a href="#diff-span-class-vql-type-pull-right-plugin-span">diff <span class='vql_type pull-right'>Plugin</span></a>
+<ul>
+<li><a href="#example-1">Example</a></li>
+</ul></li>
+<li><a href="#fifo-span-class-vql-type-pull-right-plugin-span">fifo <span class='vql_type pull-right'>Plugin</span></a>
+<ul>
+<li><a href="#example-2">Example</a></li>
+</ul></li>
+<li><a href="#watch-auditd-span-class-vql-type-pull-right-plugin-span">watch_auditd <span class='vql_type pull-right'>Plugin</span></a></li>
+<li><a href="#watch-csv-span-class-vql-type-pull-right-plugin-span">watch_csv <span class='vql_type pull-right'>Plugin</span></a></li>
+<li><a href="#watch-evtx-span-class-vql-type-pull-right-plugin-span">watch_evtx <span class='vql_type pull-right'>Plugin</span></a></li>
+<li><a href="#watch-monitoring-span-class-vql-type-pull-right-plugin-span">watch_monitoring <span class='vql_type pull-right'>Plugin</span></a></li>
+<li><a href="#watch-syslog-span-class-vql-type-pull-right-plugin-span">watch_syslog <span class='vql_type pull-right'>Plugin</span></a></li>
+<li><a href="#wmi-events-span-class-vql-type-pull-right-plugin-span">wmi_events <span class='vql_type pull-right'>Plugin</span></a></li>
+</ul></li>
+</ul>
+</nav>
+        </div>
+    </div>
+    
+
+  </div>
+
+
+<div id="body-inner">
+  
+    <h1>Event Plugins</h1>
+  
+
+
+
+    
+    
+    
+    
+
+<p>VQL Event plugins are plugins which never terminate - but instead
+generate rows based on events. Event plugins are useful for creating
+client monitoring artifacts. Currently, client side monitoring
+artifacts are specified in the <code>Events</code> section of the server
+configuration file. When clients connect to the server, they receive a
+list of monitoring artifacts they are to run. The client runs all
+artifacts in parallel and their results are streamed to the server.</p>
+
+<h2 id="clock-span-class-vql-type-pull-right-plugin-span">clock <span class='vql_type pull-right'>Plugin</span></h2>
+
+<p>Generate a timestamp periodically. This is mostly useful for event
+queries.</p>
+
+<p>This plugin generates events periodically. The periodicity can be
+controlled either via the <code>period</code> or the <code>ms</code> parameter. Each row
+will be a go <a href="https://golang.org/pkg/time/#Time">time.Time</a>
+object. You can access its unix epoch time with the Sec column.</p>
+
+<h3 id="example">Example</h3>
+
+<p>The following will generate an event every 10 seconds.</p>
+
+<pre><code class="language-sql">SELECT Sec FROM clock(period=10)
+</code></pre>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>period</td>
+<td>Wait this many seconds between events.</td>
+<td>int64</td>
+</tr>
+
+<tr>
+<td>ms</td>
+<td>Wait this many ms between events.</td>
+<td>int64</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="diff-span-class-vql-type-pull-right-plugin-span">diff <span class='vql_type pull-right'>Plugin</span></h2>
+
+<p>Executes &lsquo;query&rsquo; periodically and emit differences from the last query.</p>
+
+<p>The <code>diff()</code> plugin runs a non-event query periodically and calculates
+the difference between its result set from the last run.</p>
+
+<p>This can be used to create event queries which watch for changes from
+simpler non-event queries.</p>
+
+<p>The <code>key</code> parameter is the name of the column which is used to
+determine row equivalency.</p>
+
+<div class="notices note" ><p>There is only a single equivalence row specified by the <code>key</code>
+parameter, and it must be a string. If you need to watch multiple
+columns you need to create a new column which is the concatenation of
+other columns. For example <code>format(format=&quot;%s%d&quot;, args=[Name, Pid])</code></p>
+</div>
+
+
+<h3 id="example-1">Example</h3>
+
+<p>The following VQL monitors all removable drives and lists files on
+newly inserted drives, or files that have been added to removable
+drives.</p>
+
+<pre><code class="language-sql">LET removable_disks = SELECT Name AS Drive, Size
+FROM glob(globs=&quot;/*&quot;, accessor=&quot;file&quot;)
+WHERE Data.Description =~ &quot;Removable&quot;
+
+LET file_listing = SELECT FullPath, timestamp(epoch=Mtime.Sec) As Modified, Size
+FROM glob(globs=Drive+&quot;\\**&quot;, accessor=&quot;file&quot;) LIMIT 1000
+
+SELECT * FROM diff(
+  query={ SELECT * FROM foreach(row=removable_disks, query=file_listing) },
+  key=&quot;FullPath&quot;,
+  period=10)
+  WHERE Diff = &quot;added&quot;
+</code></pre>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>query</td>
+<td>Source for cached rows.</td>
+<td>StoredQuery (required)</td>
+</tr>
+
+<tr>
+<td>key</td>
+<td>The column to use as key.</td>
+<td>string (required)</td>
+</tr>
+
+<tr>
+<td>period</td>
+<td>Number of seconds between evaluation of the query.</td>
+<td>int64</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="fifo-span-class-vql-type-pull-right-plugin-span">fifo <span class='vql_type pull-right'>Plugin</span></h2>
+
+<p>Executes &lsquo;query&rsquo; and cache a number of rows from it. For each invocation
+we present the set of past rows.</p>
+
+<p>The <code>fifo()</code> plugin allows for VQL queries to apply across historical
+data. The fifo plugin accepts another event query as parameter, then
+retains the last <code>max_rows</code> rows from it in an internal queue. Every
+subsequent evaluation from the query will return the full set of rows
+in the queue. Older rows are expired from the queue according to the
+<code>max_age</code> parameter.</p>
+
+<p>Fifos are usually used to form queries that look for specific pattern
+of behavior. For example, a successful logon followed by failed
+logons. In this case the fifo retains the recent history of failed
+logons in its internal queue, then when a successful logon occurs we
+can check the recent failed ones in its queue.</p>
+
+<h3 id="example-2">Example</h3>
+
+<p>The following checks for 5 failed logons followed by a successful
+logon.</p>
+
+<pre><code class="language-sql">LET failed_logon = SELECT EventData as FailedEventData,
+   System as FailedSystem
+FROM watch_evtx(filename=securityLogFile)
+WHERE System.EventID.Value = 4625
+
+LET last_5_events = SELECT FailedEventData, FailedSystem
+    FROM fifo(query=failed_logon,
+              max_rows=500,
+              max_age=atoi(string=failedLogonTimeWindow))
+
+LET success_logon = SELECT EventData as SuccessEventData,
+   System as SuccessSystem
+FROM watch_evtx(filename=securityLogFile)
+WHERE System.EventID.Value = 4624
+
+SELECT * FROM foreach(
+  row=success_logon,
+  query={
+   SELECT SuccessSystem.TimeCreated.SystemTime AS LogonTime,
+          SuccessSystem, SuccessEventData,
+          enumerate(items=FailedEventData) as FailedEventData,
+          FailedSystem, count(items=SuccessSystem) as Count
+   FROM last_5_events
+   WHERE FailedEventData.SubjectUserName = SuccessEventData.SubjectUserName
+   GROUP BY LogonTime
+      })  WHERE Count &gt; atoi(string=failureCount)
+</code></pre>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>query</td>
+<td>Source for cached rows.</td>
+<td>StoredQuery (required)</td>
+</tr>
+
+<tr>
+<td>max_age</td>
+<td>Maximum number of seconds to hold rows in the fifo.</td>
+<td>int64</td>
+</tr>
+
+<tr>
+<td>max_rows</td>
+<td>Maximum number of rows to hold in the fifo.</td>
+<td>int64</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="watch-auditd-span-class-vql-type-pull-right-plugin-span">watch_auditd <span class='vql_type pull-right'>Plugin</span></h2>
+
+<p>Watch log files generated by auditd.</p>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>filename</td>
+<td>A list of log files to parse.</td>
+<td>list of string (required)</td>
+</tr>
+
+<tr>
+<td>accessor</td>
+<td>The accessor to use.</td>
+<td>string</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="watch-csv-span-class-vql-type-pull-right-plugin-span">watch_csv <span class='vql_type pull-right'>Plugin</span></h2>
+
+<p>Watch a CSV file and stream events from it. Note: This is an event
+plugin which does not complete.</p>
+
+<p>This plugin is the event version of <code>parse_csv()</code>. When the CSV file
+grows this plugin will emit the new rows.</p>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>filename</td>
+<td>CSV files to open</td>
+<td>list of string (required)</td>
+</tr>
+
+<tr>
+<td>accessor</td>
+<td>The accessor to use</td>
+<td>string</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="watch-evtx-span-class-vql-type-pull-right-plugin-span">watch_evtx <span class='vql_type pull-right'>Plugin</span></h2>
+
+<p>Watch an EVTX file and stream events from it.</p>
+
+<p>This is the Event plugin version of <code>parse_evtx()</code>.</p>
+
+<div class="notices note" ><p>It often takes several seconds for events to be flushed to the event
+log and so this plugin&rsquo;s event may be delayed. For some applications
+this results in a race condition with the event itself - for example,
+files mentioned in the event may already be removed by the time the
+event is triggered.</p>
+</div>
+
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>filename</td>
+<td>A list of event log files to parse.</td>
+<td>list of string (required)</td>
+</tr>
+
+<tr>
+<td>accessor</td>
+<td>The accessor to use.</td>
+<td>string</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="watch-monitoring-span-class-vql-type-pull-right-plugin-span">watch_monitoring <span class='vql_type pull-right'>Plugin</span></h2>
+
+<p>Watch clients&rsquo; monitoring log. This is an event plugin. If client_id
+is not provided we watch the global journal which contains events from all clients.</p>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>client_id</td>
+<td>A list of client ids to watch. If not provided we watch all clients.</td>
+<td>list of string</td>
+</tr>
+
+<tr>
+<td>artifact</td>
+<td>The event artifact name to watch</td>
+<td>string (required)</td>
+</tr>
+
+<tr>
+<td>source</td>
+<td>An optional artifact named source</td>
+<td>string</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="watch-syslog-span-class-vql-type-pull-right-plugin-span">watch_syslog <span class='vql_type pull-right'>Plugin</span></h2>
+
+<p>Watch a syslog file and stream events from it.</p>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>filename</td>
+<td>A list of log files to parse.</td>
+<td>list of string (required)</td>
+</tr>
+
+<tr>
+<td>accessor</td>
+<td>The accessor to use.</td>
+<td>string</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="wmi-events-span-class-vql-type-pull-right-plugin-span">wmi_events <span class='vql_type pull-right'>Plugin</span></h2>
+
+<p>Executes an evented WMI queries asynchronously.</p>
+
+<p>This plugin sets up a <a href="https://docs.microsoft.com/en-us/windows/desktop/wmisdk/receiving-a-wmi-event">WMI event</a> listener query.</p>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>query</td>
+<td>WMI query to run.</td>
+<td>string (required)</td>
+</tr>
+
+<tr>
+<td>namespace</td>
+<td>WMI namespace</td>
+<td>string (required)</td>
+</tr>
+
+<tr>
+<td>wait</td>
+<td>Wait this many seconds for events and then quit.</td>
+<td>int64 (required)</td>
+</tr>
+</tbody>
+</table>
+
+
+    
+    
+          <footer class=" footline" >
+	
+</footer>
+  </div>
+</div>
+
+<div id="navigation">
+<a class="nav nav-prev" href="/docs/vql_reference/plugin/" title="Client Side Functionality"> <i class="fa fa-chevron-left"></i><label>Client Side Functionality</label></a>
+    <a class="nav nav-next" href="/docs/vql_reference/experimental/" title="Experimental Functionality" style="margin-right: 0px;"><label>Experimental Functionality</label><i class="fa fa-chevron-right"></i></a></div>
+
+</section>
+<div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+  <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+</div>    
+
+<script src="/js/clipboard.min.js"></script>
+<script src="/js/featherlight.min.js"></script>
+<script src="/js/html5shiv-printshiv.min.js"></script>
+
+<script src="/js/modernizr.custom.71422.js"></script>
+<script src="/js/docdock.js"></script>
+<script src="/theme-original/script.js"></script>
+
+
+    
+
+    
+    
+
+    
+  </body>
+</html>

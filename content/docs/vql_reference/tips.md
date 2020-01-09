@@ -1,6 +1,6 @@
 ---
 title: Artifact Tips
-weight: 60
+weight: 160
 ---
 
 When writing a new artifact it helps to use the following tips to make

@@ -267,3 +267,10 @@ footer.footline {
 .copyright.angle:before{
      height: 75px;
 }
+
+
+.vql_type {
+    font-family: sans-serif;
+    font-size: medium;
+    text-align: center;
+}

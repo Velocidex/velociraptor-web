@@ -11,43 +11,89 @@
     
     
     <item>
-      <title>VQL PLugins</title>
-      <link>/docs/vql_reference/plugins/</link>
+      <title>Basic VQL functions and plugins</title>
+      <link>/docs/vql_reference/basic/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>/docs/vql_reference/plugins/</guid>
-      <description>VQL plugins are the data sources of VQL queries. While SQL queries refer to static tables of data, VQL queries refer to plugins, which generate data rows to be filtered by the query.
-Unlike SQL, VQL plugins also receive keyword arguments. When the plugin is evaluated it simply generates a sequence of rows which are further filtered by the query.
-This allows VQL statements to be chained naturally since plugin args may also be other queries.</description>
+      <guid>/docs/vql_reference/basic/</guid>
+      <description>VQL provides a basic set of functions and plugins allowing queries to maniulate data and implement logic. This page details those plugins which are considered foundational to the VQL language and therefore may be useful in all types of artifacts.
+VQL plugins are not the same as VQL functions. A plugin is the subject of the VQL query - i.e. plugins always follow the FROM keyword, while functions (which return a single value instead of a sequence of rows) are only present in column specification (e.</description>
     </item>
     
     <item>
-      <title>VQL Event PLugins</title>
-      <link>/docs/vql_reference/event_plugins/</link>
+      <title>Windows Specific Functionality</title>
+      <link>/docs/vql_reference/windows/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>/docs/vql_reference/event_plugins/</guid>
-      <description>VQL Event plugins are plugins which never terminate - but instead generate rows based on events. Event plugins are useful for creating client monitoring artifacts. Currently, client side monitoring artifacts are specified in the Events section of the server configuration file. When clients connect to the server, they receive a list of monitoring artifacts they are to run. The client runs all artifacts in parallel and their results are streamed to the server.</description>
+      <guid>/docs/vql_reference/windows/</guid>
+      <description>Many VQL plugins and functions provide access to the Windows APIs. The following are only available when running on Windows.
+appcompatcache Plugin Parses the appcompatcache.
+authenticode Function This plugin uses the Windows API to extract authenticode signature details from PE files.
+Since we use the windows API this can only work with the &amp;ldquo;file&amp;rdquo; accessor.
+   Arg Description Type     filename The filename to parse.</description>
     </item>
     
     <item>
-      <title>VQL Server Plugins</title>
+      <title>Parsers and data extractors</title>
+      <link>/docs/vql_reference/parsers/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/vql_reference/parsers/</guid>
+      <description>Many Velociraptor artifacts rely on specialized parsing of file formats. This page outlines all the plugins and functions designed to allow the client to parse information for various files.
+Simple file formats may be parsed using regular expressions and other generic rules. However some specialized file formats have dedicated parsers. These dedicated parsers are exported into VQL plugins so their results may be used in further queries.
+binary_parse Function Parse a binary string with profile based parser.</description>
+    </item>
+    
+    <item>
+      <title>Server Side Functionality</title>
       <link>/docs/vql_reference/server/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>/docs/vql_reference/server/</guid>
-      <description>VQL Queries can also be run on the server. When run on the server, VQL Queries have access to server state, and so can schedule new artifact collection flows on client, manage client label, and retrieve artifact results from hunts. It is therefore possible to post process artifacts on the server in arbitrary ways.
-Server VQL queries can also be event driven which allows one to set up higher order escalations and alerting based on client side events.</description>
+      <description>Velociraptor provides complete control of the server within VQL queries. On the server, the VQL engine contains the following plugins and functions. You can use this functionality to manage and automate the server by writing VQL queries.
+To reuse server side artifacts, simply create an artifact with type: SERVER and launch it from the &amp;ldquo;Server Artifacts&amp;rdquo; screen in the GUI.
+clients Plugin Retrieve the list of clients.
+   Arg Description Type     search Client search string.</description>
     </item>
     
     <item>
-      <title>VQL Functions</title>
-      <link>/docs/vql_reference/functions/</link>
+      <title>Client Side Functionality</title>
+      <link>/docs/vql_reference/plugin/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>/docs/vql_reference/functions/</guid>
-      <description>VQL Functions operate on value to return other values. Functions are useful to transform values obtained from a VQL row.
-VQL plugins are not the same as VQL functions. A plugin is the subject of the VQL query - i.e. plugins always follow the FROM keyword, while functions (which return a single value instead of a sequence of rows) are only present in column specification (e.g. after SELECT) or in condition clauses (i.</description>
+      <guid>/docs/vql_reference/plugin/</guid>
+      <description>This page lists the plugins used to collect information from clients.
+VQL plugins are the data sources of VQL queries. While SQL queries refer to static tables of data, VQL queries refer to plugins, which generate data rows to be filtered by the query.
+Unlike SQL, VQL plugins also receive keyword arguments. When the plugin is evaluated it simply generates a sequence of rows which are further filtered by the query.</description>
+    </item>
+    
+    <item>
+      <title>Event Plugins</title>
+      <link>/docs/vql_reference/event/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/vql_reference/event/</guid>
+      <description>VQL Event plugins are plugins which never terminate - but instead generate rows based on events. Event plugins are useful for creating client monitoring artifacts. Currently, client side monitoring artifacts are specified in the Events section of the server configuration file. When clients connect to the server, they receive a list of monitoring artifacts they are to run. The client runs all artifacts in parallel and their results are streamed to the server.</description>
+    </item>
+    
+    <item>
+      <title>Experimental Functionality</title>
+      <link>/docs/vql_reference/experimental/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/vql_reference/experimental/</guid>
+      <description>Velociraptor is evolving quickly. We sometime implement functionality which may not remain in Velociraptor. This page documents some of the experimental features. If you find them useful, please let us know!
+js Function Compile and run javascript code.
+   Arg Description Type     js The body of the javascript code. string (required)   key If set use this key to cache the JS VM.</description>
+    </item>
+    
+    <item>
+      <title>Filesystem Accessors</title>
+      <link>/docs/vql_reference/filesystem_accessors/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/vql_reference/filesystem_accessors/</guid>
+      <description>Filesystem Accessors Many VQL plugins operate on files. However how we read files on the endpoint can vary - depending on what we actually mean by a file. For example, Velociraptor is able to read files parsed from the NTFS parser, compressed files within Zip archives, or even files downloaded from a URL. VQL specifies the way a file is read via an accessor (essentially a file access driver), and a path which encodes how the accessor will actually access the file.</description>
     </item>
     
     <item>
@@ -70,15 +116,6 @@ The artifact file therefore contains a report section which allows the artifact 
       <description>When writing a new artifact it helps to use the following tips to make it easier.
 Develop artifacts locally Although the Velociraptor GUI allows to change the artifact, and collect it from remote machines this is tedious in general. It is easier to just develop and collect the artifact locally.
 Simply create a directory where you store your custom artifact, and run the artifact collector with that directory specified.</description>
-    </item>
-    
-    <item>
-      <title>Filesystem Accessors</title>
-      <link>/docs/vql_reference/filesystem_accessors/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>/docs/vql_reference/filesystem_accessors/</guid>
-      <description>Filesystem Accessors Many VQL plugins operate on files. However how we read files on the endpoint can vary - depending on what we actually mean by a file. For example, Velociraptor is able to read files parsed from the NTFS parser, compressed files within Zip archives, or even files downloaded from a URL. VQL specifies the way a file is read via an accessor (essentially a file access driver), and a path which encodes how the accessor will actually access the file.</description>
     </item>
     
   </channel>

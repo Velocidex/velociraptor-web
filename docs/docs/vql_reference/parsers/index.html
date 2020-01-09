@@ -1,0 +1,1524 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Velociraptor / Dig deeper</title>
+    
+      <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>Parsers and data extractors :: Velociraptor / Dig deeper</title>
+<link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon" />
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<link href="/css/nucleus.css" rel="stylesheet">
+<link href="/css/font-awesome.min.css" rel="stylesheet">
+<link href="/css/hybrid.css" rel="stylesheet">
+<link href="/css/featherlight.min.css" rel="stylesheet">
+<link href="/css/auto-complete.css" rel="stylesheet">
+<link href="/theme-original/style.css" rel="stylesheet">
+
+  <link href="/theme-original/variant-mine.css" rel="stylesheet">
+
+
+<script src="/js/jquery-2.x.min.js"></script>
+<style type="text/css">
+  :root #header + #content > #left > #rlblock_left {
+    display:none !important;
+  }
+</style>
+<link rel="stylesheet" href="/css/theme-mine.css">
+<script src="/js/custom.js"></script>
+
+
+    
+  </head>
+  <body data-url="/docs/vql_reference/parsers/">
+    
+      <div id="headermain"></div>
+<nav id="sidebar" class="">
+
+
+
+<div class="highlightable">
+  <div id="header-wrapper">
+    <div id="header">
+      
+	
+  
+    <a href="/">
+  <img src="/images/logo.svg">
+</a>
+  
+
+
+    </div>
+        <div class="searchbox">
+		    <label for="search-by"><i class="fa fa-search"></i></label>
+		    <input data-search-input id="search-by" type="text" placeholder="Search...">
+		    <span data-search-clear=""><i class="fa fa-close"></i></span>
+		</div>
+		<script type="text/javascript" src="/js/lunr.min.js"></script>
+		<script type="text/javascript" src="/js/auto-complete.js"></script>
+		<script type="text/javascript">
+        
+            var baseurl = "\/";
+        
+		</script>
+		<script type="text/javascript" src="/js/search.js"></script>
+  </div>
+
+      <ul class="topics">
+    <li data-nav-id="/about/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/about/">About Velociraptor</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/about/features/" class="dd-item">
+        <div>
+          <a href="/about/features/">
+            Velociraptor Features
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/about/license/" class="dd-item">
+        <div>
+          <a href="/about/license/">
+            License
+          </a>
+        </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/docs/" class="dd-item parent haschildren
+        ">
+      <div>
+      <a href="/docs/">Velociraptor Documentation</a>
+            <i class="fa fa-angle-down fa-lg category-icon"></i>
+      </div>
+        <ul>
+    <li data-nav-id="/docs/getting-started/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/docs/getting-started/">Getting Started</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/docs/getting-started/stand_alone/" class="dd-item">
+        <div>
+          <a href="/docs/getting-started/stand_alone/">
+            Standalone Deployment
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/getting-started/deploying_clients/" class="dd-item">
+        <div>
+          <a href="/docs/getting-started/deploying_clients/">
+            Deploying Clients
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/getting-started/cloud/" class="dd-item">
+        <div>
+          <a href="/docs/getting-started/cloud/">
+            Deploying in the cloud
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/getting-started/triaging/" class="dd-item">
+        <div>
+          <a href="/docs/getting-started/triaging/">
+            Triaging
+          </a>
+        </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/docs/user-interface/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/docs/user-interface/">User Interface</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+    <li data-nav-id="/docs/user-interface/investigating_clients/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/docs/user-interface/investigating_clients/">Investigating Clients</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/docs/user-interface/investigating_clients/searching_clients/" class="dd-item">
+        <div>
+          <a href="/docs/user-interface/investigating_clients/searching_clients/">
+            Searching for clients
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/user-interface/investigating_clients/virtual_filesystem/" class="dd-item">
+        <div>
+          <a href="/docs/user-interface/investigating_clients/virtual_filesystem/">
+            Client VFS
+          </a>
+        </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/docs/user-interface/artifacts/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/docs/user-interface/artifacts/">Velociraptor Artifacts</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/docs/user-interface/artifacts/client_artifacts/" class="dd-item">
+        <div>
+          <a href="/docs/user-interface/artifacts/client_artifacts/">
+            Client Artifacts
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/user-interface/artifacts/client_events/" class="dd-item">
+        <div>
+          <a href="/docs/user-interface/artifacts/client_events/">
+            Client Event Artifacts
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/user-interface/artifacts/server_artifacts/" class="dd-item">
+        <div>
+          <a href="/docs/user-interface/artifacts/server_artifacts/">
+            Server Artifacts
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/user-interface/artifacts/server_events/" class="dd-item">
+        <div>
+          <a href="/docs/user-interface/artifacts/server_events/">
+            Server Event Artifacts
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/user-interface/artifacts/add_artifacts/" class="dd-item">
+        <div>
+          <a href="/docs/user-interface/artifacts/add_artifacts/">
+            Customizing Artifacts
+          </a>
+        </div>
+    </li>
+        </ul>
+    </li>
+      <li data-nav-id="/docs/user-interface/api/" class="dd-item">
+        <div>
+          <a href="/docs/user-interface/api/">
+            The Velociraptor API
+          </a>
+        </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/docs/vql_reference/" class="dd-item parent haschildren
+        ">
+      <div>
+      <a href="/docs/vql_reference/">VQL Reference</a>
+            <i class="fa fa-angle-down fa-lg category-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/docs/vql_reference/basic/" class="dd-item">
+        <div>
+          <a href="/docs/vql_reference/basic/">
+            Basic VQL
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/vql_reference/windows/" class="dd-item">
+        <div>
+          <a href="/docs/vql_reference/windows/">
+            Windows
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/vql_reference/parsers/" class="dd-item active">
+        <div>
+          <a href="/docs/vql_reference/parsers/">
+            Parsers
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/vql_reference/server/" class="dd-item">
+        <div>
+          <a href="/docs/vql_reference/server/">
+            Server
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/vql_reference/plugin/" class="dd-item">
+        <div>
+          <a href="/docs/vql_reference/plugin/">
+            Client
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/vql_reference/event/" class="dd-item">
+        <div>
+          <a href="/docs/vql_reference/event/">
+            Event Plugins
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/vql_reference/experimental/" class="dd-item">
+        <div>
+          <a href="/docs/vql_reference/experimental/">
+            Experimental
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/vql_reference/filesystem_accessors/" class="dd-item">
+        <div>
+          <a href="/docs/vql_reference/filesystem_accessors/">
+            Filesystem Accessors
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/vql_reference/templates/" class="dd-item">
+        <div>
+          <a href="/docs/vql_reference/templates/">
+            Report Templates
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/vql_reference/tips/" class="dd-item">
+        <div>
+          <a href="/docs/vql_reference/tips/">
+            Artifact Tips
+          </a>
+        </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/docs/artifacts/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/docs/artifacts/">Artifact Reference</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/docs/artifacts/linux/" class="dd-item">
+        <div>
+          <a href="/docs/artifacts/linux/">
+            Linux Artifacts
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/artifacts/windows_system/" class="dd-item">
+        <div>
+          <a href="/docs/artifacts/windows_system/">
+            Windows System
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/artifacts/server/" class="dd-item">
+        <div>
+          <a href="/docs/artifacts/server/">
+            Server Artifacts
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/artifacts/triage/" class="dd-item">
+        <div>
+          <a href="/docs/artifacts/triage/">
+            Windows Triage
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/artifacts/detection/" class="dd-item">
+        <div>
+          <a href="/docs/artifacts/detection/">
+            Windows Detection
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/artifacts/events/" class="dd-item">
+        <div>
+          <a href="/docs/artifacts/events/">
+            Windows Monitoring
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/artifacts/misc/" class="dd-item">
+        <div>
+          <a href="/docs/artifacts/misc/">
+            Miscelaneous
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/artifacts/linux/linux/" class="dd-item">
+        <div>
+          <a href="/docs/artifacts/linux/linux/">
+            Linux Artifacts
+          </a>
+        </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/docs/presentations/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/docs/presentations/">Presentations and Workshops</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/docs/presentations/sans_dfir_summit2019/" class="dd-item">
+        <div>
+          <a href="/docs/presentations/sans_dfir_summit2019/">
+            SANS 2019
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/presentations/rsa/" class="dd-item">
+        <div>
+          <a href="/docs/presentations/rsa/">
+            RSA APJ 2019
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/presentations/crikeycon2019/" class="dd-item">
+        <div>
+          <a href="/docs/presentations/crikeycon2019/">
+            Crikeycon 2019
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/presentations/nzitf2018/" class="dd-item">
+        <div>
+          <a href="/docs/presentations/nzitf2018/">
+            NZITF 2018
+          </a>
+        </div>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/blog/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/blog/">Velociraptor Blog</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/blog/medium/2019-12-31_digging-into-the-system-resource-usage-monitor-srum-afbadb1a375/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-12-31_digging-into-the-system-resource-usage-monitor-srum-afbadb1a375/">
+            Digging into the System Resource Usage Monitor (SRUM)
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-12-08-velociraptor-to-elasticsearch-3a9fc02c6568/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-12-08-velociraptor-to-elasticsearch-3a9fc02c6568/">
+            Velociraptor to Elasticsearch
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-11-15_recovering-deleted-ntfs-files-with-velociraptor-1fcf09855311/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-11-15_recovering-deleted-ntfs-files-with-velociraptor-1fcf09855311/">
+            Recovering deleted NTFS Files with Velociraptor
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-11-12_windows-event-logs-d8d8e615c9ca/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-11-12_windows-event-logs-d8d8e615c9ca/">
+            Windows Event Logs
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-10-08_triage-with-velociraptor-pt-3-d6f63215f579/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-10-08_triage-with-velociraptor-pt-3-d6f63215f579/">
+            Triage with Velociraptor — Pt 3
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-10-04_triage-with-velociraptor-pt-2-d0f79066ca0e/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-10-04_triage-with-velociraptor-pt-2-d0f79066ca0e/">
+            Triage with Velociraptor — Pt 2
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-10-02_triage-with-velociraptor-pt-1-253f57ce96c0/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-10-02_triage-with-velociraptor-pt-1-253f57ce96c0/">
+            Triage with Velociraptor — Pt 1
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-09-11_velociraptor-s-client-side-buffer-3ce03697a4e6/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-09-11_velociraptor-s-client-side-buffer-3ce03697a4e6/">
+            Velociraptor’s client side buffer
+          </a>
+        </div>
+    </li>
+        </ul>
+    </li>
+
+
+
+
+    <hr />
+    <li></li>
+    
+    </ul>
+
+ <section id="footer">
+    </section>
+  </div>
+</nav>
+
+
+
+<section id="body">
+<div id="overlay"></div>
+<div class="padding highlightable">
+
+  <div id="top-bar">
+    <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+        <span id="sidebar-toggle-span">
+          <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+            <i class="fa fa-bars"></i>
+          </a>
+        </span>
+        <span id="toc-menu"><i class="fa fa-list-alt"></i></span>
+        <span class="links">
+        
+
+
+
+
+
+
+
+
+
+
+ <a href='/'>Velociraptor / Dig deeper</a> > <a href='/docs/'>Velociraptor Documentation</a> > <a href='/docs/vql_reference/'>VQL Reference</a> > Parsers and data extractors
+
+ 
+
+ 
+
+ 
+
+   
+        </span>
+    </div>
+    
+    
+    <div class="progress">
+        <div class="wrapper">
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#binary-parse-span-class-vql-type-pull-right-function-span">binary_parse <span class='vql_type pull-right'>Function</span></a></li>
+<li><a href="#binary-parse-span-class-vql-type-pull-right-plugin-span">binary_parse <span class='vql_type pull-right'>Plugin</span></a></li>
+<li><a href="#grok-span-class-vql-type-pull-right-function-span">grok <span class='vql_type pull-right'>Function</span></a></li>
+<li><a href="#olevba-span-class-vql-type-pull-right-plugin-span">olevba <span class='vql_type pull-right'>Plugin</span></a></li>
+<li><a href="#parse-auditd-span-class-vql-type-pull-right-plugin-span">parse_auditd <span class='vql_type pull-right'>Plugin</span></a></li>
+<li><a href="#parse-csv-span-class-vql-type-pull-right-plugin-span">parse_csv <span class='vql_type pull-right'>Plugin</span></a>
+<ul>
+<li><a href="#example">Example</a></li>
+</ul></li>
+<li><a href="#parse-ese-span-class-vql-type-pull-right-plugin-span">parse_ese <span class='vql_type pull-right'>Plugin</span></a></li>
+<li><a href="#parse-evtx-span-class-vql-type-pull-right-plugin-span">parse_evtx <span class='vql_type pull-right'>Plugin</span></a>
+<ul>
+<li><a href="#example-1">Example</a></li>
+</ul></li>
+<li><a href="#parse-float-span-class-vql-type-pull-right-function-span">parse_float <span class='vql_type pull-right'>Function</span></a></li>
+<li><a href="#parse-json-span-class-vql-type-pull-right-function-span">parse_json <span class='vql_type pull-right'>Function</span></a></li>
+<li><a href="#parse-json-array-span-class-vql-type-pull-right-function-span">parse_json_array <span class='vql_type pull-right'>Function</span></a></li>
+<li><a href="#parse-json-array-span-class-vql-type-pull-right-plugin-span">parse_json_array <span class='vql_type pull-right'>Plugin</span></a></li>
+<li><a href="#parse-lines-span-class-vql-type-pull-right-plugin-span">parse_lines <span class='vql_type pull-right'>Plugin</span></a></li>
+<li><a href="#parse-mft-span-class-vql-type-pull-right-plugin-span">parse_mft <span class='vql_type pull-right'>Plugin</span></a></li>
+<li><a href="#parse-ntfs-span-class-vql-type-pull-right-function-span">parse_ntfs <span class='vql_type pull-right'>Function</span></a></li>
+<li><a href="#parse-ntfs-i30-span-class-vql-type-pull-right-plugin-span">parse_ntfs_i30 <span class='vql_type pull-right'>Plugin</span></a></li>
+<li><a href="#parse-pe-span-class-vql-type-pull-right-function-span">parse_pe <span class='vql_type pull-right'>Function</span></a></li>
+<li><a href="#parse-records-with-regex-span-class-vql-type-pull-right-plugin-span">parse_records_with_regex <span class='vql_type pull-right'>Plugin</span></a>
+<ul>
+<li><a href="#example-2">Example</a></li>
+</ul></li>
+<li><a href="#parse-string-with-regex-span-class-vql-type-pull-right-function-span">parse_string_with_regex <span class='vql_type pull-right'>Function</span></a></li>
+<li><a href="#parse-xml-span-class-vql-type-pull-right-function-span">parse_xml <span class='vql_type pull-right'>Function</span></a></li>
+<li><a href="#prefetch-span-class-vql-type-pull-right-plugin-span">prefetch <span class='vql_type pull-right'>Plugin</span></a></li>
+<li><a href="#regex-replace-span-class-vql-type-pull-right-function-span">regex_replace <span class='vql_type pull-right'>Function</span></a></li>
+<li><a href="#rot13-span-class-vql-type-pull-right-function-span">rot13 <span class='vql_type pull-right'>Function</span></a></li>
+<li><a href="#split-records-span-class-vql-type-pull-right-plugin-span">split_records <span class='vql_type pull-right'>Plugin</span></a></li>
+<li><a href="#sqlite-span-class-vql-type-pull-right-plugin-span">sqlite <span class='vql_type pull-right'>Plugin</span></a></li>
+</ul></li>
+</ul>
+</nav>
+        </div>
+    </div>
+    
+
+  </div>
+
+
+<div id="body-inner">
+  
+    <h1>Parsers and data extractors</h1>
+  
+
+
+
+    
+    
+    
+    
+
+<p>Many Velociraptor artifacts rely on specialized parsing of file
+formats. This page outlines all the plugins and functions designed
+to allow the client to parse information for various files.</p>
+
+<p>Simple file formats may be parsed using regular expressions and
+other generic rules. However some specialized file formats have
+dedicated parsers. These dedicated parsers are exported into VQL
+plugins so their results may be used in further queries.</p>
+
+<h2 id="binary-parse-span-class-vql-type-pull-right-function-span">binary_parse <span class='vql_type pull-right'>Function</span></h2>
+
+<p>Parse a binary string with profile based parser.</p>
+
+<p>This plugin extract binary data from strings. It works by applying
+a profile to the binary string and generating an object from
+that. Profiles use the same syntax as Rekall or Volatility. For
+example a profile might be:</p>
+
+<pre><code class="language-json">{
+  &quot;StructName&quot;: [10, {
+     &quot;field1&quot;: [2, [&quot;unsigned int&quot;]],
+     &quot;field2&quot;: [6, [&quot;unsigned long long&quot;]],
+  }]
+}
+</code></pre>
+
+<p>The profile is compiled and overlayed on top of the offset specified,
+then the object is emitted with its required fields.</p>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>offset</td>
+<td>Start parsing from this offset.</td>
+<td>int64</td>
+</tr>
+
+<tr>
+<td>string</td>
+<td>The string to parse.</td>
+<td>string (required)</td>
+</tr>
+
+<tr>
+<td>profile</td>
+<td>The profile to use.</td>
+<td>string</td>
+</tr>
+
+<tr>
+<td>iterator</td>
+<td>An iterator to begin with.</td>
+<td>string</td>
+</tr>
+
+<tr>
+<td>target</td>
+<td>The target type to fetch.</td>
+<td>string</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="binary-parse-span-class-vql-type-pull-right-plugin-span">binary_parse <span class='vql_type pull-right'>Plugin</span></h2>
+
+<p>Parse binary files using a profile.</p>
+
+<p>This is the plugin version of the <code>binary_parse()</code> function.</p>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>offset</td>
+<td>Start parsing from this offset</td>
+<td>int64</td>
+</tr>
+
+<tr>
+<td>file</td>
+<td>Filename to parse</td>
+<td>string (required)</td>
+</tr>
+
+<tr>
+<td>accessor</td>
+<td>Accessor to use (e.g. ntfs, data)</td>
+<td>string</td>
+</tr>
+
+<tr>
+<td>profile</td>
+<td>Profile to use.</td>
+<td>string</td>
+</tr>
+
+<tr>
+<td>target</td>
+<td>The target to fetch.</td>
+<td>string (required)</td>
+</tr>
+
+<tr>
+<td>args</td>
+<td>Args for the target class.</td>
+<td>Any</td>
+</tr>
+
+<tr>
+<td>start</td>
+<td>The initial field in the target to fetch.</td>
+<td>string</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="grok-span-class-vql-type-pull-right-function-span">grok <span class='vql_type pull-right'>Function</span></h2>
+
+<p>Parse a string using a Grok expression.</p>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>grok</td>
+<td>Grok pattern.</td>
+<td>string (required)</td>
+</tr>
+
+<tr>
+<td>data</td>
+<td>String to parse.</td>
+<td>string (required)</td>
+</tr>
+
+<tr>
+<td>patterns</td>
+<td>Additional patterns.</td>
+<td>Any</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="olevba-span-class-vql-type-pull-right-plugin-span">olevba <span class='vql_type pull-right'>Plugin</span></h2>
+
+<p>Extracts VBA Macros from Office documents.</p>
+
+<p>This plugin parses the provided files as OLE documents in order to
+recover VB macro code. A single document can have multiple code
+objects, and each such code object is emitted as a row.</p>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>file</td>
+<td>A list of filenames to open as OLE files.</td>
+<td>list of string (required)</td>
+</tr>
+
+<tr>
+<td>accessor</td>
+<td>The accessor to use.</td>
+<td>string</td>
+</tr>
+
+<tr>
+<td>max_size</td>
+<td>Maximum size of file we load into memory.</td>
+<td>int64</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="parse-auditd-span-class-vql-type-pull-right-plugin-span">parse_auditd <span class='vql_type pull-right'>Plugin</span></h2>
+
+<p>Parse log files generated by auditd.</p>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>filename</td>
+<td>A list of log files to parse.</td>
+<td>list of string (required)</td>
+</tr>
+
+<tr>
+<td>accessor</td>
+<td>The accessor to use.</td>
+<td>string</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="parse-csv-span-class-vql-type-pull-right-plugin-span">parse_csv <span class='vql_type pull-right'>Plugin</span></h2>
+
+<p>Parses events from a CSV file.</p>
+
+<p>Parses records from a CSV file. We expect the first row of the CSV
+file to contain column names.  This parser specifically supports
+Velociraptor&rsquo;s own CSV dialect and so it is perfect for post
+processing already existing CSV files.</p>
+
+<p>The types of each value in each column is deduced based on
+Velociraptor&rsquo;s standard encoding scheme. Therefore types are properly
+preserved when read from the CSV file.</p>
+
+<p>For example, downloading the results of a hunt in the GUI will produce
+a CSV file containing artifact rows collected from all clients.  We
+can then use the <code>parse_csv()</code> plugin to further filter the CSV file,
+or to stack using group by.</p>
+
+<h3 id="example">Example</h3>
+
+<p>The following stacks the result from a
+<code>Windows.Applications.Chrome.Extensions</code> artifact:</p>
+
+<pre><code class="language-sql">SELECT count(items=User) As TotalUsers, Name
+FROM parse_csv(filename=&quot;All Windows.Applications.Chrome.Extensions.csv&quot;)
+Order By TotalUsers
+Group By Name
+</code></pre>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>filename</td>
+<td>CSV files to open</td>
+<td>list of string (required)</td>
+</tr>
+
+<tr>
+<td>accessor</td>
+<td>The accessor to use</td>
+<td>string</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="parse-ese-span-class-vql-type-pull-right-plugin-span">parse_ese <span class='vql_type pull-right'>Plugin</span></h2>
+
+<p>Opens an ESE file and dump a table.</p>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>file</td>
+<td></td>
+<td>string (required)</td>
+</tr>
+
+<tr>
+<td>accessor</td>
+<td>The accessor to use.</td>
+<td>string</td>
+</tr>
+
+<tr>
+<td>table</td>
+<td>A table name to dump</td>
+<td>string (required)</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="parse-evtx-span-class-vql-type-pull-right-plugin-span">parse_evtx <span class='vql_type pull-right'>Plugin</span></h2>
+
+<p>Parses events from an EVTX file.</p>
+
+<p>This plugin parses windows events from the Windows Event log files (EVTX).</p>
+
+<p>A windows event typically contains two columns. The <code>EventData</code>
+contains event specific structured data while the <code>System</code> column
+contains common data for all events - including the Event ID.</p>
+
+<p>You should probably almost always filter by one or more event ids
+(using the <code>System.EventID.Value</code> field).</p>
+
+<h3 id="example-1">Example</h3>
+
+<pre><code class="language-sql">SELECT System.TimeCreated.SystemTime as Timestamp,
+       System.EventID.Value as EventID,
+       EventData.ImagePath as ImagePath,
+       EventData.ServiceName as ServiceName,
+       EventData.ServiceType as Type,
+       System.Security.UserID as UserSID,
+       EventData as _EventData,
+       System as _System
+FROM watch_evtx(filename=systemLogFile) WHERE EventID = 7045
+</code></pre>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>filename</td>
+<td>A list of event log files to parse.</td>
+<td>list of string (required)</td>
+</tr>
+
+<tr>
+<td>accessor</td>
+<td>The accessor to use.</td>
+<td>string</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="parse-float-span-class-vql-type-pull-right-function-span">parse_float <span class='vql_type pull-right'>Function</span></h2>
+
+<p>Convert a string to a float.</p>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>string</td>
+<td>A string to convert to int</td>
+<td>string (required)</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="parse-json-span-class-vql-type-pull-right-function-span">parse_json <span class='vql_type pull-right'>Function</span></h2>
+
+<p>Parse a JSON string into an object.</p>
+
+<p>Note that when VQL dereferences fields in a dict it returns a Null for
+those fields that do not exist. Thus there is no error in actually
+accessing missing fields, the column will just return nil.</p>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>data</td>
+<td>Json encoded string.</td>
+<td>string (required)</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="parse-json-array-span-class-vql-type-pull-right-function-span">parse_json_array <span class='vql_type pull-right'>Function</span></h2>
+
+<p>Parse a JSON string into an array.</p>
+
+<p>This function is similar to <code>parse_json()</code> but works for a JSON list
+instead of an object.</p>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>data</td>
+<td>Json encoded string.</td>
+<td>string (required)</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="parse-json-array-span-class-vql-type-pull-right-plugin-span">parse_json_array <span class='vql_type pull-right'>Plugin</span></h2>
+
+<p>Parses events from a line oriented json file.</p>
+
+<h2 id="parse-lines-span-class-vql-type-pull-right-plugin-span">parse_lines <span class='vql_type pull-right'>Plugin</span></h2>
+
+<p>Parse a file separated into lines.</p>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>filename</td>
+<td>A list of log files to parse.</td>
+<td>list of string (required)</td>
+</tr>
+
+<tr>
+<td>accessor</td>
+<td>The accessor to use.</td>
+<td>string</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="parse-mft-span-class-vql-type-pull-right-plugin-span">parse_mft <span class='vql_type pull-right'>Plugin</span></h2>
+
+<p>Scan the $MFT from an NTFS volume.</p>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>filename</td>
+<td>A list of event log files to parse.</td>
+<td>string (required)</td>
+</tr>
+
+<tr>
+<td>accessor</td>
+<td>The accessor to use.</td>
+<td>string</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="parse-ntfs-span-class-vql-type-pull-right-function-span">parse_ntfs <span class='vql_type pull-right'>Function</span></h2>
+
+<p>Parse an NTFS image file.</p>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>device</td>
+<td>The device file to open. This may be a full path - we will figure out the device automatically.</td>
+<td>string (required)</td>
+</tr>
+
+<tr>
+<td>inode</td>
+<td>The MFT entry to parse in inode notation (5-144-1).</td>
+<td>string</td>
+</tr>
+
+<tr>
+<td>mft</td>
+<td>The MFT entry to parse.</td>
+<td>int64</td>
+</tr>
+
+<tr>
+<td>mft_offset</td>
+<td>The offset to the MFT entry to parse.</td>
+<td>int64</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="parse-ntfs-i30-span-class-vql-type-pull-right-plugin-span">parse_ntfs_i30 <span class='vql_type pull-right'>Plugin</span></h2>
+
+<p>Scan the $I30 stream from an NTFS MFT entry.</p>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>device</td>
+<td>The device file to open. This may be a full path - we will figure out the device automatically.</td>
+<td>string (required)</td>
+</tr>
+
+<tr>
+<td>inode</td>
+<td>The MFT entry to parse in inode notation (5-144-1).</td>
+<td>string</td>
+</tr>
+
+<tr>
+<td>mft</td>
+<td>The MFT entry to parse.</td>
+<td>int64</td>
+</tr>
+
+<tr>
+<td>mft_offset</td>
+<td>The offset to the MFT entry to parse.</td>
+<td>int64</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="parse-pe-span-class-vql-type-pull-right-function-span">parse_pe <span class='vql_type pull-right'>Function</span></h2>
+
+<p>Parse a PE file.</p>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>file</td>
+<td>The PE file to open.</td>
+<td>string (required)</td>
+</tr>
+
+<tr>
+<td>accessor</td>
+<td>The accessor to use.</td>
+<td>string</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="parse-records-with-regex-span-class-vql-type-pull-right-plugin-span">parse_records_with_regex <span class='vql_type pull-right'>Plugin</span></h2>
+
+<p>Parses a file with a set of regexp and yields matches as records.  The
+file is read into a large buffer. Then each regular expression is
+applied to the buffer, and all matches are emitted as rows.</p>
+
+<p>The regular expressions are specified in the <a href="https://golang.org/pkg/regexp/syntax/">Go
+syntax</a>. They are expected to
+contain capture variables to name the matches extracted.</p>
+
+<p>For example, consider a HTML file with simple links. The regular
+expression might be:</p>
+
+<pre><code>regex='&lt;a.+?href=&quot;(?P&lt;Link&gt;[^&quot;]+?)&quot;'
+</code></pre>
+
+<p>To produce rows with a column Link.</p>
+
+<p>The aim of this plugin is to split the file into records which can be
+further parsed. For example, if the file consists of multiple records,
+this plugin can be used to extract each record, while
+parse_string_with_regex() can be used to further split each record
+into elements. This works better than trying to write a more complex
+regex which tries to capture a lot of details in one pass.</p>
+
+<h3 id="example-2">Example</h3>
+
+<p>Here is an example of parsing the /var/lib/dpkg/status files. These
+files consist of records separated by empty lines:</p>
+
+<pre><code>Package: ubuntu-advantage-tools
+Status: install ok installed
+Priority: important
+Section: misc
+Installed-Size: 74
+Maintainer: Ubuntu Developers &lt;ubuntu-devel-discuss@lists.ubuntu.com&gt;
+Architecture: all
+Version: 17
+Conffiles:
+ /etc/cron.daily/ubuntu-advantage-tools 36de53e7c2d968f951b11c64be101b91
+ /etc/update-motd.d/80-esm 6ffbbf00021b4ea4255cff378c99c898
+ /etc/update-motd.d/80-livepatch 1a3172ffaa815d12b58648f117ffb67e
+Description: management tools for Ubuntu Advantage
+ Ubuntu Advantage is the professional package of tooling, technology
+ and expertise from Canonical, helping organisations around the world
+ manage their Ubuntu deployments.
+ .
+ Subscribers to Ubuntu Advantage will find helpful tools for accessing
+ services in this package.
+Homepage: https://buy.ubuntu.com
+</code></pre>
+
+<p>The following query extracts the fields in two passes. The first pass
+uses parse_records_with_regex() to extract records in blocks, while
+using parse_string_with_regex() to further break the block into
+fields.</p>
+
+<pre><code class="language-sql">SELECT parse_string_with_regex(
+   string=Record,
+   regex=['Package:\\s(?P&lt;Package&gt;.+)',
+     'Installed-Size:\\s(?P&lt;InstalledSize&gt;.+)',
+     'Version:\\s(?P&lt;Version&gt;.+)',
+     'Source:\\s(?P&lt;Source&gt;.+)',
+     'Architecture:\\s(?P&lt;Architecture&gt;.+)']) as Record
+   FROM parse_records_with_regex(
+     file=linuxDpkgStatus,
+     regex='(?sm)^(?P&lt;Record&gt;Package:.+?)\\n\\n')
+</code></pre>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>file</td>
+<td>A list of files to parse.</td>
+<td>list of string (required)</td>
+</tr>
+
+<tr>
+<td>regex</td>
+<td>A list of regex to apply to the file data.</td>
+<td>list of string (required)</td>
+</tr>
+
+<tr>
+<td>accessor</td>
+<td>The accessor to use.</td>
+<td>string</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="parse-string-with-regex-span-class-vql-type-pull-right-function-span">parse_string_with_regex <span class='vql_type pull-right'>Function</span></h2>
+
+<p>Parse a string with a set of regex and extract fields. Returns a dict with fields populated from all regex capture variables.</p>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>string</td>
+<td>A string to parse.</td>
+<td>string (required)</td>
+</tr>
+
+<tr>
+<td>regex</td>
+<td>The regex to apply.</td>
+<td>list of string (required)</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="parse-xml-span-class-vql-type-pull-right-function-span">parse_xml <span class='vql_type pull-right'>Function</span></h2>
+
+<p>Parse an XML document into a dict like object.</p>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>file</td>
+<td>XML file to open.</td>
+<td>string (required)</td>
+</tr>
+
+<tr>
+<td>accessor</td>
+<td>The accessor to use</td>
+<td>string</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="prefetch-span-class-vql-type-pull-right-plugin-span">prefetch <span class='vql_type pull-right'>Plugin</span></h2>
+
+<p>Parses a prefetch file.</p>
+
+<h2 id="regex-replace-span-class-vql-type-pull-right-function-span">regex_replace <span class='vql_type pull-right'>Function</span></h2>
+
+<p>Search and replace a string with a regexp. Note you can use $1 to replace the capture string.</p>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>source</td>
+<td>The source string to replace.</td>
+<td>string (required)</td>
+</tr>
+
+<tr>
+<td>replace</td>
+<td>The substitute string.</td>
+<td>string (required)</td>
+</tr>
+
+<tr>
+<td>re</td>
+<td>A regex to apply</td>
+<td>string (required)</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="rot13-span-class-vql-type-pull-right-function-span">rot13 <span class='vql_type pull-right'>Function</span></h2>
+
+<p>Apply rot13 deobfuscation to the string.</p>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>string</td>
+<td></td>
+<td>string</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="split-records-span-class-vql-type-pull-right-plugin-span">split_records <span class='vql_type pull-right'>Plugin</span></h2>
+
+<p>Parses files by splitting lines into records.</p>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>filenames</td>
+<td>Files to parse.</td>
+<td>list of string (required)</td>
+</tr>
+
+<tr>
+<td>accessor</td>
+<td>The accessor to use</td>
+<td>string</td>
+</tr>
+
+<tr>
+<td>regex</td>
+<td>The split regular expression (e.g. a comma)</td>
+<td>string (required)</td>
+</tr>
+
+<tr>
+<td>columns</td>
+<td>If the first row is not the headers, this arg must provide a list of column names for each value.</td>
+<td>list of string</td>
+</tr>
+
+<tr>
+<td>first_row_is_headers</td>
+<td>A bool indicating if we should get column names from the first row.</td>
+<td>bool</td>
+</tr>
+
+<tr>
+<td>count</td>
+<td>Only split into this many columns if possible.</td>
+<td>int</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="sqlite-span-class-vql-type-pull-right-plugin-span">sqlite <span class='vql_type pull-right'>Plugin</span></h2>
+
+<p>Opens an SQLite file and run a query against it.</p>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>file</td>
+<td></td>
+<td>string (required)</td>
+</tr>
+
+<tr>
+<td>accessor</td>
+<td>The accessor to use.</td>
+<td>string</td>
+</tr>
+
+<tr>
+<td>query</td>
+<td></td>
+<td>string (required)</td>
+</tr>
+
+<tr>
+<td>args</td>
+<td></td>
+<td>Any</td>
+</tr>
+</tbody>
+</table>
+
+
+    
+    
+          <footer class=" footline" >
+	
+</footer>
+  </div>
+</div>
+
+<div id="navigation">
+<a class="nav nav-prev" href="/docs/vql_reference/windows/" title="Windows Specific Functionality"> <i class="fa fa-chevron-left"></i><label>Windows Specific Functionality</label></a>
+    <a class="nav nav-next" href="/docs/vql_reference/server/" title="Server Side Functionality" style="margin-right: 0px;"><label>Server Side Functionality</label><i class="fa fa-chevron-right"></i></a></div>
+
+</section>
+<div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+  <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+</div>    
+
+<script src="/js/clipboard.min.js"></script>
+<script src="/js/featherlight.min.js"></script>
+<script src="/js/html5shiv-printshiv.min.js"></script>
+
+<script src="/js/modernizr.custom.71422.js"></script>
+<script src="/js/docdock.js"></script>
+<script src="/theme-original/script.js"></script>
+
+
+    
+
+    
+    
+
+    
+  </body>
+</html>

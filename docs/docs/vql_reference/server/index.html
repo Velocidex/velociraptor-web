@@ -5,7 +5,7 @@
     
       <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<title>VQL Server Plugins :: Velociraptor / Dig deeper</title>
+<title>Server Side Functionality :: Velociraptor / Dig deeper</title>
 <link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon" />
 <link rel="stylesheet" href="/css/bootstrap.min.css">
 <link href="/css/nucleus.css" rel="stylesheet">
@@ -218,31 +218,59 @@
             <i class="fa fa-angle-down fa-lg category-icon"></i>
       </div>
         <ul>
-      <li data-nav-id="/docs/vql_reference/plugins/" class="dd-item">
+      <li data-nav-id="/docs/vql_reference/basic/" class="dd-item">
         <div>
-          <a href="/docs/vql_reference/plugins/">
-            VQL PLugins
+          <a href="/docs/vql_reference/basic/">
+            Basic VQL
           </a>
         </div>
     </li>
-      <li data-nav-id="/docs/vql_reference/event_plugins/" class="dd-item">
+      <li data-nav-id="/docs/vql_reference/windows/" class="dd-item">
         <div>
-          <a href="/docs/vql_reference/event_plugins/">
-            VQL Event PLugins
+          <a href="/docs/vql_reference/windows/">
+            Windows
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/vql_reference/parsers/" class="dd-item">
+        <div>
+          <a href="/docs/vql_reference/parsers/">
+            Parsers
           </a>
         </div>
     </li>
       <li data-nav-id="/docs/vql_reference/server/" class="dd-item active">
         <div>
           <a href="/docs/vql_reference/server/">
-            VQL Server Plugins
+            Server
           </a>
         </div>
     </li>
-      <li data-nav-id="/docs/vql_reference/functions/" class="dd-item">
+      <li data-nav-id="/docs/vql_reference/plugin/" class="dd-item">
         <div>
-          <a href="/docs/vql_reference/functions/">
-            VQL Functions
+          <a href="/docs/vql_reference/plugin/">
+            Client
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/vql_reference/event/" class="dd-item">
+        <div>
+          <a href="/docs/vql_reference/event/">
+            Event Plugins
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/vql_reference/experimental/" class="dd-item">
+        <div>
+          <a href="/docs/vql_reference/experimental/">
+            Experimental
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/vql_reference/filesystem_accessors/" class="dd-item">
+        <div>
+          <a href="/docs/vql_reference/filesystem_accessors/">
+            Filesystem Accessors
           </a>
         </div>
     </li>
@@ -257,13 +285,6 @@
         <div>
           <a href="/docs/vql_reference/tips/">
             Artifact Tips
-          </a>
-        </div>
-    </li>
-      <li data-nav-id="/docs/vql_reference/filesystem_accessors/" class="dd-item">
-        <div>
-          <a href="/docs/vql_reference/filesystem_accessors/">
-            Filesystem Accessors
           </a>
         </div>
     </li>
@@ -377,6 +398,20 @@
       <a href="/blog/">Velociraptor Blog</a><i class="fa fa-angle-right fa-lg category-icon"></i>
       </div>
         <ul>
+      <li data-nav-id="/blog/medium/2019-12-31_digging-into-the-system-resource-usage-monitor-srum-afbadb1a375/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-12-31_digging-into-the-system-resource-usage-monitor-srum-afbadb1a375/">
+            Digging into the System Resource Usage Monitor (SRUM)
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-12-08-velociraptor-to-elasticsearch-3a9fc02c6568/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-12-08-velociraptor-to-elasticsearch-3a9fc02c6568/">
+            Velociraptor to Elasticsearch
+          </a>
+        </div>
+    </li>
       <li data-nav-id="/blog/medium/2019-11-15_recovering-deleted-ntfs-files-with-velociraptor-1fcf09855311/" class="dd-item">
         <div>
           <a href="/blog/medium/2019-11-15_recovering-deleted-ntfs-files-with-velociraptor-1fcf09855311/">
@@ -461,7 +496,7 @@
 
 
 
- <a href='/'>Velociraptor / Dig deeper</a> > <a href='/docs/'>Velociraptor Documentation</a> > <a href='/docs/vql_reference/'>VQL Reference</a> > VQL Server Plugins
+ <a href='/'>Velociraptor / Dig deeper</a> > <a href='/docs/'>Velociraptor Documentation</a> > <a href='/docs/vql_reference/'>VQL Reference</a> > Server Side Functionality
 
  
 
@@ -480,16 +515,25 @@
 <ul>
 <li>
 <ul>
-<li><a href="#clients">clients</a></li>
-<li><a href="#elastic">elastic</a></li>
-<li><a href="#flows">flows</a></li>
-<li><a href="#hunt-flows">hunt_flows</a></li>
-<li><a href="#hunt-results">hunt_results</a></li>
-<li><a href="#hunts">hunts</a></li>
-<li><a href="#mail">mail</a></li>
-<li><a href="#search">search</a></li>
-<li><a href="#source">source</a></li>
-<li><a href="#watch-monitoring">watch_monitoring</a></li>
+<li><a href="#clients-span-class-vql-type-pull-right-plugin-span">clients <span class='vql_type pull-right'>Plugin</span></a></li>
+<li><a href="#collect-span-class-vql-type-pull-right-function-span">collect <span class='vql_type pull-right'>Function</span></a></li>
+<li><a href="#compress-span-class-vql-type-pull-right-function-span">compress <span class='vql_type pull-right'>Function</span></a></li>
+<li><a href="#elastic-upload-span-class-vql-type-pull-right-plugin-span">elastic_upload <span class='vql_type pull-right'>Plugin</span></a></li>
+<li><a href="#file-store-span-class-vql-type-pull-right-function-span">file_store <span class='vql_type pull-right'>Function</span></a></li>
+<li><a href="#flows-span-class-vql-type-pull-right-plugin-span">flows <span class='vql_type pull-right'>Plugin</span></a></li>
+<li><a href="#gui-users-span-class-vql-type-pull-right-plugin-span">gui_users <span class='vql_type pull-right'>Plugin</span></a></li>
+<li><a href="#hunt-span-class-vql-type-pull-right-function-span">hunt <span class='vql_type pull-right'>Function</span></a></li>
+<li><a href="#hunt-flows-span-class-vql-type-pull-right-plugin-span">hunt_flows <span class='vql_type pull-right'>Plugin</span></a></li>
+<li><a href="#hunt-results-span-class-vql-type-pull-right-plugin-span">hunt_results <span class='vql_type pull-right'>Plugin</span></a></li>
+<li><a href="#hunts-span-class-vql-type-pull-right-plugin-span">hunts <span class='vql_type pull-right'>Plugin</span></a></li>
+<li><a href="#label-span-class-vql-type-pull-right-function-span">label <span class='vql_type pull-right'>Function</span></a></li>
+<li><a href="#mail-span-class-vql-type-pull-right-plugin-span">mail <span class='vql_type pull-right'>Plugin</span></a></li>
+<li><a href="#monitoring-span-class-vql-type-pull-right-plugin-span">monitoring <span class='vql_type pull-right'>Plugin</span></a></li>
+<li><a href="#rate-span-class-vql-type-pull-right-function-span">rate <span class='vql_type pull-right'>Function</span></a></li>
+<li><a href="#sample-span-class-vql-type-pull-right-plugin-span">sample <span class='vql_type pull-right'>Plugin</span></a></li>
+<li><a href="#search-span-class-vql-type-pull-right-plugin-span">search <span class='vql_type pull-right'>Plugin</span></a></li>
+<li><a href="#source-span-class-vql-type-pull-right-plugin-span">source <span class='vql_type pull-right'>Plugin</span></a></li>
+<li><a href="#uploads-span-class-vql-type-pull-right-plugin-span">uploads <span class='vql_type pull-right'>Plugin</span></a></li>
 </ul></li>
 </ul>
 </nav>
@@ -502,7 +546,7 @@
 
 <div id="body-inner">
   
-    <h1>VQL Server Plugins</h1>
+    <h1>Server Side Functionality</h1>
   
 
 
@@ -512,16 +556,18 @@
     
     
 
-<p>VQL Queries can also be run on the server. When run on the server, VQL
-Queries have access to server state, and so can schedule new artifact
-collection flows on client, manage client label, and retrieve artifact
-results from hunts. It is therefore possible to post process artifacts
-on the server in arbitrary ways.</p>
+<p>Velociraptor provides complete control of the server within VQL
+queries. On the server, the VQL engine contains the following
+plugins and functions. You can use this functionality to manage
+and automate the server by writing VQL queries.</p>
 
-<p>Server VQL queries can also be event driven which allows one to set up
-higher order escalations and alerting based on client side events.</p>
+<p>To reuse server side artifacts, simply create an artifact with
+<code>type: SERVER</code> and launch it from the &ldquo;Server Artifacts&rdquo; screen in
+the GUI.</p>
 
-<h2 id="clients">clients</h2>
+<h2 id="clients-span-class-vql-type-pull-right-plugin-span">clients <span class='vql_type pull-right'>Plugin</span></h2>
+
+<p>Retrieve the list of clients.</p>
 
 <table>
 <thead>
@@ -535,7 +581,7 @@ higher order escalations and alerting based on client side events.</p>
 <tbody>
 <tr>
 <td>search</td>
-<td>Client search string. Can have the following prefixes: &lsquo;label:&lsquo;, &lsquo;host:&rsquo;</td>
+<td>Client search string. Can have the following prefixes: &lsquo;lable:&lsquo;, &lsquo;host:&rsquo;</td>
 <td>string</td>
 </tr>
 
@@ -547,61 +593,189 @@ higher order escalations and alerting based on client side events.</p>
 </tbody>
 </table>
 
-<p>This plugin returns all clients retrieved by the search term. The
-search term is the same as in the GUI and may consist of:</p>
+<h2 id="collect-span-class-vql-type-pull-right-function-span">collect <span class='vql_type pull-right'>Function</span></h2>
 
-<ul>
-<li>a plain word searches for a host name</li>
-<li>May contain wild cards (<code>my*hostname</code>)</li>
-<li>May contain a prefix such as host:, label:, user:</li>
-</ul>
-
-<h2 id="elastic">elastic</h2>
+<p>Launch an artifact collection against a client.</p>
 
 <table>
 <thead>
 <tr>
 <th>Arg</th>
 <th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>client_id</td>
+<td>The client id to schedule a collection on</td>
+<td>string (required)</td>
+</tr>
+
+<tr>
+<td>artifacts</td>
+<td>A list of artifacts to collect</td>
+<td>list of string (required)</td>
+</tr>
+
+<tr>
+<td>env</td>
+<td>Parameters to apply to the artifacts</td>
+<td>Any</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="compress-span-class-vql-type-pull-right-function-span">compress <span class='vql_type pull-right'>Function</span></h2>
+
+<p>Compress a file in the server&rsquo;s FileStore. A compressed
+file is archived so it takes less space. It is still possible to see
+the file and read it but not to seek within it.</p>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>path</td>
+<td>A VFS path to compress</td>
+<td>list of string (required)</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="elastic-upload-span-class-vql-type-pull-right-plugin-span">elastic_upload <span class='vql_type pull-right'>Plugin</span></h2>
+
+<p>Upload rows to elastic.</p>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
 </tr>
 </thead>
 
 <tbody>
 <tr>
 <td>query</td>
-<td>A delegate query to run. Rows from this query will be inserted into elastic.</td>
+<td>Source for rows to upload.</td>
+<td>StoredQuery (required)</td>
 </tr>
 
 <tr>
 <td>threads</td>
-<td>How many uploader threads to use.</td>
+<td>How many threads to use.</td>
+<td>int64</td>
 </tr>
 
 <tr>
 <td>index</td>
-<td>The name of the elastic index to use.</td>
+<td>The name of the index to upload to. If not specified ensure a column is named &lsquo;_index&rsquo;.</td>
+<td>string</td>
 </tr>
 
 <tr>
 <td>type</td>
-<td>The name of the elastic type to use.</td>
+<td>The type of the index to upload to.</td>
+<td>string (required)</td>
+</tr>
+
+<tr>
+<td>chunk_size</td>
+<td>The number of rows to send at the time.</td>
+<td>int64</td>
+</tr>
+
+<tr>
+<td>addresses</td>
+<td>A list of Elasticsearch nodes to use.</td>
+<td>list of string</td>
+</tr>
+
+<tr>
+<td>username</td>
+<td>Username for HTTP Basic Authentication.</td>
+<td>string</td>
+</tr>
+
+<tr>
+<td>password</td>
+<td>Password for HTTP Basic Authentication.</td>
+<td>string</td>
+</tr>
+
+<tr>
+<td>cloud_id</td>
+<td>Endpoint for the Elastic Service (<a href="https://elastic.co/cloud">https://elastic.co/cloud</a>).</td>
+<td>string</td>
+</tr>
+
+<tr>
+<td>api_key</td>
+<td>Base64-encoded token for authorization; if set, overrides username and password.</td>
+<td>string</td>
+</tr>
+
+<tr>
+<td>wait_time</td>
+<td>Batch elastic upload this long (2 sec).</td>
+<td>int64</td>
 </tr>
 </tbody>
 </table>
 
-<p>This plugin uploads rows into Elastic Search. We do not define the
-index, so if it is not already defined, Elastic will define it as a
-default index.</p>
+<h2 id="file-store-span-class-vql-type-pull-right-function-span">file_store <span class='vql_type pull-right'>Function</span></h2>
 
-<p>This plugin is experimental.</p>
+<p>Resolves file store paths into full filesystem paths.</p>
 
-<div class="notices note" ><p>This plugin is currently disabled because it seems to have an
-extremely large binary footprint. You can enable it and recompile the
-binary if you need it.</p>
-</div>
+<p>This function is only available on the server. It can be used to
+find the backing file behind a filestore path so it can be passed
+on to an external program.</p>
 
+<p>Velociraptor uses the concept of a Virtual File System to manage the
+information about clients etc. The VFS path is a path into the file
+store. Of course ultimately (at least in the current implementation)
+the file store is storing files on disk, but the disk filename is not
+necessarily the same as the VFS path (for example non representable
+characters are escaped).</p>
 
-<h2 id="flows">flows</h2>
+<p>You can use the <code>file_store()</code> function to return the real file path
+on disk. This probably only makes sense for VQL queries running on the
+server which can independently open the file.</p>
+
+<p>In future the file store may be abstracted (e.g. files may not be
+locally stored at all) and this function may stop working.</p>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>path</td>
+<td>A VFS path to convert</td>
+<td>list of string (required)</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="flows-span-class-vql-type-pull-right-plugin-span">flows <span class='vql_type pull-right'>Plugin</span></h2>
+
+<p>Retrieve the flows launched on each client.</p>
 
 <table>
 <thead>
@@ -618,12 +792,56 @@ binary if you need it.</p>
 <td></td>
 <td>list of string (required)</td>
 </tr>
+
+<tr>
+<td>flow_id</td>
+<td></td>
+<td>string</td>
+</tr>
 </tbody>
 </table>
 
-<p>Returns a list of flows launched on the client by client id.</p>
+<h2 id="gui-users-span-class-vql-type-pull-right-plugin-span">gui_users <span class='vql_type pull-right'>Plugin</span></h2>
 
-<h2 id="hunt-flows">hunt_flows</h2>
+<p>Retrieve the list of users on the server.</p>
+
+<h2 id="hunt-span-class-vql-type-pull-right-function-span">hunt <span class='vql_type pull-right'>Function</span></h2>
+
+<p>Launch an artifact collection against a client.</p>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>description</td>
+<td>Description of the hunt</td>
+<td>string (required)</td>
+</tr>
+
+<tr>
+<td>artifacts</td>
+<td>A list of artifacts to collect</td>
+<td>list of string (required)</td>
+</tr>
+
+<tr>
+<td>env</td>
+<td>Parameters to apply to the artifacts</td>
+<td>Any</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="hunt-flows-span-class-vql-type-pull-right-plugin-span">hunt_flows <span class='vql_type pull-right'>Plugin</span></h2>
+
+<p>Retrieve the flows launched by a hunt.</p>
 
 <table>
 <thead>
@@ -643,12 +861,9 @@ binary if you need it.</p>
 </tbody>
 </table>
 
-<p>Retrieve the flows launched by a hunt. This is useful to quickly
-identified which client returned results, without necessarily counting
-them. Flow object contains high level context about the flow
-execution.</p>
+<h2 id="hunt-results-span-class-vql-type-pull-right-plugin-span">hunt_results <span class='vql_type pull-right'>Plugin</span></h2>
 
-<h2 id="hunt-results">hunt_results</h2>
+<p>Retrieve the results of a hunt.</p>
 
 <table>
 <thead>
@@ -686,21 +901,13 @@ execution.</p>
 </tbody>
 </table>
 
-<p>This plugin returns the results from a hunt. Since hunts may collect
-multiple artifacts at the same time, the plugin only retrieves one
-artifact at the time. The returned rows have the flow_id and client_id
-appended (since hunt results come from multiple clients).</p>
+<h2 id="hunts-span-class-vql-type-pull-right-plugin-span">hunts <span class='vql_type pull-right'>Plugin</span></h2>
 
-<p>This plugin is very useful to see the results from a hunt. It always gets the most recent results so as the hunt progresses, there will be more rows returned.</p>
+<p>Retrieve the list of hunts.</p>
 
-<p>The plugin is useful for performing stacking (using group by) or
-further narrowing the hunt result on demand.</p>
+<h2 id="label-span-class-vql-type-pull-right-function-span">label <span class='vql_type pull-right'>Function</span></h2>
 
-<h2 id="hunts">hunts</h2>
-
-<p>Returns all the hunts scheduled in the system.</p>
-
-<h2 id="mail">mail</h2>
+<p>Add the labels to the client. If op is &lsquo;remove&rsquo; then remove these labels.</p>
 
 <table>
 <thead>
@@ -712,6 +919,52 @@ further narrowing the hunt result on demand.</p>
 </thead>
 
 <tbody>
+<tr>
+<td>client_id</td>
+<td>Client ID to label.</td>
+<td>string (required)</td>
+</tr>
+
+<tr>
+<td>labels</td>
+<td>A list of labels to apply</td>
+<td>list of string (required)</td>
+</tr>
+
+<tr>
+<td>op</td>
+<td>An operation on the labels (add, remove)</td>
+<td>string</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="mail-span-class-vql-type-pull-right-plugin-span">mail <span class='vql_type pull-right'>Plugin</span></h2>
+
+<p>Send Email to a remote server.</p>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>to</td>
+<td>Receipient of the mail</td>
+<td>list of string (required)</td>
+</tr>
+
+<tr>
+<td>cc</td>
+<td>A cc for the mail</td>
+<td>list of string</td>
+</tr>
+
 <tr>
 <td>subject</td>
 <td>The subject.</td>
@@ -729,33 +982,12 @@ further narrowing the hunt result on demand.</p>
 <td>How long to wait before sending the next mail - help to throttle mails.</td>
 <td>int64 (required)</td>
 </tr>
-
-<tr>
-<td>to</td>
-<td>Recipient of the mail</td>
-<td>list of string (required)</td>
-</tr>
-
-<tr>
-<td>cc</td>
-<td>A cc for the mail</td>
-<td>list of string</td>
-</tr>
 </tbody>
 </table>
 
-<p>This plugin sends a mail. In order to use it you must have the Mail
-section configured in the server&rsquo;s config file.</p>
+<h2 id="monitoring-span-class-vql-type-pull-right-plugin-span">monitoring <span class='vql_type pull-right'>Plugin</span></h2>
 
-<p>Usually you would use the <code>foreach()</code> plugin to send a mail from
-another event query.</p>
-
-<p>Mails will not be sent more frequently than the specified period. Most
-mail servers implement rate limiting or spam detection so if this is
-set too low it is possible to overload the server. Currently we do not
-batch messages, rather drop them if sent too quickly.</p>
-
-<h2 id="search">search</h2>
+<p>Extract monitoring log from a client. If client_id is not specified we watch the global journal which contains event logs from all clients.</p>
 
 <table>
 <thead>
@@ -768,11 +1000,105 @@ batch messages, rather drop them if sent too quickly.</p>
 
 <tbody>
 <tr>
-<td>type</td>
-<td>The type of search (e.g. &lsquo;key&rsquo;)</td>
-<td>string</td>
+<td>client_id</td>
+<td>A list of client ids to watch. If not provided we watch all clients.</td>
+<td>list of string</td>
 </tr>
 
+<tr>
+<td>artifact</td>
+<td>The event artifact name to watch</td>
+<td>string (required)</td>
+</tr>
+
+<tr>
+<td>source</td>
+<td>An optional artifact named source</td>
+<td>string</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="rate-span-class-vql-type-pull-right-function-span">rate <span class='vql_type pull-right'>Function</span></h2>
+
+<p>Calculates the rate (derivative) between two quantities.</p>
+
+<p>For example if a monitoring plugin returns an absolute value
+sampled in time (e.g. bytes transferred sampled every second) then
+the rate() plugin can calculate the average bytes/sec.</p>
+
+<p>This function works by remembering the values of x and y from the
+previous row and applying the current rows values.</p>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>x</td>
+<td>The X float</td>
+<td>float64 (required)</td>
+</tr>
+
+<tr>
+<td>y</td>
+<td>The Y float</td>
+<td>float64 (required)</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="sample-span-class-vql-type-pull-right-plugin-span">sample <span class='vql_type pull-right'>Plugin</span></h2>
+
+<p>Executes &lsquo;query&rsquo; and samples every n&rsquo;th row.</p>
+
+<p>This is most useful on the server in order to downsample event
+artifact results.</p>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>query</td>
+<td>Source query.</td>
+<td>StoredQuery (required)</td>
+</tr>
+
+<tr>
+<td>n</td>
+<td>Pick every n row from query.</td>
+<td>int64 (required)</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="search-span-class-vql-type-pull-right-plugin-span">search <span class='vql_type pull-right'>Plugin</span></h2>
+
+<p>Search the server client&rsquo;s index.</p>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+
+<tbody>
 <tr>
 <td>query</td>
 <td>The query string.</td>
@@ -790,12 +1116,27 @@ batch messages, rather drop them if sent too quickly.</p>
 <td>Only return limited results</td>
 <td>uint64</td>
 </tr>
+
+<tr>
+<td>type</td>
+<td>The type of search (e.g. &lsquo;key&rsquo;)</td>
+<td>string</td>
+</tr>
 </tbody>
 </table>
 
-<p>Search the server client&rsquo;s index.</p>
+<h2 id="source-span-class-vql-type-pull-right-plugin-span">source <span class='vql_type pull-right'>Plugin</span></h2>
 
-<h2 id="source">source</h2>
+<p>Retrieve rows from an artifact&rsquo;s source.</p>
+
+<p>This plugin is mostly useful in reports. It attempts to do the
+right thing automatically by inferring most parameters from its
+execution environment.</p>
+
+<p>For example when called within a CLIENT report context, it will
+automatically fill its flow id, client id etc. Typically this
+means that you only need to specify the source name (for
+multi-source artifacts).</p>
 
 <table>
 <thead>
@@ -808,15 +1149,27 @@ batch messages, rather drop them if sent too quickly.</p>
 
 <tbody>
 <tr>
+<td>client_id</td>
+<td>The client id to extract</td>
+<td>string</td>
+</tr>
+
+<tr>
+<td>day_name</td>
+<td>Only extract this day&rsquo;s Monitoring logs (deprecated)</td>
+<td>string</td>
+</tr>
+
+<tr>
 <td>start_time</td>
 <td>Start return events from this date (for event sources)</td>
 <td>int64</td>
 </tr>
 
 <tr>
-<td>mode</td>
-<td>HUNT or CLIENT mode can be empty</td>
-<td>string</td>
+<td>end_time</td>
+<td>Stop end events reach this time (event sources).</td>
+<td>int64</td>
 </tr>
 
 <tr>
@@ -844,69 +1197,40 @@ batch messages, rather drop them if sent too quickly.</p>
 </tr>
 
 <tr>
-<td>client_id</td>
-<td>The client id to extract</td>
+<td>mode</td>
+<td>HUNT or CLIENT mode can be empty</td>
 <td>string</td>
-</tr>
-
-<tr>
-<td>day_name</td>
-<td>Only extract this day&rsquo;s Monitoring logs (deprecated)</td>
-<td>string</td>
-</tr>
-
-<tr>
-<td>end_time</td>
-<td>Stop end events reach this time (event sources).</td>
-<td>int64</td>
 </tr>
 </tbody>
 </table>
 
-<p>This is the main plugin to use in server VQL to fetch results. It
-automatically figures out what type the artifact is and where the CSV
-files are. The plugin can take many of these parameters from the
-report context so when used in a report it usually needs very few
-actual arguments.</p>
+<h2 id="uploads-span-class-vql-type-pull-right-plugin-span">uploads <span class='vql_type pull-right'>Plugin</span></h2>
 
-<h2 id="watch-monitoring">watch_monitoring</h2>
+<p>Retrieve information about a flow&rsquo;s uploads.</p>
 
 <table>
 <thead>
 <tr>
 <th>Arg</th>
 <th>Description</th>
+<th>Type</th>
 </tr>
 </thead>
 
 <tbody>
 <tr>
 <td>client_id</td>
-<td>The client to use. If not specified we search all clients.</td>
+<td>The client id to extract</td>
+<td>string</td>
 </tr>
 
 <tr>
-<td>artifact</td>
-<td>The artifact to retrieve</td>
-</tr>
-
-<tr>
-<td>date_regex</td>
-<td>A regular expression applied to the date file.</td>
+<td>flow_id</td>
+<td>A flow ID (client or server artifacts)</td>
+<td>string</td>
 </tr>
 </tbody>
 </table>
-
-<p>This plugin is similar to the <code>monitoring()</code> plugin but it is an event
-plugin watching the specified artifact file instead. When an event is
-stored in the monitoring CSV file it is also relayed to this plugin
-(We are essentially tailing the monitoring CSV files).</p>
-
-<p>This allows us to implement an event query which watches for client
-side events and acts on them (e.g. by escalating or responding).</p>
-
-<p>If the client id is not specified, we watch for events from all
-clients.</p>
 
 
     
@@ -918,8 +1242,8 @@ clients.</p>
 </div>
 
 <div id="navigation">
-<a class="nav nav-prev" href="/docs/vql_reference/event_plugins/" title="VQL Event PLugins"> <i class="fa fa-chevron-left"></i><label>VQL Event PLugins</label></a>
-    <a class="nav nav-next" href="/docs/vql_reference/functions/" title="VQL Functions" style="margin-right: 0px;"><label>VQL Functions</label><i class="fa fa-chevron-right"></i></a></div>
+<a class="nav nav-prev" href="/docs/vql_reference/parsers/" title="Parsers and data extractors"> <i class="fa fa-chevron-left"></i><label>Parsers and data extractors</label></a>
+    <a class="nav nav-next" href="/docs/vql_reference/plugin/" title="Client Side Functionality" style="margin-right: 0px;"><label>Client Side Functionality</label><i class="fa fa-chevron-right"></i></a></div>
 
 </section>
 <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">

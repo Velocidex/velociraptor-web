@@ -1,0 +1,1003 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Velociraptor / Dig deeper</title>
+    
+      <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>Windows Specific Functionality :: Velociraptor / Dig deeper</title>
+<link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon" />
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<link href="/css/nucleus.css" rel="stylesheet">
+<link href="/css/font-awesome.min.css" rel="stylesheet">
+<link href="/css/hybrid.css" rel="stylesheet">
+<link href="/css/featherlight.min.css" rel="stylesheet">
+<link href="/css/auto-complete.css" rel="stylesheet">
+<link href="/theme-original/style.css" rel="stylesheet">
+
+  <link href="/theme-original/variant-mine.css" rel="stylesheet">
+
+
+<script src="/js/jquery-2.x.min.js"></script>
+<style type="text/css">
+  :root #header + #content > #left > #rlblock_left {
+    display:none !important;
+  }
+</style>
+<link rel="stylesheet" href="/css/theme-mine.css">
+<script src="/js/custom.js"></script>
+
+
+    
+  </head>
+  <body data-url="/docs/vql_reference/windows/">
+    
+      <div id="headermain"></div>
+<nav id="sidebar" class="">
+
+
+
+<div class="highlightable">
+  <div id="header-wrapper">
+    <div id="header">
+      
+	
+  
+    <a href="/">
+  <img src="/images/logo.svg">
+</a>
+  
+
+
+    </div>
+        <div class="searchbox">
+		    <label for="search-by"><i class="fa fa-search"></i></label>
+		    <input data-search-input id="search-by" type="text" placeholder="Search...">
+		    <span data-search-clear=""><i class="fa fa-close"></i></span>
+		</div>
+		<script type="text/javascript" src="/js/lunr.min.js"></script>
+		<script type="text/javascript" src="/js/auto-complete.js"></script>
+		<script type="text/javascript">
+        
+            var baseurl = "\/";
+        
+		</script>
+		<script type="text/javascript" src="/js/search.js"></script>
+  </div>
+
+      <ul class="topics">
+    <li data-nav-id="/about/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/about/">About Velociraptor</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/about/features/" class="dd-item">
+        <div>
+          <a href="/about/features/">
+            Velociraptor Features
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/about/license/" class="dd-item">
+        <div>
+          <a href="/about/license/">
+            License
+          </a>
+        </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/docs/" class="dd-item parent haschildren
+        ">
+      <div>
+      <a href="/docs/">Velociraptor Documentation</a>
+            <i class="fa fa-angle-down fa-lg category-icon"></i>
+      </div>
+        <ul>
+    <li data-nav-id="/docs/getting-started/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/docs/getting-started/">Getting Started</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/docs/getting-started/stand_alone/" class="dd-item">
+        <div>
+          <a href="/docs/getting-started/stand_alone/">
+            Standalone Deployment
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/getting-started/deploying_clients/" class="dd-item">
+        <div>
+          <a href="/docs/getting-started/deploying_clients/">
+            Deploying Clients
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/getting-started/cloud/" class="dd-item">
+        <div>
+          <a href="/docs/getting-started/cloud/">
+            Deploying in the cloud
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/getting-started/triaging/" class="dd-item">
+        <div>
+          <a href="/docs/getting-started/triaging/">
+            Triaging
+          </a>
+        </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/docs/user-interface/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/docs/user-interface/">User Interface</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+    <li data-nav-id="/docs/user-interface/investigating_clients/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/docs/user-interface/investigating_clients/">Investigating Clients</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/docs/user-interface/investigating_clients/searching_clients/" class="dd-item">
+        <div>
+          <a href="/docs/user-interface/investigating_clients/searching_clients/">
+            Searching for clients
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/user-interface/investigating_clients/virtual_filesystem/" class="dd-item">
+        <div>
+          <a href="/docs/user-interface/investigating_clients/virtual_filesystem/">
+            Client VFS
+          </a>
+        </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/docs/user-interface/artifacts/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/docs/user-interface/artifacts/">Velociraptor Artifacts</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/docs/user-interface/artifacts/client_artifacts/" class="dd-item">
+        <div>
+          <a href="/docs/user-interface/artifacts/client_artifacts/">
+            Client Artifacts
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/user-interface/artifacts/client_events/" class="dd-item">
+        <div>
+          <a href="/docs/user-interface/artifacts/client_events/">
+            Client Event Artifacts
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/user-interface/artifacts/server_artifacts/" class="dd-item">
+        <div>
+          <a href="/docs/user-interface/artifacts/server_artifacts/">
+            Server Artifacts
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/user-interface/artifacts/server_events/" class="dd-item">
+        <div>
+          <a href="/docs/user-interface/artifacts/server_events/">
+            Server Event Artifacts
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/user-interface/artifacts/add_artifacts/" class="dd-item">
+        <div>
+          <a href="/docs/user-interface/artifacts/add_artifacts/">
+            Customizing Artifacts
+          </a>
+        </div>
+    </li>
+        </ul>
+    </li>
+      <li data-nav-id="/docs/user-interface/api/" class="dd-item">
+        <div>
+          <a href="/docs/user-interface/api/">
+            The Velociraptor API
+          </a>
+        </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/docs/vql_reference/" class="dd-item parent haschildren
+        ">
+      <div>
+      <a href="/docs/vql_reference/">VQL Reference</a>
+            <i class="fa fa-angle-down fa-lg category-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/docs/vql_reference/basic/" class="dd-item">
+        <div>
+          <a href="/docs/vql_reference/basic/">
+            Basic VQL
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/vql_reference/windows/" class="dd-item active">
+        <div>
+          <a href="/docs/vql_reference/windows/">
+            Windows
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/vql_reference/parsers/" class="dd-item">
+        <div>
+          <a href="/docs/vql_reference/parsers/">
+            Parsers
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/vql_reference/server/" class="dd-item">
+        <div>
+          <a href="/docs/vql_reference/server/">
+            Server
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/vql_reference/plugin/" class="dd-item">
+        <div>
+          <a href="/docs/vql_reference/plugin/">
+            Client
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/vql_reference/event/" class="dd-item">
+        <div>
+          <a href="/docs/vql_reference/event/">
+            Event Plugins
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/vql_reference/experimental/" class="dd-item">
+        <div>
+          <a href="/docs/vql_reference/experimental/">
+            Experimental
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/vql_reference/filesystem_accessors/" class="dd-item">
+        <div>
+          <a href="/docs/vql_reference/filesystem_accessors/">
+            Filesystem Accessors
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/vql_reference/templates/" class="dd-item">
+        <div>
+          <a href="/docs/vql_reference/templates/">
+            Report Templates
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/vql_reference/tips/" class="dd-item">
+        <div>
+          <a href="/docs/vql_reference/tips/">
+            Artifact Tips
+          </a>
+        </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/docs/artifacts/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/docs/artifacts/">Artifact Reference</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/docs/artifacts/linux/" class="dd-item">
+        <div>
+          <a href="/docs/artifacts/linux/">
+            Linux Artifacts
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/artifacts/windows_system/" class="dd-item">
+        <div>
+          <a href="/docs/artifacts/windows_system/">
+            Windows System
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/artifacts/server/" class="dd-item">
+        <div>
+          <a href="/docs/artifacts/server/">
+            Server Artifacts
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/artifacts/triage/" class="dd-item">
+        <div>
+          <a href="/docs/artifacts/triage/">
+            Windows Triage
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/artifacts/detection/" class="dd-item">
+        <div>
+          <a href="/docs/artifacts/detection/">
+            Windows Detection
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/artifacts/events/" class="dd-item">
+        <div>
+          <a href="/docs/artifacts/events/">
+            Windows Monitoring
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/artifacts/misc/" class="dd-item">
+        <div>
+          <a href="/docs/artifacts/misc/">
+            Miscelaneous
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/artifacts/linux/linux/" class="dd-item">
+        <div>
+          <a href="/docs/artifacts/linux/linux/">
+            Linux Artifacts
+          </a>
+        </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/docs/presentations/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/docs/presentations/">Presentations and Workshops</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/docs/presentations/sans_dfir_summit2019/" class="dd-item">
+        <div>
+          <a href="/docs/presentations/sans_dfir_summit2019/">
+            SANS 2019
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/presentations/rsa/" class="dd-item">
+        <div>
+          <a href="/docs/presentations/rsa/">
+            RSA APJ 2019
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/presentations/crikeycon2019/" class="dd-item">
+        <div>
+          <a href="/docs/presentations/crikeycon2019/">
+            Crikeycon 2019
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/presentations/nzitf2018/" class="dd-item">
+        <div>
+          <a href="/docs/presentations/nzitf2018/">
+            NZITF 2018
+          </a>
+        </div>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/blog/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/blog/">Velociraptor Blog</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/blog/medium/2019-12-31_digging-into-the-system-resource-usage-monitor-srum-afbadb1a375/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-12-31_digging-into-the-system-resource-usage-monitor-srum-afbadb1a375/">
+            Digging into the System Resource Usage Monitor (SRUM)
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-12-08-velociraptor-to-elasticsearch-3a9fc02c6568/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-12-08-velociraptor-to-elasticsearch-3a9fc02c6568/">
+            Velociraptor to Elasticsearch
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-11-15_recovering-deleted-ntfs-files-with-velociraptor-1fcf09855311/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-11-15_recovering-deleted-ntfs-files-with-velociraptor-1fcf09855311/">
+            Recovering deleted NTFS Files with Velociraptor
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-11-12_windows-event-logs-d8d8e615c9ca/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-11-12_windows-event-logs-d8d8e615c9ca/">
+            Windows Event Logs
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-10-08_triage-with-velociraptor-pt-3-d6f63215f579/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-10-08_triage-with-velociraptor-pt-3-d6f63215f579/">
+            Triage with Velociraptor — Pt 3
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-10-04_triage-with-velociraptor-pt-2-d0f79066ca0e/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-10-04_triage-with-velociraptor-pt-2-d0f79066ca0e/">
+            Triage with Velociraptor — Pt 2
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-10-02_triage-with-velociraptor-pt-1-253f57ce96c0/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-10-02_triage-with-velociraptor-pt-1-253f57ce96c0/">
+            Triage with Velociraptor — Pt 1
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-09-11_velociraptor-s-client-side-buffer-3ce03697a4e6/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-09-11_velociraptor-s-client-side-buffer-3ce03697a4e6/">
+            Velociraptor’s client side buffer
+          </a>
+        </div>
+    </li>
+        </ul>
+    </li>
+
+
+
+
+    <hr />
+    <li></li>
+    
+    </ul>
+
+ <section id="footer">
+    </section>
+  </div>
+</nav>
+
+
+
+<section id="body">
+<div id="overlay"></div>
+<div class="padding highlightable">
+
+  <div id="top-bar">
+    <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+        <span id="sidebar-toggle-span">
+          <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+            <i class="fa fa-bars"></i>
+          </a>
+        </span>
+        <span id="toc-menu"><i class="fa fa-list-alt"></i></span>
+        <span class="links">
+        
+
+
+
+
+
+
+
+
+
+
+ <a href='/'>Velociraptor / Dig deeper</a> > <a href='/docs/'>Velociraptor Documentation</a> > <a href='/docs/vql_reference/'>VQL Reference</a> > Windows Specific Functionality
+
+ 
+
+ 
+
+ 
+
+   
+        </span>
+    </div>
+    
+    
+    <div class="progress">
+        <div class="wrapper">
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#appcompatcache-span-class-vql-type-pull-right-plugin-span">appcompatcache <span class='vql_type pull-right'>Plugin</span></a></li>
+<li><a href="#authenticode-span-class-vql-type-pull-right-function-span">authenticode <span class='vql_type pull-right'>Function</span></a></li>
+<li><a href="#certificates-span-class-vql-type-pull-right-plugin-span">certificates <span class='vql_type pull-right'>Plugin</span></a></li>
+<li><a href="#dns-span-class-vql-type-pull-right-plugin-span">dns <span class='vql_type pull-right'>Plugin</span></a></li>
+<li><a href="#handles-span-class-vql-type-pull-right-plugin-span">handles <span class='vql_type pull-right'>Plugin</span></a></li>
+<li><a href="#interfaces-span-class-vql-type-pull-right-plugin-span">interfaces <span class='vql_type pull-right'>Plugin</span></a></li>
+<li><a href="#lookupsid-span-class-vql-type-pull-right-function-span">lookupSID <span class='vql_type pull-right'>Function</span></a></li>
+<li><a href="#modules-span-class-vql-type-pull-right-plugin-span">modules <span class='vql_type pull-right'>Plugin</span></a></li>
+<li><a href="#netstat-span-class-vql-type-pull-right-plugin-span">netstat <span class='vql_type pull-right'>Plugin</span></a></li>
+<li><a href="#partitions-span-class-vql-type-pull-right-plugin-span">partitions <span class='vql_type pull-right'>Plugin</span></a></li>
+<li><a href="#proc-dump-span-class-vql-type-pull-right-plugin-span">proc_dump <span class='vql_type pull-right'>Plugin</span></a></li>
+<li><a href="#proc-yara-span-class-vql-type-pull-right-plugin-span">proc_yara <span class='vql_type pull-right'>Plugin</span></a></li>
+<li><a href="#read-reg-key-span-class-vql-type-pull-right-plugin-span">read_reg_key <span class='vql_type pull-right'>Plugin</span></a></li>
+<li><a href="#srum-lookup-id-span-class-vql-type-pull-right-function-span">srum_lookup_id <span class='vql_type pull-right'>Function</span></a></li>
+<li><a href="#token-span-class-vql-type-pull-right-function-span">token <span class='vql_type pull-right'>Function</span></a></li>
+<li><a href="#users-span-class-vql-type-pull-right-plugin-span">users <span class='vql_type pull-right'>Plugin</span></a></li>
+<li><a href="#vad-span-class-vql-type-pull-right-plugin-span">vad <span class='vql_type pull-right'>Plugin</span></a></li>
+<li><a href="#winobj-span-class-vql-type-pull-right-plugin-span">winobj <span class='vql_type pull-right'>Plugin</span></a></li>
+<li><a href="#wmi-span-class-vql-type-pull-right-plugin-span">wmi <span class='vql_type pull-right'>Plugin</span></a></li>
+</ul></li>
+</ul>
+</nav>
+        </div>
+    </div>
+    
+
+  </div>
+
+
+<div id="body-inner">
+  
+    <h1>Windows Specific Functionality</h1>
+  
+
+
+
+    
+    
+    
+    
+
+<p>Many VQL plugins and functions provide access to the Windows
+APIs. The following are only available when running on Windows.</p>
+
+<h2 id="appcompatcache-span-class-vql-type-pull-right-plugin-span">appcompatcache <span class='vql_type pull-right'>Plugin</span></h2>
+
+<p>Parses the appcompatcache.</p>
+
+<h2 id="authenticode-span-class-vql-type-pull-right-function-span">authenticode <span class='vql_type pull-right'>Function</span></h2>
+
+<p>This plugin uses the Windows API to extract authenticode signature
+details from PE files.</p>
+
+<p>Since we use the windows API this can only work with the &ldquo;file&rdquo;
+accessor.</p>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>filename</td>
+<td>The filename to parse.</td>
+<td>string (required)</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="certificates-span-class-vql-type-pull-right-plugin-span">certificates <span class='vql_type pull-right'>Plugin</span></h2>
+
+<p>Collect certificate from the system trust store.</p>
+
+<h2 id="dns-span-class-vql-type-pull-right-plugin-span">dns <span class='vql_type pull-right'>Plugin</span></h2>
+
+<p>Monitor dns queries.</p>
+
+<p>This plugin opens a raw socket and monitors network traffic for
+DNS questions and answers.</p>
+
+<div class="notices note" ><p>When Velociraptor attempts to open a raw socket, sometimes Windows
+Defender treats that as suspicious behavior and quarantines the
+Velociraptor binary. This can be avoided by signing the binary which
+signals to Windows Defender that the binary is legitimate.</p>
+
+<p>If you do not intend to build Velociraptor from source, use the
+official signed Velociraptor binaries which should not trigger alerts
+from Windows Defender.</p>
+</div>
+
+
+<h2 id="handles-span-class-vql-type-pull-right-plugin-span">handles <span class='vql_type pull-right'>Plugin</span></h2>
+
+<p>Enumerate process handles.</p>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>pid</td>
+<td>The PID to dump out.</td>
+<td>int64 (required)</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="interfaces-span-class-vql-type-pull-right-plugin-span">interfaces <span class='vql_type pull-right'>Plugin</span></h2>
+
+<p>List all active interfaces.</p>
+
+<h2 id="lookupsid-span-class-vql-type-pull-right-function-span">lookupSID <span class='vql_type pull-right'>Function</span></h2>
+
+<p>Get information about the SID.</p>
+
+<h2 id="modules-span-class-vql-type-pull-right-plugin-span">modules <span class='vql_type pull-right'>Plugin</span></h2>
+
+<p>Enumerate Loaded DLLs.</p>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>pid</td>
+<td>The PID to dump out.</td>
+<td>int64 (required)</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="netstat-span-class-vql-type-pull-right-plugin-span">netstat <span class='vql_type pull-right'>Plugin</span></h2>
+
+<p>Collect network information.</p>
+
+<h2 id="partitions-span-class-vql-type-pull-right-plugin-span">partitions <span class='vql_type pull-right'>Plugin</span></h2>
+
+<p>List all partititions</p>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>all</td>
+<td>If specified list all Partitions</td>
+<td>bool</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="proc-dump-span-class-vql-type-pull-right-plugin-span">proc_dump <span class='vql_type pull-right'>Plugin</span></h2>
+
+<p>Dumps process memory.</p>
+
+<p>Dumps a process into a crashdump. The crashdump file can be opened
+with the windows debugger as normal. The plugin returns the filename
+of the crash dump which is a temporary file - the file will be removed
+when the query completes, so if you want to hold on to it, you should
+use the upload() plugin to upload it to the server or otherwise copy
+it.</p>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>pid</td>
+<td>The PID to dump out.</td>
+<td>int64 (required)</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="proc-yara-span-class-vql-type-pull-right-plugin-span">proc_yara <span class='vql_type pull-right'>Plugin</span></h2>
+
+<p>Scan processes using yara rules.</p>
+
+<p>This plugin uses yara&rsquo;s own engine to scan process memory for the signatures.</p>
+
+<div class="notices note" ><p>Process memory access depends on having the <a href="https://support.microsoft.com/en-au/help/131065/how-to-obtain-a-handle-to-any-process-with-sedebugprivilege">SeDebugPrivilege</a> which depends on how Velociraptor was started. Even when running as System, some processes are not accessible.</p>
+</div>
+
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>rules</td>
+<td>Yara rules in the yara DSL.</td>
+<td>string (required)</td>
+</tr>
+
+<tr>
+<td>files</td>
+<td>The list of files to scan.</td>
+<td>list of string (required)</td>
+</tr>
+
+<tr>
+<td>accessor</td>
+<td>Accessor (e.g. NTFS)</td>
+<td>string</td>
+</tr>
+
+<tr>
+<td>context</td>
+<td>How many bytes to include around each hit</td>
+<td>int</td>
+</tr>
+
+<tr>
+<td>start</td>
+<td>The start offset to scan</td>
+<td>int64</td>
+</tr>
+
+<tr>
+<td>end</td>
+<td>End scanning at this offset (100mb)</td>
+<td>int64</td>
+</tr>
+
+<tr>
+<td>number</td>
+<td>Stop after this many hits (1).</td>
+<td>int64</td>
+</tr>
+
+<tr>
+<td>blocksize</td>
+<td>Blocksize for scanning (1mb).</td>
+<td>int64</td>
+</tr>
+
+<tr>
+<td>key</td>
+<td>If set use this key to cache the  yara rules.</td>
+<td>string</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="read-reg-key-span-class-vql-type-pull-right-plugin-span">read_reg_key <span class='vql_type pull-right'>Plugin</span></h2>
+
+<p>This is a convenience plugin which applies the globs to the registry
+accessor to find keys. For each key the plugin then lists all the
+values within it, and returns a row which has the value names as
+columns, while the cells contain the value&rsquo;s stat info (and data
+content available in the <code>Data</code> field).</p>
+
+<p>This makes it easier to access a bunch of related values at once.</p>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>globs</td>
+<td>Glob expressions to apply.</td>
+<td>list of string (required)</td>
+</tr>
+
+<tr>
+<td>accessor</td>
+<td>The accessor to use.</td>
+<td>string</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="srum-lookup-id-span-class-vql-type-pull-right-function-span">srum_lookup_id <span class='vql_type pull-right'>Function</span></h2>
+
+<p>Lookup a SRUM id.</p>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>file</td>
+<td></td>
+<td>string (required)</td>
+</tr>
+
+<tr>
+<td>accessor</td>
+<td>The accessor to use.</td>
+<td>string</td>
+</tr>
+
+<tr>
+<td>id</td>
+<td></td>
+<td>int64 (required)</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="token-span-class-vql-type-pull-right-function-span">token <span class='vql_type pull-right'>Function</span></h2>
+
+<p>Extract process token.</p>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>pid</td>
+<td>The PID to get the token for.</td>
+<td>int64 (required)</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="users-span-class-vql-type-pull-right-plugin-span">users <span class='vql_type pull-right'>Plugin</span></h2>
+
+<p>Display information about workstation local users. This is obtained through the NetUserEnum() API.</p>
+
+<h2 id="vad-span-class-vql-type-pull-right-plugin-span">vad <span class='vql_type pull-right'>Plugin</span></h2>
+
+<p>Enumerate process memory regions.</p>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>pid</td>
+<td>The PID to dump out.</td>
+<td>int64 (required)</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="winobj-span-class-vql-type-pull-right-plugin-span">winobj <span class='vql_type pull-right'>Plugin</span></h2>
+
+<p>Enumerate The Windows Object Manager namespace.</p>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>path</td>
+<td>Object namespace path.</td>
+<td>string</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="wmi-span-class-vql-type-pull-right-plugin-span">wmi <span class='vql_type pull-right'>Plugin</span></h2>
+
+<p>Execute simple WMI queries synchronously.</p>
+
+<p>This plugin issues a WMI query and returns its rows directly. The
+exact format of the returned row depends on the WMI query issued.</p>
+
+<p>This plugin creates a bridge between WMI and VQL and it is a very
+commonly used plugin for inspecting the state of windows systems.</p>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>query</td>
+<td>The WMI query to issue.</td>
+<td>string (required)</td>
+</tr>
+
+<tr>
+<td>namespace</td>
+<td>The WMI namespace to use (ROOT/CIMV2)</td>
+<td>string</td>
+</tr>
+</tbody>
+</table>
+
+
+    
+    
+          <footer class=" footline" >
+	
+</footer>
+  </div>
+</div>
+
+<div id="navigation">
+<a class="nav nav-prev" href="/docs/vql_reference/basic/" title="Basic VQL functions and plugins"> <i class="fa fa-chevron-left"></i><label>Basic VQL functions and plugins</label></a>
+    <a class="nav nav-next" href="/docs/vql_reference/parsers/" title="Parsers and data extractors" style="margin-right: 0px;"><label>Parsers and data extractors</label><i class="fa fa-chevron-right"></i></a></div>
+
+</section>
+<div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+  <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+</div>    
+
+<script src="/js/clipboard.min.js"></script>
+<script src="/js/featherlight.min.js"></script>
+<script src="/js/html5shiv-printshiv.min.js"></script>
+
+<script src="/js/modernizr.custom.71422.js"></script>
+<script src="/js/docdock.js"></script>
+<script src="/theme-original/script.js"></script>
+
+
+    
+
+    
+    
+
+    
+  </body>
+</html>

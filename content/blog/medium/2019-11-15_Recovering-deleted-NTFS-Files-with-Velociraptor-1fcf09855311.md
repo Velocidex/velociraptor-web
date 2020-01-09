@@ -6,6 +6,8 @@ categories: []
 keywords: []
 ---
 
+#### By Mike Cohen
+
 ![](../img/1__UeLogCK7iLyCv__VWc7RMRA.jpeg)
 
 On a recent engagement we responded to an intrusion where the attacker has added a new scheduled task to the Windows Task Scheduler directory (_%systemroot%\\System32\\Task_) some time ago. This is a common TTP for achieving persistence (See [Mitre Att&ck](https://attack.mitre.org/techniques/T1053/)). Unfortunately the actual task file was later removed and event logs were cycled past the time of interest.

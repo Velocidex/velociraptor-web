@@ -1,6 +1,6 @@
 ---
 title: Report Templates
-weight: 50
+weight: 150
 ---
 
 Velociraptor collects artifacts from end points but sometimes the

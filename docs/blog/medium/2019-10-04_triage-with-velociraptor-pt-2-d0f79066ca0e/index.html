@@ -216,31 +216,59 @@
       <a href="/docs/vql_reference/">VQL Reference</a><i class="fa fa-angle-right fa-lg category-icon"></i>
       </div>
         <ul>
-      <li data-nav-id="/docs/vql_reference/plugins/" class="dd-item">
+      <li data-nav-id="/docs/vql_reference/basic/" class="dd-item">
         <div>
-          <a href="/docs/vql_reference/plugins/">
-            VQL PLugins
+          <a href="/docs/vql_reference/basic/">
+            Basic VQL
           </a>
         </div>
     </li>
-      <li data-nav-id="/docs/vql_reference/event_plugins/" class="dd-item">
+      <li data-nav-id="/docs/vql_reference/windows/" class="dd-item">
         <div>
-          <a href="/docs/vql_reference/event_plugins/">
-            VQL Event PLugins
+          <a href="/docs/vql_reference/windows/">
+            Windows
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/vql_reference/parsers/" class="dd-item">
+        <div>
+          <a href="/docs/vql_reference/parsers/">
+            Parsers
           </a>
         </div>
     </li>
       <li data-nav-id="/docs/vql_reference/server/" class="dd-item">
         <div>
           <a href="/docs/vql_reference/server/">
-            VQL Server Plugins
+            Server
           </a>
         </div>
     </li>
-      <li data-nav-id="/docs/vql_reference/functions/" class="dd-item">
+      <li data-nav-id="/docs/vql_reference/plugin/" class="dd-item">
         <div>
-          <a href="/docs/vql_reference/functions/">
-            VQL Functions
+          <a href="/docs/vql_reference/plugin/">
+            Client
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/vql_reference/event/" class="dd-item">
+        <div>
+          <a href="/docs/vql_reference/event/">
+            Event Plugins
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/vql_reference/experimental/" class="dd-item">
+        <div>
+          <a href="/docs/vql_reference/experimental/">
+            Experimental
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/vql_reference/filesystem_accessors/" class="dd-item">
+        <div>
+          <a href="/docs/vql_reference/filesystem_accessors/">
+            Filesystem Accessors
           </a>
         </div>
     </li>
@@ -255,13 +283,6 @@
         <div>
           <a href="/docs/vql_reference/tips/">
             Artifact Tips
-          </a>
-        </div>
-    </li>
-      <li data-nav-id="/docs/vql_reference/filesystem_accessors/" class="dd-item">
-        <div>
-          <a href="/docs/vql_reference/filesystem_accessors/">
-            Filesystem Accessors
           </a>
         </div>
     </li>
@@ -376,6 +397,20 @@
             <i class="fa fa-angle-down fa-lg category-icon"></i>
       </div>
         <ul>
+      <li data-nav-id="/blog/medium/2019-12-31_digging-into-the-system-resource-usage-monitor-srum-afbadb1a375/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-12-31_digging-into-the-system-resource-usage-monitor-srum-afbadb1a375/">
+            Digging into the System Resource Usage Monitor (SRUM)
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-12-08-velociraptor-to-elasticsearch-3a9fc02c6568/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-12-08-velociraptor-to-elasticsearch-3a9fc02c6568/">
+            Velociraptor to Elasticsearch
+          </a>
+        </div>
+    </li>
       <li data-nav-id="/blog/medium/2019-11-15_recovering-deleted-ntfs-files-with-velociraptor-1fcf09855311/" class="dd-item">
         <div>
           <a href="/blog/medium/2019-11-15_recovering-deleted-ntfs-files-with-velociraptor-1fcf09855311/">
@@ -478,6 +513,7 @@
 <ul>
 <li>
 <ul>
+<li><a href="#by-mike-cohen">By Mike Cohen</a></li>
 <li><a href="#interactive-collection">Interactive collection</a></li>
 <li><a href="#help-someone-else-collect-files">Help someone else collect files</a></li>
 <li><a href="#uploading-the-collection">Uploading the collection</a></li>
@@ -505,6 +541,8 @@
     
     
 
+<h4 id="by-mike-cohen">By Mike Cohen</h4>
+
 <p><img src="../img/1__mBMHcMkKxXbyuJcMiGJ1LA.jpeg" alt="" /></p>
 
 <p>In the <a href="https://medium.com/@mike_89870/triage-with-velociraptor-pt-1-253f57ce96c0">previous part</a> of this series of articles we saw how Velociraptor can be used to automatically collect and preserve files from a remote system. This is great if you have Velociraptor installed as an agent on the endpoint — but what if you (or your customer) does not?</p>
@@ -513,7 +551,8 @@
 
 <p>Velociraptor is essentially a query engine. All its operations are controlled by VQL queries normally encapsulated in a YAML files called artifacts. As such it does not really need a server to operate. It is possible to collect those same artifacts interactively on the command line (In this example we collect the KapeFiles artifact as we did in the last part but you can collect any Velociraptor artifact this way):</p>
 
-<p>F:&gt; velociraptor.exe -v artifacts collect Windows.KapeFiles.Targets &ndash;output test.zip &ndash;args RegistryHives=Y</p>
+<pre><code>F:&gt; velociraptor.exe -v artifacts collect Windows.KapeFiles.Targets --output test.zip --args RegistryHives=Y
+</code></pre>
 
 <p>Invoking Velociraptor with the “<strong>artifacts collect</strong>” command specifies that we should collect the artifact interactively. If we also specify the “ <strong>— output</strong>” flag we will collect the result into the zip file. We can then specify any argument to the artifact using the “<strong>— args</strong>” flag (which may be specified more than once). If you can not remember which args the artifact takes then simple provide and incorrect arg for Velociraptor to tell you.</p>
 
@@ -530,25 +569,27 @@
 
 <p>Simply create a configuration file with an autoexec field containing all the command line args (let’s call it <strong>myconfig.yaml</strong>):</p>
 
-<p>autoexec:
-  argv: [&ldquo;artifacts&rdquo;, &ldquo;collect&rdquo;, &ldquo;-v&rdquo;, &ldquo;Windows.KapeFiles.Targets&rdquo;,
-         &ldquo;&ndash;output&rdquo;, &ldquo;collection_$COMPUTERNAME.zip&rdquo;,
-         &ldquo;&ndash;args&rdquo;, &ldquo;WebBrowsers=Y&rdquo;,
-         &ldquo;&ndash;args&rdquo;, &ldquo;_BasicCollection=Y&rdquo;,
-         &ldquo;&ndash;args&rdquo;, &ldquo;WBEM=Y&rdquo;,
-         &ldquo;&ndash;args&rdquo;, &ldquo;WER=Y&rdquo;,
-         &ldquo;&ndash;args&rdquo;, &ldquo;WindowsDefender=Y&rdquo;,
-         &ldquo;&ndash;args&rdquo;, &ldquo;TrendMicro=Y&rdquo;,
-         &ldquo;&ndash;args&rdquo;, &ldquo;TeamViewerLogs=Y&rdquo;,
-         &ldquo;&ndash;args&rdquo;, &ldquo;WebBrowsers=Y&rdquo;,
-         &ldquo;&ndash;args&rdquo;, &ldquo;MOF=Y&rdquo;,
-         &ldquo;&ndash;args&rdquo;, &ldquo;VSSAnalysis=Y&rdquo;]</p>
+<pre><code>autoexec:
+  argv: \[&quot;artifacts&quot;, &quot;collect&quot;, &quot;-v&quot;, &quot;Windows.KapeFiles.Targets&quot;,
+         &quot;--output&quot;, &quot;collection\_$COMPUTERNAME.zip&quot;,
+         &quot;--args&quot;, &quot;WebBrowsers=Y&quot;,
+         &quot;--args&quot;, &quot;\_BasicCollection=Y&quot;,
+         &quot;--args&quot;, &quot;WBEM=Y&quot;,
+         &quot;--args&quot;, &quot;WER=Y&quot;,
+         &quot;--args&quot;, &quot;WindowsDefender=Y&quot;,
+         &quot;--args&quot;, &quot;TrendMicro=Y&quot;,
+         &quot;--args&quot;, &quot;TeamViewerLogs=Y&quot;,
+         &quot;--args&quot;, &quot;WebBrowsers=Y&quot;,
+         &quot;--args&quot;, &quot;MOF=Y&quot;,
+         &quot;--args&quot;, &quot;VSSAnalysis=Y&quot;\]
+</code></pre>
 
 <p>Note that this config file invokes Velociraptor with a list of KapeFiles targets and instructs the result to be saved to a zip file named after the computer name.</p>
 
 <p>Next we simply repack the binary — this effectively copies the config file inside the binary so when the new binary restarts, it automatically loads this config file (and therefore runs the instructions above):</p>
 
-<p>F:&gt; velociraptor.exe config repack myconfig.yaml my_velo.exe</p>
+<pre><code>F:&gt; velociraptor.exe config repack myconfig.yaml my\_velo.exe
+</code></pre>
 
 <p>This will produce a new binary with our config embedded in it. Now when this binary is run it will immediately begin to collect the targets listed. Note that the collector needs to run as an administrator so typically the user will need to right click, select “Run As Administrator” and click through the UAC dialog:</p>
 

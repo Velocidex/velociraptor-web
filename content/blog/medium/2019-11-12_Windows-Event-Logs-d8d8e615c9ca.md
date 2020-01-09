@@ -6,6 +6,8 @@ categories: []
 keywords: []
 ---
 
+#### By Mike Cohen
+
 ![](../img/1____Pq____KfTKLBbQffNGN__aHg.jpeg)
 
 One of the most critical sources of data when responding to an incident on windows systems is the event logs. Windows event logs record security significant events.
