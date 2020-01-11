@@ -249,7 +249,7 @@
         "title": "Presentations and Workshops",
         "tags": [],
         "description": "",
-        "content": "We present about Velociraptor frequently in conferences and workshops.\nThis page highlights some of the more interesting presentations we gave. It can be used as reference material. Note the dates of presentation as some material may be outdated.\n SANS Summit 2019   RSA Asia Pacific and Japan 2019   Crikeycon 2019 Training Workshop   New Zealand Internet Task Force Conference 2018   "
+        "content": "We present about Velociraptor frequently in conferences and workshops.\nThis page highlights some of the more interesting presentations we gave. It can be used as reference material. Note the dates of presentation as some material may be outdated.\n Linux.Conf.Au 2020 Tutorial   SANS Summit 2019   RSA Asia Pacific and Japan 2019   Crikeycon 2019 Training Workshop   New Zealand Internet Task Force Conference 2018   "
 },
 {
         "uri": "/docs/artifacts/events/",
@@ -299,6 +299,13 @@
         "tags": [],
         "description": "",
         "content": " When writing a new artifact it helps to use the following tips to make it easier.\nDevelop artifacts locally Although the Velociraptor GUI allows to change the artifact, and collect it from remote machines this is tedious in general. It is easier to just develop and collect the artifact locally.\nSimply create a directory where you store your custom artifact, and run the artifact collector with that directory specified.\n$ mkdir /tmp/my_artifacts/ $ vi /tmp/my_artifacts/my_new_artifact.yaml .... $ velociraptor --definitions /tmp/my_artifacts artifacts collect -v My.New.Artifact.Name  Note the -v flag which emits verbose messages to the console. If you have VQL syntax errors or any issues you will be able to see that easily, edit the artifact source and re-collect it.\nPlace complex filters as column specs. In VQL you can put complex expressions in the WHERE clause in order to filter the result set. The trouble is that you can not actually see the results of the expression - the expression is simply evaluated for a boolean true/false.\nIt is more productive to place the complex expression in the column specification and then you can see what it evaluates to for each row.\nSELECT encode(string=Data.value, type=\u0026quot;hex\u0026quot;) AS Value FROM ..... WHERE Value =~ \u0026quot;ffffff7f$\u0026quot;  "
+},
+{
+        "uri": "/docs/presentations/linux.conf.au.2020/",
+        "title": "Linux.Conf.Au 2020 Tutorial",
+        "tags": [],
+        "description": "",
+        "content": "15th January 2020 At Linux.Conf.Au 2020 we will present a Velociraptor workshop using Linux. These are the slides we will be working from. If you are unable to attend in person, you can follow along at home using these...   View our presentation   This browser does not support PDFs. Please download the PDF to view it: Download PDF.\n \n  \n\n"
 },
 {
         "uri": "/docs/presentations/sans_dfir_summit2019/",
