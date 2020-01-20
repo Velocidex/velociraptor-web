@@ -10,6 +10,11 @@ We were really happy to present the keynote at the SANS DFIR Summit in
 Austin, TX. Thanks everyone for the warm welcome and interesting
 discussions.
 
+<p>
+<a href='https://youtu.be/u7KBwgHIZ3U' class="pull-right"><i class='fa fa-youtube'></i></a>
+<p>
+
+
 {{%expand "View our presentation" %}}
    {{< pdf "/resources/SANS DFIR Summit Austin.pdf" >}}
 {{% /expand%}}
