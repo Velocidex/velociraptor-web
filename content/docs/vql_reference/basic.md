@@ -17,7 +17,8 @@ rows) are only present in column specification (e.g. after `SELECT`)
 or in condition clauses (i.e. after the `WHERE` keyword).
 {{% /notice %}}
 
-## array <span class='vql_type pull-right'>Function</span>
+## array
+<span class='vql_type pull-right'>Function</span>
 
 Create an array with all the args.
 
@@ -35,7 +36,8 @@ Will return a single row with Users being an array of names.
 
 
 
-## atoi <span class='vql_type pull-right'>Function</span>
+## atoi
+<span class='vql_type pull-right'>Function</span>
 
 Convert a string to an int.
 
@@ -44,7 +46,8 @@ Arg | Description | Type
 string|A string to convert to int|string (required)
 
 
-## base64decode <span class='vql_type pull-right'>Function</span>
+## base64decode
+<span class='vql_type pull-right'>Function</span>
 
 Decodes a base64 encoded string.
 
@@ -53,7 +56,8 @@ Arg | Description | Type
 string|A string to decode|string (required)
 
 
-## base64encode <span class='vql_type pull-right'>Function</span>
+## base64encode
+<span class='vql_type pull-right'>Function</span>
 
 Encodes a string into base64.
 
@@ -62,7 +66,8 @@ Arg | Description | Type
 string|A string to decode|string (required)
 
 
-## basename <span class='vql_type pull-right'>Function</span>
+## basename
+<span class='vql_type pull-right'>Function</span>
 
 Return the basename of the path.
 
@@ -71,7 +76,8 @@ Arg | Description | Type
 path|Extract directory name of path|string (required)
 
 
-## copy <span class='vql_type pull-right'>Function</span>
+## copy
+<span class='vql_type pull-right'>Function</span>
 
 Copy a file.
 
@@ -82,7 +88,8 @@ accessor|The accessor to use|string
 dest|The destination file to write.|string (required)
 
 
-## count <span class='vql_type pull-right'>Function</span>
+## count
+<span class='vql_type pull-right'>Function</span>
 
 Counts the items.
 
@@ -91,12 +98,14 @@ Arg | Description | Type
 items||Any (required)
 
 
-## dict <span class='vql_type pull-right'>Function</span>
+## dict
+<span class='vql_type pull-right'>Function</span>
 
 Construct a dict from arbitrary keyword args.
 
 
-## dirname <span class='vql_type pull-right'>Function</span>
+## dirname
+<span class='vql_type pull-right'>Function</span>
 
 Return the directory path.
 
@@ -105,7 +114,8 @@ Arg | Description | Type
 path|Extract directory name of path|string (required)
 
 
-## encode <span class='vql_type pull-right'>Function</span>
+## encode
+<span class='vql_type pull-right'>Function</span>
 
 Encodes a string as as different type. Currently supported types include 'hex', 'base64'.
 
@@ -115,7 +125,8 @@ string||Any (required)
 type||string (required)
 
 
-## enumerate <span class='vql_type pull-right'>Function</span>
+## enumerate
+<span class='vql_type pull-right'>Function</span>
 
 Collect all the items in each group by bin.
 
@@ -124,7 +135,8 @@ Arg | Description | Type
 items||Any (required)
 
 
-## environ <span class='vql_type pull-right'>Function</span>
+## environ
+<span class='vql_type pull-right'>Function</span>
 
 Get an environment variable.
 
@@ -133,7 +145,8 @@ Arg | Description | Type
 var|Extract the var from the environment.|string (required)
 
 
-## expand <span class='vql_type pull-right'>Function</span>
+## expand
+<span class='vql_type pull-right'>Function</span>
 
 Expand the path using the environment.
 
@@ -150,7 +163,8 @@ Arg | Description | Type
 path|A path with environment escapes|string (required)
 
 
-## filter <span class='vql_type pull-right'>Function</span>
+## filter
+<span class='vql_type pull-right'>Function</span>
 
 Filters a strings array by regex.
 
@@ -161,7 +175,8 @@ list|A list of items too filter|list of string (required)
 regex|A regex to test each item|list of string (required)
 
 
-## format <span class='vql_type pull-right'>Function</span>
+## format
+<span class='vql_type pull-right'>Function</span>
 
 Format one or more items according to a format string.
 
@@ -171,7 +186,8 @@ format|Format string to use|string (required)
 args|An array of elements to apply into the format string.|Any
 
 
-## get <span class='vql_type pull-right'>Function</span>
+## get
+<span class='vql_type pull-right'>Function</span>
 
 Gets the member field from item.
 
@@ -197,12 +213,14 @@ member||string
 field||string
 
 
-## getpid <span class='vql_type pull-right'>Function</span>
+## getpid
+<span class='vql_type pull-right'>Function</span>
 
 Returns the current pid of the process.
 
 
-## humanize <span class='vql_type pull-right'>Function</span>
+## humanize
+<span class='vql_type pull-right'>Function</span>
 
 Format items in human readable way.
 
@@ -214,7 +232,8 @@ Arg | Description | Type
 bytes|Format bytes with units|int64
 
 
-## if <span class='vql_type pull-right'>Function</span>
+## if
+<span class='vql_type pull-right'>Function</span>
 
 Conditional execution of query
 
@@ -234,7 +253,8 @@ then||LazyExpr (required)
 else||LazyExpr
 
 
-## join <span class='vql_type pull-right'>Function</span>
+## join
+<span class='vql_type pull-right'>Function</span>
 
 Join all the args on a separator.
 
@@ -247,7 +267,8 @@ array|The array to join|list of string (required)
 sep|The separator|string
 
 
-## len <span class='vql_type pull-right'>Function</span>
+## len
+<span class='vql_type pull-right'>Function</span>
 
 Returns the length of an object.
 
@@ -257,7 +278,8 @@ list|A list of items too filter|list of string (required)
 regex|A regex to test each item|list of string (required)
 
 
-## log <span class='vql_type pull-right'>Function</span>
+## log
+<span class='vql_type pull-right'>Function</span>
 
 Log the message.
 
@@ -266,7 +288,8 @@ Arg | Description | Type
 message|Message to log.|string (required)
 
 
-## lowcase <span class='vql_type pull-right'>Function</span>
+## lowcase
+<span class='vql_type pull-right'>Function</span>
 
 
 
@@ -275,7 +298,8 @@ Arg | Description | Type
 string|A string to lower|string (required)
 
 
-## max <span class='vql_type pull-right'>Function</span>
+## max
+<span class='vql_type pull-right'>Function</span>
 
 Finds the largest item in the aggregate.
 
@@ -296,7 +320,8 @@ Arg | Description | Type
 items||Any (required)
 
 
-## min <span class='vql_type pull-right'>Function</span>
+## min
+<span class='vql_type pull-right'>Function</span>
 
 Finds the smallest item in the aggregate.
 
@@ -317,7 +342,8 @@ Arg | Description | Type
 items||Any (required)
 
 
-## now <span class='vql_type pull-right'>Function</span>
+## now
+<span class='vql_type pull-right'>Function</span>
 
 Returns current time in seconds since epoch.
 
@@ -326,7 +352,8 @@ Arg | Description | Type
 string|A string to convert to int|string (required)
 
 
-## path_join <span class='vql_type pull-right'>Function</span>
+## path_join
+<span class='vql_type pull-right'>Function</span>
 
 Build a path by joining all components.
 
@@ -335,7 +362,8 @@ Arg | Description | Type
 components|Path components to join.|list of string (required)
 
 
-## query <span class='vql_type pull-right'>Function</span>
+## query
+<span class='vql_type pull-right'>Function</span>
 
 Launch a subquery and materialize it into a list of rows.
 
@@ -344,7 +372,8 @@ Arg | Description | Type
 vql||StoredQuery (required)
 
 
-## rand <span class='vql_type pull-right'>Function</span>
+## rand
+<span class='vql_type pull-right'>Function</span>
 
 Selects a random number.
 
@@ -353,12 +382,8 @@ Arg | Description | Type
 range|Selects a random number up to this range.|int64
 
 
-## scope <span class='vql_type pull-right'>Function</span>
-
-return the scope.
-
-
-## serialize <span class='vql_type pull-right'>Function</span>
+## serialize
+<span class='vql_type pull-right'>Function</span>
 
 Encode an object as a string (csv or json).
 
@@ -368,7 +393,8 @@ item|The item to encode|Any (required)
 format|Encoding format (csv,json)|string
 
 
-## sleep <span class='vql_type pull-right'>Function</span>
+## sleep
+<span class='vql_type pull-right'>Function</span>
 
 Sleep for the specified number of seconds. Always returns true.
 
@@ -377,7 +403,8 @@ Arg | Description | Type
 time|The number of seconds to sleep|int64
 
 
-## split <span class='vql_type pull-right'>Function</span>
+## split
+<span class='vql_type pull-right'>Function</span>
 
 Splits a string into an array based on a regexp separator.
 
@@ -387,7 +414,8 @@ epoch||int64
 winfiletime||int64
 
 
-## str <span class='vql_type pull-right'>Function</span>
+## str
+<span class='vql_type pull-right'>Function</span>
 
 Normalize a String.
 
@@ -396,7 +424,8 @@ Arg | Description | Type
 str|The string to normalize|Any (required)
 
 
-## strip <span class='vql_type pull-right'>Function</span>
+## strip
+<span class='vql_type pull-right'>Function</span>
 
 Strip a prefix from a string.
 
@@ -406,7 +435,8 @@ string|The string to strip|string (required)
 prefix|The prefix to strip|string (required)
 
 
-## timestamp <span class='vql_type pull-right'>Function</span>
+## timestamp
+<span class='vql_type pull-right'>Function</span>
 
 Convert from different types to a time.Time.
 
@@ -418,7 +448,8 @@ string|Guess a timestamp from a string|string
 us_style|US Style Month/Day/Year|bool
 
 
-## upcase <span class='vql_type pull-right'>Function</span>
+## upcase
+<span class='vql_type pull-right'>Function</span>
 
 
 
@@ -427,7 +458,8 @@ Arg | Description | Type
 string|A string to lower|string (required)
 
 
-## url <span class='vql_type pull-right'>Function</span>
+## url
+<span class='vql_type pull-right'>Function</span>
 
 Construct a URL or parse one.
 
@@ -462,7 +494,8 @@ fragment|The fragment|string
 parse|A url to parse|string
 
 
-## utf16 <span class='vql_type pull-right'>Function</span>
+## utf16
+<span class='vql_type pull-right'>Function</span>
 
 Parse input from utf16.
 

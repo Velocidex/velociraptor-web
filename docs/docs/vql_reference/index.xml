@@ -27,8 +27,10 @@ VQL plugins are not the same as VQL functions. A plugin is the subject of the VQ
       
       <guid>/docs/vql_reference/windows/</guid>
       <description>Many VQL plugins and functions provide access to the Windows APIs. The following are only available when running on Windows.
-appcompatcache Plugin Parses the appcompatcache.
-authenticode Function This plugin uses the Windows API to extract authenticode signature details from PE files.
+appcompatcache Plugin
+Parses the appcompatcache.
+authenticode Function
+This plugin uses the Windows API to extract authenticode signature details from PE files.
 Since we use the windows API this can only work with the &amp;ldquo;file&amp;rdquo; accessor.
    Arg Description Type     filename The filename to parse.</description>
     </item>
@@ -41,7 +43,7 @@ Since we use the windows API this can only work with the &amp;ldquo;file&amp;rdq
       <guid>/docs/vql_reference/parsers/</guid>
       <description>Many Velociraptor artifacts rely on specialized parsing of file formats. This page outlines all the plugins and functions designed to allow the client to parse information for various files.
 Simple file formats may be parsed using regular expressions and other generic rules. However some specialized file formats have dedicated parsers. These dedicated parsers are exported into VQL plugins so their results may be used in further queries.
-binary_parse Function Parse a binary string with profile based parser.</description>
+binary_parse Function</description>
     </item>
     
     <item>
@@ -52,7 +54,8 @@ binary_parse Function Parse a binary string with profile based parser.</descript
       <guid>/docs/vql_reference/server/</guid>
       <description>Velociraptor provides complete control of the server within VQL queries. On the server, the VQL engine contains the following plugins and functions. You can use this functionality to manage and automate the server by writing VQL queries.
 To reuse server side artifacts, simply create an artifact with type: SERVER and launch it from the &amp;ldquo;Server Artifacts&amp;rdquo; screen in the GUI.
-clients Plugin Retrieve the list of clients.
+clients Plugin
+Retrieve the list of clients.
    Arg Description Type     search Client search string.</description>
     </item>
     
@@ -83,7 +86,8 @@ Unlike SQL, VQL plugins also receive keyword arguments. When the plugin is evalu
       
       <guid>/docs/vql_reference/experimental/</guid>
       <description>Velociraptor is evolving quickly. We sometime implement functionality which may not remain in Velociraptor. This page documents some of the experimental features. If you find them useful, please let us know!
-js Function Compile and run javascript code.
+js Function
+Compile and run javascript code.
    Arg Description Type     js The body of the javascript code. string (required)   key If set use this key to cache the JS VM.</description>
     </item>
     

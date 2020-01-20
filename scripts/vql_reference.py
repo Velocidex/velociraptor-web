@@ -12,7 +12,7 @@ parser.add_argument('definition_path',
 
 
 def SaveDefinition(fd, item):
-    fd.write ("\n## %s <span class='vql_type pull-right'>%s</span>\n\n" % (item["name"], item["type"]))
+    fd.write ("\n## %s\n<span class='vql_type pull-right'>%s</span>\n\n" % (item["name"], item["type"]))
     fd.write ("%s\n\n" % item["description"])
     if not item["args"]:
         return

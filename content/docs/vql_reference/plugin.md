@@ -28,7 +28,8 @@ or in condition clauses (i.e. after the `WHERE` keyword).
 
 {{% /notice %}}
 
-## chain <span class='vql_type pull-right'>Plugin</span>
+## chain
+<span class='vql_type pull-right'>Plugin</span>
 
 Chain the output of several queries into the same table. This plugin
 takes any args and chains them.
@@ -46,7 +47,8 @@ b={ SELECT ...})
 
 
 
-## collect <span class='vql_type pull-right'>Plugin</span>
+## collect
+<span class='vql_type pull-right'>Plugin</span>
 
 Collect artifacts into a local file.
 
@@ -58,7 +60,8 @@ args|Optional parameters.|Any
 password|An optional password to encrypt the collection zip.|string
 
 
-## environ <span class='vql_type pull-right'>Plugin</span>
+## environ
+<span class='vql_type pull-right'>Plugin</span>
 
 The row returned will have all environment variables as
 columns. If the var parameter is provided, only those variables
@@ -70,7 +73,8 @@ Arg | Description | Type
 vars|Extract these variables from the environment and return them one per row|list of string
 
 
-## execve <span class='vql_type pull-right'>Plugin</span>
+## execve
+<span class='vql_type pull-right'>Plugin</span>
 
 This plugin launches an external command and captures its STDERR,
 STDOUT and return code. The command's stdout is split using the `sep`
@@ -96,12 +100,14 @@ sep|The serparator that will be used to split the stdout into rows.|string
 length|Size of buffer to capture output per row.|int64
 
 
-## filesystems <span class='vql_type pull-right'>Plugin</span>
+## filesystems
+<span class='vql_type pull-right'>Plugin</span>
 
 
 
 
-## flatten <span class='vql_type pull-right'>Plugin</span>
+## flatten
+<span class='vql_type pull-right'>Plugin</span>
 
 Flatten the columns in query. If any column repeats then we repeat the entire row once for each item.
 
@@ -110,7 +116,8 @@ Arg | Description | Type
 Name||string
 
 
-## for <span class='vql_type pull-right'>Plugin</span>
+## for
+<span class='vql_type pull-right'>Plugin</span>
 
 Iterate over a list.
 
@@ -121,7 +128,8 @@ foreach|The variable to iterate over.|Any (required)
 query|Run this query over the item.|StoredQuery
 
 
-## foreach <span class='vql_type pull-right'>Plugin</span>
+## foreach
+<span class='vql_type pull-right'>Plugin</span>
 
 Executes 'query' once for each row in the 'row' query.
 
@@ -132,7 +140,8 @@ query|Run this query for each row.|StoredQuery (required)
 async|If set we run all queries asyncronously.|bool
 
 
-## glob <span class='vql_type pull-right'>Plugin</span>
+## glob
+<span class='vql_type pull-right'>Plugin</span>
 
 Retrieve files based on a list of glob expressions
 
@@ -184,7 +193,8 @@ globs|One or more glob patterns to apply to the filesystem.|list of string (requ
 accessor|An accessor to use.|string
 
 
-## grep <span class='vql_type pull-right'>Function</span>
+## grep
+<span class='vql_type pull-right'>Function</span>
 
 Search a file for keywords.
 
@@ -196,7 +206,8 @@ keywords|Keywords to search for.|list of string (required)
 context|Extract this many bytes as context around hits.|int
 
 
-## hash <span class='vql_type pull-right'>Function</span>
+## hash
+<span class='vql_type pull-right'>Function</span>
 
 Calculate the hash of a file.
 
@@ -209,7 +220,8 @@ path|Path to open and hash.|string (required)
 accessor|The accessor to use|string
 
 
-## http_client <span class='vql_type pull-right'>Plugin</span>
+## http_client
+<span class='vql_type pull-right'>Plugin</span>
 
 Make a http request.
 
@@ -262,7 +274,8 @@ disable_ssl_security|Disable ssl certificate verifications.|bool
 tempfile_extension|If specified we write to a tempfile. The content field will contain the full path to the tempfile.|string
 
 
-## if <span class='vql_type pull-right'>Plugin</span>
+## if
+<span class='vql_type pull-right'>Plugin</span>
 
 Conditional execution of query
 
@@ -283,7 +296,8 @@ then||StoredQuery (required)
 else||StoredQuery
 
 
-## info <span class='vql_type pull-right'>Plugin</span>
+## info
+<span class='vql_type pull-right'>Plugin</span>
 
 Get information about the running host.
 
@@ -296,7 +310,8 @@ certain OS or versions.
 
 
 
-## int <span class='vql_type pull-right'>Function</span>
+## int
+<span class='vql_type pull-right'>Function</span>
 
 Truncate to an integer.
 
@@ -305,7 +320,8 @@ Arg | Description | Type
 int|The integer to round|Any
 
 
-## ip <span class='vql_type pull-right'>Function</span>
+## ip
+<span class='vql_type pull-right'>Function</span>
 
 Format an IP address.
 
@@ -328,7 +344,8 @@ netaddr4_le|A network order IPv4 address (as little endian).|int64
 netaddr4_be|A network order IPv4 address (as big endian).|int64
 
 
-## pslist <span class='vql_type pull-right'>Plugin</span>
+## pslist
+<span class='vql_type pull-right'>Plugin</span>
 
 Enumerate running processes.
 
@@ -343,7 +360,8 @@ Arg | Description | Type
 pid|A process ID to list. If not provided list all processes.|int64
 
 
-## read_file <span class='vql_type pull-right'>Plugin</span>
+## read_file
+<span class='vql_type pull-right'>Plugin</span>
 
 Read files in chunks.
 
@@ -363,7 +381,8 @@ filenames|One or more files to open.|list of string (required)
 accessor|An accessor to use.|string
 
 
-## scope <span class='vql_type pull-right'>Plugin</span>
+## scope
+<span class='vql_type pull-right'>Plugin</span>
 
 The scope plugin returns the current scope as a single row.
 
@@ -378,17 +397,20 @@ SELECT 1+1 As Two FROM scop()
 
 
 
-## stat <span class='vql_type pull-right'>Plugin</span>
+## stat
+<span class='vql_type pull-right'>Plugin</span>
 
 Get file information. Unlike glob() this does not support wildcards.
 
 
-## switch <span class='vql_type pull-right'>Plugin</span>
+## switch
+<span class='vql_type pull-right'>Plugin</span>
 
 Executes each query. The first query to return any rows will be emitted.
 
 
-## tempfile <span class='vql_type pull-right'>Function</span>
+## tempfile
+<span class='vql_type pull-right'>Function</span>
 
 Create a temporary file and write some data into it.
 
@@ -401,7 +423,8 @@ data|Data to write in the tempfile.|list of string
 extension|An extension to place in the tempfile.|string
 
 
-## upload <span class='vql_type pull-right'>Function</span>
+## upload
+<span class='vql_type pull-right'>Function</span>
 
 Upload a file to the upload service. For a Velociraptor client this
 will upload the file into the flow and store it in the server's file store.
@@ -417,7 +440,8 @@ name|The name of the file that should be stored on the server|string
 accessor|The accessor to use|string
 
 
-## upload <span class='vql_type pull-right'>Plugin</span>
+## upload
+<span class='vql_type pull-right'>Plugin</span>
 
 Upload files to the server.
 
@@ -435,7 +459,8 @@ files|A list of files to upload|list of string (required)
 accessor|The accessor to use|string
 
 
-## upload_gcs <span class='vql_type pull-right'>Function</span>
+## upload_gcs
+<span class='vql_type pull-right'>Function</span>
 
 Upload files to GCS.
 
@@ -449,7 +474,8 @@ project|The project to upload to|string (required)
 credentials|The credentials to use|string (required)
 
 
-## upload_s3 <span class='vql_type pull-right'>Function</span>
+## upload_s3
+<span class='vql_type pull-right'>Function</span>
 
 Upload files to S3.
 
@@ -464,7 +490,8 @@ credentialskey|The AWS key credentials to use|string (required)
 credentialssecret|The AWS secret credentials to use|string (required)
 
 
-## write_csv <span class='vql_type pull-right'>Plugin</span>
+## write_csv
+<span class='vql_type pull-right'>Plugin</span>
 
 Write a query into a CSV file.
 
@@ -474,7 +501,8 @@ filename|CSV files to open|string (required)
 query|query to write into the file.|StoredQuery (required)
 
 
-## yara <span class='vql_type pull-right'>Plugin</span>
+## yara
+<span class='vql_type pull-right'>Plugin</span>
 
 Scan files using yara rules.
 

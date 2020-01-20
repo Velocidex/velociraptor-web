@@ -13,7 +13,8 @@ To reuse server side artifacts, simply create an artifact with
 `type: SERVER` and launch it from the "Server Artifacts" screen in
 the GUI.
 
-## clients <span class='vql_type pull-right'>Plugin</span>
+## clients
+<span class='vql_type pull-right'>Plugin</span>
 
 Retrieve the list of clients.
 
@@ -23,7 +24,8 @@ search|Client search string. Can have the following prefixes: 'lable:', 'host:'|
 client_id||string
 
 
-## collect <span class='vql_type pull-right'>Function</span>
+## collect
+<span class='vql_type pull-right'>Function</span>
 
 Launch an artifact collection against a client.
 
@@ -34,7 +36,8 @@ artifacts|A list of artifacts to collect|list of string (required)
 env|Parameters to apply to the artifacts|Any
 
 
-## compress <span class='vql_type pull-right'>Function</span>
+## compress
+<span class='vql_type pull-right'>Function</span>
 
 Compress a file in the server's FileStore. A compressed
 file is archived so it takes less space. It is still possible to see
@@ -46,7 +49,8 @@ Arg | Description | Type
 path|A VFS path to compress|list of string (required)
 
 
-## elastic_upload <span class='vql_type pull-right'>Plugin</span>
+## elastic_upload
+<span class='vql_type pull-right'>Plugin</span>
 
 Upload rows to elastic.
 
@@ -65,7 +69,8 @@ api_key|Base64-encoded token for authorization; if set, overrides username and p
 wait_time|Batch elastic upload this long (2 sec).|int64
 
 
-## file_store <span class='vql_type pull-right'>Function</span>
+## file_store
+<span class='vql_type pull-right'>Function</span>
 
 Resolves file store paths into full filesystem paths.
 
@@ -93,7 +98,8 @@ Arg | Description | Type
 path|A VFS path to convert|list of string (required)
 
 
-## flows <span class='vql_type pull-right'>Plugin</span>
+## flows
+<span class='vql_type pull-right'>Plugin</span>
 
 Retrieve the flows launched on each client.
 
@@ -103,12 +109,14 @@ client_id||list of string (required)
 flow_id||string
 
 
-## gui_users <span class='vql_type pull-right'>Plugin</span>
+## gui_users
+<span class='vql_type pull-right'>Plugin</span>
 
 Retrieve the list of users on the server.
 
 
-## hunt <span class='vql_type pull-right'>Function</span>
+## hunt
+<span class='vql_type pull-right'>Function</span>
 
 Launch an artifact collection against a client.
 
@@ -119,7 +127,8 @@ artifacts|A list of artifacts to collect|list of string (required)
 env|Parameters to apply to the artifacts|Any
 
 
-## hunt_flows <span class='vql_type pull-right'>Plugin</span>
+## hunt_flows
+<span class='vql_type pull-right'>Plugin</span>
 
 Retrieve the flows launched by a hunt.
 
@@ -128,7 +137,8 @@ Arg | Description | Type
 hunt_id|The hunt id to inspect.|string (required)
 
 
-## hunt_results <span class='vql_type pull-right'>Plugin</span>
+## hunt_results
+<span class='vql_type pull-right'>Plugin</span>
 
 Retrieve the results of a hunt.
 
@@ -140,12 +150,14 @@ hunt_id|The hunt id to read.|string (required)
 brief|If set we return less columns.|bool
 
 
-## hunts <span class='vql_type pull-right'>Plugin</span>
+## hunts
+<span class='vql_type pull-right'>Plugin</span>
 
 Retrieve the list of hunts.
 
 
-## label <span class='vql_type pull-right'>Function</span>
+## label
+<span class='vql_type pull-right'>Function</span>
 
 Add the labels to the client. If op is 'remove' then remove these labels.
 
@@ -157,7 +169,8 @@ labels|A list of labels to apply|list of string (required)
 op|An operation on the labels (add, remove)|string
 
 
-## mail <span class='vql_type pull-right'>Plugin</span>
+## mail
+<span class='vql_type pull-right'>Plugin</span>
 
 Send Email to a remote server.
 
@@ -170,7 +183,8 @@ body|The body of the mail.|string (required)
 period|How long to wait before sending the next mail - help to throttle mails.|int64 (required)
 
 
-## monitoring <span class='vql_type pull-right'>Plugin</span>
+## monitoring
+<span class='vql_type pull-right'>Plugin</span>
 
 Extract monitoring log from a client. If client_id is not specified we watch the global journal which contains event logs from all clients.
 
@@ -181,7 +195,8 @@ artifact|The event artifact name to watch|string (required)
 source|An optional artifact named source|string
 
 
-## rate <span class='vql_type pull-right'>Function</span>
+## rate
+<span class='vql_type pull-right'>Function</span>
 
 Calculates the rate (derivative) between two quantities.
 
@@ -199,7 +214,8 @@ x|The X float|float64 (required)
 y|The Y float|float64 (required)
 
 
-## sample <span class='vql_type pull-right'>Plugin</span>
+## sample
+<span class='vql_type pull-right'>Plugin</span>
 
 Executes 'query' and samples every n'th row.
 
@@ -213,7 +229,8 @@ query|Source query.|StoredQuery (required)
 n|Pick every n row from query.|int64 (required)
 
 
-## search <span class='vql_type pull-right'>Plugin</span>
+## search
+<span class='vql_type pull-right'>Plugin</span>
 
 Search the server client's index.
 
@@ -225,7 +242,8 @@ limit|Only return limited results|uint64
 type|The type of search (e.g. 'key')|string
 
 
-## source <span class='vql_type pull-right'>Plugin</span>
+## source
+<span class='vql_type pull-right'>Plugin</span>
 
 Retrieve rows from an artifact's source.
 
@@ -252,7 +270,8 @@ source|An optional named source within the artifact|string
 mode|HUNT or CLIENT mode can be empty|string
 
 
-## uploads <span class='vql_type pull-right'>Plugin</span>
+## uploads
+<span class='vql_type pull-right'>Plugin</span>
 
 Retrieve information about a flow's uploads.
 

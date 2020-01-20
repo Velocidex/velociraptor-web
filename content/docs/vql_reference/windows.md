@@ -7,12 +7,14 @@ linktitle: Windows
 Many VQL plugins and functions provide access to the Windows
 APIs. The following are only available when running on Windows.
 
-## appcompatcache <span class='vql_type pull-right'>Plugin</span>
+## appcompatcache
+<span class='vql_type pull-right'>Plugin</span>
 
 Parses the appcompatcache.
 
 
-## authenticode <span class='vql_type pull-right'>Function</span>
+## authenticode
+<span class='vql_type pull-right'>Function</span>
 
 This plugin uses the Windows API to extract authenticode signature
 details from PE files.
@@ -26,12 +28,14 @@ Arg | Description | Type
 filename|The filename to parse.|string (required)
 
 
-## certificates <span class='vql_type pull-right'>Plugin</span>
+## certificates
+<span class='vql_type pull-right'>Plugin</span>
 
 Collect certificate from the system trust store.
 
 
-## dns <span class='vql_type pull-right'>Plugin</span>
+## dns
+<span class='vql_type pull-right'>Plugin</span>
 
 Monitor dns queries.
 
@@ -53,7 +57,8 @@ from Windows Defender.
 
 
 
-## handles <span class='vql_type pull-right'>Plugin</span>
+## handles
+<span class='vql_type pull-right'>Plugin</span>
 
 Enumerate process handles.
 
@@ -62,17 +67,20 @@ Arg | Description | Type
 pid|The PID to dump out.|int64 (required)
 
 
-## interfaces <span class='vql_type pull-right'>Plugin</span>
+## interfaces
+<span class='vql_type pull-right'>Plugin</span>
 
 List all active interfaces.
 
 
-## lookupSID <span class='vql_type pull-right'>Function</span>
+## lookupSID
+<span class='vql_type pull-right'>Function</span>
 
 Get information about the SID.
 
 
-## modules <span class='vql_type pull-right'>Plugin</span>
+## modules
+<span class='vql_type pull-right'>Plugin</span>
 
 Enumerate Loaded DLLs.
 
@@ -81,12 +89,14 @@ Arg | Description | Type
 pid|The PID to dump out.|int64 (required)
 
 
-## netstat <span class='vql_type pull-right'>Plugin</span>
+## netstat
+<span class='vql_type pull-right'>Plugin</span>
 
 Collect network information.
 
 
-## partitions <span class='vql_type pull-right'>Plugin</span>
+## partitions
+<span class='vql_type pull-right'>Plugin</span>
 
 List all partititions
 
@@ -95,7 +105,8 @@ Arg | Description | Type
 all|If specified list all Partitions|bool
 
 
-## proc_dump <span class='vql_type pull-right'>Plugin</span>
+## proc_dump
+<span class='vql_type pull-right'>Plugin</span>
 
 Dumps process memory.
 
@@ -112,7 +123,8 @@ Arg | Description | Type
 pid|The PID to dump out.|int64 (required)
 
 
-## proc_yara <span class='vql_type pull-right'>Plugin</span>
+## proc_yara
+<span class='vql_type pull-right'>Plugin</span>
 
 Scan processes using yara rules.
 
@@ -138,7 +150,8 @@ blocksize|Blocksize for scanning (1mb).|int64
 key|If set use this key to cache the  yara rules.|string
 
 
-## read_reg_key <span class='vql_type pull-right'>Plugin</span>
+## read_reg_key
+<span class='vql_type pull-right'>Plugin</span>
 
 This is a convenience plugin which applies the globs to the registry
 accessor to find keys. For each key the plugin then lists all the
@@ -155,7 +168,8 @@ globs|Glob expressions to apply.|list of string (required)
 accessor|The accessor to use.|string
 
 
-## srum_lookup_id <span class='vql_type pull-right'>Function</span>
+## srum_lookup_id
+<span class='vql_type pull-right'>Function</span>
 
 Lookup a SRUM id.
 
@@ -166,7 +180,8 @@ accessor|The accessor to use.|string
 id||int64 (required)
 
 
-## token <span class='vql_type pull-right'>Function</span>
+## token
+<span class='vql_type pull-right'>Function</span>
 
 Extract process token.
 
@@ -175,12 +190,14 @@ Arg | Description | Type
 pid|The PID to get the token for.|int64 (required)
 
 
-## users <span class='vql_type pull-right'>Plugin</span>
+## users
+<span class='vql_type pull-right'>Plugin</span>
 
 Display information about workstation local users. This is obtained through the NetUserEnum() API.
 
 
-## vad <span class='vql_type pull-right'>Plugin</span>
+## vad
+<span class='vql_type pull-right'>Plugin</span>
 
 Enumerate process memory regions.
 
@@ -189,7 +206,8 @@ Arg | Description | Type
 pid|The PID to dump out.|int64 (required)
 
 
-## winobj <span class='vql_type pull-right'>Plugin</span>
+## winobj
+<span class='vql_type pull-right'>Plugin</span>
 
 Enumerate The Windows Object Manager namespace.
 
@@ -198,7 +216,8 @@ Arg | Description | Type
 path|Object namespace path.|string
 
 
-## wmi <span class='vql_type pull-right'>Plugin</span>
+## wmi
+<span class='vql_type pull-right'>Plugin</span>
 
 Execute simple WMI queries synchronously.
 
