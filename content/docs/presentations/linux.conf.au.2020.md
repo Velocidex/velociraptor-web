@@ -18,4 +18,7 @@ unable to attend in person, you can follow along at home...
  {{< pdf "/resources/linux.conf.au.2020.pdf" >}}
 {{% /expand %}}
 
+<p>
+<iframe width="800px" height="600px" src="https://www.youtube.com/embed/HvwFdaTJvd0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 {{% /panel %}}

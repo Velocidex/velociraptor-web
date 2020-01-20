@@ -14,4 +14,7 @@ discussions.
    {{< pdf "/resources/SANS DFIR Summit Austin.pdf" >}}
 {{% /expand%}}
 
+<p>
+<iframe width="800px" height="600px" src="https://www.youtube.com/embed/u7KBwgHIZ3U" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 {{% /panel %}}
