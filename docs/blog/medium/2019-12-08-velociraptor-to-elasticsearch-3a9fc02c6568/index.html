@@ -554,7 +554,7 @@
 
 <h4 id="by-justin-welgemoed">By Justin Welgemoed</h4>
 
-<p><img src="../img/1*mAd_VmUqHkyZgz-hCL2ctQ.png" alt="" /></p>
+<p><img src="../img/1_mAd_VmUqHkyZgz-hCL2ctQ.png" alt="" /></p>
 
 <p>Since release 0.3.5 Velociraptor includes an Elastic VQL plugin plus two built-in server artifacts that demonstrate how to make use of this plugin.</p>
 
@@ -584,23 +584,23 @@
 
 <p>This artifact sends the results of <a href="https://www.velocidex.com/docs/user-interface/artifacts/client_artifacts/">Flows</a> to Elasticsearch. It’s the easiest one to get started with because all you have to do is add the artifact to <a href="https://www.velocidex.com/docs/user-interface/artifacts/server_events/">Server Monitoring</a> and tweak a parameter or two if necessary.</p>
 
-<p><img src="../img/1*iDsgXuKmszwthN8EX8AHsw.png" alt="This is where Server Monitoring artifacts are hidden!" /><em>This is where Server Monitoring artifacts are hidden!</em></p>
+<p><img src="../img/1_iDsgXuKmszwthN8EX8AHsw.png" alt="This is where Server Monitoring artifacts are hidden!" /><em>This is where Server Monitoring artifacts are hidden!</em></p>
 
 <p>As you can see in the screenshot below, the default parameters will work if you have Elasticsearch installed locally and listening on the default IP and port.</p>
 
-<p><img src="../img/1*AUrPhobirbEaekF0fK3Jow.png" alt="" /></p>
+<p><img src="../img/1_AUrPhobirbEaekF0fK3Jow.png" alt="" /></p>
 
 <p>If not then you can easily change these details to match your environment. The artifact parameter named <em>ArtifactNameRegex</em> defaults to including the flow results from <strong><em>all</em></strong> artifacts. If you don’t want the output of all artifacts to go to Elastic then here you can also specify a subset of artifact names using a crafty regex.</p>
 
 <p>Once you’ve added the *Elastic.Flows.Upload *artifact to Server Monitoring you can now kick off a flow or two to generate some data. Then go look in Elastic (via Kibana of course, but remember to first create a suitable index pattern so that you can see the data! An initial Kibana index pattern of “*artifact_**” will have you covered.)</p>
 
-<p><img src="../img/1*MWEk71L6_mBkmpq999ihJA.png" alt="Whoa! It actually worked!" /><em>Whoa! It actually worked!</em></p>
+<p><img src="../img/1_MWEk71L6_mBkmpq999ihJA.png" alt="Whoa! It actually worked!" /><em>Whoa! It actually worked!</em></p>
 
 <p>You’ll notice that the Elastic index name is based on the Velociraptor client artifact name. So if you prefer, you can create distinct Kibana index patterns that will allow you to view and search through only a single artifact type at a time.</p>
 
 <p>Expanding the view for a single document you should see something like this:</p>
 
-<p><img src="../img/1*ozK_r9SyG-3BLMUYQM82gg.png" alt="" /></p>
+<p><img src="../img/1_ozK_r9SyG-3BLMUYQM82gg.png" alt="" /></p>
 
 <p>And that’s how easy it is to get your data into Elastic!</p>
 
@@ -623,17 +623,17 @@
 <li>Windows.Events.ServiceCreation</li>
 </ul>
 
-<p><img src="../img/1*tsp_GZaSQBuVNDcWdU0TXw.png" alt="" /></p>
+<p><img src="../img/1_tsp_GZaSQBuVNDcWdU0TXw.png" alt="" /></p>
 
 <p>To get the client events flowing to Elastic we must add the *Elastic.Events.Clients *artifact to Server Monitoring, just as we did with the <em>Elastic.Flows.Upload</em> artifact in the previous section.</p>
 
-<p><img src="../img/1*CjlQuXfmG0YrsaGtB7wlUw.png" alt="Select the Client Artifacts that you are **already** collecting" />*Select the Client Artifacts that you are <strong>already</strong> collecting*</p>
+<p><img src="../img/1_CjlQuXfmG0YrsaGtB7wlUw.png" alt="Select the Client Artifacts that you are **already** collecting" />*Select the Client Artifacts that you are <strong>already</strong> collecting*</p>
 
 <p>When adding the artifact make sure to select the client event types that you would like to have forwarded. Also configure the Elastic IP:port. If your Elastic server needs further options than are available in the artifact parameters then simply create a copy of the <em>Elastic.Events.Clients</em> artifact and add the additional <a href="https://github.com/Velocidex/velociraptor/blob/4d19d37191500b5f01f064586f8940a4b1a5dccf/vql/server/elastic.go#L56">options</a> to the custom artifact.</p>
 
 <p>As before, we now go to Kibana to check out the results…</p>
 
-<p><img src="../img/1*4-AlVbICs9O_hUjKBSNung.png" alt="Are you tired of winning yet?" /><em>Are you tired of winning yet?</em></p>
+<p><img src="../img/1_4-AlVbICs9O_hUjKBSNung.png" alt="Are you tired of winning yet?" /><em>Are you tired of winning yet?</em></p>
 
 <p>Easier than you expected, right? Well in the next section we take it to the next level by bringing Logstash into the loop. Let’s put the L into the E<strong>L</strong>K Stack…</p>
 

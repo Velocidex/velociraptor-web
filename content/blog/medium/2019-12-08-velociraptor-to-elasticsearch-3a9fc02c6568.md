@@ -8,7 +8,7 @@ date: '2019-12-08T23:50:52.556Z'
 
 #### By Justin Welgemoed
 
-![](../img/1*mAd_VmUqHkyZgz-hCL2ctQ.png)
+![](../img/1_mAd_VmUqHkyZgz-hCL2ctQ.png)
 
 Since release 0.3.5 Velociraptor includes an Elastic VQL plugin plus two built-in server artifacts that demonstrate how to make use of this plugin.
 
@@ -36,23 +36,23 @@ The first VQL artifact that we will use to accomplish our goal is named *Elastic
 
 This artifact sends the results of [Flows](https://www.velocidex.com/docs/user-interface/artifacts/client_artifacts/) to Elasticsearch. It’s the easiest one to get started with because all you have to do is add the artifact to [Server Monitoring](https://www.velocidex.com/docs/user-interface/artifacts/server_events/) and tweak a parameter or two if necessary.
 
-![This is where Server Monitoring artifacts are hidden!](../img/1*iDsgXuKmszwthN8EX8AHsw.png)*This is where Server Monitoring artifacts are hidden!*
+![This is where Server Monitoring artifacts are hidden!](../img/1_iDsgXuKmszwthN8EX8AHsw.png)*This is where Server Monitoring artifacts are hidden!*
 
 As you can see in the screenshot below, the default parameters will work if you have Elasticsearch installed locally and listening on the default IP and port.
 
-![](../img/1*AUrPhobirbEaekF0fK3Jow.png)
+![](../img/1_AUrPhobirbEaekF0fK3Jow.png)
 
 If not then you can easily change these details to match your environment. The artifact parameter named *ArtifactNameRegex* defaults to including the flow results from ***all*** artifacts. If you don’t want the output of all artifacts to go to Elastic then here you can also specify a subset of artifact names using a crafty regex.
 
 Once you’ve added the *Elastic.Flows.Upload *artifact to Server Monitoring you can now kick off a flow or two to generate some data. Then go look in Elastic (via Kibana of course, but remember to first create a suitable index pattern so that you can see the data! An initial Kibana index pattern of “*artifact_**” will have you covered.)
 
-![Whoa! It actually worked!](../img/1*MWEk71L6_mBkmpq999ihJA.png)*Whoa! It actually worked!*
+![Whoa! It actually worked!](../img/1_MWEk71L6_mBkmpq999ihJA.png)*Whoa! It actually worked!*
 
 You’ll notice that the Elastic index name is based on the Velociraptor client artifact name. So if you prefer, you can create distinct Kibana index patterns that will allow you to view and search through only a single artifact type at a time.
 
 Expanding the view for a single document you should see something like this:
 
-![](../img/1*ozK_r9SyG-3BLMUYQM82gg.png)
+![](../img/1_ozK_r9SyG-3BLMUYQM82gg.png)
 
 And that’s how easy it is to get your data into Elastic!
 
@@ -73,17 +73,17 @@ The artifact supports forwarding events from 4 built-in client event artifacts b
 * Windows.Events.ProcessCreation
 * Windows.Events.ServiceCreation
 
-![](../img/1*tsp_GZaSQBuVNDcWdU0TXw.png)
+![](../img/1_tsp_GZaSQBuVNDcWdU0TXw.png)
 
 To get the client events flowing to Elastic we must add the *Elastic.Events.Clients *artifact to Server Monitoring, just as we did with the *Elastic.Flows.Upload* artifact in the previous section.
 
-![Select the Client Artifacts that you are **already** collecting](../img/1*CjlQuXfmG0YrsaGtB7wlUw.png)*Select the Client Artifacts that you are **already** collecting*
+![Select the Client Artifacts that you are **already** collecting](../img/1_CjlQuXfmG0YrsaGtB7wlUw.png)*Select the Client Artifacts that you are **already** collecting*
 
 When adding the artifact make sure to select the client event types that you would like to have forwarded. Also configure the Elastic IP:port. If your Elastic server needs further options than are available in the artifact parameters then simply create a copy of the *Elastic.Events.Clients* artifact and add the additional [options](https://github.com/Velocidex/velociraptor/blob/4d19d37191500b5f01f064586f8940a4b1a5dccf/vql/server/elastic.go#L56) to the custom artifact.
 
 As before, we now go to Kibana to check out the results…
 
-![Are you tired of winning yet?](../img/1*4-AlVbICs9O_hUjKBSNung.png)*Are you tired of winning yet?*
+![Are you tired of winning yet?](../img/1_4-AlVbICs9O_hUjKBSNung.png)*Are you tired of winning yet?*
 
 Easier than you expected, right? Well in the next section we take it to the next level by bringing Logstash into the loop. Let’s put the L into the E**L**K Stack…
 
