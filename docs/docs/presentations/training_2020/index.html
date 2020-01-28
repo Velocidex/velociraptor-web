@@ -5,7 +5,7 @@
     
       <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<title>Filesystem Accessors :: Velociraptor / Dig deeper</title>
+<title>Enterprise Hunting and Incident Response with Velociraptor 2020 :: Velociraptor / Dig deeper</title>
 <link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon" />
 <link rel="stylesheet" href="/css/bootstrap.min.css">
 <link href="/css/nucleus.css" rel="stylesheet">
@@ -30,7 +30,7 @@
 
     
   </head>
-  <body data-url="/docs/vql_reference/filesystem_accessors/">
+  <body data-url="/docs/presentations/training_2020/">
     
       <div id="headermain"></div>
 <nav id="sidebar" class="">
@@ -211,11 +211,10 @@
     </li>
         </ul>
     </li>
-    <li data-nav-id="/docs/vql_reference/" class="dd-item parent haschildren
+    <li data-nav-id="/docs/vql_reference/" class="dd-item haschildren
         ">
       <div>
-      <a href="/docs/vql_reference/">VQL Reference</a>
-            <i class="fa fa-angle-down fa-lg category-icon"></i>
+      <a href="/docs/vql_reference/">VQL Reference</a><i class="fa fa-angle-right fa-lg category-icon"></i>
       </div>
         <ul>
       <li data-nav-id="/docs/vql_reference/basic/" class="dd-item">
@@ -267,7 +266,7 @@
           </a>
         </div>
     </li>
-      <li data-nav-id="/docs/vql_reference/filesystem_accessors/" class="dd-item active">
+      <li data-nav-id="/docs/vql_reference/filesystem_accessors/" class="dd-item">
         <div>
           <a href="/docs/vql_reference/filesystem_accessors/">
             Filesystem Accessors
@@ -354,13 +353,14 @@
     </li>
         </ul>
     </li>
-    <li data-nav-id="/docs/presentations/" class="dd-item haschildren
+    <li data-nav-id="/docs/presentations/" class="dd-item parent haschildren
         ">
       <div>
-      <a href="/docs/presentations/">Presentations and Workshops</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      <a href="/docs/presentations/">Presentations and Workshops</a>
+            <i class="fa fa-angle-down fa-lg category-icon"></i>
       </div>
         <ul>
-      <li data-nav-id="/docs/presentations/training_2020/" class="dd-item">
+      <li data-nav-id="/docs/presentations/training_2020/" class="dd-item active">
         <div>
           <a href="/docs/presentations/training_2020/">
             Training 2020
@@ -510,7 +510,7 @@
 
 
 
- <a href='/'>Velociraptor / Dig deeper</a> > <a href='/docs/'>Velociraptor Documentation</a> > <a href='/docs/vql_reference/'>VQL Reference</a> > Filesystem Accessors
+ <a href='/'>Velociraptor / Dig deeper</a> > <a href='/docs/'>Velociraptor Documentation</a> > <a href='/docs/presentations/'>Presentations and Workshops</a> > Enterprise Hunting and Incident Response with Velociraptor 2020
 
  
 
@@ -525,26 +525,7 @@
     
     <div class="progress">
         <div class="wrapper">
-    <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#filesystem-accessors">Filesystem Accessors</a></li>
-<li><a href="#simple-filesystem-accessors">Simple filesystem accessors</a>
-<ul>
-<li><a href="#the-file-accessor">The file accessor</a></li>
-<li><a href="#the-ntfs-accessor">The ntfs accessor</a></li>
-<li><a href="#the-registry-accessor">The registry accessor</a></li>
-</ul></li>
-<li><a href="#other-filesystem-accessors">Other filesystem accessors</a>
-<ul>
-<li><a href="#the-data-accessor">The data accessor</a></li>
-<li><a href="#the-zip-accessor">The zip accessor</a></li>
-<li><a href="#the-raw-reg-accessor">The raw_reg accessor</a></li>
-</ul></li>
-</ul></li>
-</ul>
-</nav>
+    
         </div>
     </div>
     
@@ -554,7 +535,7 @@
 
 <div id="body-inner">
   
-    <h1>Filesystem Accessors</h1>
+    <h1>Enterprise Hunting and Incident Response with Velociraptor 2020</h1>
   
 
 
@@ -562,144 +543,45 @@
     
     
     
-    
+    <div class="panel panel-primary">
+    <div class="panel-heading">25th Feb 2020</div>
+    <div class="panel-body">
 
-<h2 id="filesystem-accessors">Filesystem Accessors</h2>
+This yeah we started offering 2 day, in person training courses
+concentrating on applying Velociraptor for every day DFIR work.
 
-<p>Many VQL plugins operate on files. However how we read files on the
-endpoint can vary - depending on what we actually mean by a file. For
-example, Velociraptor is able to read files parsed from the NTFS
-parser, compressed files within Zip archives, or even files downloaded
-from a URL. VQL specifies the way a file is read via an <code>accessor</code>
-(essentially a file access driver), and a <code>path</code> which encodes how the
-accessor will actually access the file.</p>
+We now have a sample module available publically. The full course goes
+into much much more, so register for your place now!
 
-<h2 id="simple-filesystem-accessors">Simple filesystem accessors</h2>
 
-<h3 id="the-file-accessor">The file accessor</h3>
 
-<p>The <code>file</code> accessor uses the normal OS filesystem APIs to access files
-and directories.</p>
+<div class="expand">
+    <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fa fa-chevron-down' : 'fa fa-chevron-right';});});">
+        <i style="font-size:x-small;" class="fa fa-chevron-right"></i>
+        <span>
+        
+        
+        View sample training module
+        
+        </span>
+    </div>
+    <div class="expand-content" style="display: none;">
+<p><object data="/resources/training_2020_public.pdf"
+    type="application/pdf"
+    width="100%"
+    height="700px">
+    <embed src="/resources/training_2020_public.pdf">
+      <p>This browser does not support PDFs. Please download the PDF to view it:
+        <a href="/resources/training_2020_public.pdf">Download PDF</a>.</p>
+    </embed>
+</object></p>
 
-<p>The limitations with this method is that some files are locked if they
-are in use and we are not able to read them. For example, the registry
-hives or the page file.</p>
-
-<p>The path parameter is passed directly to the filesystem
-APIs. Velociraptor supports both forward and reverse slashes on all
-supported operating systems.</p>
-
-<div class="notices note" ><p>On windows, Velociraptor emulates the top level directory as a list
-   of available drives. For example, listing the &ldquo;/&rdquo; directory will
-   yield directories such as &ldquo;C:&ldquo;, &ldquo;D:&rdquo; etc. Therefore Velociraptor
-   paths always have a / at the top level, typically followed by a
-   drive letter then the rest of the path.</p>
+    </div>
 </div>
 
+<p></div></p>
 
-<h3 id="the-ntfs-accessor">The ntfs accessor</h3>
-
-<p>The <code>ntfs</code> accessor uses Velociraptor&rsquo;s built in NTFS parser to
-extract directory information and file contents.</p>
-
-<p>This bypasses the normal file locking mechanism and allows us to
-download and read locked files like registry hives.</p>
-
-<p>The path is interpreted as a raw device, followed by an NTFS path. For
-example the path <code>\\.\c:\Windows\System32</code> refers to the System32
-directory as parsed by the ntfs parser from the raw device
-<code>\\.\c:</code>. Supported raw devices include volume shadow copies (VSC) as
-well.</p>
-
-<p>As a convenience, the ntfs accessor recognizes a drive letter and
-automatically maps it to the raw device. I.e. the following paths are
-equivalent <code>\\.\c:\Windows</code> and <code>C:\Windows</code>.</p>
-
-<p>Listing the top level directory will display all physical drives and
-Volume Shadow Copies available on the machine.</p>
-
-<div class="notices note" ><p>The backslash character is considered the path separator only for
-paths following the device name. Supported device names include the
-backslash as part of their name. For example, listing the top level
-directory will show <code>\\.\c:</code> as a single device, even though it
-contains backslashes.</p>
-</div>
-
-
-<h3 id="the-registry-accessor">The registry accessor</h3>
-
-<p>The <code>registry</code> accessor uses the OS APIs to view the registry as a
-filesystem. You can use this to navigate the endpoint&rsquo;s registry hives
-interactively.</p>
-
-<p>Since registry values are typically small, Velociraptor also gets the
-values in the directory listing as well, so it is not usually
-necessary to download files from the registry hive.</p>
-
-<div class="notices note" ><p>The Windows registry differs from a regular filesystem in that Key names may have forward slash, and value names may contain both forward and backward slashes. Therefore it is difficult to properly split a path into the correct key and value. Velociraptor treats a path as a list of components. Velociraptor will surround component names with quotes if they contain slashes to allow the path to be broken back into components. For example, <code>HKEY_CURRENT_USER\Software\Microsoft\Office\16.0\Word\Security\Trusted Documents\TrustRecords\&quot;%USERPROFILE%/Desktop/test.docx&quot;</code> represents the value named <code>%USERPROFILE%/Desktop/test.docx</code>.</p>
-</div>
-
-
-<h2 id="other-filesystem-accessors">Other filesystem accessors</h2>
-
-<h3 id="the-data-accessor">The data accessor</h3>
-
-<p>Sometimes it is necessary to pass a string to a plugin which expects a
-filename (for example <code>yara()</code> plugin. In this case it is possible to
-specify the <code>data</code> accessor which creates an in memory file from the
-filename path passed to it.</p>
-
-<h3 id="the-zip-accessor">The zip accessor</h3>
-
-<p>Zip files contain compressed members. It is sometimes useful to be
-able to treat members of the zip archive as simple files, then we can
-scan or list them using other plugins.</p>
-
-<p>The <code>zip</code> accessor makes that possible. However the accessor requires
-an underlying file to actually unzip. Therefore the <code>zip</code> accessor
-requires a url:</p>
-
-<ul>
-<li><p>The scheme part is used to specify the underlying accessor to access
-the zip file.</p></li>
-
-<li><p>The path part is used to specify the path to pass to the underlying
-accessor.</p></li>
-
-<li><p>The fragment part is used to specify the path within the zip file to
-access.</p></li>
-</ul>
-
-<div class="notices tip" ><p>Do not attempt to construct the url by manually concatenating parts
-because this does not properly handle escaping. Instead use the
-<code>url()</code> function. For example <code>url(scheme='ntfs',
-path=&quot;C:/Users/Test/my.zip&quot;, fragment=&quot;1.txt&quot;).String</code> will produce
-the required url: <code>ntfs://C:/Users/Test/my.zip#1.txt</code> to access the
-file 1.txt within the my.zip file as extracted by the ntfs raw parser.</p>
-</div>
-
-
-<h3 id="the-raw-reg-accessor">The raw_reg accessor</h3>
-
-<p>Parsing of raw registry hives is provided by the <code>raw_reg</code>
-accessor. Similarly to the zip accessor above, the <code>raw_reg</code> accessor
-requires an underlying file to read. Therefore it also requires a path
-formatted as a url:</p>
-
-<ul>
-<li><p>The scheme part is used to specify the underlying accessor to access
-the raw registry hive file.</p></li>
-
-<li><p>The path part is used to specify the path to pass to the underlying
-accessor.</p></li>
-
-<li><p>The fragment part is used to specify the key or value within the
-registry hive to access.</p></li>
-</ul>
-
-<p>Note that this accessor usually requires an underlying file that is
-accessed by the raw NTFS parser (since registry hives are locked at
-runtime).</p>
+<p></div></p>
 
 
     
@@ -711,8 +593,8 @@ runtime).</p>
 </div>
 
 <div id="navigation">
-<a class="nav nav-prev" href="/docs/vql_reference/experimental/" title="Experimental Functionality"> <i class="fa fa-chevron-left"></i><label>Experimental Functionality</label></a>
-    <a class="nav nav-next" href="/docs/vql_reference/templates/" title="Report Templates" style="margin-right: 0px;"><label>Report Templates</label><i class="fa fa-chevron-right"></i></a></div>
+<a class="nav nav-prev" href="/docs/presentations/" title="Presentations and Workshops"> <i class="fa fa-chevron-left"></i><label>Presentations and Workshops</label></a>
+    <a class="nav nav-next" href="/docs/presentations/linux.conf.au.2020/" title="Linux.Conf.Au 2020" style="margin-right: 0px;"><label>Linux.Conf.Au 2020</label><i class="fa fa-chevron-right"></i></a></div>
 
 </section>
 <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">

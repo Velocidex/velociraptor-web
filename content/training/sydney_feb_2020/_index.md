@@ -194,6 +194,11 @@ this industry knowledge and empower both experts and novices to
 leverage it, to collect and analyse evidence of malicious activities
 with speed and precision.
 
+
+# Sample chapter
+
+A sample module from the full course is now available! [Click here to view](/docs/presentations/training_2020/)
+
 # The Venue
 
 This training event will be held at Saxons Training Facilities in the

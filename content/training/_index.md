@@ -55,13 +55,6 @@ schedule:
   buyurl: https://www.eventbrite.com.au/e/83755800855/
   picture: https://live.staticflickr.com/4205/34672198760_b1396d4e33_b.jpg
 
-
-- title: Velociraptor Tutorial at Linux.Conf.Au
-  date: 15th January 2020
-  description: |
-    Come and join us at the Gold Coast Convention Center for the annual Linux Conference, where we will present a 100 Min introductory tutorial to Velociraptor.
-  outline: https://linux.conf.au/schedule/presentation/80/
-  picture: https://linux.conf.au/media/img/lca2020_splash_board.jpg
 ---
 
 ## Private/Closed Courses
@@ -75,3 +68,5 @@ info@velocidex.com for more details.
 
 Velociraptor training events are designed to give you the hands on
 experience needed to make the most from Velociraptor.
+
+A sample chapter from the training course is <a href='/docs/presentations/training_2020/'>now available!</a>
