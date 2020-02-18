@@ -1,7 +1,7 @@
 ---
 description: Various Artifacts which do not fit into other categories.
-linktitle: Miscelaneous
-title: Miscelaneous Artifacts
+linktitle: Miscellaneous
+title: Miscellaneous Artifacts
 toc: true
 weight: 70
 
@@ -2326,4 +2326,3 @@ sources:
       FROM keyword_search
 ```
    {{% /expand %}}
-

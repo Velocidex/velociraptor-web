@@ -18,8 +18,8 @@ For some ideas on how Velociraptor can help you, visit the [Use Cases](./use_cas
 
 When you're ready to see what Velociraptor can really do for you:
 
-* Run some artefacts across individual endpoints
+* Run some artifacts across individual endpoints
 * Build them out into hunts
-* Start customising the artefacts to your specific needs.
+* Start customizing the artifacts to your specific needs.
 
 You'll be surprised how powerful and easy it can be.
