@@ -54,9 +54,9 @@ binary_parse Function</description>
       <guid>/docs/vql_reference/server/</guid>
       <description>Velociraptor provides complete control of the server within VQL queries. On the server, the VQL engine contains the following plugins and functions. You can use this functionality to manage and automate the server by writing VQL queries.
 To reuse server side artifacts, simply create an artifact with type: SERVER and launch it from the &amp;ldquo;Server Artifacts&amp;rdquo; screen in the GUI.
-clients Plugin
-Retrieve the list of clients.
-   Arg Description Type     search Client search string.</description>
+cancel_flow Function
+Cancels the flow.
+   Arg Description Type     client_id  string (required)   flow_id  string    clients Plugin</description>
     </item>
     
     <item>

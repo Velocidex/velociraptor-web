@@ -122,6 +122,12 @@
           </a>
         </div>
     </li>
+    <li data-nav-id="/docs/getting-started/performance/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/getting-started/performance/">Performance</a>
+      </div>
+    </li>
       <li data-nav-id="/docs/getting-started/triaging/" class="dd-item">
         <div>
           <a href="/docs/getting-started/triaging/">
@@ -341,7 +347,7 @@
       <li data-nav-id="/docs/artifacts/misc/" class="dd-item">
         <div>
           <a href="/docs/artifacts/misc/">
-            Miscellaneous
+            Miscelaneous
           </a>
         </div>
     </li>
@@ -876,6 +882,12 @@ event is triggered.</p>
 <td>The accessor to use.</td>
 <td>string</td>
 </tr>
+
+<tr>
+<td>messagedb</td>
+<td>A Message database from <a href="https://github.com/Velocidex/evtx-data">https://github.com/Velocidex/evtx-data</a>.</td>
+<td>string</td>
+</tr>
 </tbody>
 </table>
 
@@ -899,7 +911,7 @@ is not provided we watch the global journal which contains events from all clien
 <tr>
 <td>client_id</td>
 <td>A list of client ids to watch. If not provided we watch all clients.</td>
-<td>list of string</td>
+<td>string</td>
 </tr>
 
 <tr>

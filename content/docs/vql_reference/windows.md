@@ -2,6 +2,7 @@
 title: Windows Specific Functionality
 weight: 20
 linktitle: Windows
+index: true
 ---
 
 Many VQL plugins and functions provide access to the Windows

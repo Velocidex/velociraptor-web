@@ -14,8 +14,8 @@ nice format.
 
 Arg|Default|Description
 ---|------|-----------
-shimKeys|HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\AppCompatFlags\\InstalledSDB\\*|
-customKeys|HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\AppCompatFlags\\Custom\\*\\*|
+shimKeys|HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows N ...|
+customKeys|HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows N ...|
 
 {{% expand  "View Artifact Source" %}}
 
@@ -161,7 +161,7 @@ List windows firewall rules.
 
 Arg|Default|Description
 ---|------|-----------
-regKey|HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\SharedAccess\\Parameters\\FirewallPolicy\\**\\FirewallRules\\*|
+regKey|HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Ser ...|
 
 {{% expand  "View Artifact Source" %}}
 
@@ -199,7 +199,7 @@ sources:
         SELECT Value,
                Record.Action as Action,
                Record.Name as Name,
-               Record.Desc as Desc,
+               get(item=Record, field="Desc") as Description,
                Record.App as App,
                Record.Action as Action,
                Record.Dir as Dir,
@@ -266,8 +266,8 @@ List Windows physical memory ranges.
 
 Arg|Default|Description
 ---|------|-----------
-physicalMemoryKey|HKEY_LOCAL_MACHINE\\HARDWARE\\RESOURCEMAP\\System Resources\\Physical Memory\\.Translated|
-Profile|{\n  "CM_RESOURCE_LIST": [0, {\n    "Count": [0, ["uint32"]],\n    "List": [4, ["CM_FULL_RESOURCE_DESCRIPTOR"]]\n   }],\n   "CM_FULL_RESOURCE_DESCRIPTOR": [0, {\n     "PartialResourceList": [8, ["CM_PARTIAL_RESOURCE_LIST"]]\n   }],\n\n   "CM_PARTIAL_RESOURCE_LIST": [0, {\n     "Version": [0, ["uint16"]],\n     "Revision": [2, ["uint16"]],\n     "Count": [4, ["uint32"]],\n     "PartialDescriptors": [8, ["Array", {\n        "Target": "CM_PARTIAL_RESOURCE_DESCRIPTOR"\n     }]]\n   }],\n\n   "CM_PARTIAL_RESOURCE_DESCRIPTOR": [20, {\n     "Type": [0, ["char"]],\n     "ShareDisposition": [1, ["char"]],\n     "Flags": [2, ["uint16"]],\n     "Start": [4, ["int64"]],\n     "Length": [12, ["uint32"]]\n   }]\n}\n|
+physicalMemoryKey|HKEY_LOCAL_MACHINE\\HARDWARE\\RESOURCEMAP\\System  ...|
+Profile|{\n  "CM_RESOURCE_LIST": [0, {\n    "Count": [0, [ ...|
 
 {{% expand  "View Artifact Source" %}}
 
@@ -343,7 +343,7 @@ installation details are left to the discretion of the product author.
 
 Arg|Default|Description
 ---|------|-----------
-programKeys|HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\*, HKEY_LOCAL_MACHINE\\SOFTWARE\\WOW6432Node\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\*, HKEY_USERS\\*\\Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\*|
+programKeys|HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\ ...|
 
 {{% expand  "View Artifact Source" %}}
 
@@ -390,9 +390,9 @@ Applications that will be started up from the various run key locations.
 
 Arg|Default|Description
 ---|------|-----------
-runKeyGlobs|HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run*\\*, HKEY_LOCAL_MACHINE\\SOFTWARE\\WOW6432Node\\Microsoft\\Windows\\CurrentVersion\\Run*\\*, HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer\\Run*\\* HKEY_USERS\\*\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run*\\*, HKEY_USERS\\*\\SOFTWARE\\WOW6432Node\\Microsoft\\Windows\\CurrentVersion\\Run*\\*, HKEY_USERS\\*\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer\\Run*\\*\n|
-startupApprovedGlobs|HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\StartupApproved\\**, HKEY_USERS\\*\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\StartupApproved\\**\n|
-startupFolderDirectories|C:/ProgramData/Microsoft/Windows/Start Menu/Programs/Startup/**, C:/Users/*/AppData/Roaming/Microsoft/Windows/StartMenu/Programs/Startup/**\n|
+runKeyGlobs|HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\ ...|
+startupApprovedGlobs|HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\ ...|
+startupFolderDirectories|C:/ProgramData/Microsoft/Windows/Start Menu/Progra ...|
 
 {{% expand  "View Artifact Source" %}}
 
@@ -478,7 +478,7 @@ the NetUserEnum() call and the list of SIDs in the registry.
 
 Arg|Default|Description
 ---|------|-----------
-remoteRegKey|HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\ProfileList\\*|
+remoteRegKey|HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows N ...|
 
 {{% expand  "View Artifact Source" %}}
 
@@ -575,6 +575,112 @@ reports:
 ```
    {{% /expand %}}
 
+## Windows.Sysinternals.Autoruns
+
+Uses Sysinternals autoruns to scan the host.
+
+Note this requires syncing the sysinternals binary from the host -
+you will need to run Windows.Utils.DownloadBinaries on the server
+first.
+
+
+Arg|Default|Description
+---|------|-----------
+binaryURL||Specify this as the base of the binary store (if empty we use\nthe server's public directory).\n
+AutorunArgs|-nobanner -accepteula -t -a * -c *\n|A space separated list of args to run with.\n
+
+{{% expand  "View Artifact Source" %}}
+
+
+```
+name: Windows.Sysinternals.Autoruns
+description: |
+  Uses Sysinternals autoruns to scan the host.
+
+  Note this requires syncing the sysinternals binary from the host -
+  you will need to run Windows.Utils.DownloadBinaries on the server
+  first.
+
+precondition: SELECT OS From info() where OS = 'windows'
+
+parameters:
+  - name: binaryURL
+    description: |
+      Specify this as the base of the binary store (if empty we use
+      the server's public directory).
+  - name: AutorunArgs
+    description: |
+      A space separated list of args to run with.
+    default: |
+      -nobanner -accepteula -t -a * -c *
+
+sources:
+  - queries:
+      # Get the path to the binary.
+      - |
+        LET bin <= SELECT * FROM Artifact.Windows.Utils.FetchBinary(
+              binaryURL=binaryURL, ToolName="Autorun")
+
+      # Call the binary and return all its output in a single row.
+      - |
+        LET output = SELECT * FROM execve(argv=(bin[0]).FullPath +
+           split(string=AutorunArgs, sep=" "),
+           length=10000000)
+
+      # Parse the CSV output and return it as rows. We can filter this further.
+      - |
+        SELECT * FROM foreach(
+          row=output,
+          query={
+             SELECT * FROM parse_csv(filename=utf16(string=Stdout),
+                                     accessor="data")
+          })
+```
+   {{% /expand %}}
+
+## Windows.Sysinternals.SysmonInstall
+
+Sysmon is a kernel level system monitor written by
+Sysinternals. While we are not able to distribute Sysmon ourselves,
+Velociraptor can help you manage its deployment and installation.
+
+In order to deploy sysmon on the endpoint, you need to:
+
+1. Ensure the server contains the latest Sysmon binaries. You will
+   need to download them yourself by running the
+   `Windows.Utils.DownloadBinaries` server artifact.
+
+2. Ensure the sysmon configration is appropriate for your
+   deployment. If you edit the file in your public directory
+   (`<file store>/public/sysmon_config.xml`) you will need to run the
+   `Windows.Utils.UpdatePublicHashes` server artifact to update the
+   inventory file.
+
+
+{{% expand  "View Artifact Source" %}}
+
+
+```
+name: Windows.Sysinternals.SysmonInstall
+description: |
+  Sysmon is a kernel level system monitor written by
+  Sysinternals. While we are not able to distribute Sysmon ourselves,
+  Velociraptor can help you manage its deployment and installation.
+
+  In order to deploy sysmon on the endpoint, you need to:
+
+  1. Ensure the server contains the latest Sysmon binaries. You will
+     need to download them yourself by running the
+     `Windows.Utils.DownloadBinaries` server artifact.
+
+  2. Ensure the sysmon configration is appropriate for your
+     deployment. If you edit the file in your public directory
+     (`<file store>/public/sysmon_config.xml`) you will need to run the
+     `Windows.Utils.UpdatePublicHashes` server artifact to update the
+     inventory file.
+```
+   {{% /expand %}}
+
 ## Windows.System.Amcache
 
 Get information from the system's amcache.
@@ -642,9 +748,10 @@ sources:
         FROM foreach(
           row={
             SELECT FullPath from glob(globs=expand(path=amCacheGlob))
+            WHERE log(message="Processing "+FullPath)
           }, query={
             SELECT * from read_reg_key(
-               globs=url(scheme='ntfs', path=FullPath,
+               globs=url(scheme='file', path=FullPath,
                          fragment=amCacheRegPath).String,
                accessor='raw_reg'
             )
@@ -662,7 +769,7 @@ sources:
                    get(item=scope(), member="15") As FullPath,
                    timestamp(epoch=Key.Mtime.Sec) as LastModifiedKey
             FROM read_reg_key(
-               globs=url(scheme='ntfs', path=FullPath,
+               globs=url(scheme='file', path=FullPath,
                          fragment='/Root/File/*/*').String,
                accessor='raw_reg'
             )
@@ -714,6 +821,59 @@ reports:
 ```
    {{% /expand %}}
 
+## Windows.System.CmdShell
+
+This artifact allows running arbitrary commands through the system
+shell cmd.exe.
+
+Since Velociraptor typically runs as system, the commands will also
+run as System.
+
+This is a very powerful artifact since it allows for arbitrary
+command execution on the endpoints. Therefore this artifact requires
+elevated permissions (specifically the `EXECVE`
+permission). Typically it is only available with the `administrator`
+role.
+
+
+Arg|Default|Description
+---|------|-----------
+Command|dir C:\\|
+
+{{% expand  "View Artifact Source" %}}
+
+
+```
+name: Windows.System.CmdShell
+description: |
+  This artifact allows running arbitrary commands through the system
+  shell cmd.exe.
+
+  Since Velociraptor typically runs as system, the commands will also
+  run as System.
+
+  This is a very powerful artifact since it allows for arbitrary
+  command execution on the endpoints. Therefore this artifact requires
+  elevated permissions (specifically the `EXECVE`
+  permission). Typically it is only available with the `administrator`
+  role.
+
+required_permissions:
+  - EXECVE
+
+precondition:
+  SELECT OS From info() where OS = 'windows'
+
+parameters:
+  - name: Command
+    default: "dir C:\\"
+
+sources:
+  - query: |
+      SELECT * FROM execve(argv=["cmd.exe", "/c", Command])
+```
+   {{% /expand %}}
+
 ## Windows.System.CriticalServices
 
 This artifact returns information about any services which are
@@ -730,7 +890,7 @@ ATT&CK: T1089
 
 Arg|Default|Description
 ---|------|-----------
-lookupTable|ServiceName\nWinDefend\nMpsSvc\nSepMasterService\nSAVAdminService\nSavService\nwscsvc\nwuauserv\n|
+lookupTable|ServiceName\nWinDefend\nMpsSvc\nSepMasterService\n ...|
 
 {{% expand  "View Artifact Source" %}}
 
@@ -775,6 +935,225 @@ sources:
 ```
    {{% /expand %}}
 
+## Windows.System.DLLs
+
+Enumerate the DLLs loaded by a running process. It includes hash value
+and certificate information.
+
+
+Arg|Default|Description
+---|------|-----------
+processRegex|.|A regex applied to process names.
+dllRegex|.|A regex applied to the full dll path (e.g. whitelist all system dlls)
+Calculate_Hash|N|
+CertificateInfo|N|
+
+{{% expand  "View Artifact Source" %}}
+
+
+```
+name: Windows.System.DLLs
+description: |
+  Enumerate the DLLs loaded by a running process. It includes hash value
+  and certificate information.
+
+parameters:
+  - name: processRegex
+    description: A regex applied to process names.
+    default: .
+  - name: dllRegex
+    description: A regex applied to the full dll path (e.g. whitelist all system dlls)
+    default: .
+  - name: Calculate_Hash
+    default: N
+    type: bool
+  - name: CertificateInfo
+    default: N
+    type: bool
+     
+sources:
+  - queries:
+      - LET processes = SELECT Pid, Name
+        FROM pslist()
+        WHERE Name =~ processRegex
+      - SELECT * FROM foreach(
+          row=processes,
+          query={
+            SELECT Pid, Name,
+                format(format='%x-%x', args=[ModuleBaseAddress,
+                     ModuleBaseAddress+ModuleBaseSize]) AS Range,
+                ModuleName, ExePath,
+                if(condition=(Calculate_Hash = "Y"),
+                  then=hash(path=ExePath,
+                            accessor=file)) AS Hash,
+                if(condition=(CertificateInfo = "Y"),
+                  then=authenticode(filename=ExePath)) AS Certinfo
+            FROM modules(pid=Pid)
+            WHERE ExePath =~ dllRegex
+          })
+```
+   {{% /expand %}}
+
+## Windows.System.Handles
+
+Enumerate the handles from selected processes.
+
+Uncheck all the handle types below to fetch all handle types.
+
+
+Arg|Default|Description
+---|------|-----------
+processRegex|.|A regex applied to process names.
+Files|Y|Search for File Handles
+Key||Search for Key Handles
+
+{{% expand  "View Artifact Source" %}}
+
+
+```
+name: Windows.System.Handles
+description: |
+  Enumerate the handles from selected processes.
+
+  Uncheck all the handle types below to fetch all handle types.
+
+parameters:
+  - name: processRegex
+    description: A regex applied to process names.
+    default: .
+  - name: Files
+    description: Search for File Handles
+    type: bool
+    default: Y
+  - name: Key
+    description: Search for Key Handles
+    type: bool
+
+sources:
+  - queries:
+      - LET tokens <= SELECT * FROM chain(
+          a={SELECT "File" AS Type FROM scope() WHERE Files = 'Y'},
+          a2={SELECT "Section" AS Type FROM scope() WHERE Files = 'Y'},
+          b={SELECT "Key" AS Type FROM scope() WHERE Key = 'Y'}
+        )
+
+      - LET processes = SELECT Pid AS ProcPid, Name AS ProcName, Exe
+        FROM pslist()
+        WHERE ProcName =~ processRegex AND ProcPid > 0
+
+      - SELECT * FROM foreach(
+          row=processes,
+          query={
+            SELECT ProcPid, ProcName, Exe, Type, Name, Handle
+            FROM handles(pid=ProcPid, types=tokens.Type)
+          })
+```
+   {{% /expand %}}
+
+## Windows.System.LocalAdmins
+
+Gets a list of local admin accounts.
+
+
+Arg|Default|Description
+---|------|-----------
+script|Get-LocalGroupMember -Group "Administrators" |SELE ...|
+
+{{% expand  "View Artifact Source" %}}
+
+
+```
+name: Windows.System.LocalAdmins
+description: |
+   Gets a list of local admin accounts.
+
+reference:
+- https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.localaccounts/get-localgroupmember?view=powershell-5.1
+
+type: CLIENT
+
+parameters:
+ - name: script
+   default: |
+       Get-LocalGroupMember -Group "Administrators" |SELECT -ExpandProperty SID -Property Name, PrincipalSource |select  Name, Value, PrincipalSource|convertto-json
+
+sources:
+  - precondition:
+      SELECT OS From info() where OS = 'windows'
+
+    queries:
+    - LET out = SELECT parse_json_array(data=Stdout) AS Output
+          FROM execve(argv=["powershell",
+               "-ExecutionPolicy", "Unrestricted", "-encodedCommand",
+                  base64encode(string=utf16_encode(
+                  string=script))
+            ], length=1000000)
+    - SELECT * FROM foreach(row=out.Output[0],
+      query={
+          SELECT Name, Value AS SID, if(condition=PrincipalSource=1,
+            then="Local", else=if(condition=PrincipalSource=2,
+            then="Domain", else=PrincipalSource)) AS PrincipalSource
+          FROM scope()
+      })
+```
+   {{% /expand %}}
+
+## Windows.System.PowerShell
+
+This artifact allows running arbitrary commands through the system
+powershell.
+
+Since Velociraptor typically runs as system, the commands will also
+run as System.
+
+This is a very powerful artifact since it allows for arbitrary
+command execution on the endpoints. Therefore this artifact requires
+elevated permissions (specifically the `EXECVE`
+permission). Typically it is only available with the `administrator`
+role.
+
+
+Arg|Default|Description
+---|------|-----------
+Command|dir C:/|
+
+{{% expand  "View Artifact Source" %}}
+
+
+```
+name: Windows.System.PowerShell
+description: |
+  This artifact allows running arbitrary commands through the system
+  powershell.
+
+  Since Velociraptor typically runs as system, the commands will also
+  run as System.
+
+  This is a very powerful artifact since it allows for arbitrary
+  command execution on the endpoints. Therefore this artifact requires
+  elevated permissions (specifically the `EXECVE`
+  permission). Typically it is only available with the `administrator`
+  role.
+
+required_permissions:
+  - EXECVE
+
+precondition:
+  SELECT OS From info() where OS = 'windows'
+
+parameters:
+  - name: Command
+    default: "dir C:/"
+
+sources:
+  - query: |
+      SELECT * FROM execve(argv=["powershell",
+        "-ExecutionPolicy", "Unrestricted", "-encodedCommand",
+        base64encode(string=utf16_encode(string=Command))
+      ])
+```
+   {{% /expand %}}
+
 ## Windows.System.Pslist
 
 List processes and their running binaries.
@@ -799,10 +1178,10 @@ parameters:
 sources:
   - queries:
       - |
-        SELECT Pid, Ppid, Name, CommandLine, Exe,
+        SELECT Pid, Ppid, TokenIsElevated, Name, CommandLine, Exe,
                hash(path=Exe) as Hash,
                authenticode(filename=Exe) AS Authenticode,
-               Username, WorkingSetSize
+               Username, Memory.WorkingSetSize AS WorkingSetSize
         FROM pslist()
         WHERE Name =~ processRegex
 ```
@@ -838,7 +1217,7 @@ sources:
     queries:
       - |
         // Cache the pslist output in memory.
-        LET processes <= SELECT * FROM pslist()
+        LET processes <= SELECT Pid, Name FROM pslist()
 
       - |
         // Get the pids of all procecesses named services.exe
@@ -874,7 +1253,9 @@ List all the installed services.
 
 Arg|Default|Description
 ---|------|-----------
-servicesKeyGlob|HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\|
+servicesKeyGlob|HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Ser ...|
+Calculate_hashes|N|
+CertificateInfo|N|
 
 {{% expand  "View Artifact Source" %}}
 
@@ -887,6 +1268,12 @@ description: |
 parameters:
   - name: servicesKeyGlob
     default: HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\
+  - name: Calculate_hashes
+    default: N
+    type: bool
+  - name: CertificateInfo
+    default: N
+    type: bool  
 
 sources:
   - precondition: |
@@ -894,17 +1281,102 @@ sources:
 
     queries:
       - |
-        SELECT State, Name, DisplayName, Status,
+        LET service <= SELECT State, Name, DisplayName, Status,
                ProcessId as Pid, ExitCode, StartMode,
                PathName, ServiceType, StartName as UserAccount,
                {
-                  SELECT timestamp(epoch=Mtime.Sec) as Created
-                  FROM stat(filename=servicesKeyGlob + Name, accessor='reg')
+                 SELECT timestamp(epoch=Mtime.Sec) as Created
+                 FROM stat(filename=servicesKeyGlob + Name, accessor='reg')
                } AS Created,
                {
                  SELECT ServiceDll FROM read_reg_key(globs=servicesKeyGlob + Name + "\\Parameters")
-               } AS ServiceDll
+               } AS ServiceDll,
+               parse_string_with_regex(regex=
+                 ['^"(?P<AbsoluteExePath>[^"]+)','(?P<AbsoluteExePath>^[^ "]+)'], 
+                 string=PathName).AbsoluteExePath as AbsoluteExePath
         FROM wmi(query="SELECT * From Win32_service", namespace="root/CIMV2")
+      - |
+        SELECT *, 
+                 if(condition=(Calculate_hashes = "Y"),
+                    then=hash(path=AbsoluteExePath,
+                           accessor=file)) AS HashServiceExe,
+                 if(condition=(CertificateInfo = "Y"),
+                    then=authenticode(filename=AbsoluteExePath)) AS CertinfoServiceExe,
+                 if(condition=(Calculate_hashes = "Y"),
+                    then=hash(path=ServiceDll,
+                           accessor=file)) AS HashServiceDll,
+                 if(condition=(CertificateInfo = "Y"),
+                    then=authenticode(filename=ServiceDll)) AS CertinfoServiceDll       
+        FROM service
+```
+   {{% /expand %}}
+
+## Windows.System.TaskScheduler
+
+The Windows task scheduler is a common mechanism that malware uses
+for persistence. It can be used to run arbitrary programs at a later
+time. Commonly malware installs a scheduled task to run itself
+periodically to achieve persistence.
+
+This artifact enumerates all the task jobs (which are XML
+files). The artifact uploads the original XML files and then
+analyses them to provide an overview of the commands executed and
+the user under which they will be run.
+
+
+Arg|Default|Description
+---|------|-----------
+TasksPath|c:/Windows/System32/Tasks/**|
+AlsoUpload||
+
+{{% expand  "View Artifact Source" %}}
+
+
+```
+name: Windows.System.TaskScheduler
+description: |
+  The Windows task scheduler is a common mechanism that malware uses
+  for persistence. It can be used to run arbitrary programs at a later
+  time. Commonly malware installs a scheduled task to run itself
+  periodically to achieve persistence.
+
+  This artifact enumerates all the task jobs (which are XML
+  files). The artifact uploads the original XML files and then
+  analyses them to provide an overview of the commands executed and
+  the user under which they will be run.
+
+parameters:
+  - name: TasksPath
+    default: c:/Windows/System32/Tasks/**
+  - name: AlsoUpload
+    type: bool
+
+sources:
+  - name: Analysis
+    queries:
+      - LET Uploads = SELECT Name, FullPath, if(
+           condition=AlsoUpload='Y',
+           then=upload(file=FullPath)) as Upload
+        FROM glob(globs=TasksPath)
+        WHERE NOT IsDir
+
+      # Job files contain invalid XML which confuses the parser - we
+      # use regex to remove the invalid tags.
+      - LET parse_task = select FullPath, parse_xml(
+               accessor='data',
+               file=regex_replace(
+                    source=utf16(string=Data),
+                    re='<[?].+?>',
+                    replace='')) AS XML
+        FROM read_file(filenames=FullPath)
+
+      - SELECT FullPath,
+            XML.Task.Actions.Exec.Command as Command,
+            XML.Task.Actions.Exec.Arguments as Arguments,
+            XML.Task.Actions.ComHandler.ClassId as ComHandler,
+            XML.Task.Principals.Principal.UserId as UserId,
+            XML as _XML
+        FROM foreach(row=Uploads, query=parse_task)
 ```
    {{% /expand %}}
 
@@ -926,7 +1398,7 @@ binaries so many will not be signed (e.g. conhost.exe).
 
 Arg|Default|Description
 ---|------|-----------
-processNamesRegex|(?i)lsass|svchost|conhost|taskmgr|winlogon|wmiprv|dwm|csrss|velociraptor|A regex to select running processes which we consider should be trusted.
+processNamesRegex|(?i)lsass|svchost|conhost|taskmgr|winlogon|wmiprv| ...|A regex to select running processes which we consider should be trusted.
 
 {{% expand  "View Artifact Source" %}}
 
@@ -970,6 +1442,44 @@ sources:
                Authenticode.IssuerName as Issuer,
                Authenticode.SubjectName as Subject,
                Authenticode.Trusted as Trusted from auth
+```
+   {{% /expand %}}
+
+## Windows.System.VAD
+
+Enumerate the memory regions of each running process.
+
+
+Arg|Default|Description
+---|------|-----------
+processRegex|.|A regex applied to process names.
+
+{{% expand  "View Artifact Source" %}}
+
+
+```
+name: Windows.System.VAD
+description: |
+  Enumerate the memory regions of each running process.
+
+parameters:
+  - name: processRegex
+    description: A regex applied to process names.
+    default: .
+
+sources:
+  - queries:
+      - LET processes = SELECT Pid, Name
+        FROM pslist()
+        WHERE Name =~ processRegex
+      - SELECT * FROM foreach(
+          row=processes,
+          query={
+            SELECT Pid, Name,
+                format(format='%x-%x', args=[Address, Address+Size]) AS Range,
+                Protection, MappingName
+            FROM vad(pid=Pid)
+          })
 ```
    {{% /expand %}}
 

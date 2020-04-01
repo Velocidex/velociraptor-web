@@ -122,6 +122,12 @@
           </a>
         </div>
     </li>
+    <li data-nav-id="/docs/getting-started/performance/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/getting-started/performance/">Performance</a>
+      </div>
+    </li>
       <li data-nav-id="/docs/getting-started/triaging/" class="dd-item">
         <div>
           <a href="/docs/getting-started/triaging/">
@@ -341,7 +347,7 @@
       <li data-nav-id="/docs/artifacts/misc/" class="dd-item">
         <div>
           <a href="/docs/artifacts/misc/">
-            Miscellaneous
+            Miscelaneous
           </a>
         </div>
     </li>
@@ -531,12 +537,12 @@
 <ul>
 <li><a href="#server-alerts-psexec">Server.Alerts.PsExec</a></li>
 <li><a href="#server-alerts-winpmem">Server.Alerts.WinPmem</a></li>
-<li><a href="#server-analysis-triage-powershellconsole">Server.Analysis.Triage.PowershellConsole</a></li>
 <li><a href="#server-hunts-list">Server.Hunts.List</a></li>
 <li><a href="#server-hunts-results">Server.Hunts.Results</a></li>
 <li><a href="#server-information-clients">Server.Information.Clients</a></li>
 <li><a href="#server-information-users">Server.Information.Users</a></li>
 <li><a href="#server-internal-artifactdescription">Server.Internal.ArtifactDescription</a></li>
+<li><a href="#server-internal-interrogate">Server.Internal.Interrogate</a></li>
 <li><a href="#server-monitor-health">Server.Monitor.Health</a></li>
 <li><a href="#server-monitor-shell">Server.Monitor.Shell</a></li>
 <li><a href="#server-monitor-velometrics">Server.Monitor.VeloMetrics</a></li>
@@ -590,7 +596,7 @@ monitoring artifact be collected from clients.</p>
 
 <tr>
 <td>MessageTemplate</td>
-<td>PsExec execution detected at %v: %v for client %v\n</td>
+<td>PsExec execution detected at %v: %v for client %v\ &hellip;</td>
 <td></td>
 </tr>
 </tbody>
@@ -723,94 +729,6 @@ sources:
                  args=[Timestamp, ClientId]
               )
           )
-        })
-</code></pre>
-
-    </div>
-</div>
-
-
-<h2 id="server-analysis-triage-powershellconsole">Server.Analysis.Triage.PowershellConsole</h2>
-
-<p>This artifact post processes the artifact
-Windows.Triage.Collectors.PowershellConsoleLogs. While that artifact
-just uploads all the powershell console files, we sometimes want to
-easily see all the files in the same output table.</p>
-
-<p>This artifact simply post processes the uploaded files and puts
-their content in the same table.</p>
-
-<table>
-<thead>
-<tr>
-<th>Arg</th>
-<th>Default</th>
-<th>Description</th>
-</tr>
-</thead>
-
-<tbody>
-<tr>
-<td>huntId</td>
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table>
-
-
-
-<div class="expand">
-    <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fa fa-chevron-down' : 'fa fa-chevron-right';});});">
-        <i style="font-size:x-small;" class="fa fa-chevron-right"></i>
-        <span>
-        
-        
-        View Artifact Source
-        
-        </span>
-    </div>
-    <div class="expand-content" style="display: none;">
-<pre><code>name: Server.Analysis.Triage.PowershellConsole
-description: |
-  This artifact post processes the artifact
-  Windows.Triage.Collectors.PowershellConsoleLogs. While that artifact
-  just uploads all the powershell console files, we sometimes want to
-  easily see all the files in the same output table.
-
-  This artifact simply post processes the uploaded files and puts
-  their content in the same table.
-
-type: SERVER
-
-parameters:
-  - name: huntId
-
-precondition:
-  SELECT * from server_config
-
-sources:
-  - queries:
-      - |
-        LET files = SELECT ClientId,
-          file_store(path=Flow.FlowContext.uploaded_files) as LogFiles
-        FROM hunt_results(
-          hunt_id=huntId,
-          artifact='Windows.Triage.Collectors.PowershellConsoleLogs')
-
-      # A lookup between client id and FQDN
-      - |
-        LET clients &lt;= SELECT ClientId, os_info.fqdn AS FQDN from clients()
-
-      - |
-        SELECT * FROM foreach(
-          row=files,
-          query={
-            SELECT ClientId, {
-                SELECT FQDN FROM clients where ClientId=ClientId_LU
-              } As FQDN,
-              Filename, Data
-            FROM read_file(filenames=LogFiles)
         })
 </code></pre>
 
@@ -1091,6 +1009,8 @@ sources:
     <div class="expand-content" style="display: none;">
 <pre><code>name: Server.Internal.ArtifactDescription
 
+type: INTERNAL
+
 reports:
   - type: INTERNAL
     template: |
@@ -1100,6 +1020,10 @@ reports:
 
       #### Type: {{ $artifact.Type }}
 
+      {{ if $artifact.Author }}
+      ##### by {{ $artifact.Author }}
+      {{end}}
+
       {{ $artifact.Description }}
 
       {{ if $artifact.Parameters }}
@@ -1107,10 +1031,22 @@ reports:
       ### Parameters
 
       &lt;table class=&quot;table table-striped table-hover&quot;&gt;
-      &lt;thead&gt;&lt;tr&gt;&lt;th&gt;Name&lt;/th&gt;&lt;th&gt;Default&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
+      &lt;thead&gt;
+         &lt;tr&gt;
+           &lt;th&gt;Name&lt;/th&gt;
+           &lt;th&gt;Type&lt;/th&gt;
+           &lt;th&gt;Default&lt;/th&gt;
+         &lt;/tr&gt;
+      &lt;/thead&gt;
       &lt;tbody&gt;
       {{ range $item := $artifact.Parameters }}
-         &lt;tr&gt;&lt;td&gt; {{ $item.Name }}&lt;/td&gt;&lt;td&gt;&lt;pre&gt;{{ $item.Default }}&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;
+         {{ if not (eq $item.Type &quot;hidden&quot;) }}
+           &lt;tr&gt;
+               &lt;td&gt; {{ $item.Name }}&lt;/td&gt;
+               &lt;td&gt;{{ $item.Type }}&lt;/td&gt;
+               &lt;td&gt;&lt;pre&gt;{{ $item.Default }}&lt;/pre&gt;&lt;/td&gt;
+           &lt;/tr&gt;
+         {{ end }}
       {{ end }}
       &lt;/tbody&gt;&lt;/table&gt;
 
@@ -1119,12 +1055,104 @@ reports:
       {{ range $source := $artifact.Sources }}
 
       ### Source {{ $source.Name }}
-      ```sql
+      {{ if $source.Query }}
+
+      ```vql
+      {{ $source.Query }}
+      ```
+
+      {{- else -}}
+
+      ```vql
       {{ range $query := $source.Queries -}}
       {{- $query -}}
       {{ end }}
       ```
       {{ end }}
+
+      {{ end }}
+</code></pre>
+
+    </div>
+</div>
+
+
+<h2 id="server-internal-interrogate">Server.Internal.Interrogate</h2>
+
+<p>An internal artifact used track new client interrogations by the
+Interrogation service.</p>
+
+
+
+<div class="expand">
+    <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fa fa-chevron-down' : 'fa fa-chevron-right';});});">
+        <i style="font-size:x-small;" class="fa fa-chevron-right"></i>
+        <span>
+        
+        
+        View Artifact Source
+        
+        </span>
+    </div>
+    <div class="expand-content" style="display: none;">
+<pre><code>name: Server.Internal.Interrogate
+description: |
+  An internal artifact used track new client interrogations by the
+  Interrogation service.
+
+type: SERVER_EVENT
+
+sources:
+  - queries:
+      - SELECT * FROM foreach(
+          row={
+             SELECT ClientId, Flow, FlowId
+             FROM watch_monitoring(artifact='System.Flow.Completion')
+             WHERE Flow.artifacts_with_results =~ 'Generic.Client.Info'
+          },
+          query={
+            SELECT * FROM switch(
+              a={
+                  SELECT ClientId,
+                    FlowId,
+                    Architecture,
+                    BuildTime,
+                    Fqdn,
+                    Hostname,
+                    KernelVersion,
+                    Labels,
+                    Name,
+                    OS,
+                    Platform,
+                    PlatformVersion
+                 FROM source(
+                    client_id=ClientId,
+                    flow_id=FlowId,
+                    source=&quot;BasicInformation&quot;,
+                    artifact=&quot;Custom.Generic.Client.Info&quot;,
+                    mode=&quot;CLIENT&quot;)
+               },
+            b={
+                SELECT ClientId,
+                  FlowId,
+                  Architecture,
+                  BuildTime,
+                  Fqdn,
+                  Hostname,
+                  KernelVersion,
+                  Labels,
+                  Name,
+                  OS,
+                  Platform,
+                  PlatformVersion
+               FROM source(
+                  client_id=ClientId,
+                  flow_id=FlowId,
+                  source=&quot;BasicInformation&quot;,
+                  artifact=&quot;Generic.Client.Info&quot;,
+                  mode=&quot;CLIENT&quot;)
+            })
+          })
 </code></pre>
 
     </div>
@@ -1253,6 +1281,11 @@ reports:
           &lt;/span&gt;
         &lt;/span&gt;
       &lt;/span&gt;
+
+
+      ## Users
+
+      {{ Query &quot;SELECT Name, ReadOnly FROM gui_users()&quot; | Table }}
 </code></pre>
 
     </div>
@@ -1268,7 +1301,7 @@ logged on the server.</p>
 <p>Obviously being able to run arbitrary commands on the end point is
 a powerful feature and should be used sparingly. There is an audit
 trail for shell commands executed and their output available by
-streaming all shell commands to the &ldquo;Shell&rdquo; client event monitoring
+streaming all shell commands to the &ldquo;Shell&rdquo; client evnt monitoring
 artifact.</p>
 
 <p>This server event artifact centralizes all shell access from all
@@ -1372,6 +1405,8 @@ reports:
 description: |
   Get Velociraptor server metrics.
 
+type: SERVER
+
 parameters:
   - name: MetricsURL
     default: http://localhost:8003/metrics
@@ -1385,6 +1420,8 @@ sources:
              'client_comms_current_connections (?P&lt;client_comms_current_connections&gt;[^\\s]+)',
              'flow_completion (?P&lt;flow_completion&gt;[^\\s]+)',
              'process_open_fds (?P&lt;process_open_fds&gt;[^\\s]+)',
+             'uploaded_bytes (?P&lt;uploaded_bytes&gt;[^\\s]+)',
+             'uploaded_files (?P&lt;uploaded_files&gt;[^\\s]+)',
              'stats_client_one_day_actives{version=&quot;[^&quot;]+&quot;} (?P&lt;one_day_active&gt;[^\\s]+)',
              'stats_client_seven_day_actives{version=&quot;[^&quot;]+&quot;} (?P&lt;seven_day_active&gt;[^\\s]+)'
            ]) AS Stat, {
@@ -1403,6 +1440,8 @@ sources:
                parse_float(string=Stat.client_comms_current_connections)
                       AS client_comms_current_connections,
                parse_float(string=Stat.flow_completion) AS flow_completion,
+               parse_float(string=Stat.uploaded_bytes) AS uploaded_bytes,
+               parse_float(string=Stat.uploaded_files) AS uploaded_files,
                parse_float(string=Stat.process_open_fds)
                      AS process_open_fds,
                PslistStats.CPU AS process_cpu_seconds_total,
@@ -1553,10 +1592,10 @@ sources:
           string=base64decode(
              string=parse_string_with_regex(
                 string=CommandLine,
-                regex='-encodedcommand (?P&lt;Encoded&gt;[^ ]+)'
+                regex='-((?i)(en|enc|encode|encodedCommand)) (?P&lt;Encoded&gt;[^ ]+)'
              ).Encoded)) AS Script
         FROM watch_monitoring(artifact='Windows.Events.ProcessCreation')
-        WHERE CommandLine =~ '-encodedcommand'
+        WHERE CommandLine =~ '-(en|enc|encode|encodedCommand)'
 
 reports:
   - type: SERVER_EVENT

@@ -5,9 +5,168 @@ title: Windows Malware Detection
 weight: 50
 
 ---
+## Windows.Detection.Impersonation
+
+An access token is an object that describes the security context of
+a process or thread. The information in a token includes the
+identity and privileges of the user account associated with the
+process or thread. When a user logs on, the system verifies the
+user's password by comparing it with information stored in a
+security database.
+
+Every process has a primary token that describes the security
+context of the user account associated with the process. By default,
+the system uses the primary token when a thread of the process
+interacts with a securable object. Moreover, a thread can
+impersonate a client account. Impersonation allows the thread to
+interact with securable objects using the client's security
+context. A thread that is impersonating a client has both a primary
+token and an impersonation token.
+
+This artfiact enumerates all threads on the system which have an
+impersonation token. I.e. they are operating with a different token
+then the token the entire process has. For example mimikatz has a
+command called `token::elevate` to do just such a thing:
+
+```
+mimikatz # privilege::debug
+Privilege '20' OK
+
+mimikatz # token::elevate
+Token Id  : 0
+User name :
+SID name  : NT AUTHORITY\SYSTEM
+
+688     {0;000003e7} 1 D 42171          NT AUTHORITY\SYSTEM     S-1-5-18        (04g,21p)       Primary
+-> Impersonated !
+* Process Token : {0;000195ad} 1 F 757658339   DESKTOP-NHNHT65\mic     S-1-5-21-2310288903-2791442386-3035081252-1001  (15g,24p)       Primary
+* Thread Token  : {0;000003e7} 1 D 759094260   NT AUTHORITY\SYSTEM     S-1-5-18        (04g,21p)       Impersonation (Delegation)
+```
+
+
+{{% expand  "View Artifact Source" %}}
+
+
+```
+name: Windows.Detection.Impersonation
+description: |
+  An access token is an object that describes the security context of
+  a process or thread. The information in a token includes the
+  identity and privileges of the user account associated with the
+  process or thread. When a user logs on, the system verifies the
+  user's password by comparing it with information stored in a
+  security database.
+
+  Every process has a primary token that describes the security
+  context of the user account associated with the process. By default,
+  the system uses the primary token when a thread of the process
+  interacts with a securable object. Moreover, a thread can
+  impersonate a client account. Impersonation allows the thread to
+  interact with securable objects using the client's security
+  context. A thread that is impersonating a client has both a primary
+  token and an impersonation token.
+
+  This artfiact enumerates all threads on the system which have an
+  impersonation token. I.e. they are operating with a different token
+  then the token the entire process has. For example mimikatz has a
+  command called `token::elevate` to do just such a thing:
+
+  ```
+  mimikatz # privilege::debug
+  Privilege '20' OK
+
+  mimikatz # token::elevate
+  Token Id  : 0
+  User name :
+  SID name  : NT AUTHORITY\SYSTEM
+
+  688     {0;000003e7} 1 D 42171          NT AUTHORITY\SYSTEM     S-1-5-18        (04g,21p)       Primary
+  -> Impersonated !
+  * Process Token : {0;000195ad} 1 F 757658339   DESKTOP-NHNHT65\mic     S-1-5-21-2310288903-2791442386-3035081252-1001  (15g,24p)       Primary
+  * Thread Token  : {0;000003e7} 1 D 759094260   NT AUTHORITY\SYSTEM     S-1-5-18        (04g,21p)       Impersonation (Delegation)
+  ```
+reference:
+  - https://github.com/kslgroup/TokenImp-Token_Impersonation_Detection/blob/master/TokenImp%20documentation.pdf
+
+
+precondition: SELECT OS From info() where OS = 'windows'
+
+sources:
+  - queries:
+      - LET processes = SELECT Pid AS ProcPid, Name AS ProcName,
+               Username, OwnerSid, TokenIsElevated,
+               CommandLine, Exe
+        FROM pslist()
+        WHERE log(message=format(format="Inspecting %s (%v)", args=[ProcName, Pid]))
+
+      - SELECT * FROM foreach(row=processes,
+          query={
+             // List all the threads and check that their tokens are the
+             // same as the process token.
+             SELECT ProcPid, ProcName, Username, OwnerSid, TokenIsElevated,
+               CommandLine, Exe, ThreadInfo.TokenInfo AS ImpersonationToken
+             FROM handles(pid=ProcPid, types='Thread')
+             WHERE ImpersonationToken.User AND ImpersonationToken.User != OwnerSid
+          })
+```
+   {{% /expand %}}
+
+## Windows.Detection.Mutants
+
+Enumerate the mutants from selected processes.
+
+Mutants are often used by malware to prevent re-infection.
+
+
+Arg|Default|Description
+---|------|-----------
+processRegex|.|A regex applied to process names.
+MutantNameRegex|.+|
+
+{{% expand  "View Artifact Source" %}}
+
+
+```
+name: Windows.Detection.Mutants
+description: |
+  Enumerate the mutants from selected processes.
+
+  Mutants are often used by malware to prevent re-infection.
+
+parameters:
+  - name: processRegex
+    description: A regex applied to process names.
+    default: .
+  - name: MutantNameRegex
+    default: .+
+
+sources:
+  - name: Handles
+    description: Open handles to mutants. This shows processes owning a handle open to the mutant.
+    queries:
+      - LET processes = SELECT Pid AS ProcPid, Name AS ProcName, Exe
+        FROM pslist()
+        WHERE ProcName =~ processRegex AND ProcPid > 0
+
+      - SELECT * FROM foreach(
+          row=processes,
+          query={
+            SELECT ProcPid, ProcName, Exe, Type, Name, Handle
+            FROM handles(pid=ProcPid, types="Mutant")
+          })
+        WHERE Name =~ MutantNameRegex
+
+  - name: ObjectTree
+    description: Reveals all Mutant objects in the Windows Object Manager namespace.
+    queries:
+      - SELECT Name, Type FROM winobj()
+        WHERE Type = 'Mutant' AND Name =~ MutantNameRegex
+```
+   {{% /expand %}}
+
 ## Windows.Detection.ProcessMemory
 
-Scanning process memory for signals is powerful technique. This
+Scanning process memory for signals is powerfull technique. This
 artifact scans processes for a yara signature and when detected, the
 process memory is dumped and uploaded to the server.
 
@@ -15,7 +174,7 @@ process memory is dumped and uploaded to the server.
 Arg|Default|Description
 ---|------|-----------
 processRegex|notepad|
-yaraRule|rule Process {\n   strings:\n     $a = "this is a secret" nocase wide\n     $b = "this is a secret" nocase\n   condition:\n     any of them\n}\n|
+yaraRule|wide nocase ascii: this is a secret|
 
 {{% expand  "View Artifact Source" %}}
 
@@ -23,7 +182,7 @@ yaraRule|rule Process {\n   strings:\n     $a = "this is a secret" nocase wide\n
 ```
 name: Windows.Detection.ProcessMemory
 description: |
-  Scanning process memory for signals is powerful technique. This
+  Scanning process memory for signals is powerfull technique. This
   artifact scans processes for a yara signature and when detected, the
   process memory is dumped and uploaded to the server.
 
@@ -33,14 +192,7 @@ parameters:
   - name: processRegex
     default: notepad
   - name: yaraRule
-    default: |
-      rule Process {
-         strings:
-           $a = "this is a secret" nocase wide
-           $b = "this is a secret" nocase
-         condition:
-           any of them
-      }
+    default: "wide nocase ascii: this is a secret"
 
 sources:
   - queries:
@@ -76,10 +228,13 @@ just watch for a new service called psexecsvc.exe. This artifact
 improves on this by scanning the service binary to detect the
 original psexec binary.
 
+NOTE that if the service is very quick we are unable to examine
+the service binary in time and will miss it.
+
 
 Arg|Default|Description
 ---|------|-----------
-yaraRule|rule PsExec {\n  strings:\n    $a = "psexec" nocase\n    $b = "psexec" nocase wide\n\n  condition:\n    any of them\n}\n|
+yaraRule|wide nocase ascii: psexec|
 
 {{% expand  "View Artifact Source" %}}
 
@@ -93,32 +248,39 @@ description: |
   improves on this by scanning the service binary to detect the
   original psexec binary.
 
+  NOTE that if the service is very quick we are unable to examine
+  the service binary in time and will miss it.
+
 type: CLIENT_EVENT
 
 parameters:
   - name: yaraRule
-    default: |
-      rule PsExec {
-        strings:
-          $a = "psexec" nocase
-          $b = "psexec" nocase wide
-
-        condition:
-          any of them
-      }
+    default: "wide nocase ascii: psexec"
 
 sources:
   - queries:
       - |
-        LET file_scan = SELECT File, Rule, String, now() AS Timestamp,
-               Name, ServiceType
+        LET file_scan = SELECT  Name AS ServiceName,
+               PathName, File.ModTime AS Modified,
+               File.Size AS FileSize,
+               String.Offset AS StringOffset,
+               String.HexData AS StringContext,
+               now() AS Timestamp,
+               ServiceType, PID,
+               {
+                  SELECT Name, Exe, CommandLine
+                  FROM pslist() WHERE Ppid = PID
+                  LIMIT 2
+               } AS ChildProcess
         FROM yara(rules=yaraRule, files=PathName)
         WHERE Rule
 
       - |
-        LET service_creation = SELECT Parse.TargetInstance.Name AS Name,
-               Parse.TargetInstance.PathName As PathName,
-               Parse.TargetInstance.ServiceType As ServiceType
+        LET service_creation = SELECT Parse,
+            Parse.TargetInstance.Name AS Name,
+            Parse.TargetInstance.PathName As PathName,
+            Parse.TargetInstance.ServiceType As ServiceType,
+            Parse.TargetInstance.ProcessId AS PID
         FROM wmi_events(
            query="SELECT * FROM __InstanceCreationEvent WITHIN 1 WHERE TargetInstance ISA 'Win32_Service'",
            wait=5000000,
@@ -128,6 +290,249 @@ sources:
         SELECT * FROM foreach(
           row=service_creation,
           query=file_scan)
+```
+   {{% /expand %}}
+
+## Windows.Detection.PsexecService.Kill
+
+Psexec can launch a service remotely. This artifact implements a
+client side response plan whereby all the child processes of the
+service are killed.
+
+NOTE: There is an inherent race between detection and response. If
+the psexec is very quick we will miss it.
+
+
+Arg|Default|Description
+---|------|-----------
+yaraRule|wide nocase ascii: psexec|
+
+{{% expand  "View Artifact Source" %}}
+
+
+```
+name: Windows.Detection.PsexecService.Kill
+description: |
+    Psexec can launch a service remotely. This artifact implements a
+    client side response plan whereby all the child processes of the
+    service are killed.
+
+    NOTE: There is an inherent race between detection and response. If
+    the psexec is very quick we will miss it.
+
+type: CLIENT_EVENT
+
+parameters:
+  - name: yaraRule
+    default: "wide nocase ascii: psexec"
+
+sources:
+  - queries:
+      - |
+        SELECT * FROM foreach(
+          row={ SELECT * FROM Artifact.Windows.Detection.PsexecService() },
+          query={
+             SELECT ServiceName, PathName, Modified, FileSize, Timestamp,
+                    ServiceType, ChildProcess, Stdout, Stderr FROM execve(
+               argv=["taskkill", "/PID", PID, "/T", "/F"])
+        })
+```
+   {{% /expand %}}
+
+## Windows.Detection.RemoteYara.Process
+
+Scanning process memory for signals is powerful technique. This
+artefact scans processes with a remote yara rule.
+
+The User can define a rule URL or use the default Velociraptor "Public" share:
+https://\<server\>/public/remote.yar
+
+This content also provides the user the option to dump any process with hits,
+and the rule summary information.
+
+The user is also recommended to add any endpoint agents that may cause a false 
+positive into the hidden parameters pathWhitelist.
+
+Output of the rule is process information, Yara rule name, metadata and hit
+data.
+
+
+Arg|Default|Description
+---|------|-----------
+processRegex|.|Process name to scan as regex. Default All.
+pidRegex|.|Process PID to scan as regex. Default All.
+yaraURL||URL of yara rule to scan with. If empty we use\nthe server's public directory/remote.yar"\n
+collectProcess||Upload process of each successful hit for for\nfurther analysis.\n
+printRule||Report yara rule collection summary
+
+{{% expand  "View Artifact Source" %}}
+
+
+```
+name: Windows.Detection.RemoteYara.Process
+description: |
+  Scanning process memory for signals is powerful technique. This
+  artefact scans processes with a remote yara rule.
+
+  The User can define a rule URL or use the default Velociraptor "Public" share:
+  https://\<server\>/public/remote.yar
+
+  This content also provides the user the option to dump any process with hits,
+  and the rule summary information.
+
+  The user is also recommended to add any endpoint agents that may cause a false 
+  positive into the hidden parameters pathWhitelist.
+
+  Output of the rule is process information, Yara rule name, metadata and hit
+  data.
+
+author: "@mgreen27"
+
+precondition: SELECT OS From info() where OS = 'windows'
+
+parameters:
+  - name: pathWhitelist
+    description: |
+        Process paths to exclude. Default is common
+        AntiVirus we have seen cause false positives with 
+        signitures in memory.
+    type: hidden
+    default: |
+      Path
+      C:\Program Files\Microsoft Security Client\MsMpEng.exe
+      C:\Program Files\Cybereason ActiveProbe\AmSvc.exe
+      C:\Program Files\Common Files\McAfee\AMCore\mcshield.exe
+  - name: processRegex
+    description: "Process name to scan as regex. Default All."
+    default: .
+  - name: pidRegex
+    description: "Process PID to scan as regex. Default All."
+    default: .
+  - name: yaraURL
+    description: |
+        URL of yara rule to scan with. If empty we use
+        the server's public directory/remote.yar"
+  - name: collectProcess
+    description: |
+        Upload process of each successful hit for for
+        further analysis.
+    type: bool
+  - name: printRule
+    description: "Report yara rule collection summary"
+    type: bool
+
+sources:
+  - queries:
+      - |
+        LET yara_url <= SELECT URL
+          FROM switch(
+            a={
+                SELECT yaraURL AS URL
+                FROM scope()
+                WHERE URL
+              },
+            b={
+                SELECT config.ServerUrls[0] + "public/remote.yar" AS URL
+                FROM scope()
+                WHERE URL
+              },
+            c={
+                SELECT log(
+                    message="yaraURL not set and no server config."),
+                  NULL AS URL
+                FROM scope()
+              })
+      - |
+        LET yara_data <= SELECT Url,
+                format(format="%s", args=Content) as Content,
+                Response
+              FROM http_client(
+                chunk_size=1000000, url=(yara_url[0]).URL)
+          WHERE yara_url
+      - |
+        LET me <= SELECT Pid FROM pslist(pid=getpid())
+      - |
+        LET whitelist <= SELECT upcase(string=Path) AS Path
+                FROM parse_csv(filename=pathWhitelist, accessor='data')
+      - |
+        LET processes <= SELECT Name as ProcessName, CommandLine, Pid
+            FROM pslist()
+            WHERE Name =~ processRegex
+                AND format(format="%d", args=Pid) =~ pidRegex
+                AND NOT Pid in me.Pid
+                AND NOT upcase(string=Exe) in whitelist.Path
+      - |
+        LET hits <= SELECT * FROM foreach(
+          row=processes,
+          query={
+             SELECT ProcessName,
+                CommandLine,
+                Pid,
+                Strings.Offset as Offsets,
+                Namespace,
+                Rule,
+                Meta,
+                Strings.Name as IOCname,
+                format(format='%#v %s', args=[Strings.Data, Strings.Data]) as IOCdata
+             FROM proc_yara(rules=yara_data.Content, pid=Pid)
+          })
+      - |
+        SELECT * FROM hits
+
+  - name: Rule
+    queries:
+      - SELECT * FROM if(
+                condition=printRule,
+                then={ SELECT * FROM yara_data }
+            )
+
+  - name: Upload
+    queries:
+      - |
+        SELECT * FROM if(condition=collectProcess,
+            then={
+                SELECT * FROM foreach(
+                  row=hits,
+                  query={
+                    SELECT ProcessName,
+                        Pid,
+                        format(format="%d.dmp", args=Pid) as UploadName,
+                        upload(file=FullPath,name=format(format="%d.dmp", args=Pid)) as MiniProcDump
+                    FROM proc_dump(pid=Pid)
+                    GROUP BY Pid
+                })
+            })
+```
+   {{% /expand %}}
+
+## Windows.Detection.Service.Upload
+
+When a new service is installed, upload the service binary to the server
+
+
+{{% expand  "View Artifact Source" %}}
+
+
+```
+name: Windows.Detection.Service.Upload
+description: |
+  When a new service is installed, upload the service binary to the server
+
+type: CLIENT_EVENT
+
+precondition: SELECT OS From info() where OS = 'windows'
+
+sources:
+  - queries:
+      # Sometimes the image path contains the full command line - we
+      # try to extract the first parameter as the binary itself. Deal
+      # with two options - either quoted or not.
+      - SELECT ServiceName, upload(file=regex_replace(
+                    source=ImagePath,
+                    replace="$2",
+                    re='^("([^"]+)" .+|([^ ]+) .+)')) AS Upload,
+               Timestamp, _EventData, _System
+        FROM Artifact.Windows.Events.ServiceCreation()
 ```
    {{% /expand %}}
 
@@ -184,8 +589,7 @@ sources:
         LET removable_disks = SELECT Name AS Drive,
             atoi(string=Data.Size) AS Size
         FROM glob(globs="/*", accessor="file")
-        WHERE Data.Description =~ "Removable" AND
-           Size < atoi(string=maxDriveSize)
+        WHERE Data.Description =~ "Removable" AND Size < atoi(string=maxDriveSize)
 
       - |
         LET file_listing = SELECT FullPath,
@@ -225,7 +629,7 @@ many files.
 Arg|Default|Description
 ---|------|-----------
 officeExtensions|\\.(xls|xlsm|doc|docx|ppt|pptm)$|
-yaraRule|rule Hit {\n  strings:\n    $a = "this is my secret" wide nocase\n    $b = "this is my secret" nocase\n\n  condition:\n    any of them\n}\n|This yara rule will be run on document contents.
+yaraRule|rule Hit {\n  strings:\n    $a = "this is my secre ...|This yara rule will be run on document contents.
 
 {{% expand  "View Artifact Source" %}}
 
@@ -384,7 +788,7 @@ same time (with the same privileges).
 
 Arg|Default|Description
 ---|------|-----------
-imageFileExecutionOptions|HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Image File Execution Options\\*|
+imageFileExecutionOptions|HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows N ...|
 
 {{% expand  "View Artifact Source" %}}
 
@@ -427,7 +831,7 @@ the machine for example.
 
 Arg|Default|Description
 ---|------|-----------
-namespace|root/subscription|
+namespaces|namespace\nroot/subscription\nroot/default\n|
 
 {{% expand  "View Artifact Source" %}}
 
@@ -442,39 +846,54 @@ description: |
    the machine for example.
 
 parameters:
-  - name: namespace
-    default: root/subscription
+   - name: namespaces
+     default: |
+       namespace
+       root/subscription
+       root/default
 
 sources:
  - precondition:
      SELECT OS from info() where OS = "windows"
+
    queries:
-   - |
-     LET FilterToConsumerBinding = SELECT parse_string_with_regex(
-        string=Consumer,
-        regex=['((?P<namespace>^[^:]+):)?(?P<Type>.+?)\\.Name="(?P<Name>.+)"']) as Consumer,
-          parse_string_with_regex(
-        string=Filter,
-        regex=['((?P<namespace>^[^:]+):)?(?P<Type>.+?)\\.Name="(?P<Name>.+)"']) as Filter
-     FROM wmi(
-         query="SELECT * FROM __FilterToConsumerBinding",
-         namespace=namespace)
-   - |
-     SELECT {
-         SELECT * FROM wmi(
-           query="SELECT * FROM " + Consumer.Type,
-           namespace=if(condition=Consumer.namespace,
-              then=Consumer.namespace,
-              else=namespace)) WHERE Name = Consumer.Name
-       } AS ConsumerDetails,
-       {
-         SELECT * FROM wmi(
-           query="SELECT * FROM " + Filter.Type,
-           namespace=if(condition=Filter.namespace,
-              then=Filter.namespace,
-              else=namespace)) WHERE Name = Filter.Name
-       } AS FilterDetails
-     FROM FilterToConsumerBinding
+     - LET FilterToConsumerBinding = SELECT * FROM foreach(
+        row={
+                SELECT *
+                FROM parse_csv(filename=namespaces, accessor='data')
+        },
+        query={
+                SELECT parse_string_with_regex(string=Consumer,
+                    regex=['((?P<namespace>^[^:]+):)?(?P<Type>.+?)\\.Name="(?P<Name>.+)"']) as Consumer,
+                    parse_string_with_regex(string=Filter,regex=['((?P<namespace>^[^:]+):)?(?P<Type>.+?)\\.Name="(?P<Name>.+)"']) as Filter
+                FROM wmi(
+                    query="SELECT * FROM __FilterToConsumerBinding",namespace=namespace)
+        })
+
+     - SELECT * FROM foreach(
+            row={
+                    SELECT *
+                    FROM parse_csv(filename=namespaces, accessor='data')
+            },
+            query={
+                 SELECT {
+                     SELECT * FROM wmi(
+                       query="SELECT * FROM " + Consumer.Type,
+                       namespace=if(condition=Consumer.namespace,
+                          then=Consumer.namespace,
+                          else=namespace)) WHERE Name = Consumer.Name
+                   } AS ConsumerDetails,
+                   {
+                     SELECT * FROM wmi(
+                       query="SELECT * FROM " + Filter.Type,
+                       namespace=if(condition=Filter.namespace,
+                          then=Filter.namespace,
+                          else=namespace)) WHERE Name = Filter.Name
+                   } AS FilterDetails,
+                   namespace as Namespace
+                 FROM FilterToConsumerBinding
+                 WHERE (FilterDetails AND ConsumerDetails)
+            })
 ```
    {{% /expand %}}
 
@@ -493,7 +912,8 @@ the registry hive is locked).
 
 Arg|Default|Description
 ---|------|-----------
-yaraRule|rule PowerShell {\n  strings:\n    $a = /ActiveXObject.{,500}eval/ wide nocase\n\n  condition:\n    any of them\n}\n|
+yaraRule|rule PowerShell {\n  strings:\n    $a = /ActiveXOb ...|
+userRegex|.|
 
 {{% expand  "View Artifact Source" %}}
 
@@ -521,6 +941,8 @@ parameters:
         condition:
           any of them
       }
+  - name: userRegex
+    default: .
 
 sources:
   - precondition:
@@ -530,7 +952,7 @@ sources:
         SELECT * from foreach(
         row={
           SELECT Name, Directory as HomeDir from Artifact.Windows.Sys.Users()
-          WHERE Directory and Gid
+          WHERE Directory and Gid AND Name =~ userRegex
         },
         query={
           SELECT File.FullPath As FullPath,
@@ -542,6 +964,46 @@ sources:
               accessor="ntfs",
               rules=yaraRule, context=50)
         })
+```
+   {{% /expand %}}
+
+## Windows.Persistence.Wow64cpu
+
+Checks for wow64cpu.dll replacement Autorun in Windows 10.
+http://www.hexacorn.com/blog/2019/07/11/beyond-good-ol-run-key-part-108-2/
+
+
+Arg|Default|Description
+---|------|-----------
+TargetRegKey|HKEY_LOCAL_MACHINE\\Software\\Microsoft\\Wow64\\**|
+
+{{% expand  "View Artifact Source" %}}
+
+
+```
+name: Windows.Persistence.Wow64cpu
+description: |
+  Checks for wow64cpu.dll replacement Autorun in Windows 10.
+  http://www.hexacorn.com/blog/2019/07/11/beyond-good-ol-run-key-part-108-2/
+
+author: Matt Green - @mgreen27
+
+parameters:
+   - name: TargetRegKey
+     default: HKEY_LOCAL_MACHINE\Software\Microsoft\Wow64\**
+sources:
+  - precondition:
+      SELECT OS From info() where OS = 'windows'
+
+    queries:
+    - |
+      SELECT dirname(path=FullPath) as KeyPath,
+        Name as KeyName,
+        Data.value as Value,
+        timestamp(epoch=Mtime.Sec) AS LastModified
+      FROM glob(globs=split(string=TargetRegKey, sep=","), accessor="reg")
+      WHERE Data.value and
+        not (Name = "@" and (Data.value =~ "(wow64cpu.dll|wowarmhw.dll|xtajit.dll)"))
 ```
    {{% /expand %}}
 

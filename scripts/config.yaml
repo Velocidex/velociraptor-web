@@ -22,9 +22,10 @@ content/docs/artifacts/server.md:
 content/docs/artifacts/triage.md:
   title: Windows Triage Artifacts
   linktitle: Windows Triage
-  description: Triage artifacts simply collect various files as quickly as possible.
+  description: Triage artifacts simply collect various files as quickly as possible. In recent versions of Velociraptor, many of the triage artifacts have been merged into the Windows.KapeFiles.Targets artifact.
   prefix:
     - Windows.Triage.
+    - Windows.KapeFiles.
     - Triage.
     - Windows.Forensics
   weight: 40

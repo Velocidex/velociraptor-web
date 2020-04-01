@@ -122,6 +122,12 @@
           </a>
         </div>
     </li>
+    <li data-nav-id="/docs/getting-started/performance/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/getting-started/performance/">Performance</a>
+      </div>
+    </li>
       <li data-nav-id="/docs/getting-started/triaging/" class="dd-item">
         <div>
           <a href="/docs/getting-started/triaging/">
@@ -341,7 +347,7 @@
       <li data-nav-id="/docs/artifacts/misc/" class="dd-item">
         <div>
           <a href="/docs/artifacts/misc/">
-            Miscellaneous
+            Miscelaneous
           </a>
         </div>
     </li>
@@ -529,11 +535,15 @@
 <ul>
 <li>
 <ul>
+<li><a href="#cancel-flow">cancel_flow</a></li>
 <li><a href="#clients">clients</a></li>
 <li><a href="#collect">collect</a></li>
+<li><a href="#collect-client">collect_client</a></li>
 <li><a href="#compress">compress</a></li>
 <li><a href="#elastic-upload">elastic_upload</a></li>
+<li><a href="#enumerate-flow">enumerate_flow</a></li>
 <li><a href="#file-store">file_store</a></li>
+<li><a href="#file-store-delete">file_store_delete</a></li>
 <li><a href="#flows">flows</a></li>
 <li><a href="#gui-users">gui_users</a></li>
 <li><a href="#hunt">hunt</a></li>
@@ -579,6 +589,36 @@ and automate the server by writing VQL queries.</p>
 <code>type: SERVER</code> and launch it from the &ldquo;Server Artifacts&rdquo; screen in
 the GUI.</p>
 
+<h2 id="cancel-flow">cancel_flow</h2>
+
+<p><span class='vql_type pull-right'>Function</span></p>
+
+<p>Cancels the flow.</p>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>client_id</td>
+<td></td>
+<td>string (required)</td>
+</tr>
+
+<tr>
+<td>flow_id</td>
+<td></td>
+<td>string</td>
+</tr>
+</tbody>
+</table>
+
 <h2 id="clients">clients</h2>
 
 <p><span class='vql_type pull-right'>Plugin</span></p>
@@ -610,6 +650,42 @@ the GUI.</p>
 </table>
 
 <h2 id="collect">collect</h2>
+
+<p><span class='vql_type pull-right'>Function</span></p>
+
+<p>Launch an artifact collection against a client.</p>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>client_id</td>
+<td>The client id to schedule a collection on</td>
+<td>string (required)</td>
+</tr>
+
+<tr>
+<td>artifacts</td>
+<td>A list of artifacts to collect</td>
+<td>list of string (required)</td>
+</tr>
+
+<tr>
+<td>env</td>
+<td>Parameters to apply to the artifacts</td>
+<td>Any</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="collect-client">collect_client</h2>
 
 <p><span class='vql_type pull-right'>Function</span></p>
 
@@ -755,6 +831,36 @@ the file and read it but not to seek within it.</p>
 </tbody>
 </table>
 
+<h2 id="enumerate-flow">enumerate_flow</h2>
+
+<p><span class='vql_type pull-right'>Plugin</span></p>
+
+<p>Enumerate all the files that make up a flow.</p>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>client_id</td>
+<td></td>
+<td>string (required)</td>
+</tr>
+
+<tr>
+<td>flow_id</td>
+<td></td>
+<td>string</td>
+</tr>
+</tbody>
+</table>
+
 <h2 id="file-store">file_store</h2>
 
 <p><span class='vql_type pull-right'>Function</span></p>
@@ -797,6 +903,30 @@ locally stored at all) and this function may stop working.</p>
 </tbody>
 </table>
 
+<h2 id="file-store-delete">file_store_delete</h2>
+
+<p><span class='vql_type pull-right'>Function</span></p>
+
+<p>Delete file store paths into full filesystem paths.</p>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>path</td>
+<td>A VFS path to remove</td>
+<td>string (required)</td>
+</tr>
+</tbody>
+</table>
+
 <h2 id="flows">flows</h2>
 
 <p><span class='vql_type pull-right'>Plugin</span></p>
@@ -816,7 +946,7 @@ locally stored at all) and this function may stop working.</p>
 <tr>
 <td>client_id</td>
 <td></td>
-<td>list of string (required)</td>
+<td>string (required)</td>
 </tr>
 
 <tr>
@@ -912,7 +1042,7 @@ locally stored at all) and this function may stop working.</p>
 <tr>
 <td>artifact</td>
 <td>The artifact to retrieve</td>
-<td>string (required)</td>
+<td>string</td>
 </tr>
 
 <tr>
@@ -1044,7 +1174,7 @@ locally stored at all) and this function may stop working.</p>
 <tr>
 <td>client_id</td>
 <td>A list of client ids to watch. If not provided we watch all clients.</td>
-<td>list of string</td>
+<td>string</td>
 </tr>
 
 <tr>

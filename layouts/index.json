@@ -1,12 +1,14 @@
+{{ $sent_comma := false }}
 [{{ range $index, $page := .Site.Pages }}
-{{- if ne $page.Type "json" -}}
-{{- if and $index (gt $index 0) -}},{{- end }}
+{{- if $page.Params.index -}}
+{{- if $sent_comma -}},{{- end }}
 {
-        "uri": "{{ $page.Permalink }}",
-        "title": {{ jsonify $page.Title}},
-        "tags": [{{ range $tindex, $tag := $page.Params.tags }}{{ if $tindex }}, {{ end }}"{{ $tag| htmlEscape }}"{{ end }}],
-        "description": {{ jsonify .Description}},
-        "content": {{$page.Plain | jsonify}}
+    "uri": "{{ $page.Permalink }}",
+    "title": {{ jsonify $page.Title}},
+    "tags": [{{ range $tindex, $tag := $page.Params.tags }}{{ if $tindex }}, {{ end }}"{{ $tag| htmlEscape }}"{{ end }}],
+    "description": {{ jsonify .Description}},
+    "content": {{$page.Plain | jsonify}}
 }
+ {{ $sent_comma = true }}
 {{- end -}}
 {{- end -}}]

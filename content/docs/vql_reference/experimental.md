@@ -2,6 +2,7 @@
 title: Experimental Functionality
 weight: 60
 linktitle: Experimental
+index: true
 ---
 
 Velociraptor is evolving quickly. We sometime implement

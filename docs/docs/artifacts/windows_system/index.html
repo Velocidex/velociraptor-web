@@ -122,6 +122,12 @@
           </a>
         </div>
     </li>
+    <li data-nav-id="/docs/getting-started/performance/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/getting-started/performance/">Performance</a>
+      </div>
+    </li>
       <li data-nav-id="/docs/getting-started/triaging/" class="dd-item">
         <div>
           <a href="/docs/getting-started/triaging/">
@@ -341,7 +347,7 @@
       <li data-nav-id="/docs/artifacts/misc/" class="dd-item">
         <div>
           <a href="/docs/artifacts/misc/">
-            Miscellaneous
+            Miscelaneous
           </a>
         </div>
     </li>
@@ -539,15 +545,24 @@
 <li><a href="#windows-sys-programs">Windows.Sys.Programs</a></li>
 <li><a href="#windows-sys-startupitems">Windows.Sys.StartupItems</a></li>
 <li><a href="#windows-sys-users">Windows.Sys.Users</a></li>
+<li><a href="#windows-sysinternals-autoruns">Windows.Sysinternals.Autoruns</a></li>
+<li><a href="#windows-sysinternals-sysmoninstall">Windows.Sysinternals.SysmonInstall</a></li>
 <li><a href="#windows-system-amcache">Windows.System.Amcache</a></li>
+<li><a href="#windows-system-cmdshell">Windows.System.CmdShell</a></li>
 <li><a href="#windows-system-criticalservices">Windows.System.CriticalServices</a>
 <ul>
 <li><a href="#references">References:</a></li>
 </ul></li>
+<li><a href="#windows-system-dlls">Windows.System.DLLs</a></li>
+<li><a href="#windows-system-handles">Windows.System.Handles</a></li>
+<li><a href="#windows-system-localadmins">Windows.System.LocalAdmins</a></li>
+<li><a href="#windows-system-powershell">Windows.System.PowerShell</a></li>
 <li><a href="#windows-system-pslist">Windows.System.Pslist</a></li>
 <li><a href="#windows-system-svchost">Windows.System.SVCHost</a></li>
 <li><a href="#windows-system-services">Windows.System.Services</a></li>
+<li><a href="#windows-system-taskscheduler">Windows.System.TaskScheduler</a></li>
 <li><a href="#windows-system-untrustedbinaries">Windows.System.UntrustedBinaries</a></li>
+<li><a href="#windows-system-vad">Windows.System.VAD</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -588,13 +603,13 @@ nice format.</p>
 <tbody>
 <tr>
 <td>shimKeys</td>
-<td>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\InstalledSDB\*</td>
+<td>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows N &hellip;</td>
 <td></td>
 </tr>
 
 <tr>
 <td>customKeys</td>
-<td>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Custom\*\*</td>
+<td>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows N &hellip;</td>
 <td></td>
 </tr>
 </tbody>
@@ -802,7 +817,7 @@ sources:
 <tbody>
 <tr>
 <td>regKey</td>
-<td>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\**\FirewallRules\*</td>
+<td>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Ser &hellip;</td>
 <td></td>
 </tr>
 </tbody>
@@ -853,7 +868,7 @@ sources:
         SELECT Value,
                Record.Action as Action,
                Record.Name as Name,
-               Record.Desc as Desc,
+               get(item=Record, field=&quot;Desc&quot;) as Description,
                Record.App as App,
                Record.Action as Action,
                Record.Dir as Dir,
@@ -944,13 +959,13 @@ sources:
 <tbody>
 <tr>
 <td>physicalMemoryKey</td>
-<td>HKEY_LOCAL_MACHINE\HARDWARE\RESOURCEMAP\System Resources\Physical Memory\.Translated</td>
+<td>HKEY_LOCAL_MACHINE\HARDWARE\RESOURCEMAP\System  &hellip;</td>
 <td></td>
 </tr>
 
 <tr>
 <td>Profile</td>
-<td>{\n  &ldquo;CM_RESOURCE_LIST&rdquo;: [0, {\n    &ldquo;Count&rdquo;: [0, [&ldquo;uint32&rdquo;]],\n    &ldquo;List&rdquo;: [4, [&ldquo;CM_FULL_RESOURCE_DESCRIPTOR&rdquo;]]\n   }],\n   &ldquo;CM_FULL_RESOURCE_DESCRIPTOR&rdquo;: [0, {\n     &ldquo;PartialResourceList&rdquo;: [8, [&ldquo;CM_PARTIAL_RESOURCE_LIST&rdquo;]]\n   }],\n\n   &ldquo;CM_PARTIAL_RESOURCE_LIST&rdquo;: [0, {\n     &ldquo;Version&rdquo;: [0, [&ldquo;uint16&rdquo;]],\n     &ldquo;Revision&rdquo;: [2, [&ldquo;uint16&rdquo;]],\n     &ldquo;Count&rdquo;: [4, [&ldquo;uint32&rdquo;]],\n     &ldquo;PartialDescriptors&rdquo;: [8, [&ldquo;Array&rdquo;, {\n        &ldquo;Target&rdquo;: &ldquo;CM_PARTIAL_RESOURCE_DESCRIPTOR&rdquo;\n     }]]\n   }],\n\n   &ldquo;CM_PARTIAL_RESOURCE_DESCRIPTOR&rdquo;: [20, {\n     &ldquo;Type&rdquo;: [0, [&ldquo;char&rdquo;]],\n     &ldquo;ShareDisposition&rdquo;: [1, [&ldquo;char&rdquo;]],\n     &ldquo;Flags&rdquo;: [2, [&ldquo;uint16&rdquo;]],\n     &ldquo;Start&rdquo;: [4, [&ldquo;int64&rdquo;]],\n     &ldquo;Length&rdquo;: [12, [&ldquo;uint32&rdquo;]]\n   }]\n}\n</td>
+<td>{\n  &ldquo;CM_RESOURCE_LIST&rdquo;: [0, {\n    &ldquo;Count&rdquo;: [0, [ &hellip;</td>
 <td></td>
 </tr>
 </tbody>
@@ -1051,7 +1066,7 @@ installation details are left to the discretion of the product author.</p>
 <tbody>
 <tr>
 <td>programKeys</td>
-<td>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\*, HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\*, HKEY_USERS\*\Software\Microsoft\Windows\CurrentVersion\Uninstall\*</td>
+<td>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\ &hellip;</td>
 <td></td>
 </tr>
 </tbody>
@@ -1124,19 +1139,19 @@ sources:
 <tbody>
 <tr>
 <td>runKeyGlobs</td>
-<td>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Run<em>\*, HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Run</em>\<em>, HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer\Run</em>\* HKEY_USERS\<em>\SOFTWARE\Microsoft\Windows\CurrentVersion\Run</em>\<em>, HKEY_USERS\*\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Run</em>\<em>, HKEY_USERS\*\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer\Run</em>\*\n</td>
+<td>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\ &hellip;</td>
 <td></td>
 </tr>
 
 <tr>
 <td>startupApprovedGlobs</td>
-<td>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\StartupApproved\*<em>, HKEY_USERS\*\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\StartupApproved\*</em>\n</td>
+<td>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\ &hellip;</td>
 <td></td>
 </tr>
 
 <tr>
 <td>startupFolderDirectories</td>
-<td>C:/ProgramData/Microsoft/Windows/Start Menu/Programs/Startup/<strong>, C:/Users/*/AppData/Roaming/Microsoft/Windows/StartMenu/Programs/Startup/</strong>\n</td>
+<td>C:/ProgramData/Microsoft/Windows/Start Menu/Progra &hellip;</td>
 <td></td>
 </tr>
 </tbody>
@@ -1247,7 +1262,7 @@ the NetUserEnum() call and the list of SIDs in the registry.</p>
 <tbody>
 <tr>
 <td>remoteRegKey</td>
-<td>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\ProfileList\*</td>
+<td>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows N &hellip;</td>
 <td></td>
 </tr>
 </tbody>
@@ -1360,6 +1375,155 @@ reports:
 </div>
 
 
+<h2 id="windows-sysinternals-autoruns">Windows.Sysinternals.Autoruns</h2>
+
+<p>Uses Sysinternals autoruns to scan the host.</p>
+
+<p>Note this requires syncing the sysinternals binary from the host -
+you will need to run Windows.Utils.DownloadBinaries on the server
+first.</p>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>binaryURL</td>
+<td></td>
+<td>Specify this as the base of the binary store (if empty we use\nthe server&rsquo;s public directory).\n</td>
+</tr>
+
+<tr>
+<td>AutorunArgs</td>
+<td>-nobanner -accepteula -t -a * -c *\n</td>
+<td>A space separated list of args to run with.\n</td>
+</tr>
+</tbody>
+</table>
+
+
+
+<div class="expand">
+    <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fa fa-chevron-down' : 'fa fa-chevron-right';});});">
+        <i style="font-size:x-small;" class="fa fa-chevron-right"></i>
+        <span>
+        
+        
+        View Artifact Source
+        
+        </span>
+    </div>
+    <div class="expand-content" style="display: none;">
+<pre><code>name: Windows.Sysinternals.Autoruns
+description: |
+  Uses Sysinternals autoruns to scan the host.
+
+  Note this requires syncing the sysinternals binary from the host -
+  you will need to run Windows.Utils.DownloadBinaries on the server
+  first.
+
+precondition: SELECT OS From info() where OS = 'windows'
+
+parameters:
+  - name: binaryURL
+    description: |
+      Specify this as the base of the binary store (if empty we use
+      the server's public directory).
+  - name: AutorunArgs
+    description: |
+      A space separated list of args to run with.
+    default: |
+      -nobanner -accepteula -t -a * -c *
+
+sources:
+  - queries:
+      # Get the path to the binary.
+      - |
+        LET bin &lt;= SELECT * FROM Artifact.Windows.Utils.FetchBinary(
+              binaryURL=binaryURL, ToolName=&quot;Autorun&quot;)
+
+      # Call the binary and return all its output in a single row.
+      - |
+        LET output = SELECT * FROM execve(argv=(bin[0]).FullPath +
+           split(string=AutorunArgs, sep=&quot; &quot;),
+           length=10000000)
+
+      # Parse the CSV output and return it as rows. We can filter this further.
+      - |
+        SELECT * FROM foreach(
+          row=output,
+          query={
+             SELECT * FROM parse_csv(filename=utf16(string=Stdout),
+                                     accessor=&quot;data&quot;)
+          })
+</code></pre>
+
+    </div>
+</div>
+
+
+<h2 id="windows-sysinternals-sysmoninstall">Windows.Sysinternals.SysmonInstall</h2>
+
+<p>Sysmon is a kernel level system monitor written by
+Sysinternals. While we are not able to distribute Sysmon ourselves,
+Velociraptor can help you manage its deployment and installation.</p>
+
+<p>In order to deploy sysmon on the endpoint, you need to:</p>
+
+<ol>
+<li><p>Ensure the server contains the latest Sysmon binaries. You will
+need to download them yourself by running the
+<code>Windows.Utils.DownloadBinaries</code> server artifact.</p></li>
+
+<li><p>Ensure the sysmon configration is appropriate for your
+deployment. If you edit the file in your public directory
+(<code>&lt;file store&gt;/public/sysmon_config.xml</code>) you will need to run the
+<code>Windows.Utils.UpdatePublicHashes</code> server artifact to update the
+inventory file.</p></li>
+</ol>
+
+
+
+<div class="expand">
+    <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fa fa-chevron-down' : 'fa fa-chevron-right';});});">
+        <i style="font-size:x-small;" class="fa fa-chevron-right"></i>
+        <span>
+        
+        
+        View Artifact Source
+        
+        </span>
+    </div>
+    <div class="expand-content" style="display: none;">
+<pre><code>name: Windows.Sysinternals.SysmonInstall
+description: |
+  Sysmon is a kernel level system monitor written by
+  Sysinternals. While we are not able to distribute Sysmon ourselves,
+  Velociraptor can help you manage its deployment and installation.
+
+  In order to deploy sysmon on the endpoint, you need to:
+
+  1. Ensure the server contains the latest Sysmon binaries. You will
+     need to download them yourself by running the
+     `Windows.Utils.DownloadBinaries` server artifact.
+
+  2. Ensure the sysmon configration is appropriate for your
+     deployment. If you edit the file in your public directory
+     (`&lt;file store&gt;/public/sysmon_config.xml`) you will need to run the
+     `Windows.Utils.UpdatePublicHashes` server artifact to update the
+     inventory file.
+</code></pre>
+
+    </div>
+</div>
+
+
 <h2 id="windows-system-amcache">Windows.System.Amcache</h2>
 
 <p>Get information from the system&rsquo;s amcache.</p>
@@ -1454,9 +1618,10 @@ sources:
         FROM foreach(
           row={
             SELECT FullPath from glob(globs=expand(path=amCacheGlob))
+            WHERE log(message=&quot;Processing &quot;+FullPath)
           }, query={
             SELECT * from read_reg_key(
-               globs=url(scheme='ntfs', path=FullPath,
+               globs=url(scheme='file', path=FullPath,
                          fragment=amCacheRegPath).String,
                accessor='raw_reg'
             )
@@ -1474,7 +1639,7 @@ sources:
                    get(item=scope(), member=&quot;15&quot;) As FullPath,
                    timestamp(epoch=Key.Mtime.Sec) as LastModifiedKey
             FROM read_reg_key(
-               globs=url(scheme='ntfs', path=FullPath,
+               globs=url(scheme='file', path=FullPath,
                          fragment='/Root/File/*/*').String,
                accessor='raw_reg'
             )
@@ -1529,6 +1694,84 @@ reports:
 </div>
 
 
+<h2 id="windows-system-cmdshell">Windows.System.CmdShell</h2>
+
+<p>This artifact allows running arbitrary commands through the system
+shell cmd.exe.</p>
+
+<p>Since Velociraptor typically runs as system, the commands will also
+run as System.</p>
+
+<p>This is a very powerful artifact since it allows for arbitrary
+command execution on the endpoints. Therefore this artifact requires
+elevated permissions (specifically the <code>EXECVE</code>
+permission). Typically it is only available with the <code>administrator</code>
+role.</p>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>Command</td>
+<td>dir C:\</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+
+
+<div class="expand">
+    <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fa fa-chevron-down' : 'fa fa-chevron-right';});});">
+        <i style="font-size:x-small;" class="fa fa-chevron-right"></i>
+        <span>
+        
+        
+        View Artifact Source
+        
+        </span>
+    </div>
+    <div class="expand-content" style="display: none;">
+<pre><code>name: Windows.System.CmdShell
+description: |
+  This artifact allows running arbitrary commands through the system
+  shell cmd.exe.
+
+  Since Velociraptor typically runs as system, the commands will also
+  run as System.
+
+  This is a very powerful artifact since it allows for arbitrary
+  command execution on the endpoints. Therefore this artifact requires
+  elevated permissions (specifically the `EXECVE`
+  permission). Typically it is only available with the `administrator`
+  role.
+
+required_permissions:
+  - EXECVE
+
+precondition:
+  SELECT OS From info() where OS = 'windows'
+
+parameters:
+  - name: Command
+    default: &quot;dir C:\\&quot;
+
+sources:
+  - query: |
+      SELECT * FROM execve(argv=[&quot;cmd.exe&quot;, &quot;/c&quot;, Command])
+</code></pre>
+
+    </div>
+</div>
+
+
 <h2 id="windows-system-criticalservices">Windows.System.CriticalServices</h2>
 
 <p>This artifact returns information about any services which are
@@ -1557,7 +1800,7 @@ installed at all, it will not be shown.</p>
 <tbody>
 <tr>
 <td>lookupTable</td>
-<td>ServiceName\nWinDefend\nMpsSvc\nSepMasterService\nSAVAdminService\nSavService\nwscsvc\nwuauserv\n</td>
+<td>ServiceName\nWinDefend\nMpsSvc\nSepMasterService\n &hellip;</td>
 <td></td>
 </tr>
 </tbody>
@@ -1618,6 +1861,350 @@ sources:
 </div>
 
 
+<h2 id="windows-system-dlls">Windows.System.DLLs</h2>
+
+<p>Enumerate the DLLs loaded by a running process. It includes hash value
+and certificate information.</p>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>processRegex</td>
+<td>.</td>
+<td>A regex applied to process names.</td>
+</tr>
+
+<tr>
+<td>dllRegex</td>
+<td>.</td>
+<td>A regex applied to the full dll path (e.g. whitelist all system dlls)</td>
+</tr>
+
+<tr>
+<td>Calculate_Hash</td>
+<td>N</td>
+<td></td>
+</tr>
+
+<tr>
+<td>CertificateInfo</td>
+<td>N</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+
+
+<div class="expand">
+    <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fa fa-chevron-down' : 'fa fa-chevron-right';});});">
+        <i style="font-size:x-small;" class="fa fa-chevron-right"></i>
+        <span>
+        
+        
+        View Artifact Source
+        
+        </span>
+    </div>
+    <div class="expand-content" style="display: none;">
+<pre><code>name: Windows.System.DLLs
+description: |
+  Enumerate the DLLs loaded by a running process. It includes hash value
+  and certificate information.
+
+parameters:
+  - name: processRegex
+    description: A regex applied to process names.
+    default: .
+  - name: dllRegex
+    description: A regex applied to the full dll path (e.g. whitelist all system dlls)
+    default: .
+  - name: Calculate_Hash
+    default: N
+    type: bool
+  - name: CertificateInfo
+    default: N
+    type: bool
+     
+sources:
+  - queries:
+      - LET processes = SELECT Pid, Name
+        FROM pslist()
+        WHERE Name =~ processRegex
+      - SELECT * FROM foreach(
+          row=processes,
+          query={
+            SELECT Pid, Name,
+                format(format='%x-%x', args=[ModuleBaseAddress,
+                     ModuleBaseAddress+ModuleBaseSize]) AS Range,
+                ModuleName, ExePath,
+                if(condition=(Calculate_Hash = &quot;Y&quot;),
+                  then=hash(path=ExePath,
+                            accessor=file)) AS Hash,
+                if(condition=(CertificateInfo = &quot;Y&quot;),
+                  then=authenticode(filename=ExePath)) AS Certinfo
+            FROM modules(pid=Pid)
+            WHERE ExePath =~ dllRegex
+          })
+</code></pre>
+
+    </div>
+</div>
+
+
+<h2 id="windows-system-handles">Windows.System.Handles</h2>
+
+<p>Enumerate the handles from selected processes.</p>
+
+<p>Uncheck all the handle types below to fetch all handle types.</p>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>processRegex</td>
+<td>.</td>
+<td>A regex applied to process names.</td>
+</tr>
+
+<tr>
+<td>Files</td>
+<td>Y</td>
+<td>Search for File Handles</td>
+</tr>
+
+<tr>
+<td>Key</td>
+<td></td>
+<td>Search for Key Handles</td>
+</tr>
+</tbody>
+</table>
+
+
+
+<div class="expand">
+    <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fa fa-chevron-down' : 'fa fa-chevron-right';});});">
+        <i style="font-size:x-small;" class="fa fa-chevron-right"></i>
+        <span>
+        
+        
+        View Artifact Source
+        
+        </span>
+    </div>
+    <div class="expand-content" style="display: none;">
+<pre><code>name: Windows.System.Handles
+description: |
+  Enumerate the handles from selected processes.
+
+  Uncheck all the handle types below to fetch all handle types.
+
+parameters:
+  - name: processRegex
+    description: A regex applied to process names.
+    default: .
+  - name: Files
+    description: Search for File Handles
+    type: bool
+    default: Y
+  - name: Key
+    description: Search for Key Handles
+    type: bool
+
+sources:
+  - queries:
+      - LET tokens &lt;= SELECT * FROM chain(
+          a={SELECT &quot;File&quot; AS Type FROM scope() WHERE Files = 'Y'},
+          a2={SELECT &quot;Section&quot; AS Type FROM scope() WHERE Files = 'Y'},
+          b={SELECT &quot;Key&quot; AS Type FROM scope() WHERE Key = 'Y'}
+        )
+
+      - LET processes = SELECT Pid AS ProcPid, Name AS ProcName, Exe
+        FROM pslist()
+        WHERE ProcName =~ processRegex AND ProcPid &gt; 0
+
+      - SELECT * FROM foreach(
+          row=processes,
+          query={
+            SELECT ProcPid, ProcName, Exe, Type, Name, Handle
+            FROM handles(pid=ProcPid, types=tokens.Type)
+          })
+</code></pre>
+
+    </div>
+</div>
+
+
+<h2 id="windows-system-localadmins">Windows.System.LocalAdmins</h2>
+
+<p>Gets a list of local admin accounts.</p>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>script</td>
+<td>Get-LocalGroupMember -Group &ldquo;Administrators&rdquo;</td>
+<td>SELE &hellip;</td>
+</tr>
+</tbody>
+</table>
+
+
+
+<div class="expand">
+    <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fa fa-chevron-down' : 'fa fa-chevron-right';});});">
+        <i style="font-size:x-small;" class="fa fa-chevron-right"></i>
+        <span>
+        
+        
+        View Artifact Source
+        
+        </span>
+    </div>
+    <div class="expand-content" style="display: none;">
+<pre><code>name: Windows.System.LocalAdmins
+description: |
+   Gets a list of local admin accounts.
+
+reference:
+- https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.localaccounts/get-localgroupmember?view=powershell-5.1
+
+type: CLIENT
+
+parameters:
+ - name: script
+   default: |
+       Get-LocalGroupMember -Group &quot;Administrators&quot; |SELECT -ExpandProperty SID -Property Name, PrincipalSource |select  Name, Value, PrincipalSource|convertto-json
+
+sources:
+  - precondition:
+      SELECT OS From info() where OS = 'windows'
+
+    queries:
+    - LET out = SELECT parse_json_array(data=Stdout) AS Output
+          FROM execve(argv=[&quot;powershell&quot;,
+               &quot;-ExecutionPolicy&quot;, &quot;Unrestricted&quot;, &quot;-encodedCommand&quot;,
+                  base64encode(string=utf16_encode(
+                  string=script))
+            ], length=1000000)
+    - SELECT * FROM foreach(row=out.Output[0],
+      query={
+          SELECT Name, Value AS SID, if(condition=PrincipalSource=1,
+            then=&quot;Local&quot;, else=if(condition=PrincipalSource=2,
+            then=&quot;Domain&quot;, else=PrincipalSource)) AS PrincipalSource
+          FROM scope()
+      })
+</code></pre>
+
+    </div>
+</div>
+
+
+<h2 id="windows-system-powershell">Windows.System.PowerShell</h2>
+
+<p>This artifact allows running arbitrary commands through the system
+powershell.</p>
+
+<p>Since Velociraptor typically runs as system, the commands will also
+run as System.</p>
+
+<p>This is a very powerful artifact since it allows for arbitrary
+command execution on the endpoints. Therefore this artifact requires
+elevated permissions (specifically the <code>EXECVE</code>
+permission). Typically it is only available with the <code>administrator</code>
+role.</p>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>Command</td>
+<td>dir C:/</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+
+
+<div class="expand">
+    <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fa fa-chevron-down' : 'fa fa-chevron-right';});});">
+        <i style="font-size:x-small;" class="fa fa-chevron-right"></i>
+        <span>
+        
+        
+        View Artifact Source
+        
+        </span>
+    </div>
+    <div class="expand-content" style="display: none;">
+<pre><code>name: Windows.System.PowerShell
+description: |
+  This artifact allows running arbitrary commands through the system
+  powershell.
+
+  Since Velociraptor typically runs as system, the commands will also
+  run as System.
+
+  This is a very powerful artifact since it allows for arbitrary
+  command execution on the endpoints. Therefore this artifact requires
+  elevated permissions (specifically the `EXECVE`
+  permission). Typically it is only available with the `administrator`
+  role.
+
+required_permissions:
+  - EXECVE
+
+precondition:
+  SELECT OS From info() where OS = 'windows'
+
+parameters:
+  - name: Command
+    default: &quot;dir C:/&quot;
+
+sources:
+  - query: |
+      SELECT * FROM execve(argv=[&quot;powershell&quot;,
+        &quot;-ExecutionPolicy&quot;, &quot;Unrestricted&quot;, &quot;-encodedCommand&quot;,
+        base64encode(string=utf16_encode(string=Command))
+      ])
+</code></pre>
+
+    </div>
+</div>
+
+
 <h2 id="windows-system-pslist">Windows.System.Pslist</h2>
 
 <p>List processes and their running binaries.</p>
@@ -1664,10 +2251,10 @@ parameters:
 sources:
   - queries:
       - |
-        SELECT Pid, Ppid, Name, CommandLine, Exe,
+        SELECT Pid, Ppid, TokenIsElevated, Name, CommandLine, Exe,
                hash(path=Exe) as Hash,
                authenticode(filename=Exe) AS Authenticode,
-               Username, WorkingSetSize
+               Username, Memory.WorkingSetSize AS WorkingSetSize
         FROM pslist()
         WHERE Name =~ processRegex
 </code></pre>
@@ -1714,7 +2301,7 @@ sources:
     queries:
       - |
         // Cache the pslist output in memory.
-        LET processes &lt;= SELECT * FROM pslist()
+        LET processes &lt;= SELECT Pid, Name FROM pslist()
 
       - |
         // Get the pids of all procecesses named services.exe
@@ -1762,7 +2349,19 @@ sources:
 <tbody>
 <tr>
 <td>servicesKeyGlob</td>
-<td>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\</td>
+<td>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Ser &hellip;</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Calculate_hashes</td>
+<td>N</td>
+<td></td>
+</tr>
+
+<tr>
+<td>CertificateInfo</td>
+<td>N</td>
 <td></td>
 </tr>
 </tbody>
@@ -1788,6 +2387,12 @@ description: |
 parameters:
   - name: servicesKeyGlob
     default: HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\
+  - name: Calculate_hashes
+    default: N
+    type: bool
+  - name: CertificateInfo
+    default: N
+    type: bool  
 
 sources:
   - precondition: |
@@ -1795,17 +2400,132 @@ sources:
 
     queries:
       - |
-        SELECT State, Name, DisplayName, Status,
+        LET service &lt;= SELECT State, Name, DisplayName, Status,
                ProcessId as Pid, ExitCode, StartMode,
                PathName, ServiceType, StartName as UserAccount,
                {
-                  SELECT timestamp(epoch=Mtime.Sec) as Created
-                  FROM stat(filename=servicesKeyGlob + Name, accessor='reg')
+                 SELECT timestamp(epoch=Mtime.Sec) as Created
+                 FROM stat(filename=servicesKeyGlob + Name, accessor='reg')
                } AS Created,
                {
                  SELECT ServiceDll FROM read_reg_key(globs=servicesKeyGlob + Name + &quot;\\Parameters&quot;)
-               } AS ServiceDll
+               } AS ServiceDll,
+               parse_string_with_regex(regex=
+                 ['^&quot;(?P&lt;AbsoluteExePath&gt;[^&quot;]+)','(?P&lt;AbsoluteExePath&gt;^[^ &quot;]+)'], 
+                 string=PathName).AbsoluteExePath as AbsoluteExePath
         FROM wmi(query=&quot;SELECT * From Win32_service&quot;, namespace=&quot;root/CIMV2&quot;)
+      - |
+        SELECT *, 
+                 if(condition=(Calculate_hashes = &quot;Y&quot;),
+                    then=hash(path=AbsoluteExePath,
+                           accessor=file)) AS HashServiceExe,
+                 if(condition=(CertificateInfo = &quot;Y&quot;),
+                    then=authenticode(filename=AbsoluteExePath)) AS CertinfoServiceExe,
+                 if(condition=(Calculate_hashes = &quot;Y&quot;),
+                    then=hash(path=ServiceDll,
+                           accessor=file)) AS HashServiceDll,
+                 if(condition=(CertificateInfo = &quot;Y&quot;),
+                    then=authenticode(filename=ServiceDll)) AS CertinfoServiceDll       
+        FROM service
+</code></pre>
+
+    </div>
+</div>
+
+
+<h2 id="windows-system-taskscheduler">Windows.System.TaskScheduler</h2>
+
+<p>The Windows task scheduler is a common mechanism that malware uses
+for persistence. It can be used to run arbitrary programs at a later
+time. Commonly malware installs a scheduled task to run itself
+periodically to achieve persistence.</p>
+
+<p>This artifact enumerates all the task jobs (which are XML
+files). The artifact uploads the original XML files and then
+analyses them to provide an overview of the commands executed and
+the user under which they will be run.</p>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>TasksPath</td>
+<td>c:/Windows/System32/Tasks/**</td>
+<td></td>
+</tr>
+
+<tr>
+<td>AlsoUpload</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+
+
+<div class="expand">
+    <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fa fa-chevron-down' : 'fa fa-chevron-right';});});">
+        <i style="font-size:x-small;" class="fa fa-chevron-right"></i>
+        <span>
+        
+        
+        View Artifact Source
+        
+        </span>
+    </div>
+    <div class="expand-content" style="display: none;">
+<pre><code>name: Windows.System.TaskScheduler
+description: |
+  The Windows task scheduler is a common mechanism that malware uses
+  for persistence. It can be used to run arbitrary programs at a later
+  time. Commonly malware installs a scheduled task to run itself
+  periodically to achieve persistence.
+
+  This artifact enumerates all the task jobs (which are XML
+  files). The artifact uploads the original XML files and then
+  analyses them to provide an overview of the commands executed and
+  the user under which they will be run.
+
+parameters:
+  - name: TasksPath
+    default: c:/Windows/System32/Tasks/**
+  - name: AlsoUpload
+    type: bool
+
+sources:
+  - name: Analysis
+    queries:
+      - LET Uploads = SELECT Name, FullPath, if(
+           condition=AlsoUpload='Y',
+           then=upload(file=FullPath)) as Upload
+        FROM glob(globs=TasksPath)
+        WHERE NOT IsDir
+
+      # Job files contain invalid XML which confuses the parser - we
+      # use regex to remove the invalid tags.
+      - LET parse_task = select FullPath, parse_xml(
+               accessor='data',
+               file=regex_replace(
+                    source=utf16(string=Data),
+                    re='&lt;[?].+?&gt;',
+                    replace='')) AS XML
+        FROM read_file(filenames=FullPath)
+
+      - SELECT FullPath,
+            XML.Task.Actions.Exec.Command as Command,
+            XML.Task.Actions.Exec.Arguments as Arguments,
+            XML.Task.Actions.ComHandler.ClassId as ComHandler,
+            XML.Task.Principals.Principal.UserId as UserId,
+            XML as _XML
+        FROM foreach(row=Uploads, query=parse_task)
 </code></pre>
 
     </div>
@@ -1896,6 +2616,69 @@ sources:
                Authenticode.IssuerName as Issuer,
                Authenticode.SubjectName as Subject,
                Authenticode.Trusted as Trusted from auth
+</code></pre>
+
+    </div>
+</div>
+
+
+<h2 id="windows-system-vad">Windows.System.VAD</h2>
+
+<p>Enumerate the memory regions of each running process.</p>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>processRegex</td>
+<td>.</td>
+<td>A regex applied to process names.</td>
+</tr>
+</tbody>
+</table>
+
+
+
+<div class="expand">
+    <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fa fa-chevron-down' : 'fa fa-chevron-right';});});">
+        <i style="font-size:x-small;" class="fa fa-chevron-right"></i>
+        <span>
+        
+        
+        View Artifact Source
+        
+        </span>
+    </div>
+    <div class="expand-content" style="display: none;">
+<pre><code>name: Windows.System.VAD
+description: |
+  Enumerate the memory regions of each running process.
+
+parameters:
+  - name: processRegex
+    description: A regex applied to process names.
+    default: .
+
+sources:
+  - queries:
+      - LET processes = SELECT Pid, Name
+        FROM pslist()
+        WHERE Name =~ processRegex
+      - SELECT * FROM foreach(
+          row=processes,
+          query={
+            SELECT Pid, Name,
+                format(format='%x-%x', args=[Address, Address+Size]) AS Range,
+                Protection, MappingName
+            FROM vad(pid=Pid)
+          })
 </code></pre>
 
     </div>

@@ -122,6 +122,12 @@
           </a>
         </div>
     </li>
+    <li data-nav-id="/docs/getting-started/performance/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/getting-started/performance/">Performance</a>
+      </div>
+    </li>
       <li data-nav-id="/docs/getting-started/triaging/" class="dd-item">
         <div>
           <a href="/docs/getting-started/triaging/">
@@ -341,7 +347,7 @@
       <li data-nav-id="/docs/artifacts/misc/" class="dd-item">
         <div>
           <a href="/docs/artifacts/misc/">
-            Miscellaneous
+            Miscelaneous
           </a>
         </div>
     </li>
@@ -531,6 +537,7 @@
 <ul>
 <li><a href="#windows-events-dnsqueries">Windows.Events.DNSQueries</a></li>
 <li><a href="#windows-events-failedlogbeforesuccess">Windows.Events.FailedLogBeforeSuccess</a></li>
+<li><a href="#windows-events-kerbroasting">Windows.Events.Kerbroasting</a></li>
 <li><a href="#windows-events-processcreation">Windows.Events.ProcessCreation</a></li>
 <li><a href="#windows-events-servicecreation">Windows.Events.ServiceCreation</a></li>
 </ul></li>
@@ -648,7 +655,7 @@ reports:
 
     {{ $client_info := Query &quot;SELECT * FROM clients(client_id=ClientId) LIMIT 1&quot; }}
 
-    # DNS Questions for {{ Get $client_info &quot;0.OsInfo.Fqdn&quot; }}
+    # DNS Questions for {{ Get $client_info &quot;0.os_info.fqdn&quot; }}
 
     The 1000 most common DNS Queries on this day are listed in the
     below table. Typically we are looking for two interesting
@@ -816,6 +823,139 @@ sources:
 </div>
 
 
+<h2 id="windows-events-kerbroasting">Windows.Events.Kerbroasting</h2>
+
+<p><strong>Description</strong>:
+This Artifact will monitor all successful Kerberos TGS Ticket events for
+Service Accounts (SPN attribute) implemented with weak encryption. These
+tickets are vulnerable to brute force attack and this event is an indicator
+of a Kerbroasting attack.</p>
+
+<p><strong>ATT&amp;CK</strong>: <a href="https://attack.mitre.org/techniques/T1208/">T1208 - Kerbroasting</a>
+Typical attacker methodology is to firstly request accounts in the domain
+with SPN attributes, then request an insecure TGS ticket for brute forcing.
+This attack is particularly effective as any domain credentials can be used
+to implement the attack and service accounts often have elevated privileges.
+Kerbroasting can be used for privilege escalation or persistence by adding a
+SPN attribute to an unexpected account.</p>
+
+<p><strong>Reference</strong>: <a href="https://www.trustedsec.com/2018/05/art_of_kerberoast/">The Art of Detecting Kerberoast Attacks</a>
+<strong>Log Source</strong>: Windows Security Event Log (Domain Controllers)
+<strong>Event ID</strong>: 4769
+<strong>Status</strong>: 0x0 (Audit Success)
+<strong>Ticket Encryption</strong>: 0x17 (RC4)
+<strong>Service Name</strong>: NOT krbtgt or NOT a system account (account name ends in $)
+<strong>TargetUserName</strong>: NOT a system account (<em>$@</em>)</p>
+
+<p>Monitor and alert on unusual events from an unexpected IP.
+Note: There are potential false positives so whitelist normal source IPs and
+manage risk of insecure ticket generation.</p>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>eventLog</td>
+<td>C:\Windows\system32\winevt\logs\Security.evtx</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+
+
+<div class="expand">
+    <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fa fa-chevron-down' : 'fa fa-chevron-right';});});">
+        <i style="font-size:x-small;" class="fa fa-chevron-right"></i>
+        <span>
+        
+        
+        View Artifact Source
+        
+        </span>
+    </div>
+    <div class="expand-content" style="display: none;">
+<pre><code>name: Windows.Events.Kerbroasting
+description: |
+  **Description**:
+  This Artifact will monitor all successful Kerberos TGS Ticket events for
+  Service Accounts (SPN attribute) implemented with weak encryption. These
+  tickets are vulnerable to brute force attack and this event is an indicator
+  of a Kerbroasting attack.
+
+  **ATT&amp;CK**: [T1208 - Kerbroasting](https://attack.mitre.org/techniques/T1208/)
+  Typical attacker methodology is to firstly request accounts in the domain
+  with SPN attributes, then request an insecure TGS ticket for brute forcing.
+  This attack is particularly effective as any domain credentials can be used
+  to implement the attack and service accounts often have elevated privileges.
+  Kerbroasting can be used for privilege escalation or persistence by adding a
+  SPN attribute to an unexpected account.
+
+  **Reference**: [The Art of Detecting Kerberoast Attacks](https://www.trustedsec.com/2018/05/art_of_kerberoast/)
+  **Log Source**: Windows Security Event Log (Domain Controllers)
+  **Event ID**: 4769
+  **Status**: 0x0 (Audit Success)
+  **Ticket Encryption**: 0x17 (RC4)
+  **Service Name**: NOT krbtgt or NOT a system account (account name ends in $)
+  **TargetUserName**: NOT a system account (*$@*)
+
+
+  Monitor and alert on unusual events from an unexpected IP.
+  Note: There are potential false positives so whitelist normal source IPs and
+  manage risk of insecure ticket generation.
+
+
+author: Matt Green - @mgreen27
+
+type: CLIENT_EVENT
+
+parameters:
+  - name: eventLog
+    default: C:\Windows\system32\winevt\logs\Security.evtx
+
+sources:
+  - name: Kerbroasting
+    queries:
+      - LET files = SELECT * FROM glob(globs=eventLog)
+
+      - SELECT timestamp(epoch=System.TimeCreated.SystemTime) As EventTime,
+              System.EventID.Value as EventID,
+              System.Computer as Computer,
+              EventData.ServiceName as ServiceName,
+              EventData.ServiceSid as ServiceSid,
+              EventData.TargetUserName as TargetUserName,
+              &quot;0x&quot; + format(format=&quot;%x&quot;, args=EventData.Status) as Status,
+              EventData.TargetDomainName as TargetDomainName,
+              &quot;0x&quot; + format(format=&quot;%x&quot;, args=EventData.TicketEncryptionType) as TicketEncryptionType,
+              &quot;0x&quot; + format(format=&quot;%x&quot;, args=EventData.TicketOptions) as TicketOptions,
+              EventData.TransmittedServices as TransmittedServices,
+              EventData.IpAddress as IpAddress,
+              EventData.IpPort as IpPort
+        FROM foreach(
+          row=files,
+          async=TRUE,
+          query={
+            SELECT *
+            FROM watch_evtx(filename=FullPath)
+            WHERE System.EventID.Value = 4769
+                AND EventData.TicketEncryptionType = 23
+                AND EventData.Status = 0
+                AND NOT EventData.ServiceName =~ &quot;krbtgt|\\$$&quot;
+                AND NOT EventData.TargetUserName =~ &quot;\\$@&quot;
+        })
+</code></pre>
+
+    </div>
+</div>
+
+
 <h2 id="windows-events-processcreation">Windows.Events.ProcessCreation</h2>
 
 <p>Collect all process creation events.</p>
@@ -832,7 +972,7 @@ sources:
 <tbody>
 <tr>
 <td>wmiQuery</td>
-<td>SELECT * FROM __InstanceCreationEvent WITHIN 1 WHERE TargetInstance ISA &lsquo;Win32_Process&rsquo;</td>
+<td>SELECT * FROM __InstanceCreationEvent WITHIN 1 WHE &hellip;</td>
 <td></td>
 </tr>
 
@@ -1000,7 +1140,7 @@ sources:
 
 <div id="navigation">
 <a class="nav nav-prev" href="/docs/artifacts/detection/" title="Windows Malware Detection"> <i class="fa fa-chevron-left"></i><label>Windows Malware Detection</label></a>
-    <a class="nav nav-next" href="/docs/artifacts/misc/" title="Miscellaneous Artifacts" style="margin-right: 0px;"><label>Miscellaneous Artifacts</label><i class="fa fa-chevron-right"></i></a></div>
+    <a class="nav nav-next" href="/docs/artifacts/misc/" title="Miscelaneous Artifacts" style="margin-right: 0px;"><label>Miscelaneous Artifacts</label><i class="fa fa-chevron-right"></i></a></div>
 
 </section>
 <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">

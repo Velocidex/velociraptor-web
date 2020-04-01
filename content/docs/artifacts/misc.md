@@ -1,7 +1,7 @@
 ---
 description: Various Artifacts which do not fit into other categories.
-linktitle: Miscellaneous
-title: Miscellaneous Artifacts
+linktitle: Miscelaneous
+title: Miscelaneous Artifacts
 toc: true
 weight: 70
 
@@ -13,13 +13,13 @@ Remotely push new client updates.
 NOTE: The updates can be pulled from any web server. You need to
 ensure they are properly secured with SSL and at least a random
 nonce in their path. You may configure the Velociraptor server to
-serve these through the public directory.
+serve these through the public directory. Simply place the MSI in
+the public directory within the data store and set the URL below.
 
 
 Arg|Default|Description
 ---|------|-----------
-clientURL|http://127.0.0.1:8000/public/velociraptor.exe|
-configURL|http://127.0.0.1:8000/public/client.config.yaml|
+clientURL|http://127.0.0.1:8000/public/velociraptor.msi|The URL to fetch the MSI package.
 
 {{% expand  "View Artifact Source" %}}
 
@@ -32,42 +32,31 @@ description: |
   NOTE: The updates can be pulled from any web server. You need to
   ensure they are properly secured with SSL and at least a random
   nonce in their path. You may configure the Velociraptor server to
-  serve these through the public directory.
+  serve these through the public directory. Simply place the MSI in
+  the public directory within the data store and set the URL below.
 
 parameters:
   - name: clientURL
-    default: http://127.0.0.1:8000/public/velociraptor.exe
-  - name: configURL
-    default: http://127.0.0.1:8000/public/client.config.yaml
+    description: The URL to fetch the MSI package.
+    default: http://127.0.0.1:8000/public/velociraptor.msi
 
 sources:
   - precondition:
       SELECT OS From info() where OS = 'windows'
     queries:
-      - |
-        /* This query fetches the binary and config and stores them in
-         temp files. Note that tempfiles will be automatically
-         cleaned at query end.
-         */
-        LET tmpfiles <= SELECT tempfile(
-           data=query(vql={
-             SELECT Content
-             FROM http_client(url=clientURL, chunk_size=30000000)
-           }),
-           extension=".exe") as Binary,
-        tempfile(
-           data=query(vql={
-             SELECT Content
-             FROM http_client(url=configURL)
-           })) as Config from scope()
+      # Wait a random amount of time so this can be run in a
+      # hunt. Otherwise all clients will attempt to download the same
+      # file at the same time probably overloading the server.
+      - LET _ <= SELECT sleep(time=rand(range=600)) FROM scope()
 
-      - |
-        // Run the installer.
-        SELECT * from foreach(
-         row=tmpfiles,
+      - SELECT * from foreach(
+         row={
+            SELECT Content AS Binary
+            FROM http_client(url=clientURL, tempfile_extension=".msi")
+         },
          query={
             SELECT * from execve(
-               argv=[Binary, "--config", Config, "-v", "service", "install"]
+               argv=["msiexec.exe", "/i", Binary]
             )
          })
 ```
@@ -131,15 +120,15 @@ sources:
       - |
         LET files = SELECT Flow,
             array(a1=parse_json_array(data=uploadPostProcessCommand),
-                  a2=file_store(path=Flow.FlowContext.uploaded_files)) as Argv
+                  a2=file_store(path=Flow.uploaded_files)) as Argv
         FROM watch_monitoring(artifact='System.Flow.Completion')
-        WHERE uploadPostProcessArtifact in Flow.FlowContext.artifacts
+        WHERE uploadPostProcessArtifact in Flow.artifacts_with_results
 
       - |
         SELECT * from foreach(
           row=files,
           query={
-             SELECT Flow.Urn as FlowUrn, Argv,
+             SELECT Flow.session_id as FlowId, Argv,
                     Stdout, Stderr, ReturnCode
              FROM execve(argv=Argv)
           })
@@ -210,15 +199,13 @@ sources:
   - precondition:
       SELECT server_config FROM scope()
     queries:
-      - |
-        LET files = SELECT ClientId,
-            Flow.Urn as Flow,
-            Flow.FlowContext.uploaded_files as Files
+      - LET files = SELECT ClientId,
+            Flow.session_id as Flow,
+            Flow.uploaded_files as Files
         FROM watch_monitoring(artifact='System.Flow.Completion')
         WHERE Files and not Files =~ blacklistCompressionFilename
 
-      - |
-        SELECT ClientId, Flow, Files,
+      - SELECT ClientId, Flow, Files,
                compress(path=Files) as CompressedFiles
         FROM files
 ```
@@ -233,7 +220,7 @@ depending on its expiration policy - so we always see recent rows.
 
 You can use this to build queries which consider historical events
 together with current events at the same time. In this example, we
-check for a successful logon preceded by a number of failed logon
+check for a successful logon preceeded by a number of failed logon
 attempts.
 
 In this example, we use the clock() plugin to simulate events. We
@@ -251,7 +238,7 @@ FailedTime for every unique SuccessTime).
 If we receive more than 3 events, we emit the row.
 
 This now represents a high value signal! It will only occur when a
-successful logon event is preceded by at least 3 failed logon
+successful logon event is preceeded by at least 3 failed logon
 events in the last hour. It is now possible to escalate this on the
 server via email or other alerts.
 
@@ -288,7 +275,7 @@ description: |
 
   You can use this to build queries which consider historical events
   together with current events at the same time. In this example, we
-  check for a successful logon preceded by a number of failed logon
+  check for a successful logon preceeded by a number of failed logon
   attempts.
 
   In this example, we use the clock() plugin to simulate events. We
@@ -306,7 +293,7 @@ description: |
   If we receive more than 3 events, we emit the row.
 
   This now represents a high value signal! It will only occur when a
-  successful logon event is preceded by at least 3 failed logon
+  successful logon event is preceeded by at least 3 failed logon
   events in the last hour. It is now possible to escalate this on the
   server via email or other alerts.
 
@@ -369,6 +356,199 @@ sources:
 ```
    {{% /expand %}}
 
+## Demo.Plugins.GUI
+
+A demo plugin showing some GUI features.
+
+
+Arg|Default|Description
+---|------|-----------
+ChoiceSelector|First Choice|
+Flag|Y|
+OffFlag||
+StartDate||
+
+{{% expand  "View Artifact Source" %}}
+
+
+```
+name: Demo.Plugins.GUI
+description: |
+  A demo plugin showing some GUI features.
+
+
+parameters:
+  - name: ChoiceSelector
+    type: choices
+    default: First Choice
+    choices:
+      - First Choice
+      - Second Choice
+      - Third Choice
+
+  - name: Flag
+    type: bool
+    default: Y
+
+  - name: OffFlag
+    type: bool
+
+  - name: StartDate
+    type: timestamp
+```
+   {{% /expand %}}
+
+## Elastic.Events.Clients
+
+This server monitoring artifact will watch a selection of client
+monitoring artifacts for new events and push those to an elastic
+index.
+
+NOTE: You must ensure you are collecting these artifacts from the
+clients by adding them to the "Client Events" GUI.
+
+
+Arg|Default|Description
+---|------|-----------
+WindowsDetectionPsexecService||Upload Windows.Detection.PsexecService to Elastic
+WindowsEventsDNSQueries||Upload Windows.Events.DNSQueries to Elastic
+WindowsEventsProcessCreation||Upload Windows.Events.ProcessCreation to Elastic
+WindowsEventsServiceCreation||Upload Windows.Events.ServiceCreation to Elastic
+ElasticAddresses|http://127.0.0.1:9200/|
+
+{{% expand  "View Artifact Source" %}}
+
+
+```
+name: Elastic.Events.Clients
+description: |
+  This server monitoring artifact will watch a selection of client
+  monitoring artifacts for new events and push those to an elastic
+  index.
+
+  NOTE: You must ensure you are collecting these artifacts from the
+  clients by adding them to the "Client Events" GUI.
+
+type: SERVER_EVENT
+
+parameters:
+  - name: WindowsDetectionPsexecService
+    description: Upload Windows.Detection.PsexecService to Elastic
+    type: bool
+  - name: WindowsEventsDNSQueries
+    description: Upload Windows.Events.DNSQueries to Elastic
+    type: bool
+  - name: WindowsEventsProcessCreation
+    description: Upload Windows.Events.ProcessCreation to Elastic
+    type: bool
+  - name: WindowsEventsServiceCreation
+    description: Upload Windows.Events.ServiceCreation to Elastic
+    type: bool
+  - name: ElasticAddresses
+    default: http://127.0.0.1:9200/
+  - name: artifactParameterMap
+    type: hidden
+    default: |
+      Artifact,Parameter
+      Windows.Detection.PsexecService,WindowsDetectionPsexecService
+      Windows.Events.DNSQueries,WindowsEventsDNSQueries
+      Windows.Events.ProcessCreation,WindowsEventsProcessCreation
+      Windows.Events.ServiceCreation,WindowsEventsServiceCreation
+
+sources:
+  - queries:
+      - LET artifacts_to_watch = SELECT Artifact FROM parse_csv(
+             filename=artifactParameterMap, accessor='data')
+        WHERE get(item=scope(), member=Parameter) = "Y" AND log(
+          message="Uploading artifact " + Artifact + " to Elastic")
+
+      - LET events = SELECT * FROM foreach(
+          row=artifacts_to_watch,
+          async=TRUE,   // Required for event queries in foreach()
+          query={
+             SELECT *, "Artifact_" + Artifact as _index,
+                    Artifact,
+                    timestamp(epoch=now()) AS timestamp
+             FROM watch_monitoring(artifact=Artifact)
+          })
+
+      - SELECT * FROM elastic_upload(
+          query=events,
+          type="ClientEvents",
+          addresses=split(string=ElasticAddresses, sep=","))
+```
+   {{% /expand %}}
+
+## Elastic.Flows.Upload
+
+This server side event monitoring artifact waits for new artifacts
+to be collected from endpoints and automatically uploads those to an
+elastic server.
+
+We use the artifact name as the name of the index. This allows users
+to adjust the index size/lifetime according to the artifact it is
+holding.
+
+
+Arg|Default|Description
+---|------|-----------
+ArtifactNameRegex|.|Only upload these artifacts to elastic
+elasticAddresses|http://127.0.0.1:9200/|
+
+{{% expand  "View Artifact Source" %}}
+
+
+```
+name: Elastic.Flows.Upload
+description: |
+  This server side event monitoring artifact waits for new artifacts
+  to be collected from endpoints and automatically uploads those to an
+  elastic server.
+
+  We use the artifact name as the name of the index. This allows users
+  to adjust the index size/lifetime according to the artifact it is
+  holding.
+
+type: SERVER_EVENT
+
+parameters:
+  - name: ArtifactNameRegex
+    default: .
+    description: Only upload these artifacts to elastic
+  - name: elasticAddresses
+    default: http://127.0.0.1:9200/
+
+sources:
+  - queries:
+      - LET completions = SELECT * FROM watch_monitoring(
+             artifact="System.Flow.Completion")
+             WHERE Flow.artifacts_with_results =~ ArtifactNameRegex
+
+      - LET documents = SELECT * FROM foreach(row=completions,
+          query={
+             SELECT * FROM foreach(
+                 row=Flow.artifacts_with_results,
+                 query={
+                     SELECT *, _value AS Artifact,
+                            timestamp(epoch=now()) AS timestamp,
+                            ClientId, Flow.session_id AS FlowId,
+                            "artifact_" + regex_replace(source=_value,
+                               re='[/.]', replace='_') as _index
+                     FROM source(
+                        client_id=ClientId,
+                        flow_id=Flow.session_id,
+                        artifact=_value)
+                 })
+          })
+
+      - SELECT * FROM elastic_upload(
+            query=documents,
+            addresses=split(string=elasticAddresses, sep=","),
+            index="velociraptor",
+            type="artifact")
+```
+   {{% /expand %}}
+
 ## Generic.Applications.Office.Keywords
 
 Microsoft Office documents among other document format (such as
@@ -396,9 +576,9 @@ https://wiki.openoffice.org/wiki/Documentation/OOo3_User_Guides/Getting_Started/
 
 Arg|Default|Description
 ---|------|-----------
-documentGlobs|/*.{docx,docm,dotx,dotm,docb,xlsx,xlsm,xltx,xltm,pptx,pptm,potx,potm,ppam,ppsx,ppsm,sldx,sldm,odt,ott,oth,odm}|
+documentGlobs|/*.{docx,docm,dotx,dotm,docb,xlsx,xlsm,xltx,xltm,p ...|
 searchGlob|C:\\Users\\**|
-yaraRule|rule Hit {\n  strings:\n    $a = "secret" wide nocase\n    $b = "secret" nocase\n\n  condition:\n    any of them\n}\n|
+yaraRule|rule Hit {\n  strings:\n    $a = "secret" wide noc ...|
 
 {{% expand  "View Artifact Source" %}}
 
@@ -445,30 +625,27 @@ parameters:
       }
 
 sources:
-  - queries:
-      - |
+  - query: |
         LET office_docs = SELECT FullPath AS OfficePath,
              timestamp(epoch=Mtime.Sec) as OfficeMtime,
              Size as OfficeSize
-          FROM glob(globs=searchGlob + documentGlobs)
+        FROM glob(globs=searchGlob + documentGlobs)
 
-      # A list of zip members inside the doc that have some content.
-      - |
+        // A list of zip members inside the doc that have some content.
         LET document_parts = SELECT OfficePath,
              FullPath AS ZipMemberPath
-          FROM glob(globs=url(
+        FROM glob(globs=url(
              scheme="file", path=OfficePath, fragment="/**").String,
              accessor='zip')
-          WHERE not IsDir and Size > 0
+        WHERE not IsDir and Size > 0
 
-      # For each document, scan all its parts for the keyword.
-      - |
+        // For each document, scan all its parts for the keyword.
         SELECT OfficePath,
                OfficeMtime,
                OfficeSize,
                File.ModTime as InternalMtime,
                String.HexData as HexContext
-         FROM foreach(
+        FROM foreach(
            row=office_docs,
            query={
               SELECT File, String, OfficePath,
@@ -478,7 +655,86 @@ sources:
                  files=document_parts.ZipMemberPath,
                  context=200,
                  accessor='zip')
-         })
+        })
+```
+   {{% /expand %}}
+
+## Generic.Client.Info
+
+Collect basic information about the client.
+
+This artifact is collected when any new client is enrolled into the
+system. Velociraptor will watch for this artifact and populate its
+internal indexes from this artifact as well.
+
+You can edit this artifact to enhance the client's interrogation
+information as required.
+
+
+{{% expand  "View Artifact Source" %}}
+
+
+```
+name: Generic.Client.Info
+description: |
+  Collect basic information about the client.
+
+  This artifact is collected when any new client is enrolled into the
+  system. Velociraptor will watch for this artifact and populate its
+  internal indexes from this artifact as well.
+
+  You can edit this artifact to enhance the client's interrogation
+  information as required.
+
+sources:
+  - name: BasicInformation
+    description: |
+      This source is used internally to populate agent info. Do not
+      remove this query.
+    queries:
+      - |
+        SELECT config.Version.Name AS Name,
+               config.Version.BuildTime as BuildTime,
+               config.Labels AS Labels,
+               Hostname, OS, Architecture,
+               Platform, PlatformVersion, KernelVersion, Fqdn
+        FROM info()
+
+  - name: Users
+    precondition: SELECT OS From info() where OS = 'windows'
+    queries:
+      - SELECT Name, Description,
+               if(condition=Mtime, then=timestamp(epoch=Mtime)) AS LastLogin
+        FROM Artifact.Windows.Sys.Users()
+
+reports:
+  - type: CLIENT
+    template: |
+      {{ $client_info := Query "SELECT * FROM clients(client_id=ClientId) LIMIT 1" }}
+
+      {{ $flow_id := Query "SELECT timestamp(epoch=active_time / 1000000) AS Timestamp FROM flows(client_id=ClientId, flow_id=FlowId)" }}
+
+      # {{ Get $client_info "0.os_info.fqdn" }} ( {{ Get $client_info "0.client_id" }} ) @ {{ Get $flow_id "0.Timestamp" }}
+
+      {{ Query "SELECT * FROM source(source='BasicInformation')" | Table }}
+
+      # Memory and CPU footprint over the past 24 hours
+
+      {{ define "resources" }}
+           SELECT Timestamp, rate(x=CPU, y=Timestamp) * 100 As CPUPercent,
+                  RSS / 1000000 AS MemoryUse
+           FROM source(artifact="Generic.Client.Stats",
+                       client_id=ClientId,
+                       mode="CLIENT_EVENT",
+                       start_time=now() - 86400)
+           WHERE CPUPercent >= 0
+      {{ end }}
+
+      {{ Query "resources" | LineChart "xaxis_mode" "time" "RSS.yaxis" 2 }}
+
+      # Active Users
+
+      {{ Query "SELECT * FROM source(source='Users')" | Table }}
 ```
    {{% /expand %}}
 
@@ -503,15 +759,28 @@ parameters:
 type: CLIENT_EVENT
 
 sources:
-  - queries:
-      - |
-        SELECT * from foreach(
+  - precondition: SELECT OS From info() where OS = 'windows'
+    queries:
+      - SELECT * from foreach(
          row={
            SELECT UnixNano FROM clock(period=atoi(string=Frequency))
          },
          query={
            SELECT UnixNano / 1000000000 as Timestamp,
-                  Times.user + Times.system as CPU,
+                  User + System as CPU,
+                  Memory.WorkingSetSize as RSS
+           FROM pslist(pid=getpid())
+         })
+
+  - precondition: SELECT OS From info() where OS = 'linux'
+    queries:
+      - SELECT * from foreach(
+         row={
+           SELECT UnixNano FROM clock(period=atoi(string=Frequency))
+         },
+         query={
+           SELECT UnixNano / 1000000000 as Timestamp,
+                  Times.system + Times.user as CPU,
                   MemoryInfo.RSS as RSS
            FROM pslist(pid=getpid())
          })
@@ -542,7 +811,7 @@ reports:
 
       # Client Footprint for {{ Get $client_info "0.OsInfo.Fqdn" }}
 
-      The client has a client ID of {{ Get $client_info "0.ClientId" }}.
+      The client has a client ID of {{ Get $client_info "0.client_id" }}.
       Clients report the Velociraptor process footprint to the
       server every 10 seconds. The data includes the total CPU
       utilization, and the resident memory size used by the client.
@@ -578,7 +847,7 @@ any files - we simply carve anything that looks like a URL.
 
 Arg|Default|Description
 ---|------|-----------
-UrlGlob|["C:/Documents and Settings/*/Local Settings/Application Data/Google/Chrome/User Data/**",\n "C:/Users/*/AppData/Local/Google/Chrome/User Data/**",\n "C:/Documents and Settings/*/Local Settings/History/**",\n "C:/Documents and Settings/*/Local Settings/Temporary Internet Files/**",\n "C:/Users/*/AppData/Local/Microsoft/Windows/WebCache/**",\n "C:/Users/*/AppData/Local/Microsoft/Windows/INetCache/**",\n "C:/Users/*/AppData/Local/Microsoft/Windows/INetCookies/**",\n "C:/Users/*/AppData/Roaming/Mozilla/Firefox/Profiles/**",\n "C:/Documents and Settings/*/Application Data/Mozilla/Firefox/Profiles/**"\n ]\n|
+UrlGlob|["C:/Documents and Settings/*/Local Settings/Appli ...|
 
 {{% expand  "View Artifact Source" %}}
 
@@ -674,6 +943,230 @@ sources:
 ```
    {{% /expand %}}
 
+## MacOS.Detection.Autoruns
+
+Thie artifact collects evidence of autoruns. We also capture the files and upload them.
+
+This code is based on
+https://github.com/CrowdStrike/automactc/blob/master/modules/mod_autoruns_v102.py
+
+
+Arg|Default|Description
+---|------|-----------
+sandboxed_loginitems|/var/db/com.apple.xpc.launchd/disabled.*.plist|
+cronTabGlob|/private/var/at//tabs/*|
+LaunchAgentsDaemonsGlob|["/System/Library/LaunchAgents/*.plist","/Library/ ...|
+ScriptingAdditionsGlobs|["/System/Library/ScriptingAdditions/*.osax","/Lib ...|
+StartupItemsGlobs|["/System/Library/StartupItems/*/*","/Library/Star ...|
+MiscItemsGlobs|["/private/etc/periodic.conf", "/private/etc/perio ...|
+LoginItemsGlobs|["/Users/*/Library/Preferences/com.apple.loginitem ...|
+
+{{% expand  "View Artifact Source" %}}
+
+
+```
+name: MacOS.Detection.Autoruns
+description: |
+   Thie artifact collects evidence of autoruns. We also capture the files and upload them.
+
+   This code is based on
+   https://github.com/CrowdStrike/automactc/blob/master/modules/mod_autoruns_v102.py
+
+precondition: SELECT OS FROM info() WHERE OS =~ 'darwin'
+
+parameters:
+- name: sandboxed_loginitems
+  default: /var/db/com.apple.xpc.launchd/disabled.*.plist
+
+- name: cronTabGlob
+  default: /private/var/at//tabs/*
+
+- name: LaunchAgentsDaemonsGlob
+  default: |
+     ["/System/Library/LaunchAgents/*.plist","/Library/LaunchAgents/*.plist",
+      "/Users/*/Library/LaunchAgents/*.plist","/private/var/*/Library/LaunchAgents/*.plist",
+      "/System/Library/LaunchAgents/.*.plist","/Library/LaunchAgents/.*.plist",
+      "/Users/*/Library/LaunchAgents/.*.plist", "/private/var/*/Library/LaunchAgents/.*.plist",
+      "/System/Library/LaunchDaemons/*.plist","/Library/LaunchDaemons/*.plist",
+      "/System/Library/LaunchDaemons/.*.plist","/Library/LaunchDaemons/.*.plist"]
+
+- name: ScriptingAdditionsGlobs
+  default: |
+      ["/System/Library/ScriptingAdditions/*.osax","/Library/ScriptingAdditions/*.osax",
+       "/System/Library/ScriptingAdditions/.*.osax","/Library/ScriptingAdditions/.*.osax"]
+
+- name: StartupItemsGlobs
+  default: |
+       ["/System/Library/StartupItems/*/*","/Library/StartupItems/*/*"]
+
+- name: MiscItemsGlobs
+  default: |
+      ["/private/etc/periodic.conf", "/private/etc/periodic/*/*", "/private/etc/*.local",
+       "/private/etc/rc.common",
+       "/private/etc/emond.d/*","/private/etc/emond.d/*/*"]
+
+- name: LoginItemsGlobs
+  default: |
+      ["/Users/*/Library/Preferences/com.apple.loginitems.plist",
+       "/private/var/*/Library/Preferences/com.apple.loginitems.plist"]
+
+sources:
+- name: Sandboxed Loginitems
+  queries:
+  - SELECT FullPath,
+           timestamp(epoch=Mtime.Sec) AS Mtime,
+           plist(file=FullPath) AS Disabled,
+           upload(file=FullPath) AS Upload
+    FROM glob(globs=sandboxed_loginitems)
+
+- name: crontabs
+  queries:
+      - LET raw = SELECT * FROM foreach(
+          row={
+            SELECT FullPath, Name,
+                   timestamp(epoch=Mtime.Sec) AS Mtime,
+                   upload(file=FullPath) AS Upload
+            FROM glob(globs=split(string=cronTabGlob, sep=","))
+          },
+          query={
+            SELECT FullPath, Name, Mtime, Upload,
+              data, parse_string_with_regex(
+               string=data,
+               regex=[
+                 /* Regex for event (Starts with @) */
+                 "^(?P<Event>@[a-zA-Z]+)\\s+(?P<Command>.+)",
+
+                 /* Regex for regular command. */
+                 "^(?P<Minute>[^\\s]+)\\s+"+
+                 "(?P<Hour>[^\\s]+)\\s+"+
+                 "(?P<DayOfMonth>[^\\s]+)\\s+"+
+                 "(?P<Month>[^\\s]+)\\s+"+
+                 "(?P<DayOfWeek>[^\\s]+)\\s+"+
+                 "(?P<Command>.+)$"]) as Record
+
+            /* Read lines from the file and filter ones that start with "#" */
+            FROM split_records(
+               filenames=FullPath,
+               regex="\n", columns=["data"]) WHERE not data =~ "^\\s*#"
+            }) WHERE Record.Command
+
+      - SELECT Record.Event AS Event,
+               Mtime,
+               Name AS User,
+               Record.Minute AS Minute,
+               Record.Hour AS Hour,
+               Record.DayOfMonth AS DayOfMonth,
+               Record.Month AS Month,
+               Record.DayOfWeek AS DayOfWeek,
+               Record.Command AS Command,
+               FullPath AS Path,
+               Upload
+        FROM raw
+
+- name: LaunchAgentsDaemons
+  queries:
+  - LET launchd_config = SELECT FullPath,
+           timestamp(epoch=Mtime.Sec) AS Mtime,
+           plist(file=FullPath) AS LaunchdConfig,
+           upload(file=FullPath) AS Upload
+    FROM glob(globs=parse_json_array(data=LaunchAgentsDaemonsGlob))
+
+  - LET programs = SELECT FullPath, Mtime, LaunchdConfig,
+           get(member="LaunchdConfig.Program",
+               default=get(member="LaunchdConfig.ProgramArguments.0")) AS Program
+    FROM launchd_config
+
+  - SELECT FullPath, Mtime, LaunchdConfig,
+           Program, hash(path=Program) AS Hash,
+           upload(file=FullPath) AS Upload
+    FROM programs
+
+- name: ScriptingAdditions
+  queries:
+  - SELECT FullPath,
+           timestamp(epoch=Mtime.Sec) AS Mtime,
+           upload(file=FullPath) AS Upload
+    FROM glob(globs=parse_json_array(data=ScriptingAdditionsGlobs))
+
+- name: StartupItems
+  queries:
+  - SELECT FullPath,
+           timestamp(epoch=Mtime.Sec) AS Mtime,
+           upload(file=FullPath) AS Upload
+    FROM glob(globs=parse_json_array(data=StartupItemsGlobs))
+
+- name: MiscItems
+  queries:
+  - SELECT FullPath,
+           timestamp(epoch=Mtime.Sec) AS Mtime,
+           upload(file=FullPath) AS Upload
+    FROM glob(globs=parse_json_array(data=MiscItemsGlobs))
+
+- name: LoginItems
+  queries:
+  - SELECT FullPath,
+           timestamp(epoch=Mtime.Sec) AS Mtime,
+           plist(file=FullPath) AS LoginItemConfig,
+           upload(file=FullPath) AS Upload
+    FROM glob(globs=parse_json_array(data=LoginItemsGlobs))
+```
+   {{% /expand %}}
+
+## MacOS.System.Users
+
+This artifact collects information about the local users on the
+system. The information is stored in plist files.
+
+
+Arg|Default|Description
+---|------|-----------
+UserPlistGlob|/private/var/db/dslocal/nodes/Default/users/*.plis ...|
+OnlyShowRealUsers|Y|
+
+{{% expand  "View Artifact Source" %}}
+
+
+```
+name: MacOS.System.Users
+description: |
+  This artifact collects information about the local users on the
+  system. The information is stored in plist files.
+
+parameters:
+  - name: UserPlistGlob
+    default: /private/var/db/dslocal/nodes/Default/users/*.plist
+  - name: OnlyShowRealUsers
+    type: bool
+    default: Y
+
+sources:
+  - queries:
+      - LET user_plist = SELECT FullPath FROM glob(globs=UserPlistGlob)
+      - LET UserDetails = SELECT * FROM foreach(
+           row=plist(file=FullPath),
+           query={
+              SELECT get(member="name.0", default="") AS Name,
+                     get(member="realname.0", default="") AS RealName,
+                     get(member="shell.0", default="") AS UserShell,
+                     get(member="home.0", default="") AS HomeDir,
+                     plist(file=get(member="LinkedIdentity.0", default=""),
+                           accessor='data') as AppleId,
+                     plist(file=get(member="accountPolicyData.0", default=""),
+                           accessor='data') AS AccountPolicyData
+              FROM scope()
+        })
+
+      - SELECT Name, RealName, UserShell, HomeDir,
+               get(item=AppleId, field="appleid.apple.com") AS AppleId,
+               timestamp(epoch=AccountPolicyData.creationTime) AS CreationTime,
+               AccountPolicyData.failedLoginCount AS FailedLoginCount,
+               timestamp(epoch=AccountPolicyData.failedLoginTimestamp) AS FailedLoginTimestamp,
+               timestamp(epoch=AccountPolicyData.passwordLastSetTime) AS PasswordLastSetTime
+        FROM foreach(row=user_plist, query=UserDetails)
+        WHERE OnlyShowRealUsers != 'Y' OR NOT UserShell =~ 'false'
+```
+   {{% /expand %}}
+
 ## Network.ExternalIpAddress
 
 Detect the external ip address of the end point.
@@ -715,6 +1208,8 @@ description: |
   Report details about which client ran each hunt, how long it took
   and if it has completed.
 
+type: SERVER
+
 sources:
   - precondition:
       SELECT server_config FROM scope()
@@ -731,13 +1226,32 @@ sources:
           Fqdn,
           ClientId,
           { SELECT os_info.system FROM clients(search=ClientId) } as OS,
-          timestamp(epoch=Flow.FlowContext.create_time/1000000) as create_time,
-          basename(path=Flow.Urn) as flow_id,
-          (Flow.FlowContext.active_time - Flow.FlowContext.create_time) / 1000000 as Duration,
-          format(format='%v', args=[Flow.FlowContext.state]) as State
+          timestamp(epoch=Flow.create_time/1000000) as create_time,
+          basename(path=Flow.session_id) as flow_id,
+          (Flow.active_time - Flow.create_time) / 1000000 as Duration,
+          format(format='%v', args=[Flow.state]) as State
         FROM hunt_flows(hunt_id=hunt_id) order by create_time desc
       - |
         SELECT * from foreach(row=hunts, query=flows)
+```
+   {{% /expand %}}
+
+## System.Flow.Completion
+
+An internal artifact that produces events for every flow completion
+in the system.
+
+
+{{% expand  "View Artifact Source" %}}
+
+
+```
+name: System.Flow.Completion
+description: |
+  An internal artifact that produces events for every flow completion
+  in the system.
+
+type: CLIENT_EVENT
 ```
    {{% /expand %}}
 
@@ -759,6 +1273,8 @@ description: |
      each system participated in.
 
      Note: This is an automated system hunt. You do not need to start it.
+
+type: CLIENT_EVENT
 
 reports:
   - type: MONITORING_DAILY
@@ -782,9 +1298,9 @@ reports:
 
       {{ $client_info := Query "SELECT * FROM clients(client_id=ClientId) LIMIT 1" }}
 
-      # Hunt participation for {{ Get $client_info "0.OsInfo.Fqdn" }}
+      # Hunt participation for {{ Get $client_info "0.os_info.fqdn" }}
 
-      The client with a client ID of {{ Get $client_info "0.ClientId" }} participated in some hunts today.
+      The client with a client ID of {{ Get $client_info "0.client_id" }} participated in some hunts today.
 
       {{ Query "all_hunts" "hunts" | Table }}
 
@@ -794,6 +1310,95 @@ reports:
       ```sql
       {{ template "hunts" }}
       ```
+```
+   {{% /expand %}}
+
+## System.VFS.DownloadFile
+
+This is an internal artifact used by the GUI to populate the
+VFS. You may run it manually if you like, but typically it is
+launched by the GUI when the user clicks the "Collect from client"
+button at the file "Stats" tab.
+
+
+Arg|Default|Description
+---|------|-----------
+Path|/|The path of the file to download.
+Accessor|file|
+
+{{% expand  "View Artifact Source" %}}
+
+
+```
+name: System.VFS.DownloadFile
+description: |
+  This is an internal artifact used by the GUI to populate the
+  VFS. You may run it manually if you like, but typically it is
+  launched by the GUI when the user clicks the "Collect from client"
+  button at the file "Stats" tab.
+
+parameters:
+  - name: Path
+    description: The path of the file to download.
+    default: /
+  - name: Accessor
+    default: file
+
+sources:
+  - queries:
+      - SELECT Path, Accessor, Size, Error, Sha256, Md5
+        FROM upload(files=Path, accessor=Accessor)
+```
+   {{% /expand %}}
+
+## System.VFS.ListDirectory
+
+This is an internal artifact used by the GUI to populate the
+VFS. You may run it manually if you like, but typically it is
+launched by the GUI when a user clicks the "Refresh this directory"
+button.
+
+
+Arg|Default|Description
+---|------|-----------
+Path|/|The path of the file to download.
+Accessor|file|
+Depth|0|
+
+{{% expand  "View Artifact Source" %}}
+
+
+```
+name: System.VFS.ListDirectory
+description: |
+  This is an internal artifact used by the GUI to populate the
+  VFS. You may run it manually if you like, but typically it is
+  launched by the GUI when a user clicks the "Refresh this directory"
+  button.
+
+parameters:
+  - name: Path
+    description: The path of the file to download.
+    default: "/"
+
+  - name: Accessor
+    default: file
+
+  - name: Depth
+    default: 0
+
+sources:
+  - queries:
+      - SELECT FullPath as _FullPath,
+           Accessor as _Accessor,
+           Data as _Data,
+           Name, Size, Mode.String AS Mode,
+           timestamp(epoch=Mtime.Sec) as mtime,
+           timestamp(epoch=Atime.Sec) as atime,
+           timestamp(epoch=Ctime.Sec) as ctime
+        FROM glob(globs=Path + if(condition=atoi(string=Depth),
+             then='/**' + Depth, else='/*'),
+             accessor=Accessor)
 ```
    {{% /expand %}}
 
@@ -833,7 +1438,7 @@ sources:
 
   - name: ShimCache
     queries:
-      - SELECT * FROM Artifact.Windows.Registery.AppCompatCache()
+      - SELECT * FROM Artifact.Windows.Registry.AppCompatCache()
 
   - name: Prefetch
     queries:
@@ -863,23 +1468,21 @@ sources:
   - precondition:
       SELECT OS From info() where OS = 'windows'
     queries:
-      - |
-        LET files =
-          SELECT FullPath, parse_xml(file=FullPath) AS Metadata
-          -- Use the ChocolateyInstall parameter if it is set.
+      - LET files = SELECT FullPath,
+              parse_xml(file=FullPath) AS Metadata
+              -- Use the ChocolateyInstall parameter if it is set.
+
           FROM glob(globs=if(
              condition=ChocolateyInstall,
              then=ChocolateyInstall,
+
              -- Otherwise just use the environment.
              else=environ(var='ChocolateyInstall')) + '/lib/*/*.nuspec')
-      - |
-        SELECT * FROM if(
-        condition={
-            SELECT * FROM if(
-               condition=ChocolateyInstall,
-               then=ChocolateyInstall,
-               else=environ(var="ChocolateyInstall"))
-          },
+
+      - SELECT * FROM if(
+        condition=if(condition=ChocolateyInstall,
+                     then=ChocolateyInstall,
+                     else=environ(var="ChocolateyInstall")),
         then={
             SELECT FullPath,
                    Metadata.package.metadata.id as Name,
@@ -901,15 +1504,16 @@ credentials. Since Velociraptor is typically not running in the user
 context we can not decrypt these. It may be possible to decrypt the
 cookies off line.
 
-The pertinent information from a forensic point of view is the
+The pertinant information from a forensic point of view is the
 user's Created and LastAccess timestamp and the fact that the user
 has actually visited the site and obtained a cookie.
 
 
 Arg|Default|Description
 ---|------|-----------
-cookieGlobs|\\AppData\\Local\\Google\\Chrome\\User Data\\*\\Cookies|
-cookieSQLQuery|SELECT creation_utc, host_key, name, value, path, expires_utc,\n       last_access_utc, encrypted_value\nFROM cookies\n|
+cookieGlobs|\\AppData\\Local\\Google\\Chrome\\User Data\\*\\Co ...|
+cookieSQLQuery|SELECT creation_utc, host_key, name, value, path,  ...|
+userRegex|.|
 
 {{% expand  "View Artifact Source" %}}
 
@@ -924,7 +1528,7 @@ description: |
   context we can not decrypt these. It may be possible to decrypt the
   cookies off line.
 
-  The pertinent information from a forensic point of view is the
+  The pertinant information from a forensic point of view is the
   user's Created and LastAccess timestamp and the fact that the user
   has actually visited the site and obtained a cookie.
 
@@ -936,6 +1540,8 @@ parameters:
       SELECT creation_utc, host_key, name, value, path, expires_utc,
              last_access_utc, encrypted_value
       FROM cookies
+  - name: userRegex
+    default: .
 
 precondition: SELECT OS From info() where OS = 'windows'
 
@@ -946,6 +1552,7 @@ sources:
           row={
              SELECT Uid, Name AS User, Directory
              FROM Artifact.Windows.Sys.Users()
+             WHERE Name =~ userRegex
           },
           query={
              SELECT User, FullPath, Mtime from glob(
@@ -983,7 +1590,8 @@ description from there.
 
 Arg|Default|Description
 ---|------|-----------
-extensionGlobs|\\AppData\\Local\\Google\\Chrome\\User Data\\*\\Extensions\\*\\*\\manifest.json|
+extensionGlobs|\\AppData\\Local\\Google\\Chrome\\User Data\\*\\Ex ...|
+userRegex|.|
 
 {{% expand  "View Artifact Source" %}}
 
@@ -1005,6 +1613,9 @@ description: |
 parameters:
   - name: extensionGlobs
     default: \AppData\Local\Google\Chrome\User Data\*\Extensions\*\*\manifest.json
+  - name: userRegex
+    default: .
+
 sources:
   - precondition: |
       SELECT OS From info() where OS = 'windows'
@@ -1014,7 +1625,9 @@ sources:
            in their home directory. */
         LET extension_manifests = SELECT * from foreach(
           row={
-             SELECT Uid, Name AS User, Directory from Artifact.Windows.Sys.Users()
+             SELECT Uid, Name AS User, Directory
+             FROM Artifact.Windows.Sys.Users()
+             WHERE Name =~ userRegex
           },
           query={
              SELECT FullPath, Mtime, Ctime, User, Uid from glob(
@@ -1127,8 +1740,9 @@ Enumerate the users chrome history.
 
 Arg|Default|Description
 ---|------|-----------
-historyGlobs|\\AppData\\Local\\Google\\Chrome\\User Data\\*\\History|
-urlSQLQuery|SELECT url as visited_url, title, visit_count,\n       typed_count, last_visit_time\nFROM urls\n|
+historyGlobs|\\AppData\\Local\\Google\\Chrome\\User Data\\*\\Hi ...|
+urlSQLQuery|SELECT url as visited_url, title, visit_count,\n   ...|
+userRegex|.|
 
 {{% expand  "View Artifact Source" %}}
 
@@ -1146,6 +1760,8 @@ parameters:
       SELECT url as visited_url, title, visit_count,
              typed_count, last_visit_time
       FROM urls
+  - name: userRegex
+    default: .
 
 precondition: SELECT OS From info() where OS = 'windows'
 
@@ -1156,6 +1772,7 @@ sources:
           row={
              SELECT Uid, Name AS User, Directory
              FROM Artifact.Windows.Sys.Users()
+             WHERE Name =~ userRegex
           },
           query={
              SELECT User, FullPath, Mtime from glob(
@@ -1242,7 +1859,7 @@ Maps the Mitre Att&ck framework process executions into artifacts.
 
 Arg|Default|Description
 ---|------|-----------
-lookupTable|ProcessName,ParentRegex\nsmss.exe,System\nruntimebroker.exe,svchost.exe\ntaskhostw.exe,svchost.exe\nservices.exe,wininit.exe\nlsass.exe,wininit.exe\nsvchost.exe,services.exe\ncmd.exe,explorer.exe\npowershell.exe,explorer.exe\niexplore.exe,explorer.exe\nfirefox.exe,explorer.exe\nchrome.exe,explorer.exe\n|
+lookupTable|ProcessName,ParentRegex\nsmss.exe,System\nruntimeb ...|
 
 {{% expand  "View Artifact Source" %}}
 
@@ -1399,6 +2016,263 @@ reports:
       # Timeline
 
       {{ Query "SELECT modified * 1000, Name FROM foreach(row=lookup, query={ SELECT * FROM data WHERE Name =~ signature})" | Timeline }}
+```
+   {{% /expand %}}
+
+## Windows.Collectors.File
+
+Collects files using a set of globs. All globs must be on the same
+device. The globs will be searched in one pass - so you can provide
+many globs at the same time.
+
+
+Arg|Default|Description
+---|------|-----------
+collectionSpec|Glob\nUsers\\*\\NTUser.dat\n|A CSV file with a Glob column with all the globs to collect.\nNOTE: Globs must not have a leading device since the device\nwill depend on the VSS.\n
+RootDevice|C:|The device to apply all the glob on.
+Accessor|lazy_ntfs|
+
+{{% expand  "View Artifact Source" %}}
+
+
+```
+name: Windows.Collectors.File
+description: |
+   Collects files using a set of globs. All globs must be on the same
+   device. The globs will be searched in one pass - so you can provide
+   many globs at the same time.
+
+parameters:
+  - name: collectionSpec
+    description: |
+       A CSV file with a Glob column with all the globs to collect.
+       NOTE: Globs must not have a leading device since the device
+       will depend on the VSS.
+    default: |
+       Glob
+       Users\*\NTUser.dat
+  - name: RootDevice
+    description: The device to apply all the glob on.
+    default: "C:"
+  - name: Accessor
+    default: lazy_ntfs
+
+sources:
+   - name: All Matches Metadata
+     queries:
+      # Generate the collection globs for each device
+      - LET specs = SELECT "\\\\.\\" + RootDevice + "\\" + Glob AS Glob
+            FROM parse_csv(filename=collectionSpec, accessor="data")
+            WHERE log(message="Processing Device " + RootDevice + " With " + Accessor)
+
+      # Join all the collection rules into a single Glob plugin. This ensure we
+      # only make one pass over the filesystem. We only want LFNs.
+      - |
+        LET hits = SELECT FullPath AS SourceFile, Size,
+               timestamp(epoch=Ctime.Sec) AS Created,
+               timestamp(epoch=Mtime.Sec) AS Modified,
+               timestamp(epoch=Atime.Sec) AS LastAccessed
+        FROM glob(globs=specs.Glob, accessor=Accessor)
+        WHERE NOT IsDir AND log(message="Found " + SourceFile)
+
+      # Create a unique key to group by - modification time and path name.
+      # Order by device name so we get C:\ above the VSS device.
+      - LET all_results <= SELECT Created, LastAccessed,
+              Modified, Size, SourceFile
+        FROM hits
+
+      - SELECT * FROM all_results
+
+   - name: Uploads
+     queries:
+      # Upload the files
+      - LET uploaded_tiles = SELECT Created, LastAccessed, Modified, SourceFile, Size,
+               upload(file=SourceFile, accessor=Accessor, name=SourceFile) AS Upload
+        FROM all_results
+
+      # Seperate the hashes into their own column.
+      - SELECT now() AS CopiedOnTimestamp, SourceFile, Upload.Path AS DestinationFile,
+               Size AS FileSize, Upload.sha256 AS SourceFileSha256,
+               Created, Modified, LastAccessed
+        FROM uploaded_tiles
+```
+   {{% /expand %}}
+
+## Windows.Collectors.VSS
+
+Collects files with VSS deduplication.
+
+Volume shadow copies is a windows feature where file system
+snapshots can be made at various times. When collecting files it is
+useful to go back through the VSS to see older versions of critical
+files.
+
+At the same time we dont want to collect multiple copies of the
+same data.
+
+This artifact runs the provided globs over all the VSS and collects
+the unique modified time + path combinations.
+
+If a file was modified in a previous VSS copy, this artifact will
+retrieve it at multiple shadow copies.
+
+
+Arg|Default|Description
+---|------|-----------
+collectionSpec|Glob\nUsers\\*\\NTUser.dat\n|A CSV file with a Glob column with all the globs to collect.\nNOTE: Globs must not have a leading device since the device\nwill depend on the VSS.\n
+RootDevice|C:|The device to apply all the glob on.
+Accessor|lazy_ntfs|
+VSSDateRegex|.|
+
+{{% expand  "View Artifact Source" %}}
+
+
+```
+name: Windows.Collectors.VSS
+description: |
+   Collects files with VSS deduplication.
+
+   Volume shadow copies is a windows feature where file system
+   snapshots can be made at various times. When collecting files it is
+   useful to go back through the VSS to see older versions of critical
+   files.
+
+   At the same time we dont want to collect multiple copies of the
+   same data.
+
+   This artifact runs the provided globs over all the VSS and collects
+   the unique modified time + path combinations.
+
+   If a file was modified in a previous VSS copy, this artifact will
+   retrieve it at multiple shadow copies.
+
+parameters:
+  - name: collectionSpec
+    description: |
+       A CSV file with a Glob column with all the globs to collect.
+       NOTE: Globs must not have a leading device since the device
+       will depend on the VSS.
+    default: |
+       Glob
+       Users\*\NTUser.dat
+  - name: RootDevice
+    description: The device to apply all the glob on.
+    default: "C:"
+  - name: Accessor
+    default: lazy_ntfs
+  - name: VSSDateRegex
+    default: .
+
+sources:
+   - name: All Matches Metadata
+     queries:
+      - LET originating_machine <= SELECT Data.SystemName AS System
+            FROM glob(globs="/*", accessor=Accessor)
+            WHERE Name = "\\\\.\\" + RootDevice
+
+      # Generate the collection globs for each device
+      - LET specs = SELECT Device + Glob AS Glob FROM parse_csv(
+            filename=collectionSpec, accessor="data")
+            WHERE log(message="Processing Device " + Device + " With " + Accessor)
+
+      # Join all the collection rules into a single Glob plugin. This ensure we
+      # only make one pass over the filesystem. We only want LFNs.
+      - |
+        LET hits = SELECT FullPath AS SourceFile, Size,
+               timestamp(epoch=Ctime.Sec) AS Created,
+               timestamp(epoch=Mtime.Sec) AS Modified,
+               timestamp(epoch=Atime.Sec) AS LastAccessed,
+               Device, strip(string=FullPath, prefix=Device) AS Path,
+               Data.mft AS MFT, Data.name_type AS NameType
+        FROM glob(globs=specs.Glob, accessor=Accessor)
+        WHERE NOT IsDir
+
+      # Get all volume shadows on this system.
+      - LET volume_shadows = SELECT Data.InstallDate AS InstallDate,
+               Data.DeviceObject + "\\" AS Device
+        FROM glob(globs='/*', accessor=Accessor)
+        WHERE Device =~ 'VolumeShadowCopy' AND
+              Data.OriginatingMachine = originating_machine.System[0] AND
+              InstallDate =~ VSSDateRegex
+
+      # The target devices are the root device and all the VSS
+      - LET target_devices = SELECT * FROM chain(
+            a={SELECT "\\\\.\\" + RootDevice + "\\" AS Device from scope()},
+            b=volume_shadows)
+
+      # Get all the paths matching the collection globs.
+      - LET all_matching = SELECT * FROM foreach(row=target_devices, query=hits)
+
+      # Create a unique key to group by - modification time and path name.
+      # Order by device name so we get C:\ above the VSS device.
+      - LET all_results <= SELECT Created, LastAccessed, Path, MFT, NameType,
+              Modified, Size, SourceFile, Device, format(format="%s:%v", args=[Modified, MFT]) AS Key
+        FROM all_matching ORDER BY Device DESC
+      - SELECT * FROM all_results
+
+   - name: Uploads
+     queries:
+      # Get all the unique versions of the sort key - that is unique instances of
+      # mod time + path. If a path has several mod time (i.e. different times in each VSS
+      # we will get them all). But if the same path has the same mod time in all VSS we only
+      # take the first one which due to the sorting above will be the root device usually.
+      - LET unique_mtimes = SELECT * FROM all_results GROUP BY Key
+
+      # Upload the files using the MFT accessor.
+      - LET uploaded_tiles = SELECT Created, LastAccessed, Modified, MFT, SourceFile, Size,
+               upload(file=Device+MFT, name=SourceFile, accessor="mft") AS Upload
+        FROM unique_mtimes
+
+      # Seperate the hashes into their own column.
+      - SELECT now() AS CopiedOnTimestamp, SourceFile, Upload.Path AS DestinationFile,
+               Size AS FileSize, Upload.sha256 AS SourceFileSha256,
+               Created, Modified, LastAccessed, MFT
+        FROM uploaded_tiles
+```
+   {{% /expand %}}
+
+## Windows.EventLogs.AlternateLogon
+
+Logon specifying alternate credentials - if NLA enabled on
+destination Current logged-on User Name Alternate User Name
+Destination Host Name/IP Process Name
+
+
+Arg|Default|Description
+---|------|-----------
+securityLogFile|C:/Windows/System32/Winevt/Logs/Security.evtx|
+
+{{% expand  "View Artifact Source" %}}
+
+
+```
+name: Windows.EventLogs.AlternateLogon
+description: |
+  Logon specifying alternate credentials - if NLA enabled on
+  destination Current logged-on User Name Alternate User Name
+  Destination Host Name/IP Process Name
+
+reference:
+  - https://digital-forensics.sans.org/media/SANS_Poster_2018_Hunt_Evil_FINAL.pdf
+
+precondition: SELECT OS From info() where OS = 'windows'
+
+parameters:
+  - name: securityLogFile
+    default: C:/Windows/System32/Winevt/Logs/Security.evtx
+
+sources:
+  - queries:
+      - SELECT EventData.IpAddress AS IpAddress,
+               EventData.IpPort AS Port,
+               EventData.ProcessName AS ProcessName,
+               EventData.SubjectUserSid AS SubjectUserSid,
+               EventData.SubjectUserName AS SubjectUserName,
+               EventData.TargetUserName AS TargetUserName,
+               EventData.TargetServerName AS TargetServerName,
+               System.TimeCreated.SystemTime AS LogonTime
+        FROM parse_evtx(filename=securityLogFile)
+        WHERE System.EventID.Value = 4648
 ```
    {{% /expand %}}
 
@@ -1573,15 +2447,559 @@ reports:
 ```
    {{% /expand %}}
 
+## Windows.EventLogs.Kerbroasting
+
+**Description**:
+This Artifact will return all successful Kerberos TGS Ticket events for
+Service Accounts (SPN attribute) implemented with weak encryption. These
+tickets are vulnerable to brute force attack and this event is an indicator
+of a Kerbroasting attack.
+
+**ATT&CK**: [T1208 - Kerbroasting](https://attack.mitre.org/techniques/T1208/)
+Typical attacker methodology is to firstly request accounts in the domain
+with SPN attributes, then request an insecure TGS ticket for brute forcing.
+This attack is particularly effective as any domain credentials can be used
+to implement the attack and service accounts often have elevated privileges.
+Kerbroasting can be used for privilege escalation or persistence by adding a
+SPN attribute to an unexpected account.
+
+**Reference**: [The Art of Detecting Kerberoast Attacks](https://www.trustedsec.com/2018/05/art_of_kerberoast/)
+**Log Source**: Windows Security Event Log (Domain Controllers)
+**Event ID**: 4769
+**Status**: 0x0 (Audit Success)
+**Ticket Encryption**: 0x17 (RC4)
+**Service Name**: NOT krbtgt or NOT a system account (account name ends in $)
+**TargetUserName**: NOT a system account (*$@*)
+
+
+Monitor and alert on unusual events with these conditions from an unexpected
+IP.
+Note: There are potential false positives so whitelist normal source IPs and
+manage risk of insecure ticket generation.
+
+
+Arg|Default|Description
+---|------|-----------
+eventLog|C:\\Windows\\system32\\winevt\\logs\\Security.evtx|
+
+{{% expand  "View Artifact Source" %}}
+
+
+```
+name: Windows.EventLogs.Kerbroasting
+description: |
+  **Description**:
+  This Artifact will return all successful Kerberos TGS Ticket events for
+  Service Accounts (SPN attribute) implemented with weak encryption. These
+  tickets are vulnerable to brute force attack and this event is an indicator
+  of a Kerbroasting attack.
+
+  **ATT&CK**: [T1208 - Kerbroasting](https://attack.mitre.org/techniques/T1208/)
+  Typical attacker methodology is to firstly request accounts in the domain
+  with SPN attributes, then request an insecure TGS ticket for brute forcing.
+  This attack is particularly effective as any domain credentials can be used
+  to implement the attack and service accounts often have elevated privileges.
+  Kerbroasting can be used for privilege escalation or persistence by adding a
+  SPN attribute to an unexpected account.
+
+  **Reference**: [The Art of Detecting Kerberoast Attacks](https://www.trustedsec.com/2018/05/art_of_kerberoast/)
+  **Log Source**: Windows Security Event Log (Domain Controllers)
+  **Event ID**: 4769
+  **Status**: 0x0 (Audit Success)
+  **Ticket Encryption**: 0x17 (RC4)
+  **Service Name**: NOT krbtgt or NOT a system account (account name ends in $)
+  **TargetUserName**: NOT a system account (*$@*)
+
+
+  Monitor and alert on unusual events with these conditions from an unexpected
+  IP.
+  Note: There are potential false positives so whitelist normal source IPs and
+  manage risk of insecure ticket generation.
+
+
+author: Matt Green - @mgreen27
+
+parameters:
+  - name: eventLog
+    default: C:\Windows\system32\winevt\logs\Security.evtx
+
+sources:
+  - name: Kerbroasting
+    queries:
+      - LET files = SELECT * FROM glob(globs=eventLog)
+
+      - SELECT timestamp(epoch=System.TimeCreated.SystemTime) As EventTime,
+              System.EventID.Value as EventID,
+              System.Computer as Computer,
+              EventData.ServiceName as ServiceName,
+              EventData.ServiceSid as ServiceSid,
+              EventData.TargetUserName as TargetUserName,
+              "0x" + format(format="%x", args=EventData.Status) as Status,
+              EventData.TargetDomainName as TargetDomainName,
+              "0x" + format(format="%x", args=EventData.TicketEncryptionType) as TicketEncryptionType,
+              "0x" + format(format="%x", args=EventData.TicketOptions) as TicketOptions,
+              EventData.TransmittedServices as TransmittedServices,
+              EventData.IpAddress as IpAddress,
+              EventData.IpPort as IpPort
+        FROM foreach(
+          row=files,
+          query={
+            SELECT *
+            FROM parse_evtx(filename=FullPath)
+            WHERE System.EventID.Value = 4769
+                AND EventData.TicketEncryptionType = 23
+                AND EventData.Status = 0
+                AND NOT EventData.ServiceName =~ "krbtgt|\\$$"
+                AND NOT EventData.TargetUserName =~ "\\$@"
+        })
+
+reports:
+  - type: CLIENT
+    template: |
+
+      Kerbroasting: TGS Ticket events.
+      ===============================
+
+      {{ .Description }}
+      {{ Query "SELECT EventTime, Computer, ServiceName, TargetUserName, TargetDomainName, IpAddress FROM source(source='Kerbroasting')" | Table }}
+
+  - type: HUNT
+    template: |
+
+      Kerbroasting: TGS Ticket events.
+      ===============================
+
+      {{ .Description }}
+      {{ Query "SELECT EventTime, Computer, ServiceName, TargetUserName, TargetDomainName, IpAddress FROM source(source='Kerbroasting')" | Table }}
+```
+   {{% /expand %}}
+
+## Windows.EventLogs.PowershellScriptblock
+
+This Artifact will search and extract ScriptBlock events (Event ID 4104) from 
+Powershell-Operational Event Logs.
+
+Powershell is commonly used by attackers accross all stages of the attack 
+lifecycle. A valuable hunt is to search Scriptblock logs for signs of 
+malicious content.
+
+There are several parameter's availible for search leveraging regex. 
+  - dateAfter enables search for events after this date.  
+  - dateBefore enables search for events before this date.   
+  - SearchStrings enables regex search over scriptblock text field.  
+  - stringWhiteList enables a regex whitelist for scriptblock text field.  
+  - pathWhitelist enables a regex whitelist for path of scriptblock. 
+  - LogLevel enables searching on type of log. Default is Warning level 
+    which is logged even if ScriptBlock logging is turned off when 
+    suspicious keywords detected in Powershell interpreter.   
+
+
+Arg|Default|Description
+---|------|-----------
+eventLog|C:\\Windows\\system32\\winevt\\logs\\Microsoft-Win ...|
+dateAfter||search for events after this date. YYYY-MM-DDTmm:hh:ss Z
+dateBefore||search for events before this date. YYYY-MM-DDTmm:hh:ss Z
+searchStrings||regex search over scriptblock text field.
+stringWhitelist||Regex of string to witelist
+pathWhitelist||Regex of path to whitelist.
+LogLevel|Warning|Log level. Warning is Powershell default bad keyword list.
+
+{{% expand  "View Artifact Source" %}}
+
+
+```
+name: Windows.EventLogs.PowershellScriptblock
+description: |
+  This Artifact will search and extract ScriptBlock events (Event ID 4104) from 
+  Powershell-Operational Event Logs.
+  
+  Powershell is commonly used by attackers accross all stages of the attack 
+  lifecycle. A valuable hunt is to search Scriptblock logs for signs of 
+  malicious content.
+  
+  There are several parameter's availible for search leveraging regex. 
+    - dateAfter enables search for events after this date.  
+    - dateBefore enables search for events before this date.   
+    - SearchStrings enables regex search over scriptblock text field.  
+    - stringWhiteList enables a regex whitelist for scriptblock text field.  
+    - pathWhitelist enables a regex whitelist for path of scriptblock. 
+    - LogLevel enables searching on type of log. Default is Warning level 
+      which is logged even if ScriptBlock logging is turned off when 
+      suspicious keywords detected in Powershell interpreter.   
+  
+
+author: Matt Green - @mgreen27
+
+parameters:
+  - name: eventLog
+    default: C:\Windows\system32\winevt\logs\Microsoft-Windows-PowerShell%4Operational.evtx
+  - name: dateAfter
+    description: "search for events after this date. YYYY-MM-DDTmm:hh:ss Z"
+    type: timestamp
+  - name: dateBefore
+    description: "search for events before this date. YYYY-MM-DDTmm:hh:ss Z"
+    type: timestamp
+  - name: searchStrings
+    description: "regex search over scriptblock text field."
+  - name: stringWhitelist
+    description: "Regex of string to witelist"
+  - name: pathWhitelist
+    description: "Regex of path to whitelist."
+    
+  - name: LogLevel
+    description: "Log level. Warning is Powershell default bad keyword list."
+    type: choices
+    default: Warning
+    choices:
+       - All
+       - Warning
+       - Verbose
+  - name: LogLevelMap
+    type: hidden
+    default: |
+      Choice,Regex
+      All,"."
+      Warning,"3"
+      Verbose,"5"
+      
+      
+sources:
+  - name: PowershellScriptBlock
+    queries:
+      - LET time <= SELECT format(format="%v", args=Regex) as value
+            FROM parse_csv(filename=LogLevelMap, accessor="data")
+            WHERE Choice=LogLevel LIMIT 1
+      - LET LogLevelRegex <= SELECT format(format="%v", args=Regex) as value
+            FROM parse_csv(filename=LogLevelMap, accessor="data")
+            WHERE Choice=LogLevel LIMIT 1
+      - LET files = SELECT * FROM glob(
+            globs=eventLog)
+      - SELECT *
+        FROM foreach(
+          row=files,
+          query={
+            SELECT timestamp(epoch=System.TimeCreated.SystemTime) As EventTime,
+              System.Computer as Computer,
+              System.Security.UserID as SecurityID,
+              EventData.Path as Path,
+              EventData.ScriptBlockId as ScriptBlockId,
+              EventData.ScriptBlockText as ScriptBlockText,
+              System.EventRecordID as EventRecordID,
+              System.Level as Level,
+              System.Opcode as Opcode,
+              System.Task as Task
+            FROM parse_evtx(filename=FullPath)
+            WHERE System.EventID.Value = 4104 and
+                if(condition=dateAfter, then=EventTime > timestamp(string=dateAfter),
+                 else=TRUE) and
+                if(condition=dateBefore, then=EventTime < timestamp(string=dateBefore),
+                 else=TRUE) and
+                format(format="%d", args=System.Level) =~ LogLevelRegex.value[0] and
+                if(condition=searchStrings, then=ScriptBlockText =~ searchStrings,
+                 else=TRUE) and
+                if(condition=stringWhitelist, then=not ScriptBlockText =~ stringWhitelist,
+                 else=TRUE) and
+                if(condition=pathWhitelist, then=not Path =~ pathWhitelist,
+                 else=TRUE)
+        })
+
+reports:
+  - type: HUNT
+    template: |
+      Powershell: Scriptblock
+      =======================
+      Powershell is commonly used by attackers accross all stages of the attack 
+      lifecycle.  
+      A valuable hunt is to search Scriptblock logs for signs of malicious 
+      content. Stack ranking these events can provide valuable leads from which 
+      to start an investigation.
+      
+      {{ Query "SELECT count(items=ScriptBlockText) as Count, ScriptBlockText FROM source(source='PowershellScriptBlock') GROUP BY ScriptBlockText ORDER BY Count"  | Table }}
+      
+```
+   {{% /expand %}}
+
+## Windows.EventLogs.ServiceCreationComspec
+
+
+This Detection hts on the string "COMSPEC" (nocase) in Windows Service
+Creation events. That is: EventID 7045 from the System event log. 
+
+This detects many hack tools that leverage SCM based lateral movement 
+including smbexec.
+
+
+Arg|Default|Description
+---|------|-----------
+eventLog|C:\\Windows\\system32\\winevt\\logs\\System.evtx|
+accessor|ntfs|
+
+{{% expand  "View Artifact Source" %}}
+
+
+```
+name: Windows.EventLogs.ServiceCreationComspec
+description: |
+
+  This Detection hts on the string "COMSPEC" (nocase) in Windows Service
+  Creation events. That is: EventID 7045 from the System event log. 
+
+  This detects many hack tools that leverage SCM based lateral movement 
+  including smbexec.
+
+author: Matt Green - @mgreen27
+
+parameters:
+  - name: eventLog
+    default: C:\Windows\system32\winevt\logs\System.evtx
+  - name: accessor
+    default: ntfs
+
+sources:
+  - name: ServiceCreation
+    queries:
+      - |
+        LET files = SELECT * FROM glob(
+            globs=eventLog,
+            accessor=accessor)
+      - |
+        SELECT *
+        FROM foreach(
+          row=files,
+          query={
+            SELECT timestamp(epoch=System.TimeCreated.SystemTime) As EventTime,
+              System.EventID.Value as EventID,
+              System.Computer as Computer,
+              System.Security.UserID as SecurityID,
+              EventData.AccountName as ServiceAccount,
+              EventData.ServiceName as ServiceName,
+              EventData.ImagePath as ImagePath,
+              EventData.ServiceType as ServiceType,
+              EventData.StartType as StartType,
+              System.EventRecordID as EventRecordID,
+              System.Level as Level,
+              System.Opcode as Opcode,
+              System.Task as Task
+            FROM parse_evtx(filename=FullPath, accessor=accessor)
+            WHERE System.EventID.Value = 7045 and 
+              EventData.ImagePath =~ "(?i)COMSPEC"
+        })
+```
+   {{% /expand %}}
+
+## Windows.Memory.Acquisition
+
+Acquires a full memory image. We download winpmem and use it to
+acquire a full memory image.
+
+NOTE: This artifact usually takes a long time. You should increase
+the default timeout to allow it to complete.
+
+
+{{% expand  "View Artifact Source" %}}
+
+
+```
+name: Windows.Memory.Acquisition
+description: |
+  Acquires a full memory image. We download winpmem and use it to
+  acquire a full memory image.
+
+  NOTE: This artifact usually takes a long time. You should increase
+  the default timeout to allow it to complete.
+
+sources:
+  - queries:
+      - SELECT * FROM foreach(
+          row={
+            SELECT FullPath, tempfile(data="X", extension=".aff4") AS Tempfile
+            FROM Artifact.Windows.Utils.FetchBinary(
+                ToolName="WinPmem",
+                binaryURL=binaryURL)
+          },
+          query={
+            SELECT Stdout, Stderr,
+                   if(condition=Complete,
+                      then=upload(file=Tempfile)) As Upload
+            FROM execve(
+               argv=[FullPath, "-dd", "-o", Tempfile, "-t", "-c", "snappy"],
+               sep="\r\n")
+        })
+```
+   {{% /expand %}}
+
+## Windows.NTFS.I30
+
+Carve the $I30 index stream for a directory.
+
+This can reveal previously deleted files. Optionally upload the I30
+stream to the server as well.
+
+
+Arg|Default|Description
+---|------|-----------
+DirectoryGlobs|C:\\Users\\|
+
+{{% expand  "View Artifact Source" %}}
+
+
+```
+name: Windows.NTFS.I30
+description: |
+  Carve the $I30 index stream for a directory.
+
+  This can reveal previously deleted files. Optionally upload the I30
+  stream to the server as well.
+
+parameters:
+ - name: DirectoryGlobs
+   default: C:\Users\
+
+precondition:
+  SELECT * FROM info() where OS = 'windows'
+
+sources:
+  - name: UploadI30Streams
+    queries:
+       - LET inodes = SELECT FullPath, Data.mft AS MFT,
+             parse_ntfs(device=FullPath, inode=Data.mft) AS MFTInfo
+         FROM glob(globs=DirectoryGlobs, accessor="ntfs")
+         WHERE IsDir
+
+       - LET upload_streams = SELECT * FROM foreach(
+            row=MFTInfo.Attributes,
+            query={
+              SELECT Type, TypeId, Id, Inode, Size, Name, FullPath,
+                     upload(accessor="mft", file=MFTInfo.Device + Inode,
+                            name=FullPath + "/" + Inode) AS IndexUpload
+              FROM scope()
+              WHERE Type =~ "INDEX_"
+            })
+
+       - SELECT * FROM foreach(row=inodes, query=upload_streams)
+
+  - name: AnalyzeI30
+    queries:
+       - SELECT * FROM foreach(
+           row=inodes,
+           query={
+             SELECT FullPath, Name, NameType, Size, AllocatedSize,
+                    IsSlack, SlackOffset, Mtime, Atime, Ctime, Btime, MFTId
+             FROM parse_ntfs_i30(device=MFTInfo.Device, inode=MFT)
+           })
+```
+   {{% /expand %}}
+
+## Windows.NTFS.MFT
+
+This artifact scans the $MFT file on the host showing all files
+within the MFT.  This is useful in order to try and recover deleted
+files. Take the MFT ID of a file of interest and provide it to the
+Windows.NTFS.Recover artifact.
+
+
+Arg|Default|Description
+---|------|-----------
+MFTFilename|C:/$MFT|
+Accessor|ntfs|
+FilenameRegex|.|
+
+{{% expand  "View Artifact Source" %}}
+
+
+```
+name: Windows.NTFS.MFT
+description: |
+  This artifact scans the $MFT file on the host showing all files
+  within the MFT.  This is useful in order to try and recover deleted
+  files. Take the MFT ID of a file of interest and provide it to the
+  Windows.NTFS.Recover artifact.
+
+parameters:
+  - name: MFTFilename
+    default: "C:/$MFT"
+
+  - name: Accessor
+    default: ntfs
+
+  - name: FilenameRegex
+    default: .
+
+sources:
+  - queries:
+      - SELECT * FROM parse_mft(filename=MFTFilename, accessor=Accessor)
+        WHERE FileName =~ FilenameRegex
+```
+   {{% /expand %}}
+
+## Windows.NTFS.Recover
+
+Attempt to recover deleted files.
+
+This artifact uploads all streams from an MFTId. If the MFT entry is
+not allocated there is a chance that the cluster that contain the
+actual data of the file will be intact still on the disk. Therefore
+this artifact can be used to attempt to recover a deleted file.
+
+A common use is to recover deleted directory entries using the
+Windows.NTFS.I30 artifact and identify MFT entries of interest. This
+is artifact can be used to attempt to recover some data.
+
+
+Arg|Default|Description
+---|------|-----------
+MFTId|81978|
+Drive|\\\\.\\C:|
+
+{{% expand  "View Artifact Source" %}}
+
+
+```
+name: Windows.NTFS.Recover
+description: |
+  Attempt to recover deleted files.
+
+  This artifact uploads all streams from an MFTId. If the MFT entry is
+  not allocated there is a chance that the cluster that contain the
+  actual data of the file will be intact still on the disk. Therefore
+  this artifact can be used to attempt to recover a deleted file.
+
+  A common use is to recover deleted directory entries using the
+  Windows.NTFS.I30 artifact and identify MFT entries of interest. This
+  is artifact can be used to attempt to recover some data.
+
+parameters:
+ - name: MFTId
+   default: 81978
+ - name: Drive
+   default: '\\.\C:'
+
+precondition:
+  SELECT * FROM info() where OS = 'windows'
+
+sources:
+  - name: Upload
+    queries:
+       - SELECT * FROM foreach(
+            row=parse_ntfs(device=Drive, inode=MFTId).Attributes,
+            query={
+              SELECT Type, TypeId, Id, Inode, Size, Name, FullPath,
+                     upload(accessor="mft", file=Drive + Inode,
+                            name=FullPath + "/" + Inode) AS IndexUpload
+              FROM scope()
+            })
+```
+   {{% /expand %}}
+
 ## Windows.Network.ArpCache
 
 Address resolution cache, both static and dynamic (from ARP, NDP).
 
 Arg|Default|Description
 ---|------|-----------
-wmiQuery|SELECT AddressFamily, Store, State, InterfaceIndex, IPAddress,\n       InterfaceAlias, LinkLayerAddress\nfrom MSFT_NetNeighbor\n|
+wmiQuery|SELECT AddressFamily, Store, State, InterfaceIndex ...|
 wmiNamespace|ROOT\\StandardCimv2|
-kMapOfState|{\n "0": "Unreachable",\n "1": "Incomplete",\n "2": "Probe",\n "3": "Delay",\n "4": "Stale",\n "5": "Reachable",\n "6": "Permanent",\n "7": "TBD"\n}\n|
+kMapOfState|{\n "0": "Unreachable",\n "1": "Incomplete",\n "2" ...|
 
 {{% expand  "View Artifact Source" %}}
 
@@ -1725,17 +3143,219 @@ description: |
   socket was first bound is also shown.
 
 sources:
-  - precondition:
-      SELECT OS From info() where OS = 'windows'
+- precondition: SELECT OS From info() where OS = 'windows'
+  queries:
+  - LET processes <= SELECT Name, Pid AS ProcPid FROM pslist()
+  - SELECT Pid, {
+        SELECT Name from processes
+        WHERE Pid = ProcPid
+      } AS Name, FamilyString as Family,
+      TypeString as Type,
+      Status,
+      Laddr.IP, Laddr.Port,
+      Raddr.IP, Raddr.Port,
+      Timestamp
+    FROM netstat()
+```
+   {{% /expand %}}
+
+## Windows.Network.NetstatEnriched
+
+NetstatEnhanced adds addtional data points to the Netstat artifact and
+enables verbose search options.
+
+Examples include: Process name and path, authenticode information or
+network connection details.
+
+
+Arg|Default|Description
+---|------|-----------
+IPRegex|.*|regex search over IP address fields.
+PortRegex|.*|regex search over port fields.
+Family|ALL|IP version family selection
+Type|ALL|Transport protocol type selection
+Status|ALL|TCP status selection
+ProcessNameRegex|.*|regex search over source process name
+ProcessPathRegex|.*|regex search over source process path
+CommandLineRegex|.*|regex search over source process commandline
+HashRegex|.*|regex search over source process hash
+UsernameRegex|.*|regex search over source process user context
+AuthenticodeSubjectRegex|.*|regex search over source Authenticode Subject
+AuthenticodeIssuerRegex|.*|regex search over source Authenticode Issuer
+AuthenticodeVerified|ALL|Authenticode signiture selection
+
+{{% expand  "View Artifact Source" %}}
+
+
+```
+name: Windows.Network.NetstatEnriched
+description: |
+  NetstatEnhanced adds addtional data points to the Netstat artifact and
+  enables verbose search options.
+
+  Examples include: Process name and path, authenticode information or
+  network connection details.
+
+author: "Matthew Green - @mgreen27"
+
+precondition: SELECT OS From info() where OS = 'windows'
+
+parameters:
+  - name: IPRegex
+    description: "regex search over IP address fields."
+    default:  ".*"
+  - name: PortRegex
+    description: "regex search over port fields."
+    default: ".*"
+
+  - name: Family
+    description: "IP version family selection"
+    type: choices
+    default: ALL
+    choices:
+       - ALL
+       - IPv4
+       - IPv6
+  - name: FamilyMap
+    type: hidden
+    default: |
+      Choice,Regex
+      ALL,".*"
+      IPv4,"^IPv4$"
+      IPv6,"^IPv6$"
+
+  - name: Type
+    description: "Transport protocol type selection"
+    type: choices
+    default: ALL
+    choices:
+       - ALL
+       - TCP
+       - UDP
+  - name: TypeMap
+    type: hidden
+    default: |
+      Choice,Regex
+      ALL,".*"
+      TCP,"^TCP$"
+      UDP,"^UDP$"
+
+  - name: Status
+    description: "TCP status selection"
+    type: choices
+    default: ALL
+    choices:
+       - ALL
+       - ESTABLISHED
+       - LISTENING
+       - OTHER
+  - name: StatusMap
+    type: hidden
+    default: |
+      Choice,Regex
+      ALL,".*"
+      ESTABLISHED,"^ESTAB$"
+      LISTENING,"^LISTEN$"
+      OTHER,"CLOS|SENT|RCVD|LAST|WAIT|DELETE"
+
+  - name: ProcessNameRegex
+    description: "regex search over source process name"
+    default: ".*"
+  - name: ProcessPathRegex
+    description: "regex search over source process path"
+    default: ".*"
+  - name: CommandLineRegex
+    description: "regex search over source process commandline"
+    default: ".*"
+  - name: HashRegex
+    description: "regex search over source process hash"
+    default: ".*"
+  - name: UsernameRegex
+    description: "regex search over source process user context"
+    default: ".*"
+  - name: AuthenticodeSubjectRegex
+    description: "regex search over source Authenticode Subject"
+    default: ".*"
+  - name: AuthenticodeIssuerRegex
+    description: "regex search over source Authenticode Issuer"
+    default: ".*"
+  - name: AuthenticodeVerified
+    description: "Authenticode signiture selection"
+    type: choices
+    default: ALL
+    choices:
+       - ALL
+       - TRUSTED
+       - UNSIGNED
+       - NOT TRUSTED
+  - name: AuthenticodeVerifiedMap
+    type: hidden
+    default: |
+      Choice,Regex
+      ALL,".*"
+      TRUSTED,"^trusted$"
+      UNSIGNED,"^unsigned$"
+      NOT TRUSTED,"unsigned|disallowed|untrusted|error"
+
+sources:
+  - name: Netstat
     queries:
-      - |
-        SELECT Pid, FamilyString as Family,
-               TypeString as Type,
-               Status,
-               Laddr.IP, Laddr.Port,
-               Raddr.IP, Raddr.Port,
-               Timestamp
-               FROM netstat()
+      - LET VerifiedRegex <= SELECT Regex
+            FROM parse_csv(filename=AuthenticodeVerifiedMap, accessor="data")
+            WHERE Choice=AuthenticodeVerified LIMIT 1
+      - LET StatusRegex <= SELECT Regex
+            FROM parse_csv(filename=StatusMap, accessor="data")
+            WHERE Choice=Status LIMIT 1
+      - LET FamilyRegex <= SELECT Regex
+            FROM parse_csv(filename=FamilyMap, accessor="data")
+            WHERE Choice=Family LIMIT 1
+      - LET TypeRegex <= SELECT Regex
+            FROM parse_csv(filename=TypeMap, accessor="data")
+            WHERE Choice=Type LIMIT 1
+
+      - LET process <= SELECT Pid as PsId,
+            Ppid,
+            Name,
+            CommandLine,
+            Exe,
+            Hash,
+            Authenticode,
+            Username
+        FROM Artifact.Windows.System.Pslist()
+        WHERE Name =~ ProcessNameRegex
+
+      - SELECT Pid,
+            { SELECT Ppid FROM process WHERE PsId = Pid } as Ppid,
+            { SELECT Name FROM process WHERE PsId = Pid } as Name,
+            { SELECT Exe FROM process WHERE PsId = Pid } as Path,
+            { SELECT CommandLine FROM process WHERE PsId = Pid } as CommandLine,
+            { SELECT Hash FROM process WHERE PsId = Pid } as Hash,
+            { SELECT Username FROM process WHERE PsId = Pid } as Username,
+            { SELECT Authenticode FROM process WHERE PsId = Pid } as Authenticode,
+            FamilyString as Family,
+            TypeString as Type,
+            Status,
+            Laddr.IP, Laddr.Port,
+            Raddr.IP, Raddr.Port,
+            Timestamp
+        FROM netstat()
+        WHERE Path =~ ProcessPathRegex
+            and CommandLine =~ CommandLineRegex
+            and Username =~ UsernameRegex
+            and ( Hash.MD5 =~ HashRegex
+              or Hash.SHA1 =~ HashRegex
+              or Hash.SHA256 =~ HashRegex
+              or not Hash )
+            and ( Authenticode.IssuerName =~ AuthenticodeIssuerRegex or not Authenticode )
+            and ( Authenticode.SubjectName =~ AuthenticodeSubjectRegex or not Authenticode )
+            and ( Authenticode.Trusted =~ VerifiedRegex.Regex[0] or not Authenticode )
+            and Status =~ StatusRegex.Regex[0]
+            and Family =~ FamilyRegex.Regex[0]
+            and Type =~ TypeRegex.Regex[0]
+            and ( format(format="%v", args=Laddr.IP) =~ IPRegex
+                or format(format="%v", args=Raddr.IP) =~ IPRegex )
+            and ( format(format="%v", args=Laddr.Port) =~ PortRegex
+                or format(format="%v", args=Raddr.Port) =~ PortRegex )
 ```
    {{% /expand %}}
 
@@ -1766,6 +3386,47 @@ sources:
             SELECT Name, Command AS Path, "StartupItems" as Source
             FROM Artifact.Windows.Sys.StartupItems()
           })
+```
+   {{% /expand %}}
+
+## Windows.Packs.LateralMovement
+
+Detect evidence of lateral movement.
+
+
+{{% expand  "View Artifact Source" %}}
+
+
+```
+name: Windows.Packs.LateralMovement
+description: |
+  Detect evidence of lateral movement.
+
+precondition: SELECT OS From info() where OS = 'windows'
+
+reference:
+  - https://digital-forensics.sans.org/media/SANS_Poster_2018_Hunt_Evil_FINAL.pdf
+
+sources:
+  - name: AlternateLogon
+    queries:
+      - SELECT * FROM Artifact.Windows.EventLogs.AlternateLogon()
+  - name: WMIC
+    queries:
+      - SELECT * FROM Artifact.Windows.Forensics.Prefetch()
+        WHERE Executable =~ "wmic.exe"
+  - name: ShimCache
+    queries:
+      - SELECT * FROM Artifact.Windows.Registry.AppCompatCache()
+        WHERE Name =~ "wmic.exe"
+  - name: BAM
+    queries:
+      - SELECT * FROM Artifact.Windows.Forensics.Bam()
+        WHERE Binary =~ "wmic.exe"
+  - name: AmCache
+    queries:
+      - SELECT * FROM Artifact.Windows.System.Amcache()
+        WHERE Binary =~ "wmic.exe"
 ```
    {{% /expand %}}
 
@@ -1815,39 +3476,220 @@ sources:
 ```
    {{% /expand %}}
 
-## Windows.Registery.AppCompatCache
+## Windows.Registry.AppCompatCache
 
 Parses the system's app compatibility cache.
 
 
 Arg|Default|Description
 ---|------|-----------
-AppCompatCacheKey|HKEY_LOCAL_MACHINE/System/CurrentControlSet/Control/Session Manager/AppCompatCache/AppCompatCache|
+AppCompatCacheKey|HKEY_LOCAL_MACHINE/System/ControlSet*/Control/Sess ...|
 
 {{% expand  "View Artifact Source" %}}
 
 
 ```
-name: Windows.Registery.AppCompatCache
+name: Windows.Registry.AppCompatCache
 description: |
   Parses the system's app compatibility cache.
 
 parameters:
   - name: AppCompatCacheKey
-    default: HKEY_LOCAL_MACHINE/System/CurrentControlSet/Control/Session Manager/AppCompatCache/AppCompatCache
+    default: HKEY_LOCAL_MACHINE/System/ControlSet*/Control/Session Manager/AppCompatCache/AppCompatCache
 
 precondition: SELECT OS From info() where OS = 'windows'
 
 sources:
   - queries:
+      - LET AppCompatKeys = SELECT * FROM glob(globs=AppCompatCacheKey, accessor='reg')
+      - SELECT * FROM foreach(
+          row={
+              SELECT Filename, Data FROM read_file(
+                  filenames=AppCompatKeys.FullPath, accessor='reg')
+          }, query={
+              SELECT Filename AS Key, name as Name, epoch, time
+              FROM appcompatcache(value=Data)
+        }) WHERE epoch < 2000000000
+```
+   {{% /expand %}}
+
+## Windows.Registry.EnableUnsafeClientMailRules
+
+Checks for Outlook EnableUnsafeClientMailRules = 1 (turned on).
+This registry key enables execution from Outlook inbox rules which can be used as a persistence mechanism.
+Microsoft has released a patch to disable execution but attackers can reenable by changing this value to 1.
+
+HKEY_USERS\*\Software\Microsoft\Office\*\Outlook\Security\EnableUnsafeClientMailRules = 0 (expected)
+https://support.microsoft.com/en-us/help/3191893/how-to-control-the-rule-actions-to-start-an-application-or-run-a-macro
+
+
+Arg|Default|Description
+---|------|-----------
+KeyGlob|Software\\Microsoft\\Office\\*\\Outlook\\Security\ ...|
+userRegex|.|
+
+{{% expand  "View Artifact Source" %}}
+
+
+```
+name: Windows.Registry.EnableUnsafeClientMailRules
+description: |
+  Checks for Outlook EnableUnsafeClientMailRules = 1 (turned on).
+  This registry key enables execution from Outlook inbox rules which can be used as a persistence mechanism.
+  Microsoft has released a patch to disable execution but attackers can reenable by changing this value to 1.
+
+  HKEY_USERS\*\Software\Microsoft\Office\*\Outlook\Security\EnableUnsafeClientMailRules = 0 (expected)
+  https://support.microsoft.com/en-us/help/3191893/how-to-control-the-rule-actions-to-start-an-application-or-run-a-macro
+
+author: "@mgreen27"
+
+precondition: SELECT OS From info() where OS = 'windows'
+
+parameters:
+   - name: KeyGlob
+     default: Software\Microsoft\Office\*\Outlook\Security\
+   - name: userRegex
+     default: .
+
+sources:
+  - queries:
+      - |
+        LET UserProfiles = Select Name as Username,
+            {
+                SELECT FullPath FROM glob(globs=expand(path=Directory) + "//NTUSER.DAT", accessor="file")
+            } as NTUser,
+            expand(path=Directory) as Directory
+        FROM Artifact.Windows.Sys.Users()
+        WHERE Directory and NTUser and Name =~ userRegex
+      - |
+         SELECT * FROM foreach(
+           row={
+              SELECT Username, NTUser FROM UserProfiles
+           },
+           query={
+              SELECT Username,
+                NTUser as Userhive,
+                url(parse=key.FullPath).fragment as Key,
+                timestamp(epoch=key.Mtime.Sec) AS LastModified,
+                EnableUnsafeClientMailRules,
+                OutlookSecureTempFolder
+              FROM read_reg_key(
+                 globs=url(scheme="ntfs",
+                    path=FullPath,
+                    fragment=KeyGlob).String,
+                 accessor="raw_reg")
+              WHERE EnableUnsafeClientMailRules = 1
+           })
+```
+   {{% /expand %}}
+
+## Windows.Registry.EnabledMacro
+
+Checks for Registry key indicating macro was enabled by user.
+
+HKEY_USERS\*\Software\Microsoft\Office\*\Security\Trusted Documents\TrustRecords reg keys for values ending in FFFFFF7F
+http://az4n6.blogspot.com/2016/02/more-on-trust-records-macros-and.html
+
+
+Arg|Default|Description
+---|------|-----------
+KeyGlob|Software\\Microsoft\\Office\\*\\*\\Security\\Trust ...|
+userRegex|.|
+
+{{% expand  "View Artifact Source" %}}
+
+
+```
+name: Windows.Registry.EnabledMacro
+description: |
+  Checks for Registry key indicating macro was enabled by user.
+
+  HKEY_USERS\*\Software\Microsoft\Office\*\Security\Trusted Documents\TrustRecords reg keys for values ending in FFFFFF7F
+  http://az4n6.blogspot.com/2016/02/more-on-trust-records-macros-and.html
+
+author: "@mgreen27"
+
+precondition: SELECT OS From info() where OS = 'windows'
+
+parameters:
+ - name: KeyGlob
+   default: Software\Microsoft\Office\*\*\Security\Trusted Documents\TrustRecords\*
+ - name: userRegex
+   default: .
+
+sources:
+ - queries:
+      - |
+        LET UserProfiles = Select Name as Username,
+            {
+                SELECT FullPath FROM glob(globs=expand(path=Directory) + "//NTUSER.DAT", accessor="file")
+            } as NTUser,
+            expand(path=Directory) as Directory
+        FROM Artifact.Windows.Sys.Users()
+        WHERE Directory and NTUser and Name =~ userRegex
       - |
         SELECT * FROM foreach(
           row={
-              SELECT Data FROM read_file(
-                  filenames=AppCompatCacheKey, accessor='reg')
-          }, query={
-              SELECT name, epoch, time FROM appcompatcache(value=Data)
-        }) WHERE epoch < 2000000000
+            SELECT Username,NTUser FROM UserProfiles
+          },
+          query={
+            SELECT Name as Document,
+              Username,
+              NTUser as Userhive,
+              dirname(path=url(parse=FullPath).fragment) as Key,
+              timestamp(epoch=Mtime.Sec) AS LastModified
+            FROM glob(
+              globs=url(scheme="ntfs",
+                path=NTUser,
+                fragment=KeyGlob).String,
+              accessor="raw_reg")
+            WHERE Data.type = "REG_BINARY" and encode(string=Data.value, type="hex") =~ "ffffff7f$"
+          })
+```
+   {{% /expand %}}
+
+## Windows.Registry.MountPoints2
+
+This detection will collect any items in the MountPoints2 registry key.
+With a "$" in the share path. This key will store all remotely mapped
+drives unless removed so is a great hunt for simple admin $ mapping based
+lateral movement.
+
+
+Arg|Default|Description
+---|------|-----------
+KeyGlob|Software\\Microsoft\\Windows\\CurrentVersion\\Expl ...|
+
+{{% expand  "View Artifact Source" %}}
+
+
+```
+name: Windows.Registry.MountPoints2
+description: |
+    This detection will collect any items in the MountPoints2 registry key.
+    With a "$" in the share path. This key will store all remotely mapped
+    drives unless removed so is a great hunt for simple admin $ mapping based
+    lateral movement.
+    
+author: Matt Green - @mgreen27
+
+precondition: SELECT OS From info() where OS = 'windows'
+
+parameters:
+ - name: KeyGlob
+   default: Software\Microsoft\Windows\CurrentVersion\Explorer\MountPoints2\*
+
+sources:
+ - queries:
+     - |
+        SELECT regex_replace(source=basename(path=url(parse=FullPath).Fragment), 
+          re="#", replace="\\") as MountPoint,
+          timestamp(epoch=Mtime) as ModifiedTime,
+          Username,
+          url(parse=FullPath).Path as Hive,
+          url(parse=FullPath).Fragment as Key
+        FROM Artifact.Windows.Registry.NTUser(KeyGlob=KeyGlob)
+        WHERE FullPath =~ "\\$"
 ```
    {{% /expand %}}
 
@@ -1883,8 +3725,8 @@ to access user data.
 
 Arg|Default|Description
 ---|------|-----------
-KeyGlob|Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\ComDlg32\\**|
-UserHomes|C:\\Users\\*\\NTUSER.DAT|
+KeyGlob|Software\\Microsoft\\Windows\\CurrentVersion\\Expl ...|
+userRegex|.|
 
 {{% expand  "View Artifact Source" %}}
 
@@ -1924,24 +3766,36 @@ precondition: SELECT OS From info() where OS = 'windows'
 parameters:
  - name: KeyGlob
    default: Software\Microsoft\Windows\CurrentVersion\Explorer\ComDlg32\**
-
- - name: UserHomes
-   default: C:\Users\*\NTUSER.DAT
+ - name: userRegex
+   default: .
 
 sources:
  - queries:
      - |
+        LET UserProfiles = SELECT Uid,
+            Gid,
+            Name as Username,
+            Description,
+            UUID,
+            {
+                SELECT FullPath FROM glob(globs=expand(path=Directory) + "//NTUSER.DAT", accessor="file")
+            } as FullPath,
+            expand(path=Directory) as Directory
+        FROM Artifact.Windows.Sys.Users()
+        WHERE Directory and FullPath AND Name =~ userRegex
+     - |
        SELECT * FROM foreach(
-         row={
-            SELECT FullPath FROM glob(globs=UserHomes)
-         },
-         query={
-            SELECT FullPath, Data, Mtime.Sec AS Mtime FROM glob(
-               globs=url(scheme="ntfs",
-                  path=FullPath,
-                  fragment=KeyGlob).String,
-               accessor="raw_reg")
-         })
+            row={
+                SELECT * FROM UserProfiles
+            },
+            query={
+                SELECT FullPath, Data, Mtime.Sec AS Mtime, Username, Description, Uid, Gid, UUID, Directory
+                FROM glob(
+                    globs=url(scheme="ntfs",
+                    path=FullPath,
+                    fragment=KeyGlob).String,
+                    accessor="raw_reg")
+            })
 ```
    {{% /expand %}}
 
@@ -1958,6 +3812,10 @@ This artifact bypasses the locking mechanism by extracting the
 registry hives using raw NTFS parsing. We then just upload all hives
 to the server.
 
+
+Arg|Default|Description
+---|------|-----------
+userRegex|.|
 
 {{% expand  "View Artifact Source" %}}
 
@@ -1976,6 +3834,10 @@ description: |
   registry hives using raw NTFS parsing. We then just upload all hives
   to the server.
 
+parameters:
+  - name: userRegex
+    default: .
+
 sources:
   - precondition: |
       SELECT OS From info() where OS = 'windows'
@@ -1983,12 +3845,119 @@ sources:
       - |
         LET users = SELECT Name, Directory as HomeDir
             FROM Artifact.Windows.Sys.Users()
-            WHERE Directory
+            WHERE Directory AND Name =~ userRegex
 
       - |
-        SELECT upload(file="\\\\.\\" + HomeDir + "\\ntuser.dat",
+        SELECT upload(file=expand(path=HomeDir) + "\\ntuser.dat",
                       accessor="ntfs") as Upload
         FROM users
+```
+   {{% /expand %}}
+
+## Windows.Registry.PortProxy
+
+**Description**: 
+This artifact will return any items in the Windows PortProxy service 
+registry path. The most common configuration of this service is via the
+lolbin netsh.exe; Metaspoit and other common attack tools also have 
+configuration modules.
+
+**Reference**: [Port Proxy detection]
+(http://www.dfirnotes.net/portproxy_detection/)  
+
+**ATT&CK**: [T1090 - Connection Proxy](https://attack.mitre.org/techniques/T1090/)  
+Adversaries may use a connection proxy to direct network traffic between
+systems or act as an intermediary for network communications to a command 
+and control server to avoid direct connections to their infrastructure.
+
+
+Arg|Default|Description
+---|------|-----------
+KeyGlob|HKEY_LOCAL_MACHINE\\SYSTEM\\*ControlSet*\\services ...|
+
+{{% expand  "View Artifact Source" %}}
+
+
+```
+name: Windows.Registry.PortProxy
+description: |
+    **Description**: 
+    This artifact will return any items in the Windows PortProxy service 
+    registry path. The most common configuration of this service is via the
+    lolbin netsh.exe; Metaspoit and other common attack tools also have 
+    configuration modules.
+
+    **Reference**: [Port Proxy detection]
+    (http://www.dfirnotes.net/portproxy_detection/)  
+
+    **ATT&CK**: [T1090 - Connection Proxy](https://attack.mitre.org/techniques/T1090/)  
+    Adversaries may use a connection proxy to direct network traffic between
+    systems or act as an intermediary for network communications to a command 
+    and control server to avoid direct connections to their infrastructure.
+    
+author: Matt Green - @mgreen27
+
+precondition: SELECT OS From info() where OS = 'windows'
+
+parameters:
+ - name: KeyGlob
+   default: HKEY_LOCAL_MACHINE\SYSTEM\*ControlSet*\services\PortProxy\**
+
+sources:
+ - name: PortProxy
+   queries:
+     - SELECT FullPath,
+         basename(path=dirname(path=dirname(path=FullPath))) as ProxyType,
+         basename(path=dirname(path=FullPath)) as Protocol,
+         regex_replace(source=basename(path=FullPath),re="/",replace=":") as Listening,
+         regex_replace(source=Data.value,re="/",replace=":") as Destination,
+         timestamp(epoch=Mtime.sec) as ModifiedTime,
+         Type
+       FROM glob(globs=KeyGlob, accessor="reg")
+       WHERE Type
+
+
+reports:
+  - type: CLIENT
+    template: |
+
+      Port Forwarding: PortProxy
+      ==========================
+      {{ .Description }}
+      
+      {{ define "report" }}
+         LET report = SELECT Protocol, 
+            ProxyType, 
+            Listening, 
+            Destination, 
+            ModifiedTime,
+            ProxyType + Protocol + Listening + Destination as ServiceKey
+         FROM source(source='PortProxy')
+         GROUP BY ServiceKey
+      {{ end }}
+      
+      {{ Query "report"  "SELECT ProxyType, Protocol, Listening, Destination, ModifiedTime FROM report" | Table }}
+      
+  - type: HUNT
+    template: |
+
+      Port Forwarding: PortProxy
+      ==========================
+      {{ .Description }}
+      
+      {{ define "report" }}
+         LET report = SELECT Fqdn,
+            Protocol, 
+            ProxyType, 
+            Listening, 
+            Destination, 
+            ModifiedTime,
+            ProxyType + Protocol + Listening + Destination as ServiceKey
+         FROM source(source='PortProxy')
+         GROUP BY ServiceKey
+      {{ end }}
+      
+      {{ Query "report"  "SELECT Fqdn, ProxyType, Protocol, Listening, Destination, ModifiedTime FROM report" | Table }}
 ```
    {{% /expand %}}
 
@@ -2006,6 +3975,7 @@ users that are not currently logged on.
 Arg|Default|Description
 ---|------|-----------
 Sysinternals_Reg_Key|HKEY_USERS\\*\\Software\\Sysinternals\\*|
+userRegex|.|
 
 {{% expand  "View Artifact Source" %}}
 
@@ -2024,6 +3994,8 @@ description: |
 parameters:
    - name: Sysinternals_Reg_Key
      default: HKEY_USERS\*\Software\Sysinternals\*
+   - name: userRegex
+     default: .
 
 sources:
   - precondition:
@@ -2031,7 +4003,9 @@ sources:
 
     queries:
     - |
-      LET users <= SELECT Name, UUID FROM Artifact.Windows.Sys.Users()
+      LET users <= SELECT Name, UUID
+          FROM Artifact.Windows.Sys.Users()
+          WHERE Name =~ userRegex
     - |
       SELECT Key.Name as ProgramName,
              Key.FullPath as Key,
@@ -2065,8 +4039,8 @@ Arg|Default|Description
 ---|------|-----------
 UserFilter||If specified we filter by this user ID.
 ExecutionTimeAfter||If specified only show executions after this time.
-UserAssistKey|Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\UserAssist\\*\\Count\\*|
-userAssistProfile|{\n  "Win10": [0, {\n    "NumberOfExecutions": [4, ["unsigned int"]],\n    "LastExecution": [60, ["unsigned long long"]]\n  }]\n}\n|
+UserAssistKey|Software\\Microsoft\\Windows\\CurrentVersion\\Expl ...|
+userAssistProfile|{\n  "Win10": [0, {\n    "NumberOfExecutions": [4, ...|
 
 {{% expand  "View Artifact Source" %}}
 
@@ -2109,7 +4083,7 @@ parameters:
     default: |
       {
         "Win10": [0, {
-          "NumeberOfExecutions": [4, ["unsigned int"]],
+          "NumberOfExecutions": [4, ["unsigned int"]],
           "LastExecution": [60, ["unsigned long long"]]
         }]
       }
@@ -2135,7 +4109,7 @@ sources:
                   winfiletime=UserAssist.LastExecution.AsInteger) As LastExecution,
                timestamp(
                   winfiletime=UserAssist.LastExecution.AsInteger).Unix AS LastExecutionTS,
-               UserAssist.NumeberOfExecutions.AsInteger AS NumeberOfExecutions
+               UserAssist.NumberOfExecutions.AsInteger AS NumberOfExecutions
         FROM TMP
       - LET A1 = SELECT * FROM if(
           condition=UserFilter,
@@ -2147,6 +4121,92 @@ sources:
           then={
             SELECT * FROM A1 WHERE LastExecutionTS > ExecutionTimeAfter
           }, else=A1)
+```
+   {{% /expand %}}
+
+## Windows.Remediation.ScheduledTasks
+
+Remove malicious task from the Windows scheduled task list.
+
+Danger: You need to make sure to test this before running.
+
+
+Arg|Default|Description
+---|------|-----------
+script|Unregister-ScheduledTask -TaskName "%s" -Confirm:$ ...|
+TasksPath|c:/Windows/System32/Tasks/**|
+ArgumentRegex|ThisIsAUniqueName|
+CommandRegEx|ThisIsAUniqueName|
+ReallyDoIt|N|
+
+{{% expand  "View Artifact Source" %}}
+
+
+```
+name: Windows.Remediation.ScheduledTasks
+description: |
+   Remove malicious task from the Windows scheduled task list.
+
+   Danger: You need to make sure to test this before running.
+
+type: CLIENT
+
+parameters:
+ - name: script
+   default: |
+     Unregister-ScheduledTask -TaskName "%s" -Confirm:$false
+ - name: TasksPath
+   default: c:/Windows/System32/Tasks/**
+ - name: ArgumentRegex
+   default: ThisIsAUniqueName
+ - name: CommandRegEx
+   default: ThisIsAUniqueName
+ - name: ReallyDoIt
+   type: bool
+   default: N
+
+sources:
+  - precondition:
+      SELECT OS From info() where OS = 'windows'
+
+    queries:
+    - LET task_paths = SELECT Name, FullPath
+        FROM glob(globs=TasksPath)
+        WHERE NOT IsDir
+
+    - LET parse_task = select FullPath, Name, parse_xml(
+               accessor='data',
+               file=regex_replace(
+                    source=utf16(string=Data),
+                    re='<[?].+?>',
+                    replace='')) AS XML
+       FROM read_file(filenames=FullPath)
+
+    - LET tasks = SELECT FullPath, Name,
+            XML.Task.Actions.Exec.Command as Command,
+            XML.Task.Actions.Exec.Arguments as Arguments,
+            XML.Task.Actions.ComHandler.ClassId as ComHandler,
+            XML.Task.Principals.Principal.UserId as UserId,
+            XML as _XML
+      FROM foreach(row=task_paths, query=parse_task)
+      WHERE (Arguments =~ ArgumentRegex AND Command =~ CommandRegEx)  AND
+      log(message="Removing task " + Name)
+
+    - SELECT * FROM foreach(row=tasks,
+        query={
+          SELECT * FROM if(condition= ReallyDoIt='Y',
+            then={
+              SELECT FullPath, Name, Command, Arguments, ComHandler, UserId, _XML
+              FROM execve(argv=["powershell",
+                 "-ExecutionPolicy", "Unrestricted", "-encodedCommand",
+                    base64encode(string=utf16_encode(
+                    string=format(format=script, args=[Name])))
+              ])
+            }, else={
+              SELECT FullPath, Name, Command, Arguments, ComHandler, UserId, _XML
+              FROM scope()
+            })
+        })
 ```
    {{% /expand %}}
 
@@ -2298,11 +4358,12 @@ sources:
           SELECT * FROM foreach(
             row={
                SELECT * FROM modified_before
+               WHERE NOT IsDir
             },
             query={
                SELECT FullPath, Inode, Mode,
                       Size, Modified, ATime, MTime, CTime,
-                      str(str=String.Data) As Keywords
+                      str(str=String.Data) As Keywords, IsDir
 
                FROM yara(files=FullPath,
                          key=Keywords,
@@ -2314,7 +4375,7 @@ sources:
 
     - |
       SELECT FullPath, Inode, Mode, Size, Modified, ATime,
-             MTime, CTime, Keywords,
+             MTime, CTime, Keywords, IsDir,
                if(condition=(Upload_File = "Y" and NOT IsDir ),
                   then=upload(file=FullPath,
                               accessor=if(condition=Use_Raw_NTFS = "Y",
@@ -2326,3 +4387,402 @@ sources:
       FROM keyword_search
 ```
    {{% /expand %}}
+
+## Windows.Timeline.Prefetch
+
+Windows keeps a cache of prefetch files. When an executable is run,
+the system records properties about the executable to make it faster
+to run next time. By parsing this information we are able to
+determine when binaries are run in the past. On Windows10 we can see
+the last 8 execution times and creation time (9 potential executions).  
+  
+This artifact is a timelined output version of the standard Prefetch 
+artifact. There are several parameter's availible.  
+  - dateAfter enables search for prefetch evidence after this date.  
+  - dateBefore enables search for prefetch evidence before this date.   
+  - binaryRegex enables to filter on binary name, e.g evil.exe.  
+  - hashRegex enables to filter on prefetch hash.     
+
+
+Arg|Default|Description
+---|------|-----------
+prefetchGlobs|C:\\Windows\\Prefetch\\*.pf|
+dateAfter||search for events after this date. YYYY-MM-DDTmm:hh:ssZ
+dateBefore||search for events before this date. YYYY-MM-DDTmm:hh:ssZ
+binaryRegex||Regex of executable name.
+hashRegex||Regex of prefetch hash.
+
+{{% expand  "View Artifact Source" %}}
+
+
+```
+name: Windows.Timeline.Prefetch
+description: |
+  Windows keeps a cache of prefetch files. When an executable is run,
+  the system records properties about the executable to make it faster
+  to run next time. By parsing this information we are able to
+  determine when binaries are run in the past. On Windows10 we can see
+  the last 8 execution times and creation time (9 potential executions).  
+    
+  This artifact is a timelined output version of the standard Prefetch 
+  artifact. There are several parameter's availible.  
+    - dateAfter enables search for prefetch evidence after this date.  
+    - dateBefore enables search for prefetch evidence before this date.   
+    - binaryRegex enables to filter on binary name, e.g evil.exe.  
+    - hashRegex enables to filter on prefetch hash.     
+
+reference:
+  - https://www.forensicswiki.org/wiki/Prefetch
+
+author: matthew.green@cybereason.com
+
+parameters:
+    - name: prefetchGlobs
+      default: C:\Windows\Prefetch\*.pf
+    - name: dateAfter
+      description: "search for events after this date. YYYY-MM-DDTmm:hh:ssZ"
+      type: timestamp
+    - name: dateBefore
+      description: "search for events before this date. YYYY-MM-DDTmm:hh:ssZ"
+      type: timestamp
+    - name: binaryRegex
+      description: "Regex of executable name."
+    - name: hashRegex
+      description: "Regex of prefetch hash."
+      
+precondition: SELECT OS From info() where OS = 'windows'
+
+sources:
+  - queries:
+      - LET hostname <= SELECT Fqdn FROM info()
+      - |
+        // Parse prefetch files and apply non time filters
+        LET pf <= SELECT * FROM foreach(
+              row={
+                 SELECT * FROM glob(globs=prefetchGlobs)
+              },
+              query={
+                SELECT
+                    Executable,
+                    FileSize,
+                    Hash,
+                    Version,
+                    LastRunTimes,
+                    RunCount,
+                    // FilesAccessed, 
+                    FullPath, 
+                    Name AS PrefetchFileName,
+                    timestamp(epoch=Ctime.sec) as CreationTime,
+                    timestamp(epoch=Mtime.sec) as ModificationTime
+                 FROM prefetch(filename=FullPath)
+                 WHERE  
+                    if(condition=binaryRegex, then= Executable =~ binaryRegex,
+                    else=TRUE) AND
+                    if(condition=hashRegex, then= Hash =~ hashRegex,
+                    else=TRUE)
+              })
+      - |
+        // Flattern and filter on time. 
+        LET executionTimes = SELECT * FROM flatten(
+                query = { 
+                    SELECT *,
+                        FullPath as FilteredPath,
+                        LastRunTimes as ExecutionTime
+                    FROM pf 
+                })
+            WHERE 
+                if(condition=dateAfter, then=ExecutionTime > timestamp(string=dateAfter),
+                    else=TRUE) AND
+                if(condition=dateBefore, then=ExecutionTime < timestamp(string=dateBefore),
+                    else=TRUE)
+      - |
+        LET creationTimes = SELECT * FROM flatten(
+                query = { 
+                    SELECT *,
+                        FullPath as FilteredPath,
+                        CreationTime as ExecutionTime
+                    FROM pf 
+                    WHERE RunCount > 8
+                })
+            WHERE
+                if(condition=dateAfter, then=ExecutionTime > timestamp(string=dateAfter),
+                    else=TRUE) AND
+                if(condition=dateBefore, then=ExecutionTime < timestamp(string=dateBefore),
+                        else=TRUE)
+            GROUP BY ExecutionTime
+                        
+      - |
+        // Output results ready for timeline
+        LET flatOutput = SELECT 
+                    ExecutionTime as event_time,
+                    hostname.Fqdn[0] as hostname,
+                    "Prefetch" as parser,
+                    "Evidence of Execution: " + Executable + format(format=" Prefetch run count %v", args=RunCount) as message,
+                    FilteredPath as source,
+                    Executable as file_name,
+                    CreationTime as prefetch_ctime,
+                    ModificationTime as prefetch_mtime,
+                    FileSize as prefetch_size,
+                    Hash as prefetch_hash,
+                    Version as prefetch_version, 
+                    PrefetchFileName as prefetch_file,
+                    RunCount as prefetch_count 
+            FROM chain(
+                    a = { SELECT * FROM executionTimes },
+                    b = { SELECT * FROM creationTimes  })
+      - SELECT * FROM flatOutput
+              
+```
+   {{% /expand %}}
+
+## Windows.Utils.DownloadBinaries
+
+This server side artifact downloads the external binary blobs we
+require into the server's public directory. We also update the
+inventory and the hashes.
+
+You need to run this artifact at least once after installation to
+populate the third party binary store. Many client side artifacts
+depend on this.
+
+
+Arg|Default|Description
+---|------|-----------
+binaryList|Tool,Type,URL,Filename\nAutorun,amd64,https://live ...|
+
+{{% expand  "View Artifact Source" %}}
+
+
+```
+name: Windows.Utils.DownloadBinaries
+description: |
+  This server side artifact downloads the external binary blobs we
+  require into the server's public directory. We also update the
+  inventory and the hashes.
+
+  You need to run this artifact at least once after installation to
+  populate the third party binary store. Many client side artifacts
+  depend on this.
+
+type: SERVER
+
+parameters:
+  - name: binaryList
+    default: |
+      Tool,Type,URL,Filename
+      Autorun,amd64,https://live.sysinternals.com/tools/autorunsc64.exe,autorunsc_x64.exe
+      Autorun,x86,https://live.sysinternals.com/tools/autorunsc.exe,autorunsc_x86.exe
+      WinPmem,.,https://github.com/Velocidex/c-aff4/releases/download/v3.3.rc3/winpmem_v3.3.rc3.exe,winpmem_v3.3.rc3.exe
+      Sysmon,amd64,https://live.sysinternals.com/tools/sysmon64.exe,sysmon_x64.exe
+      Sysmon,x86,https://live.sysinternals.com/tools/sysmon.exe,sysmon_x86.exe
+      SysmonConfig,.,https://raw.githubusercontent.com/SwiftOnSecurity/sysmon-config/master/z-AlphaVersion.xml,sysmon_config.xml
+
+sources:
+  - queries:
+      - LET binpath <= SELECT server_config.Frontend.public_path AS Path FROM scope()
+      - LET spec = SELECT * FROM parse_csv(filename=binaryList, accessor="data")
+
+      - LET download = SELECT Tool, Type, Filename,
+            hash(path=Content) as Hash,
+            copy(filename=Content, dest=path_join(components=[
+                (binpath[0]).Path, Filename]))
+        FROM http_client(url=URL, tempfile_extension=".exe")
+
+      # Write the inventory file.
+      - SELECT * FROM write_csv(
+          filename=path_join(components=[
+              (binpath[0]).Path, "inventory.csv"]),
+          query={
+            SELECT Tool, Type,
+                   Filename, Hash.SHA256 AS ExpectedHash
+            FROM foreach(
+                   row=spec,
+                   query=download)
+          })
+```
+   {{% /expand %}}
+
+## Windows.Utils.FetchBinary
+
+A utility artifact which fetches a binary from a URL and caches it on disk. We verify the hash of the binary on disk and if it does not match we fetch it again from the source URL.
+This artifact is designed to be called from other artifacts. The binary path will be emitted in the FullPath column.
+
+Arg|Default|Description
+---|------|-----------
+binaryURL||Specify this as the base of the binary store (if empty we use\nthe server's public directory).\n
+ToolName|Autorun|
+
+{{% expand  "View Artifact Source" %}}
+
+
+```
+name: Windows.Utils.FetchBinary
+description: A utility artifact which fetches a binary from a URL and caches it on disk.
+   We verify the hash of the binary on disk and if it does not match we fetch it again
+   from the source URL.
+
+   This artifact is designed to be called from other artifacts. The binary path will be
+   emitted in the FullPath column.
+
+parameters:
+  - name: binaryURL
+    description: |
+      Specify this as the base of the binary store (if empty we use
+      the server's public directory).
+  - name: ToolName
+    default: Autorun
+
+sources:
+  - queries:
+      - LET info_cache <= SELECT * FROM info()
+
+      # Figure out our binary cache path based on arch. Fallback to
+      # the temp directory.
+      - LET binpath <= SELECT dirname(path=expand(path=Path)) AS Path FROM switch(
+          a={SELECT config.WritebackWindows AS Path FROM info_cache
+             WHERE OS="windows" AND Path},
+          b={SELECT config.WritebacLinux AS Path FROM info_cache
+             WHERE OS="linux" AND Path},
+          c={SELECT config.WritebackDarwin AS Path FROM info_cache
+             WHERE OS="darwin" AND Path},
+          d={SELECT expand(path="$Temp") AS Path FROM scope() WHERE Path},
+          e={SELECT "/tmp/XXX" AS Path FROM info_cache WHERE OS = "linux"}
+        )
+
+      # Where should we download binaries from? Allow this to be
+      # overriden by the user.
+      - LET inventory_url <= SELECT URL from switch(
+         a={SELECT binaryURL AS URL FROM scope() WHERE URL},
+         b={SELECT config.ServerUrls[0] + "public/" AS URL FROM scope() WHERE URL},
+         c={SELECT log(message="binaryURL not set and no server config."),
+            NULL AS URL FROM info_cache})
+
+      # Fetch the inventory from the repository.
+      - LET inventory_data = SELECT * FROM http_client(
+           chunk_size=1000000,
+           url=(inventory_url[0]).URL + "inventory.csv")
+           WHERE inventory_url
+
+      # Parse the inventory: Tool,Type,Filename,ExpectedHash
+      - LET inventory = SELECT * FROM parse_csv(
+           filename=inventory_data.Content, accessor="data")
+
+      # Figure out which tool we need based on the Architecture and
+      # the required tool.
+      - LET required_tool = SELECT * FROM foreach(
+         row=inventory,
+         query={
+           SELECT Tool, ExpectedHash, Filename FROM info_cache
+           WHERE Architecture =~ Type AND Tool = ToolName
+         }) LIMIT 1
+
+      # Download the file from the binary URL and store in the local
+      # binary cache.
+      - LET download = SELECT hash(path=Content) as Hash,
+            "Downloaded" AS DownloadStatus,
+            copy(filename=Content,
+                 dest=path_join(components=[(binpath[0]).Path, Filename])) AS FullPath
+        FROM http_client(
+            url=(inventory_url[0]).URL + Filename,
+            tempfile_extension=".exe")
+        WHERE Hash.SHA256 = ExpectedHash
+
+      # Check if the existing file in the binary file cache matches
+      # the hash.
+      - LET existing = SELECT FullPath, hash(path=FullPath) AS Hash,
+                    "Cached" AS DownloadStatus
+        FROM stat(filename=path_join(components=[(binpath[0]).Path, Filename]))
+        WHERE Hash.SHA256 = ExpectedHash
+
+      # Find the required_tool either if in the local cache or
+      # download it (and put it in the cache for next time). If we
+      # have to download the file we sleep for a random time to
+      # stagger server bandwidth load.
+      - SELECT * from foreach(row=required_tool, query={
+          SELECT * FROM switch(
+            a=existing,
+            b={
+               SELECT rand(range=20) AS timeout
+               FROM scope()
+               WHERE log(message=format(format='Sleeping %v Seconds',
+                   args=[timeout])) AND sleep(time=timeout) AND FALSE
+            },
+            c=download)
+        })
+```
+   {{% /expand %}}
+
+## Windows.Utils.UpdatePublicHashes
+
+The server maintains a public directory which can be served to all
+endpoints. The public directory should be initially populated by
+running the Windows.Utils.DownloadBinaries artifact. It is possible
+to manually edit the content of this directory but you will need to
+update the hashes.
+
+Clients maintain their local cache of the files and they use the
+hash to tell if their local copy is out of date.
+
+This artifact will regenerate the inventory file by re-calculating
+the hashes of all files in the public directory.
+
+You need to run this artifact on the server if you manually edit the
+content of the public directory.
+
+
+{{% expand  "View Artifact Source" %}}
+
+
+```
+name: Windows.Utils.UpdatePublicHashes
+description: |
+  The server maintains a public directory which can be served to all
+  endpoints. The public directory should be initially populated by
+  running the Windows.Utils.DownloadBinaries artifact. It is possible
+  to manually edit the content of this directory but you will need to
+  update the hashes.
+
+  Clients maintain their local cache of the files and they use the
+  hash to tell if their local copy is out of date.
+
+  This artifact will regenerate the inventory file by re-calculating
+  the hashes of all files in the public directory.
+
+  You need to run this artifact on the server if you manually edit the
+  content of the public directory.
+
+type: SERVER
+
+sources:
+  - queries:
+      - LET binpath <= SELECT server_config.Frontend.public_path AS Path
+        FROM scope()
+
+      # Get the old inventory.
+      - LET inventory <= SELECT * FROM parse_csv(
+            filename=path_join(components=[
+                (binpath[0]).Path, "inventory.csv"]))
+
+      # Calculate all the hashes of the files on disk and update the
+      # hash in the new inventory.
+      - LET hashes = SELECT Name,
+           hash(path=FullPath) as Hash,
+           { SELECT * FROM inventory
+             WHERE Filename = Name LIMIT 1 } AS OldData
+        FROM glob(globs=(binpath[0]).Path + "/*")
+        WHERE OldData.Tool
+
+      # Reconstruct a new inventory file.
+      - LET new_inventory = SELECT OldData.Tool AS Tool,
+               OldData.Type AS Type, Name AS Filename,
+               Hash.SHA256 AS ExpectedHash
+        FROM hashes
+
+      # Write the new inventory file.
+      - SELECT * FROM write_csv(
+          filename=path_join(components=[
+                (binpath[0]).Path, "inventory.csv"]),
+          query=new_inventory)
+```
+   {{% /expand %}}
+

@@ -2,6 +2,7 @@
 title: Basic VQL functions and plugins
 weight: 10
 linktitle: Basic VQL
+index: true
 ---
 
 VQL provides a basic set of functions and plugins allowing
@@ -211,6 +212,7 @@ Arg | Description | Type
 item||Any
 member||string
 field||string
+default||Any
 
 
 ## getpid
@@ -382,6 +384,25 @@ Arg | Description | Type
 range|Selects a random number up to this range.|int64
 
 
+## read_file
+<span class='vql_type pull-right'>Function</span>
+
+Read a file into a string.
+
+Arg | Description | Type
+----|-------------|-----
+chunk|length of each chunk to read from the file.|int
+max_length|Max length of the file to read.|int
+filenames|One or more files to open.|list of string (required)
+accessor|An accessor to use.|string
+
+
+## scope
+<span class='vql_type pull-right'>Function</span>
+
+return the scope.
+
+
 ## serialize
 <span class='vql_type pull-right'>Function</span>
 
@@ -410,8 +431,8 @@ Splits a string into an array based on a regexp separator.
 
 Arg | Description | Type
 ----|-------------|-----
-epoch||int64
-winfiletime||int64
+string|The value to split|string (required)
+sep|The serparator that will be used to split|string (required)
 
 
 ## str
@@ -442,7 +463,7 @@ Convert from different types to a time.Time.
 
 Arg | Description | Type
 ----|-------------|-----
-epoch||int64
+epoch||Any
 winfiletime||int64
 string|Guess a timestamp from a string|string
 us_style|US Style Month/Day/Year|bool
@@ -498,6 +519,16 @@ parse|A url to parse|string
 <span class='vql_type pull-right'>Function</span>
 
 Parse input from utf16.
+
+Arg | Description | Type
+----|-------------|-----
+string|A string to decode|string (required)
+
+
+## utf16_encode
+<span class='vql_type pull-right'>Function</span>
+
+Encode a string to utf16 bytes.
 
 Arg | Description | Type
 ----|-------------|-----

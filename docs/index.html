@@ -528,127 +528,9 @@
   <section id="image-block" class="image-block no-padding">
     <div class="container-fluid">
       <div class="row">
-        <div class="col-md-6 ts-padding"><div class="map-item" id="map"></div>
-<script>
-  function initMap() {
-      var ve = {lat:  -33.8656909 , lng:  151.20929479999995  };
-    var map = new google.maps.Map(
-      document.getElementById('map'), {
-        zoom: 15,
-        center: ve,
-        styles: [
-          {elementType: 'geometry',
-           stylers: [
-             {color: '#242f3e'},
-           ]},
-          {elementType: 'labels.text.stroke',
-           stylers: [
-             {color: '#242f3e'},
-           ]},
-          {elementType: 'labels.text.fill',
-           stylers: [
-             {color: '#555'},
-           ]},
-          {
-            featureType: 'administrative',
-            stylers: [{visibility: 'off'}]
-          },
-          {
-            featureType: 'poi',
-            stylers: [
-              {visibility: 'off'}
-            ]
-          },
-          {
-            featureType: 'poi.park',
-            stylers: [
-              {visibility: 'off'},
-            ]
-          },
-          {
-            featureType: 'road',
-            elementType: 'geometry',
-            stylers: [{color: '#38414e'}]
-          },
-          {
-            featureType: 'road',
-            elementType: 'geometry.stroke',
-            stylers: [{color: '#212a37'}]
-          },
-          {
-            featureType: 'road',
-            elementType: 'labels.text.fill',
-            stylers: [{color: '#9ca5b3'}]
-          },
-          {
-            featureType: 'road.highway',
-            elementType: 'geometry',
-            stylers: [{color: '#746855'}]
-          },
-          {
-            featureType: 'road.highway',
-            elementType: 'geometry.stroke',
-            stylers: [{color: '#1f2835'}]
-          },
-          {
-            featureType: 'road.highway',
-            elementType: 'labels.text.fill',
-            stylers: [{color: '#f3d19c'}]
-          },
-          {
-            featureType: 'transit',
-            stylers: [{visibility: "off"}],
-          },
-          {
-            featureType: 'water',
-            elementType: 'geometry',
-            stylers: [{color: '#17263c'}]
-          },
-          {
-            featureType: 'water',
-            elementType: 'labels.text.fill',
-            stylers: [{color: '#515c6d'}]
-          },
-          {
-            featureType: 'water',
-            elementType: 'labels.text.stroke',
-            stylers: [{color: '#17263c'}]
-          }
-        ]
-      });
-
-    var infowindow = new google.maps.InfoWindow({
-      content: "Velocidex",
-    });
-
-    var image = {
-      url: "/images/logos/velo_bare_small.svg",
-      
-      size: new google.maps.Size(73, 117),
-      
-      origin: new google.maps.Point(0, 0),
-      
-      anchor: new google.maps.Point(0, 0),
-      scaledSize: new google.maps.Size(30, 42)
-    };
-
-    var marker = new google.maps.Marker({
-      position: ve,
-      animation: google.maps.Animation.DROP,
-      icon: image,
-      title: "Velocidex Enterprises",
-      map: map
-    });
-    marker.addListener('click', function() {
-      infowindow.open(map, marker);
-    });
-    infowindow.open(map, marker);
-  }
-</script>
-<script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBHBbgGnUPMVZ92mDQWfc0TubCbMqDVnD4&callback=initMap">
-</script>
-</div>
+        <div class="col-md-6 ts-padding">
+          <img src="/images/sydney.jpg" style="width: 100%">
+        </div>
         <div class="col-md-6 ts-padding img-block-right">
           <div class="img-block-head text-center">
             <h3>Velocidex Enterprises</h3>
@@ -741,25 +623,6 @@
             </div>
           </div>
         </div>
-        <div class="col-md-6 col-sm-6">
-          <div class="team team-list wow slideInRight">
-            <div class="img-hexagon">
-              <img src="/images/faces/nick.jpg" alt="">
-              <span class="img-top"></span>
-              <span class="img-bottom"></span>
-            </div>
-            <div class="team-content">
-              <h3>Nick Klein</h3>
-              <p class="desc">
-                Nick has over 20 years experience in DFIR investigations. Since 2009, his team at Klein & Co. have helped clients across Australia and internationally. Nick is also a SANS instructor who teaches advanced DFIR skills to students around the world.
-              </p>
-              <p>
-                Nick brings this real-world expertise into the development of Velociraptor, for the whole DFIR community to benefit.
-              </p>
-
-            </div>
-          </div>
-        </div>
       </div>
       <div class="gap-60"></div>
     </div>
@@ -834,11 +697,12 @@
       <div class="col-md-3 col-sm-12 footer-widget footer-about-us">
         <h3 class="widget-title">Contacts</h3>
 
-        <h4>Address</h4>
-        <p>Suite 5.02, Level 5</p>
-        <p>28 O'Connell Street</p>
-        <p>Sydney NSW 2000</p>
-        <p>Australia</p>
+        <h4>Discord</h4>
+        <p>
+          <a href="https://www.velocidex.com/discord">
+            https://www.velocidex.com/discord
+          </a>
+        </p>
 
         <h4>Email</h4>
         <p>info@velocidex.com</p>
@@ -856,7 +720,7 @@
     <div class="row">
       <div class="col-md-12 text-center">
         <div class="copyright-info">
-          &copy; Copyright 2019 Velocidex Enterprises.
+          &copy; Copyright 2020 Velocidex Enterprises.
         </div>
       </div>
     </div>

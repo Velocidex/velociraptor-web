@@ -122,6 +122,12 @@
           </a>
         </div>
     </li>
+    <li data-nav-id="/docs/getting-started/performance/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/getting-started/performance/">Performance</a>
+      </div>
+    </li>
       <li data-nav-id="/docs/getting-started/triaging/" class="dd-item">
         <div>
           <a href="/docs/getting-started/triaging/">
@@ -341,7 +347,7 @@
       <li data-nav-id="/docs/artifacts/misc/" class="dd-item">
         <div>
           <a href="/docs/artifacts/misc/">
-            Miscellaneous
+            Miscelaneous
           </a>
         </div>
     </li>
@@ -558,6 +564,7 @@
 </ul></li>
 <li><a href="#parse-string-with-regex">parse_string_with_regex</a></li>
 <li><a href="#parse-xml">parse_xml</a></li>
+<li><a href="#plist">plist</a></li>
 <li><a href="#prefetch">prefetch</a></li>
 <li><a href="#regex-replace">regex_replace</a></li>
 <li><a href="#rot13">rot13</a></li>
@@ -964,6 +971,12 @@ FROM watch_evtx(filename=systemLogFile) WHERE EventID = 7045
 <tr>
 <td>accessor</td>
 <td>The accessor to use.</td>
+<td>string</td>
+</tr>
+
+<tr>
+<td>messagedb</td>
+<td>A Message database from <a href="https://github.com/Velocidex/evtx-data">https://github.com/Velocidex/evtx-data</a>.</td>
 <td>string</td>
 </tr>
 </tbody>
@@ -1389,11 +1402,65 @@ fields.</p>
 </tbody>
 </table>
 
+<h2 id="plist">plist</h2>
+
+<p><span class='vql_type pull-right'>Function</span></p>
+
+<p>Parse plist file</p>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>file</td>
+<td>A list of files to parse.</td>
+<td>string (required)</td>
+</tr>
+
+<tr>
+<td>accessor</td>
+<td>The accessor to use.</td>
+<td>string</td>
+</tr>
+</tbody>
+</table>
+
 <h2 id="prefetch">prefetch</h2>
 
 <p><span class='vql_type pull-right'>Plugin</span></p>
 
 <p>Parses a prefetch file.</p>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>filename</td>
+<td>A list of event log files to parse.</td>
+<td>list of string (required)</td>
+</tr>
+
+<tr>
+<td>accessor</td>
+<td>The accessor to use.</td>
+<td>string</td>
+</tr>
+</tbody>
+</table>
 
 <h2 id="regex-replace">regex_replace</h2>
 

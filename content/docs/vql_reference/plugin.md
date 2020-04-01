@@ -2,6 +2,7 @@
 title: Client Side Functionality
 weight: 50
 linktitle: Client
+index: true
 ---
 
 This page lists the plugins used to collect information from
@@ -58,6 +59,7 @@ artifacts|A list of artifacts to collect.|list of string (required)
 output|A path to write the output file on.|string (required)
 args|Optional parameters.|Any
 password|An optional password to encrypt the collection zip.|string
+format|Output format (csv, jsonl).|string
 
 
 ## environ
@@ -124,7 +126,7 @@ Iterate over a list.
 Arg | Description | Type
 ----|-------------|-----
 var|The variable to assign.|string (required)
-foreach|The variable to iterate over.|Any (required)
+foreach|The variable to iterate over.|LazyExpr (required)
 query|Run this query over the item.|StoredQuery
 
 
@@ -135,7 +137,7 @@ Executes 'query' once for each row in the 'row' query.
 
 Arg | Description | Type
 ----|-------------|-----
-row|A query or slice which generates rows.|Any (required)
+row|A query or slice which generates rows.|LazyExpr (required)
 query|Run this query for each row.|StoredQuery (required)
 async|If set we run all queries asyncronously.|bool
 
@@ -401,6 +403,11 @@ SELECT 1+1 As Two FROM scop()
 <span class='vql_type pull-right'>Plugin</span>
 
 Get file information. Unlike glob() this does not support wildcards.
+
+Arg | Description | Type
+----|-------------|-----
+filename|One or more files to open.|list of string (required)
+accessor|An accessor to use.|string
 
 
 ## switch

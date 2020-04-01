@@ -201,8 +201,7 @@ endpoints and running hunts across your network.
 
 These locations can also be changed by editing the configuration
 files. If you want to move these, you'll need to move the folders and
-edit the server configuration file. Note that clients and servers hold
-different information in their respective data stores.
+edit the server configuration file.
 
 Velociraptor does not enforce any particular data retention
 policies. At any time the data store can be wiped and the server
@@ -241,10 +240,15 @@ Google OAuth.
 {{% /notice %}}
 
 You can always add new users to the GUI using the command
-`velociraptor --config server.config.yaml user add MyUserName`. User
-credentials are stored in the data store and not in the config
-file. If you need to change a user's password simply add them again
-with the new password.
+`velociraptor --config server.config.yaml user add MyUserName --role
+admininistrator`. User credentials are usually stored in the data
+store and not in the config file (except for the root users created
+with the wizard). If you need to change a user's password simply add
+them again with the new password.
+
+Each user account can have a different role attached to it. Currently
+some of the more useful roles are "reader", "analyst", "investigator",
+"artifact_writer" and "admininistrator".
 
 ## 4. Start the server
 

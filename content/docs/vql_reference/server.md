@@ -2,6 +2,7 @@
 title: Server Side Functionality
 weight: 40
 linktitle: Server
+index: true
 ---
 
 Velociraptor provides complete control of the server within VQL
@@ -12,6 +13,17 @@ and automate the server by writing VQL queries.
 To reuse server side artifacts, simply create an artifact with
 `type: SERVER` and launch it from the "Server Artifacts" screen in
 the GUI.
+
+## cancel_flow
+<span class='vql_type pull-right'>Function</span>
+
+Cancels the flow.
+
+Arg | Description | Type
+----|-------------|-----
+client_id||string (required)
+flow_id||string
+
 
 ## clients
 <span class='vql_type pull-right'>Plugin</span>
@@ -25,6 +37,18 @@ client_id||string
 
 
 ## collect
+<span class='vql_type pull-right'>Function</span>
+
+Launch an artifact collection against a client.
+
+Arg | Description | Type
+----|-------------|-----
+client_id|The client id to schedule a collection on|string (required)
+artifacts|A list of artifacts to collect|list of string (required)
+env|Parameters to apply to the artifacts|Any
+
+
+## collect_client
 <span class='vql_type pull-right'>Function</span>
 
 Launch an artifact collection against a client.
@@ -69,6 +93,17 @@ api_key|Base64-encoded token for authorization; if set, overrides username and p
 wait_time|Batch elastic upload this long (2 sec).|int64
 
 
+## enumerate_flow
+<span class='vql_type pull-right'>Plugin</span>
+
+Enumerate all the files that make up a flow.
+
+Arg | Description | Type
+----|-------------|-----
+client_id||string (required)
+flow_id||string
+
+
 ## file_store
 <span class='vql_type pull-right'>Function</span>
 
@@ -98,6 +133,16 @@ Arg | Description | Type
 path|A VFS path to convert|list of string (required)
 
 
+## file_store_delete
+<span class='vql_type pull-right'>Function</span>
+
+Delete file store paths into full filesystem paths. 
+
+Arg | Description | Type
+----|-------------|-----
+path|A VFS path to remove|string (required)
+
+
 ## flows
 <span class='vql_type pull-right'>Plugin</span>
 
@@ -105,7 +150,7 @@ Retrieve the flows launched on each client.
 
 Arg | Description | Type
 ----|-------------|-----
-client_id||list of string (required)
+client_id||string (required)
 flow_id||string
 
 
@@ -144,7 +189,7 @@ Retrieve the results of a hunt.
 
 Arg | Description | Type
 ----|-------------|-----
-artifact|The artifact to retrieve|string (required)
+artifact|The artifact to retrieve|string
 source|An optional source within the artifact.|string
 hunt_id|The hunt id to read.|string (required)
 brief|If set we return less columns.|bool
@@ -190,7 +235,7 @@ Extract monitoring log from a client. If client_id is not specified we watch the
 
 Arg | Description | Type
 ----|-------------|-----
-client_id|A list of client ids to watch. If not provided we watch all clients.|list of string
+client_id|A list of client ids to watch. If not provided we watch all clients.|string
 artifact|The event artifact name to watch|string (required)
 source|An optional artifact named source|string
 

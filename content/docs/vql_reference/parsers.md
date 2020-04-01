@@ -2,6 +2,7 @@
 title: Parsers and data extractors
 weight: 30
 linktitle: Parsers
+index: true
 ---
 
 Many Velociraptor artifacts rely on specialized parsing of file
@@ -187,6 +188,7 @@ Arg | Description | Type
 ----|-------------|-----
 filename|A list of event log files to parse.|list of string (required)
 accessor|The accessor to use.|string
+messagedb|A Message database from https://github.com/Velocidex/evtx-data.|string
 
 
 ## parse_float
@@ -398,10 +400,26 @@ file|XML file to open.|string (required)
 accessor|The accessor to use|string
 
 
+## plist
+<span class='vql_type pull-right'>Function</span>
+
+Parse plist file
+
+Arg | Description | Type
+----|-------------|-----
+file|A list of files to parse.|string (required)
+accessor|The accessor to use.|string
+
+
 ## prefetch
 <span class='vql_type pull-right'>Plugin</span>
 
 Parses a prefetch file.
+
+Arg | Description | Type
+----|-------------|-----
+filename|A list of event log files to parse.|list of string (required)
+accessor|The accessor to use.|string
 
 
 ## regex_replace

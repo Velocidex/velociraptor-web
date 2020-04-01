@@ -17,7 +17,7 @@ monitoring artifact be collected from clients.
 Arg|Default|Description
 ---|------|-----------
 EmailAddress|admin@example.com|
-MessageTemplate|PsExec execution detected at %v: %v for client %v\n|
+MessageTemplate|PsExec execution detected at %v: %v for client %v\ ...|
 
 {{% expand  "View Artifact Source" %}}
 
@@ -112,69 +112,6 @@ sources:
                  args=[Timestamp, ClientId]
               )
           )
-        })
-```
-   {{% /expand %}}
-
-## Server.Analysis.Triage.PowershellConsole
-
-This artifact post processes the artifact
-Windows.Triage.Collectors.PowershellConsoleLogs. While that artifact
-just uploads all the powershell console files, we sometimes want to
-easily see all the files in the same output table.
-
-This artifact simply post processes the uploaded files and puts
-their content in the same table.
-
-
-Arg|Default|Description
----|------|-----------
-huntId||
-
-{{% expand  "View Artifact Source" %}}
-
-
-```
-name: Server.Analysis.Triage.PowershellConsole
-description: |
-  This artifact post processes the artifact
-  Windows.Triage.Collectors.PowershellConsoleLogs. While that artifact
-  just uploads all the powershell console files, we sometimes want to
-  easily see all the files in the same output table.
-
-  This artifact simply post processes the uploaded files and puts
-  their content in the same table.
-
-type: SERVER
-
-parameters:
-  - name: huntId
-
-precondition:
-  SELECT * from server_config
-
-sources:
-  - queries:
-      - |
-        LET files = SELECT ClientId,
-          file_store(path=Flow.FlowContext.uploaded_files) as LogFiles
-        FROM hunt_results(
-          hunt_id=huntId,
-          artifact='Windows.Triage.Collectors.PowershellConsoleLogs')
-
-      # A lookup between client id and FQDN
-      - |
-        LET clients <= SELECT ClientId, os_info.fqdn AS FQDN from clients()
-
-      - |
-        SELECT * FROM foreach(
-          row=files,
-          query={
-            SELECT ClientId, {
-                SELECT FQDN FROM clients where ClientId=ClientId_LU
-              } As FQDN,
-              Filename, Data
-            FROM read_file(filenames=LogFiles)
         })
 ```
    {{% /expand %}}
@@ -363,6 +300,8 @@ sources:
 ```
 name: Server.Internal.ArtifactDescription
 
+type: INTERNAL
+
 reports:
   - type: INTERNAL
     template: |
@@ -372,6 +311,10 @@ reports:
 
       #### Type: {{ $artifact.Type }}
 
+      {{ if $artifact.Author }}
+      ##### by {{ $artifact.Author }}
+      {{end}}
+
       {{ $artifact.Description }}
 
       {{ if $artifact.Parameters }}
@@ -379,10 +322,22 @@ reports:
       ### Parameters
 
       <table class="table table-striped table-hover">
-      <thead><tr><th>Name</th><th>Default</th></tr></thead>
+      <thead>
+         <tr>
+           <th>Name</th>
+           <th>Type</th>
+           <th>Default</th>
+         </tr>
+      </thead>
       <tbody>
       {{ range $item := $artifact.Parameters }}
-         <tr><td> {{ $item.Name }}</td><td><pre>{{ $item.Default }}</pre></td></tr>
+         {{ if not (eq $item.Type "hidden") }}
+           <tr>
+               <td> {{ $item.Name }}</td>
+               <td>{{ $item.Type }}</td>
+               <td><pre>{{ $item.Default }}</pre></td>
+           </tr>
+         {{ end }}
       {{ end }}
       </tbody></table>
 
@@ -391,12 +346,93 @@ reports:
       {{ range $source := $artifact.Sources }}
 
       ### Source {{ $source.Name }}
-      ```sql
+      {{ if $source.Query }}
+
+      ```vql
+      {{ $source.Query }}
+      ```
+
+      {{- else -}}
+
+      ```vql
       {{ range $query := $source.Queries -}}
       {{- $query -}}
       {{ end }}
       ```
       {{ end }}
+
+      {{ end }}
+```
+   {{% /expand %}}
+
+## Server.Internal.Interrogate
+
+An internal artifact used track new client interrogations by the
+Interrogation service.
+
+
+{{% expand  "View Artifact Source" %}}
+
+
+```
+name: Server.Internal.Interrogate
+description: |
+  An internal artifact used track new client interrogations by the
+  Interrogation service.
+
+type: SERVER_EVENT
+
+sources:
+  - queries:
+      - SELECT * FROM foreach(
+          row={
+             SELECT ClientId, Flow, FlowId
+             FROM watch_monitoring(artifact='System.Flow.Completion')
+             WHERE Flow.artifacts_with_results =~ 'Generic.Client.Info'
+          },
+          query={
+            SELECT * FROM switch(
+              a={
+                  SELECT ClientId,
+                    FlowId,
+                    Architecture,
+                    BuildTime,
+                    Fqdn,
+                    Hostname,
+                    KernelVersion,
+                    Labels,
+                    Name,
+                    OS,
+                    Platform,
+                    PlatformVersion
+                 FROM source(
+                    client_id=ClientId,
+                    flow_id=FlowId,
+                    source="BasicInformation",
+                    artifact="Custom.Generic.Client.Info",
+                    mode="CLIENT")
+               },
+            b={
+                SELECT ClientId,
+                  FlowId,
+                  Architecture,
+                  BuildTime,
+                  Fqdn,
+                  Hostname,
+                  KernelVersion,
+                  Labels,
+                  Name,
+                  OS,
+                  Platform,
+                  PlatformVersion
+               FROM source(
+                  client_id=ClientId,
+                  flow_id=FlowId,
+                  source="BasicInformation",
+                  artifact="Generic.Client.Info",
+                  mode="CLIENT")
+            })
+          })
 ```
    {{% /expand %}}
 
@@ -500,6 +536,11 @@ reports:
           </span>
         </span>
       </span>
+
+
+      ## Users
+
+      {{ Query "SELECT Name, ReadOnly FROM gui_users()" | Table }}
 ```
    {{% /expand %}}
 
@@ -512,7 +553,7 @@ logged on the server.
 Obviously being able to run arbitrary commands on the end point is
 a powerful feature and should be used sparingly. There is an audit
 trail for shell commands executed and their output available by
-streaming all shell commands to the "Shell" client event monitoring
+streaming all shell commands to the "Shell" client evnt monitoring
 artifact.
 
 This server event artifact centralizes all shell access from all
@@ -583,6 +624,8 @@ name: Server.Monitor.VeloMetrics
 description: |
   Get Velociraptor server metrics.
 
+type: SERVER
+
 parameters:
   - name: MetricsURL
     default: http://localhost:8003/metrics
@@ -596,6 +639,8 @@ sources:
              'client_comms_current_connections (?P<client_comms_current_connections>[^\\s]+)',
              'flow_completion (?P<flow_completion>[^\\s]+)',
              'process_open_fds (?P<process_open_fds>[^\\s]+)',
+             'uploaded_bytes (?P<uploaded_bytes>[^\\s]+)',
+             'uploaded_files (?P<uploaded_files>[^\\s]+)',
              'stats_client_one_day_actives{version="[^"]+"} (?P<one_day_active>[^\\s]+)',
              'stats_client_seven_day_actives{version="[^"]+"} (?P<seven_day_active>[^\\s]+)'
            ]) AS Stat, {
@@ -614,6 +659,8 @@ sources:
                parse_float(string=Stat.client_comms_current_connections)
                       AS client_comms_current_connections,
                parse_float(string=Stat.flow_completion) AS flow_completion,
+               parse_float(string=Stat.uploaded_bytes) AS uploaded_bytes,
+               parse_float(string=Stat.uploaded_files) AS uploaded_files,
                parse_float(string=Stat.process_open_fds)
                      AS process_open_fds,
                PslistStats.CPU AS process_cpu_seconds_total,
@@ -713,10 +760,10 @@ sources:
           string=base64decode(
              string=parse_string_with_regex(
                 string=CommandLine,
-                regex='-encodedcommand (?P<Encoded>[^ ]+)'
+                regex='-((?i)(en|enc|encode|encodedCommand)) (?P<Encoded>[^ ]+)'
              ).Encoded)) AS Script
         FROM watch_monitoring(artifact='Windows.Events.ProcessCreation')
-        WHERE CommandLine =~ '-encodedcommand'
+        WHERE CommandLine =~ '-(en|enc|encode|encodedCommand)'
 
 reports:
   - type: SERVER_EVENT

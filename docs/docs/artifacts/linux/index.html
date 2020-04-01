@@ -122,6 +122,12 @@
           </a>
         </div>
     </li>
+    <li data-nav-id="/docs/getting-started/performance/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/getting-started/performance/">Performance</a>
+      </div>
+    </li>
       <li data-nav-id="/docs/getting-started/triaging/" class="dd-item">
         <div>
           <a href="/docs/getting-started/triaging/">
@@ -341,7 +347,7 @@
       <li data-nav-id="/docs/artifacts/misc/" class="dd-item">
         <div>
           <a href="/docs/artifacts/misc/">
-            Miscellaneous
+            Miscelaneous
           </a>
         </div>
     </li>
@@ -535,16 +541,28 @@
 <li><a href="#linux-applications-docker-version">Linux.Applications.Docker.Version</a></li>
 <li><a href="#linux-debian-aptsources">Linux.Debian.AptSources</a></li>
 <li><a href="#linux-debian-packages">Linux.Debian.Packages</a></li>
+<li><a href="#linux-events-processexecutions">Linux.Events.ProcessExecutions</a></li>
+<li><a href="#linux-events-sshbruteforce">Linux.Events.SSHBruteforce</a></li>
+<li><a href="#linux-events-sshlogin">Linux.Events.SSHLogin</a></li>
 <li><a href="#linux-mounts">Linux.Mounts</a></li>
 <li><a href="#linux-proc-arp">Linux.Proc.Arp</a></li>
 <li><a href="#linux-proc-modules">Linux.Proc.Modules</a></li>
+<li><a href="#linux-search-filefinder">Linux.Search.FileFinder</a></li>
+<li><a href="#performance-note">Performance Note</a></li>
 <li><a href="#linux-ssh-authorizedkeys">Linux.Ssh.AuthorizedKeys</a></li>
 <li><a href="#linux-ssh-knownhosts">Linux.Ssh.KnownHosts</a></li>
+<li><a href="#linux-ssh-privatekeys">Linux.Ssh.PrivateKeys</a></li>
+<li><a href="#references">references</a></li>
 <li><a href="#linux-sys-acpitables">Linux.Sys.ACPITables</a></li>
+<li><a href="#linux-sys-bashshell">Linux.Sys.BashShell</a></li>
 <li><a href="#linux-sys-cputime">Linux.Sys.CPUTime</a></li>
 <li><a href="#linux-sys-crontab">Linux.Sys.Crontab</a></li>
 <li><a href="#linux-sys-lastuserlogin">Linux.Sys.LastUserLogin</a></li>
+<li><a href="#linux-sys-maps">Linux.Sys.Maps</a></li>
+<li><a href="#linux-sys-suid">Linux.Sys.SUID</a></li>
+<li><a href="#references-1">References:</a></li>
 <li><a href="#linux-sys-users">Linux.Sys.Users</a></li>
+<li><a href="#linux-syslog-sshlogin">Linux.Syslog.SSHLogin</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -592,7 +610,7 @@ description from there.</p>
 <tbody>
 <tr>
 <td>extensionGlobs</td>
-<td>/.config/google-chrome/<em>/Extensions/</em>/*/manifest.json</td>
+<td>/.config/google-chrome/<em>/Extensions/</em>/*/manifest.j &hellip;</td>
 <td></td>
 </tr>
 </tbody>
@@ -998,7 +1016,7 @@ metadata from it. If not we leave those columns empty.</p>
 <tbody>
 <tr>
 <td>linuxAptSourcesGlobs</td>
-<td>/etc/apt/sources.list,/etc/apt/sources.list.d/*.list</td>
+<td>/etc/apt/sources.list,/etc/apt/sources.list.d/*.li &hellip;</td>
 <td>Globs to find apt source *.list files.</td>
 </tr>
 
@@ -1213,6 +1231,296 @@ sources:
 </div>
 
 
+<h2 id="linux-events-processexecutions">Linux.Events.ProcessExecutions</h2>
+
+<p>This artifact collects process execution logs from the Linux kernel.</p>
+
+<p>This artifact relies on the presence of <code>auditctl</code> usually included
+in the auditd package. On Ubuntu you can install it using:</p>
+
+<pre><code>apt-get install auditd
+</code></pre>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>pathToAuditctl</td>
+<td>/sbin/auditctl</td>
+<td>We depend on auditctl to install the correct process execution rules.</td>
+</tr>
+</tbody>
+</table>
+
+
+
+<div class="expand">
+    <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fa fa-chevron-down' : 'fa fa-chevron-right';});});">
+        <i style="font-size:x-small;" class="fa fa-chevron-right"></i>
+        <span>
+        
+        
+        View Artifact Source
+        
+        </span>
+    </div>
+    <div class="expand-content" style="display: none;">
+<pre><code>name: Linux.Events.ProcessExecutions
+description: |
+  This artifact collects process execution logs from the Linux kernel.
+
+  This artifact relies on the presence of `auditctl` usually included
+  in the auditd package. On Ubuntu you can install it using:
+
+</code></pre>
+
+<p>apt-get install auditd</p>
+
+<pre><code>
+precondition: SELECT OS From info() where OS = 'linux'
+
+type: CLIENT_EVENT
+
+parameters:
+  - name: pathToAuditctl
+    default: /sbin/auditctl
+    description: We depend on auditctl to install the correct process execution rules.
+
+sources:
+  - queries:
+     # Install the auditd rule if possible.
+     - LET _ &lt;= SELECT * FROM execve(argv=[pathToAuditctl, &quot;-a&quot;,
+          &quot;exit,always&quot;, &quot;-F&quot;, &quot;arch=b64&quot;, &quot;-S&quot;, &quot;execve&quot;, &quot;-k&quot;, &quot;procmon&quot;])
+
+     - LET exec_log = SELECT timestamp(string=Timestamp) AS Time, Sequence,
+           atoi(string=Process.PID) AS Pid,
+           atoi(string=Process.PPID) AS Ppid,
+           Process.PPID AS PPID,
+           atoi(string=Summary.Actor.Primary) AS UserId,
+           Process.Title AS CmdLine,
+           Process.Exe AS Exe,
+           Process.CWD AS CWD
+       FROM audit()
+       WHERE &quot;procmon&quot; in Tags AND Result = 'success'
+
+     # Cache Uid -&gt; Username mapping.
+     - LET users &lt;= SELECT User, atoi(string=Uid) AS Uid
+       FROM Artifact.Linux.Sys.Users()
+
+     # Enrich the original artifact with more data.
+     - SELECT Time, Pid, Ppid, UserId,
+              { SELECT User from users WHERE Uid = UserId} AS User,
+              regex_replace(source=read_file(filename= &quot;/proc/&quot; + PPID + &quot;/cmdline&quot;),
+                            replace=&quot; &quot;, re=&quot;[\\0]&quot;) AS Parent,
+              CmdLine,
+              Exe, CWD
+       FROM exec_log
+</code></pre>
+
+    </div>
+</div>
+
+
+<h2 id="linux-events-sshbruteforce">Linux.Events.SSHBruteforce</h2>
+
+<p>This is a monitoring artifact which detects a successful SSH login
+preceeded by some failed attempts within the last hour.</p>
+
+<p>This is particularly important in the case of ssh brute forcers. If
+one of the brute force password attempts succeeded the password
+guessing program will likely report the success and move on. This
+alert might provide sufficient time for admins to lock down the
+account before attackers can exploit the weak password.</p>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>syslogAuthLogPath</td>
+<td>/var/log/auth.log</td>
+<td></td>
+</tr>
+
+<tr>
+<td>SSHGrok</td>
+<td>%{SYSLOGTIMESTAMP:timestamp} (?:%{SYSLOGFACILITY}  &hellip;</td>
+<td>A Grok expression for parsing SSH auth lines.</td>
+</tr>
+
+<tr>
+<td>MinimumFailedLogins</td>
+<td>2</td>
+<td>Minimum number of failed logins before a successful login.</td>
+</tr>
+</tbody>
+</table>
+
+
+
+<div class="expand">
+    <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fa fa-chevron-down' : 'fa fa-chevron-right';});});">
+        <i style="font-size:x-small;" class="fa fa-chevron-right"></i>
+        <span>
+        
+        
+        View Artifact Source
+        
+        </span>
+    </div>
+    <div class="expand-content" style="display: none;">
+<pre><code>name: Linux.Events.SSHBruteforce
+description: |
+  This is a monitoring artifact which detects a successful SSH login
+  preceeded by some failed attempts within the last hour.
+
+  This is particularly important in the case of ssh brute forcers. If
+  one of the brute force password attempts succeeded the password
+  guessing program will likely report the success and move on. This
+  alert might provide sufficient time for admins to lock down the
+  account before attackers can exploit the weak password.
+
+reference:
+  - https://www.elastic.co/blog/grokking-the-linux-authorization-logs
+
+type: CLIENT_EVENT
+
+parameters:
+  - name: syslogAuthLogPath
+    default: /var/log/auth.log
+
+  - name: SSHGrok
+    description: A Grok expression for parsing SSH auth lines.
+    default: &gt;-
+      %{SYSLOGTIMESTAMP:timestamp} (?:%{SYSLOGFACILITY} )?%{SYSLOGHOST:logsource} %{SYSLOGPROG}: %{DATA:event} %{DATA:method} for (invalid user )?%{DATA:user} from %{IPORHOST:ip} port %{NUMBER:port} ssh2(: %{GREEDYDATA:system.auth.ssh.signature})?
+
+  - name: MinimumFailedLogins
+    description: Minimum number of failed logins before a successful login.
+    default: 2
+
+sources:
+  - queries:
+      # Basic syslog parsing via GROK expressions.
+      - LET failed_login = SELECT grok(grok=SSHGrok, data=Line) AS FailedEvent,
+            Line as FailedLine
+        FROM watch_syslog(filename=syslogAuthLogPath)
+        WHERE FailedEvent.program = &quot;sshd&quot; AND FailedEvent.event = &quot;Failed&quot;
+              AND FailedEvent.method = &quot;password&quot;
+
+      - LET last_failed_events = SELECT * FROM fifo(
+              query=failed_login, max_rows=50, max_age=3600)
+
+      - LET _ &lt;= SELECT * FROM last_failed_events
+
+      - LET success_login = SELECT grok(grok=SSHGrok, data=Line) AS Event, Line
+        FROM watch_syslog(filename=syslogAuthLogPath)
+        WHERE Event.program = &quot;sshd&quot; AND Event.event = &quot;Accepted&quot;
+              AND Event.method = &quot;password&quot;
+
+      - SELECT Event, Line, {
+           SELECT FailedLine FROM last_failed_events
+           WHERE Event.user = FailedEvent.user
+        } AS Failures
+        FROM success_login
+        WHERE len(list=Failures) &gt; int(int=MinimumFailedLogins)
+</code></pre>
+
+    </div>
+</div>
+
+
+<h2 id="linux-events-sshlogin">Linux.Events.SSHLogin</h2>
+
+<p>This monitoring artifact watches the auth.log file for new
+successful SSH login events and relays them back to the server.</p>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>syslogAuthLogPath</td>
+<td>/var/log/auth.log</td>
+<td></td>
+</tr>
+
+<tr>
+<td>SSHGrok</td>
+<td>%{SYSLOGTIMESTAMP:timestamp} (?:%{SYSLOGFACILITY}  &hellip;</td>
+<td>A Grok expression for parsing SSH auth lines.</td>
+</tr>
+</tbody>
+</table>
+
+
+
+<div class="expand">
+    <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fa fa-chevron-down' : 'fa fa-chevron-right';});});">
+        <i style="font-size:x-small;" class="fa fa-chevron-right"></i>
+        <span>
+        
+        
+        View Artifact Source
+        
+        </span>
+    </div>
+    <div class="expand-content" style="display: none;">
+<pre><code>name: Linux.Events.SSHLogin
+description: |
+  This monitoring artifact watches the auth.log file for new
+  successful SSH login events and relays them back to the server.
+
+reference:
+  - https://www.elastic.co/blog/grokking-the-linux-authorization-logs
+
+type: CLIENT_EVENT
+
+parameters:
+  - name: syslogAuthLogPath
+    default: /var/log/auth.log
+
+  - name: SSHGrok
+    description: A Grok expression for parsing SSH auth lines.
+    default: &gt;-
+      %{SYSLOGTIMESTAMP:timestamp} (?:%{SYSLOGFACILITY} )?%{SYSLOGHOST:logsource} %{SYSLOGPROG}: %{DATA:event} %{DATA:method} for (invalid user )?%{DATA:user} from %{IPORHOST:ip} port %{NUMBER:port} ssh2(: %{GREEDYDATA:system.auth.ssh.signature})?
+
+sources:
+  - queries:
+      # Basic syslog parsing via GROK expressions.
+      - LET success_login = SELECT grok(grok=SSHGrok, data=Line) AS Event, Line
+        FROM watch_syslog(filename=syslogAuthLogPath)
+        WHERE Event.program = &quot;sshd&quot; AND Event.event = &quot;Accepted&quot;
+      - SELECT timestamp(string=Event.timestamp) AS Time,
+              Event.user AS User,
+              Event.method AS Method,
+              Event.IP AS SourceIP,
+              Event.pid AS Pid
+        FROM success_login
+</code></pre>
+
+    </div>
+</div>
+
+
 <h2 id="linux-mounts">Linux.Mounts</h2>
 
 <p>List mounted filesystems by reading /proc/mounts</p>
@@ -1386,6 +1694,220 @@ sources:
 </div>
 
 
+<h2 id="linux-search-filefinder">Linux.Search.FileFinder</h2>
+
+<p>Find files on the filesystem using the filename or content.</p>
+
+<h2 id="performance-note">Performance Note</h2>
+
+<p>This artifact can be quite expensive, especially if we search file
+content. It will require opening each file and reading its entire
+content. To minimize the impact on the endpoint we recommend this
+artifact is collected with a rate limited way (about 20-50 ops per
+second).</p>
+
+<p>This artifact is useful in the following scenarios:</p>
+
+<ul>
+<li><p>We need to locate all the places on our network where customer
+data has been copied.</p></li>
+
+<li><p>We’ve identified malware in a data breach, named using short
+random strings in specific folders and need to search for other
+instances across the network.</p></li>
+
+<li><p>We believe our user account credentials have been dumped and
+need to locate them.</p></li>
+
+<li><p>We need to search for exposed credit card data to satisfy PCI
+requirements.</p></li>
+
+<li><p>We have a sample of data that has been disclosed and need to
+locate other similar files</p></li>
+</ul>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>SearchFilesGlob</td>
+<td>/home/*/**</td>
+<td>Use a glob to define the files that will be searched.</td>
+</tr>
+
+<tr>
+<td>Keywords</td>
+<td>None</td>
+<td>A comma delimited list of strings to search for.</td>
+</tr>
+
+<tr>
+<td>Upload_File</td>
+<td>N</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Calculate_Hash</td>
+<td>N</td>
+<td></td>
+</tr>
+
+<tr>
+<td>MoreRecentThan</td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td>ModifiedBefore</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+
+
+<div class="expand">
+    <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fa fa-chevron-down' : 'fa fa-chevron-right';});});">
+        <i style="font-size:x-small;" class="fa fa-chevron-right"></i>
+        <span>
+        
+        
+        View Artifact Source
+        
+        </span>
+    </div>
+    <div class="expand-content" style="display: none;">
+<pre><code>name: Linux.Search.FileFinder
+description: |
+  Find files on the filesystem using the filename or content.
+
+
+  ## Performance Note
+
+  This artifact can be quite expensive, especially if we search file
+  content. It will require opening each file and reading its entire
+  content. To minimize the impact on the endpoint we recommend this
+  artifact is collected with a rate limited way (about 20-50 ops per
+  second).
+
+  This artifact is useful in the following scenarios:
+
+    * We need to locate all the places on our network where customer
+      data has been copied.
+
+    * We’ve identified malware in a data breach, named using short
+      random strings in specific folders and need to search for other
+      instances across the network.
+
+    * We believe our user account credentials have been dumped and
+      need to locate them.
+
+    * We need to search for exposed credit card data to satisfy PCI
+      requirements.
+
+    * We have a sample of data that has been disclosed and need to
+      locate other similar files
+
+
+precondition:
+  SELECT * FROM info() where OS = 'linux'
+
+parameters:
+  - name: SearchFilesGlob
+    default: /home/*/**
+    description: Use a glob to define the files that will be searched.
+
+  - name: Keywords
+    default:
+    description: A comma delimited list of strings to search for.
+
+  - name: Upload_File
+    default: N
+    type: bool
+
+  - name: Calculate_Hash
+    default: N
+    type: bool
+
+  - name: MoreRecentThan
+    default: &quot;&quot;
+    type: timestamp
+
+  - name: ModifiedBefore
+    default: &quot;&quot;
+    type: timestamp
+
+
+sources:
+  - queries:
+    - LET file_search = SELECT FullPath,
+               Sys.mft as Inode,
+               Mode.String AS Mode, Size,
+               Mtime.Sec AS Modified,
+               timestamp(epoch=Atime.Sec) AS ATime,
+               timestamp(epoch=Mtime.Sec) AS MTime,
+               timestamp(epoch=Ctime.Sec) AS CTime, IsDir
+        FROM glob(globs=SearchFilesGlob,
+                  accessor=&quot;file&quot;)
+
+    - LET more_recent = SELECT * FROM if(
+        condition=MoreRecentThan,
+        then={
+          SELECT * FROM file_search
+          WHERE Modified &gt; parse_float(string=MoreRecentThan)
+        }, else=file_search)
+
+    - LET modified_before = SELECT * FROM if(
+        condition=ModifiedBefore,
+        then={
+          SELECT * FROM more_recent
+          WHERE Modified &lt; parse_float(string=ModifiedBefore)
+        }, else=more_recent)
+
+    - LET keyword_search = SELECT * FROM if(
+        condition=Keywords,
+        then={
+          SELECT * FROM foreach(
+            row={
+               SELECT * FROM modified_before
+            },
+            query={
+               SELECT FullPath, Inode, Mode,
+                      Size, Modified, ATime, MTime, CTime,
+                      str(str=String.Data) As Keywords
+
+               FROM yara(files=FullPath,
+                         key=Keywords,
+                         rules=&quot;wide nocase ascii:&quot;+Keywords,
+                         accessor=&quot;file&quot;)
+            })
+        }, else=modified_before)
+
+    - SELECT FullPath, Inode, Mode, Size, Modified, ATime,
+             MTime, CTime, Keywords,
+               if(condition=(Upload_File = &quot;Y&quot; and NOT IsDir ),
+                  then=upload(file=FullPath,
+                              accessor=&quot;file&quot;)) AS Upload,
+               if(condition=(Calculate_Hash = &quot;Y&quot; and NOT IsDir ),
+                  then=hash(path=FullPath,
+                            accessor=&quot;file&quot;)) AS Hash
+      FROM keyword_search
+</code></pre>
+
+    </div>
+</div>
+
+
 <h2 id="linux-ssh-authorizedkeys">Linux.Ssh.AuthorizedKeys</h2>
 
 <p>Find and parse ssh authorized keys files.</p>
@@ -1403,7 +1925,7 @@ sources:
 <tr>
 <td>sshKeyFiles</td>
 <td>.ssh/authorized_keys*</td>
-<td></td>
+<td>Glob of authorized_keys file relative to a user&rsquo;s home directory.</td>
 </tr>
 </tbody>
 </table>
@@ -1426,13 +1948,14 @@ description: Find and parse ssh authorized keys files.
 parameters:
   - name: sshKeyFiles
     default: '.ssh/authorized_keys*'
+    description: Glob of authorized_keys file relative to a user's home directory.
+
 sources:
   - precondition: |
       SELECT OS From info() where OS = 'linux'
+
     queries:
-      - |
-        // For each user on the system, search for authorized_keys files.
-        LET authorized_keys = SELECT * from foreach(
+      - LET authorized_keys = SELECT * from foreach(
           row={
              SELECT Uid, User, Homedir from Artifact.Linux.Sys.Users()
           },
@@ -1440,14 +1963,15 @@ sources:
              SELECT FullPath, Mtime, Ctime, User, Uid from glob(
                globs=Homedir + '/' + sshKeyFiles)
           })
-      - |
-        // For each authorized keys file, extract each line on a different row.
-        // Note: This duplicates the path, user and uid on each key line.
-        SELECT * from foreach(
+
+      - SELECT * from foreach(
           row=authorized_keys,
           query={
-            SELECT Uid, User, FullPath, Key from split_records(
-               filenames=FullPath, regex=&quot;\n&quot;, columns=[&quot;Key&quot;])
+            SELECT Uid, User, FullPath, Key, Comment,
+                   timestamp(epoch=Mtime.sec) AS Mtime
+            FROM split_records(
+               filenames=FullPath, regex=&quot; +&quot;, columns=[&quot;Type&quot;, &quot;Key&quot;, &quot;Comment&quot;])
+               WHERE Type =~ &quot;ssh&quot;
           })
 </code></pre>
 
@@ -1525,6 +2049,84 @@ sources:
 </div>
 
 
+<h2 id="linux-ssh-privatekeys">Linux.Ssh.PrivateKeys</h2>
+
+<p>SSH Private keys can be either encrypted or unencrypted. Unencrypted
+private keys are more risky because an attacker can use them without
+needing to unlock them with a password.</p>
+
+<p>This artifact searches for private keys in the usual locations and
+also records if they are encrypted or not.</p>
+
+<h2 id="references">references</h2>
+
+<ul>
+<li><a href="https://attack.mitre.org/techniques/T1145/">https://attack.mitre.org/techniques/T1145/</a></li>
+</ul>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>KeyGlobs</td>
+<td>/home/*/.ssh/id_{rsa,dsa}</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+
+
+<div class="expand">
+    <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fa fa-chevron-down' : 'fa fa-chevron-right';});});">
+        <i style="font-size:x-small;" class="fa fa-chevron-right"></i>
+        <span>
+        
+        
+        View Artifact Source
+        
+        </span>
+    </div>
+    <div class="expand-content" style="display: none;">
+<pre><code>name: Linux.Ssh.PrivateKeys
+description: |
+  SSH Private keys can be either encrypted or unencrypted. Unencrypted
+  private keys are more risky because an attacker can use them without
+  needing to unlock them with a password.
+
+  This artifact searches for private keys in the usual locations and
+  also records if they are encrypted or not.
+
+  ## references
+  - https://attack.mitre.org/techniques/T1145/
+
+precondition: SELECT OS From info() where OS = 'linux'
+
+parameters:
+  - name: KeyGlobs
+    default: /home/*/.ssh/id_{rsa,dsa}
+
+sources:
+  - queries:
+      - SELECT FullPath,
+               timestamp(epoch=Mtime.Sec) AS Mtime,
+               if(condition={
+                     SELECT * from yara(rules=&quot;wide ascii:ENCRYPTED&quot;, files=FullPath)
+                  }, then=&quot;Yes&quot;, else=&quot;No&quot;) AS Encrypted
+        FROM glob(globs=KeyGlobs)
+</code></pre>
+
+    </div>
+</div>
+
+
 <h2 id="linux-sys-acpitables">Linux.Sys.ACPITables</h2>
 
 <p>Firmware ACPI functional table common metadata and content.</p>
@@ -1576,6 +2178,81 @@ sources:
                      FROM glob(globs=kLinuxACPIPath + '/*')
       - |
         SELECT Name, Size, Hash.MD5, Hash.SHA1, Hash.SHA256 from hashes
+</code></pre>
+
+    </div>
+</div>
+
+
+<h2 id="linux-sys-bashshell">Linux.Sys.BashShell</h2>
+
+<p>This artifact allows running arbitrary commands through the system
+shell.</p>
+
+<p>Since Velociraptor typically runs as root, the commands will also
+run as root.</p>
+
+<p>This is a very powerful artifact since it allows for arbitrary
+command execution on the endpoints. Therefore this artifact requires
+elevated permissions (specifically the <code>EXECVE</code>
+permission). Typically it is only available with the <code>administrator</code>
+role.</p>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>Command</td>
+<td>ls -l /</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+
+
+<div class="expand">
+    <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fa fa-chevron-down' : 'fa fa-chevron-right';});});">
+        <i style="font-size:x-small;" class="fa fa-chevron-right"></i>
+        <span>
+        
+        
+        View Artifact Source
+        
+        </span>
+    </div>
+    <div class="expand-content" style="display: none;">
+<pre><code>name: Linux.Sys.BashShell
+description: |
+  This artifact allows running arbitrary commands through the system
+  shell.
+
+  Since Velociraptor typically runs as root, the commands will also
+  run as root.
+
+  This is a very powerful artifact since it allows for arbitrary
+  command execution on the endpoints. Therefore this artifact requires
+  elevated permissions (specifically the `EXECVE`
+  permission). Typically it is only available with the `administrator`
+  role.
+
+required_permissions:
+  - EXECVE
+
+parameters:
+  - name: Command
+    default: &quot;ls -l /&quot;
+
+sources:
+  - query: |
+      SELECT * FROM execve(argv=[&quot;/bin/bash&quot;, &quot;-c&quot;, Command])
 </code></pre>
 
     </div>
@@ -1671,7 +2348,13 @@ sources:
 <tbody>
 <tr>
 <td>cronTabGlob</td>
-<td>/etc/crontab,/etc/cron.d/<strong>,/var/at/tabs/</strong>,/var/spool/cron/<strong>,/var/spool/cron/crontabs/</strong></td>
+<td>/etc/crontab,/etc/cron.d/<strong>,/var/at/tabs/</strong>,/var/s &hellip;</td>
+<td></td>
+</tr>
+
+<tr>
+<td>cronTabScripts</td>
+<td>/etc/cron.daily/<em>,/etc/cron.hourly/</em>,/etc/cron.mon &hellip;</td>
 <td></td>
 </tr>
 </tbody>
@@ -1696,12 +2379,15 @@ description: |
 parameters:
   - name: cronTabGlob
     default: /etc/crontab,/etc/cron.d/**,/var/at/tabs/**,/var/spool/cron/**,/var/spool/cron/crontabs/**
+  - name: cronTabScripts
+    default: /etc/cron.daily/*,/etc/cron.hourly/*,/etc/cron.monthly/*,/etc/cron.weekly/*
+
+precondition: SELECT OS From info() where OS = 'linux'
+
 sources:
-  - precondition: |
-      SELECT OS From info() where OS = 'linux'
+  - name: CronTabs
     queries:
-      - |
-        LET raw = SELECT * FROM foreach(
+      - LET raw = SELECT * FROM foreach(
           row={
             SELECT FullPath from glob(globs=split(string=cronTabGlob, sep=&quot;,&quot;))
           },
@@ -1718,6 +2404,7 @@ sources:
                  &quot;(?P&lt;DayOfMonth&gt;[^\\s]+)\\s+&quot;+
                  &quot;(?P&lt;Month&gt;[^\\s]+)\\s+&quot;+
                  &quot;(?P&lt;DayOfWeek&gt;[^\\s]+)\\s+&quot;+
+                 &quot;(?P&lt;User&gt;[^\\s]+)\\s+&quot;+
                  &quot;(?P&lt;Command&gt;.+)$&quot;]) as Record
 
             /* Read lines from the file and filter ones that start with &quot;#&quot; */
@@ -1726,8 +2413,8 @@ sources:
                regex=&quot;\n&quot;, columns=[&quot;data&quot;]) WHERE not data =~ &quot;^\\s*#&quot;
             }) WHERE Record.Command
 
-      - |
-        SELECT Record.Event AS Event,
+      - SELECT Record.Event AS Event,
+               Record.User AS User,
                Record.Minute AS Minute,
                Record.Hour AS Hour,
                Record.DayOfMonth AS DayOfMonth,
@@ -1736,6 +2423,11 @@ sources:
                Record.Command AS Command,
                FullPath AS Path
         FROM raw
+
+  - name: Uploaded
+    queries:
+      - SELECT FullPath, upload(filename=FullPath) AS Upload
+        FROM glob(globs=split(string=cronTabGlob + &quot;,&quot; + cronTabScripts, sep=&quot;,&quot;))
 </code></pre>
 
     </div>
@@ -1764,7 +2456,7 @@ sources:
 
 <tr>
 <td>wtmpProfile</td>
-<td>{\n  &ldquo;timeval&rdquo;: [8, {\n   &ldquo;tv_sec&rdquo;: [0, [&ldquo;int&rdquo;]],\n   &ldquo;tv_usec&rdquo;: [4, [&ldquo;int&rdquo;]]\n  }],\n  &ldquo;exit_status&rdquo;: [4, {\n   &ldquo;e_exit&rdquo;: [2, [&ldquo;short int&rdquo;]],\n   &ldquo;e_termination&rdquo;: [0, [&ldquo;short int&rdquo;]]\n  }],\n  &ldquo;timezone&rdquo;: [8, {\n   &ldquo;tz_dsttime&rdquo;: [4, [&ldquo;int&rdquo;]],\n   &ldquo;tz_minuteswest&rdquo;: [0, [&ldquo;int&rdquo;]]\n  }],\n  &ldquo;utmp&rdquo;: [384, {\n   &ldquo;__glibc_reserved&rdquo;: [364, [&ldquo;Array&rdquo;, {\n    &ldquo;count&rdquo;: 20,\n    &ldquo;target&rdquo;: &ldquo;char&rdquo;,\n    &ldquo;target_args&rdquo;: null\n   }]],\n   &ldquo;ut_addr_v6&rdquo;: [348, [&ldquo;Array&rdquo;, {\n    &ldquo;count&rdquo;: 4,\n    &ldquo;target&rdquo;: &ldquo;int&rdquo;,\n    &ldquo;target_args&rdquo;: null\n   }]],\n   &ldquo;ut_exit&rdquo;: [332, [&ldquo;exit_status&rdquo;]],\n   &ldquo;ut_host&rdquo;: [76, [&ldquo;String&rdquo;, {\n    &ldquo;length&rdquo;: 256\n   }]],\n   &ldquo;ut_id&rdquo;: [40, [&ldquo;String&rdquo;, {\n    &ldquo;length&rdquo;: 4\n   }]],\n   &ldquo;ut_line&rdquo;: [8, [&ldquo;String&rdquo;, {\n    &ldquo;length&rdquo;: 32\n   }]],\n   &ldquo;ut_pid&rdquo;: [4, [&ldquo;int&rdquo;]],\n   &ldquo;ut_session&rdquo;: [336, [&ldquo;int&rdquo;]],\n   &ldquo;ut_tv&rdquo;: [340, [&ldquo;timeval&rdquo;]],\n   &ldquo;ut_type&rdquo;: [0, [&ldquo;Enumeration&rdquo;, {\n     &ldquo;target&rdquo;: &ldquo;short int&rdquo;,\n     &ldquo;choices&rdquo;: {\n        &ldquo;0&rdquo;: &ldquo;EMPTY&rdquo;,\n        &ldquo;1&rdquo;: &ldquo;RUN_LVL&rdquo;,\n        &ldquo;2&rdquo;: &ldquo;BOOT_TIME&rdquo;,\n        &ldquo;5&rdquo;: &ldquo;INIT_PROCESS&rdquo;,\n        &ldquo;6&rdquo;: &ldquo;LOGIN_PROCESS&rdquo;,\n        &ldquo;7&rdquo;: &ldquo;USER_PROCESS&rdquo;,\n        &ldquo;8&rdquo;: &ldquo;DEAD_PROCESS&rdquo;\n      }\n   }]],\n   &ldquo;ut_user&rdquo;: [44, [&ldquo;String&rdquo;, {\n    &ldquo;length&rdquo;: 32\n   }]]\n  }]\n}\n</td>
+<td>{\n  &ldquo;timeval&rdquo;: [8, {\n   &ldquo;tv_sec&rdquo;: [0, [&ldquo;int&rdquo;]],\ &hellip;</td>
 <td></td>
 </tr>
 </tbody>
@@ -1881,6 +2573,197 @@ sources:
 </div>
 
 
+<h2 id="linux-sys-maps">Linux.Sys.Maps</h2>
+
+<p>A running binary may link other binaries into its address
+space. These shared objects contain exported functions which may be
+used by the binary.</p>
+
+<p>This artifact parses the /proc/<pid>/maps to emit all mapped files
+into the process.</p>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>processRegex</td>
+<td>.</td>
+<td>A regex applied to process names.</td>
+</tr>
+</tbody>
+</table>
+
+
+
+<div class="expand">
+    <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fa fa-chevron-down' : 'fa fa-chevron-right';});});">
+        <i style="font-size:x-small;" class="fa fa-chevron-right"></i>
+        <span>
+        
+        
+        View Artifact Source
+        
+        </span>
+    </div>
+    <div class="expand-content" style="display: none;">
+<pre><code>name: Linux.Sys.Maps
+description: |
+  A running binary may link other binaries into its address
+  space. These shared objects contain exported functions which may be
+  used by the binary.
+
+  This artifact parses the /proc/&lt;pid&gt;/maps to emit all mapped files
+  into the process.
+
+precondition: SELECT OS From info() where OS = 'linux'
+
+parameters:
+  - name: processRegex
+    description: A regex applied to process names.
+    default: .
+
+sources:
+  - queries:
+      - LET processes = SELECT Pid, Name, Username
+        FROM pslist()
+        WHERE Name =~ processRegex
+      - SELECT Pid, Name, Username,
+               &quot;0x&quot; + Record.Start AS StartHex,
+               &quot;0x&quot; + Record.End AS EndHex,
+               Record.Perm AS Perm,
+               atoi(string=&quot;0x&quot; + Record.Size) AS Size,
+               &quot;0x&quot; + Record.Size AS SizeHex,
+               Record.Filename AS Filename,
+               if(condition=Record.Deleted, then=TRUE, else=FALSE) AS Deleted
+        FROM foreach(
+          row=processes,
+          query={
+            SELECT parse_string_with_regex(
+                    string=Line,
+                    regex=&quot;(?P&lt;Start&gt;^[^-]+)-(?P&lt;End&gt;[^\\s]+)\\s+(?P&lt;Perm&gt;[^\\s]+)\\s+(?P&lt;Size&gt;[^\\s]+)\\s+[^\\s]+\\s+(?P&lt;PermInt&gt;[^\\s]+)\\s+(?P&lt;Filename&gt;.+?)(?P&lt;Deleted&gt; \\(deleted\\))?$&quot;) AS Record,
+                  Pid, Name, Username
+            FROM parse_lines(
+               filename=format(format=&quot;/proc/%d/maps&quot;, args=[Pid]),
+               accessor='file'
+            )
+          })
+</code></pre>
+
+    </div>
+</div>
+
+
+<h2 id="linux-sys-suid">Linux.Sys.SUID</h2>
+
+<p>When the setuid or setgid bits are set on Linux or macOS for an
+application, this means that the application will run with the
+privileges of the owning user or group respectively [1]. Normally an
+application is run in the current user’s context, regardless of
+which user or group owns the application. There are instances where
+programs need to be executed in an elevated context to function
+properly, but the user running them doesn’t need the elevated
+privileges. Instead of creating an entry in the sudoers file, which
+must be done by root, any user can specify the setuid or setgid flag
+to be set for their own applications. These bits are indicated with
+an &ldquo;s&rdquo; instead of an &ldquo;x&rdquo; when viewing a file&rsquo;s attributes via ls
+-l. The chmod program can set these bits with via bitmasking, chmod
+4777 [file] or via shorthand naming, chmod u+s [file].</p>
+
+<p>An adversary can take advantage of this to either do a shell escape
+or exploit a vulnerability in an application with the setsuid or
+setgid bits to get code running in a different user’s
+context. Additionally, adversaries can use this mechanism on their
+own malware to make sure they&rsquo;re able to execute in elevated
+contexts in the future [2].</p>
+
+<h2 id="references-1">References:</h2>
+
+<ul>
+<li><a href="https://attack.mitre.org/techniques/T1166/">https://attack.mitre.org/techniques/T1166/</a></li>
+</ul>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>GlobExpression</td>
+<td>/usr/**</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+
+
+<div class="expand">
+    <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fa fa-chevron-down' : 'fa fa-chevron-right';});});">
+        <i style="font-size:x-small;" class="fa fa-chevron-right"></i>
+        <span>
+        
+        
+        View Artifact Source
+        
+        </span>
+    </div>
+    <div class="expand-content" style="display: none;">
+<pre><code>name: Linux.Sys.SUID
+description: |
+  When the setuid or setgid bits are set on Linux or macOS for an
+  application, this means that the application will run with the
+  privileges of the owning user or group respectively [1]. Normally an
+  application is run in the current user’s context, regardless of
+  which user or group owns the application. There are instances where
+  programs need to be executed in an elevated context to function
+  properly, but the user running them doesn’t need the elevated
+  privileges. Instead of creating an entry in the sudoers file, which
+  must be done by root, any user can specify the setuid or setgid flag
+  to be set for their own applications. These bits are indicated with
+  an &quot;s&quot; instead of an &quot;x&quot; when viewing a file's attributes via ls
+  -l. The chmod program can set these bits with via bitmasking, chmod
+  4777 [file] or via shorthand naming, chmod u+s [file].
+
+  An adversary can take advantage of this to either do a shell escape
+  or exploit a vulnerability in an application with the setsuid or
+  setgid bits to get code running in a different user’s
+  context. Additionally, adversaries can use this mechanism on their
+  own malware to make sure they're able to execute in elevated
+  contexts in the future [2].
+
+  ## References:
+  - https://attack.mitre.org/techniques/T1166/
+
+parameters:
+  - name: GlobExpression
+    default: /usr/**
+
+sources:
+  - queries:
+      - SELECT Mode.String AS Mode,
+               FullPath, Size,
+               timestamp(epoch=Mtime.Sec) AS Mtime,
+               Sys.Uid AS OwnerID,
+               Sys.Gid AS GroupID
+        FROM glob(globs=GlobExpression) WHERE Mode =~ '^u'
+</code></pre>
+
+    </div>
+</div>
+
+
 <h2 id="linux-sys-users">Linux.Sys.Users</h2>
 
 <p>Get User specific information like homedir, group etc from /etc/passwd.</p>
@@ -1933,6 +2816,88 @@ sources:
             regex='(?m)^(?P&lt;User&gt;[^:]+):([^:]+):' +
                   '(?P&lt;Uid&gt;[^:]+):(?P&lt;Gid&gt;[^:]+):(?P&lt;Description&gt;[^:]*):' +
                   '(?P&lt;Homedir&gt;[^:]+):(?P&lt;Shell&gt;[^:\\s]+)')
+</code></pre>
+
+    </div>
+</div>
+
+
+<h2 id="linux-syslog-sshlogin">Linux.Syslog.SSHLogin</h2>
+
+<p>Parses the auth logs to determine all SSH login attempts.</p>
+
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>syslogAuthLogPath</td>
+<td>/var/log/auth.log*</td>
+<td></td>
+</tr>
+
+<tr>
+<td>SSHGrok</td>
+<td>%{SYSLOGTIMESTAMP:Timestamp} (?:%{SYSLOGFACILITY}  &hellip;</td>
+<td>A Grok expression for parsing SSH auth lines.</td>
+</tr>
+</tbody>
+</table>
+
+
+
+<div class="expand">
+    <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fa fa-chevron-down' : 'fa fa-chevron-right';});});">
+        <i style="font-size:x-small;" class="fa fa-chevron-right"></i>
+        <span>
+        
+        
+        View Artifact Source
+        
+        </span>
+    </div>
+    <div class="expand-content" style="display: none;">
+<pre><code>name: Linux.Syslog.SSHLogin
+description: |
+  Parses the auth logs to determine all SSH login attempts.
+
+reference:
+  - https://www.elastic.co/blog/grokking-the-linux-authorization-logs
+
+type: CLIENT
+
+parameters:
+  - name: syslogAuthLogPath
+    default: /var/log/auth.log*
+
+  - name: SSHGrok
+    description: A Grok expression for parsing SSH auth lines.
+    default: &gt;-
+      %{SYSLOGTIMESTAMP:Timestamp} (?:%{SYSLOGFACILITY} )?%{SYSLOGHOST:logsource} %{SYSLOGPROG}: %{DATA:event} %{DATA:method} for (invalid user )?%{DATA:user} from %{IPORHOST:ip} port %{NUMBER:port} ssh2(: %{GREEDYDATA:system.auth.ssh.signature})?
+
+sources:
+  - queries:
+      # Basic syslog parsing via GROK expressions.
+      - SELECT timestamp(string=Event.Timestamp) AS Time,
+               Event.IP AS IP,
+               Event.event AS Result,
+               Event.method AS Method,
+               Event.user AS AttemptedUser,
+               FullPath
+        FROM foreach(
+          row={
+              SELECT FullPath FROM glob(globs=syslogAuthLogPath)
+          }, query={
+              SELECT grok(grok=SSHGrok, data=Line) AS Event, FullPath
+              FROM parse_lines(filename=FullPath)
+              WHERE Event.program = &quot;sshd&quot;
+          })
 </code></pre>
 
     </div>

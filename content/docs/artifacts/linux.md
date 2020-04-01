@@ -21,7 +21,7 @@ description from there.
 
 Arg|Default|Description
 ---|------|-----------
-extensionGlobs|/.config/google-chrome/*/Extensions/*/*/manifest.json|
+extensionGlobs|/.config/google-chrome/*/Extensions/*/*/manifest.j ...|
 
 {{% expand  "View Artifact Source" %}}
 
@@ -325,7 +325,7 @@ metadata from it. If not we leave those columns empty.
 
 Arg|Default|Description
 ---|------|-----------
-linuxAptSourcesGlobs|/etc/apt/sources.list,/etc/apt/sources.list.d/*.list|Globs to find apt source *.list files.
+linuxAptSourcesGlobs|/etc/apt/sources.list,/etc/apt/sources.list.d/*.li ...|Globs to find apt source *.list files.
 aptCacheDirectory|/var/lib/apt/lists/|Location of the apt cache directory.
 
 {{% expand  "View Artifact Source" %}}
@@ -493,6 +493,206 @@ sources:
 ```
    {{% /expand %}}
 
+## Linux.Events.ProcessExecutions
+
+This artifact collects process execution logs from the Linux kernel.
+
+This artifact relies on the presence of `auditctl` usually included
+in the auditd package. On Ubuntu you can install it using:
+
+```
+apt-get install auditd
+```
+
+
+Arg|Default|Description
+---|------|-----------
+pathToAuditctl|/sbin/auditctl|We depend on auditctl to install the correct process execution rules.
+
+{{% expand  "View Artifact Source" %}}
+
+
+```
+name: Linux.Events.ProcessExecutions
+description: |
+  This artifact collects process execution logs from the Linux kernel.
+
+  This artifact relies on the presence of `auditctl` usually included
+  in the auditd package. On Ubuntu you can install it using:
+
+  ```
+  apt-get install auditd
+  ```
+
+precondition: SELECT OS From info() where OS = 'linux'
+
+type: CLIENT_EVENT
+
+parameters:
+  - name: pathToAuditctl
+    default: /sbin/auditctl
+    description: We depend on auditctl to install the correct process execution rules.
+
+sources:
+  - queries:
+     # Install the auditd rule if possible.
+     - LET _ <= SELECT * FROM execve(argv=[pathToAuditctl, "-a",
+          "exit,always", "-F", "arch=b64", "-S", "execve", "-k", "procmon"])
+
+     - LET exec_log = SELECT timestamp(string=Timestamp) AS Time, Sequence,
+           atoi(string=Process.PID) AS Pid,
+           atoi(string=Process.PPID) AS Ppid,
+           Process.PPID AS PPID,
+           atoi(string=Summary.Actor.Primary) AS UserId,
+           Process.Title AS CmdLine,
+           Process.Exe AS Exe,
+           Process.CWD AS CWD
+       FROM audit()
+       WHERE "procmon" in Tags AND Result = 'success'
+
+     # Cache Uid -> Username mapping.
+     - LET users <= SELECT User, atoi(string=Uid) AS Uid
+       FROM Artifact.Linux.Sys.Users()
+
+     # Enrich the original artifact with more data.
+     - SELECT Time, Pid, Ppid, UserId,
+              { SELECT User from users WHERE Uid = UserId} AS User,
+              regex_replace(source=read_file(filename= "/proc/" + PPID + "/cmdline"),
+                            replace=" ", re="[\\0]") AS Parent,
+              CmdLine,
+              Exe, CWD
+       FROM exec_log
+```
+   {{% /expand %}}
+
+## Linux.Events.SSHBruteforce
+
+This is a monitoring artifact which detects a successful SSH login
+preceeded by some failed attempts within the last hour.
+
+This is particularly important in the case of ssh brute forcers. If
+one of the brute force password attempts succeeded the password
+guessing program will likely report the success and move on. This
+alert might provide sufficient time for admins to lock down the
+account before attackers can exploit the weak password.
+
+
+Arg|Default|Description
+---|------|-----------
+syslogAuthLogPath|/var/log/auth.log|
+SSHGrok|%{SYSLOGTIMESTAMP:timestamp} (?:%{SYSLOGFACILITY}  ...|A Grok expression for parsing SSH auth lines.
+MinimumFailedLogins|2|Minimum number of failed logins before a successful login.
+
+{{% expand  "View Artifact Source" %}}
+
+
+```
+name: Linux.Events.SSHBruteforce
+description: |
+  This is a monitoring artifact which detects a successful SSH login
+  preceeded by some failed attempts within the last hour.
+
+  This is particularly important in the case of ssh brute forcers. If
+  one of the brute force password attempts succeeded the password
+  guessing program will likely report the success and move on. This
+  alert might provide sufficient time for admins to lock down the
+  account before attackers can exploit the weak password.
+
+reference:
+  - https://www.elastic.co/blog/grokking-the-linux-authorization-logs
+
+type: CLIENT_EVENT
+
+parameters:
+  - name: syslogAuthLogPath
+    default: /var/log/auth.log
+
+  - name: SSHGrok
+    description: A Grok expression for parsing SSH auth lines.
+    default: >-
+      %{SYSLOGTIMESTAMP:timestamp} (?:%{SYSLOGFACILITY} )?%{SYSLOGHOST:logsource} %{SYSLOGPROG}: %{DATA:event} %{DATA:method} for (invalid user )?%{DATA:user} from %{IPORHOST:ip} port %{NUMBER:port} ssh2(: %{GREEDYDATA:system.auth.ssh.signature})?
+
+  - name: MinimumFailedLogins
+    description: Minimum number of failed logins before a successful login.
+    default: 2
+
+sources:
+  - queries:
+      # Basic syslog parsing via GROK expressions.
+      - LET failed_login = SELECT grok(grok=SSHGrok, data=Line) AS FailedEvent,
+            Line as FailedLine
+        FROM watch_syslog(filename=syslogAuthLogPath)
+        WHERE FailedEvent.program = "sshd" AND FailedEvent.event = "Failed"
+              AND FailedEvent.method = "password"
+
+      - LET last_failed_events = SELECT * FROM fifo(
+              query=failed_login, max_rows=50, max_age=3600)
+
+      - LET _ <= SELECT * FROM last_failed_events
+
+      - LET success_login = SELECT grok(grok=SSHGrok, data=Line) AS Event, Line
+        FROM watch_syslog(filename=syslogAuthLogPath)
+        WHERE Event.program = "sshd" AND Event.event = "Accepted"
+              AND Event.method = "password"
+
+      - SELECT Event, Line, {
+           SELECT FailedLine FROM last_failed_events
+           WHERE Event.user = FailedEvent.user
+        } AS Failures
+        FROM success_login
+        WHERE len(list=Failures) > int(int=MinimumFailedLogins)
+```
+   {{% /expand %}}
+
+## Linux.Events.SSHLogin
+
+This monitoring artifact watches the auth.log file for new
+successful SSH login events and relays them back to the server.
+
+
+Arg|Default|Description
+---|------|-----------
+syslogAuthLogPath|/var/log/auth.log|
+SSHGrok|%{SYSLOGTIMESTAMP:timestamp} (?:%{SYSLOGFACILITY}  ...|A Grok expression for parsing SSH auth lines.
+
+{{% expand  "View Artifact Source" %}}
+
+
+```
+name: Linux.Events.SSHLogin
+description: |
+  This monitoring artifact watches the auth.log file for new
+  successful SSH login events and relays them back to the server.
+
+reference:
+  - https://www.elastic.co/blog/grokking-the-linux-authorization-logs
+
+type: CLIENT_EVENT
+
+parameters:
+  - name: syslogAuthLogPath
+    default: /var/log/auth.log
+
+  - name: SSHGrok
+    description: A Grok expression for parsing SSH auth lines.
+    default: >-
+      %{SYSLOGTIMESTAMP:timestamp} (?:%{SYSLOGFACILITY} )?%{SYSLOGHOST:logsource} %{SYSLOGPROG}: %{DATA:event} %{DATA:method} for (invalid user )?%{DATA:user} from %{IPORHOST:ip} port %{NUMBER:port} ssh2(: %{GREEDYDATA:system.auth.ssh.signature})?
+
+sources:
+  - queries:
+      # Basic syslog parsing via GROK expressions.
+      - LET success_login = SELECT grok(grok=SSHGrok, data=Line) AS Event, Line
+        FROM watch_syslog(filename=syslogAuthLogPath)
+        WHERE Event.program = "sshd" AND Event.event = "Accepted"
+      - SELECT timestamp(string=Event.timestamp) AS Time,
+              Event.user AS User,
+              Event.method AS Method,
+              Event.IP AS SourceIP,
+              Event.pid AS Pid
+        FROM success_login
+```
+   {{% /expand %}}
+
 ## Linux.Mounts
 
 List mounted filesystems by reading /proc/mounts
@@ -588,13 +788,176 @@ sources:
 ```
    {{% /expand %}}
 
+## Linux.Search.FileFinder
+
+Find files on the filesystem using the filename or content.
+
+
+## Performance Note
+
+This artifact can be quite expensive, especially if we search file
+content. It will require opening each file and reading its entire
+content. To minimize the impact on the endpoint we recommend this
+artifact is collected with a rate limited way (about 20-50 ops per
+second).
+
+This artifact is useful in the following scenarios:
+
+  * We need to locate all the places on our network where customer
+    data has been copied.
+
+  * We’ve identified malware in a data breach, named using short
+    random strings in specific folders and need to search for other
+    instances across the network.
+
+  * We believe our user account credentials have been dumped and
+    need to locate them.
+
+  * We need to search for exposed credit card data to satisfy PCI
+    requirements.
+
+  * We have a sample of data that has been disclosed and need to
+    locate other similar files
+
+
+Arg|Default|Description
+---|------|-----------
+SearchFilesGlob|/home/*/**|Use a glob to define the files that will be searched.
+Keywords|None|A comma delimited list of strings to search for.
+Upload_File|N|
+Calculate_Hash|N|
+MoreRecentThan||
+ModifiedBefore||
+
+{{% expand  "View Artifact Source" %}}
+
+
+```
+name: Linux.Search.FileFinder
+description: |
+  Find files on the filesystem using the filename or content.
+
+
+  ## Performance Note
+
+  This artifact can be quite expensive, especially if we search file
+  content. It will require opening each file and reading its entire
+  content. To minimize the impact on the endpoint we recommend this
+  artifact is collected with a rate limited way (about 20-50 ops per
+  second).
+
+  This artifact is useful in the following scenarios:
+
+    * We need to locate all the places on our network where customer
+      data has been copied.
+
+    * We’ve identified malware in a data breach, named using short
+      random strings in specific folders and need to search for other
+      instances across the network.
+
+    * We believe our user account credentials have been dumped and
+      need to locate them.
+
+    * We need to search for exposed credit card data to satisfy PCI
+      requirements.
+
+    * We have a sample of data that has been disclosed and need to
+      locate other similar files
+
+
+precondition:
+  SELECT * FROM info() where OS = 'linux'
+
+parameters:
+  - name: SearchFilesGlob
+    default: /home/*/**
+    description: Use a glob to define the files that will be searched.
+
+  - name: Keywords
+    default:
+    description: A comma delimited list of strings to search for.
+
+  - name: Upload_File
+    default: N
+    type: bool
+
+  - name: Calculate_Hash
+    default: N
+    type: bool
+
+  - name: MoreRecentThan
+    default: ""
+    type: timestamp
+
+  - name: ModifiedBefore
+    default: ""
+    type: timestamp
+
+
+sources:
+  - queries:
+    - LET file_search = SELECT FullPath,
+               Sys.mft as Inode,
+               Mode.String AS Mode, Size,
+               Mtime.Sec AS Modified,
+               timestamp(epoch=Atime.Sec) AS ATime,
+               timestamp(epoch=Mtime.Sec) AS MTime,
+               timestamp(epoch=Ctime.Sec) AS CTime, IsDir
+        FROM glob(globs=SearchFilesGlob,
+                  accessor="file")
+
+    - LET more_recent = SELECT * FROM if(
+        condition=MoreRecentThan,
+        then={
+          SELECT * FROM file_search
+          WHERE Modified > parse_float(string=MoreRecentThan)
+        }, else=file_search)
+
+    - LET modified_before = SELECT * FROM if(
+        condition=ModifiedBefore,
+        then={
+          SELECT * FROM more_recent
+          WHERE Modified < parse_float(string=ModifiedBefore)
+        }, else=more_recent)
+
+    - LET keyword_search = SELECT * FROM if(
+        condition=Keywords,
+        then={
+          SELECT * FROM foreach(
+            row={
+               SELECT * FROM modified_before
+            },
+            query={
+               SELECT FullPath, Inode, Mode,
+                      Size, Modified, ATime, MTime, CTime,
+                      str(str=String.Data) As Keywords
+
+               FROM yara(files=FullPath,
+                         key=Keywords,
+                         rules="wide nocase ascii:"+Keywords,
+                         accessor="file")
+            })
+        }, else=modified_before)
+
+    - SELECT FullPath, Inode, Mode, Size, Modified, ATime,
+             MTime, CTime, Keywords,
+               if(condition=(Upload_File = "Y" and NOT IsDir ),
+                  then=upload(file=FullPath,
+                              accessor="file")) AS Upload,
+               if(condition=(Calculate_Hash = "Y" and NOT IsDir ),
+                  then=hash(path=FullPath,
+                            accessor="file")) AS Hash
+      FROM keyword_search
+```
+   {{% /expand %}}
+
 ## Linux.Ssh.AuthorizedKeys
 
 Find and parse ssh authorized keys files.
 
 Arg|Default|Description
 ---|------|-----------
-sshKeyFiles|.ssh/authorized_keys*|
+sshKeyFiles|.ssh/authorized_keys*|Glob of authorized_keys file relative to a user's home directory.
 
 {{% expand  "View Artifact Source" %}}
 
@@ -605,13 +968,14 @@ description: Find and parse ssh authorized keys files.
 parameters:
   - name: sshKeyFiles
     default: '.ssh/authorized_keys*'
+    description: Glob of authorized_keys file relative to a user's home directory.
+
 sources:
   - precondition: |
       SELECT OS From info() where OS = 'linux'
+
     queries:
-      - |
-        // For each user on the system, search for authorized_keys files.
-        LET authorized_keys = SELECT * from foreach(
+      - LET authorized_keys = SELECT * from foreach(
           row={
              SELECT Uid, User, Homedir from Artifact.Linux.Sys.Users()
           },
@@ -619,14 +983,15 @@ sources:
              SELECT FullPath, Mtime, Ctime, User, Uid from glob(
                globs=Homedir + '/' + sshKeyFiles)
           })
-      - |
-        // For each authorized keys file, extract each line on a different row.
-        // Note: This duplicates the path, user and uid on each key line.
-        SELECT * from foreach(
+
+      - SELECT * from foreach(
           row=authorized_keys,
           query={
-            SELECT Uid, User, FullPath, Key from split_records(
-               filenames=FullPath, regex="\n", columns=["Key"])
+            SELECT Uid, User, FullPath, Key, Comment,
+                   timestamp(epoch=Mtime.sec) AS Mtime
+            FROM split_records(
+               filenames=FullPath, regex=" +", columns=["Type", "Key", "Comment"])
+               WHERE Type =~ "ssh"
           })
 ```
    {{% /expand %}}
@@ -675,6 +1040,56 @@ sources:
 ```
    {{% /expand %}}
 
+## Linux.Ssh.PrivateKeys
+
+SSH Private keys can be either encrypted or unencrypted. Unencrypted
+private keys are more risky because an attacker can use them without
+needing to unlock them with a password.
+
+This artifact searches for private keys in the usual locations and
+also records if they are encrypted or not.
+
+## references
+- https://attack.mitre.org/techniques/T1145/
+
+
+Arg|Default|Description
+---|------|-----------
+KeyGlobs|/home/*/.ssh/id_{rsa,dsa}|
+
+{{% expand  "View Artifact Source" %}}
+
+
+```
+name: Linux.Ssh.PrivateKeys
+description: |
+  SSH Private keys can be either encrypted or unencrypted. Unencrypted
+  private keys are more risky because an attacker can use them without
+  needing to unlock them with a password.
+
+  This artifact searches for private keys in the usual locations and
+  also records if they are encrypted or not.
+
+  ## references
+  - https://attack.mitre.org/techniques/T1145/
+
+precondition: SELECT OS From info() where OS = 'linux'
+
+parameters:
+  - name: KeyGlobs
+    default: /home/*/.ssh/id_{rsa,dsa}
+
+sources:
+  - queries:
+      - SELECT FullPath,
+               timestamp(epoch=Mtime.Sec) AS Mtime,
+               if(condition={
+                     SELECT * from yara(rules="wide ascii:ENCRYPTED", files=FullPath)
+                  }, then="Yes", else="No") AS Encrypted
+        FROM glob(globs=KeyGlobs)
+```
+   {{% /expand %}}
+
 ## Linux.Sys.ACPITables
 
 Firmware ACPI functional table common metadata and content.
@@ -703,6 +1118,56 @@ sources:
                      FROM glob(globs=kLinuxACPIPath + '/*')
       - |
         SELECT Name, Size, Hash.MD5, Hash.SHA1, Hash.SHA256 from hashes
+```
+   {{% /expand %}}
+
+## Linux.Sys.BashShell
+
+This artifact allows running arbitrary commands through the system
+shell.
+
+Since Velociraptor typically runs as root, the commands will also
+run as root.
+
+This is a very powerful artifact since it allows for arbitrary
+command execution on the endpoints. Therefore this artifact requires
+elevated permissions (specifically the `EXECVE`
+permission). Typically it is only available with the `administrator`
+role.
+
+
+Arg|Default|Description
+---|------|-----------
+Command|ls -l /|
+
+{{% expand  "View Artifact Source" %}}
+
+
+```
+name: Linux.Sys.BashShell
+description: |
+  This artifact allows running arbitrary commands through the system
+  shell.
+
+  Since Velociraptor typically runs as root, the commands will also
+  run as root.
+
+  This is a very powerful artifact since it allows for arbitrary
+  command execution on the endpoints. Therefore this artifact requires
+  elevated permissions (specifically the `EXECVE`
+  permission). Typically it is only available with the `administrator`
+  role.
+
+required_permissions:
+  - EXECVE
+
+parameters:
+  - name: Command
+    default: "ls -l /"
+
+sources:
+  - query: |
+      SELECT * FROM execve(argv=["/bin/bash", "-c", Command])
 ```
    {{% /expand %}}
 
@@ -761,7 +1226,8 @@ Displays parsed information from crontab.
 
 Arg|Default|Description
 ---|------|-----------
-cronTabGlob|/etc/crontab,/etc/cron.d/**,/var/at/tabs/**,/var/spool/cron/**,/var/spool/cron/crontabs/**|
+cronTabGlob|/etc/crontab,/etc/cron.d/**,/var/at/tabs/**,/var/s ...|
+cronTabScripts|/etc/cron.daily/*,/etc/cron.hourly/*,/etc/cron.mon ...|
 
 {{% expand  "View Artifact Source" %}}
 
@@ -773,12 +1239,15 @@ description: |
 parameters:
   - name: cronTabGlob
     default: /etc/crontab,/etc/cron.d/**,/var/at/tabs/**,/var/spool/cron/**,/var/spool/cron/crontabs/**
+  - name: cronTabScripts
+    default: /etc/cron.daily/*,/etc/cron.hourly/*,/etc/cron.monthly/*,/etc/cron.weekly/*
+
+precondition: SELECT OS From info() where OS = 'linux'
+
 sources:
-  - precondition: |
-      SELECT OS From info() where OS = 'linux'
+  - name: CronTabs
     queries:
-      - |
-        LET raw = SELECT * FROM foreach(
+      - LET raw = SELECT * FROM foreach(
           row={
             SELECT FullPath from glob(globs=split(string=cronTabGlob, sep=","))
           },
@@ -795,6 +1264,7 @@ sources:
                  "(?P<DayOfMonth>[^\\s]+)\\s+"+
                  "(?P<Month>[^\\s]+)\\s+"+
                  "(?P<DayOfWeek>[^\\s]+)\\s+"+
+                 "(?P<User>[^\\s]+)\\s+"+
                  "(?P<Command>.+)$"]) as Record
 
             /* Read lines from the file and filter ones that start with "#" */
@@ -803,8 +1273,8 @@ sources:
                regex="\n", columns=["data"]) WHERE not data =~ "^\\s*#"
             }) WHERE Record.Command
 
-      - |
-        SELECT Record.Event AS Event,
+      - SELECT Record.Event AS Event,
+               Record.User AS User,
                Record.Minute AS Minute,
                Record.Hour AS Hour,
                Record.DayOfMonth AS DayOfMonth,
@@ -813,6 +1283,11 @@ sources:
                Record.Command AS Command,
                FullPath AS Path
         FROM raw
+
+  - name: Uploaded
+    queries:
+      - SELECT FullPath, upload(filename=FullPath) AS Upload
+        FROM glob(globs=split(string=cronTabGlob + "," + cronTabScripts, sep=","))
 ```
    {{% /expand %}}
 
@@ -823,7 +1298,7 @@ Find and parse system wtmp files. This indicate when the user last logged in.
 Arg|Default|Description
 ---|------|-----------
 wtmpGlobs|/var/log/wtmp*|
-wtmpProfile|{\n  "timeval": [8, {\n   "tv_sec": [0, ["int"]],\n   "tv_usec": [4, ["int"]]\n  }],\n  "exit_status": [4, {\n   "e_exit": [2, ["short int"]],\n   "e_termination": [0, ["short int"]]\n  }],\n  "timezone": [8, {\n   "tz_dsttime": [4, ["int"]],\n   "tz_minuteswest": [0, ["int"]]\n  }],\n  "utmp": [384, {\n   "__glibc_reserved": [364, ["Array", {\n    "count": 20,\n    "target": "char",\n    "target_args": null\n   }]],\n   "ut_addr_v6": [348, ["Array", {\n    "count": 4,\n    "target": "int",\n    "target_args": null\n   }]],\n   "ut_exit": [332, ["exit_status"]],\n   "ut_host": [76, ["String", {\n    "length": 256\n   }]],\n   "ut_id": [40, ["String", {\n    "length": 4\n   }]],\n   "ut_line": [8, ["String", {\n    "length": 32\n   }]],\n   "ut_pid": [4, ["int"]],\n   "ut_session": [336, ["int"]],\n   "ut_tv": [340, ["timeval"]],\n   "ut_type": [0, ["Enumeration", {\n     "target": "short int",\n     "choices": {\n        "0": "EMPTY",\n        "1": "RUN_LVL",\n        "2": "BOOT_TIME",\n        "5": "INIT_PROCESS",\n        "6": "LOGIN_PROCESS",\n        "7": "USER_PROCESS",\n        "8": "DEAD_PROCESS"\n      }\n   }]],\n   "ut_user": [44, ["String", {\n    "length": 32\n   }]]\n  }]\n}\n|
+wtmpProfile|{\n  "timeval": [8, {\n   "tv_sec": [0, ["int"]],\ ...|
 
 {{% expand  "View Artifact Source" %}}
 
@@ -924,6 +1399,144 @@ sources:
 ```
    {{% /expand %}}
 
+## Linux.Sys.Maps
+
+A running binary may link other binaries into its address
+space. These shared objects contain exported functions which may be
+used by the binary.
+
+This artifact parses the /proc/<pid>/maps to emit all mapped files
+into the process.
+
+
+Arg|Default|Description
+---|------|-----------
+processRegex|.|A regex applied to process names.
+
+{{% expand  "View Artifact Source" %}}
+
+
+```
+name: Linux.Sys.Maps
+description: |
+  A running binary may link other binaries into its address
+  space. These shared objects contain exported functions which may be
+  used by the binary.
+
+  This artifact parses the /proc/<pid>/maps to emit all mapped files
+  into the process.
+
+precondition: SELECT OS From info() where OS = 'linux'
+
+parameters:
+  - name: processRegex
+    description: A regex applied to process names.
+    default: .
+
+sources:
+  - queries:
+      - LET processes = SELECT Pid, Name, Username
+        FROM pslist()
+        WHERE Name =~ processRegex
+      - SELECT Pid, Name, Username,
+               "0x" + Record.Start AS StartHex,
+               "0x" + Record.End AS EndHex,
+               Record.Perm AS Perm,
+               atoi(string="0x" + Record.Size) AS Size,
+               "0x" + Record.Size AS SizeHex,
+               Record.Filename AS Filename,
+               if(condition=Record.Deleted, then=TRUE, else=FALSE) AS Deleted
+        FROM foreach(
+          row=processes,
+          query={
+            SELECT parse_string_with_regex(
+                    string=Line,
+                    regex="(?P<Start>^[^-]+)-(?P<End>[^\\s]+)\\s+(?P<Perm>[^\\s]+)\\s+(?P<Size>[^\\s]+)\\s+[^\\s]+\\s+(?P<PermInt>[^\\s]+)\\s+(?P<Filename>.+?)(?P<Deleted> \\(deleted\\))?$") AS Record,
+                  Pid, Name, Username
+            FROM parse_lines(
+               filename=format(format="/proc/%d/maps", args=[Pid]),
+               accessor='file'
+            )
+          })
+```
+   {{% /expand %}}
+
+## Linux.Sys.SUID
+
+When the setuid or setgid bits are set on Linux or macOS for an
+application, this means that the application will run with the
+privileges of the owning user or group respectively [1]. Normally an
+application is run in the current user’s context, regardless of
+which user or group owns the application. There are instances where
+programs need to be executed in an elevated context to function
+properly, but the user running them doesn’t need the elevated
+privileges. Instead of creating an entry in the sudoers file, which
+must be done by root, any user can specify the setuid or setgid flag
+to be set for their own applications. These bits are indicated with
+an "s" instead of an "x" when viewing a file's attributes via ls
+-l. The chmod program can set these bits with via bitmasking, chmod
+4777 [file] or via shorthand naming, chmod u+s [file].
+
+An adversary can take advantage of this to either do a shell escape
+or exploit a vulnerability in an application with the setsuid or
+setgid bits to get code running in a different user’s
+context. Additionally, adversaries can use this mechanism on their
+own malware to make sure they're able to execute in elevated
+contexts in the future [2].
+
+## References:
+- https://attack.mitre.org/techniques/T1166/
+
+
+Arg|Default|Description
+---|------|-----------
+GlobExpression|/usr/**|
+
+{{% expand  "View Artifact Source" %}}
+
+
+```
+name: Linux.Sys.SUID
+description: |
+  When the setuid or setgid bits are set on Linux or macOS for an
+  application, this means that the application will run with the
+  privileges of the owning user or group respectively [1]. Normally an
+  application is run in the current user’s context, regardless of
+  which user or group owns the application. There are instances where
+  programs need to be executed in an elevated context to function
+  properly, but the user running them doesn’t need the elevated
+  privileges. Instead of creating an entry in the sudoers file, which
+  must be done by root, any user can specify the setuid or setgid flag
+  to be set for their own applications. These bits are indicated with
+  an "s" instead of an "x" when viewing a file's attributes via ls
+  -l. The chmod program can set these bits with via bitmasking, chmod
+  4777 [file] or via shorthand naming, chmod u+s [file].
+
+  An adversary can take advantage of this to either do a shell escape
+  or exploit a vulnerability in an application with the setsuid or
+  setgid bits to get code running in a different user’s
+  context. Additionally, adversaries can use this mechanism on their
+  own malware to make sure they're able to execute in elevated
+  contexts in the future [2].
+
+  ## References:
+  - https://attack.mitre.org/techniques/T1166/
+
+parameters:
+  - name: GlobExpression
+    default: /usr/**
+
+sources:
+  - queries:
+      - SELECT Mode.String AS Mode,
+               FullPath, Size,
+               timestamp(epoch=Mtime.Sec) AS Mtime,
+               Sys.Uid AS OwnerID,
+               Sys.Gid AS GroupID
+        FROM glob(globs=GlobExpression) WHERE Mode =~ '^u'
+```
+   {{% /expand %}}
+
 ## Linux.Sys.Users
 
 Get User specific information like homedir, group etc from /etc/passwd.
@@ -953,6 +1566,58 @@ sources:
             regex='(?m)^(?P<User>[^:]+):([^:]+):' +
                   '(?P<Uid>[^:]+):(?P<Gid>[^:]+):(?P<Description>[^:]*):' +
                   '(?P<Homedir>[^:]+):(?P<Shell>[^:\\s]+)')
+```
+   {{% /expand %}}
+
+## Linux.Syslog.SSHLogin
+
+Parses the auth logs to determine all SSH login attempts.
+
+
+Arg|Default|Description
+---|------|-----------
+syslogAuthLogPath|/var/log/auth.log*|
+SSHGrok|%{SYSLOGTIMESTAMP:Timestamp} (?:%{SYSLOGFACILITY}  ...|A Grok expression for parsing SSH auth lines.
+
+{{% expand  "View Artifact Source" %}}
+
+
+```
+name: Linux.Syslog.SSHLogin
+description: |
+  Parses the auth logs to determine all SSH login attempts.
+
+reference:
+  - https://www.elastic.co/blog/grokking-the-linux-authorization-logs
+
+type: CLIENT
+
+parameters:
+  - name: syslogAuthLogPath
+    default: /var/log/auth.log*
+
+  - name: SSHGrok
+    description: A Grok expression for parsing SSH auth lines.
+    default: >-
+      %{SYSLOGTIMESTAMP:Timestamp} (?:%{SYSLOGFACILITY} )?%{SYSLOGHOST:logsource} %{SYSLOGPROG}: %{DATA:event} %{DATA:method} for (invalid user )?%{DATA:user} from %{IPORHOST:ip} port %{NUMBER:port} ssh2(: %{GREEDYDATA:system.auth.ssh.signature})?
+
+sources:
+  - queries:
+      # Basic syslog parsing via GROK expressions.
+      - SELECT timestamp(string=Event.Timestamp) AS Time,
+               Event.IP AS IP,
+               Event.event AS Result,
+               Event.method AS Method,
+               Event.user AS AttemptedUser,
+               FullPath
+        FROM foreach(
+          row={
+              SELECT FullPath FROM glob(globs=syslogAuthLogPath)
+          }, query={
+              SELECT grok(grok=SSHGrok, data=Line) AS Event, FullPath
+              FROM parse_lines(filename=FullPath)
+              WHERE Event.program = "sshd"
+          })
 ```
    {{% /expand %}}
 

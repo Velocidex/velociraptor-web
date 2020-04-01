@@ -46,10 +46,13 @@ def output_artifacts(fd, prefix):
             fd.write("\nArg|Default|Description\n---|------|-----------\n")
 
             for parameter in parameters:
+                if parameter.get("type") == "hidden":
+                    continue
                 fd.write("%s|%s|%s\n" % (
                     parameter["name"],
-                    str(parameter.get("default", "")).encode("unicode_escape").decode("utf8"),
-                    parameter.get("description", "").encode("unicode_escape").decode("utf8")))
+                    elide(str(parameter.get("default", "")).encode("unicode_escape").decode("utf8")),
+                    elide(parameter.get("description", "").encode("unicode_escape").decode("utf8"),
+                          length=200)))
 
 
         fd.write ("""
@@ -61,6 +64,11 @@ def output_artifacts(fd, prefix):
         for line in data['raw'].splitlines():
             fd.write (line + "\n")
         fd.write ("```\n   {{% /expand %}}\n\n")
+
+def elide(value, length=50):
+    if len(value) > length:
+        return value[:length] + " ..."
+    return value
 
 
 if __name__ == "__main__" :

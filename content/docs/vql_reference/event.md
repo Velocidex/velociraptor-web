@@ -2,6 +2,7 @@
 title: Event Plugins
 weight: 50
 linktitle: Event Plugins
+index: true
 ---
 
 VQL Event plugins are plugins which never terminate - but instead
@@ -200,6 +201,7 @@ Arg | Description | Type
 ----|-------------|-----
 filename|A list of event log files to parse.|list of string (required)
 accessor|The accessor to use.|string
+messagedb|A Message database from https://github.com/Velocidex/evtx-data.|string
 
 
 ## watch_monitoring
@@ -211,7 +213,7 @@ is not provided we watch the global journal which contains events from all clien
 
 Arg | Description | Type
 ----|-------------|-----
-client_id|A list of client ids to watch. If not provided we watch all clients.|list of string
+client_id|A list of client ids to watch. If not provided we watch all clients.|string
 artifact|The event artifact name to watch|string (required)
 source|An optional artifact named source|string
 
