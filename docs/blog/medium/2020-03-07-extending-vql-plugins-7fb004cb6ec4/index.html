@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Velociraptor / Dig deeper</title>
+    
+      <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>Extending VQL plugins :: Velociraptor / Dig deeper</title>
+<link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon" />
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<link href="/css/nucleus.css" rel="stylesheet">
+<link href="/css/font-awesome.min.css" rel="stylesheet">
+<link href="/css/hybrid.css" rel="stylesheet">
+<link href="/css/featherlight.min.css" rel="stylesheet">
+<link href="/css/auto-complete.css" rel="stylesheet">
+<link href="/theme-original/style.css" rel="stylesheet">
+
+  <link href="/theme-original/variant-mine.css" rel="stylesheet">
+
+
+<script src="/js/jquery-2.x.min.js"></script>
+<style type="text/css">
+  :root #header + #content > #left > #rlblock_left {
+    display:none !important;
+  }
+</style>
+<link rel="stylesheet" href="/css/theme-mine.css">
+<script src="/js/custom.js"></script>
+
+
+    
+  </head>
+  <body data-url="/blog/medium/2020-03-07-extending-vql-plugins-7fb004cb6ec4/">
+    
+      <div id="headermain"></div>
+<nav id="sidebar" class="">
+
+
+
+<div class="highlightable">
+  <div id="header-wrapper">
+    <div id="header">
+      
+	
+  
+    <a href="/">
+  <img src="/images/logo.svg">
+</a>
+  
+
+
+    </div>
+        <div class="searchbox">
+		    <label for="search-by"><i class="fa fa-search"></i></label>
+		    <input data-search-input id="search-by" type="text" placeholder="Search...">
+		    <span data-search-clear=""><i class="fa fa-close"></i></span>
+		</div>
+		<script type="text/javascript" src="/js/lunr.min.js"></script>
+		<script type="text/javascript" src="/js/auto-complete.js"></script>
+		<script type="text/javascript">
+        
+            var baseurl = "\/";
+        
+		</script>
+		<script type="text/javascript" src="/js/search.js"></script>
+  </div>
+
+      <ul class="topics">
+    <li data-nav-id="/about/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/about/">About Velociraptor</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/about/features/" class="dd-item">
+        <div>
+          <a href="/about/features/">
+            Velociraptor Features
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/about/license/" class="dd-item">
+        <div>
+          <a href="/about/license/">
+            License
+          </a>
+        </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/docs/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/docs/">Velociraptor Documentation</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+    <li data-nav-id="/docs/getting-started/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/docs/getting-started/">Getting Started</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/docs/getting-started/stand_alone/" class="dd-item">
+        <div>
+          <a href="/docs/getting-started/stand_alone/">
+            Standalone Deployment
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/getting-started/deploying_clients/" class="dd-item">
+        <div>
+          <a href="/docs/getting-started/deploying_clients/">
+            Deploying Clients
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/getting-started/cloud/" class="dd-item">
+        <div>
+          <a href="/docs/getting-started/cloud/">
+            Deploying in the cloud
+          </a>
+        </div>
+    </li>
+    <li data-nav-id="/docs/getting-started/performance/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/getting-started/performance/">Performance</a>
+      </div>
+    </li>
+      <li data-nav-id="/docs/getting-started/triaging/" class="dd-item">
+        <div>
+          <a href="/docs/getting-started/triaging/">
+            Triaging
+          </a>
+        </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/docs/user-interface/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/docs/user-interface/">User Interface</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+    <li data-nav-id="/docs/user-interface/investigating_clients/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/docs/user-interface/investigating_clients/">Investigating Clients</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/docs/user-interface/investigating_clients/searching_clients/" class="dd-item">
+        <div>
+          <a href="/docs/user-interface/investigating_clients/searching_clients/">
+            Searching for clients
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/user-interface/investigating_clients/virtual_filesystem/" class="dd-item">
+        <div>
+          <a href="/docs/user-interface/investigating_clients/virtual_filesystem/">
+            Client VFS
+          </a>
+        </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/docs/user-interface/artifacts/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/docs/user-interface/artifacts/">Velociraptor Artifacts</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/docs/user-interface/artifacts/client_artifacts/" class="dd-item">
+        <div>
+          <a href="/docs/user-interface/artifacts/client_artifacts/">
+            Client Artifacts
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/user-interface/artifacts/client_events/" class="dd-item">
+        <div>
+          <a href="/docs/user-interface/artifacts/client_events/">
+            Client Event Artifacts
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/user-interface/artifacts/server_artifacts/" class="dd-item">
+        <div>
+          <a href="/docs/user-interface/artifacts/server_artifacts/">
+            Server Artifacts
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/user-interface/artifacts/server_events/" class="dd-item">
+        <div>
+          <a href="/docs/user-interface/artifacts/server_events/">
+            Server Event Artifacts
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/user-interface/artifacts/add_artifacts/" class="dd-item">
+        <div>
+          <a href="/docs/user-interface/artifacts/add_artifacts/">
+            Customizing Artifacts
+          </a>
+        </div>
+    </li>
+        </ul>
+    </li>
+      <li data-nav-id="/docs/user-interface/api/" class="dd-item">
+        <div>
+          <a href="/docs/user-interface/api/">
+            The Velociraptor API
+          </a>
+        </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/docs/vql_reference/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/docs/vql_reference/">VQL Reference</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/docs/vql_reference/basic/" class="dd-item">
+        <div>
+          <a href="/docs/vql_reference/basic/">
+            Basic VQL
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/vql_reference/windows/" class="dd-item">
+        <div>
+          <a href="/docs/vql_reference/windows/">
+            Windows
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/vql_reference/parsers/" class="dd-item">
+        <div>
+          <a href="/docs/vql_reference/parsers/">
+            Parsers
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/vql_reference/server/" class="dd-item">
+        <div>
+          <a href="/docs/vql_reference/server/">
+            Server
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/vql_reference/plugin/" class="dd-item">
+        <div>
+          <a href="/docs/vql_reference/plugin/">
+            Client
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/vql_reference/event/" class="dd-item">
+        <div>
+          <a href="/docs/vql_reference/event/">
+            Event Plugins
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/vql_reference/experimental/" class="dd-item">
+        <div>
+          <a href="/docs/vql_reference/experimental/">
+            Experimental
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/vql_reference/filesystem_accessors/" class="dd-item">
+        <div>
+          <a href="/docs/vql_reference/filesystem_accessors/">
+            Filesystem Accessors
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/vql_reference/templates/" class="dd-item">
+        <div>
+          <a href="/docs/vql_reference/templates/">
+            Report Templates
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/vql_reference/tips/" class="dd-item">
+        <div>
+          <a href="/docs/vql_reference/tips/">
+            Artifact Tips
+          </a>
+        </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/docs/artifacts/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/docs/artifacts/">Artifact Reference</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/docs/artifacts/linux/" class="dd-item">
+        <div>
+          <a href="/docs/artifacts/linux/">
+            Linux Artifacts
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/artifacts/windows_system/" class="dd-item">
+        <div>
+          <a href="/docs/artifacts/windows_system/">
+            Windows System
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/artifacts/server/" class="dd-item">
+        <div>
+          <a href="/docs/artifacts/server/">
+            Server Artifacts
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/artifacts/triage/" class="dd-item">
+        <div>
+          <a href="/docs/artifacts/triage/">
+            Windows Triage
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/artifacts/detection/" class="dd-item">
+        <div>
+          <a href="/docs/artifacts/detection/">
+            Windows Detection
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/artifacts/events/" class="dd-item">
+        <div>
+          <a href="/docs/artifacts/events/">
+            Windows Monitoring
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/artifacts/misc/" class="dd-item">
+        <div>
+          <a href="/docs/artifacts/misc/">
+            Miscelaneous
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/artifacts/linux/linux/" class="dd-item">
+        <div>
+          <a href="/docs/artifacts/linux/linux/">
+            Linux Artifacts
+          </a>
+        </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/docs/presentations/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/docs/presentations/">Presentations and Workshops</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/docs/presentations/training_2020/" class="dd-item">
+        <div>
+          <a href="/docs/presentations/training_2020/">
+            Training 2020
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/presentations/linux.conf.au.2020/" class="dd-item">
+        <div>
+          <a href="/docs/presentations/linux.conf.au.2020/">
+            Linux.Conf.Au 2020
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/presentations/sans_dfir_summit2019/" class="dd-item">
+        <div>
+          <a href="/docs/presentations/sans_dfir_summit2019/">
+            SANS 2019
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/presentations/rsa/" class="dd-item">
+        <div>
+          <a href="/docs/presentations/rsa/">
+            RSA APJ 2019
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/presentations/crikeycon2019/" class="dd-item">
+        <div>
+          <a href="/docs/presentations/crikeycon2019/">
+            Crikeycon 2019
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/presentations/nzitf2018/" class="dd-item">
+        <div>
+          <a href="/docs/presentations/nzitf2018/">
+            NZITF 2018
+          </a>
+        </div>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/blog/" class="dd-item parent haschildren
+        ">
+      <div>
+      <a href="/blog/">Velociraptor Blog</a>
+            <i class="fa fa-angle-down fa-lg category-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/blog/medium/2020-03-29-velociraptors-acl-model-7f497575daee/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-03-29-velociraptors-acl-model-7f497575daee/">
+            Velociraptor’s ACL model
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2020-03-28-velociraptor-notebooks-d02e0bd11230/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-03-28-velociraptor-notebooks-d02e0bd11230/">
+            Velociraptor notebooks
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2020-03-07-extending-vql-plugins-7fb004cb6ec4/" class="dd-item active">
+        <div>
+          <a href="/blog/medium/2020-03-07-extending-vql-plugins-7fb004cb6ec4/">
+            Extending VQL plugins
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2020-03-06-velociraptor-post-processing-with-jupyter-notebook-and-pandas-8a344d05ee8c/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-03-06-velociraptor-post-processing-with-jupyter-notebook-and-pandas-8a344d05ee8c/">
+            Velociraptor Post-processing with Jupyter Notebook and Pandas
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2020-01-12_hunting-malware-using-mutants-ea08e86dfc19/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-01-12_hunting-malware-using-mutants-ea08e86dfc19/">
+            Hunting Malware using Mutants
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-12-31_digging-into-the-system-resource-usage-monitor-srum-afbadb1a375/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-12-31_digging-into-the-system-resource-usage-monitor-srum-afbadb1a375/">
+            Digging into the System Resource Usage Monitor (SRUM)
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-12-08-velociraptor-to-elasticsearch-3a9fc02c6568/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-12-08-velociraptor-to-elasticsearch-3a9fc02c6568/">
+            Velociraptor to Elasticsearch
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-11-15_recovering-deleted-ntfs-files-with-velociraptor-1fcf09855311/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-11-15_recovering-deleted-ntfs-files-with-velociraptor-1fcf09855311/">
+            Recovering deleted NTFS Files with Velociraptor
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-11-12_windows-event-logs-d8d8e615c9ca/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-11-12_windows-event-logs-d8d8e615c9ca/">
+            Windows Event Logs
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-10-08_triage-with-velociraptor-pt-3-d6f63215f579/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-10-08_triage-with-velociraptor-pt-3-d6f63215f579/">
+            Triage with Velociraptor — Pt 3
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-10-04_triage-with-velociraptor-pt-2-d0f79066ca0e/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-10-04_triage-with-velociraptor-pt-2-d0f79066ca0e/">
+            Triage with Velociraptor — Pt 2
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-10-02_triage-with-velociraptor-pt-1-253f57ce96c0/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-10-02_triage-with-velociraptor-pt-1-253f57ce96c0/">
+            Triage with Velociraptor — Pt 1
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-09-11_velociraptor-s-client-side-buffer-3ce03697a4e6/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-09-11_velociraptor-s-client-side-buffer-3ce03697a4e6/">
+            Velociraptor’s client side buffer
+          </a>
+        </div>
+    </li>
+        </ul>
+    </li>
+
+
+
+
+    <hr />
+    <li></li>
+    
+    </ul>
+
+ <section id="footer">
+    </section>
+  </div>
+</nav>
+
+
+
+<section id="body">
+<div id="overlay"></div>
+<div class="padding highlightable">
+
+  <div id="top-bar">
+    <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+        <span id="sidebar-toggle-span">
+          <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+            <i class="fa fa-bars"></i>
+          </a>
+        </span>
+        <span id="toc-menu"><i class="fa fa-list-alt"></i></span>
+        <span class="links">
+        
+
+
+
+
+
+
+
+ <a href='/'>Velociraptor / Dig deeper</a> > <a href='/blog/'>Velociraptor Blog</a> > Extending VQL plugins
+
+ 
+
+ 
+
+   
+        </span>
+    </div>
+    
+    
+    <div class="progress">
+        <div class="wrapper">
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#vql-basics">VQL Basics</a></li>
+<li><a href="#extending-vql-via-artifacts">Extending VQL via Artifacts</a></li>
+<li><a href="#extending-vql-via-external-code">Extending VQL via external code</a></li>
+<li><a href="#example-list-local-administrator-group-users">Example — List Local Administrator Group Users</a></li>
+<li><a href="#example-remediation">Example — remediation</a></li>
+<li><a href="#conclusions">Conclusions</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+        </div>
+    </div>
+    
+
+  </div>
+
+
+<div id="body-inner">
+  
+    <h1>Extending VQL plugins</h1>
+  
+
+
+
+    
+    
+    
+    
+
+<p><img src="../img/0iyK-hcG9nhlPHVOE.jpg" alt="" /></p>
+
+<p>Velociraptor is a unique endpoint visibility tool because it provides the ability for users to write custom, tailored queries using the <a href="https://www.velocidex.com/docs/vql_reference/">Velociraptor Query Language</a> (VQL). Having a powerful query language right at the endpoint gives our responders unprecedented flexibility, and the ability to leverage the experience of other analysts within the vibrant Velociraptor community.</p>
+
+<p>VQL is a powerful language but was never designed to be a full featured programming language — it is deliberately kept simple and easy to use. VQL is essentially a glue language that allows more complete capabilities provided by VQL plugins to be strung together into a more functional query.</p>
+
+<p>For example, raw MFT parsing is provided by the parse_mft() plugin which emits a row for each parsed mft entry. A VQL query can then filter out relevant MFT entries and potentially get a copy of the file, or attempt to recover deleted files (as described in our <a href="../2019-11-15_recovering-deleted-ntfs-files-with-velociraptor-1fcf09855311/">previous article</a>.</p>
+
+<h3 id="vql-basics">VQL Basics</h3>
+
+<p>Although VQL is already very well documented elsewhere, for this article I will just outline the basic structure of a VQL query:</p>
+
+<pre><code class="language-vql"> SELECT x, y, z FROM plugin() WHERE x = 1
+</code></pre>
+
+<p>In the above, the query will run the VQL plugin which will produce a set of rows (A row is simply an object with columns and values). The query will then filter each row by the condition “x=1” and for matching rows, extract the columns x, y and x into the result set.</p>
+
+<p>The simplicity of this language allows analysts to pick up Velociraptor in a short time and make powerful use of it. However, the actual data is generated by the plugin itself — how does one extend VQL to include new functionality?</p>
+
+<h3 id="extending-vql-via-artifacts">Extending VQL via Artifacts</h3>
+
+<p>One way to extend VQL is through defining <a href="https://www.velocidex.com/docs/user-interface/artifacts/">Artifacts</a>. Artifacts are a way to encapsulate other VQL queries in YAML files which can then be shared and added to Velociraptor at any time. Artifacts have a name by which they can be accessed in other queries. For example</p>
+
+<pre><code> SELECT Name, SID FROM Artifact.Windows.Sys.Users()
+</code></pre>
+
+<p>The above query will simply run the artifact’s VQL query and emit each user on the system. We can now use it from our own query, filter it etc.</p>
+
+<h3 id="extending-vql-via-external-code">Extending VQL via external code</h3>
+
+<p>While the above method is useful, it can only really wrap existing capabilities in Velociraptor — We are just wrapping an existing VQL query in an artifact reusing existing plugins, not extending the basic capabilities of Velociraptor.</p>
+
+<p>Although VQL already comes with a lot of built in plugins, sometimes what we actually want is not built into Velociraptor itself. This might be because we never thought of the need (please file <a href="https://github.com/Velocidex/velociraptor">a bug for feature requests</a>!) or because it simply would not make sense to include the functionality directly inside Velociraptor.</p>
+
+<h3 id="example-list-local-administrator-group-users">Example — List Local Administrator Group Users</h3>
+
+<p>For example, suppose we wanted to list all the users that belong to the local administrator group on Windows. This information is obviously important because local administrators are extremely powerful accounts, and are sometimes granted to users who need administrator access to their local workstation. Often this access is not recorded or tracked properly. Even worse, sometimes local user accounts are created with local administrator group membership allowing those accounts to be logged into without AD oversight or controls. See <a href="https://docs.microsoft.com/en-us/windows-server/identity/ad-ds/plan/security-best-practices/implementing-least-privilege-administrative-models#on-workstations">this</a>, and <a href="https://docs.microsoft.com/en-us/windows/security/identity-protection/access-control/local-accounts">this</a> for more information.</p>
+
+<p>While Velociraptor does not offer the functionality to query local groups, the functionality is readily available via PowerShell <a href="https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.localaccounts/get-localgroupmember?view=powershell-5.1">Get-LocalGroupMember commandlet</a>.</p>
+
+<pre><code>Get-LocalGroupMember -Group “Administrators”
+</code></pre>
+
+<p>Let’s turn this Powershell commandlet into a Velociraptor artifact</p>
+
+<script src="https://gist.github.com/scudette/3b2ff76b8d032c800d38375e2cca0dd6.js"></script>
+
+<p>The powershell script simply runs the commandlet and extracts the SID and the username, converting the result to JSON. On the VQL size we encode the script and shell out to Powershell, then decode the output from JSON and produce VQL rows.</p>
+
+<p><img src="../img/10seNp3si-PKiAj0pvhrzWg.png" alt="" /></p>
+
+<p>If we now collected this artifact as a hunt from our entire deployment we could have a listing of all local admin accounts within minutes from thousands of endpoints making it trivial to audit.</p>
+
+<p>The whole VQL query and included powershell are now wrapped in an artifact, which can be called transparently from other VQL statements, further filtered etc. In fact using this methodology encapsulates the exact way the Artifact works, so that callers of this artifact do not really care (and cant really tell) that PowerShell is used instead of having a built in Velociraptor command.</p>
+
+<p>We effectively just extended the capabilities of the endpoint tool without needing to rebuild or deploy a new version of Velociraptor! This allows for unprecedented flexibility in our DFIR work.</p>
+
+<h3 id="example-remediation">Example — remediation</h3>
+
+<p>For the next example, suppose we discovered a widespread infection within our network. Typically, the malware installs various methods of re-infecting a host, and a common way is to install a malicious service (<a href="https://attack.mitre.org/techniques/T1035/">See Att&amp;ck Matrix 1035</a>). The Atomic Red Team has an example <a href="https://github.com/redcanaryco/atomic-red-team/blob/8881bdb0029f186e7e06994e45ab1fb49e7adfa8/atomics/T1035/T1035.md">simulation</a>:</p>
+
+<p><img src="../img/1mDYbeZBXbsFzZuWLl_rPXA.png" alt="" /></p>
+
+<p>We can collect the <strong>Windows.System.Services</strong> artifact and identify the malicious service immediately</p>
+
+<p><img src="../img/1St0TfmwTFJnRfLGsEuHCHw.png" alt="" /></p>
+
+<p>But now we would like to automatically clean it. We know the malicious service <strong>PathName</strong> value should match the keyword “marker.txt” (In reality we can come up with other unique keywords for the malicious service). So we just write the following artifact:</p>
+
+<script src="https://gist.github.com/scudette/2185ae021fc78f880a0caaaec3fb03a2.js"></script>
+
+<p>The powershell component actually stops, and removes the bad service, while the VQL component runs the <strong>Windows.System.Services</strong> artifacts, filters out the keyword to identify the malicious service and then calls powershell to remove it.</p>
+
+<p>Now when collecting the artifact, we can see which machines had the malicious service installed, and how the removal went. We can then collect the <strong>Windows.System.Services</strong> artifact again to check that services were correctly removed.</p>
+
+<p><img src="../img/1_gfWrRvoEQhZFQenbsz0MA.png" alt="" /></p>
+
+<p>Running a deployment wide hunt that collects this remediation artifact will automatically remove the bad service from all connected endpoints within a couple minutes. The hunt will then be applied on new endpoints as they come back online.</p>
+
+<h3 id="conclusions">Conclusions</h3>
+
+<p>Ultimately the VQL artifacts just delegate the heavy lifting to Powershell. This means that Velociraptor does not need to implement these feature internally since we can already rely on Powershell’s wide support for many products and system administration tasks. Formatting powershell output in machine readable format (like JSON) allows VQL to emit rows which are indistinguishable from those emitted by built in plugins — they can still be filtered and reused as usual in other VQL statements.</p>
+
+<p>So what advantages does this present over just running remote powershell scripts? Why do we even need Velociraptor at all?</p>
+
+<p>The main advantage is that Velociraptor has much wider reach — endpoints do not have to be accessible over WinRM, i.e. they can be at home or at a coffee shop, instead of having to stay on the corporate network. Since we never need to actually connect to the endpoint, we can reach it even when it is located behind NAT or filtered networks. Some road warrior type users are never present within the corporate LAN.</p>
+
+<p>Additionally, when you run a Velociraptor hunt and the client is not immediately online, the hunt is scheduled until the endpoint comes back online. We can be sure to have wide coverage of our endpoints because we don’t need to chase them and try to remotely access them when they come online (some remote machine connect for minutes a day or at unusual timezones). We just set the hunt and forget it — the endpoint will remove the malicious service when it is ready automatically.</p>
+
+<p>Finally, having the flexibility to encode powershell snippets inside artifacts allows us to develop reusable code. The users of our artifacts don’t really care how it works but can call it and tweak it using other VQL or simply by providing parameters in the GUI. This leads to excellent knowledge sharing and code reusability within the community.</p>
+
+<p>Finally it must be said that remediation is inherently a risky activity. Most artifacts passively collect data from the endpoint, since Velociraptor is primarily an endpoint visibility tool. Deliberately making changes on the system carries with it an inherent level of risk and should be done very carefully. Like the Hippocratic Oath, we must “first, do no harm” (<a href="https://en.wikipedia.org/wiki/Primum_non_nocere">Primum non nocere</a>). For example, if our regular expression selecting the malicious services is too loose we might end up removing many critical services from critical systems! Be sure to test your remediation artifacts first by disabling the actual removal script and seeing how many services we would attempt to remove.</p>
+
+
+    
+    
+          <footer class=" footline" >
+	
+</footer>
+  </div>
+</div>
+
+<div id="navigation">
+<a class="nav nav-prev" href="/blog/medium/2020-03-28-velociraptor-notebooks-d02e0bd11230/" title="Velociraptor notebooks"> <i class="fa fa-chevron-left"></i><label>Velociraptor notebooks</label></a>
+    <a class="nav nav-next" href="/blog/medium/2020-03-06-velociraptor-post-processing-with-jupyter-notebook-and-pandas-8a344d05ee8c/" title="Velociraptor Post-processing with Jupyter Notebook and Pandas" style="margin-right: 0px;"><label>Velociraptor Post-processing with Jupyter Notebook and Pandas</label><i class="fa fa-chevron-right"></i></a></div>
+
+</section>
+<div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+  <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+</div>    
+
+<script src="/js/clipboard.min.js"></script>
+<script src="/js/featherlight.min.js"></script>
+<script src="/js/html5shiv-printshiv.min.js"></script>
+
+<script src="/js/modernizr.custom.71422.js"></script>
+<script src="/js/docdock.js"></script>
+<script src="/theme-original/script.js"></script>
+
+
+    
+
+    
+    
+
+    
+  </body>
+</html>

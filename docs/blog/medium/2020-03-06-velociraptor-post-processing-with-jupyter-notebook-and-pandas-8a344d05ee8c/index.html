@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Velociraptor / Dig deeper</title>
+    
+      <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>Velociraptor Post-processing with Jupyter Notebook and Pandas :: Velociraptor / Dig deeper</title>
+<link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon" />
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<link href="/css/nucleus.css" rel="stylesheet">
+<link href="/css/font-awesome.min.css" rel="stylesheet">
+<link href="/css/hybrid.css" rel="stylesheet">
+<link href="/css/featherlight.min.css" rel="stylesheet">
+<link href="/css/auto-complete.css" rel="stylesheet">
+<link href="/theme-original/style.css" rel="stylesheet">
+
+  <link href="/theme-original/variant-mine.css" rel="stylesheet">
+
+
+<script src="/js/jquery-2.x.min.js"></script>
+<style type="text/css">
+  :root #header + #content > #left > #rlblock_left {
+    display:none !important;
+  }
+</style>
+<link rel="stylesheet" href="/css/theme-mine.css">
+<script src="/js/custom.js"></script>
+
+
+    
+  </head>
+  <body data-url="/blog/medium/2020-03-06-velociraptor-post-processing-with-jupyter-notebook-and-pandas-8a344d05ee8c/">
+    
+      <div id="headermain"></div>
+<nav id="sidebar" class="">
+
+
+
+<div class="highlightable">
+  <div id="header-wrapper">
+    <div id="header">
+      
+	
+  
+    <a href="/">
+  <img src="/images/logo.svg">
+</a>
+  
+
+
+    </div>
+        <div class="searchbox">
+		    <label for="search-by"><i class="fa fa-search"></i></label>
+		    <input data-search-input id="search-by" type="text" placeholder="Search...">
+		    <span data-search-clear=""><i class="fa fa-close"></i></span>
+		</div>
+		<script type="text/javascript" src="/js/lunr.min.js"></script>
+		<script type="text/javascript" src="/js/auto-complete.js"></script>
+		<script type="text/javascript">
+        
+            var baseurl = "\/";
+        
+		</script>
+		<script type="text/javascript" src="/js/search.js"></script>
+  </div>
+
+      <ul class="topics">
+    <li data-nav-id="/about/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/about/">About Velociraptor</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/about/features/" class="dd-item">
+        <div>
+          <a href="/about/features/">
+            Velociraptor Features
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/about/license/" class="dd-item">
+        <div>
+          <a href="/about/license/">
+            License
+          </a>
+        </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/docs/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/docs/">Velociraptor Documentation</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+    <li data-nav-id="/docs/getting-started/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/docs/getting-started/">Getting Started</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/docs/getting-started/stand_alone/" class="dd-item">
+        <div>
+          <a href="/docs/getting-started/stand_alone/">
+            Standalone Deployment
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/getting-started/deploying_clients/" class="dd-item">
+        <div>
+          <a href="/docs/getting-started/deploying_clients/">
+            Deploying Clients
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/getting-started/cloud/" class="dd-item">
+        <div>
+          <a href="/docs/getting-started/cloud/">
+            Deploying in the cloud
+          </a>
+        </div>
+    </li>
+    <li data-nav-id="/docs/getting-started/performance/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/getting-started/performance/">Performance</a>
+      </div>
+    </li>
+      <li data-nav-id="/docs/getting-started/triaging/" class="dd-item">
+        <div>
+          <a href="/docs/getting-started/triaging/">
+            Triaging
+          </a>
+        </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/docs/user-interface/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/docs/user-interface/">User Interface</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+    <li data-nav-id="/docs/user-interface/investigating_clients/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/docs/user-interface/investigating_clients/">Investigating Clients</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/docs/user-interface/investigating_clients/searching_clients/" class="dd-item">
+        <div>
+          <a href="/docs/user-interface/investigating_clients/searching_clients/">
+            Searching for clients
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/user-interface/investigating_clients/virtual_filesystem/" class="dd-item">
+        <div>
+          <a href="/docs/user-interface/investigating_clients/virtual_filesystem/">
+            Client VFS
+          </a>
+        </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/docs/user-interface/artifacts/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/docs/user-interface/artifacts/">Velociraptor Artifacts</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/docs/user-interface/artifacts/client_artifacts/" class="dd-item">
+        <div>
+          <a href="/docs/user-interface/artifacts/client_artifacts/">
+            Client Artifacts
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/user-interface/artifacts/client_events/" class="dd-item">
+        <div>
+          <a href="/docs/user-interface/artifacts/client_events/">
+            Client Event Artifacts
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/user-interface/artifacts/server_artifacts/" class="dd-item">
+        <div>
+          <a href="/docs/user-interface/artifacts/server_artifacts/">
+            Server Artifacts
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/user-interface/artifacts/server_events/" class="dd-item">
+        <div>
+          <a href="/docs/user-interface/artifacts/server_events/">
+            Server Event Artifacts
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/user-interface/artifacts/add_artifacts/" class="dd-item">
+        <div>
+          <a href="/docs/user-interface/artifacts/add_artifacts/">
+            Customizing Artifacts
+          </a>
+        </div>
+    </li>
+        </ul>
+    </li>
+      <li data-nav-id="/docs/user-interface/api/" class="dd-item">
+        <div>
+          <a href="/docs/user-interface/api/">
+            The Velociraptor API
+          </a>
+        </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/docs/vql_reference/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/docs/vql_reference/">VQL Reference</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/docs/vql_reference/basic/" class="dd-item">
+        <div>
+          <a href="/docs/vql_reference/basic/">
+            Basic VQL
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/vql_reference/windows/" class="dd-item">
+        <div>
+          <a href="/docs/vql_reference/windows/">
+            Windows
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/vql_reference/parsers/" class="dd-item">
+        <div>
+          <a href="/docs/vql_reference/parsers/">
+            Parsers
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/vql_reference/server/" class="dd-item">
+        <div>
+          <a href="/docs/vql_reference/server/">
+            Server
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/vql_reference/plugin/" class="dd-item">
+        <div>
+          <a href="/docs/vql_reference/plugin/">
+            Client
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/vql_reference/event/" class="dd-item">
+        <div>
+          <a href="/docs/vql_reference/event/">
+            Event Plugins
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/vql_reference/experimental/" class="dd-item">
+        <div>
+          <a href="/docs/vql_reference/experimental/">
+            Experimental
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/vql_reference/filesystem_accessors/" class="dd-item">
+        <div>
+          <a href="/docs/vql_reference/filesystem_accessors/">
+            Filesystem Accessors
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/vql_reference/templates/" class="dd-item">
+        <div>
+          <a href="/docs/vql_reference/templates/">
+            Report Templates
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/vql_reference/tips/" class="dd-item">
+        <div>
+          <a href="/docs/vql_reference/tips/">
+            Artifact Tips
+          </a>
+        </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/docs/artifacts/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/docs/artifacts/">Artifact Reference</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/docs/artifacts/linux/" class="dd-item">
+        <div>
+          <a href="/docs/artifacts/linux/">
+            Linux Artifacts
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/artifacts/windows_system/" class="dd-item">
+        <div>
+          <a href="/docs/artifacts/windows_system/">
+            Windows System
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/artifacts/server/" class="dd-item">
+        <div>
+          <a href="/docs/artifacts/server/">
+            Server Artifacts
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/artifacts/triage/" class="dd-item">
+        <div>
+          <a href="/docs/artifacts/triage/">
+            Windows Triage
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/artifacts/detection/" class="dd-item">
+        <div>
+          <a href="/docs/artifacts/detection/">
+            Windows Detection
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/artifacts/events/" class="dd-item">
+        <div>
+          <a href="/docs/artifacts/events/">
+            Windows Monitoring
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/artifacts/misc/" class="dd-item">
+        <div>
+          <a href="/docs/artifacts/misc/">
+            Miscelaneous
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/artifacts/linux/linux/" class="dd-item">
+        <div>
+          <a href="/docs/artifacts/linux/linux/">
+            Linux Artifacts
+          </a>
+        </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/docs/presentations/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/docs/presentations/">Presentations and Workshops</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/docs/presentations/training_2020/" class="dd-item">
+        <div>
+          <a href="/docs/presentations/training_2020/">
+            Training 2020
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/presentations/linux.conf.au.2020/" class="dd-item">
+        <div>
+          <a href="/docs/presentations/linux.conf.au.2020/">
+            Linux.Conf.Au 2020
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/presentations/sans_dfir_summit2019/" class="dd-item">
+        <div>
+          <a href="/docs/presentations/sans_dfir_summit2019/">
+            SANS 2019
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/presentations/rsa/" class="dd-item">
+        <div>
+          <a href="/docs/presentations/rsa/">
+            RSA APJ 2019
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/presentations/crikeycon2019/" class="dd-item">
+        <div>
+          <a href="/docs/presentations/crikeycon2019/">
+            Crikeycon 2019
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/docs/presentations/nzitf2018/" class="dd-item">
+        <div>
+          <a href="/docs/presentations/nzitf2018/">
+            NZITF 2018
+          </a>
+        </div>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/blog/" class="dd-item parent haschildren
+        ">
+      <div>
+      <a href="/blog/">Velociraptor Blog</a>
+            <i class="fa fa-angle-down fa-lg category-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/blog/medium/2020-03-29-velociraptors-acl-model-7f497575daee/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-03-29-velociraptors-acl-model-7f497575daee/">
+            Velociraptor’s ACL model
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2020-03-28-velociraptor-notebooks-d02e0bd11230/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-03-28-velociraptor-notebooks-d02e0bd11230/">
+            Velociraptor notebooks
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2020-03-07-extending-vql-plugins-7fb004cb6ec4/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-03-07-extending-vql-plugins-7fb004cb6ec4/">
+            Extending VQL plugins
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2020-03-06-velociraptor-post-processing-with-jupyter-notebook-and-pandas-8a344d05ee8c/" class="dd-item active">
+        <div>
+          <a href="/blog/medium/2020-03-06-velociraptor-post-processing-with-jupyter-notebook-and-pandas-8a344d05ee8c/">
+            Velociraptor Post-processing with Jupyter Notebook and Pandas
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2020-01-12_hunting-malware-using-mutants-ea08e86dfc19/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-01-12_hunting-malware-using-mutants-ea08e86dfc19/">
+            Hunting Malware using Mutants
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-12-31_digging-into-the-system-resource-usage-monitor-srum-afbadb1a375/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-12-31_digging-into-the-system-resource-usage-monitor-srum-afbadb1a375/">
+            Digging into the System Resource Usage Monitor (SRUM)
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-12-08-velociraptor-to-elasticsearch-3a9fc02c6568/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-12-08-velociraptor-to-elasticsearch-3a9fc02c6568/">
+            Velociraptor to Elasticsearch
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-11-15_recovering-deleted-ntfs-files-with-velociraptor-1fcf09855311/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-11-15_recovering-deleted-ntfs-files-with-velociraptor-1fcf09855311/">
+            Recovering deleted NTFS Files with Velociraptor
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-11-12_windows-event-logs-d8d8e615c9ca/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-11-12_windows-event-logs-d8d8e615c9ca/">
+            Windows Event Logs
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-10-08_triage-with-velociraptor-pt-3-d6f63215f579/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-10-08_triage-with-velociraptor-pt-3-d6f63215f579/">
+            Triage with Velociraptor — Pt 3
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-10-04_triage-with-velociraptor-pt-2-d0f79066ca0e/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-10-04_triage-with-velociraptor-pt-2-d0f79066ca0e/">
+            Triage with Velociraptor — Pt 2
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-10-02_triage-with-velociraptor-pt-1-253f57ce96c0/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-10-02_triage-with-velociraptor-pt-1-253f57ce96c0/">
+            Triage with Velociraptor — Pt 1
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-09-11_velociraptor-s-client-side-buffer-3ce03697a4e6/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-09-11_velociraptor-s-client-side-buffer-3ce03697a4e6/">
+            Velociraptor’s client side buffer
+          </a>
+        </div>
+    </li>
+        </ul>
+    </li>
+
+
+
+
+    <hr />
+    <li></li>
+    
+    </ul>
+
+ <section id="footer">
+    </section>
+  </div>
+</nav>
+
+
+
+<section id="body">
+<div id="overlay"></div>
+<div class="padding highlightable">
+
+  <div id="top-bar">
+    <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+        <span id="sidebar-toggle-span">
+          <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+            <i class="fa fa-bars"></i>
+          </a>
+        </span>
+        <span id="toc-menu"><i class="fa fa-list-alt"></i></span>
+        <span class="links">
+        
+
+
+
+
+
+
+
+ <a href='/'>Velociraptor / Dig deeper</a> > <a href='/blog/'>Velociraptor Blog</a> > Velociraptor Post-processing with Jupyter Notebook and Pandas
+
+ 
+
+ 
+
+   
+        </span>
+    </div>
+    
+    
+    <div class="progress">
+        <div class="wrapper">
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#jupyter-notebook">Jupyter Notebook</a></li>
+<li><a href="#configuring-jupyter-access-to-the-velociraptor-server">Configuring Jupyter access to the Velociraptor Server</a></li>
+<li><a href="#creating-an-api-key">Creating an API key</a></li>
+<li><a href="#installing-jupyter-and-pandas">Installing Jupyter and Pandas</a></li>
+<li><a href="#running-vql-in-the-notebook">Running VQL in the notebook</a></li>
+<li><a href="#using-jupyter-to-investigate-a-hunt">Using Jupyter to investigate a hunt</a></li>
+<li><a href="#plotting-graphs">Plotting graphs</a></li>
+<li><a href="#conclusions">Conclusions</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+        </div>
+    </div>
+    
+
+  </div>
+
+
+<div id="body-inner">
+  
+    <h1>Velociraptor Post-processing with Jupyter Notebook and Pandas</h1>
+  
+
+
+
+    
+    
+    
+    
+
+<p><img src="../img/11fFaw5h0oG_ICHv7Q7Haog.png" alt="" /></p>
+
+<p>Velociraptor is a powerful endpoint visibility tool. The unique strength of the tool is being able to collect endpoint state by using the Velociraptor Query Language (VQL) via custom or curated “<a href="https://www.velocidex.com/docs/user-interface/artifacts/">Artifacts</a>”. Not only can one collect artifacts from a single host, but one can collect the same artifact from many thousands of hosts within seconds.</p>
+
+<p>Being able to collect a lot of data quickly is awesome, but the flip side is that a lot of data makes it harder to review manually. We can always tune artifacts by editing the VQL to be more surgical which helps with reducing the collected data, but we would often still like to be able to post process and understand the data we get back in a convenient way.</p>
+
+<p>Velociraptor allows you to download the results of a hunt into a zip file. In the zip file, you can find a combined CSV file containing the results from all endpoints. You can process this file using an external tool or upload to a database.</p>
+
+<p><img src="../img/1q6eE6r23LPXwe0BDbEM4fw.png" alt="" /></p>
+
+<p>In a <a href="../2020-01-12_hunting-malware-using-mutants-ea08e86dfc19/">previous article</a> we have seen how to forward Velociraptor collected data to Elastic and Kibana for post processing. While this is certainly useful, we often want to quickly analyze the data we have and provide a working document of our findings without needing additional infrastructure.</p>
+
+<h3 id="jupyter-notebook">Jupyter Notebook</h3>
+
+<p><a href="https://jupyter.org/">Jupyter notebook</a> is an amazing project fusing interactive data analysis and documentation into a single application. A Jupyter notebook consists of a series of cells, each cell can be either markdown formatted text, or a Python code snippet, which gets evaluated and the results are stored in the cell’s output section. The notebook contains the analyst work as they are working and can then be exported as a final report using a variety of formats (pdf, html etc).</p>
+
+<p>The notebook approach is ideal for DFIR investigations. Since we don&rsquo;t typically know what is important when we start our investigation, we go through checking various things and drilling down into various evidence sources. The notebook keeps track of all our work and records our analysis until we narrow down the intrusions, documenting any dead-ends we might encounter and documenting our findings in a logical easy to follow way.</p>
+
+<p>In this article I will show how to use Jupyter to post-process some simple Velociraptor hunts to perform a typical DFIR response.
+&gt; Note that while Jupyter and Pandas are both written in Python you do not actually need to know Python to use Jupyter with Velociraptor. Jupyter simply evaluates VQL statements on the Velociraptor server and displays their result in the notebook. Similarly you don&rsquo;t need to be a VQL expert — Event a basic understanding of VQL is sufficient to be able to drill down into the hunt results.</p>
+
+<h3 id="configuring-jupyter-access-to-the-velociraptor-server">Configuring Jupyter access to the Velociraptor Server</h3>
+
+<p>In order for Jupyter to connect to the Velociraptor server, we will use the Velociraptor API to issue VQL queries directly on the server.</p>
+
+<p>By default, the server’s API service is not exposed to the internet. We can modify the server’s configuration to allow this by simply changing the API’s bind port to 0.0.0.0</p>
+
+<p>In our example we have an ubuntu server running Velociraptor in<a href="https://www.velocidex.com/docs/getting-started/cloud/#deploying-to-the-cloud"> the recommended way</a>. When used in this way, Velociraptor runs under a low privilege user account called “velociraptor”.</p>
+
+<p>We therefore need to change to that user, edit the configuration file and restart the service. Finally we check that the service is listening on all interfaces with port 8001.</p>
+
+<p><img src="../img/1d0MOYqBImpL4rfUeaB0mEw.png" alt="" /></p>
+
+<p><img src="../img/1KcIJClHBVGpJEb7uud9YOw.png" alt="" /></p>
+
+<h3 id="creating-an-api-key">Creating an API key</h3>
+
+<p>In order to allow access, Velociraptor requires an API key file to be created. This file contains certificates and key material for authenticating an API client with the server. Simply generate a new key and name it with a unique name (In our case we will call the key <strong>Mike</strong>)</p>
+
+<p><img src="../img/1ChgJFdKblfhINrga14RElw.png" alt="" /></p>
+
+<p>Since release 0.4.0 you will also need to explicitly grant the key query permissions</p>
+
+<p><img src="../img/1ScauB3x9K8eWbKKvoGCv9w.png" alt="" /></p>
+
+<h3 id="installing-jupyter-and-pandas">Installing Jupyter and Pandas</h3>
+
+<p>Jupyter and Pandas are written in Python and therefore can be easily installed using the pip package manager that comes with python. We will also use Velociraptor’s python bindings to talk with the server (If you want to plot graphs you will also need to install matplotlib).</p>
+
+<pre><code># pip install pyvelociraptor jupyter pandas
+</code></pre>
+
+<p><img src="../img/1OcyptZNE9dk4N3UEXcbtpQ.png" alt="" /></p>
+
+<p>Next copy the API key we generated on the server to your workstation and make sure that the api_connection_string is pointing to the server’s public DNS name</p>
+
+<p><img src="../img/1stl9_KDM4aO2TbzyB7h2vg.png" alt="" /></p>
+
+<p>The easiest way to provide Python programs with the API key is to simply set the path to the key file in the environment variable <strong>VELOCIRAPTOR_API_FILE</strong>. We can then launch the Jupyter notebook.</p>
+
+<p><img src="../img/1ZtI7wXzoUpHX_1A6WKVcUg.png" alt="" /></p>
+
+<p>This will open the browser and should present the Jupyter web app. We can now create a new notebook using the regular Python3 kernel.</p>
+
+<p><img src="../img/14Q6TJx6GFp8vrhSYjcQNFw.png" alt="" /></p>
+
+<h3 id="running-vql-in-the-notebook">Running VQL in the notebook</h3>
+
+<p>Jupyter notebooks provide cells with input editable areas, where you can write python code. The code will be evaluated when pressing CTRL-Enter and the result is shown in the output part of the cell.</p>
+
+<p>Pandas is a popular data exploration and transformation library which works great with Jupyter. We will use Pandas to explore the result of VQL queries we issue to the server.</p>
+
+<p>To test our connection, we run the simple query “SELECT * FROM info()” which just provides information about the running platform.</p>
+
+<script src="https://gist.github.com/scudette/4db9f8b8c288d7d2650acd4a5908ea9f.js"></script>
+
+<p>If all goes well, the Velociraptor Python bindings will attempt to connect to the server, run the VQL statement on the server and present the results as a table within the notebook.</p>
+
+<p><img src="../img/1zIo1vmWBb8L_5U9LIy0_ag.png" alt="" /></p>
+
+<div class="notices note" ><p>NOTE: The VQL queries we issue in the notebook run directly on the server. You can do anything with these queries, including collecting new artifact on any endpoint, starting and stopping hunts and inspecting any collected data. Velociraptor currently does not offer fine grained ACLs — being able to run VQL is effectively the same as having root level access everywhere. Please take care to secure the API key file on your workstation.</p>
+</div>
+
+
+<h3 id="using-jupyter-to-investigate-a-hunt">Using Jupyter to investigate a hunt</h3>
+
+<p>With the power of Jupyter and VQL you can do some really sophisticated analysis, but in this section I will just demonstrate a very typical process of drilling into data, including and excluding filters and identifying important trends.</p>
+
+<p>For this example I will schedule a collection of the windows task scheduler files in a hunt. Malware typically installs scheduled tasks to ensure persistence — the task will run at a later time and will guarantee the malware is re-installed.</p>
+
+<p><img src="../img/1Bs3on9WKi6Jx6qs8kFENEA.png" alt="We schedule the Windows.System.TaskScheduler hunt to collect and analyze all scheduled tasks." /><em>We schedule the Windows.System.TaskScheduler hunt to collect and analyze all scheduled tasks.</em></p>
+
+<p>In a real investigation, the hunt will collect all the scheduled tasks from thousands of machines, making manual analysis tedious and challenging.</p>
+
+<p><img src="../img/1Nu4ZOANqPJYg962prCJtFA.png" alt="We can see the hunt id assigned to this hunt. We will need this ID when querying through the API" /><em>We can see the hunt id assigned to this hunt. We will need this ID when querying through the API</em></p>
+
+<p>We start off by exploring the results of the hunt — simply select all columns from the hunt results but limit the result of only a small set for inspection. We will call the <a href="https://www.velocidex.com/docs/vql_reference/server/#hunt-results">hunt_results</a> VQL plugin and provide it with the hunt id, the artifact we collected and the source in the artifact.</p>
+
+<script src="https://gist.github.com/scudette/e990ca3fafb7302b05c6cf583e89a3a1.js"></script>
+
+<p>It is very important to limit the query otherwise the server will send too many rows and take a long time. If this happens you can select Jupyter’s Kernel-&gt;Interrupt menu to abort the query.</p>
+
+<p><img src="../img/1vQXPUJA1ooY_XLhyDhPbOg.png" alt="" /></p>
+
+<p>The collected hunt contains too many columns for our current purpose, so we simply restrict the columns shown to <strong>FullPath, Command, Arguments and Fqdn.</strong></p>
+
+<p><img src="../img/1X3HZ0Wi7NTz_ou3Jec2v3A.png" alt="" /></p>
+
+<p>This looks better!</p>
+
+<p>We know that many malware scheduled tasks tend to run cmd.exe as the command, so we want to only check for tasks running cmd.exe next. We simply add a <strong>WHERE Command =~ ‘cmd.exe’</strong> clause (In VQL =~ is the regex match operator).</p>
+
+<p><img src="../img/1IqVixgwp_kpJufyzf84ylA.png" alt="" /></p>
+
+<p>After some investigation we determine that the commands running <strong>silcollector</strong> are actually legitimate. Also <strong>dsregcmd.exe</strong> is not related to the malware and is legitimate. Simply add some more filters to exclude those conditions.</p>
+
+<p><img src="../img/11IqgundpX4Mp5Qw__gA4MQ.png" alt="" /></p>
+
+<p>This isolated the data we actually want. In a large malware infection, we might see many suspicious tasks deployed to many hosts at the same time. We can repeat the process of including, and excluding tasks based on various criteria to get an idea of which machines are compromised.</p>
+
+<h3 id="plotting-graphs">Plotting graphs</h3>
+
+<p><a href="https://pandas.pydata.org/">Pandas</a> also supports plotting graphs through <a href="https://matplotlib.org/">matplotlib</a>. The next VQL snippet simply extracts the kill timestamp (when a flow ended) from a particular hunt to visualize how this hunt actually progressed over time. We can use Pandas to manipulate the timestamps and then plot them into the notebook.</p>
+
+<p><img src="../img/1M_kYmIvuI1bKQahVYlOj5Q.png" alt="" /></p>
+
+<p>As can be see in the above plot, this particular hunt collected artifacts from about 1750 endpoints within about a minute (collecting the machines currently connected to the server) then as the next few days progressed, more machines came back online completing the collection. Slowly the total number reached gradually the entire fleet.</p>
+
+<p>This graph demonstrates that in practice, while we can query the hunt immediately in order to triage those machines currently online, as machines are added to the hunt over time the hunt’s data is growing and changing.</p>
+
+<p>Jupyter allows each cell to re-run and refresh its output at any time. For important cells we might want to re-run them a few days later to ensure more complete data coverage.</p>
+
+<h3 id="conclusions">Conclusions</h3>
+
+<p>Jupyter is a great analysis tool because it provides for a way to document our reasoning behind our findings. We can keep a record of all the things we checked, together with the relevant VQL queries. Once complete, the notebook can be exported to HTML for a static view of our findings and can form part of our report.</p>
+
+<p>Through the Velociraptor API we are able to issue VQL queries directly to the server. This avoids having to export data, move it to another system, insert into another database and then query it. The query will always access the latest data available on the server.</p>
+
+<p>Although Velociraptor might feel a little like a database as we query it to post process hunts, it does not actually maintain any indexes. This means that each query, Velociraptor is effectively doing a full row scan on the entire hunt result. This can get quite slow for artifacts that collect huge amounts of data. However, in practice we tend to collect surgical artifacts with a relatively small data set by selecting pre-filters within the client side artifacts. There is a tradeoff between being surgical in collection and managing large data sets in post processing.</p>
+
+<p>If you see yourself executing a lot of queries repeatedly on the same dataset it is probably faster to upload it to Elastic. However, in most cases, we simply want to examine one hunt at a time, and triage the results in a fairly rudimentary way, so that row scan is acceptable.</p>
+
+<p>I especially like the Jupyter notebook and intend to write entire reports in it as a way of keeping track of any investigation details and results obtained.</p>
+
+<p>I find that in practice I tend to write very simple VQL queries into the notebook. Most of the time I narrow the columns down, then add inclusion and exclusion filters to see the relevant data. Although VQL is extremely powerful, I think most people would find the simple VQL in the notepad pretty straight forward. Give it a try and see how you go!</p>
+
+
+    
+    
+          <footer class=" footline" >
+	
+</footer>
+  </div>
+</div>
+
+<div id="navigation">
+<a class="nav nav-prev" href="/blog/medium/2020-03-07-extending-vql-plugins-7fb004cb6ec4/" title="Extending VQL plugins"> <i class="fa fa-chevron-left"></i><label>Extending VQL plugins</label></a>
+    <a class="nav nav-next" href="/blog/medium/2020-01-12_hunting-malware-using-mutants-ea08e86dfc19/" title="Hunting Malware using Mutants" style="margin-right: 0px;"><label>Hunting Malware using Mutants</label><i class="fa fa-chevron-right"></i></a></div>
+
+</section>
+<div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+  <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+</div>    
+
+<script src="/js/clipboard.min.js"></script>
+<script src="/js/featherlight.min.js"></script>
+<script src="/js/html5shiv-printshiv.min.js"></script>
+
+<script src="/js/modernizr.custom.71422.js"></script>
+<script src="/js/docdock.js"></script>
+<script src="/theme-original/script.js"></script>
+
+
+    
+
+    
+    
+
+    
+  </body>
+</html>
