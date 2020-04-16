@@ -38,6 +38,15 @@
     </item>
     
     <item>
+      <title>Go YARA</title>
+      <link>/golang/go-yara/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/golang/go-yara/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Go-NTFS</title>
       <link>/golang/go-ntfs/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>

@@ -11,13 +11,8 @@ parser.add_argument('markdown_file', type=str,
                     help='Obtained by mediumexporter .')
 
 def download(match):
-    url = match.group(1)
-
-    if "medium" not in url or not (
-            url.endswith("png")
-            or url.endswith("jpeg")
-            or url.endswith("jpg")):
-        return "(" + url + ")"
+    caption = match.group(1) or ""
+    url = match.group(2)
 
     filename = os.path.basename(url).replace("*","")
     print("Downloading %s into %s" % (url, filename))
@@ -26,11 +21,13 @@ def download(match):
     open("img/"+filename, 'wb').write(myfile.content)
 
     result = "../img/" + filename
-    return "(" + result + ")"
+
+    return "![%s](%s)" % (caption,  result)
 
 def process(markdown_file):
     data = open(markdown_file).read()
-    data = re.sub(r'\((https://[^\)]+)\)', download, data)
+    data = re.sub(r'^!\[(.*?)\]\((https://[^\)]+)\)$', download, data, flags=re.S | re.M)
+
     with open(markdown_file, "w") as fd:
         fd.write(data)
 

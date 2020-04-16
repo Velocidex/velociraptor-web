@@ -1,4 +1,4 @@
-content/docs/vql_reference/basic.md:
+content/docs/vql_reference/basic/_index.md:
   title: Basic VQL functions and plugins
   linktitle: Basic VQL
   description: |
@@ -17,7 +17,7 @@ content/docs/vql_reference/basic.md:
   weight: 10
   category: basic
 
-content/docs/vql_reference/windows.md:
+content/docs/vql_reference/windows/_index.md:
   title: Windows Specific Functionality
   linktitle: Windows
   description: |
@@ -26,7 +26,7 @@ content/docs/vql_reference/windows.md:
   weight: 20
   category: windows
 
-content/docs/vql_reference/parsers.md:
+content/docs/vql_reference/parsers/_index.md:
   title: Parsers and data extractors
   linktitle: Parsers
   description: |
@@ -42,7 +42,7 @@ content/docs/vql_reference/parsers.md:
   weight: 30
   category: parsers
 
-content/docs/vql_reference/server.md:
+content/docs/vql_reference/server/_index.md:
   title: Server Side Functionality
   linktitle: Server
   description: |
@@ -58,7 +58,7 @@ content/docs/vql_reference/server.md:
   category: server
 
 
-content/docs/vql_reference/plugin.md:
+content/docs/vql_reference/plugin/_index.md:
   title: Client Side Functionality
   linktitle: Client
   description: |
@@ -88,7 +88,7 @@ content/docs/vql_reference/plugin.md:
   weight: 50
   category: plugin
 
-content/docs/vql_reference/event.md:
+content/docs/vql_reference/event/_index.md:
   title: Event Plugins
   description: |
     VQL Event plugins are plugins which never terminate - but instead
@@ -102,7 +102,7 @@ content/docs/vql_reference/event.md:
   weight: 50
   category: event
 
-content/docs/vql_reference/experimental.md:
+content/docs/vql_reference/experimental/_index.md:
   title: Experimental Functionality
   linktitle: Experimental
   description: |

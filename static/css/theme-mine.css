@@ -275,3 +275,8 @@ footer.footline {
     text-align: center;
     color: red;
 }
+
+h4.subtitle {
+    text-align: center;
+    font-style: italic;
+}

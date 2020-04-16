@@ -10,47 +10,5 @@
 	<atom:link href="/docs/getting-started/index.xml" rel="self" type="application/rss+xml" />
     
     
-    <item>
-      <title>Standalone Deployment</title>
-      <link>/docs/getting-started/stand_alone/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>/docs/getting-started/stand_alone/</guid>
-      <description>The simplest way to deploy Velociraptor is via a self-signed, stand-alone deployment. Later we&amp;rsquo;ll see how to deploy Velociraptor in production, but this page will help you deploy a stand-alone test environment.
-Overview Before we start, it&amp;rsquo;s useful to see how a Velociraptor deployment looks at a high level:
-Endpoint systems (also called clients) connect to the server (also called the frontend). The administrator (digital forensic investigator, threat hunter, SOC analyst, IT security operations, etc.</description>
-    </item>
-    
-    <item>
-      <title>Deploying Clients</title>
-      <link>/docs/getting-started/deploying_clients/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>/docs/getting-started/deploying_clients/</guid>
-      <description>Velociraptor endpoint agents are called clients. Clients connect to the server and wait for instructions, which mostly consist of VQL statements, then run any VQL queries and return the result to the server.
-There are several ways to run clients, depending on your needs. Ultimately however, the same Velociraptor binary is run with the client configuration file generated in the previous setup steps, providing it with the key material and configuration.</description>
-    </item>
-    
-    <item>
-      <title>Deploying in the cloud</title>
-      <link>/docs/getting-started/cloud/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>/docs/getting-started/cloud/</guid>
-      <description>Many users choose to deploy Velociraptor in the cloud. This is a convenient and reliable option. One of the advantages of cloud deployment is the possibility of minting a proper SSL certificate using the free Letsencrypt CA. This eliminates the bad certificate browser warning seen in the Self Signed Deployment method. Velociraptor is able to use the Letsencrypt protocol to obtain and manage its own certificates (and automatically rotate them when they expire).</description>
-    </item>
-    
-    <item>
-      <title>Triaging</title>
-      <link>/docs/getting-started/triaging/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>/docs/getting-started/triaging/</guid>
-      <description>We can use Velociraptor to hunt for many artifacts across the network. However ultimately, the Velociraptor agent simply runs VQL to collect its artifacts. What if we can just collect the artifacts interactive?
-We certainly can do this!
-Triaging a system. When triaging a system our goal is to collect and preserve as much data from the system as possible, as quickly as possible.
-First lets see what artifacts come built in with Velociraptor:</description>
-    </item>
-    
   </channel>
 </rss>

@@ -59,7 +59,7 @@ def output_artifacts(fd, prefix):
 {{% expand  "View Artifact Source" %}}
 
 """)
-        fd.write ("\n```\n")
+        fd.write ("\n```text\n")
 
         for line in data['raw'].splitlines():
             fd.write (line + "\n")

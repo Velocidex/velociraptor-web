@@ -1,0 +1,2429 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Velociraptor / Dig deeper</title>
+    
+      <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>System :: Velociraptor / Dig deeper</title>
+<link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon" />
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<link href="/css/nucleus.css" rel="stylesheet">
+<link href="/css/font-awesome.min.css" rel="stylesheet">
+<link href="/css/hybrid.css" rel="stylesheet">
+<link href="/css/featherlight.min.css" rel="stylesheet">
+<link href="/css/auto-complete.css" rel="stylesheet">
+<link href="/theme-original/style.css" rel="stylesheet">
+
+  <link href="/theme-original/variant-mine.css" rel="stylesheet">
+
+
+<script src="/js/jquery-2.x.min.js"></script>
+<style type="text/css">
+  :root #header + #content > #left > #rlblock_left {
+    display:none !important;
+  }
+</style>
+<link rel="stylesheet" href="/css/theme-mine.css">
+<script src="/js/custom.js"></script>
+
+
+    
+  </head>
+  <body data-url="/docs/artifacts/windows_system/system/">
+    
+      <div id="headermain"></div>
+<nav id="sidebar" class="">
+
+
+
+<div class="highlightable">
+  <div id="header-wrapper">
+    <div id="header">
+      
+	
+  
+    <a href="/">
+  <img src="/images/logo.svg">
+</a>
+
+  
+
+
+    </div>
+        <div class="searchbox">
+                    <label for="search-by"><i class="fa fa-search"></i></label>
+                    <input data-search-input id="search-by" type="text" placeholder="Search...">
+                    <span data-search-clear=""><i class="fa fa-close"></i></span>
+                </div>
+                <script type="text/javascript" src="/js/lunr.min.js"></script>
+                <script type="text/javascript" src="/js/auto-complete.js"></script>
+                <script type="text/javascript">
+        
+            var baseurl = "\/";
+        
+                </script>
+                <script type="text/javascript" src="/js/search.js"></script>
+  </div>
+
+      <ul class="topics">
+    <li data-nav-id="/about/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/about/">About Velociraptor</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/about/features/" class="dd-item">
+        <div>
+          <a href="/about/features/">
+            Velociraptor Features
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/about/license/" class="dd-item">
+        <div>
+          <a href="/about/license/">
+            License
+          </a>
+        </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/docs/" class="dd-item parent haschildren
+        ">
+      <div>
+      <a href="/docs/">Velociraptor Documentation</a>
+            <i class="fa fa-angle-down fa-lg category-icon"></i>
+      </div>
+        <ul>
+    <li data-nav-id="/docs/getting-started/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/docs/getting-started/">Getting Started</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+    <li data-nav-id="/docs/getting-started/stand_alone/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/getting-started/stand_alone/">Standalone Deployment</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/getting-started/deploying_clients/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/getting-started/deploying_clients/">Deploying Clients</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/getting-started/cloud/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/getting-started/cloud/">Deploying in the cloud</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/getting-started/performance/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/getting-started/performance/">Performance</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/getting-started/triaging/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/getting-started/triaging/">Triaging</a>
+      </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/docs/user-interface/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/docs/user-interface/">User Interface</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+    <li data-nav-id="/docs/user-interface/investigating_clients/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/docs/user-interface/investigating_clients/">Investigating Clients</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+    <li data-nav-id="/docs/user-interface/investigating_clients/searching_clients/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/user-interface/investigating_clients/searching_clients/">Searching for clients</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/user-interface/investigating_clients/virtual_filesystem/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/user-interface/investigating_clients/virtual_filesystem/">The Virtual File System</a>
+      </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/docs/user-interface/artifacts/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/docs/user-interface/artifacts/">Velociraptor Artifacts</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+    <li data-nav-id="/docs/user-interface/artifacts/client_artifacts/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/user-interface/artifacts/client_artifacts/">Client Artifacts</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/user-interface/artifacts/client_events/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/user-interface/artifacts/client_events/">Client Event Artifacts</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/user-interface/artifacts/server_artifacts/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/user-interface/artifacts/server_artifacts/">Server Artifacts</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/user-interface/artifacts/server_events/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/user-interface/artifacts/server_events/">Server Event Artifacts</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/user-interface/artifacts/add_artifacts/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/user-interface/artifacts/add_artifacts/">Customizing Artifacts</a>
+      </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/docs/user-interface/api/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/user-interface/api/">The Velociraptor API</a>
+      </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/docs/vql_reference/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/docs/vql_reference/">VQL Reference</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+    <li data-nav-id="/docs/vql_reference/basic/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/vql_reference/basic/">Basic VQL functions and plugins</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/vql_reference/windows/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/vql_reference/windows/">Windows Specific Functionality</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/vql_reference/parsers/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/vql_reference/parsers/">Parsers and data extractors</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/vql_reference/server/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/vql_reference/server/">Server Side Functionality</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/vql_reference/plugin/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/vql_reference/plugin/">Client Side Functionality</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/vql_reference/event/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/vql_reference/event/">Event Plugins</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/vql_reference/experimental/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/vql_reference/experimental/">Experimental Functionality</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/vql_reference/filesystem_accessors/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/vql_reference/filesystem_accessors/">Filesystem Accessors</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/vql_reference/templates/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/vql_reference/templates/">Report Templates</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/vql_reference/tips/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/vql_reference/tips/">Artifact Tips</a>
+      </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/docs/artifacts/" class="dd-item parent haschildren
+        ">
+      <div>
+      <a href="/docs/artifacts/">Artifact Reference</a>
+            <i class="fa fa-angle-down fa-lg category-icon"></i>
+      </div>
+        <ul>
+    <li data-nav-id="/docs/artifacts/linux/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/artifacts/linux/">Linux Artifacts</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/artifacts/windows_system/" class="dd-item parent haschildren
+        ">
+      <div>
+      <a href="/docs/artifacts/windows_system/">Windows</a>
+            <i class="fa fa-angle-down fa-lg category-icon"></i>
+      </div>
+        <ul>
+    <li data-nav-id="/docs/artifacts/windows_system/events/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/artifacts/windows_system/events/">Event Logs</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/artifacts/windows_system/system/" class="dd-item active
+        ">
+      <div>
+      <a href="/docs/artifacts/windows_system/system/">System</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/artifacts/windows_system/registry/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/artifacts/windows_system/registry/">Registry</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/artifacts/windows_system/network/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/artifacts/windows_system/network/">Network</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/artifacts/windows_system/applications/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/artifacts/windows_system/applications/">Applications</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/artifacts/windows_system/detection/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/artifacts/windows_system/detection/">Malware Detection</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/artifacts/windows_system/triage/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/artifacts/windows_system/triage/">Triage Artifacts</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/artifacts/windows_system/remediation/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/artifacts/windows_system/remediation/">Remdiation</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/artifacts/windows_system/monitoring/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/artifacts/windows_system/monitoring/">Event Monitoring</a>
+      </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/docs/artifacts/server/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/artifacts/server/">Server Artifacts</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/artifacts/misc/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/artifacts/misc/">Miscelaneous Artifacts</a>
+      </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/docs/presentations/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/docs/presentations/">Presentations and Workshops</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+    <li data-nav-id="/docs/presentations/training_2020/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/presentations/training_2020/">Enterprise Hunting and Incident Response with Velociraptor 2020</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/presentations/linux.conf.au.2020/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/presentations/linux.conf.au.2020/">Linux.Conf.Au 2020</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/presentations/sans_dfir_summit2019/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/presentations/sans_dfir_summit2019/">SANS Summit 2019</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/presentations/rsa/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/presentations/rsa/">RSA Asia Pacific and Japan 2019</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/presentations/crikeycon2019/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/presentations/crikeycon2019/">Crikeycon 2019 Training Workshop</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/presentations/nzitf2018/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/presentations/nzitf2018/">New Zealand Internet Task Force Conference 2018</a>
+      </div>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/blog/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/blog/">Velociraptor Blog</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/blog/medium/2020-04-16-velociraptor-e48a47e0317d/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-04-16-velociraptor-e48a47e0317d/">
+            Velociraptor
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2020-03-29-velociraptors-acl-model-7f497575daee/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-03-29-velociraptors-acl-model-7f497575daee/">
+            Velociraptor’s ACL model
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2020-03-28-velociraptor-notebooks-d02e0bd11230/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-03-28-velociraptor-notebooks-d02e0bd11230/">
+            Velociraptor notebooks
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2020-03-07-extending-vql-plugins-7fb004cb6ec4/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-03-07-extending-vql-plugins-7fb004cb6ec4/">
+            Extending VQL plugins
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2020-03-06-velociraptor-post-processing-with-jupyter-notebook-and-pandas-8a344d05ee8c/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-03-06-velociraptor-post-processing-with-jupyter-notebook-and-pandas-8a344d05ee8c/">
+            Velociraptor Post-processing with Jupyter Notebook and Pandas
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2020-01-12_hunting-malware-using-mutants-ea08e86dfc19/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-01-12_hunting-malware-using-mutants-ea08e86dfc19/">
+            Hunting Malware using Mutants
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-12-31_digging-into-the-system-resource-usage-monitor-srum-afbadb1a375/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-12-31_digging-into-the-system-resource-usage-monitor-srum-afbadb1a375/">
+            Digging into the System Resource Usage Monitor (SRUM)
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-12-08-velociraptor-to-elasticsearch-3a9fc02c6568/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-12-08-velociraptor-to-elasticsearch-3a9fc02c6568/">
+            Velociraptor to Elasticsearch
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-11-15_recovering-deleted-ntfs-files-with-velociraptor-1fcf09855311/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-11-15_recovering-deleted-ntfs-files-with-velociraptor-1fcf09855311/">
+            Recovering deleted NTFS Files with Velociraptor
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-11-12_windows-event-logs-d8d8e615c9ca/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-11-12_windows-event-logs-d8d8e615c9ca/">
+            Windows Event Logs
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-10-08_triage-with-velociraptor-pt-3-d6f63215f579/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-10-08_triage-with-velociraptor-pt-3-d6f63215f579/">
+            Triage with Velociraptor — Pt 3
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-10-04_triage-with-velociraptor-pt-2-d0f79066ca0e/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-10-04_triage-with-velociraptor-pt-2-d0f79066ca0e/">
+            Triage with Velociraptor — Pt 2
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-10-02_triage-with-velociraptor-pt-1-253f57ce96c0/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-10-02_triage-with-velociraptor-pt-1-253f57ce96c0/">
+            Triage with Velociraptor — Pt 1
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-09-11_velociraptor-s-client-side-buffer-3ce03697a4e6/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-09-11_velociraptor-s-client-side-buffer-3ce03697a4e6/">
+            Velociraptor’s client side buffer
+          </a>
+        </div>
+    </li>
+        </ul>
+    </li>
+
+
+
+
+    <hr />
+    <li></li>
+
+    </ul>
+
+ <section id="footer">
+    </section>
+  </div>
+</nav>
+
+
+
+<section id="body">
+<div id="overlay"></div>
+<div class="padding highlightable">
+
+  <div id="top-bar">
+    <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+        <span id="sidebar-toggle-span">
+          <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+            <i class="fa fa-bars"></i>
+          </a>
+        </span>
+        <span id="toc-menu"><i class="fa fa-list-alt"></i></span>
+        <span class="links">
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+ <a href='/'>Velociraptor / Dig deeper</a> > <a href='/docs/'>Velociraptor Documentation</a> > <a href='/docs/artifacts/'>Artifact Reference</a> > <a href='/docs/artifacts/windows_system/'>Windows</a> > System
+
+
+
+
+
+
+
+
+
+
+        </span>
+    </div>
+
+    
+    <div class="progress">
+        <div class="wrapper">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#windowssysappcompatshims">Windows.Sys.AppcompatShims</a></li>
+    <li><a href="#windowssyscertificateauthorities">Windows.Sys.CertificateAuthorities</a></li>
+    <li><a href="#windowssysdiskinfo">Windows.Sys.DiskInfo</a></li>
+    <li><a href="#windowssysdrivers">Windows.Sys.Drivers</a></li>
+    <li><a href="#windowssysfirewallrules">Windows.Sys.FirewallRules</a></li>
+    <li><a href="#windowssysinterfaces">Windows.Sys.Interfaces</a></li>
+    <li><a href="#windowssysphysicalmemoryranges">Windows.Sys.PhysicalMemoryRanges</a></li>
+    <li><a href="#windowssysprograms">Windows.Sys.Programs</a></li>
+    <li><a href="#windowssysstartupitems">Windows.Sys.StartupItems</a></li>
+    <li><a href="#windowssysusers">Windows.Sys.Users</a></li>
+    <li><a href="#windowssysinternalsautoruns">Windows.Sysinternals.Autoruns</a></li>
+    <li><a href="#windowssysinternalssysmoninstall">Windows.Sysinternals.SysmonInstall</a></li>
+    <li><a href="#windowssystemamcache">Windows.System.Amcache</a></li>
+    <li><a href="#windowssystemcmdshell">Windows.System.CmdShell</a></li>
+    <li><a href="#windowssystemcriticalservices">Windows.System.CriticalServices</a>
+      <ul>
+        <li><a href="#references">References:</a></li>
+      </ul>
+    </li>
+    <li><a href="#windowssystemdlls">Windows.System.DLLs</a></li>
+    <li><a href="#windowssystemhandles">Windows.System.Handles</a></li>
+    <li><a href="#windowssystemlocaladmins">Windows.System.LocalAdmins</a></li>
+    <li><a href="#windowssystempowershell">Windows.System.PowerShell</a></li>
+    <li><a href="#windowssystempslist">Windows.System.Pslist</a></li>
+    <li><a href="#windowssystemsvchost">Windows.System.SVCHost</a></li>
+    <li><a href="#windowssystemservices">Windows.System.Services</a></li>
+    <li><a href="#windowssystemtaskscheduler">Windows.System.TaskScheduler</a></li>
+    <li><a href="#windowssystemuntrustedbinaries">Windows.System.UntrustedBinaries</a></li>
+    <li><a href="#windowssystemvad">Windows.System.VAD</a></li>
+  </ul>
+</nav>
+        </div>
+    </div>
+    
+
+  </div>
+
+
+<div id="body-inner">
+  
+      <h1>System</h1>
+      
+        <h4 class="subtitle"> These artifacts collect information related to the windows system itself. </h4>
+      
+  
+
+
+
+    
+    
+    
+
+<h2 id="windowssysappcompatshims">Windows.Sys.AppcompatShims</h2>
+<p>Application Compatibility shims are a way to persist malware. This
+table presents the AppCompat Shim information from the registry in a
+nice format.</p>
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>shimKeys</td>
+<td>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows N &hellip;</td>
+<td></td>
+</tr>
+<tr>
+<td>customKeys</td>
+<td>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows N &hellip;</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<div class="expand">
+    <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fa fa-chevron-down' : 'fa fa-chevron-right';});});">
+        <i style="font-size:x-small;" class="fa fa-chevron-right"></i>
+        <span>
+          View Artifact Source
+        </span>
+    </div>
+    <div class="expand-content" style="display: none;">
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">name: Windows.Sys.AppcompatShims
+description: |
+  Application Compatibility shims are a way to persist malware. This
+  table presents the AppCompat Shim information from the registry in a
+  nice format.
+
+reference:
+  - http://files.brucon.org/2015/Tomczak_and_Ballenthin_Shims_for_the_Win.pdf
+
+parameters:
+  - name: shimKeys
+    default: &gt;-
+      HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\InstalledSDB\*
+  - name: customKeys
+    default: &gt;-
+      HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Custom\*\*
+
+sources:
+  - precondition:
+      SELECT OS From info() where OS = &#39;windows&#39;
+    queries:
+      - |
+        LET installed_sdb &lt;=
+           SELECT Key, Key.Name as SdbGUID, DatabasePath,
+                  DatabaseType, DatabaseDescription,
+                  -- Convert windows file time to unix epoch.
+                  (DatabaseInstallTimeStamp / 10000000) - 11644473600 AS DatabaseInstallTimeStamp
+           FROM read_reg_key(
+             globs=split(string=shimKeys, sep=&#34;,[\\s]*&#34;),
+             accessor=&#34;reg&#34;)
+      - |
+        LET result = SELECT * from foreach(
+          row={
+            SELECT regex_replace(
+               source=FullPath,
+               replace=&#34;$1&#34;,
+               re=&#34;^.+\\\\([^\\\\]+)\\\\[^\\\\]+$&#34;) as Executable,
+              regex_replace(
+               source=Name,
+               replace=&#34;$1&#34;,
+               re=&#34;(\\{[^}]+\\}).*$&#34;) as SdbGUIDRef,
+               Name as ExeName from glob(
+              globs=split(string=customKeys, sep=&#34;,[\\s]*&#34;),
+              accessor=&#34;reg&#34;)
+          },
+          query={
+            SELECT Executable, DatabasePath, DatabaseType,
+                   DatabaseDescription, DatabaseInstallTimeStamp, SdbGUID
+            FROM installed_sdb
+            WHERE SdbGUID = SdbGUIDRef
+          })
+      - |
+        SELECT * from result
+</code></pre></div>   </div>
+</div>
+<h2 id="windowssyscertificateauthorities">Windows.Sys.CertificateAuthorities</h2>
+<p>Certificate Authorities installed in Keychains/ca-bundles.</p>
+<div class="expand">
+    <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fa fa-chevron-down' : 'fa fa-chevron-right';});});">
+        <i style="font-size:x-small;" class="fa fa-chevron-right"></i>
+        <span>
+          View Artifact Source
+        </span>
+    </div>
+    <div class="expand-content" style="display: none;">
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">name: Windows.Sys.CertificateAuthorities
+description: Certificate Authorities installed in Keychains/ca-bundles.
+sources:
+  - precondition:
+      SELECT OS From info() where OS = &#39;windows&#39;
+    queries:
+      - |
+        select Store, IsCA, Subject,
+               encode(string=SubjectKeyId, type=&#39;hex&#39;) AS SubjectKeyId,
+               encode(string=AuthorityKeyId, type=&#39;hex&#39;) AS AuthorityKeyId,
+               Issuer, KeyUsageString,
+               IsSelfSigned, SHA1, SignatureAlgorithm, PublicKeyAlgorithm, KeyStrength,
+               NotBefore, NotAfter, HexSerialNumber
+               from certificates()
+</code></pre></div>   </div>
+</div>
+<h2 id="windowssysdiskinfo">Windows.Sys.DiskInfo</h2>
+<p>Retrieve basic information about the physical disks of a system.</p>
+<div class="expand">
+    <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fa fa-chevron-down' : 'fa fa-chevron-right';});});">
+        <i style="font-size:x-small;" class="fa fa-chevron-right"></i>
+        <span>
+          View Artifact Source
+        </span>
+    </div>
+    <div class="expand-content" style="display: none;">
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">name: Windows.Sys.DiskInfo
+description: Retrieve basic information about the physical disks of a system.
+sources:
+  - precondition:
+      SELECT OS From info() where OS = &#39;windows&#39;
+    queries:
+      - |
+        SELECT Partitions,
+               Index as DiskIndex,
+               InterfaceType as Type,
+               PNPDeviceID,
+               DeviceID,
+               Size,
+               Manufacturer,
+               Model,
+               Name,
+               SerialNumber,
+               Description
+        FROM wmi(
+           query=&#34;SELECT * from Win32_DiskDrive&#34;,
+           namespace=&#34;ROOT\\CIMV2&#34;)
+</code></pre></div>   </div>
+</div>
+<h2 id="windowssysdrivers">Windows.Sys.Drivers</h2>
+<p>Details for in-use Windows device drivers. This does not display installed but unused drivers.</p>
+<div class="expand">
+    <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fa fa-chevron-down' : 'fa fa-chevron-right';});});">
+        <i style="font-size:x-small;" class="fa fa-chevron-right"></i>
+        <span>
+          View Artifact Source
+        </span>
+    </div>
+    <div class="expand-content" style="display: none;">
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">name: Windows.Sys.Drivers
+description: Details for in-use Windows device drivers. This does not display installed but unused drivers.
+sources:
+  - precondition:
+      SELECT OS From info() where OS = &#39;windows&#39;
+    queries:
+      - |
+        SELECT * from wmi(
+            query=&#34;select * from Win32_PnPSignedDriver&#34;,
+            namespace=&#34;ROOT\\CIMV2&#34;)
+</code></pre></div>   </div>
+</div>
+<h2 id="windowssysfirewallrules">Windows.Sys.FirewallRules</h2>
+<p>List windows firewall rules.</p>
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>regKey</td>
+<td>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Ser &hellip;</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<div class="expand">
+    <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fa fa-chevron-down' : 'fa fa-chevron-right';});});">
+        <i style="font-size:x-small;" class="fa fa-chevron-right"></i>
+        <span>
+          View Artifact Source
+        </span>
+    </div>
+    <div class="expand-content" style="display: none;">
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">name: Windows.Sys.FirewallRules
+description: List windows firewall rules.
+reference:
+  - https://social.technet.microsoft.com/Forums/azure/en-US/aaed9c6a-fb8b-4d43-8b69-9f4e0f619a8c/how-to-check-the-windows-firewall-settings-from-netsh-command?forum=winserverGP
+
+parameters:
+  - name: regKey
+    default: HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\**\FirewallRules\*
+
+sources:
+  - precondition:
+      SELECT OS From info() where OS = &#39;windows&#39;
+    queries:
+      - |
+        LET rules = SELECT Name as Value,
+               parse_string_with_regex(string=Data,
+                 regex=[&#34;Action=(?P&lt;Action&gt;[^|]+)&#34;,
+                        &#34;Active=(?P&lt;Active&gt;[^|]+)&#34;,
+                        &#34;Dir=(?P&lt;Dir&gt;[^|]+)&#34;,
+                        &#34;Protocol=(?P&lt;Protocol&gt;[^|]+)&#34;,
+                        &#34;LPort=(?P&lt;LPort&gt;[^|]+)&#34;,
+                        &#34;Name=(?P&lt;Name&gt;[^|]+)&#34;,
+                        &#34;Desc=(?P&lt;Desc&gt;[^|]+)&#34;,
+                        &#34;App=(?P&lt;App&gt;[^|]+)&#34;]) as Record,
+               Data,
+               FullPath
+        FROM glob(globs=regKey, accessor=&#34;reg&#34;)
+
+      - |
+        SELECT Value,
+               Record.Action as Action,
+               Record.Name as Name,
+               get(item=Record, field=&#34;Desc&#34;) as Description,
+               Record.App as App,
+               Record.Action as Action,
+               Record.Dir as Dir,
+               if(condition=Record.Protocol = &#34;6&#34;,
+                  then=&#34;TCP&#34;,
+                  else=if(condition=Record.Protocol = &#34;17&#34;,
+                          then=&#34;UDP&#34;,
+                          else=Record.Protocol)) as Protocol,
+               if(condition=Record.LPort = NULL,
+                  then=&#34;Any&#34;,
+                  else=Record.LPort) as LPort,
+               Record.Name as Name
+        FROM rules
+</code></pre></div>   </div>
+</div>
+<h2 id="windowssysinterfaces">Windows.Sys.Interfaces</h2>
+<p>Report information about the systems interfaces. This artifact
+simply parses the output from ipconfig /all.</p>
+<div class="expand">
+    <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fa fa-chevron-down' : 'fa fa-chevron-right';});});">
+        <i style="font-size:x-small;" class="fa fa-chevron-right"></i>
+        <span>
+          View Artifact Source
+        </span>
+    </div>
+    <div class="expand-content" style="display: none;">
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">name: Windows.Sys.Interfaces
+description: |
+  Report information about the systems interfaces. This artifact
+  simply parses the output from ipconfig /all.
+
+sources:
+ - precondition:
+     SELECT OS from info() where OS = &#34;windows&#34;
+   queries:
+   - |
+     // Run ipconfig to get all information about interfaces.
+     LET ipconfig = SELECT * FROM execve(argv=[&#39;ipconfig&#39;, &#39;/all&#39;])
+   - |
+     // This produces a single row per interface.
+     LET interfaces = SELECT Name, Data FROM parse_records_with_regex(
+        file=ipconfig.Stdout,
+        accessor=&#39;data&#39;,      // This makes the data appear as a file.
+        regex=&#39;(?s)Ethernet adapter (?P&lt;Name&gt;[^:]+?):\r\n\r\n(?P&lt;Data&gt;.+?)\r\n(\r\n|$)&#39;)
+   - |
+     // Now extract interesting things from each interface definition.
+     SELECT Name, parse_string_with_regex(
+        string=Data,
+        regex=[
+          &#34;Description[^:]+: (?P&lt;Description&gt;.+)\r\n&#34;,
+          &#34;Physical Address[^:]+: (?P&lt;MAC&gt;.+)\r\n&#34;,
+          &#34;IPv4 Address[^:]+: (?P&lt;IP&gt;[0-9.]+)&#34;,
+          &#34;Default Gateway[^:]+: (?P&lt;Gateway&gt;.+)\r\n&#34;,
+          &#34;DNS Servers[^:]+: (?P&lt;DNS&gt;.+)\r\n&#34;,
+          &#34;DHCP Server[^:]+: (?P&lt;DHCP&gt;.+)\r\n&#34;
+        ]
+     ) As Details FROM interfaces
+</code></pre></div>   </div>
+</div>
+<h2 id="windowssysphysicalmemoryranges">Windows.Sys.PhysicalMemoryRanges</h2>
+<p>List Windows physical memory ranges.</p>
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>physicalMemoryKey</td>
+<td>HKEY_LOCAL_MACHINE\HARDWARE\RESOURCEMAP\System  &hellip;</td>
+<td></td>
+</tr>
+<tr>
+<td>Profile</td>
+<td>{\n  &ldquo;CM_RESOURCE_LIST&rdquo;: [0, {\n    &ldquo;Count&rdquo;: [0, [ &hellip;</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<div class="expand">
+    <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fa fa-chevron-down' : 'fa fa-chevron-right';});});">
+        <i style="font-size:x-small;" class="fa fa-chevron-right"></i>
+        <span>
+          View Artifact Source
+        </span>
+    </div>
+    <div class="expand-content" style="display: none;">
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">name: Windows.Sys.PhysicalMemoryRanges
+description: List Windows physical memory ranges.
+reference:
+  - https://docs.microsoft.com/en-us/windows-hardware/drivers/ddi/content/wdm/ns-wdm-_cm_resource_list
+
+parameters:
+  - name: physicalMemoryKey
+    default: HKEY_LOCAL_MACHINE\HARDWARE\RESOURCEMAP\System Resources\Physical Memory\.Translated
+
+  - name: Profile
+    default: |
+      {
+        &#34;CM_RESOURCE_LIST&#34;: [0, {
+          &#34;Count&#34;: [0, [&#34;uint32&#34;]],
+          &#34;List&#34;: [4, [&#34;CM_FULL_RESOURCE_DESCRIPTOR&#34;]]
+         }],
+         &#34;CM_FULL_RESOURCE_DESCRIPTOR&#34;: [0, {
+           &#34;PartialResourceList&#34;: [8, [&#34;CM_PARTIAL_RESOURCE_LIST&#34;]]
+         }],
+
+         &#34;CM_PARTIAL_RESOURCE_LIST&#34;: [0, {
+           &#34;Version&#34;: [0, [&#34;uint16&#34;]],
+           &#34;Revision&#34;: [2, [&#34;uint16&#34;]],
+           &#34;Count&#34;: [4, [&#34;uint32&#34;]],
+           &#34;PartialDescriptors&#34;: [8, [&#34;Array&#34;, {
+              &#34;Target&#34;: &#34;CM_PARTIAL_RESOURCE_DESCRIPTOR&#34;
+           }]]
+         }],
+
+         &#34;CM_PARTIAL_RESOURCE_DESCRIPTOR&#34;: [20, {
+           &#34;Type&#34;: [0, [&#34;char&#34;]],
+           &#34;ShareDisposition&#34;: [1, [&#34;char&#34;]],
+           &#34;Flags&#34;: [2, [&#34;uint16&#34;]],
+           &#34;Start&#34;: [4, [&#34;int64&#34;]],
+           &#34;Length&#34;: [12, [&#34;uint32&#34;]]
+         }]
+      }
+
+sources:
+  - precondition:
+      SELECT OS From info() where OS = &#39;windows&#39;
+    queries:
+      - |
+        SELECT Type.AsInteger as Type,
+               format(format=&#34;%#0x&#34;, args=Start.AsInteger) as Start,
+               format(format=&#34;%#0x&#34;, args=Length.AsInteger) as Length
+        FROM foreach(
+          row={
+            SELECT Data
+              FROM stat(filename=physicalMemoryKey, accessor=&#39;reg&#39;)
+          },
+          query={
+            SELECT Type, Start, Length, Data FROM binary_parse(
+              string=Data.value,
+              profile=Profile,
+              target=&#34;CM_RESOURCE_LIST&#34;,
+              start=&#34;List.PartialResourceList.PartialDescriptors&#34;)
+          })
+</code></pre></div>   </div>
+</div>
+<h2 id="windowssysprograms">Windows.Sys.Programs</h2>
+<p>Represents products as they are installed by Windows Installer. A product generally
+correlates to one installation package on Windows. Some fields may be blank as Windows
+installation details are left to the discretion of the product author.</p>
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>programKeys</td>
+<td>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\ &hellip;</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<div class="expand">
+    <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fa fa-chevron-down' : 'fa fa-chevron-right';});});">
+        <i style="font-size:x-small;" class="fa fa-chevron-right"></i>
+        <span>
+          View Artifact Source
+        </span>
+    </div>
+    <div class="expand-content" style="display: none;">
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">name: Windows.Sys.Programs
+description: |
+  Represents products as they are installed by Windows Installer. A product generally
+  correlates to one installation package on Windows. Some fields may be blank as Windows
+  installation details are left to the discretion of the product author.
+reference:
+  - https://github.com/facebook/osquery/blob/master/specs/windows/programs.table
+
+parameters:
+  - name: programKeys
+    default: &gt;-
+      HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\*,
+      HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\*,
+      HKEY_USERS\*\Software\Microsoft\Windows\CurrentVersion\Uninstall\*
+
+sources:
+  - precondition:
+      SELECT OS From info() where OS = &#39;windows&#39;
+    queries:
+      - |
+        SELECT Key.Name as Name,
+               timestamp(epoch=Key.Mtime.Sec) AS MTime,
+               DisplayName,
+               DisplayVersion,
+               InstallLocation,
+               InstallSource,
+               Language,
+               Publisher,
+               UninstallString,
+               InstallDate
+        FROM read_reg_key(globs=split(string=programKeys, sep=&#39;,[\\s]*&#39;),
+                          accessor=&#34;reg&#34;)
+</code></pre></div>   </div>
+</div>
+<h2 id="windowssysstartupitems">Windows.Sys.StartupItems</h2>
+<p>Applications that will be started up from the various run key locations.</p>
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>runKeyGlobs</td>
+<td>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\ &hellip;</td>
+<td></td>
+</tr>
+<tr>
+<td>startupApprovedGlobs</td>
+<td>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\ &hellip;</td>
+<td></td>
+</tr>
+<tr>
+<td>startupFolderDirectories</td>
+<td>C:/ProgramData/Microsoft/Windows/Start Menu/Progra &hellip;</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<div class="expand">
+    <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fa fa-chevron-down' : 'fa fa-chevron-right';});});">
+        <i style="font-size:x-small;" class="fa fa-chevron-right"></i>
+        <span>
+          View Artifact Source
+        </span>
+    </div>
+    <div class="expand-content" style="display: none;">
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">name: Windows.Sys.StartupItems
+description: Applications that will be started up from the various run key locations.
+reference:
+  - https://docs.microsoft.com/en-us/windows/desktop/setupapi/run-and-runonce-registry-keys
+
+parameters:
+  - name: runKeyGlobs
+    default: &gt;
+      HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Run*\*,
+      HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Run*\*,
+      HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer\Run*\*
+      HKEY_USERS\*\SOFTWARE\Microsoft\Windows\CurrentVersion\Run*\*,
+      HKEY_USERS\*\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Run*\*,
+      HKEY_USERS\*\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer\Run*\*
+  - name: startupApprovedGlobs
+    default: &gt;
+      HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\StartupApproved\**,
+      HKEY_USERS\*\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\StartupApproved\**
+  - name: startupFolderDirectories
+    default: &gt;
+      C:/ProgramData/Microsoft/Windows/Start Menu/Programs/Startup/**,
+      C:/Users/*/AppData/Roaming/Microsoft/Windows/StartMenu/Programs/Startup/**
+
+sources:
+  - precondition:
+      SELECT OS From info() where OS = &#39;windows&#39;
+    queries:
+      - |
+        /* We need to search this multiple times so we materialize it
+           into a variable (using the &lt;= operator)
+         */
+        LET approved &lt;=
+           SELECT Name as ApprovedName,
+                  encode(string=Data, type=&#34;hex&#34;) as Enabled
+           FROM glob(globs=split(
+                     string=startupApprovedGlobs, sep=&#34;[, ]+&#34;),
+                     accessor=&#34;reg&#34;)
+           WHERE Enabled =~ &#34;^0[0-9]0+$&#34;
+
+      - |
+        LET registry_runners = SELECT Name,
+          FullPath, Data.value as Command,
+          if(
+           condition={
+                SELECT Enabled from approved
+                WHERE Name = ApprovedName
+           },
+           then=&#34;enabled&#34;, else=&#34;disabled&#34;) as Enabled
+          FROM glob(
+           globs=split(string=runKeyGlobs, sep=&#34;[, ]+&#34;),
+           accessor=&#34;reg&#34;)
+
+      - |
+        LET file_runners = SELECT * FROM foreach(
+           row={
+              SELECT Name, FullPath
+              FROM glob(
+                 globs=split(string=startupFolderDirectories,
+                 sep=&#34;,\\s*&#34;))
+           }, query={
+              SELECT Name, FullPath, &#34;enable&#34; as Enabled,
+                  encode(string=Data, type=&#39;utf16&#39;) as Command
+              FROM read_file(filenames=FullPath)
+           })
+
+      - |
+        SELECT * from chain(
+           first=registry_runners,
+           second=file_runners)
+</code></pre></div>   </div>
+</div>
+<h2 id="windowssysusers">Windows.Sys.Users</h2>
+<p>List User accounts. We combine two data sources - the output from
+the NetUserEnum() call and the list of SIDs in the registry.</p>
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>remoteRegKey</td>
+<td>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows N &hellip;</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<div class="expand">
+    <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fa fa-chevron-down' : 'fa fa-chevron-right';});});">
+        <i style="font-size:x-small;" class="fa fa-chevron-right"></i>
+        <span>
+          View Artifact Source
+        </span>
+    </div>
+    <div class="expand-content" style="display: none;">
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">name: Windows.Sys.Users
+description: |
+  List User accounts. We combine two data sources - the output from
+  the NetUserEnum() call and the list of SIDs in the registry.
+
+parameters:
+  - name: remoteRegKey
+    default: HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\ProfileList\*
+
+sources:
+  - precondition:
+      SELECT OS From info() where OS = &#39;windows&#39;
+    queries:
+      - |
+        LET roaming_users &lt;= SELECT &#34;&#34; as Uid, &#34;&#34; as Gid,
+               lookupSID(
+                 sid=basename(path=Key.FullPath)
+               ) as Name,
+               Key.FullPath as Description,
+               ProfileImagePath as Directory,
+               basename(path=Key.FullPath) as UUID,
+               Key.Mtime.Sec as Mtime,
+               &#34;roaming&#34; as Type
+           FROM read_reg_key(globs=remoteRegKey, accessor=&#34;reg&#34;)
+      - |
+        LET local_users &lt;= select User_id as Uid, Primary_group_id as Gid, Name,
+               Comment as Description, {
+                 SELECT Directory from roaming_users WHERE User_sid = UUID
+               } as Directory, User_sid as UUID, 0 AS Mtime, &#34;local&#34; AS Type
+        FROM users()
+
+      - |
+        LET local_users_with_mtime = SELECT Uid, Gid, Name, Description,
+            Directory, UUID, {
+                SELECT Mtime.Sec FROM stat(filename=expand(path=Directory))
+            } As Mtime, Type
+        FROM local_users
+
+      - |
+        SELECT * from chain(
+         q1=local_users_with_mtime,
+         q2={
+           -- Only show users not already shown in the local_users above.
+           SELECT * from roaming_users
+           where not UUID in local_users.UUID
+         })
+
+
+reports:
+  - type: HUNT
+    template: |
+      # Users Hunt
+
+      Enumerating all the users on all endpoints can reveal machines
+      which had an unexpected login activity. For example, if a user
+      from an unrelated department is logging into an endpoint by
+      virtue of domain credentials, this could mean their account is
+      compromised and the attackers are laterally moving through the
+      network.
+
+      {{ define &#34;users&#34; }}
+         SELECT Name, UUID, Fqdn, timestamp(epoch=Mtime) as LastMod FROM source()
+         WHERE NOT UUID =~ &#34;(-5..$|S-1-5-18|S-1-5-19|S-1-5-20)&#34;
+      {{ end }}
+
+      {{ Query &#34;users&#34; | Table }}
+
+  - type: CLIENT
+    template: |
+
+      System Users
+      ============
+
+      {{ .Description }}
+
+      The following table shows basic information about the users on this system.
+
+      * Remote users also show the modification timestamp from the
+        registry key.
+
+      * Local users show the mtime of their home directory.
+
+      {{ define &#34;users&#34; }}
+         LET users &lt;= SELECT Name, UUID, Type,
+               timestamp(epoch=Mtime) as Mtime
+         FROM source()
+      {{ end }}
+      {{ Query &#34;users&#34; &#34;SELECT Name, UUID, Type, Mtime FROM users&#34; | Table }}
+</code></pre></div>   </div>
+</div>
+<h2 id="windowssysinternalsautoruns">Windows.Sysinternals.Autoruns</h2>
+<p>Uses Sysinternals autoruns to scan the host.</p>
+<p>Note this requires syncing the sysinternals binary from the host -
+you will need to run Windows.Utils.DownloadBinaries on the server
+first.</p>
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>binaryURL</td>
+<td></td>
+<td>Specify this as the base of the binary store (if empty we use\nthe server&rsquo;s public directory).\n</td>
+</tr>
+<tr>
+<td>AutorunArgs</td>
+<td>-nobanner -accepteula -t -a * -c *\n</td>
+<td>A space separated list of args to run with.\n</td>
+</tr>
+</tbody>
+</table>
+<div class="expand">
+    <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fa fa-chevron-down' : 'fa fa-chevron-right';});});">
+        <i style="font-size:x-small;" class="fa fa-chevron-right"></i>
+        <span>
+          View Artifact Source
+        </span>
+    </div>
+    <div class="expand-content" style="display: none;">
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">name: Windows.Sysinternals.Autoruns
+description: |
+  Uses Sysinternals autoruns to scan the host.
+
+  Note this requires syncing the sysinternals binary from the host -
+  you will need to run Windows.Utils.DownloadBinaries on the server
+  first.
+
+precondition: SELECT OS From info() where OS = &#39;windows&#39;
+
+parameters:
+  - name: binaryURL
+    description: |
+      Specify this as the base of the binary store (if empty we use
+      the server&#39;s public directory).
+  - name: AutorunArgs
+    description: |
+      A space separated list of args to run with.
+    default: |
+      -nobanner -accepteula -t -a * -c *
+
+sources:
+  - queries:
+      # Get the path to the binary.
+      - |
+        LET bin &lt;= SELECT * FROM Artifact.Windows.Utils.FetchBinary(
+              binaryURL=binaryURL, ToolName=&#34;Autorun&#34;)
+
+      # Call the binary and return all its output in a single row.
+      - |
+        LET output = SELECT * FROM execve(argv=(bin[0]).FullPath +
+           split(string=AutorunArgs, sep=&#34; &#34;),
+           length=10000000)
+
+      # Parse the CSV output and return it as rows. We can filter this further.
+      - |
+        SELECT * FROM foreach(
+          row=output,
+          query={
+             SELECT * FROM parse_csv(filename=utf16(string=Stdout),
+                                     accessor=&#34;data&#34;)
+          })
+</code></pre></div>   </div>
+</div>
+<h2 id="windowssysinternalssysmoninstall">Windows.Sysinternals.SysmonInstall</h2>
+<p>Sysmon is a kernel level system monitor written by
+Sysinternals. While we are not able to distribute Sysmon ourselves,
+Velociraptor can help you manage its deployment and installation.</p>
+<p>In order to deploy sysmon on the endpoint, you need to:</p>
+<ol>
+<li>
+<p>Ensure the server contains the latest Sysmon binaries. You will
+need to download them yourself by running the
+<code>Windows.Utils.DownloadBinaries</code> server artifact.</p>
+</li>
+<li>
+<p>Ensure the sysmon configration is appropriate for your
+deployment. If you edit the file in your public directory
+(<code>&lt;file store&gt;/public/sysmon_config.xml</code>) you will need to run the
+<code>Windows.Utils.UpdatePublicHashes</code> server artifact to update the
+inventory file.</p>
+</li>
+</ol>
+<div class="expand">
+    <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fa fa-chevron-down' : 'fa fa-chevron-right';});});">
+        <i style="font-size:x-small;" class="fa fa-chevron-right"></i>
+        <span>
+          View Artifact Source
+        </span>
+    </div>
+    <div class="expand-content" style="display: none;">
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">name: Windows.Sysinternals.SysmonInstall
+description: |
+  Sysmon is a kernel level system monitor written by
+  Sysinternals. While we are not able to distribute Sysmon ourselves,
+  Velociraptor can help you manage its deployment and installation.
+
+  In order to deploy sysmon on the endpoint, you need to:
+
+  1. Ensure the server contains the latest Sysmon binaries. You will
+     need to download them yourself by running the
+     `Windows.Utils.DownloadBinaries` server artifact.
+
+  2. Ensure the sysmon configration is appropriate for your
+     deployment. If you edit the file in your public directory
+     (`&lt;file store&gt;/public/sysmon_config.xml`) you will need to run the
+     `Windows.Utils.UpdatePublicHashes` server artifact to update the
+     inventory file.
+</code></pre></div>   </div>
+</div>
+<h2 id="windowssystemamcache">Windows.System.Amcache</h2>
+<p>Get information from the system&rsquo;s amcache.</p>
+<p>The Amcache.hve file is a registry file that stores the information
+of executed applications. Amcache.hve records the recent processes
+that were run and lists the path of the files that’s executed which
+can then be used to find the executed program.</p>
+<p>This artifact works on Windows 10 1607 version.</p>
+<p>References:
+<a href="https://www.andreafortuna.org/cybersecurity/amcache-and-shimcache-in-forensic-analysis/">https://www.andreafortuna.org/cybersecurity/amcache-and-shimcache-in-forensic-analysis/</a>
+<a href="https://www.ssi.gouv.fr/uploads/2019/01/anssi-coriin_2019-analysis_amcache.pdf">https://www.ssi.gouv.fr/uploads/2019/01/anssi-coriin_2019-analysis_amcache.pdf</a></p>
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>amCacheGlob</td>
+<td>%SYSTEMROOT%/appcompat/Programs/Amcache.hve</td>
+<td></td>
+</tr>
+<tr>
+<td>amCacheRegPath</td>
+<td>/Root/InventoryApplicationFile/*</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<div class="expand">
+    <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fa fa-chevron-down' : 'fa fa-chevron-right';});});">
+        <i style="font-size:x-small;" class="fa fa-chevron-right"></i>
+        <span>
+          View Artifact Source
+        </span>
+    </div>
+    <div class="expand-content" style="display: none;">
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">name: Windows.System.Amcache
+description: |
+  Get information from the system&#39;s amcache.
+
+  The Amcache.hve file is a registry file that stores the information
+  of executed applications. Amcache.hve records the recent processes
+  that were run and lists the path of the files that’s executed which
+  can then be used to find the executed program.
+
+  This artifact works on Windows 10 1607 version.
+
+  References:
+    https://www.andreafortuna.org/cybersecurity/amcache-and-shimcache-in-forensic-analysis/
+    https://www.ssi.gouv.fr/uploads/2019/01/anssi-coriin_2019-analysis_amcache.pdf
+
+parameters:
+  - name: amCacheGlob
+    default: &#34;%SYSTEMROOT%/appcompat/Programs/Amcache.hve&#34;
+  - name: amCacheRegPath
+    default: /Root/InventoryApplicationFile/*
+
+precondition: |
+  SELECT OS From info() where OS = &#39;windows&#39;
+
+sources:
+  - name: InventoryApplicationFile
+    queries:
+      - |
+        SELECT FileId,
+               Key.FullPath as Key,
+               timestamp(epoch=Key.Mtime.Sec) as LastModified,
+               Key.Mtime.Sec as _LastModified,
+               LowerCaseLongPath as Binary,
+               Name,
+               Size,
+               ProductName,
+               Publisher,
+               Version,
+               BinFileVersion
+        FROM foreach(
+          row={
+            SELECT FullPath from glob(globs=expand(path=amCacheGlob))
+            WHERE log(message=&#34;Processing &#34;+FullPath)
+          }, query={
+            SELECT * from read_reg_key(
+               globs=url(scheme=&#39;file&#39;, path=FullPath,
+                         fragment=amCacheRegPath).String,
+               accessor=&#39;raw_reg&#39;
+            )
+        })
+
+  - name: File
+    queries:
+      - |
+        SELECT * FROM foreach(
+          row={
+            SELECT FullPath from glob(globs=expand(path=amCacheGlob))
+          }, query={
+            SELECT get(item=scope(), member=&#34;100&#34;) As ProductId,
+                   get(item=scope(), member=&#34;101&#34;) As SHA1,
+                   get(item=scope(), member=&#34;15&#34;) As FullPath,
+                   timestamp(epoch=Key.Mtime.Sec) as LastModifiedKey
+            FROM read_reg_key(
+               globs=url(scheme=&#39;file&#39;, path=FullPath,
+                         fragment=&#39;/Root/File/*/*&#39;).String,
+               accessor=&#39;raw_reg&#39;
+            )
+        })
+
+reports:
+  - type: CLIENT
+    template: |
+      {{define &#34;recent_executions&#34;}}
+           LET recent_executions &lt;= SELECT LastModified, Name, count(items=Name) As Count,
+                  int(int=_LastModified/3600) AS Hour
+           FROM source(source=&#34;InventoryApplicationFile&#34;)
+           GROUP BY Hour
+           LIMIT 500
+      {{ end }}
+
+      {{ define &#34;timeline&#34; }}
+         SELECT LastModified,
+                format(format=&#34;%s (%d)&#34;, args=[Name, Count]) As TotalCount
+         FROM recent_executions
+      {{ end }}
+
+      The AMCache file
+      ================
+
+      {{ .Description }}
+
+      ## Execution clusters
+
+      The AMCache artifact only shows us the time of first execution
+      of a binary. We get an idea when it was installed. Typically
+      execution artifacts are clustered in time - if an attacker
+      copies a bunch of new tools they will all start running at about
+      the same time.
+
+      The below timeline shows a summary of execution clusters. The
+      binaries are grouped in an hour interval. The label is the first
+      binary name and the total number of binaries within that hour.
+
+      &gt; For clarity we hide the names of all other binaries, and just
+        show the total count.
+
+      {{ Query &#34;recent_executions&#34; &#34;timeline&#34; | Timeline }}
+
+
+      Here is the same data in tabular form.
+
+      {{ Query &#34;timeline&#34; | Table }}
+</code></pre></div>   </div>
+</div>
+<h2 id="windowssystemcmdshell">Windows.System.CmdShell</h2>
+<p>This artifact allows running arbitrary commands through the system
+shell cmd.exe.</p>
+<p>Since Velociraptor typically runs as system, the commands will also
+run as System.</p>
+<p>This is a very powerful artifact since it allows for arbitrary
+command execution on the endpoints. Therefore this artifact requires
+elevated permissions (specifically the <code>EXECVE</code>
+permission). Typically it is only available with the <code>administrator</code>
+role.</p>
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command</td>
+<td>dir C:\</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<div class="expand">
+    <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fa fa-chevron-down' : 'fa fa-chevron-right';});});">
+        <i style="font-size:x-small;" class="fa fa-chevron-right"></i>
+        <span>
+          View Artifact Source
+        </span>
+    </div>
+    <div class="expand-content" style="display: none;">
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">name: Windows.System.CmdShell
+description: |
+  This artifact allows running arbitrary commands through the system
+  shell cmd.exe.
+
+  Since Velociraptor typically runs as system, the commands will also
+  run as System.
+
+  This is a very powerful artifact since it allows for arbitrary
+  command execution on the endpoints. Therefore this artifact requires
+  elevated permissions (specifically the `EXECVE`
+  permission). Typically it is only available with the `administrator`
+  role.
+
+required_permissions:
+  - EXECVE
+
+precondition:
+  SELECT OS From info() where OS = &#39;windows&#39;
+
+parameters:
+  - name: Command
+    default: &#34;dir C:\\&#34;
+
+sources:
+  - query: |
+      SELECT * FROM execve(argv=[&#34;cmd.exe&#34;, &#34;/c&#34;, Command])
+</code></pre></div>   </div>
+</div>
+<h2 id="windowssystemcriticalservices">Windows.System.CriticalServices</h2>
+<p>This artifact returns information about any services which are
+considered critical.</p>
+<p>The default list contains virus scanners. If the software is not
+installed at all, it will not be shown.</p>
+<p>ATT&amp;CK: T1089</p>
+<h3 id="references">References:</h3>
+<ul>
+<li><a href="https://github.com/teoseller/osquery-attck/blob/master/windows_critical_service_status.conf">https://github.com/teoseller/osquery-attck/blob/master/windows_critical_service_status.conf</a></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>lookupTable</td>
+<td>ServiceName\nWinDefend\nMpsSvc\nSepMasterService\n &hellip;</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<div class="expand">
+    <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fa fa-chevron-down' : 'fa fa-chevron-right';});});">
+        <i style="font-size:x-small;" class="fa fa-chevron-right"></i>
+        <span>
+          View Artifact Source
+        </span>
+    </div>
+    <div class="expand-content" style="display: none;">
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">name: Windows.System.CriticalServices
+description: |
+  This artifact returns information about any services which are
+  considered critical.
+
+  The default list contains virus scanners. If the software is not
+  installed at all, it will not be shown.
+
+  ATT&amp;CK: T1089
+
+  ### References:
+  * https://github.com/teoseller/osquery-attck/blob/master/windows_critical_service_status.conf
+
+precondition: SELECT OS From info() where OS = &#39;windows&#39;
+
+parameters:
+  - name: lookupTable
+    default: |
+       ServiceName
+       WinDefend
+       MpsSvc
+       SepMasterService
+       SAVAdminService
+       SavService
+       wscsvc
+       wuauserv
+
+sources:
+     - queries:
+       - LET lookup &lt;= SELECT * FROM parse_csv(filename=lookupTable, accessor=&#39;data&#39;)
+       - |
+         SELECT Name, DisplayName, Created, State, {
+            SELECT * FROM lookup WHERE Name =~ ServiceName
+         } AS Critical
+         FROM Artifact.Windows.System.Services()
+         WHERE Critical AND State != &#34;Running&#34;
+</code></pre></div>   </div>
+</div>
+<h2 id="windowssystemdlls">Windows.System.DLLs</h2>
+<p>Enumerate the DLLs loaded by a running process. It includes hash value
+and certificate information.</p>
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>processRegex</td>
+<td>.</td>
+<td>A regex applied to process names.</td>
+</tr>
+<tr>
+<td>dllRegex</td>
+<td>.</td>
+<td>A regex applied to the full dll path (e.g. whitelist all system dlls)</td>
+</tr>
+<tr>
+<td>Calculate_Hash</td>
+<td>N</td>
+<td></td>
+</tr>
+<tr>
+<td>CertificateInfo</td>
+<td>N</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<div class="expand">
+    <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fa fa-chevron-down' : 'fa fa-chevron-right';});});">
+        <i style="font-size:x-small;" class="fa fa-chevron-right"></i>
+        <span>
+          View Artifact Source
+        </span>
+    </div>
+    <div class="expand-content" style="display: none;">
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">name: Windows.System.DLLs
+description: |
+  Enumerate the DLLs loaded by a running process. It includes hash value
+  and certificate information.
+
+parameters:
+  - name: processRegex
+    description: A regex applied to process names.
+    default: .
+  - name: dllRegex
+    description: A regex applied to the full dll path (e.g. whitelist all system dlls)
+    default: .
+  - name: Calculate_Hash
+    default: N
+    type: bool
+  - name: CertificateInfo
+    default: N
+    type: bool
+     
+sources:
+  - queries:
+      - LET processes = SELECT Pid, Name
+        FROM pslist()
+        WHERE Name =~ processRegex
+      - SELECT * FROM foreach(
+          row=processes,
+          query={
+            SELECT Pid, Name,
+                format(format=&#39;%x-%x&#39;, args=[ModuleBaseAddress,
+                     ModuleBaseAddress+ModuleBaseSize]) AS Range,
+                ModuleName, ExePath,
+                if(condition=(Calculate_Hash = &#34;Y&#34;),
+                  then=hash(path=ExePath,
+                            accessor=file)) AS Hash,
+                if(condition=(CertificateInfo = &#34;Y&#34;),
+                  then=authenticode(filename=ExePath)) AS Certinfo
+            FROM modules(pid=Pid)
+            WHERE ExePath =~ dllRegex
+          })
+</code></pre></div>   </div>
+</div>
+<h2 id="windowssystemhandles">Windows.System.Handles</h2>
+<p>Enumerate the handles from selected processes.</p>
+<p>Uncheck all the handle types below to fetch all handle types.</p>
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>processRegex</td>
+<td>.</td>
+<td>A regex applied to process names.</td>
+</tr>
+<tr>
+<td>Files</td>
+<td>Y</td>
+<td>Search for File Handles</td>
+</tr>
+<tr>
+<td>Key</td>
+<td></td>
+<td>Search for Key Handles</td>
+</tr>
+</tbody>
+</table>
+<div class="expand">
+    <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fa fa-chevron-down' : 'fa fa-chevron-right';});});">
+        <i style="font-size:x-small;" class="fa fa-chevron-right"></i>
+        <span>
+          View Artifact Source
+        </span>
+    </div>
+    <div class="expand-content" style="display: none;">
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">name: Windows.System.Handles
+description: |
+  Enumerate the handles from selected processes.
+
+  Uncheck all the handle types below to fetch all handle types.
+
+parameters:
+  - name: processRegex
+    description: A regex applied to process names.
+    default: .
+  - name: Files
+    description: Search for File Handles
+    type: bool
+    default: Y
+  - name: Key
+    description: Search for Key Handles
+    type: bool
+
+sources:
+  - queries:
+      - LET tokens &lt;= SELECT * FROM chain(
+          a={SELECT &#34;File&#34; AS Type FROM scope() WHERE Files = &#39;Y&#39;},
+          a2={SELECT &#34;Section&#34; AS Type FROM scope() WHERE Files = &#39;Y&#39;},
+          b={SELECT &#34;Key&#34; AS Type FROM scope() WHERE Key = &#39;Y&#39;}
+        )
+
+      - LET processes = SELECT Pid AS ProcPid, Name AS ProcName, Exe
+        FROM pslist()
+        WHERE ProcName =~ processRegex AND ProcPid &gt; 0
+
+      - SELECT * FROM foreach(
+          row=processes,
+          query={
+            SELECT ProcPid, ProcName, Exe, Type, Name, Handle
+            FROM handles(pid=ProcPid, types=tokens.Type)
+          })
+</code></pre></div>   </div>
+</div>
+<h2 id="windowssystemlocaladmins">Windows.System.LocalAdmins</h2>
+<p>Gets a list of local admin accounts.</p>
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>script</td>
+<td>Get-LocalGroupMember -Group &ldquo;Administrators&rdquo;</td>
+<td>SELE &hellip;</td>
+</tr>
+</tbody>
+</table>
+<div class="expand">
+    <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fa fa-chevron-down' : 'fa fa-chevron-right';});});">
+        <i style="font-size:x-small;" class="fa fa-chevron-right"></i>
+        <span>
+          View Artifact Source
+        </span>
+    </div>
+    <div class="expand-content" style="display: none;">
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">name: Windows.System.LocalAdmins
+description: |
+   Gets a list of local admin accounts.
+
+reference:
+- https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.localaccounts/get-localgroupmember?view=powershell-5.1
+
+type: CLIENT
+
+parameters:
+ - name: script
+   default: |
+       Get-LocalGroupMember -Group &#34;Administrators&#34; |SELECT -ExpandProperty SID -Property Name, PrincipalSource |select  Name, Value, PrincipalSource|convertto-json
+
+sources:
+  - precondition:
+      SELECT OS From info() where OS = &#39;windows&#39;
+
+    queries:
+    - LET out = SELECT parse_json_array(data=Stdout) AS Output
+          FROM execve(argv=[&#34;powershell&#34;,
+               &#34;-ExecutionPolicy&#34;, &#34;Unrestricted&#34;, &#34;-encodedCommand&#34;,
+                  base64encode(string=utf16_encode(
+                  string=script))
+            ], length=1000000)
+    - SELECT * FROM foreach(row=out.Output[0],
+      query={
+          SELECT Name, Value AS SID, if(condition=PrincipalSource=1,
+            then=&#34;Local&#34;, else=if(condition=PrincipalSource=2,
+            then=&#34;Domain&#34;, else=PrincipalSource)) AS PrincipalSource
+          FROM scope()
+      })
+</code></pre></div>   </div>
+</div>
+<h2 id="windowssystempowershell">Windows.System.PowerShell</h2>
+<p>This artifact allows running arbitrary commands through the system
+powershell.</p>
+<p>Since Velociraptor typically runs as system, the commands will also
+run as System.</p>
+<p>This is a very powerful artifact since it allows for arbitrary
+command execution on the endpoints. Therefore this artifact requires
+elevated permissions (specifically the <code>EXECVE</code>
+permission). Typically it is only available with the <code>administrator</code>
+role.</p>
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command</td>
+<td>dir C:/</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<div class="expand">
+    <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fa fa-chevron-down' : 'fa fa-chevron-right';});});">
+        <i style="font-size:x-small;" class="fa fa-chevron-right"></i>
+        <span>
+          View Artifact Source
+        </span>
+    </div>
+    <div class="expand-content" style="display: none;">
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">name: Windows.System.PowerShell
+description: |
+  This artifact allows running arbitrary commands through the system
+  powershell.
+
+  Since Velociraptor typically runs as system, the commands will also
+  run as System.
+
+  This is a very powerful artifact since it allows for arbitrary
+  command execution on the endpoints. Therefore this artifact requires
+  elevated permissions (specifically the `EXECVE`
+  permission). Typically it is only available with the `administrator`
+  role.
+
+required_permissions:
+  - EXECVE
+
+precondition:
+  SELECT OS From info() where OS = &#39;windows&#39;
+
+parameters:
+  - name: Command
+    default: &#34;dir C:/&#34;
+
+sources:
+  - query: |
+      SELECT * FROM execve(argv=[&#34;powershell&#34;,
+        &#34;-ExecutionPolicy&#34;, &#34;Unrestricted&#34;, &#34;-encodedCommand&#34;,
+        base64encode(string=utf16_encode(string=Command))
+      ])
+</code></pre></div>   </div>
+</div>
+<h2 id="windowssystempslist">Windows.System.Pslist</h2>
+<p>List processes and their running binaries.</p>
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>processRegex</td>
+<td>.</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<div class="expand">
+    <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fa fa-chevron-down' : 'fa fa-chevron-right';});});">
+        <i style="font-size:x-small;" class="fa fa-chevron-right"></i>
+        <span>
+          View Artifact Source
+        </span>
+    </div>
+    <div class="expand-content" style="display: none;">
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">name: Windows.System.Pslist
+description: |
+  List processes and their running binaries.
+
+parameters:
+  - name: processRegex
+    default: .
+
+sources:
+  - queries:
+      - |
+        SELECT Pid, Ppid, TokenIsElevated, Name, CommandLine, Exe,
+               hash(path=Exe) as Hash,
+               authenticode(filename=Exe) AS Authenticode,
+               Username, Memory.WorkingSetSize AS WorkingSetSize
+        FROM pslist()
+        WHERE Name =~ processRegex
+</code></pre></div>   </div>
+</div>
+<h2 id="windowssystemsvchost">Windows.System.SVCHost</h2>
+<p>Typically a windows system will have many svchost.exe
+processes. Sometimes attackers name their processes svchost.exe to
+try to hide. Typically svchost.exe is spawned by services.exe.</p>
+<p>This artifact lists all the processes named svchost.exe and their
+parents if the parent is not also named services.exe.</p>
+<div class="expand">
+    <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fa fa-chevron-down' : 'fa fa-chevron-right';});});">
+        <i style="font-size:x-small;" class="fa fa-chevron-right"></i>
+        <span>
+          View Artifact Source
+        </span>
+    </div>
+    <div class="expand-content" style="display: none;">
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">name: Windows.System.SVCHost
+description: |
+  Typically a windows system will have many svchost.exe
+  processes. Sometimes attackers name their processes svchost.exe to
+  try to hide. Typically svchost.exe is spawned by services.exe.
+
+  This artifact lists all the processes named svchost.exe and their
+  parents if the parent is not also named services.exe.
+
+sources:
+  - precondition: |
+      SELECT OS From info() where OS = &#39;windows&#39;
+
+    queries:
+      - |
+        // Cache the pslist output in memory.
+        LET processes &lt;= SELECT Pid, Name FROM pslist()
+
+      - |
+        // Get the pids of all procecesses named services.exe
+        LET services &lt;= SELECT Pid FROM processes where Name =~ &#34;services.exe&#34;
+
+      - |
+        // The interesting processes are those which are not spawned by services.exe
+        LET suspicious = SELECT Pid As SVCHostPid,
+            Ppid As SVCHostPpid,
+            Exe as SVCHostExe,
+            CommandLine as SVCHostCommandLine
+        FROM processes
+        WHERE Name =~ &#34;svchost&#34; AND NOT Ppid in services.Pid
+
+      - |
+        // Now for each such process we display its actual parent.
+        SELECT * from foreach(
+           row=suspicious,
+           query={
+              SELECT SVCHostPid, SVCHostPpid, SVCHostExe,
+                     SVCHostCommandLine, Name as ParentName,
+                     Exe As ParentExe
+              FROM processes
+              WHERE Pid=SVCHostPpid
+          })
+</code></pre></div>   </div>
+</div>
+<h2 id="windowssystemservices">Windows.System.Services</h2>
+<p>List all the installed services.</p>
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>servicesKeyGlob</td>
+<td>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Ser &hellip;</td>
+<td></td>
+</tr>
+<tr>
+<td>Calculate_hashes</td>
+<td>N</td>
+<td></td>
+</tr>
+<tr>
+<td>CertificateInfo</td>
+<td>N</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<div class="expand">
+    <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fa fa-chevron-down' : 'fa fa-chevron-right';});});">
+        <i style="font-size:x-small;" class="fa fa-chevron-right"></i>
+        <span>
+          View Artifact Source
+        </span>
+    </div>
+    <div class="expand-content" style="display: none;">
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">name: Windows.System.Services
+description: |
+  List all the installed services.
+
+parameters:
+  - name: servicesKeyGlob
+    default: HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\
+  - name: Calculate_hashes
+    default: N
+    type: bool
+  - name: CertificateInfo
+    default: N
+    type: bool  
+
+sources:
+  - precondition: |
+      SELECT OS From info() where OS = &#39;windows&#39;
+
+    queries:
+      - |
+        LET service &lt;= SELECT State, Name, DisplayName, Status,
+               ProcessId as Pid, ExitCode, StartMode,
+               PathName, ServiceType, StartName as UserAccount,
+               {
+                 SELECT timestamp(epoch=Mtime.Sec) as Created
+                 FROM stat(filename=servicesKeyGlob + Name, accessor=&#39;reg&#39;)
+               } AS Created,
+               {
+                 SELECT ServiceDll FROM read_reg_key(globs=servicesKeyGlob + Name + &#34;\\Parameters&#34;)
+               } AS ServiceDll,
+               {
+                 SELECT FailureCommand FROM read_reg_key(globs=servicesKeyGlob + Name)
+               } AS FailureCommand,
+               parse_string_with_regex(regex=
+                 [&#39;^&#34;(?P&lt;AbsoluteExePath&gt;[^&#34;]+)&#39;,&#39;(?P&lt;AbsoluteExePath&gt;^[^ &#34;]+)&#39;], 
+                 string=PathName).AbsoluteExePath as AbsoluteExePath
+        FROM wmi(query=&#34;SELECT * From Win32_service&#34;, namespace=&#34;root/CIMV2&#34;)
+      - |
+        SELECT *, 
+                 if(condition=(Calculate_hashes = &#34;Y&#34;),
+                    then=hash(path=AbsoluteExePath,
+                           accessor=file)) AS HashServiceExe,
+                 if(condition=(CertificateInfo = &#34;Y&#34;),
+                    then=authenticode(filename=AbsoluteExePath)) AS CertinfoServiceExe,
+                 if(condition=(Calculate_hashes = &#34;Y&#34;),
+                    then=hash(path=ServiceDll,
+                           accessor=file)) AS HashServiceDll,
+                 if(condition=(CertificateInfo = &#34;Y&#34;),
+                    then=authenticode(filename=ServiceDll)) AS CertinfoServiceDll       
+        FROM service
+</code></pre></div>   </div>
+</div>
+<h2 id="windowssystemtaskscheduler">Windows.System.TaskScheduler</h2>
+<p>The Windows task scheduler is a common mechanism that malware uses
+for persistence. It can be used to run arbitrary programs at a later
+time. Commonly malware installs a scheduled task to run itself
+periodically to achieve persistence.</p>
+<p>This artifact enumerates all the task jobs (which are XML
+files). The artifact uploads the original XML files and then
+analyses them to provide an overview of the commands executed and
+the user under which they will be run.</p>
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>TasksPath</td>
+<td>c:/Windows/System32/Tasks/**</td>
+<td></td>
+</tr>
+<tr>
+<td>AlsoUpload</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<div class="expand">
+    <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fa fa-chevron-down' : 'fa fa-chevron-right';});});">
+        <i style="font-size:x-small;" class="fa fa-chevron-right"></i>
+        <span>
+          View Artifact Source
+        </span>
+    </div>
+    <div class="expand-content" style="display: none;">
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">name: Windows.System.TaskScheduler
+description: |
+  The Windows task scheduler is a common mechanism that malware uses
+  for persistence. It can be used to run arbitrary programs at a later
+  time. Commonly malware installs a scheduled task to run itself
+  periodically to achieve persistence.
+
+  This artifact enumerates all the task jobs (which are XML
+  files). The artifact uploads the original XML files and then
+  analyses them to provide an overview of the commands executed and
+  the user under which they will be run.
+
+parameters:
+  - name: TasksPath
+    default: c:/Windows/System32/Tasks/**
+  - name: AlsoUpload
+    type: bool
+
+sources:
+  - name: Analysis
+    queries:
+      - LET Uploads = SELECT Name, FullPath, if(
+           condition=AlsoUpload=&#39;Y&#39;,
+           then=upload(file=FullPath)) as Upload
+        FROM glob(globs=TasksPath)
+        WHERE NOT IsDir
+
+      # Job files contain invalid XML which confuses the parser - we
+      # use regex to remove the invalid tags.
+      - LET parse_task = select FullPath, parse_xml(
+               accessor=&#39;data&#39;,
+               file=regex_replace(
+                    source=utf16(string=Data),
+                    re=&#39;&lt;[?].+?&gt;&#39;,
+                    replace=&#39;&#39;)) AS XML
+        FROM read_file(filenames=FullPath)
+
+      - SELECT FullPath,
+            XML.Task.Actions.Exec.Command as Command,
+            XML.Task.Actions.Exec.Arguments as Arguments,
+            XML.Task.Actions.ComHandler.ClassId as ComHandler,
+            XML.Task.Principals.Principal.UserId as UserId,
+            XML as _XML
+        FROM foreach(row=Uploads, query=parse_task)
+</code></pre></div>   </div>
+</div>
+<h2 id="windowssystemuntrustedbinaries">Windows.System.UntrustedBinaries</h2>
+<p>Windows runs a number of services and binaries as part of the
+operating system. Sometimes malware pretends to run as those well
+known names in order to hide itself in plain sight. For example, a
+malware service might call itself svchost.exe so it shows up in the
+process listing as a benign service.</p>
+<p>This artifact checks that the common systems binaries are
+signed. If a malware replaces these files or names itself in this
+way their signature might not be correct.</p>
+<p>Note that unfortunately Microsoft does not sign all their common
+binaries so many will not be signed (e.g. conhost.exe).</p>
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>processNamesRegex</td>
+<td>(?i)lsass</td>
+<td>svchost</td>
+</tr>
+</tbody>
+</table>
+<div class="expand">
+    <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fa fa-chevron-down' : 'fa fa-chevron-right';});});">
+        <i style="font-size:x-small;" class="fa fa-chevron-right"></i>
+        <span>
+          View Artifact Source
+        </span>
+    </div>
+    <div class="expand-content" style="display: none;">
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">name: Windows.System.UntrustedBinaries
+description: |
+  Windows runs a number of services and binaries as part of the
+  operating system. Sometimes malware pretends to run as those well
+  known names in order to hide itself in plain sight. For example, a
+  malware service might call itself svchost.exe so it shows up in the
+  process listing as a benign service.
+
+  This artifact checks that the common systems binaries are
+  signed. If a malware replaces these files or names itself in this
+  way their signature might not be correct.
+
+  Note that unfortunately Microsoft does not sign all their common
+  binaries so many will not be signed (e.g. conhost.exe).
+
+parameters:
+  - name: processNamesRegex
+    description: A regex to select running processes which we consider should be trusted.
+    default: (?i)lsass|svchost|conhost|taskmgr|winlogon|wmiprv|dwm|csrss|velociraptor
+
+sources:
+  - precondition: |
+      SELECT OS From info() where OS = &#39;windows&#39;
+    queries:
+      - |
+        LET binaries = SELECT lowcase(string=Exe) As Binary
+          FROM pslist()
+          WHERE Exe =~ processNamesRegex
+          GROUP BY Binary
+
+      - |
+        LET auth = SELECT authenticode(filename=Binary) As Authenticode
+        FROM binaries
+      - |
+        SELECT Authenticode.Filename As Filename,
+               Authenticode.IssuerName as Issuer,
+               Authenticode.SubjectName as Subject,
+               Authenticode.Trusted as Trusted from auth
+</code></pre></div>   </div>
+</div>
+<h2 id="windowssystemvad">Windows.System.VAD</h2>
+<p>Enumerate the memory regions of each running process.</p>
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>processRegex</td>
+<td>.</td>
+<td>A regex applied to process names.</td>
+</tr>
+</tbody>
+</table>
+<div class="expand">
+    <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fa fa-chevron-down' : 'fa fa-chevron-right';});});">
+        <i style="font-size:x-small;" class="fa fa-chevron-right"></i>
+        <span>
+          View Artifact Source
+        </span>
+    </div>
+    <div class="expand-content" style="display: none;">
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">name: Windows.System.VAD
+description: |
+  Enumerate the memory regions of each running process.
+
+parameters:
+  - name: processRegex
+    description: A regex applied to process names.
+    default: .
+
+sources:
+  - queries:
+      - LET processes = SELECT Pid, Name
+        FROM pslist()
+        WHERE Name =~ processRegex
+      - SELECT * FROM foreach(
+          row=processes,
+          query={
+            SELECT Pid, Name,
+                format(format=&#39;%x-%x&#39;, args=[Address, Address+Size]) AS Range,
+                Protection, MappingName
+            FROM vad(pid=Pid)
+          })
+</code></pre></div>   </div>
+</div>
+
+
+
+    
+    
+          <footer class=" footline" >
+	
+</footer>
+  </div>
+</div>
+
+<div id="navigation">
+<a class="nav nav-prev" href="/docs/artifacts/windows_system/events/" title="Event Logs"> <i class="fa fa-chevron-left"></i><label>Event Logs</label></a>
+    <a class="nav nav-next" href="/docs/artifacts/windows_system/registry/" title="Registry" style="margin-right: 0px;"><label>Registry</label><i class="fa fa-chevron-right"></i></a></div>
+
+</section>
+<div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+  <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+</div>    
+
+<script src="/js/clipboard.min.js"></script>
+<script src="/js/featherlight.min.js"></script>
+<script src="/js/html5shiv-printshiv.min.js"></script>
+
+<script src="/js/modernizr.custom.71422.js"></script>
+<script src="/js/docdock.js"></script>
+<script src="/theme-original/script.js"></script>
+
+
+    
+
+    
+    
+
+    
+  </body>
+</html>

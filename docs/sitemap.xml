@@ -30,6 +30,10 @@
   </url>
   
   <url>
+    <loc>/docs/artifacts/windows_system/events/</loc>
+  </url>
+  
+  <url>
     <loc>/docs/user-interface/investigating_clients/</loc>
   </url>
   
@@ -64,11 +68,15 @@
   </url>
   
   <url>
-    <loc>/docs/vql_reference/windows/</loc>
+    <loc>/docs/artifacts/windows_system/system/</loc>
   </url>
   
   <url>
     <loc>/docs/artifacts/windows_system/</loc>
+  </url>
+  
+  <url>
+    <loc>/docs/vql_reference/windows/</loc>
   </url>
   
   <url>
@@ -77,6 +85,10 @@
   
   <url>
     <loc>/docs/vql_reference/parsers/</loc>
+  </url>
+  
+  <url>
+    <loc>/docs/artifacts/windows_system/registry/</loc>
   </url>
   
   <url>
@@ -100,6 +112,10 @@
   </url>
   
   <url>
+    <loc>/docs/artifacts/windows_system/network/</loc>
+  </url>
+  
+  <url>
     <loc>/docs/vql_reference/server/</loc>
   </url>
   
@@ -112,12 +128,12 @@
   </url>
   
   <url>
-    <loc>/docs/artifacts/triage/</loc>
+    <loc>/blog/</loc>
+    <lastmod>2020-04-16T00:38:44+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/blog/</loc>
-    <lastmod>2020-03-29T00:38:44+00:00</lastmod>
+    <loc>/docs/artifacts/windows_system/applications/</loc>
   </url>
   
   <url>
@@ -141,7 +157,7 @@
   </url>
   
   <url>
-    <loc>/docs/artifacts/detection/</loc>
+    <loc>/docs/artifacts/windows_system/detection/</loc>
   </url>
   
   <url>
@@ -157,11 +173,19 @@
   </url>
   
   <url>
-    <loc>/docs/artifacts/events/</loc>
+    <loc>/docs/artifacts/windows_system/triage/</loc>
   </url>
   
   <url>
     <loc>/docs/artifacts/misc/</loc>
+  </url>
+  
+  <url>
+    <loc>/docs/artifacts/windows_system/remediation/</loc>
+  </url>
+  
+  <url>
+    <loc>/docs/artifacts/windows_system/monitoring/</loc>
   </url>
   
   <url>
@@ -210,8 +234,13 @@
   </url>
   
   <url>
+    <loc>/blog/medium/2020-04-16-velociraptor-e48a47e0317d/</loc>
+    <lastmod>2020-04-16T00:38:44+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/</loc>
-    <lastmod>2020-03-29T00:38:44+00:00</lastmod>
+    <lastmod>2020-04-16T00:38:44+00:00</lastmod>
   </url>
   
   <url>
@@ -406,7 +435,6 @@
   
   <url>
     <loc>/_header/</loc>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -434,6 +462,10 @@
   </url>
   
   <url>
+    <loc>/golang/go-yara/</loc>
+  </url>
+  
+  <url>
     <loc>/golang/go-ntfs/</loc>
   </url>
   
@@ -447,10 +479,6 @@
   
   <url>
     <loc>/training/gold_coast_jan_20_2020/</loc>
-  </url>
-  
-  <url>
-    <loc>/docs/artifacts/linux/linux/</loc>
   </url>
   
   <url>

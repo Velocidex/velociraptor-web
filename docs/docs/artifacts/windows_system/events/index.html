@@ -1,0 +1,1296 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Velociraptor / Dig deeper</title>
+    
+      <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>Event Logs :: Velociraptor / Dig deeper</title>
+<link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon" />
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<link href="/css/nucleus.css" rel="stylesheet">
+<link href="/css/font-awesome.min.css" rel="stylesheet">
+<link href="/css/hybrid.css" rel="stylesheet">
+<link href="/css/featherlight.min.css" rel="stylesheet">
+<link href="/css/auto-complete.css" rel="stylesheet">
+<link href="/theme-original/style.css" rel="stylesheet">
+
+  <link href="/theme-original/variant-mine.css" rel="stylesheet">
+
+
+<script src="/js/jquery-2.x.min.js"></script>
+<style type="text/css">
+  :root #header + #content > #left > #rlblock_left {
+    display:none !important;
+  }
+</style>
+<link rel="stylesheet" href="/css/theme-mine.css">
+<script src="/js/custom.js"></script>
+
+
+    
+  </head>
+  <body data-url="/docs/artifacts/windows_system/events/">
+    
+      <div id="headermain"></div>
+<nav id="sidebar" class="">
+
+
+
+<div class="highlightable">
+  <div id="header-wrapper">
+    <div id="header">
+      
+	
+  
+    <a href="/">
+  <img src="/images/logo.svg">
+</a>
+
+  
+
+
+    </div>
+        <div class="searchbox">
+                    <label for="search-by"><i class="fa fa-search"></i></label>
+                    <input data-search-input id="search-by" type="text" placeholder="Search...">
+                    <span data-search-clear=""><i class="fa fa-close"></i></span>
+                </div>
+                <script type="text/javascript" src="/js/lunr.min.js"></script>
+                <script type="text/javascript" src="/js/auto-complete.js"></script>
+                <script type="text/javascript">
+        
+            var baseurl = "\/";
+        
+                </script>
+                <script type="text/javascript" src="/js/search.js"></script>
+  </div>
+
+      <ul class="topics">
+    <li data-nav-id="/about/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/about/">About Velociraptor</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/about/features/" class="dd-item">
+        <div>
+          <a href="/about/features/">
+            Velociraptor Features
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/about/license/" class="dd-item">
+        <div>
+          <a href="/about/license/">
+            License
+          </a>
+        </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/docs/" class="dd-item parent haschildren
+        ">
+      <div>
+      <a href="/docs/">Velociraptor Documentation</a>
+            <i class="fa fa-angle-down fa-lg category-icon"></i>
+      </div>
+        <ul>
+    <li data-nav-id="/docs/getting-started/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/docs/getting-started/">Getting Started</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+    <li data-nav-id="/docs/getting-started/stand_alone/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/getting-started/stand_alone/">Standalone Deployment</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/getting-started/deploying_clients/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/getting-started/deploying_clients/">Deploying Clients</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/getting-started/cloud/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/getting-started/cloud/">Deploying in the cloud</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/getting-started/performance/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/getting-started/performance/">Performance</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/getting-started/triaging/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/getting-started/triaging/">Triaging</a>
+      </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/docs/user-interface/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/docs/user-interface/">User Interface</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+    <li data-nav-id="/docs/user-interface/investigating_clients/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/docs/user-interface/investigating_clients/">Investigating Clients</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+    <li data-nav-id="/docs/user-interface/investigating_clients/searching_clients/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/user-interface/investigating_clients/searching_clients/">Searching for clients</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/user-interface/investigating_clients/virtual_filesystem/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/user-interface/investigating_clients/virtual_filesystem/">The Virtual File System</a>
+      </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/docs/user-interface/artifacts/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/docs/user-interface/artifacts/">Velociraptor Artifacts</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+    <li data-nav-id="/docs/user-interface/artifacts/client_artifacts/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/user-interface/artifacts/client_artifacts/">Client Artifacts</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/user-interface/artifacts/client_events/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/user-interface/artifacts/client_events/">Client Event Artifacts</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/user-interface/artifacts/server_artifacts/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/user-interface/artifacts/server_artifacts/">Server Artifacts</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/user-interface/artifacts/server_events/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/user-interface/artifacts/server_events/">Server Event Artifacts</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/user-interface/artifacts/add_artifacts/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/user-interface/artifacts/add_artifacts/">Customizing Artifacts</a>
+      </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/docs/user-interface/api/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/user-interface/api/">The Velociraptor API</a>
+      </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/docs/vql_reference/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/docs/vql_reference/">VQL Reference</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+    <li data-nav-id="/docs/vql_reference/basic/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/vql_reference/basic/">Basic VQL functions and plugins</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/vql_reference/windows/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/vql_reference/windows/">Windows Specific Functionality</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/vql_reference/parsers/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/vql_reference/parsers/">Parsers and data extractors</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/vql_reference/server/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/vql_reference/server/">Server Side Functionality</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/vql_reference/plugin/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/vql_reference/plugin/">Client Side Functionality</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/vql_reference/event/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/vql_reference/event/">Event Plugins</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/vql_reference/experimental/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/vql_reference/experimental/">Experimental Functionality</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/vql_reference/filesystem_accessors/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/vql_reference/filesystem_accessors/">Filesystem Accessors</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/vql_reference/templates/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/vql_reference/templates/">Report Templates</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/vql_reference/tips/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/vql_reference/tips/">Artifact Tips</a>
+      </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/docs/artifacts/" class="dd-item parent haschildren
+        ">
+      <div>
+      <a href="/docs/artifacts/">Artifact Reference</a>
+            <i class="fa fa-angle-down fa-lg category-icon"></i>
+      </div>
+        <ul>
+    <li data-nav-id="/docs/artifacts/linux/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/artifacts/linux/">Linux Artifacts</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/artifacts/windows_system/" class="dd-item parent haschildren
+        ">
+      <div>
+      <a href="/docs/artifacts/windows_system/">Windows</a>
+            <i class="fa fa-angle-down fa-lg category-icon"></i>
+      </div>
+        <ul>
+    <li data-nav-id="/docs/artifacts/windows_system/events/" class="dd-item active
+        ">
+      <div>
+      <a href="/docs/artifacts/windows_system/events/">Event Logs</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/artifacts/windows_system/system/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/artifacts/windows_system/system/">System</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/artifacts/windows_system/registry/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/artifacts/windows_system/registry/">Registry</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/artifacts/windows_system/network/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/artifacts/windows_system/network/">Network</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/artifacts/windows_system/applications/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/artifacts/windows_system/applications/">Applications</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/artifacts/windows_system/detection/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/artifacts/windows_system/detection/">Malware Detection</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/artifacts/windows_system/triage/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/artifacts/windows_system/triage/">Triage Artifacts</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/artifacts/windows_system/remediation/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/artifacts/windows_system/remediation/">Remdiation</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/artifacts/windows_system/monitoring/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/artifacts/windows_system/monitoring/">Event Monitoring</a>
+      </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/docs/artifacts/server/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/artifacts/server/">Server Artifacts</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/artifacts/misc/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/artifacts/misc/">Miscelaneous Artifacts</a>
+      </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/docs/presentations/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/docs/presentations/">Presentations and Workshops</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+    <li data-nav-id="/docs/presentations/training_2020/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/presentations/training_2020/">Enterprise Hunting and Incident Response with Velociraptor 2020</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/presentations/linux.conf.au.2020/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/presentations/linux.conf.au.2020/">Linux.Conf.Au 2020</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/presentations/sans_dfir_summit2019/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/presentations/sans_dfir_summit2019/">SANS Summit 2019</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/presentations/rsa/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/presentations/rsa/">RSA Asia Pacific and Japan 2019</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/presentations/crikeycon2019/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/presentations/crikeycon2019/">Crikeycon 2019 Training Workshop</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/presentations/nzitf2018/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/presentations/nzitf2018/">New Zealand Internet Task Force Conference 2018</a>
+      </div>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/blog/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/blog/">Velociraptor Blog</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/blog/medium/2020-04-16-velociraptor-e48a47e0317d/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-04-16-velociraptor-e48a47e0317d/">
+            Velociraptor
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2020-03-29-velociraptors-acl-model-7f497575daee/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-03-29-velociraptors-acl-model-7f497575daee/">
+            Velociraptor’s ACL model
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2020-03-28-velociraptor-notebooks-d02e0bd11230/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-03-28-velociraptor-notebooks-d02e0bd11230/">
+            Velociraptor notebooks
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2020-03-07-extending-vql-plugins-7fb004cb6ec4/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-03-07-extending-vql-plugins-7fb004cb6ec4/">
+            Extending VQL plugins
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2020-03-06-velociraptor-post-processing-with-jupyter-notebook-and-pandas-8a344d05ee8c/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-03-06-velociraptor-post-processing-with-jupyter-notebook-and-pandas-8a344d05ee8c/">
+            Velociraptor Post-processing with Jupyter Notebook and Pandas
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2020-01-12_hunting-malware-using-mutants-ea08e86dfc19/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-01-12_hunting-malware-using-mutants-ea08e86dfc19/">
+            Hunting Malware using Mutants
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-12-31_digging-into-the-system-resource-usage-monitor-srum-afbadb1a375/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-12-31_digging-into-the-system-resource-usage-monitor-srum-afbadb1a375/">
+            Digging into the System Resource Usage Monitor (SRUM)
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-12-08-velociraptor-to-elasticsearch-3a9fc02c6568/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-12-08-velociraptor-to-elasticsearch-3a9fc02c6568/">
+            Velociraptor to Elasticsearch
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-11-15_recovering-deleted-ntfs-files-with-velociraptor-1fcf09855311/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-11-15_recovering-deleted-ntfs-files-with-velociraptor-1fcf09855311/">
+            Recovering deleted NTFS Files with Velociraptor
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-11-12_windows-event-logs-d8d8e615c9ca/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-11-12_windows-event-logs-d8d8e615c9ca/">
+            Windows Event Logs
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-10-08_triage-with-velociraptor-pt-3-d6f63215f579/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-10-08_triage-with-velociraptor-pt-3-d6f63215f579/">
+            Triage with Velociraptor — Pt 3
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-10-04_triage-with-velociraptor-pt-2-d0f79066ca0e/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-10-04_triage-with-velociraptor-pt-2-d0f79066ca0e/">
+            Triage with Velociraptor — Pt 2
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-10-02_triage-with-velociraptor-pt-1-253f57ce96c0/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-10-02_triage-with-velociraptor-pt-1-253f57ce96c0/">
+            Triage with Velociraptor — Pt 1
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-09-11_velociraptor-s-client-side-buffer-3ce03697a4e6/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-09-11_velociraptor-s-client-side-buffer-3ce03697a4e6/">
+            Velociraptor’s client side buffer
+          </a>
+        </div>
+    </li>
+        </ul>
+    </li>
+
+
+
+
+    <hr />
+    <li></li>
+
+    </ul>
+
+ <section id="footer">
+    </section>
+  </div>
+</nav>
+
+
+
+<section id="body">
+<div id="overlay"></div>
+<div class="padding highlightable">
+
+  <div id="top-bar">
+    <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+        <span id="sidebar-toggle-span">
+          <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+            <i class="fa fa-bars"></i>
+          </a>
+        </span>
+        <span id="toc-menu"><i class="fa fa-list-alt"></i></span>
+        <span class="links">
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+ <a href='/'>Velociraptor / Dig deeper</a> > <a href='/docs/'>Velociraptor Documentation</a> > <a href='/docs/artifacts/'>Artifact Reference</a> > <a href='/docs/artifacts/windows_system/'>Windows</a> > Event Logs
+
+
+
+
+
+
+
+
+
+
+        </span>
+    </div>
+
+    
+    <div class="progress">
+        <div class="wrapper">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#windowseventlogsalternatelogon">Windows.EventLogs.AlternateLogon</a></li>
+    <li><a href="#windowseventlogsdhcp">Windows.EventLogs.DHCP</a></li>
+    <li><a href="#windowseventlogskerbroasting">Windows.EventLogs.Kerbroasting</a></li>
+    <li><a href="#windowseventlogspowershellscriptblock">Windows.EventLogs.PowershellScriptblock</a></li>
+    <li><a href="#windowseventlogsservicecreationcomspec">Windows.EventLogs.ServiceCreationComspec</a></li>
+  </ul>
+</nav>
+        </div>
+    </div>
+    
+
+  </div>
+
+
+<div id="body-inner">
+  
+      <h1>Event Logs</h1>
+      
+        <h4 class="subtitle"> These artifacts collect information related to the windows event logs. </h4>
+      
+  
+
+
+
+    
+    
+    
+
+<h2 id="windowseventlogsalternatelogon">Windows.EventLogs.AlternateLogon</h2>
+<p>Logon specifying alternate credentials - if NLA enabled on
+destination Current logged-on User Name Alternate User Name
+Destination Host Name/IP Process Name</p>
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>securityLogFile</td>
+<td>C:/Windows/System32/Winevt/Logs/Security.evtx</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<div class="expand">
+    <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fa fa-chevron-down' : 'fa fa-chevron-right';});});">
+        <i style="font-size:x-small;" class="fa fa-chevron-right"></i>
+        <span>
+          View Artifact Source
+        </span>
+    </div>
+    <div class="expand-content" style="display: none;">
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">name: Windows.EventLogs.AlternateLogon
+description: |
+  Logon specifying alternate credentials - if NLA enabled on
+  destination Current logged-on User Name Alternate User Name
+  Destination Host Name/IP Process Name
+
+reference:
+  - https://digital-forensics.sans.org/media/SANS_Poster_2018_Hunt_Evil_FINAL.pdf
+
+precondition: SELECT OS From info() where OS = &#39;windows&#39;
+
+parameters:
+  - name: securityLogFile
+    default: C:/Windows/System32/Winevt/Logs/Security.evtx
+
+sources:
+  - queries:
+      - SELECT EventData.IpAddress AS IpAddress,
+               EventData.IpPort AS Port,
+               EventData.ProcessName AS ProcessName,
+               EventData.SubjectUserSid AS SubjectUserSid,
+               EventData.SubjectUserName AS SubjectUserName,
+               EventData.TargetUserName AS TargetUserName,
+               EventData.TargetServerName AS TargetServerName,
+               System.TimeCreated.SystemTime AS LogonTime
+        FROM parse_evtx(filename=securityLogFile)
+        WHERE System.EventID.Value = 4648
+</code></pre></div>   </div>
+</div>
+<h2 id="windowseventlogsdhcp">Windows.EventLogs.DHCP</h2>
+<p>This artifact parses the windows dhcp event log looking for evidence
+of IP address assignments.</p>
+<p>In some investigations it is important to be able to identify the
+machine which was assigned a particular IP address at a point in
+time. Usually these logs are available from the DHCP server, but in
+many cases the server logs are not available (for example, if the
+endpoint was visiting a different network or the DHCP server is on a
+wireless router with no log retention).</p>
+<p>On windows, there are two types of logs:</p>
+<ol>
+<li>
+<p>The first type is the admin log
+(<code>Microsoft-Windows-Dhcp-Client%4Admin.evt</code>). These only contain
+errors such as an endpoint trying to continue its lease, but
+the lease is rejected by the server.</p>
+</li>
+<li>
+<p>The operational log
+(<code>Microsoft-Windows-Dhcp-Client%4Operational.evtx</code>) contains
+the full log of each lease. Unfortunately this log is disabled
+by default. If it is available we can rely on the information.</p>
+</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>eventDirGlob</td>
+<td>C:\Windows\system32\winevt\logs\</td>
+<td></td>
+</tr>
+<tr>
+<td>adminLog</td>
+<td>Microsoft-Windows-Dhcp-Client%4Admin.evtx</td>
+<td></td>
+</tr>
+<tr>
+<td>operationalLog</td>
+<td>Microsoft-Windows-Dhcp-Client%4Operational.evtx</td>
+<td></td>
+</tr>
+<tr>
+<td>accessor</td>
+<td>file</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<div class="expand">
+    <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fa fa-chevron-down' : 'fa fa-chevron-right';});});">
+        <i style="font-size:x-small;" class="fa fa-chevron-right"></i>
+        <span>
+          View Artifact Source
+        </span>
+    </div>
+    <div class="expand-content" style="display: none;">
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">name: Windows.EventLogs.DHCP
+description: |
+
+  This artifact parses the windows dhcp event log looking for evidence
+  of IP address assignments.
+
+  In some investigations it is important to be able to identify the
+  machine which was assigned a particular IP address at a point in
+  time. Usually these logs are available from the DHCP server, but in
+  many cases the server logs are not available (for example, if the
+  endpoint was visiting a different network or the DHCP server is on a
+  wireless router with no log retention).
+
+  On windows, there are two types of logs:
+
+    1. The first type is the admin log
+       (`Microsoft-Windows-Dhcp-Client%4Admin.evt`). These only contain
+       errors such as an endpoint trying to continue its lease, but
+       the lease is rejected by the server.
+
+    2. The operational log
+       (`Microsoft-Windows-Dhcp-Client%4Operational.evtx`) contains
+       the full log of each lease. Unfortunately this log is disabled
+       by default. If it is available we can rely on the information.
+
+parameters:
+  - name: eventDirGlob
+    default: C:\Windows\system32\winevt\logs\
+  - name: adminLog
+    default: Microsoft-Windows-Dhcp-Client%4Admin.evtx
+
+  - name: operationalLog
+    default: Microsoft-Windows-Dhcp-Client%4Operational.evtx
+
+  - name: accessor
+    default: file
+
+sources:
+  - name: RejectedDHCP
+    queries:
+      - |
+        LET files = SELECT * FROM glob(
+            globs=eventDirGlob + adminLog,
+            accessor=accessor)
+      - |
+        SELECT Time AS _Time,
+               timestamp(epoch=Time) As Timestamp,
+               Computer, MAC, ClientIP, DHCPServer, Type FROM foreach(
+           row=files,
+           query={
+              SELECT System.TimeCreated.SystemTime as Time,
+                     System.Computer AS Computer,
+                     format(format=&#34;%x:%x:%x:%x:%x:%x&#34;, args=[EventData.HWAddress]) AS MAC,
+                     ip(netaddr4_le=EventData.Address1) AS ClientIP,
+                     ip(netaddr4_le=EventData.Address2) AS DHCPServer,
+                     &#34;Lease Rejected&#34; AS Type
+              FROM parse_evtx(filename=FullPath, accessor=accessor)
+              WHERE System.EventID.Value = 1002
+           })
+
+  - name: AssignedDHCP
+    queries:
+      - |
+        LET files = SELECT * FROM glob(
+            globs=eventDirGlob + operationalLog,
+            accessor=accessor)
+      - |
+        SELECT Time AS _Time,
+               timestamp(epoch=Time) As Timestamp,
+               Computer, MAC, ClientIP, DHCPServer, Type FROM foreach(
+           row=files,
+           query={
+              SELECT System.TimeCreated.SystemTime as Time,
+                     System.Computer AS Computer,
+                     EventData.InterfaceGuid AS MAC,
+                     ip(netaddr4_le=EventData.Address1) AS ClientIP,
+                     ip(netaddr4_le=EventData.Address2) AS DHCPServer,
+                     &#34;Lease Assigned&#34; AS Type
+              FROM parse_evtx(filename=FullPath, accessor=accessor)
+              WHERE System.EventID.Value = 60000
+           })
+
+
+reports:
+  - type: CLIENT
+    template: |
+      Evidence of DHCP assigned IP addresses
+      ======================================
+
+      {{ .Description }}
+
+      {{ define &#34;assigned_dhcp&#34; }}
+            SELECT Computer, ClientIP,
+                   count(items=Timestamp) AS Total,
+                   enumerate(items=Timestamp) AS Times
+            FROM source(source=&#39;AssignedDHCP&#39;)
+            GROUP BY ClientIP
+      {{ end }}
+      {{ define &#34;rejected_dhcp&#34; }}
+            SELECT Computer, ClientIP,
+                   count(items=Timestamp) AS Total,
+                   enumerate(items=Timestamp) AS Times
+            FROM source(source=&#39;RejectedDHCP&#39;)
+            GROUP BY ClientIP
+      {{ end }}
+
+      {{ $assigned := Query &#34;assigned_dhcp&#34;}}
+      {{ if $assigned }}
+      ## Operational logs
+
+      This machine has DHCP operational logging enabled. We therefore
+      can see complete references to all granted leases:
+        {{ Table $assigned }}
+
+      ## Timeline
+
+      {{ Query &#34;SELECT _Time * 1000, ClientIP FROM source(source=&#39;AssignedDHCP&#39;)&#34; | Timeline }}
+
+      {{ end }}
+
+      ## Admin logs
+
+      The admin logs show errors with DHCP lease requests. Typically
+      rejected leases indicate that the machine held a least on a IP
+      address in the past, but this lease is invalid for its current
+      environment. For example, the machine has been moved to a
+      different network.
+
+      {{ Query &#34;rejected_dhcp&#34; | Table }}
+
+      {{ Query &#34;SELECT _Time * 1000, ClientIP FROM source(source=&#39;RejectedDHCP&#39;)&#34; | Timeline }}
+</code></pre></div>   </div>
+</div>
+<h2 id="windowseventlogskerbroasting">Windows.EventLogs.Kerbroasting</h2>
+<p><strong>Description</strong>:
+This Artifact will return all successful Kerberos TGS Ticket events for
+Service Accounts (SPN attribute) implemented with weak encryption. These
+tickets are vulnerable to brute force attack and this event is an indicator
+of a Kerbroasting attack.</p>
+<p><strong>ATT&amp;CK</strong>: <a href="https://attack.mitre.org/techniques/T1208/">T1208 - Kerbroasting</a>
+Typical attacker methodology is to firstly request accounts in the domain
+with SPN attributes, then request an insecure TGS ticket for brute forcing.
+This attack is particularly effective as any domain credentials can be used
+to implement the attack and service accounts often have elevated privileges.
+Kerbroasting can be used for privilege escalation or persistence by adding a
+SPN attribute to an unexpected account.</p>
+<p><strong>Reference</strong>: <a href="https://www.trustedsec.com/2018/05/art_of_kerberoast/">The Art of Detecting Kerberoast Attacks</a>
+<strong>Log Source</strong>: Windows Security Event Log (Domain Controllers)
+<strong>Event ID</strong>: 4769
+<strong>Status</strong>: 0x0 (Audit Success)
+<strong>Ticket Encryption</strong>: 0x17 (RC4)
+<strong>Service Name</strong>: NOT krbtgt or NOT a system account (account name ends in $)
+<strong>TargetUserName</strong>: NOT a system account (<em>$@</em>)</p>
+<p>Monitor and alert on unusual events with these conditions from an unexpected
+IP.
+Note: There are potential false positives so whitelist normal source IPs and
+manage risk of insecure ticket generation.</p>
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>eventLog</td>
+<td>C:\Windows\system32\winevt\logs\Security.evtx</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<div class="expand">
+    <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fa fa-chevron-down' : 'fa fa-chevron-right';});});">
+        <i style="font-size:x-small;" class="fa fa-chevron-right"></i>
+        <span>
+          View Artifact Source
+        </span>
+    </div>
+    <div class="expand-content" style="display: none;">
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">name: Windows.EventLogs.Kerbroasting
+description: |
+  **Description**:
+  This Artifact will return all successful Kerberos TGS Ticket events for
+  Service Accounts (SPN attribute) implemented with weak encryption. These
+  tickets are vulnerable to brute force attack and this event is an indicator
+  of a Kerbroasting attack.
+
+  **ATT&amp;CK**: [T1208 - Kerbroasting](https://attack.mitre.org/techniques/T1208/)
+  Typical attacker methodology is to firstly request accounts in the domain
+  with SPN attributes, then request an insecure TGS ticket for brute forcing.
+  This attack is particularly effective as any domain credentials can be used
+  to implement the attack and service accounts often have elevated privileges.
+  Kerbroasting can be used for privilege escalation or persistence by adding a
+  SPN attribute to an unexpected account.
+
+  **Reference**: [The Art of Detecting Kerberoast Attacks](https://www.trustedsec.com/2018/05/art_of_kerberoast/)
+  **Log Source**: Windows Security Event Log (Domain Controllers)
+  **Event ID**: 4769
+  **Status**: 0x0 (Audit Success)
+  **Ticket Encryption**: 0x17 (RC4)
+  **Service Name**: NOT krbtgt or NOT a system account (account name ends in $)
+  **TargetUserName**: NOT a system account (*$@*)
+
+
+  Monitor and alert on unusual events with these conditions from an unexpected
+  IP.
+  Note: There are potential false positives so whitelist normal source IPs and
+  manage risk of insecure ticket generation.
+
+
+author: Matt Green - @mgreen27
+
+parameters:
+  - name: eventLog
+    default: C:\Windows\system32\winevt\logs\Security.evtx
+
+sources:
+  - name: Kerbroasting
+    queries:
+      - LET files = SELECT * FROM glob(globs=eventLog)
+
+      - SELECT timestamp(epoch=System.TimeCreated.SystemTime) As EventTime,
+              System.EventID.Value as EventID,
+              System.Computer as Computer,
+              EventData.ServiceName as ServiceName,
+              EventData.ServiceSid as ServiceSid,
+              EventData.TargetUserName as TargetUserName,
+              &#34;0x&#34; + format(format=&#34;%x&#34;, args=EventData.Status) as Status,
+              EventData.TargetDomainName as TargetDomainName,
+              &#34;0x&#34; + format(format=&#34;%x&#34;, args=EventData.TicketEncryptionType) as TicketEncryptionType,
+              &#34;0x&#34; + format(format=&#34;%x&#34;, args=EventData.TicketOptions) as TicketOptions,
+              EventData.TransmittedServices as TransmittedServices,
+              EventData.IpAddress as IpAddress,
+              EventData.IpPort as IpPort
+        FROM foreach(
+          row=files,
+          query={
+            SELECT *
+            FROM parse_evtx(filename=FullPath)
+            WHERE System.EventID.Value = 4769
+                AND EventData.TicketEncryptionType = 23
+                AND EventData.Status = 0
+                AND NOT EventData.ServiceName =~ &#34;krbtgt|\\$$&#34;
+                AND NOT EventData.TargetUserName =~ &#34;\\$@&#34;
+        })
+
+reports:
+  - type: CLIENT
+    template: |
+
+      Kerbroasting: TGS Ticket events.
+      ===============================
+
+      {{ .Description }}
+      {{ Query &#34;SELECT EventTime, Computer, ServiceName, TargetUserName, TargetDomainName, IpAddress FROM source(source=&#39;Kerbroasting&#39;)&#34; | Table }}
+
+  - type: HUNT
+    template: |
+
+      Kerbroasting: TGS Ticket events.
+      ===============================
+
+      {{ .Description }}
+      {{ Query &#34;SELECT EventTime, Computer, ServiceName, TargetUserName, TargetDomainName, IpAddress FROM source(source=&#39;Kerbroasting&#39;)&#34; | Table }}
+</code></pre></div>   </div>
+</div>
+<h2 id="windowseventlogspowershellscriptblock">Windows.EventLogs.PowershellScriptblock</h2>
+<p>This Artifact will search and extract ScriptBlock events (Event ID 4104) from
+Powershell-Operational Event Logs.</p>
+<p>Powershell is commonly used by attackers accross all stages of the attack
+lifecycle. A valuable hunt is to search Scriptblock logs for signs of
+malicious content.</p>
+<p>There are several parameter&rsquo;s availible for search leveraging regex.</p>
+<ul>
+<li>dateAfter enables search for events after this date.</li>
+<li>dateBefore enables search for events before this date.</li>
+<li>SearchStrings enables regex search over scriptblock text field.</li>
+<li>stringWhiteList enables a regex whitelist for scriptblock text field.</li>
+<li>pathWhitelist enables a regex whitelist for path of scriptblock.</li>
+<li>LogLevel enables searching on type of log. Default is Warning level
+which is logged even if ScriptBlock logging is turned off when
+suspicious keywords detected in Powershell interpreter.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>eventLog</td>
+<td>C:\Windows\system32\winevt\logs\Microsoft-Win &hellip;</td>
+<td></td>
+</tr>
+<tr>
+<td>dateAfter</td>
+<td></td>
+<td>search for events after this date. YYYY-MM-DDTmm:hh:ss Z</td>
+</tr>
+<tr>
+<td>dateBefore</td>
+<td></td>
+<td>search for events before this date. YYYY-MM-DDTmm:hh:ss Z</td>
+</tr>
+<tr>
+<td>searchStrings</td>
+<td></td>
+<td>regex search over scriptblock text field.</td>
+</tr>
+<tr>
+<td>stringWhitelist</td>
+<td></td>
+<td>Regex of string to witelist</td>
+</tr>
+<tr>
+<td>pathWhitelist</td>
+<td></td>
+<td>Regex of path to whitelist.</td>
+</tr>
+<tr>
+<td>LogLevel</td>
+<td>Warning</td>
+<td>Log level. Warning is Powershell default bad keyword list.</td>
+</tr>
+</tbody>
+</table>
+<div class="expand">
+    <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fa fa-chevron-down' : 'fa fa-chevron-right';});});">
+        <i style="font-size:x-small;" class="fa fa-chevron-right"></i>
+        <span>
+          View Artifact Source
+        </span>
+    </div>
+    <div class="expand-content" style="display: none;">
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">name: Windows.EventLogs.PowershellScriptblock
+description: |
+  This Artifact will search and extract ScriptBlock events (Event ID 4104) from 
+  Powershell-Operational Event Logs.
+  
+  Powershell is commonly used by attackers accross all stages of the attack 
+  lifecycle. A valuable hunt is to search Scriptblock logs for signs of 
+  malicious content.
+  
+  There are several parameter&#39;s availible for search leveraging regex. 
+    - dateAfter enables search for events after this date.  
+    - dateBefore enables search for events before this date.   
+    - SearchStrings enables regex search over scriptblock text field.  
+    - stringWhiteList enables a regex whitelist for scriptblock text field.  
+    - pathWhitelist enables a regex whitelist for path of scriptblock. 
+    - LogLevel enables searching on type of log. Default is Warning level 
+      which is logged even if ScriptBlock logging is turned off when 
+      suspicious keywords detected in Powershell interpreter.   
+  
+
+author: Matt Green - @mgreen27
+
+parameters:
+  - name: eventLog
+    default: C:\Windows\system32\winevt\logs\Microsoft-Windows-PowerShell%4Operational.evtx
+  - name: dateAfter
+    description: &#34;search for events after this date. YYYY-MM-DDTmm:hh:ss Z&#34;
+    type: timestamp
+  - name: dateBefore
+    description: &#34;search for events before this date. YYYY-MM-DDTmm:hh:ss Z&#34;
+    type: timestamp
+  - name: searchStrings
+    description: &#34;regex search over scriptblock text field.&#34;
+  - name: stringWhitelist
+    description: &#34;Regex of string to witelist&#34;
+  - name: pathWhitelist
+    description: &#34;Regex of path to whitelist.&#34;
+    
+  - name: LogLevel
+    description: &#34;Log level. Warning is Powershell default bad keyword list.&#34;
+    type: choices
+    default: Warning
+    choices:
+       - All
+       - Warning
+       - Verbose
+  - name: LogLevelMap
+    type: hidden
+    default: |
+      Choice,Regex
+      All,&#34;.&#34;
+      Warning,&#34;3&#34;
+      Verbose,&#34;5&#34;
+      
+      
+sources:
+  - name: PowershellScriptBlock
+    queries:
+      - LET time &lt;= SELECT format(format=&#34;%v&#34;, args=Regex) as value
+            FROM parse_csv(filename=LogLevelMap, accessor=&#34;data&#34;)
+            WHERE Choice=LogLevel LIMIT 1
+      - LET LogLevelRegex &lt;= SELECT format(format=&#34;%v&#34;, args=Regex) as value
+            FROM parse_csv(filename=LogLevelMap, accessor=&#34;data&#34;)
+            WHERE Choice=LogLevel LIMIT 1
+      - LET files = SELECT * FROM glob(
+            globs=eventLog)
+      - SELECT *
+        FROM foreach(
+          row=files,
+          query={
+            SELECT timestamp(epoch=System.TimeCreated.SystemTime) As EventTime,
+              System.Computer as Computer,
+              System.Security.UserID as SecurityID,
+              EventData.Path as Path,
+              EventData.ScriptBlockId as ScriptBlockId,
+              EventData.ScriptBlockText as ScriptBlockText,
+              System.EventRecordID as EventRecordID,
+              System.Level as Level,
+              System.Opcode as Opcode,
+              System.Task as Task
+            FROM parse_evtx(filename=FullPath)
+            WHERE System.EventID.Value = 4104 and
+                if(condition=dateAfter, then=EventTime &gt; timestamp(string=dateAfter),
+                 else=TRUE) and
+                if(condition=dateBefore, then=EventTime &lt; timestamp(string=dateBefore),
+                 else=TRUE) and
+                format(format=&#34;%d&#34;, args=System.Level) =~ LogLevelRegex.value[0] and
+                if(condition=searchStrings, then=ScriptBlockText =~ searchStrings,
+                 else=TRUE) and
+                if(condition=stringWhitelist, then=not ScriptBlockText =~ stringWhitelist,
+                 else=TRUE) and
+                if(condition=pathWhitelist, then=not Path =~ pathWhitelist,
+                 else=TRUE)
+        })
+
+reports:
+  - type: HUNT
+    template: |
+      Powershell: Scriptblock
+      =======================
+      Powershell is commonly used by attackers accross all stages of the attack 
+      lifecycle.  
+      A valuable hunt is to search Scriptblock logs for signs of malicious 
+      content. Stack ranking these events can provide valuable leads from which 
+      to start an investigation.
+      
+      {{ Query &#34;SELECT count(items=ScriptBlockText) as Count, ScriptBlockText FROM source(source=&#39;PowershellScriptBlock&#39;) GROUP BY ScriptBlockText ORDER BY Count&#34;  | Table }}
+      
+</code></pre></div>   </div>
+</div>
+<h2 id="windowseventlogsservicecreationcomspec">Windows.EventLogs.ServiceCreationComspec</h2>
+<p>This Detection hts on the string &ldquo;COMSPEC&rdquo; (nocase) in Windows Service
+Creation events. That is: EventID 7045 from the System event log.</p>
+<p>This detects many hack tools that leverage SCM based lateral movement
+including smbexec.</p>
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>eventLog</td>
+<td>C:\Windows\system32\winevt\logs\System.evtx</td>
+<td></td>
+</tr>
+<tr>
+<td>accessor</td>
+<td>ntfs</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<div class="expand">
+    <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fa fa-chevron-down' : 'fa fa-chevron-right';});});">
+        <i style="font-size:x-small;" class="fa fa-chevron-right"></i>
+        <span>
+          View Artifact Source
+        </span>
+    </div>
+    <div class="expand-content" style="display: none;">
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">name: Windows.EventLogs.ServiceCreationComspec
+description: |
+
+  This Detection hts on the string &#34;COMSPEC&#34; (nocase) in Windows Service
+  Creation events. That is: EventID 7045 from the System event log. 
+
+  This detects many hack tools that leverage SCM based lateral movement 
+  including smbexec.
+
+author: Matt Green - @mgreen27
+
+parameters:
+  - name: eventLog
+    default: C:\Windows\system32\winevt\logs\System.evtx
+  - name: accessor
+    default: ntfs
+
+sources:
+  - name: ServiceCreation
+    queries:
+      - |
+        LET files = SELECT * FROM glob(
+            globs=eventLog,
+            accessor=accessor)
+      - |
+        SELECT *
+        FROM foreach(
+          row=files,
+          query={
+            SELECT timestamp(epoch=System.TimeCreated.SystemTime) As EventTime,
+              System.EventID.Value as EventID,
+              System.Computer as Computer,
+              System.Security.UserID as SecurityID,
+              EventData.AccountName as ServiceAccount,
+              EventData.ServiceName as ServiceName,
+              EventData.ImagePath as ImagePath,
+              EventData.ServiceType as ServiceType,
+              EventData.StartType as StartType,
+              System.EventRecordID as EventRecordID,
+              System.Level as Level,
+              System.Opcode as Opcode,
+              System.Task as Task
+            FROM parse_evtx(filename=FullPath, accessor=accessor)
+            WHERE System.EventID.Value = 7045 and 
+              EventData.ImagePath =~ &#34;(?i)COMSPEC&#34;
+        })
+</code></pre></div>   </div>
+</div>
+
+
+
+    
+    
+          <footer class=" footline" >
+	
+</footer>
+  </div>
+</div>
+
+<div id="navigation">
+<a class="nav nav-prev" href="/docs/artifacts/windows_system/" title="Windows"> <i class="fa fa-chevron-left"></i><label>Windows</label></a>
+    <a class="nav nav-next" href="/docs/artifacts/windows_system/system/" title="System" style="margin-right: 0px;"><label>System</label><i class="fa fa-chevron-right"></i></a></div>
+
+</section>
+<div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+  <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+</div>    
+
+<script src="/js/clipboard.min.js"></script>
+<script src="/js/featherlight.min.js"></script>
+<script src="/js/html5shiv-printshiv.min.js"></script>
+
+<script src="/js/modernizr.custom.71422.js"></script>
+<script src="/js/docdock.js"></script>
+<script src="/theme-original/script.js"></script>
+
+
+    
+
+    
+    
+
+    
+  </body>
+</html>

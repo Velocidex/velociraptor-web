@@ -10,26 +10,5 @@
 	<atom:link href="/docs/user-interface/investigating_clients/index.xml" rel="self" type="application/rss+xml" />
     
     
-    <item>
-      <title>Searching for clients</title>
-      <link>/docs/user-interface/investigating_clients/searching_clients/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>/docs/user-interface/investigating_clients/searching_clients/</guid>
-      <description>Before we can interactively examine a client, we need to select it in the GUI. The best way is to search for it. The search bar is present at the top of every page making it easily accessible. Just start typing a search term and the UI will suggest matches.
-We may search for the client by host name, label or client id. Simply click on the search bar without any search term to show some random clients.</description>
-    </item>
-    
-    <item>
-      <title>The Virtual File System</title>
-      <link>/docs/user-interface/investigating_clients/virtual_filesystem/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>/docs/user-interface/investigating_clients/virtual_filesystem/</guid>
-      <description>If we had to investigate a machine interactively we would probably start off by using Windows Explorer or a similar tool to navigate the endpoint&amp;rsquo;s filesystem directly. It is convenient and intuitive!
-Velociraptor provides a similar feature - the client&amp;rsquo;s Virtual File System. This feature mirrors some of the endpoint&amp;rsquo;s files and directories on the endpoint on the server and allows user to navigate through those interactively.
-After searching for a client, and selecting it you will see the option Virtual Filesystem available in the side navigation bar.</description>
-    </item>
-    
   </channel>
 </rss>

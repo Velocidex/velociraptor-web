@@ -4,9 +4,10 @@
 {{else }}
 
 {{ $pages := .Data.Pages  }}
+
 {{ $sorted := ($pages.ByParam "date").Reverse }}
 
-{{ $paginator := .Paginate $sorted 7 }}
+{{ $paginator := .Paginate $sorted 7  }}
 
 <div class="extra-pagination inner">
 {{ partial "pagination.html" $paginator }}

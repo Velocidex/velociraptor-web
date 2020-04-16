@@ -20,6 +20,9 @@ title = "Velociraptor / Dig deeper"
   # Google Analytics tracking
   googleAnalytics = ""
 
+[markup.goldmark.renderer]
+  unsafe= true
+
 [params]
   #  Settings from https://learn.netlify.com/en/basics/configuration/
   name = "Velociraptor"

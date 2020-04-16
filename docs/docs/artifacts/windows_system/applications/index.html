@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Velociraptor / Dig deeper</title>
+    
+      <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>Applications :: Velociraptor / Dig deeper</title>
+<link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon" />
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<link href="/css/nucleus.css" rel="stylesheet">
+<link href="/css/font-awesome.min.css" rel="stylesheet">
+<link href="/css/hybrid.css" rel="stylesheet">
+<link href="/css/featherlight.min.css" rel="stylesheet">
+<link href="/css/auto-complete.css" rel="stylesheet">
+<link href="/theme-original/style.css" rel="stylesheet">
+
+  <link href="/theme-original/variant-mine.css" rel="stylesheet">
+
+
+<script src="/js/jquery-2.x.min.js"></script>
+<style type="text/css">
+  :root #header + #content > #left > #rlblock_left {
+    display:none !important;
+  }
+</style>
+<link rel="stylesheet" href="/css/theme-mine.css">
+<script src="/js/custom.js"></script>
+
+
+    
+  </head>
+  <body data-url="/docs/artifacts/windows_system/applications/">
+    
+      <div id="headermain"></div>
+<nav id="sidebar" class="">
+
+
+
+<div class="highlightable">
+  <div id="header-wrapper">
+    <div id="header">
+      
+	
+  
+    <a href="/">
+  <img src="/images/logo.svg">
+</a>
+
+  
+
+
+    </div>
+        <div class="searchbox">
+                    <label for="search-by"><i class="fa fa-search"></i></label>
+                    <input data-search-input id="search-by" type="text" placeholder="Search...">
+                    <span data-search-clear=""><i class="fa fa-close"></i></span>
+                </div>
+                <script type="text/javascript" src="/js/lunr.min.js"></script>
+                <script type="text/javascript" src="/js/auto-complete.js"></script>
+                <script type="text/javascript">
+        
+            var baseurl = "\/";
+        
+                </script>
+                <script type="text/javascript" src="/js/search.js"></script>
+  </div>
+
+      <ul class="topics">
+    <li data-nav-id="/about/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/about/">About Velociraptor</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/about/features/" class="dd-item">
+        <div>
+          <a href="/about/features/">
+            Velociraptor Features
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/about/license/" class="dd-item">
+        <div>
+          <a href="/about/license/">
+            License
+          </a>
+        </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/docs/" class="dd-item parent haschildren
+        ">
+      <div>
+      <a href="/docs/">Velociraptor Documentation</a>
+            <i class="fa fa-angle-down fa-lg category-icon"></i>
+      </div>
+        <ul>
+    <li data-nav-id="/docs/getting-started/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/docs/getting-started/">Getting Started</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+    <li data-nav-id="/docs/getting-started/stand_alone/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/getting-started/stand_alone/">Standalone Deployment</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/getting-started/deploying_clients/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/getting-started/deploying_clients/">Deploying Clients</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/getting-started/cloud/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/getting-started/cloud/">Deploying in the cloud</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/getting-started/performance/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/getting-started/performance/">Performance</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/getting-started/triaging/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/getting-started/triaging/">Triaging</a>
+      </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/docs/user-interface/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/docs/user-interface/">User Interface</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+    <li data-nav-id="/docs/user-interface/investigating_clients/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/docs/user-interface/investigating_clients/">Investigating Clients</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+    <li data-nav-id="/docs/user-interface/investigating_clients/searching_clients/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/user-interface/investigating_clients/searching_clients/">Searching for clients</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/user-interface/investigating_clients/virtual_filesystem/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/user-interface/investigating_clients/virtual_filesystem/">The Virtual File System</a>
+      </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/docs/user-interface/artifacts/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/docs/user-interface/artifacts/">Velociraptor Artifacts</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+    <li data-nav-id="/docs/user-interface/artifacts/client_artifacts/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/user-interface/artifacts/client_artifacts/">Client Artifacts</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/user-interface/artifacts/client_events/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/user-interface/artifacts/client_events/">Client Event Artifacts</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/user-interface/artifacts/server_artifacts/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/user-interface/artifacts/server_artifacts/">Server Artifacts</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/user-interface/artifacts/server_events/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/user-interface/artifacts/server_events/">Server Event Artifacts</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/user-interface/artifacts/add_artifacts/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/user-interface/artifacts/add_artifacts/">Customizing Artifacts</a>
+      </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/docs/user-interface/api/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/user-interface/api/">The Velociraptor API</a>
+      </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/docs/vql_reference/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/docs/vql_reference/">VQL Reference</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+    <li data-nav-id="/docs/vql_reference/basic/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/vql_reference/basic/">Basic VQL functions and plugins</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/vql_reference/windows/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/vql_reference/windows/">Windows Specific Functionality</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/vql_reference/parsers/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/vql_reference/parsers/">Parsers and data extractors</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/vql_reference/server/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/vql_reference/server/">Server Side Functionality</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/vql_reference/plugin/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/vql_reference/plugin/">Client Side Functionality</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/vql_reference/event/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/vql_reference/event/">Event Plugins</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/vql_reference/experimental/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/vql_reference/experimental/">Experimental Functionality</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/vql_reference/filesystem_accessors/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/vql_reference/filesystem_accessors/">Filesystem Accessors</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/vql_reference/templates/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/vql_reference/templates/">Report Templates</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/vql_reference/tips/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/vql_reference/tips/">Artifact Tips</a>
+      </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/docs/artifacts/" class="dd-item parent haschildren
+        ">
+      <div>
+      <a href="/docs/artifacts/">Artifact Reference</a>
+            <i class="fa fa-angle-down fa-lg category-icon"></i>
+      </div>
+        <ul>
+        </ul>
+    </li>
+    <li data-nav-id="/docs/presentations/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/docs/presentations/">Presentations and Workshops</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+    <li data-nav-id="/docs/presentations/training_2020/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/presentations/training_2020/">Enterprise Hunting and Incident Response with Velociraptor 2020</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/presentations/linux.conf.au.2020/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/presentations/linux.conf.au.2020/">Linux.Conf.Au 2020</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/presentations/sans_dfir_summit2019/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/presentations/sans_dfir_summit2019/">SANS Summit 2019</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/presentations/rsa/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/presentations/rsa/">RSA Asia Pacific and Japan 2019</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/presentations/crikeycon2019/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/presentations/crikeycon2019/">Crikeycon 2019 Training Workshop</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/presentations/nzitf2018/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/presentations/nzitf2018/">New Zealand Internet Task Force Conference 2018</a>
+      </div>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/blog/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/blog/">Velociraptor Blog</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/blog/medium/2020-04-16-velociraptor-e48a47e0317d/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-04-16-velociraptor-e48a47e0317d/">
+            Velociraptor
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2020-03-29-velociraptors-acl-model-7f497575daee/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-03-29-velociraptors-acl-model-7f497575daee/">
+            Velociraptor’s ACL model
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2020-03-28-velociraptor-notebooks-d02e0bd11230/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-03-28-velociraptor-notebooks-d02e0bd11230/">
+            Velociraptor notebooks
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2020-03-07-extending-vql-plugins-7fb004cb6ec4/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-03-07-extending-vql-plugins-7fb004cb6ec4/">
+            Extending VQL plugins
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2020-03-06-velociraptor-post-processing-with-jupyter-notebook-and-pandas-8a344d05ee8c/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-03-06-velociraptor-post-processing-with-jupyter-notebook-and-pandas-8a344d05ee8c/">
+            Velociraptor Post-processing with Jupyter Notebook and Pandas
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2020-01-12_hunting-malware-using-mutants-ea08e86dfc19/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-01-12_hunting-malware-using-mutants-ea08e86dfc19/">
+            Hunting Malware using Mutants
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-12-31_digging-into-the-system-resource-usage-monitor-srum-afbadb1a375/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-12-31_digging-into-the-system-resource-usage-monitor-srum-afbadb1a375/">
+            Digging into the System Resource Usage Monitor (SRUM)
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-12-08-velociraptor-to-elasticsearch-3a9fc02c6568/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-12-08-velociraptor-to-elasticsearch-3a9fc02c6568/">
+            Velociraptor to Elasticsearch
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-11-15_recovering-deleted-ntfs-files-with-velociraptor-1fcf09855311/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-11-15_recovering-deleted-ntfs-files-with-velociraptor-1fcf09855311/">
+            Recovering deleted NTFS Files with Velociraptor
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-11-12_windows-event-logs-d8d8e615c9ca/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-11-12_windows-event-logs-d8d8e615c9ca/">
+            Windows Event Logs
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-10-08_triage-with-velociraptor-pt-3-d6f63215f579/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-10-08_triage-with-velociraptor-pt-3-d6f63215f579/">
+            Triage with Velociraptor — Pt 3
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-10-04_triage-with-velociraptor-pt-2-d0f79066ca0e/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-10-04_triage-with-velociraptor-pt-2-d0f79066ca0e/">
+            Triage with Velociraptor — Pt 2
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-10-02_triage-with-velociraptor-pt-1-253f57ce96c0/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-10-02_triage-with-velociraptor-pt-1-253f57ce96c0/">
+            Triage with Velociraptor — Pt 1
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-09-11_velociraptor-s-client-side-buffer-3ce03697a4e6/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-09-11_velociraptor-s-client-side-buffer-3ce03697a4e6/">
+            Velociraptor’s client side buffer
+          </a>
+        </div>
+    </li>
+        </ul>
+    </li>
+
+
+
+
+    <hr />
+    <li></li>
+
+    </ul>
+
+ <section id="footer">
+    </section>
+  </div>
+</nav>
+
+
+
+<section id="body">
+<div id="overlay"></div>
+<div class="padding highlightable">
+
+  <div id="top-bar">
+    <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+        <span id="sidebar-toggle-span">
+          <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+            <i class="fa fa-bars"></i>
+          </a>
+        </span>
+        <span id="toc-menu"><i class="fa fa-list-alt"></i></span>
+        <span class="links">
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+ <a href='/'>Velociraptor / Dig deeper</a> > <a href='/docs/'>Velociraptor Documentation</a> > <a href='/docs/artifacts/'>Artifact Reference</a> > <a href='/docs/artifacts/windows_system/'>Windows</a> > Applications
+
+
+
+
+
+
+
+
+
+
+        </span>
+    </div>
+
+    
+    <div class="progress">
+        <div class="wrapper">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#windowsapplicationschocolateypackages">Windows.Applications.ChocolateyPackages</a></li>
+    <li><a href="#windowsapplicationschromecookies">Windows.Applications.Chrome.Cookies</a></li>
+    <li><a href="#windowsapplicationschromeextensions">Windows.Applications.Chrome.Extensions</a></li>
+    <li><a href="#windowsapplicationschromehistory">Windows.Applications.Chrome.History</a></li>
+    <li><a href="#windowsapplicationsofficemacros">Windows.Applications.OfficeMacros</a></li>
+  </ul>
+</nav>
+        </div>
+    </div>
+    
+
+  </div>
+
+
+<div id="body-inner">
+  
+      <h1>Applications</h1>
+      
+        <h4 class="subtitle"> These artifacts collect information related to the windows applications. </h4>
+      
+  
+
+
+
+    
+    
+    
+
+<h2 id="windowsapplicationschocolateypackages">Windows.Applications.ChocolateyPackages</h2>
+<p>Chocolatey packages installed in a system.</p>
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ChocolateyInstall</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<div class="expand">
+    <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fa fa-chevron-down' : 'fa fa-chevron-right';});});">
+        <i style="font-size:x-small;" class="fa fa-chevron-right"></i>
+        <span>
+          View Artifact Source
+        </span>
+    </div>
+    <div class="expand-content" style="display: none;">
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">name: Windows.Applications.ChocolateyPackages
+description: Chocolatey packages installed in a system.
+parameters:
+  - name: ChocolateyInstall
+    default: &#34;&#34;
+
+sources:
+  - precondition:
+      SELECT OS From info() where OS = &#39;windows&#39;
+    queries:
+      - LET files = SELECT FullPath,
+              parse_xml(file=FullPath) AS Metadata
+              -- Use the ChocolateyInstall parameter if it is set.
+
+          FROM glob(globs=if(
+             condition=ChocolateyInstall,
+             then=ChocolateyInstall,
+
+             -- Otherwise just use the environment.
+             else=environ(var=&#39;ChocolateyInstall&#39;)) + &#39;/lib/*/*.nuspec&#39;)
+
+      - SELECT * FROM if(
+        condition=if(condition=ChocolateyInstall,
+                     then=ChocolateyInstall,
+                     else=environ(var=&#34;ChocolateyInstall&#34;)),
+        then={
+            SELECT FullPath,
+                   Metadata.package.metadata.id as Name,
+                   Metadata.package.metadata.version as Version,
+                   Metadata.package.metadata.summary as Summary,
+                   Metadata.package.metadata.authors as Authors,
+                   Metadata.package.metadata.licenseUrl as License
+            FROM files
+        })
+</code></pre></div>   </div>
+</div>
+<h2 id="windowsapplicationschromecookies">Windows.Applications.Chrome.Cookies</h2>
+<p>Enumerate the users chrome cookies.</p>
+<p>The cookies are typically encrypted by the DPAPI using the user&rsquo;s
+credentials. Since Velociraptor is typically not running in the user
+context we can not decrypt these. It may be possible to decrypt the
+cookies off line.</p>
+<p>The pertinant information from a forensic point of view is the
+user&rsquo;s Created and LastAccess timestamp and the fact that the user
+has actually visited the site and obtained a cookie.</p>
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>cookieGlobs</td>
+<td>\AppData\Local\Google\Chrome\User Data\*\Co &hellip;</td>
+<td></td>
+</tr>
+<tr>
+<td>cookieSQLQuery</td>
+<td>SELECT creation_utc, host_key, name, value, path,  &hellip;</td>
+<td></td>
+</tr>
+<tr>
+<td>userRegex</td>
+<td>.</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<div class="expand">
+    <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fa fa-chevron-down' : 'fa fa-chevron-right';});});">
+        <i style="font-size:x-small;" class="fa fa-chevron-right"></i>
+        <span>
+          View Artifact Source
+        </span>
+    </div>
+    <div class="expand-content" style="display: none;">
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">name: Windows.Applications.Chrome.Cookies
+description: |
+  Enumerate the users chrome cookies.
+
+  The cookies are typically encrypted by the DPAPI using the user&#39;s
+  credentials. Since Velociraptor is typically not running in the user
+  context we can not decrypt these. It may be possible to decrypt the
+  cookies off line.
+
+  The pertinant information from a forensic point of view is the
+  user&#39;s Created and LastAccess timestamp and the fact that the user
+  has actually visited the site and obtained a cookie.
+
+parameters:
+  - name: cookieGlobs
+    default: \AppData\Local\Google\Chrome\User Data\*\Cookies
+  - name: cookieSQLQuery
+    default: |
+      SELECT creation_utc, host_key, name, value, path, expires_utc,
+             last_access_utc, encrypted_value
+      FROM cookies
+  - name: userRegex
+    default: .
+
+precondition: SELECT OS From info() where OS = &#39;windows&#39;
+
+sources:
+  - queries:
+      - |
+        LET cookie_files = SELECT * from foreach(
+          row={
+             SELECT Uid, Name AS User, Directory
+             FROM Artifact.Windows.Sys.Users()
+             WHERE Name =~ userRegex
+          },
+          query={
+             SELECT User, FullPath, Mtime from glob(
+               globs=Directory + cookieGlobs)
+          })
+
+      - |
+        SELECT * FROM foreach(row=cookie_files,
+          query={
+            SELECT timestamp(winfiletime=creation_utc * 10) as Created,
+                   timestamp(winfiletime=last_access_utc * 10) as LastAccess,
+                   timestamp(winfiletime=expires_utc * 10) as Expires,
+                   host_key, name, path, value,
+                   base64encode(string=encrypted_value) as EncryptedValue
+            FROM sqlite(
+              file=FullPath,
+              query=cookieSQLQuery)
+          })
+</code></pre></div>   </div>
+</div>
+<h2 id="windowsapplicationschromeextensions">Windows.Applications.Chrome.Extensions</h2>
+<p>Fetch Chrome extensions.</p>
+<p>Chrome extensions are installed into the user&rsquo;s home directory.  We
+search for manifest.json files in a known path within each system
+user&rsquo;s home directory. We then parse the manifest file as JSON.</p>
+<p>Many extensions use locale packs to resolve strings like name and
+description. In this case we detect the default locale and load
+those locale files. We then resolve the extension&rsquo;s name and
+description from there.</p>
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>extensionGlobs</td>
+<td>\AppData\Local\Google\Chrome\User Data\*\Ex &hellip;</td>
+<td></td>
+</tr>
+<tr>
+<td>userRegex</td>
+<td>.</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<div class="expand">
+    <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fa fa-chevron-down' : 'fa fa-chevron-right';});});">
+        <i style="font-size:x-small;" class="fa fa-chevron-right"></i>
+        <span>
+          View Artifact Source
+        </span>
+    </div>
+    <div class="expand-content" style="display: none;">
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">name: Windows.Applications.Chrome.Extensions
+description: |
+  Fetch Chrome extensions.
+
+  Chrome extensions are installed into the user&#39;s home directory.  We
+  search for manifest.json files in a known path within each system
+  user&#39;s home directory. We then parse the manifest file as JSON.
+
+  Many extensions use locale packs to resolve strings like name and
+  description. In this case we detect the default locale and load
+  those locale files. We then resolve the extension&#39;s name and
+  description from there.
+
+parameters:
+  - name: extensionGlobs
+    default: \AppData\Local\Google\Chrome\User Data\*\Extensions\*\*\manifest.json
+  - name: userRegex
+    default: .
+
+sources:
+  - precondition: |
+      SELECT OS From info() where OS = &#39;windows&#39;
+    queries:
+      - |
+        /* For each user on the system, search for extension manifests
+           in their home directory. */
+        LET extension_manifests = SELECT * from foreach(
+          row={
+             SELECT Uid, Name AS User, Directory
+             FROM Artifact.Windows.Sys.Users()
+             WHERE Name =~ userRegex
+          },
+          query={
+             SELECT FullPath, Mtime, Ctime, User, Uid from glob(
+               globs=Directory + extensionGlobs)
+          })
+
+      - |
+        /* If the Manifest declares a default_locale then we
+           load and parse the messages file. In this case the
+           messages are actually stored in the locale file
+           instead of the main manifest.json file.
+        */
+        LET maybe_read_locale_file =
+           SELECT * from if(
+              condition={
+                 select * from scope() where Manifest.default_locale
+              },
+              then={
+                 SELECT Manifest,
+                        Uid, User,
+                        Filename as LocaleFilename,
+                        ManifestFilename,
+                        parse_json(data=Data) AS LocaleManifest
+                 FROM read_file(
+                         -- Munge the filename to get the messages.json path.
+                         filenames=regex_replace(
+                           source=ManifestFilename,
+                           replace=&#34;\\_locales\\&#34; + Manifest.default_locale +
+                                   &#34;\\messages.json&#34;,
+                           re=&#34;\\\\manifest.json$&#34;))
+              },
+              else={
+                  -- Just fill in empty Locale results.
+                  SELECT Manifest,
+                         Uid, User,
+                         &#34;&#34; AS LocaleFilename,
+                         &#34;&#34; AS ManifestFilename,
+                         &#34;&#34; AS LocaleManifest
+                  FROM scope()
+              })
+
+      - |
+        LET parse_json_files = SELECT * from foreach(
+           row={
+             SELECT Filename as ManifestFilename,
+                    Uid, User,
+                    parse_json(data=Data) as Manifest
+             FROM read_file(filenames=FullPath)
+           },
+           query=maybe_read_locale_file)
+
+      - |
+        LET parsed_manifest_files = SELECT * from foreach(
+          row=extension_manifests,
+          query=parse_json_files)
+
+      - |
+        SELECT Uid, User,
+
+               /* If the manifest name contains __MSG_ then the real
+                  name is stored in the locale manifest. This condition
+                  resolves the Name column either to the main manifest or
+                  the locale manifest.
+               */
+               if(condition=&#34;__MSG_&#34; in Manifest.name,
+                  then=get(item=LocaleManifest,
+                     member=regex_replace(
+                        source=Manifest.name,
+                        replace=&#34;$1&#34;,
+                        re=&#34;(?:__MSG_(.+)__)&#34;)).message,
+                  else=Manifest.name) as Name,
+
+               if(condition=&#34;__MSG_&#34; in Manifest.description,
+                  then=get(item=LocaleManifest,
+                     member=regex_replace(
+                        source=Manifest.description,
+                        replace=&#34;$1&#34;,
+                        re=&#34;(?:__MSG_(.+)__)&#34;)).message,
+                  else=Manifest.description) as Description,
+
+               /* Get the Identifier and Version from the manifest filename */
+               regex_replace(
+                 source=ManifestFilename,
+                 replace=&#34;$1&#34;,
+                 re=&#34;(?:.+Extensions\\\\([^\\\\]+)\\\\([^\\\\]+)\\\\manifest.json)$&#34;) AS Identifier,
+               regex_replace(
+                 source=ManifestFilename,
+                 replace=&#34;$2&#34;,
+                 re=&#34;(?:.+Extensions\\\\([^\\\\]+)\\\\([^\\\\]+)\\\\manifest.json)$&#34;) AS Version,
+
+               Manifest.author as Author,
+               Manifest.background.persistent AS Persistent,
+               regex_replace(
+                 source=ManifestFilename,
+                 replace=&#34;$1&#34;,
+                 re=&#34;(.+Extensions\\\\.+\\\\)manifest.json$&#34;) AS Path,
+
+               Manifest.oauth2.scopes as Scopes,
+               Manifest.permissions as Permissions,
+               Manifest.key as Key
+
+        FROM parsed_manifest_files
+</code></pre></div>   </div>
+</div>
+<h2 id="windowsapplicationschromehistory">Windows.Applications.Chrome.History</h2>
+<p>Enumerate the users chrome history.</p>
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>historyGlobs</td>
+<td>\AppData\Local\Google\Chrome\User Data\*\Hi &hellip;</td>
+<td></td>
+</tr>
+<tr>
+<td>urlSQLQuery</td>
+<td>SELECT url as visited_url, title, visit_count,\n   &hellip;</td>
+<td></td>
+</tr>
+<tr>
+<td>userRegex</td>
+<td>.</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<div class="expand">
+    <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fa fa-chevron-down' : 'fa fa-chevron-right';});});">
+        <i style="font-size:x-small;" class="fa fa-chevron-right"></i>
+        <span>
+          View Artifact Source
+        </span>
+    </div>
+    <div class="expand-content" style="display: none;">
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">name: Windows.Applications.Chrome.History
+description: |
+  Enumerate the users chrome history.
+
+parameters:
+  - name: historyGlobs
+    default: \AppData\Local\Google\Chrome\User Data\*\History
+  - name: urlSQLQuery
+    default: |
+      SELECT url as visited_url, title, visit_count,
+             typed_count, last_visit_time
+      FROM urls
+  - name: userRegex
+    default: .
+
+precondition: SELECT OS From info() where OS = &#39;windows&#39;
+
+sources:
+  - queries:
+      - |
+        LET history_files = SELECT * from foreach(
+          row={
+             SELECT Uid, Name AS User, Directory
+             FROM Artifact.Windows.Sys.Users()
+             WHERE Name =~ userRegex
+          },
+          query={
+             SELECT User, FullPath, Mtime from glob(
+               globs=Directory + historyGlobs)
+          })
+
+      - |
+        SELECT * FROM foreach(row=history_files,
+          query={
+            SELECT User, FullPath,
+                   timestamp(epoch=Mtime.Sec) as Mtime,
+                   visited_url,
+                   title, visit_count, typed_count,
+                   timestamp(winfiletime=last_visit_time * 10) as last_visit_time
+            FROM sqlite(
+              file=FullPath,
+              query=urlSQLQuery)
+          })
+</code></pre></div>   </div>
+</div>
+<h2 id="windowsapplicationsofficemacros">Windows.Applications.OfficeMacros</h2>
+<p>Office macros are a favourite initial infection vector. Many users
+click through the warning dialogs.</p>
+<p>This artifact scans through the given directory glob for common
+office files. We then try to extract any embedded macros by parsing
+the OLE file structure.</p>
+<p>If a macro calls an external program (e.g. Powershell) this is very
+suspicious!</p>
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>officeExtensions</td>
+<td>*.{xls,xlsm,doc,docx,ppt,pptm}</td>
+<td></td>
+</tr>
+<tr>
+<td>officeFileSearchGlob</td>
+<td>C:\Users\**\</td>
+<td>The directory to search for office documents.</td>
+</tr>
+</tbody>
+</table>
+<div class="expand">
+    <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fa fa-chevron-down' : 'fa fa-chevron-right';});});">
+        <i style="font-size:x-small;" class="fa fa-chevron-right"></i>
+        <span>
+          View Artifact Source
+        </span>
+    </div>
+    <div class="expand-content" style="display: none;">
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">name: Windows.Applications.OfficeMacros
+description: |
+  Office macros are a favourite initial infection vector. Many users
+  click through the warning dialogs.
+
+  This artifact scans through the given directory glob for common
+  office files. We then try to extract any embedded macros by parsing
+  the OLE file structure.
+
+  If a macro calls an external program (e.g. Powershell) this is very
+  suspicious!
+
+parameters:
+  - name: officeExtensions
+    default: &#34;*.{xls,xlsm,doc,docx,ppt,pptm}&#34;
+  - name: officeFileSearchGlob
+    default: C:\Users\**\
+    description: The directory to search for office documents.
+
+sources:
+  - queries:
+      - |
+        SELECT * FROM foreach(
+           row={
+              SELECT FullPath FROM glob(globs=officeFileSearchGlob + officeExtensions)
+           },
+           query={
+               SELECT * from olevba(file=FullPath)
+           })
+</code></pre></div>   </div>
+</div>
+
+
+
+    
+    
+          <footer class=" footline" >
+	
+</footer>
+  </div>
+</div>
+
+<div id="navigation">
+<a class="nav nav-prev" href="/docs/artifacts/windows_system/network/" title="Network"> <i class="fa fa-chevron-left"></i><label>Network</label></a>
+    <a class="nav nav-next" href="/docs/artifacts/windows_system/detection/" title="Malware Detection" style="margin-right: 0px;"><label>Malware Detection</label><i class="fa fa-chevron-right"></i></a></div>
+
+</section>
+<div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+  <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+</div>    
+
+<script src="/js/clipboard.min.js"></script>
+<script src="/js/featherlight.min.js"></script>
+<script src="/js/html5shiv-printshiv.min.js"></script>
+
+<script src="/js/modernizr.custom.71422.js"></script>
+<script src="/js/docdock.js"></script>
+<script src="/theme-original/script.js"></script>
+
+
+    
+
+    
+    
+
+    
+  </body>
+</html>

