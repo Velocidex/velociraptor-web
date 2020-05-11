@@ -31,6 +31,28 @@ schedule:
   buyurl: https://www.eventbrite.com.au/e/enterprise-hunting-and-incident-response-online-edition-tickets-104227479196
   picture: online_june_2020/blue-and-white-earth-globe.jpg
 
+- title: Velociraptor training (Online edition - EMEA/APAC)
+  date: 22nd June 2020
+  description: |
+      The life of an information security professional is a hectic one. It
+      seems like you are fighting fires every day and always behind the
+      eight ball. You know you should be proactively hunting for emerging
+      threats in your network but the tools at your disposal simply do not
+      scale. You can check each machine individually for hardening and
+      policy compliance but you have many thousands of endpoints deployed,
+      it is hard enough to keep up with the alerts.
+
+      This online course will be split into 7 sessions over 2 weeks with 2-3
+      hours per day. We will deliver the course live over Zoom in an
+      interactive, hands on format. There will be time for questions and
+      free discussions.
+
+      Time slots are ideal for EMEA and APAC based participants.
+
+  outline: /training/online_june_eu_2020
+  buyurl: https://www.eventbrite.com.au/e/enterprise-hunting-and-incident-response-online-edition-eu-times-tickets-104925049648
+  picture: online_june_eu_2020/globe.jpg
+
 
 - title: Enterprise Hunting and Incident Response with Velociraptor (Hack Sydney 2020)
   date: 2 Nov 2020

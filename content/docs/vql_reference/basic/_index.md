@@ -276,8 +276,7 @@ Returns the length of an object.
 
 Arg | Description | Type
 ----|-------------|-----
-list|A list of items too filter|list of string (required)
-regex|A regex to test each item|list of string (required)
+list|A list of items too filter|Any (required)
 
 
 ## log

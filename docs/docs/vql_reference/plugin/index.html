@@ -587,6 +587,7 @@
     <li><a href="#glob">glob</a>
       <ul>
         <li><a href="#example-1">Example</a></li>
+        <li><a href="#the-root-parameter">The root parameter</a></li>
       </ul>
     </li>
     <li><a href="#grep">grep</a></li>
@@ -878,7 +879,12 @@ expand environment variables use the <code>expand()</code> function explicitly:<
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SELECT</span> FullPath <span style="color:#66d9ef">FROM</span> glob(
 globs<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;C:\Windows\System32\Winevt\Logs\*.evtx&#34;</span>,
 accessor<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;ntfs&#34;</span>)
-</code></pre></div><table>
+</code></pre></div><h3 id="the-root-parameter">The root parameter</h3>
+<p>If the root parameter is specified, we start globbing from this
+directory - i.e. the glob pattern is appended to the root
+parameter.  The <code>root</code> parameter is useful if the directory name
+itself may contain glob characters.</p>
+<table>
 <thead>
 <tr>
 <th>Arg</th>
@@ -891,6 +897,11 @@ accessor<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;ntf
 <td>globs</td>
 <td>One or more glob patterns to apply to the filesystem.</td>
 <td>list of string (required)</td>
+</tr>
+<tr>
+<td>root</td>
+<td>The root directory to glob from (default &lsquo;').</td>
+<td>string</td>
 </tr>
 <tr>
 <td>accessor</td>
@@ -1145,7 +1156,7 @@ row.</p>
 <tbody>
 <tr>
 <td>pid</td>
-<td>A process ID to list. If not provided list all processes.</td>
+<td>A pid to list. If this is provided we are able to operate much faster by only opening a single process.</td>
 <td>int64</td>
 </tr>
 </tbody>
@@ -1417,6 +1428,11 @@ might be somewhat easier to use.</p>
 <td>filename</td>
 <td>CSV files to open</td>
 <td>string (required)</td>
+</tr>
+<tr>
+<td>accessor</td>
+<td>The accessor to use</td>
+<td>string</td>
 </tr>
 <tr>
 <td>query</td>

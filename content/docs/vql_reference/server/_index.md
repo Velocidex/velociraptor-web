@@ -36,22 +36,13 @@ search|Client search string. Can have the following prefixes: 'lable:', 'host:'|
 client_id||string
 
 
-## collect
-<span class='vql_type pull-right'>Function</span>
-
-Launch an artifact collection against a client.
-
-Arg | Description | Type
-----|-------------|-----
-client_id|The client id to schedule a collection on|string (required)
-artifacts|A list of artifacts to collect|list of string (required)
-env|Parameters to apply to the artifacts|Any
-
-
 ## collect_client
 <span class='vql_type pull-right'>Function</span>
 
-Launch an artifact collection against a client.
+Launch an artifact collection against a client. If the client_id
+is "server" then the collection occurs on the server itself. In
+that case the caller needs the SERVER_ADMIN permission.
+
 
 Arg | Description | Type
 ----|-------------|-----
@@ -235,9 +226,7 @@ Extract monitoring log from a client. If client_id is not specified we watch the
 
 Arg | Description | Type
 ----|-------------|-----
-client_id|A list of client ids to watch. If not provided we watch all clients.|string
 artifact|The event artifact name to watch|string (required)
-source|An optional artifact named source|string
 
 
 ## rate

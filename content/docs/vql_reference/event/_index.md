@@ -32,9 +32,14 @@ The following will generate an event every 10 seconds.
 SELECT Sec FROM clock(period=10)
 ```
 
+The `start` parameter can be used to schedule the plugin to start
+at a particular time. This can be an integer (which will be
+interpreted as seconds since the epoch), a string or a time value.
+
 
 Arg | Description | Type
 ----|-------------|-----
+start|Start at this time.|Any
 period|Wait this many seconds between events.|int64
 ms|Wait this many ms between events.|int64
 
@@ -207,15 +212,13 @@ messagedb|A Message database from https://github.com/Velocidex/evtx-data.|string
 ## watch_monitoring
 <span class='vql_type pull-right'>Plugin</span>
 
-Watch clients' monitoring log. This is an event plugin. If client_id
-is not provided we watch the global journal which contains events from all clients.
+Watch clients' monitoring log. This is an event plugin. This
+plugin will produce events from all clients.
 
 
 Arg | Description | Type
 ----|-------------|-----
-client_id|A list of client ids to watch. If not provided we watch all clients.|string
 artifact|The event artifact name to watch|string (required)
-source|An optional artifact named source|string
 
 
 ## watch_syslog

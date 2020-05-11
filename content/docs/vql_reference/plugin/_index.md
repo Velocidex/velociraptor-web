@@ -188,10 +188,18 @@ globs="C:\Windows\System32\Winevt\Logs\*.evtx",
 accessor="ntfs")
 ```
 
+### The root parameter
+
+If the root parameter is specified, we start globbing from this
+directory - i.e. the glob pattern is appended to the root
+parameter.  The `root` parameter is useful if the directory name
+itself may contain glob characters.
+
 
 Arg | Description | Type
 ----|-------------|-----
 globs|One or more glob patterns to apply to the filesystem.|list of string (required)
+root|The root directory to glob from (default '').|string
 accessor|An accessor to use.|string
 
 
@@ -359,7 +367,7 @@ row.
 
 Arg | Description | Type
 ----|-------------|-----
-pid|A process ID to list. If not provided list all processes.|int64
+pid|A pid to list. If this is provided we are able to operate much faster by only opening a single process.|int64
 
 
 ## read_file
@@ -505,6 +513,7 @@ Write a query into a CSV file.
 Arg | Description | Type
 ----|-------------|-----
 filename|CSV files to open|string (required)
+accessor|The accessor to use|string
 query|query to write into the file.|StoredQuery (required)
 
 

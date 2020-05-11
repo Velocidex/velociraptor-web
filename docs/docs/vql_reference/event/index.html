@@ -632,7 +632,10 @@ object. You can access its unix epoch time with the Sec column.</p>
 <h3 id="example">Example</h3>
 <p>The following will generate an event every 10 seconds.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SELECT</span> Sec <span style="color:#66d9ef">FROM</span> clock(period<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>)
-</code></pre></div><table>
+</code></pre></div><p>The <code>start</code> parameter can be used to schedule the plugin to start
+at a particular time. This can be an integer (which will be
+interpreted as seconds since the epoch), a string or a time value.</p>
+<table>
 <thead>
 <tr>
 <th>Arg</th>
@@ -641,6 +644,11 @@ object. You can access its unix epoch time with the Sec column.</p>
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>start</td>
+<td>Start at this time.</td>
+<td>Any</td>
+</tr>
 <tr>
 <td>period</td>
 <td>Wait this many seconds between events.</td>
@@ -870,8 +878,8 @@ event is triggered.</p>
 </table>
 <h2 id="watch_monitoring">watch_monitoring</h2>
 <p><span class='vql_type pull-right'>Plugin</span></p>
-<p>Watch clients&rsquo; monitoring log. This is an event plugin. If client_id
-is not provided we watch the global journal which contains events from all clients.</p>
+<p>Watch clients&rsquo; monitoring log. This is an event plugin. This
+plugin will produce events from all clients.</p>
 <table>
 <thead>
 <tr>
@@ -882,19 +890,9 @@ is not provided we watch the global journal which contains events from all clien
 </thead>
 <tbody>
 <tr>
-<td>client_id</td>
-<td>A list of client ids to watch. If not provided we watch all clients.</td>
-<td>string</td>
-</tr>
-<tr>
 <td>artifact</td>
 <td>The event artifact name to watch</td>
 <td>string (required)</td>
-</tr>
-<tr>
-<td>source</td>
-<td>An optional artifact named source</td>
-<td>string</td>
 </tr>
 </tbody>
 </table>

@@ -196,6 +196,10 @@ pid|The PID to get the token for.|int64 (required)
 
 Display information about workstation local users. This is obtained through the NetUserEnum() API.
 
+Arg | Description | Type
+----|-------------|-----
+file|The wtmp file to use|string
+
 
 ## vad
 <span class='vql_type pull-right'>Plugin</span>
