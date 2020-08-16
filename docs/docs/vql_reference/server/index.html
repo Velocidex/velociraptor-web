@@ -421,6 +421,41 @@
       <a href="/blog/">Velociraptor Blog</a><i class="fa fa-angle-right fa-lg category-icon"></i>
       </div>
         <ul>
+      <li data-nav-id="/blog/medium/2020-08-16-profiling-the-beast-58913437fd16/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-08-16-profiling-the-beast-58913437fd16/">
+            Profiling the beast
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2020-07-14-triage-with-velociraptor-pt-4-cf0e60810d1e/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-07-14-triage-with-velociraptor-pt-4-cf0e60810d1e/">
+            Triage with Velociraptor — Pt 4
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2020-07-13-velociraptor-in-the-tool-age-d896dfe71b9/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-07-13-velociraptor-in-the-tool-age-d896dfe71b9/">
+            Velociraptor in the tool age
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2020-06-19-the-velociraptor-query-language-pt-2-fe92bb7aa150/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-06-19-the-velociraptor-query-language-pt-2-fe92bb7aa150/">
+            The Velociraptor Query Language Pt 2
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2020-06-14-the-velociraptor-query-language-pt-1-d721bff100bf/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-06-14-the-velociraptor-query-language-pt-1-d721bff100bf/">
+            The Velociraptor Query Language Pt 1
+          </a>
+        </div>
+    </li>
       <li data-nav-id="/blog/medium/2020-04-16-velociraptor-e48a47e0317d/" class="dd-item">
         <div>
           <a href="/blog/medium/2020-04-16-velociraptor-e48a47e0317d/">
@@ -578,27 +613,41 @@
         <div class="wrapper">
     <nav id="TableOfContents">
   <ul>
+    <li><a href="#artifact_definitions">artifact_definitions</a></li>
     <li><a href="#cancel_flow">cancel_flow</a></li>
+    <li><a href="#client_delete">client_delete</a></li>
+    <li><a href="#client_info">client_info</a></li>
     <li><a href="#clients">clients</a></li>
     <li><a href="#collect_client">collect_client</a></li>
     <li><a href="#compress">compress</a></li>
+    <li><a href="#create_flow_download">create_flow_download</a></li>
+    <li><a href="#create_hunt_download">create_hunt_download</a></li>
     <li><a href="#elastic_upload">elastic_upload</a></li>
     <li><a href="#enumerate_flow">enumerate_flow</a></li>
     <li><a href="#file_store">file_store</a></li>
     <li><a href="#file_store_delete">file_store_delete</a></li>
+    <li><a href="#flow_results">flow_results</a></li>
     <li><a href="#flows">flows</a></li>
+    <li><a href="#get_client_monitoring">get_client_monitoring</a></li>
+    <li><a href="#get_server_monitoring">get_server_monitoring</a></li>
     <li><a href="#gui_users">gui_users</a></li>
     <li><a href="#hunt">hunt</a></li>
     <li><a href="#hunt_flows">hunt_flows</a></li>
     <li><a href="#hunt_results">hunt_results</a></li>
     <li><a href="#hunts">hunts</a></li>
+    <li><a href="#inventory">inventory</a></li>
+    <li><a href="#inventory_add">inventory_add</a></li>
+    <li><a href="#inventory_get">inventory_get</a></li>
     <li><a href="#label">label</a></li>
     <li><a href="#mail">mail</a></li>
     <li><a href="#monitoring">monitoring</a></li>
     <li><a href="#rate">rate</a></li>
     <li><a href="#sample">sample</a></li>
     <li><a href="#search">search</a></li>
+    <li><a href="#set_client_monitoring">set_client_monitoring</a></li>
+    <li><a href="#set_server_monitoring">set_server_monitoring</a></li>
     <li><a href="#source">source</a></li>
+    <li><a href="#splunk_upload">splunk_upload</a></li>
     <li><a href="#uploads">uploads</a></li>
   </ul>
 </nav>
@@ -628,6 +677,35 @@ and automate the server by writing VQL queries.</p>
 <p>To reuse server side artifacts, simply create an artifact with
 <code>type: SERVER</code> and launch it from the &ldquo;Server Artifacts&rdquo; screen in
 the GUI.</p>
+<h2 id="artifact_definitions">artifact_definitions</h2>
+<p><span class='vql_type pull-right'>Plugin</span></p>
+<p>Dump artifact definitions.</p>
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>names</td>
+<td>Artifact definitions to dump</td>
+<td>list of string</td>
+</tr>
+<tr>
+<td>deps</td>
+<td>If true includes all dependencies as well.</td>
+<td>bool</td>
+</tr>
+<tr>
+<td>sanitize</td>
+<td>If true we remove extra metadata.</td>
+<td>bool</td>
+</tr>
+</tbody>
+</table>
 <h2 id="cancel_flow">cancel_flow</h2>
 <p><span class='vql_type pull-right'>Function</span></p>
 <p>Cancels the flow.</p>
@@ -649,6 +727,49 @@ the GUI.</p>
 <td>flow_id</td>
 <td></td>
 <td>string</td>
+</tr>
+</tbody>
+</table>
+<h2 id="client_delete">client_delete</h2>
+<p><span class='vql_type pull-right'>Plugin</span></p>
+<p>Delete all information related to a client.</p>
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>client_id</td>
+<td></td>
+<td>string (required)</td>
+</tr>
+<tr>
+<td>really_do_it</td>
+<td></td>
+<td>bool</td>
+</tr>
+</tbody>
+</table>
+<h2 id="client_info">client_info</h2>
+<p><span class='vql_type pull-right'>Function</span></p>
+<p>Returns client info (like the fqdn) from the datastore.</p>
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>client_id</td>
+<td></td>
+<td>string (required)</td>
 </tr>
 </tbody>
 </table>
@@ -725,6 +846,64 @@ the file and read it but not to seek within it.</p>
 <td>path</td>
 <td>A VFS path to compress</td>
 <td>list of string (required)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="create_flow_download">create_flow_download</h2>
+<p><span class='vql_type pull-right'>Function</span></p>
+<p>Creates a download pack for the flow.</p>
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>client_id</td>
+<td>Client ID to export.</td>
+<td>string (required)</td>
+</tr>
+<tr>
+<td>flow_id</td>
+<td>The flow id to export.</td>
+<td>string (required)</td>
+</tr>
+<tr>
+<td>wait</td>
+<td>If set we wait for the download to complete before returning.</td>
+<td>bool</td>
+</tr>
+</tbody>
+</table>
+<h2 id="create_hunt_download">create_hunt_download</h2>
+<p><span class='vql_type pull-right'>Function</span></p>
+<p>Creates a download pack for a hunt.</p>
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>hunt_id</td>
+<td>Hunt ID to export.</td>
+<td>string (required)</td>
+</tr>
+<tr>
+<td>only_combined</td>
+<td>If set we only export combined results.</td>
+<td>bool</td>
+</tr>
+<tr>
+<td>wait</td>
+<td>If set we wait for the download to complete before returning.</td>
+<td>bool</td>
 </tr>
 </tbody>
 </table>
@@ -873,6 +1052,40 @@ locally stored at all) and this function may stop working.</p>
 </tr>
 </tbody>
 </table>
+<h2 id="flow_results">flow_results</h2>
+<p><span class='vql_type pull-right'>Plugin</span></p>
+<p>Retrieve the results of a flow.</p>
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>artifact</td>
+<td>The artifact to retrieve</td>
+<td>string</td>
+</tr>
+<tr>
+<td>source</td>
+<td>An optional source within the artifact.</td>
+<td>string</td>
+</tr>
+<tr>
+<td>flow_id</td>
+<td>The hunt id to read.</td>
+<td>string (required)</td>
+</tr>
+<tr>
+<td>client_id</td>
+<td>The client id to extract</td>
+<td>string (required)</td>
+</tr>
+</tbody>
+</table>
 <h2 id="flows">flows</h2>
 <p><span class='vql_type pull-right'>Plugin</span></p>
 <p>Retrieve the flows launched on each client.</p>
@@ -897,6 +1110,12 @@ locally stored at all) and this function may stop working.</p>
 </tr>
 </tbody>
 </table>
+<h2 id="get_client_monitoring">get_client_monitoring</h2>
+<p><span class='vql_type pull-right'>Function</span></p>
+<p>Retrieve the current client monitoring state.</p>
+<h2 id="get_server_monitoring">get_server_monitoring</h2>
+<p><span class='vql_type pull-right'>Function</span></p>
+<p>Retrieve the current client monitoring state.</p>
 <h2 id="gui_users">gui_users</h2>
 <p><span class='vql_type pull-right'>Plugin</span></p>
 <p>Retrieve the list of users on the server.</p>
@@ -985,6 +1204,67 @@ locally stored at all) and this function may stop working.</p>
 <h2 id="hunts">hunts</h2>
 <p><span class='vql_type pull-right'>Plugin</span></p>
 <p>Retrieve the list of hunts.</p>
+<h2 id="inventory">inventory</h2>
+<p><span class='vql_type pull-right'>Plugin</span></p>
+<p>Retrieve the tools inventory.</p>
+<h2 id="inventory_add">inventory_add</h2>
+<p><span class='vql_type pull-right'>Function</span></p>
+<p>Add tool to ThirdParty inventory.</p>
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>tool</td>
+<td></td>
+<td>string (required)</td>
+</tr>
+<tr>
+<td>serve_locally</td>
+<td></td>
+<td>bool</td>
+</tr>
+<tr>
+<td>url</td>
+<td></td>
+<td>string</td>
+</tr>
+<tr>
+<td>hash</td>
+<td></td>
+<td>string</td>
+</tr>
+<tr>
+<td>filename</td>
+<td></td>
+<td>string</td>
+</tr>
+</tbody>
+</table>
+<h2 id="inventory_get">inventory_get</h2>
+<p><span class='vql_type pull-right'>Function</span></p>
+<p>Get tool info from inventory service.</p>
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>tool</td>
+<td></td>
+<td>string (required)</td>
+</tr>
+</tbody>
+</table>
 <h2 id="label">label</h2>
 <p><span class='vql_type pull-right'>Function</span></p>
 <p>Add the labels to the client. If op is &lsquo;remove&rsquo; then remove these labels.</p>
@@ -1009,7 +1289,7 @@ locally stored at all) and this function may stop working.</p>
 </tr>
 <tr>
 <td>op</td>
-<td>An operation on the labels (add, remove)</td>
+<td>An operation on the labels (set, check, remove)</td>
 <td>string</td>
 </tr>
 </tbody>
@@ -1161,6 +1441,44 @@ artifact results.</p>
 </tr>
 </tbody>
 </table>
+<h2 id="set_client_monitoring">set_client_monitoring</h2>
+<p><span class='vql_type pull-right'>Function</span></p>
+<p>Sets the current client monitoring state.</p>
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>value</td>
+<td>The Value to set</td>
+<td>Any (required)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="set_server_monitoring">set_server_monitoring</h2>
+<p><span class='vql_type pull-right'>Function</span></p>
+<p>Sets the current server monitoring state.</p>
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>value</td>
+<td>The Value to set</td>
+<td>Any (required)</td>
+</tr>
+</tbody>
+</table>
 <h2 id="source">source</h2>
 <p><span class='vql_type pull-right'>Plugin</span></p>
 <p>Retrieve rows from an artifact&rsquo;s source.</p>
@@ -1224,6 +1542,70 @@ multi-source artifacts).</p>
 <td>mode</td>
 <td>HUNT or CLIENT mode can be empty</td>
 <td>string</td>
+</tr>
+</tbody>
+</table>
+<h2 id="splunk_upload">splunk_upload</h2>
+<p><span class='vql_type pull-right'>Plugin</span></p>
+<p>Upload rows to splunk.</p>
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>query</td>
+<td>Source for rows to upload.</td>
+<td>StoredQuery (required)</td>
+</tr>
+<tr>
+<td>threads</td>
+<td>How many threads to use.</td>
+<td>int64</td>
+</tr>
+<tr>
+<td>url</td>
+<td>The Splunk Event Collector URL.</td>
+<td>string</td>
+</tr>
+<tr>
+<td>token</td>
+<td>Splunk HEC Token.</td>
+<td>string</td>
+</tr>
+<tr>
+<td>index</td>
+<td>The name of the index to upload to.</td>
+<td>string (required)</td>
+</tr>
+<tr>
+<td>source</td>
+<td>The source field for splunk. If not specified this will be &lsquo;velociraptor&rsquo;.</td>
+<td>string</td>
+</tr>
+<tr>
+<td>sourcetype</td>
+<td>The sourcetype field for splunk. If not specified this will &lsquo;vql&rsquo;</td>
+<td>string</td>
+</tr>
+<tr>
+<td>chunk_size</td>
+<td>The number of rows to send at the time.</td>
+<td>int64</td>
+</tr>
+<tr>
+<td>skip_verify</td>
+<td>Skip SSL verification(default: False).</td>
+<td>bool</td>
+</tr>
+<tr>
+<td>wait_time</td>
+<td>Batch splunk upload this long (2 sec).</td>
+<td>int64</td>
 </tr>
 </tbody>
 </table>

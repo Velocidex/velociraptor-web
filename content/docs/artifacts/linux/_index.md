@@ -528,6 +528,9 @@ precondition: SELECT OS From info() where OS = 'linux'
 
 type: CLIENT_EVENT
 
+required_permissions:
+  - EXECVE
+
 parameters:
   - name: pathToAuditctl
     default: /sbin/auditctl
@@ -707,19 +710,29 @@ ProcMounts|/proc/mounts|
 ```text
 name: Linux.Mounts
 description: List mounted filesystems by reading /proc/mounts
+
 parameters:
   - name: ProcMounts
     default: /proc/mounts
+
+precondition: |
+   SELECT OS From info() where OS = 'linux'
+
 sources:
-  - precondition: |
-      SELECT OS From info() where OS = 'linux'
-    queries:
-      - |
-        SELECT Device, Mount, FSType, split(string=Opts, sep=",") As Options
-               FROM parse_records_with_regex(
-                   file=ProcMounts,
-                   regex='(?m)^(?P<Device>[^ ]+) (?P<Mount>[^ ]+) (?P<FSType>[^ ]+) '+
-                         '(?P<Opts>[^ ]+)')
+  - query: |
+      SELECT Device, Mount, FSType, split(string=Opts, sep=",") As Options
+      FROM parse_records_with_regex(
+         file=ProcMounts,
+         regex='(?m)^(?P<Device>[^ ]+) (?P<Mount>[^ ]+) (?P<FSType>[^ ]+) '+
+             '(?P<Opts>[^ ]+)')
+
+
+reports:
+  - type: CLIENT
+    template: |
+      # Mounted filesystems
+
+      {{ Query "SELECT * FROM source()" | Table }}
 ```
    {{% /expand %}}
 
@@ -1458,6 +1471,41 @@ sources:
                accessor='file'
             )
           })
+```
+   {{% /expand %}}
+
+## Linux.Sys.Pslist
+
+List processes and their running binaries.
+
+
+Arg|Default|Description
+---|------|-----------
+processRegex|.|
+
+{{% expand  "View Artifact Source" %}}
+
+
+```text
+name: Linux.Sys.Pslist
+description: |
+  List processes and their running binaries.
+
+parameters:
+  - name: processRegex
+    default: .
+
+precondition: SELECT OS From info() where OS = 'linux'
+
+sources:
+  - query: |
+        SELECT Pid, Ppid, Name, Cmdline, Exe,
+               hash(path=Exe) as Hash,
+               Username, timestamp(epoch=CreateTime/1000) AS CreatedTime,
+               MemoryInfo.RSS AS RSS,
+               Exe =~ "\\(deleted\\)$" AS Deleted
+        FROM pslist()
+        WHERE Name =~ processRegex
 ```
    {{% /expand %}}
 

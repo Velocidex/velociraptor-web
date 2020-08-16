@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Velociraptor / Dig deeper</title>
+    
+      <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>Velociraptor in the tool age :: Velociraptor / Dig deeper</title>
+<link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon" />
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<link href="/css/nucleus.css" rel="stylesheet">
+<link href="/css/font-awesome.min.css" rel="stylesheet">
+<link href="/css/hybrid.css" rel="stylesheet">
+<link href="/css/featherlight.min.css" rel="stylesheet">
+<link href="/css/auto-complete.css" rel="stylesheet">
+<link href="/theme-original/style.css" rel="stylesheet">
+
+  <link href="/theme-original/variant-mine.css" rel="stylesheet">
+
+
+<script src="/js/jquery-2.x.min.js"></script>
+<style type="text/css">
+  :root #header + #content > #left > #rlblock_left {
+    display:none !important;
+  }
+</style>
+<link rel="stylesheet" href="/css/theme-mine.css">
+<script src="/js/custom.js"></script>
+
+
+    
+  </head>
+  <body data-url="/blog/medium/2020-07-13-velociraptor-in-the-tool-age-d896dfe71b9/">
+    
+      <div id="headermain"></div>
+<nav id="sidebar" class="">
+
+
+
+<div class="highlightable">
+  <div id="header-wrapper">
+    <div id="header">
+      
+	
+  
+    <a href="/">
+  <img src="/images/logo.svg">
+</a>
+
+  
+
+
+    </div>
+        <div class="searchbox">
+                    <label for="search-by"><i class="fa fa-search"></i></label>
+                    <input data-search-input id="search-by" type="text" placeholder="Search...">
+                    <span data-search-clear=""><i class="fa fa-close"></i></span>
+                </div>
+                <script type="text/javascript" src="/js/lunr.min.js"></script>
+                <script type="text/javascript" src="/js/auto-complete.js"></script>
+                <script type="text/javascript">
+        
+            var baseurl = "\/";
+        
+                </script>
+                <script type="text/javascript" src="/js/search.js"></script>
+  </div>
+
+      <ul class="topics">
+    <li data-nav-id="/about/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/about/">About Velociraptor</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/about/features/" class="dd-item">
+        <div>
+          <a href="/about/features/">
+            Velociraptor Features
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/about/license/" class="dd-item">
+        <div>
+          <a href="/about/license/">
+            License
+          </a>
+        </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/docs/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/docs/">Velociraptor Documentation</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+    <li data-nav-id="/docs/getting-started/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/docs/getting-started/">Getting Started</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+    <li data-nav-id="/docs/getting-started/stand_alone/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/getting-started/stand_alone/">Standalone Deployment</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/getting-started/deploying_clients/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/getting-started/deploying_clients/">Deploying Clients</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/getting-started/cloud/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/getting-started/cloud/">Deploying in the cloud</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/getting-started/performance/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/getting-started/performance/">Performance</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/getting-started/triaging/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/getting-started/triaging/">Triaging</a>
+      </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/docs/user-interface/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/docs/user-interface/">User Interface</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+    <li data-nav-id="/docs/user-interface/investigating_clients/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/docs/user-interface/investigating_clients/">Investigating Clients</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+    <li data-nav-id="/docs/user-interface/investigating_clients/searching_clients/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/user-interface/investigating_clients/searching_clients/">Searching for clients</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/user-interface/investigating_clients/virtual_filesystem/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/user-interface/investigating_clients/virtual_filesystem/">The Virtual File System</a>
+      </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/docs/user-interface/artifacts/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/docs/user-interface/artifacts/">Velociraptor Artifacts</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+    <li data-nav-id="/docs/user-interface/artifacts/client_artifacts/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/user-interface/artifacts/client_artifacts/">Client Artifacts</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/user-interface/artifacts/client_events/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/user-interface/artifacts/client_events/">Client Event Artifacts</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/user-interface/artifacts/server_artifacts/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/user-interface/artifacts/server_artifacts/">Server Artifacts</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/user-interface/artifacts/server_events/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/user-interface/artifacts/server_events/">Server Event Artifacts</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/user-interface/artifacts/add_artifacts/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/user-interface/artifacts/add_artifacts/">Customizing Artifacts</a>
+      </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/docs/user-interface/api/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/user-interface/api/">The Velociraptor API</a>
+      </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/docs/vql_reference/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/docs/vql_reference/">VQL Reference</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+    <li data-nav-id="/docs/vql_reference/basic/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/vql_reference/basic/">Basic VQL functions and plugins</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/vql_reference/windows/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/vql_reference/windows/">Windows Specific Functionality</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/vql_reference/parsers/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/vql_reference/parsers/">Parsers and data extractors</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/vql_reference/server/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/vql_reference/server/">Server Side Functionality</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/vql_reference/plugin/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/vql_reference/plugin/">Client Side Functionality</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/vql_reference/event/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/vql_reference/event/">Event Plugins</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/vql_reference/experimental/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/vql_reference/experimental/">Experimental Functionality</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/vql_reference/filesystem_accessors/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/vql_reference/filesystem_accessors/">Filesystem Accessors</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/vql_reference/templates/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/vql_reference/templates/">Report Templates</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/vql_reference/tips/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/vql_reference/tips/">Artifact Tips</a>
+      </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/docs/artifacts/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/docs/artifacts/">Artifact Reference</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+    <li data-nav-id="/docs/artifacts/linux/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/artifacts/linux/">Linux Artifacts</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/artifacts/windows_system/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/docs/artifacts/windows_system/">Windows</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+    <li data-nav-id="/docs/artifacts/windows_system/events/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/artifacts/windows_system/events/">Event Logs</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/artifacts/windows_system/system/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/artifacts/windows_system/system/">System</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/artifacts/windows_system/registry/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/artifacts/windows_system/registry/">Registry</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/artifacts/windows_system/network/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/artifacts/windows_system/network/">Network</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/artifacts/windows_system/applications/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/artifacts/windows_system/applications/">Applications</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/artifacts/windows_system/detection/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/artifacts/windows_system/detection/">Malware Detection</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/artifacts/windows_system/triage/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/artifacts/windows_system/triage/">Triage Artifacts</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/artifacts/windows_system/remediation/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/artifacts/windows_system/remediation/">Remdiation</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/artifacts/windows_system/monitoring/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/artifacts/windows_system/monitoring/">Event Monitoring</a>
+      </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/docs/artifacts/server/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/artifacts/server/">Server Artifacts</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/artifacts/misc/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/artifacts/misc/">Miscelaneous Artifacts</a>
+      </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/docs/presentations/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/docs/presentations/">Presentations and Workshops</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+    <li data-nav-id="/docs/presentations/comfycon.2020/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/presentations/comfycon.2020/">Comfycon 2020</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/presentations/training_2020/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/presentations/training_2020/">Enterprise Hunting and Incident Response with Velociraptor 2020</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/presentations/linux.conf.au.2020/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/presentations/linux.conf.au.2020/">Linux.Conf.Au 2020</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/presentations/sans_dfir_summit2019/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/presentations/sans_dfir_summit2019/">SANS Summit 2019</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/presentations/rsa/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/presentations/rsa/">RSA Asia Pacific and Japan 2019</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/presentations/crikeycon2019/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/presentations/crikeycon2019/">Crikeycon 2019 Training Workshop</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/presentations/nzitf2018/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/presentations/nzitf2018/">New Zealand Internet Task Force Conference 2018</a>
+      </div>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/blog/" class="dd-item parent haschildren
+        ">
+      <div>
+      <a href="/blog/">Velociraptor Blog</a>
+            <i class="fa fa-angle-down fa-lg category-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/blog/medium/2020-08-16-profiling-the-beast-58913437fd16/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-08-16-profiling-the-beast-58913437fd16/">
+            Profiling the beast
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2020-07-14-triage-with-velociraptor-pt-4-cf0e60810d1e/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-07-14-triage-with-velociraptor-pt-4-cf0e60810d1e/">
+            Triage with Velociraptor — Pt 4
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2020-07-13-velociraptor-in-the-tool-age-d896dfe71b9/" class="dd-item active">
+        <div>
+          <a href="/blog/medium/2020-07-13-velociraptor-in-the-tool-age-d896dfe71b9/">
+            Velociraptor in the tool age
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2020-06-19-the-velociraptor-query-language-pt-2-fe92bb7aa150/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-06-19-the-velociraptor-query-language-pt-2-fe92bb7aa150/">
+            The Velociraptor Query Language Pt 2
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2020-06-14-the-velociraptor-query-language-pt-1-d721bff100bf/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-06-14-the-velociraptor-query-language-pt-1-d721bff100bf/">
+            The Velociraptor Query Language Pt 1
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2020-04-16-velociraptor-e48a47e0317d/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-04-16-velociraptor-e48a47e0317d/">
+            Velociraptor
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2020-03-29-velociraptors-acl-model-7f497575daee/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-03-29-velociraptors-acl-model-7f497575daee/">
+            Velociraptor’s ACL model
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2020-03-28-velociraptor-notebooks-d02e0bd11230/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-03-28-velociraptor-notebooks-d02e0bd11230/">
+            Velociraptor notebooks
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2020-03-07-extending-vql-plugins-7fb004cb6ec4/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-03-07-extending-vql-plugins-7fb004cb6ec4/">
+            Extending VQL plugins
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2020-03-06-velociraptor-post-processing-with-jupyter-notebook-and-pandas-8a344d05ee8c/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-03-06-velociraptor-post-processing-with-jupyter-notebook-and-pandas-8a344d05ee8c/">
+            Velociraptor Post-processing with Jupyter Notebook and Pandas
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2020-01-12_hunting-malware-using-mutants-ea08e86dfc19/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-01-12_hunting-malware-using-mutants-ea08e86dfc19/">
+            Hunting Malware using Mutants
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-12-31_digging-into-the-system-resource-usage-monitor-srum-afbadb1a375/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-12-31_digging-into-the-system-resource-usage-monitor-srum-afbadb1a375/">
+            Digging into the System Resource Usage Monitor (SRUM)
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-12-08-velociraptor-to-elasticsearch-3a9fc02c6568/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-12-08-velociraptor-to-elasticsearch-3a9fc02c6568/">
+            Velociraptor to Elasticsearch
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-11-15_recovering-deleted-ntfs-files-with-velociraptor-1fcf09855311/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-11-15_recovering-deleted-ntfs-files-with-velociraptor-1fcf09855311/">
+            Recovering deleted NTFS Files with Velociraptor
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-11-12_windows-event-logs-d8d8e615c9ca/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-11-12_windows-event-logs-d8d8e615c9ca/">
+            Windows Event Logs
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-10-08_triage-with-velociraptor-pt-3-d6f63215f579/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-10-08_triage-with-velociraptor-pt-3-d6f63215f579/">
+            Triage with Velociraptor — Pt 3
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-10-04_triage-with-velociraptor-pt-2-d0f79066ca0e/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-10-04_triage-with-velociraptor-pt-2-d0f79066ca0e/">
+            Triage with Velociraptor — Pt 2
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-10-02_triage-with-velociraptor-pt-1-253f57ce96c0/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-10-02_triage-with-velociraptor-pt-1-253f57ce96c0/">
+            Triage with Velociraptor — Pt 1
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-09-11_velociraptor-s-client-side-buffer-3ce03697a4e6/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-09-11_velociraptor-s-client-side-buffer-3ce03697a4e6/">
+            Velociraptor’s client side buffer
+          </a>
+        </div>
+    </li>
+        </ul>
+    </li>
+
+
+
+
+    <hr />
+    <li></li>
+
+    </ul>
+
+ <section id="footer">
+    </section>
+  </div>
+</nav>
+
+
+
+<section id="body">
+<div id="overlay"></div>
+<div class="padding highlightable">
+
+  <div id="top-bar">
+    <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+        <span id="sidebar-toggle-span">
+          <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+            <i class="fa fa-bars"></i>
+          </a>
+        </span>
+        <span id="toc-menu"><i class="fa fa-list-alt"></i></span>
+        <span class="links">
+        
+
+
+
+
+
+
+
+ <a href='/'>Velociraptor / Dig deeper</a> > <a href='/blog/'>Velociraptor Blog</a> > Velociraptor in the tool age
+
+
+
+
+
+
+        </span>
+    </div>
+
+    
+    <div class="progress">
+        <div class="wrapper">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#example-hollows-hunter">Example: Hollows hunter</a></li>
+        <li><a href="#writing-the-artifact">Writing the artifact</a></li>
+        <li><a href="#collecting-from-the-endpoint">Collecting from the endpoint</a></li>
+        <li><a href="#tool-support--deep-dive">Tool support — deep dive</a></li>
+        <li><a href="#using-a-custom-tool">Using a custom tool</a></li>
+        <li><a href="#conclusions">Conclusions</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+        </div>
+    </div>
+    
+
+  </div>
+
+
+<div id="body-inner">
+  
+      <h1>Velociraptor in the tool age</h1>
+      
+        <h4 class="subtitle"> Velociraptor’s integration with third party tools </h4>
+      
+  
+
+
+
+    
+    
+    
+    <p><img src="https://cdn-images-1.medium.com/max/2560/1*N7EiK5rrkbiWNF47_ifOKQ.png" alt="People vector created by brgfx — www.freepik.com"><em><a href="https://www.freepik.com/free-photos-vectors/people">People vector created by brgfx </a>— <a href="http://www.freepik.com">www.freepik.com</a></em></p>
+<p>Velociraptor is a powerful endpoint visibility tool. It has plugins and parsers for many file formats, such as raw NTFS access, raw registry hive, prefetch files etc.</p>
+<p>However, as most DFIR professionals know, there are so many tools out there that we would love to use in our IR work. One of the strengths of Velociraptor is its flexibility afforded by the use of the<a href="../img/the-velociraptor-query-language-pt-1-d721bff100bf"> Velociraptor Query Language (VQL).</a></p>
+<p>We have written before on how VQL can be extended by use of short <a href="https://medium.com/velociraptor-ir/extending-vql-plugins-7fb004cb6ec4">PowerShell scripts</a>, by including these scripts directly in the Artifact definitions. This is a great way to extend the functionality provided by VQL, but what if we wanted to launch a completely separate binary on the endpoint, or a larger powershell module? How can Velociraptor facilitate the distribution, coordination and collection of tool output from thousands of endpoints efficiently and quickly?</p>
+<p>Since<a href="https://github.com/Velocidex/velociraptor/releases"> release 0.4.6</a>, Velociraptor supports including external tools directly in the artifact definition. This makes it easier than ever before to use external tools in your artifacts transparently — Velociraptor will ensure the tool is downloaded to the endpoint if needed and is available for use in your VQL.</p>
+<h3 id="example-hollows-hunter">Example: Hollows hunter</h3>
+<p>To illustrate the process, we will use the <a href="https://github.com/hasherezade/hollows_hunter">hollows hunter tool</a> as an example. This tool is written by the amazing <a href="https://hasherezade.github.io/">HASHEREZADE</a> who develops a bunch of useful tools to inspect binaries in memory (most famous is the <a href="https://github.com/hasherezade/pe-sieve">pe_sieve</a> tool).</p>
+<p>We would like to develop a Velociraptor artifact that collects all processes potentially injected by using the hollows hunter on the endpoint. Before we start though, we need to actually have such a sample to test on.</p>
+<p>Thanks to the Atomic Red Team we can use a simple test to inject a dll into notepad++. I will use the test for <a href="https://github.com/redcanaryco/atomic-red-team/blob/master/atomics/T1055/T1055.md#atomic-test-1---process-injection-via-mavinjectexe">T1055</a> to inject the dll into <em>notepad++.exe</em> on my test VM (which has the Process ID 4108):</p>
+<p><img src="../img/1E6SBS406C2B-3BVVJ10Sig.png" alt=""></p>
+<p>Now we can check that hollows hunter detects this:</p>
+<p><img src="../img/1wt1KqixkeSs8Ael96fpAXA.png" alt=""></p>
+<h3 id="writing-the-artifact">Writing the artifact</h3>
+<p>We now create the artifact in the Velociraptor GUI. Start off by selecting the <em>“View Artifacts”</em> pane in the left sidebar and click the* “New Artifact”* button to bring up the artifact editor UI. The editor will have a pre-filled in template which helps to guide the user to produce the correct syntax so I will just edit that.</p>
+<p><img src="../img/1s9fGjhLnwf2uW4vRt3qCQA.png" alt=""></p>
+<p>The first thing I will do is name the artifact <em>“Custom.Windows.Detection.ProcessHollowing”</em>. Since this is a custom artifact, it must start with the word **Custom. **to keep it distinct from Velociraptor’s built in artifacts. I can also add a quick description to help users understand what this artifact does.</p>
+<p>Next I will declare that this artifact needs the <strong>hollows_hunter</strong> tool. Velociraptor will ensure this tool is available on the endpoint when the artifact is collected. The tool’s name is simply a string that I will use to refer to the tool below. It will be automatically added to Velociraptor’s inventory of external tools.</p>
+<p>By providing the url, Velociraptor can fetch the tool by itself from this URL. If the tool is not yet known to Velociraptor, the server will fetch the file and calculate the hash the first time and store it. In the next section we can see how to manage tools in Velociraptor.</p>
+<p>Now we are ready to write the VQL that will use the tool. The VQL will run on the endpoint during collection and will need a valid path to the hollows hunter executable. Velociraptor will manage uploading the executable to the endpoint and caching the binary locally, ensuring its hash does not change over time. To make this process as easy to use as possible, as far as the artifact writer is concerned, they simply need to call the <em>“Generic.Utils.FetchBinary()”</em> artifact to get a path to the local binary.</p>
+<p><img src="../img/1WWMvYGQvreCfPbKrtDYuew.png" alt=""></p>
+<p>The first VQL query simply calls the <strong>Generic.Utils.FetchBinary()</strong> artifact with the required tool name (Note that we don&rsquo;t need to specify a url since this is already known to the system). We assign the result of this query to the <em>“binaries”</em> variable — which will contain an array of rows as is always the case with assigning a query to a variable (in this case only one row).</p>
+<p>At the same time we also obtain a temporary directory to store results in. This directory will be automatically removed when the query ends to clean up.</p>
+<p>Next we call the binary using the <strong>execve()</strong> plugin with the appropriate arguments — We wish to dump the memory of affected processed and write json results into the temp directory (The length parameter forces the execve() plugin to wait until the buffer is full before emitting the row — this will wait until the program is done and emit a single row with Stdout as a column.)</p>
+<p>After the hollows hunter program ends, we glob over all the files in the temp directory and just upload them to the server (we chain the two queries together using the <em>chain()</em> plugin).</p>
+<p>The complete artifact can be seen below:</p>
+<script src="https://gist.github.com/scudette/0f5d5102b6e3b1580b4feccdf7d59b53.js" charset="utf-8"></script>
+<h3 id="collecting-from-the-endpoint">Collecting from the endpoint</h3>
+<p>Now let&rsquo;s test this artifact by collecting it from our test VM. Simply search for the hostname in the search box, and view the* “Collected Artifacts”* pane to see previously collected artifacts. Click the *“Collect new artifacts”* button and search for our newly created hollows hunter artifact.</p>
+<p><img src="../img/1iTGEgzlLFnoQpwwLBTylQg.png" alt=""></p>
+<p>Click* “Launch Collection” *to collect it from the endpoint. We can view the query log as it is executing on the endpoint to really appreciate what is happening behind the scenes.</p>
+<p><img src="../img/1uf7vfDoXWEUYO6KOabXHtw.png" alt=""></p>
+<p>The endpoint initially does not have a copy of the hollows hunter binary cached locally, so it needs to download it. The endpoint will now sleep a random time before actually downloading it in order to stagger downloads from potentially thousands of endpoints in a hunt.</p>
+<p>After a short sleep, the endpoint will download the binary directly from GitHub, it will then calculate the hash of the binary it downloaded with the expected hash that was sent by the server. If the hashes match, then the endpoint will keep this file in the temp directory. The hash comparison protects endpoints from the GitHub binary changing unexpectedly.</p>
+<p>Finally, the endpoint simply runs the tool, and uploads the results to the server.</p>
+<p><img src="../img/15U_9frnLTdA1vsyPuewh4g.png" alt=""></p>
+<p>The user can access those results as normally by simply getting the results in a zip file from the <strong>Artifact Collection</strong> tab.</p>
+<p><img src="../img/1G9m-FkIBjgzQh1xURAnpzw.png" alt=""></p>
+<p>We can now also hunt for this on our entire fleet to retrieve all the injected binaries in minutes!</p>
+<p>Note that once the binary is cached on the endpoint, the Velociraptor client will not need to download it again, as long as the cached hash matches the expected hash.</p>
+<h3 id="tool-support--deep-dive">Tool support — deep dive</h3>
+<p>In the above example, from the point of view of the artifact writer, the hollows hunter binary just magically appeared on the endpoint when it was required by an artifact that used it. How does this actually work?</p>
+<p>Velociraptor has integrated support for external tools since 0.4.6. The tools are managed by the velociraptor tools command. You can see what tools Velociraptor knows about using the** velociraptor tools show** command:</p>
+<p><img src="../img/1y0ApRgFzYELr7A2Ko4AHNQ.png" alt=""></p>
+<p>We can see that Velociraptor knows the hash of the hollows hunter tool and it also keeps a copy of the binary in the filestore under a special obfuscated name.</p>
+<h3 id="using-a-custom-tool">Using a custom tool</h3>
+<p>Previously we have seen that the endpoints all downloaded the hollows hunter binary directly from GitHub. In practice, if you have thousands of clients all trying to download the same binary in a hunt it might trigger GitHub’s DDoS protections. At larger scale it might be better to serve binaries from more reliable source, like cloud buckets or Velociraptor’s server itself.</p>
+<p>Suppose we also wanted to use a special version of hollows_hunter (perhaps an unreleased version with extra features or detections) so we would really like to host the binary ourselves.</p>
+<p>We can directly upload our custom version to Velociraptor using the <strong>velociraptor tools upload</strong> command</p>
+<p><img src="../img/1cQ-vwx6uj3JSavrF5m5ejQ.png" alt=""></p>
+<p>Velociraptor will now serve the binary from the frontends directly when used (seen by the serve_locally flag). Note that the binary will still only be downloaded if the local copy on the endpoint does not have the required hash so if this is a frequently used tool it will generally not generate a lot of download traffic.</p>
+<h3 id="conclusions">Conclusions</h3>
+<p>The aim of the new tool integration is to have Velociraptor automatically manage local caching on the endpoint of external files. It is possible to have the endpoints download the files from any URL, or serve it locally from Velociraptor itself. Either way, Velociraptor ensures the file integrity by specifying in the collection request the required file hash.</p>
+<p>Although in this example we used a binary on the endpoint, this is not necessary. The scheme works just as well with any file type. For example, sysmon configuration files can also be kept in a central place and artifacts can sync them on the endpoint and load them as required.</p>
+<p>The ability to resync tools on the endpoint opens the door to versioned files. For example, we frequently use Yara rule files containing frequently changing signatures from threat feeds and other intel. By updating the hashes on the Velociraptor server we can force endpoints to use the latest version of the signatures whenever an artifact is run, but only if they don&rsquo;t already have the latest pack of yara rules (which may be large).</p>
+<p>Caching the files locally means the overheads of downloading the file each time is eliminated, the artifact YAML itself contains all one needs to collect this specific type of evidence. In the above example, we can collect the hollows hunter multiple times, but the binary will only be actually downloaded once per endpoint. The next collection will simply use the same local binary while its hash is not changed.</p>
+<p>To play with this new feature yourself, take Velociraptor for a spin! It is a available on <a href="https://github.com/Velocidex/velociraptor">GitHub</a> under and open source license. As always please file issues on the bug tracker or ask questions on our mailing list <a href="mailto:velociraptor-discuss@googlegroups.com">velociraptor-discuss@googlegroups.com</a> . You can also chat with us directly on discord <a href="../img/discord">https://www.velocidex.com/discord</a></p>
+
+
+    
+    
+          <footer class=" footline" >
+	
+</footer>
+  </div>
+</div>
+
+<div id="navigation">
+<a class="nav nav-prev" href="/blog/medium/2020-07-14-triage-with-velociraptor-pt-4-cf0e60810d1e/" title="Triage with Velociraptor — Pt 4"> <i class="fa fa-chevron-left"></i><label>Triage with Velociraptor — Pt 4</label></a>
+    <a class="nav nav-next" href="/blog/medium/2020-06-19-the-velociraptor-query-language-pt-2-fe92bb7aa150/" title="The Velociraptor Query Language Pt 2" style="margin-right: 0px;"><label>The Velociraptor Query Language Pt 2</label><i class="fa fa-chevron-right"></i></a></div>
+
+</section>
+<div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+  <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+</div>    
+
+<script src="/js/clipboard.min.js"></script>
+<script src="/js/featherlight.min.js"></script>
+<script src="/js/html5shiv-printshiv.min.js"></script>
+
+<script src="/js/modernizr.custom.71422.js"></script>
+<script src="/js/docdock.js"></script>
+<script src="/theme-original/script.js"></script>
+
+
+    
+
+    
+    
+
+    
+  </body>
+</html>

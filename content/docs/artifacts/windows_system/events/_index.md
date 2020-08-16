@@ -50,6 +50,134 @@ sources:
 ```
    {{% /expand %}}
 
+## Windows.EventLogs.Cleared
+
+Extract Event Logs related to EventLog clearing
+- Security Log  - EventID 1102
+- System Log - EventID 104
+
+
+Arg|Default|Description
+---|------|-----------
+EvtxLookupTable|Glob\n%SystemRoot%\\System32\\Winevt\\Logs\\Securi ...|
+SearchVSS||Add VSS into query.
+DateAfter||search for events after this date. YYYY-MM-DDTmm:hh:ssZ
+DateBefore||search for events before this date. YYYY-MM-DDTmm:hh:ssZ
+
+{{% expand  "View Artifact Source" %}}
+
+
+```text
+name: Windows.EventLogs.Cleared
+
+description: |
+  Extract Event Logs related to EventLog clearing
+  - Security Log  - EventID 1102
+  - System Log - EventID 104
+
+reference:
+  - https://attack.mitre.org/versions/v6/techniques/T1070/
+
+author: Matt Green - @mgreen27
+
+precondition: SELECT OS From info() where OS = 'windows'
+
+parameters:
+  - name: EvtxLookupTable
+    default: |
+        Glob
+        %SystemRoot%\System32\Winevt\Logs\Security.evtx
+        %SystemRoot%\System32\Winevt\Logs\System.evtx
+  - name: SearchVSS
+    description: "Add VSS into query."
+    type: bool
+  - name: DateAfter
+    type: timestamp
+    description: "search for events after this date. YYYY-MM-DDTmm:hh:ssZ"
+  - name: DateBefore
+    type: timestamp
+    description: "search for events before this date. YYYY-MM-DDTmm:hh:ssZ"
+
+sources:
+  - queries:
+      # Date bounds for time box
+      - LET DateAfterTime <= if(condition=DateAfter,
+            then=timestamp(epoch=DateAfter), else=timestamp(epoch="1600-01-01"))
+      - LET DateBeforeTime <= if(condition=DateBefore,
+            then=timestamp(epoch=DateBefore), else=timestamp(epoch="2200-01-01"))
+
+      # Extract all target paths from specified globs
+      - LET evtxglobs <= SELECT expand(path=Glob) as EvtxGlob
+                     FROM parse_csv(filename=EvtxLookupTable, accessor='data')
+
+      - LET files = SELECT * FROM foreach(
+            row=evtxglobs,
+            query={
+                SELECT * FROM if(condition=SearchVSS,
+                    then= {
+                        SELECT *
+                        FROM Artifact.Windows.Search.VSS(SearchFilesGlob=EvtxGlob)
+                    },
+                    else= {
+                        SELECT *, "" AS Source
+                        FROM glob(globs=EvtxGlob)
+                    })
+                })
+
+     # Parse all target files, order by source and add dedupe string
+      - LET hits = SELECT *
+            FROM foreach(
+                row=files,
+                query={
+                    SELECT
+                        timestamp(epoch=int(int=System.TimeCreated.SystemTime)) AS EventTime,
+                        System.Computer as Computer,
+                        System.EventID.Value as EventID,
+                        System.EventRecordID as EventRecordID,
+                        if(condition= System.EventID.Value = 1102,
+                            then= System.Channel,
+                            else= UserData.LogFileCleared.Channel) as Channel,
+                        if(condition= System.EventID.Value = 1102,
+                            then= UserData.LogFileCleared.SubjectDomainName + '\\' +
+                                UserData.LogFileCleared.SubjectUserName,
+                            else= UserData.LogFileCleared.SubjectDomainName + '\\' +
+                                UserData.LogFileCleared.SubjectUserName) as UserName,
+                        if(condition= System.EventID.Value = 1102,
+                            then= UserData.LogFileCleared.SubjectUserSid,
+                            else= System.Security.UserID) as SecurityID,
+                        Message,
+                        if(condition=Source, then=Source, else=FullPath) as Source,
+                        format(format="%v-%v-%v",args=[System.EventID.Value,System.EventRecordID,
+                            timestamp(epoch=int(int=System.TimeCreated.SystemTime))]) as _Group
+                FROM parse_evtx(filename=FullPath)
+                WHERE
+                    EventTime < DateBeforeTime AND
+                    EventTime > DateAfterTime AND
+                    ( EventID = 1102 AND Channel = 'Security' ) OR
+                    ( EventID = 104 AND Message =~ 'Log clear' )
+            })
+            ORDER BY Source DESC
+
+      # Group results for deduplication
+      - LET grouped = SELECT *
+          FROM hits
+          GROUP BY _Group
+
+      # Output results
+      - SELECT
+            EventTime,
+            Computer,
+            EventID,
+            EventRecordID,
+            Channel,
+            UserName,
+            SecurityID,
+            Message,
+            Source
+        FROM grouped
+```
+   {{% /expand %}}
+
 ## Windows.EventLogs.DHCP
 
 
@@ -115,6 +243,7 @@ description: |
 parameters:
   - name: eventDirGlob
     default: C:\Windows\system32\winevt\logs\
+
   - name: adminLog
     default: Microsoft-Windows-Dhcp-Client%4Admin.evtx
 
@@ -126,12 +255,11 @@ parameters:
 
 sources:
   - name: RejectedDHCP
-    queries:
-      - |
+    query: |
         LET files = SELECT * FROM glob(
             globs=eventDirGlob + adminLog,
             accessor=accessor)
-      - |
+
         SELECT Time AS _Time,
                timestamp(epoch=Time) As Timestamp,
                Computer, MAC, ClientIP, DHCPServer, Type FROM foreach(
@@ -148,12 +276,7 @@ sources:
            })
 
   - name: AssignedDHCP
-    queries:
-      - |
-        LET files = SELECT * FROM glob(
-            globs=eventDirGlob + operationalLog,
-            accessor=accessor)
-      - |
+    query: |
         SELECT Time AS _Time,
                timestamp(epoch=Time) As Timestamp,
                Computer, MAC, ClientIP, DHCPServer, Type FROM foreach(
@@ -348,35 +471,190 @@ reports:
 ```
    {{% /expand %}}
 
-## Windows.EventLogs.PowershellScriptblock
+## Windows.EventLogs.PowershellModule
 
-This Artifact will search and extract ScriptBlock events (Event ID 4104) from 
+This Artifact will search and extract Module events (Event ID 4103) from
 Powershell-Operational Event Logs.
 
-Powershell is commonly used by attackers accross all stages of the attack 
-lifecycle. A valuable hunt is to search Scriptblock logs for signs of 
-malicious content.
+Powershell is commonly used by attackers accross all stages of the attack
+lifecycle. Although quite noisy Module logging can provide valuable insight.
 
-There are several parameter's availible for search leveraging regex. 
-  - dateAfter enables search for events after this date.  
-  - dateBefore enables search for events before this date.   
-  - SearchStrings enables regex search over scriptblock text field.  
-  - stringWhiteList enables a regex whitelist for scriptblock text field.  
-  - pathWhitelist enables a regex whitelist for path of scriptblock. 
-  - LogLevel enables searching on type of log. Default is Warning level 
-    which is logged even if ScriptBlock logging is turned off when 
-    suspicious keywords detected in Powershell interpreter.   
+There are several parameter's availible for search leveraging regex.
+  - DateAfter enables search for events after this date.
+  - DateBefore enables search for events before this date.
+  - ContextRegex enables regex search over ContextInfo text field.
+  - PayloadRegex enables a regex search over Payload text field.
+  - SearchVSS enables VSS search
 
 
 Arg|Default|Description
 ---|------|-----------
-eventLog|C:\\Windows\\system32\\winevt\\logs\\Microsoft-Win ...|
-dateAfter||search for events after this date. YYYY-MM-DDTmm:hh:ss Z
-dateBefore||search for events before this date. YYYY-MM-DDTmm:hh:ss Z
-searchStrings||regex search over scriptblock text field.
-stringWhitelist||Regex of string to witelist
-pathWhitelist||Regex of path to whitelist.
+EventLog|C:\\Windows\\system32\\winevt\\logs\\Microsoft-Win ...|
+DateAfter||search for events after this date. YYYY-MM-DDTmm:hh:ss Z
+DateBefore||search for events before this date. YYYY-MM-DDTmm:hh:ss Z
+ContextRegex||regex search over Payload text field.
+PayloadRegex||regex search over Payload text field.
+SearchVSS||Add VSS into query.
+
+{{% expand  "View Artifact Source" %}}
+
+
+```text
+name: Windows.EventLogs.PowershellModule
+description: |
+  This Artifact will search and extract Module events (Event ID 4103) from
+  Powershell-Operational Event Logs.
+
+  Powershell is commonly used by attackers accross all stages of the attack
+  lifecycle. Although quite noisy Module logging can provide valuable insight.
+
+  There are several parameter's availible for search leveraging regex.
+    - DateAfter enables search for events after this date.
+    - DateBefore enables search for events before this date.
+    - ContextRegex enables regex search over ContextInfo text field.
+    - PayloadRegex enables a regex search over Payload text field.
+    - SearchVSS enables VSS search
+
+
+author: Matt Green - @mgreen27
+
+reference:
+  - https://attack.mitre.org/techniques/T1059/001/
+  - https://www.fireeye.com/blog/threat-research/2016/02/greater_visibilityt.html
+
+parameters:
+  - name: EventLog
+    default: C:\Windows\system32\winevt\logs\Microsoft-Windows-PowerShell%4Operational.evtx
+  - name: DateAfter
+    description: "search for events after this date. YYYY-MM-DDTmm:hh:ss Z"
+    type: timestamp
+  - name: DateBefore
+    description: "search for events before this date. YYYY-MM-DDTmm:hh:ss Z"
+    type: timestamp
+  - name: ContextRegex
+    description: "regex search over Payload text field."
+  - name: PayloadRegex
+    description: "regex search over Payload text field."
+  - name: SearchVSS
+    description: "Add VSS into query."
+    type: bool
+  - name: LogLevelMap
+    type: hidden
+    default: |
+      Choice,Regex
+      All,"."
+      Warning,"3"
+      Verbose,"5"
+
+sources:
+  - query: |
+        -- Build time bounds
+        LET DateAfterTime <= if(condition=DateAfter,
+            then=timestamp(epoch=DateAfter), else=timestamp(epoch="1600-01-01"))
+        LET DateBeforeTime <= if(condition=DateBefore,
+            then=timestamp(epoch=DateBefore), else=timestamp(epoch="2200-01-01"))
+
+        -- Parse Log level dropdown selection
+        LET LogLevelRegex <= SELECT format(format="%v", args=Regex) as value
+            FROM parse_csv(filename=LogLevelMap, accessor="data")
+            WHERE Choice=LogLevel LIMIT 1
+
+        -- Determine target files
+        LET files = SELECT *
+          FROM if(condition=SearchVSS,
+            then= {
+              SELECT *
+              FROM Artifact.Windows.Search.VSS(SearchFilesGlob=EventLog)
+            },
+            else= {
+              SELECT *
+              FROM glob(globs=EventLog)
+            })
+
+        -- Main query
+        LET hits = SELECT *
+          FROM foreach(
+            row=files,
+            query={
+              SELECT
+                timestamp(epoch=System.TimeCreated.SystemTime) As EventTime,
+                System.EventID.Value as EventID,
+                System.Computer as Computer,
+                System.Security.UserID as SecurityID,
+                EventData.ContextInfo as ContextInfo,
+                EventData.Payload as Payload,
+                Message,
+                System.EventRecordID as EventRecordID,
+                System.Level as Level,
+                System.Opcode as Opcode,
+                System.Task as Task,
+                if(condition=Source, then=Source, else=FullPath) as Source
+              FROM parse_evtx(filename=FullPath)
+              WHERE EventID = 4103
+                AND EventTime > DateAfterTime
+                AND EventTime < DateBeforeTime
+                AND if(condition=ContextRegex,
+                    then=ContextInfo=~ContextRegex,else=TRUE)
+                AND if(condition=PayloadRegex,
+                    then=ContextInfo=~PayloadRegex,else=TRUE)
+            })
+          ORDER BY Source DESC
+
+        -- Group results for deduplication
+        LET grouped = SELECT *
+          FROM hits
+          GROUP BY EventRecordID
+
+        -- Output results
+        SELECT
+            EventTime,
+            EventID,
+            Computer,
+            SecurityID,
+            ContextInfo,
+            Payload,
+            Message,
+            EventRecordID,
+            Level,
+            Opcode,
+            Task,
+            Source
+        FROM grouped
+```
+   {{% /expand %}}
+
+## Windows.EventLogs.PowershellScriptblock
+
+This Artifact will search and extract ScriptBlock events (Event ID 4104) from
+Powershell-Operational Event Logs.
+
+Powershell is commonly used by attackers accross all stages of the attack
+lifecycle. A valuable hunt is to search Scriptblock logs for signs of
+malicious content.
+
+There are several parameter's availible for search leveraging regex.
+  - DateAfter enables search for events after this date.
+  - DateBefore enables search for events before this date.
+  - SearchStrings enables regex search over scriptblock text field.
+  - StringWhiteList enables a regex whitelist for scriptblock text field.
+  - PathWhitelist enables a regex whitelist for path of scriptblock.
+  - LogLevel enables searching on type of log. Default is Warning level
+    which is logged even if ScriptBlock logging is turned off when
+    suspicious keywords detected in Powershell interpreter. See second
+    reference for list of keywords.
+  - SearchVSS enables VSS search
+
+
+Arg|Default|Description
+---|------|-----------
+EventLog|C:\\Windows\\system32\\winevt\\logs\\Microsoft-Win ...|
+DateAfter||search for events after this date. YYYY-MM-DDTmm:hh:ss Z
+DateBefore||search for events before this date. YYYY-MM-DDTmm:hh:ss Z
+SearchStrings||regex search over scriptblock text field.
+StringWhitelist||Regex of string to witelist
+PathWhitelist||Regex of path to whitelist.
 LogLevel|Warning|Log level. Warning is Powershell default bad keyword list.
+SearchVSS||Add VSS into query.
 
 {{% expand  "View Artifact Source" %}}
 
@@ -384,42 +662,47 @@ LogLevel|Warning|Log level. Warning is Powershell default bad keyword list.
 ```text
 name: Windows.EventLogs.PowershellScriptblock
 description: |
-  This Artifact will search and extract ScriptBlock events (Event ID 4104) from 
+  This Artifact will search and extract ScriptBlock events (Event ID 4104) from
   Powershell-Operational Event Logs.
-  
-  Powershell is commonly used by attackers accross all stages of the attack 
-  lifecycle. A valuable hunt is to search Scriptblock logs for signs of 
+
+  Powershell is commonly used by attackers accross all stages of the attack
+  lifecycle. A valuable hunt is to search Scriptblock logs for signs of
   malicious content.
-  
-  There are several parameter's availible for search leveraging regex. 
-    - dateAfter enables search for events after this date.  
-    - dateBefore enables search for events before this date.   
-    - SearchStrings enables regex search over scriptblock text field.  
-    - stringWhiteList enables a regex whitelist for scriptblock text field.  
-    - pathWhitelist enables a regex whitelist for path of scriptblock. 
-    - LogLevel enables searching on type of log. Default is Warning level 
-      which is logged even if ScriptBlock logging is turned off when 
-      suspicious keywords detected in Powershell interpreter.   
-  
+
+  There are several parameter's availible for search leveraging regex.
+    - DateAfter enables search for events after this date.
+    - DateBefore enables search for events before this date.
+    - SearchStrings enables regex search over scriptblock text field.
+    - StringWhiteList enables a regex whitelist for scriptblock text field.
+    - PathWhitelist enables a regex whitelist for path of scriptblock.
+    - LogLevel enables searching on type of log. Default is Warning level
+      which is logged even if ScriptBlock logging is turned off when
+      suspicious keywords detected in Powershell interpreter. See second
+      reference for list of keywords.
+    - SearchVSS enables VSS search
 
 author: Matt Green - @mgreen27
 
+reference:
+  - https://attack.mitre.org/techniques/T1059/001/
+  - https://github.com/PowerShell/PowerShell/blob/master/src/System.Management.Automation/engine/runtime/CompiledScriptBlock.cs#L1781-L1943
+
 parameters:
-  - name: eventLog
+  - name: EventLog
     default: C:\Windows\system32\winevt\logs\Microsoft-Windows-PowerShell%4Operational.evtx
-  - name: dateAfter
+  - name: DateAfter
     description: "search for events after this date. YYYY-MM-DDTmm:hh:ss Z"
     type: timestamp
-  - name: dateBefore
+  - name: DateBefore
     description: "search for events before this date. YYYY-MM-DDTmm:hh:ss Z"
     type: timestamp
-  - name: searchStrings
+  - name: SearchStrings
     description: "regex search over scriptblock text field."
-  - name: stringWhitelist
+  - name: StringWhitelist
     description: "Regex of string to witelist"
-  - name: pathWhitelist
+  - name: PathWhitelist
     description: "Regex of path to whitelist."
-    
+
   - name: LogLevel
     description: "Log level. Warning is Powershell default bad keyword list."
     type: choices
@@ -435,61 +718,91 @@ parameters:
       All,"."
       Warning,"3"
       Verbose,"5"
-      
-      
-sources:
-  - name: PowershellScriptBlock
-    queries:
-      - LET time <= SELECT format(format="%v", args=Regex) as value
-            FROM parse_csv(filename=LogLevelMap, accessor="data")
-            WHERE Choice=LogLevel LIMIT 1
-      - LET LogLevelRegex <= SELECT format(format="%v", args=Regex) as value
-            FROM parse_csv(filename=LogLevelMap, accessor="data")
-            WHERE Choice=LogLevel LIMIT 1
-      - LET files = SELECT * FROM glob(
-            globs=eventLog)
-      - SELECT *
-        FROM foreach(
-          row=files,
-          query={
-            SELECT timestamp(epoch=System.TimeCreated.SystemTime) As EventTime,
-              System.Computer as Computer,
-              System.Security.UserID as SecurityID,
-              EventData.Path as Path,
-              EventData.ScriptBlockId as ScriptBlockId,
-              EventData.ScriptBlockText as ScriptBlockText,
-              System.EventRecordID as EventRecordID,
-              System.Level as Level,
-              System.Opcode as Opcode,
-              System.Task as Task
-            FROM parse_evtx(filename=FullPath)
-            WHERE System.EventID.Value = 4104 and
-                if(condition=dateAfter, then=EventTime > timestamp(string=dateAfter),
-                 else=TRUE) and
-                if(condition=dateBefore, then=EventTime < timestamp(string=dateBefore),
-                 else=TRUE) and
-                format(format="%d", args=System.Level) =~ LogLevelRegex.value[0] and
-                if(condition=searchStrings, then=ScriptBlockText =~ searchStrings,
-                 else=TRUE) and
-                if(condition=stringWhitelist, then=not ScriptBlockText =~ stringWhitelist,
-                 else=TRUE) and
-                if(condition=pathWhitelist, then=not Path =~ pathWhitelist,
-                 else=TRUE)
-        })
+  - name: SearchVSS
+    description: "Add VSS into query."
+    type: bool
 
-reports:
-  - type: HUNT
-    template: |
-      Powershell: Scriptblock
-      =======================
-      Powershell is commonly used by attackers accross all stages of the attack 
-      lifecycle.  
-      A valuable hunt is to search Scriptblock logs for signs of malicious 
-      content. Stack ranking these events can provide valuable leads from which 
-      to start an investigation.
-      
-      {{ Query "SELECT count(items=ScriptBlockText) as Count, ScriptBlockText FROM source(source='PowershellScriptBlock') GROUP BY ScriptBlockText ORDER BY Count"  | Table }}
-      
+sources:
+  - query: |
+        -- Build time bounds
+        LET DateAfterTime <= if(condition=DateAfter,
+            then=timestamp(epoch=DateAfter), else=timestamp(epoch="1600-01-01"))
+        LET DateBeforeTime <= if(condition=DateBefore,
+            then=timestamp(epoch=DateBefore), else=timestamp(epoch="2200-01-01"))
+
+        -- Parse Log level dropdown selection
+        LET LogLevelRegex <= SELECT format(format="%v", args=Regex) as value
+            FROM parse_csv(filename=LogLevelMap, accessor="data")
+            WHERE Choice=LogLevel LIMIT 1
+
+        -- Determine target files
+        LET files = SELECT *
+          FROM if(condition=SearchVSS,
+            then= {
+              SELECT *
+              FROM Artifact.Windows.Search.VSS(SearchFilesGlob=EventLog)
+            },
+            else= {
+              SELECT *, FullPath AS Source
+              FROM glob(globs=EventLog)
+            })
+
+        -- Main query
+        LET hits = SELECT *
+          FROM foreach(
+            row=files,
+            query={
+              SELECT timestamp(epoch=System.TimeCreated.SystemTime) As EventTime,
+                System.EventID.Value as EventID,
+                System.Computer as Computer,
+                System.Security.UserID as SecurityID,
+                EventData.Path as Path,
+                EventData.ScriptBlockId as ScriptBlockId,
+                EventData.ScriptBlockText as ScriptBlockText,
+                Message,
+                System.EventRecordID as EventRecordID,
+                System.Level as Level,
+                System.Opcode as Opcode,
+                System.Task as Task,
+                Source
+              FROM parse_evtx(filename=FullPath)
+              WHERE System.EventID.Value = 4104
+                AND EventTime < DateBeforeTime
+                AND EventTime > DateAfterTime
+                AND format(format="%d", args=System.Level) =~ LogLevelRegex.value[0]
+                AND if(condition=SearchStrings,
+                    then=ScriptBlockText =~ SearchStrings,
+                    else=TRUE)
+                AND if(condition=StringWhitelist,
+                    then= NOT ScriptBlockText =~ StringWhitelist,
+                    else=TRUE)
+                AND if(condition=PathWhitelist,
+                    then= NOT Path =~ PathWhitelist,
+                    else=TRUE)
+          })
+          ORDER BY Source DESC
+
+        -- Group results for deduplication
+        LET grouped = SELECT *
+          FROM hits
+          GROUP BY EventRecordID
+
+        -- Output results
+        SELECT
+            EventTime,
+            EventID,
+            Computer,
+            SecurityID,
+            Path,
+            ScriptBlockId,
+            ScriptBlockText,
+            Message,
+            EventRecordID,
+            Level,
+            Opcode,
+            Task,
+            Source
+        FROM grouped
 ```
    {{% /expand %}}
 
@@ -497,16 +810,20 @@ reports:
 
 
 This Detection hts on the string "COMSPEC" (nocase) in Windows Service
-Creation events. That is: EventID 7045 from the System event log. 
+Creation events. That is: EventID 7045 from the System event log.
 
-This detects many hack tools that leverage SCM based lateral movement 
+This detects many hack tools that leverage SCM based lateral movement
 including smbexec.
+
+SearchVSS allows querying VSS instances of EventLog Path with event
+deduplication.
 
 
 Arg|Default|Description
 ---|------|-----------
-eventLog|C:\\Windows\\system32\\winevt\\logs\\System.evtx|
-accessor|ntfs|
+EventLog|C:\\Windows\\system32\\winevt\\logs\\System.evtx|
+ComspecRegex|(COMSPEC|cmd.exe)|
+SearchVSS||Add VSS into query.
 
 {{% expand  "View Artifact Source" %}}
 
@@ -516,48 +833,168 @@ name: Windows.EventLogs.ServiceCreationComspec
 description: |
 
   This Detection hts on the string "COMSPEC" (nocase) in Windows Service
-  Creation events. That is: EventID 7045 from the System event log. 
+  Creation events. That is: EventID 7045 from the System event log.
 
-  This detects many hack tools that leverage SCM based lateral movement 
+  This detects many hack tools that leverage SCM based lateral movement
   including smbexec.
+
+  SearchVSS allows querying VSS instances of EventLog Path with event
+  deduplication.
 
 author: Matt Green - @mgreen27
 
 parameters:
-  - name: eventLog
+  - name: EventLog
     default: C:\Windows\system32\winevt\logs\System.evtx
-  - name: accessor
-    default: ntfs
+  - name: ComspecRegex
+    default: "(COMSPEC|cmd.exe)"
+  - name: SearchVSS
+    description: "Add VSS into query."
+    type: bool
 
 sources:
   - name: ServiceCreation
     queries:
-      - |
-        LET files = SELECT * FROM glob(
-            globs=eventLog,
-            accessor=accessor)
-      - |
-        SELECT *
-        FROM foreach(
-          row=files,
-          query={
-            SELECT timestamp(epoch=System.TimeCreated.SystemTime) As EventTime,
-              System.EventID.Value as EventID,
+      # Extract all target paths from glob
+      - LET files = SELECT *
+            FROM if(condition=SearchVSS,
+                then= {
+                    SELECT *
+                    FROM Artifact.Windows.Search.VSS(SearchFilesGlob=EventLog)
+                },
+                else= {
+                    SELECT *
+                    FROM glob(globs=EventLog,accessor='ntfs')
+                })
+
+      # Parse all target files, order by source and add dedupe string
+      - LET hits = SELECT *
+            FROM foreach(
+              row=files,
+              query={
+                SELECT timestamp(epoch=System.TimeCreated.SystemTime) as EventTime,
+                  System.EventID.Value as EventID,
+                  System.Computer as Computer,
+                  System.Security.UserID as SecurityID,
+                  EventData.AccountName as ServiceAccount,
+                  EventData.ServiceName as ServiceName,
+                  EventData.ImagePath as ImagePath,
+                  EventData.ServiceType as ServiceType,
+                  EventData.StartType as StartType,
+                  System.EventRecordID as EventRecordID,
+                  System.Level as Level,
+                  System.Opcode as Opcode,
+                  System.Task as Task,
+                  if(condition=Source, then=Source, else=FullPath) as Source
+                FROM parse_evtx(filename=FullPath, accessor='ntfs')
+                WHERE System.EventID.Value = 7045 and
+                  EventData.ImagePath =~ ComspecRegex
+            })
+            ORDER BY Source DESC
+
+      # Group results for deduplication
+      - LET grouped = SELECT *
+          FROM hits
+          GROUP BY EventRecordID
+
+      # Output results
+      - SELECT
+            EventTime,
+            EventID,
+            Computer,
+            SecurityID,
+            ServiceAccount,
+            ServiceName,
+            ImagePath,
+            ServiceType,
+            StartType,
+            EventRecordID,
+            Source
+        FROM grouped
+```
+   {{% /expand %}}
+
+## Windows.EventLogs.Symantec
+
+Query the Symantec Endpoint Protection Event Logs. The default artifact will 
+return EventId 51 and high value strings with goals bubble up some events for 
+triage.
+
+Note:  
+EventID selection is controlled by regex to allow multiple EID selections.  
+If running a hunt, consider also hunting EventId 45 - Tamper Protection 
+Detection (this will be noisy so whitelist is required).  
+IgnoreRegex allows filtering out events relevant to the target environment.  
+
+
+Arg|Default|Description
+---|------|-----------
+SymantecEventLog|C:\\Windows\\system32\\winevt\\logs\\Symantec Endp ...|
+RegexEventIds|^51$|Regex of Event IDs to hunt for. Consider EID 45 for Tamper Protection Detection
+TargetRegex|Infostealer|Hacktool|Mimi|SecurityRisk|WinCredEd|N ...|Regex to hunt for - default is high value SEP detections
+IgnoreRegex||Regex to ignore events with EventData strings matching.
+DateAfter||search for events after this date. YYYY-MM-DDTmm:hh:ssZ
+DateBefore||search for events before this date. YYYY-MM-DDTmm:hh:ssZ
+
+{{% expand  "View Artifact Source" %}}
+
+
+```text
+name: Windows.EventLogs.Symantec
+description: |
+  Query the Symantec Endpoint Protection Event Logs. The default artifact will 
+  return EventId 51 and high value strings with goals bubble up some events for 
+  triage.
+  
+  Note:  
+  EventID selection is controlled by regex to allow multiple EID selections.  
+  If running a hunt, consider also hunting EventId 45 - Tamper Protection 
+  Detection (this will be noisy so whitelist is required).  
+  IgnoreRegex allows filtering out events relevant to the target environment.  
+  
+reference: 
+    - https://www.nextron-systems.com/wp-content/uploads/2019/10/Antivirus_Event_Analysis_CheatSheet_1.7.2.pdf
+  
+author: Matt Green - @mgreen27
+
+parameters:
+  - name: SymantecEventLog
+    default: C:\Windows\system32\winevt\logs\Symantec Endpoint Protection Client.evtx
+  - name: RegexEventIds
+    description: "Regex of Event IDs to hunt for. Consider EID 45 for Tamper Protection Detection"
+    default: ^51$
+  - name: TargetRegex
+    description: "Regex to hunt for - default is high value SEP detections"
+    default: "Infostealer|Hacktool|Mimi|SecurityRisk|WinCredEd|NetCat|Backdoor|Pwdump|SuperScan|XScan|PasswordRevealer|Trojan|Malscript|Agent|Malware|Exploit|webshell|cobalt|Mpreter|sploit|Meterpreter|RAR|7z|encrypted|tsclient|PerfLogs" 
+  - name: IgnoreRegex
+    description: "Regex to ignore events with EventData strings matching."
+  - name: DateAfter
+    type: timestamp
+    description: "search for events after this date. YYYY-MM-DDTmm:hh:ssZ"
+  - name: DateBefore
+    type: timestamp
+    description: "search for events before this date. YYYY-MM-DDTmm:hh:ssZ"
+    
+sources:
+    - queries:
+      - LET DateAfterTime <= if(condition=DateAfter, 
+            then=timestamp(epoch=DateAfter), else=timestamp(epoch="1600-01-01"))
+      - LET DateBeforeTime <= if(condition=DateBefore, 
+            then=timestamp(epoch=DateBefore), else=timestamp(epoch="2200-01-01"))
+      - SELECT timestamp(epoch=System.TimeCreated.SystemTime) As EventTime,
+              System.EventID.Value as EventId,
               System.Computer as Computer,
-              System.Security.UserID as SecurityID,
-              EventData.AccountName as ServiceAccount,
-              EventData.ServiceName as ServiceName,
-              EventData.ImagePath as ImagePath,
-              EventData.ServiceType as ServiceType,
-              EventData.StartType as StartType,
-              System.EventRecordID as EventRecordID,
-              System.Level as Level,
-              System.Opcode as Opcode,
-              System.Task as Task
-            FROM parse_evtx(filename=FullPath, accessor=accessor)
-            WHERE System.EventID.Value = 7045 and 
-              EventData.ImagePath =~ "(?i)COMSPEC"
-        })
+              EventData.Data[0] as EventData
+        FROM parse_evtx(filename=SymantecEventLog)
+        WHERE
+            EventTime < DateBeforeTime AND
+            EventTime > DateAfterTime AND
+            format(format="%v",args=System.EventID.Value) =~ RegexEventIds AND
+            EventData =~ TargetRegex AND
+            if(condition=IgnoreRegex, 
+                then= NOT EventData=~IgnoreRegex, 
+                else= True)
+                    
 ```
    {{% /expand %}}
 

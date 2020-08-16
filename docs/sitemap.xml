@@ -129,7 +129,7 @@
   
   <url>
     <loc>/blog/</loc>
-    <lastmod>2020-04-16T00:38:44+00:00</lastmod>
+    <lastmod>2020-08-16T00:38:44+00:00</lastmod>
   </url>
   
   <url>
@@ -238,12 +238,37 @@
   </url>
   
   <url>
-    <loc>/blog/medium/2020-04-16-velociraptor-e48a47e0317d/</loc>
-    <lastmod>2020-04-16T00:38:44+00:00</lastmod>
+    <loc>/blog/medium/2020-08-16-profiling-the-beast-58913437fd16/</loc>
+    <lastmod>2020-08-16T00:38:44+00:00</lastmod>
   </url>
   
   <url>
     <loc>/</loc>
+    <lastmod>2020-08-16T00:38:44+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/medium/2020-07-14-triage-with-velociraptor-pt-4-cf0e60810d1e/</loc>
+    <lastmod>2020-07-14T00:38:44+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/medium/2020-07-13-velociraptor-in-the-tool-age-d896dfe71b9/</loc>
+    <lastmod>2020-07-13T00:38:44+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/medium/2020-06-19-the-velociraptor-query-language-pt-2-fe92bb7aa150/</loc>
+    <lastmod>2020-06-19T00:38:44+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/medium/2020-06-14-the-velociraptor-query-language-pt-1-d721bff100bf/</loc>
+    <lastmod>2020-06-14T00:38:44+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/medium/2020-04-16-velociraptor-e48a47e0317d/</loc>
     <lastmod>2020-04-16T00:38:44+00:00</lastmod>
   </url>
   

@@ -326,7 +326,8 @@ sources:
           },
           query={
             SELECT Type, Start, Length, Data FROM binary_parse(
-              string=Data.value,
+              file=Data.value,
+              accessor="data",
               profile=Profile,
               target="CM_RESOURCE_LIST",
               start="List.PartialResourceList.PartialDescriptors")
@@ -579,15 +580,13 @@ reports:
 
 Uses Sysinternals autoruns to scan the host.
 
-Note this requires syncing the sysinternals binary from the host -
-you will need to run Windows.Utils.DownloadBinaries on the server
-first.
+Note this requires syncing the sysinternals binary from the host.
 
 
 Arg|Default|Description
 ---|------|-----------
-binaryURL||Specify this as the base of the binary store (if empty we use\nthe server's public directory).\n
-AutorunArgs|-nobanner -accepteula -t -a * -c *\n|A space separated list of args to run with.\n
+AutorunArgs|-nobanner -accepteula -t -a * -c *|A space separated list of args to run with.\n
+ToolInfo||Override Tool information.
 
 {{% expand  "View Artifact Source" %}}
 
@@ -597,44 +596,52 @@ name: Windows.Sysinternals.Autoruns
 description: |
   Uses Sysinternals autoruns to scan the host.
 
-  Note this requires syncing the sysinternals binary from the host -
-  you will need to run Windows.Utils.DownloadBinaries on the server
-  first.
+  Note this requires syncing the sysinternals binary from the host.
+
+tools:
+  - name: Autorun_x86
+    url: https://live.sysinternals.com/tools/autorunsc.exe
+
+  - name: Autorun_amd64
+    url: https://live.sysinternals.com/tools/autorunsc64.exe
 
 precondition: SELECT OS From info() where OS = 'windows'
 
+required_permissions:
+  - EXECVE
+
 parameters:
-  - name: binaryURL
-    description: |
-      Specify this as the base of the binary store (if empty we use
-      the server's public directory).
   - name: AutorunArgs
     description: |
       A space separated list of args to run with.
-    default: |
-      -nobanner -accepteula -t -a * -c *
+    default: '-nobanner -accepteula -t -a * -c *'
+  - name: ToolInfo
+    description: Override Tool information.
 
 sources:
-  - queries:
-      # Get the path to the binary.
-      - |
-        LET bin <= SELECT * FROM Artifact.Windows.Utils.FetchBinary(
-              binaryURL=binaryURL, ToolName="Autorun")
+  - query: |
+      LET os_info <= SELECT Architecture FROM info()
 
-      # Call the binary and return all its output in a single row.
-      - |
-        LET output = SELECT * FROM execve(argv=(bin[0]).FullPath +
+      // Get the path to the binary.
+      LET bin <= SELECT * FROM Artifact.Generic.Utils.FetchBinary(
+              ToolName= "Autorun_" + os_info[0].Architecture,
+              ToolInfo=ToolInfo)
+
+      // Call the binary and return all its output in a single row.
+      LET output = SELECT * FROM execve(argv= bin[0].FullPath +
            split(string=AutorunArgs, sep=" "),
            length=10000000)
 
-      # Parse the CSV output and return it as rows. We can filter this further.
-      - |
+      // Parse the CSV output and return it as rows. We can filter this further.
+      SELECT * FROM if(condition=bin,
+      then={
         SELECT * FROM foreach(
           row=output,
           query={
              SELECT * FROM parse_csv(filename=utf16(string=Stdout),
                                      accessor="data")
           })
+      })
 ```
    {{% /expand %}}
 
@@ -648,7 +655,7 @@ In order to deploy sysmon on the endpoint, you need to:
 
 1. Ensure the server contains the latest Sysmon binaries. You will
    need to download them yourself by running the
-   `Windows.Utils.DownloadBinaries` server artifact.
+   `Server.Utils.DownloadBinaries` server artifact.
 
 2. Ensure the sysmon configration is appropriate for your
    deployment. If you edit the file in your public directory
@@ -671,7 +678,7 @@ description: |
 
   1. Ensure the server contains the latest Sysmon binaries. You will
      need to download them yourself by running the
-     `Windows.Utils.DownloadBinaries` server artifact.
+     `Server.Utils.DownloadBinaries` server artifact.
 
   2. Ensure the sysmon configration is appropriate for your
      deployment. If you edit the file in your public directory
@@ -835,6 +842,11 @@ elevated permissions (specifically the `EXECVE`
 permission). Typically it is only available with the `administrator`
 role.
 
+Note there are some limitations with passing commands to the cmd.exe
+shell, such as when specifying quoted paths or command-line
+arguments with special characters. Using Windows.System.PowerShell
+artifact is likely a better option in these cases.
+
 
 Arg|Default|Description
 ---|------|-----------
@@ -857,6 +869,11 @@ description: |
   elevated permissions (specifically the `EXECVE`
   permission). Typically it is only available with the `administrator`
   role.
+
+  Note there are some limitations with passing commands to the cmd.exe
+  shell, such as when specifying quoted paths or command-line
+  arguments with special characters. Using Windows.System.PowerShell
+  artifact is likely a better option in these cases.
 
 required_permissions:
   - EXECVE
@@ -913,6 +930,7 @@ precondition: SELECT OS From info() where OS = 'windows'
 
 parameters:
   - name: lookupTable
+    type: csv
     default: |
        ServiceName
        WinDefend
@@ -994,6 +1012,56 @@ sources:
 ```
    {{% /expand %}}
 
+## Windows.System.DNSCache
+
+Windows maintains DNS lookups for a short time in the dns cache.
+
+This artifact uses the ipconfig binary to collect dns cache entries.
+
+
+{{% expand  "View Artifact Source" %}}
+
+
+```text
+name: Windows.System.DNSCache
+description: |
+  Windows maintains DNS lookups for a short time in the dns cache.
+
+  This artifact uses the ipconfig binary to collect dns cache entries.
+
+precondition:
+  SELECT OS from info() where OS = "windows"
+
+sources:
+  - query: |
+      LET parsed = SELECT * FROM foreach(
+      row={
+         SELECT Stdout FROM execve(argv=["ipconfig", "/displaydns"])
+      },
+      query={
+        SELECT parse_string_with_regex(string=Record, regex=[
+              "Record Name[^:]+: (?P<Name>.+)\r",
+              "Record Type[^:]+: (?P<RecordType>.+)\r",
+              "Time To Live[^:]+: (?P<TTL>.+)\r",
+              "Section[^:]+: (?P<Type>.+)\r",
+              "A.+Record[^:]+: (?P<A>.+)",
+            ]) AS Parsed, Record FROM parse_records_with_regex(
+               accessor="data", file=Stdout,
+               regex="(?sm)-----------(?P<Record>.+?)\r\n\r\n")
+      })
+
+      SELECT * FROM foreach(row=parsed,
+      query={
+          SELECT Parsed.Name AS Name,
+              atoi(string=Parsed.RecordType) AS RecordType,
+              atoi(string=Parsed.TTL) AS TTL,
+              Parsed.Type AS Type,
+              Parsed.A AS A
+          FROM scope()
+      })
+```
+   {{% /expand %}}
+
 ## Windows.System.Handles
 
 Enumerate the handles from selected processes.
@@ -1055,10 +1123,6 @@ sources:
 Gets a list of local admin accounts.
 
 
-Arg|Default|Description
----|------|-----------
-script|Get-LocalGroupMember -Group "Administrators" |SELE ...|
-
 {{% expand  "View Artifact Source" %}}
 
 
@@ -1072,23 +1136,20 @@ reference:
 
 type: CLIENT
 
-parameters:
- - name: script
-   default: |
-       Get-LocalGroupMember -Group "Administrators" |SELECT -ExpandProperty SID -Property Name, PrincipalSource |select  Name, Value, PrincipalSource|convertto-json
-
 sources:
   - precondition:
       SELECT OS From info() where OS = 'windows'
 
-    queries:
-    - LET out = SELECT parse_json_array(data=Stdout) AS Output
+    query: |
+      LET script <= 'Get-LocalGroupMember -Group "Administrators" | SELECT -ExpandProperty SID -Property Name, PrincipalSource | select  Name, Value, PrincipalSource | convertto-json'
+
+      LET out = SELECT parse_json_array(data=Stdout) AS Output
           FROM execve(argv=["powershell",
                "-ExecutionPolicy", "Unrestricted", "-encodedCommand",
                   base64encode(string=utf16_encode(
                   string=script))
             ], length=1000000)
-    - SELECT * FROM foreach(row=out.Output[0],
+      SELECT * FROM foreach(row=out.Output[0],
       query={
           SELECT Name, Value AS SID, if(condition=PrincipalSource=1,
             then="Local", else=if(condition=PrincipalSource=2,
@@ -1112,6 +1173,22 @@ elevated permissions (specifically the `EXECVE`
 permission). Typically it is only available with the `administrator`
 role.
 
+Note that in addition to running PowerShell cmdlets and scripts, the
+Windows.System.PowerShell artifact can also be used to launch
+Windows command-line executables with their parameters. This can be
+difficult to achieve with the Windows.System.CmdShell artifact due
+to complications with spaces in paths and other special character
+issues. This PowerShell artifact is able to avoid most of these
+problems by encoding the command in Base64.
+
+As an example, the following command initiates a Windows Defender AV
+quick-scan from the default location, which includes a path with
+spaces in it:
+
+```
+  & 'C:\Program Files\Windows Defender\MpCmdRun.exe' -Scan -ScanType 1
+```
+
 
 Arg|Default|Description
 ---|------|-----------
@@ -1134,6 +1211,22 @@ description: |
   elevated permissions (specifically the `EXECVE`
   permission). Typically it is only available with the `administrator`
   role.
+
+  Note that in addition to running PowerShell cmdlets and scripts, the
+  Windows.System.PowerShell artifact can also be used to launch
+  Windows command-line executables with their parameters. This can be
+  difficult to achieve with the Windows.System.CmdShell artifact due
+  to complications with spaces in paths and other special character
+  issues. This PowerShell artifact is able to avoid most of these
+  problems by encoding the command in Base64.
+
+  As an example, the following command initiates a Windows Defender AV
+  quick-scan from the default location, which includes a path with
+  spaces in it:
+
+  ```
+    & 'C:\Program Files\Windows Defender\MpCmdRun.exe' -Scan -ScanType 1
+  ```
 
 required_permissions:
   - EXECVE
@@ -1175,6 +1268,8 @@ parameters:
   - name: processRegex
     default: .
 
+precondition: SELECT OS From info() where OS = 'windows'
+
 sources:
   - queries:
       - |
@@ -1214,16 +1309,13 @@ sources:
   - precondition: |
       SELECT OS From info() where OS = 'windows'
 
-    queries:
-      - |
+    query: |
         // Cache the pslist output in memory.
-        LET processes <= SELECT Pid, Name FROM pslist()
+        LET processes <= SELECT Pid, Ppid, Name, Exe FROM pslist()
 
-      - |
         // Get the pids of all procecesses named services.exe
         LET services <= SELECT Pid FROM processes where Name =~ "services.exe"
 
-      - |
         // The interesting processes are those which are not spawned by services.exe
         LET suspicious = SELECT Pid As SVCHostPid,
             Ppid As SVCHostPpid,
@@ -1232,7 +1324,6 @@ sources:
         FROM processes
         WHERE Name =~ "svchost" AND NOT Ppid in services.Pid
 
-      - |
         // Now for each such process we display its actual parent.
         SELECT * from foreach(
            row=suspicious,
@@ -1273,7 +1364,7 @@ parameters:
     type: bool
   - name: CertificateInfo
     default: N
-    type: bool  
+    type: bool
 
 sources:
   - precondition: |
@@ -1294,12 +1385,12 @@ sources:
                {
                  SELECT FailureCommand FROM read_reg_key(globs=servicesKeyGlob + Name)
                } AS FailureCommand,
-               parse_string_with_regex(regex=
-                 ['^"(?P<AbsoluteExePath>[^"]+)','(?P<AbsoluteExePath>^[^ "]+)'], 
-                 string=PathName).AbsoluteExePath as AbsoluteExePath
+               expand(path=parse_string_with_regex(regex=
+                 ['^"(?P<AbsoluteExePath>[^"]+)','(?P<AbsoluteExePath>^[^ "]+)'],
+                 string=PathName).AbsoluteExePath) as AbsoluteExePath
         FROM wmi(query="SELECT * From Win32_service", namespace="root/CIMV2")
       - |
-        SELECT *, 
+        SELECT *,
                  if(condition=(Calculate_hashes = "Y"),
                     then=hash(path=AbsoluteExePath,
                            accessor=file)) AS HashServiceExe,
@@ -1309,7 +1400,7 @@ sources:
                     then=hash(path=ServiceDll,
                            accessor=file)) AS HashServiceDll,
                  if(condition=(CertificateInfo = "Y"),
-                    then=authenticode(filename=ServiceDll)) AS CertinfoServiceDll       
+                    then=authenticode(filename=ServiceDll)) AS CertinfoServiceDll
         FROM service
 ```
    {{% /expand %}}

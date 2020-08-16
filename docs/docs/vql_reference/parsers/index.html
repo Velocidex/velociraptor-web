@@ -421,6 +421,41 @@
       <a href="/blog/">Velociraptor Blog</a><i class="fa fa-angle-right fa-lg category-icon"></i>
       </div>
         <ul>
+      <li data-nav-id="/blog/medium/2020-08-16-profiling-the-beast-58913437fd16/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-08-16-profiling-the-beast-58913437fd16/">
+            Profiling the beast
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2020-07-14-triage-with-velociraptor-pt-4-cf0e60810d1e/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-07-14-triage-with-velociraptor-pt-4-cf0e60810d1e/">
+            Triage with Velociraptor — Pt 4
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2020-07-13-velociraptor-in-the-tool-age-d896dfe71b9/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-07-13-velociraptor-in-the-tool-age-d896dfe71b9/">
+            Velociraptor in the tool age
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2020-06-19-the-velociraptor-query-language-pt-2-fe92bb7aa150/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-06-19-the-velociraptor-query-language-pt-2-fe92bb7aa150/">
+            The Velociraptor Query Language Pt 2
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2020-06-14-the-velociraptor-query-language-pt-1-d721bff100bf/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-06-14-the-velociraptor-query-language-pt-1-d721bff100bf/">
+            The Velociraptor Query Language Pt 1
+          </a>
+        </div>
+    </li>
       <li data-nav-id="/blog/medium/2020-04-16-velociraptor-e48a47e0317d/" class="dd-item">
         <div>
           <a href="/blog/medium/2020-04-16-velociraptor-e48a47e0317d/">
@@ -598,10 +633,12 @@
     <li><a href="#parse_json">parse_json</a></li>
     <li><a href="#parse_json_array">parse_json_array</a></li>
     <li><a href="#parse_json_array-1">parse_json_array</a></li>
+    <li><a href="#parse_jsonl">parse_jsonl</a></li>
     <li><a href="#parse_lines">parse_lines</a></li>
     <li><a href="#parse_mft">parse_mft</a></li>
     <li><a href="#parse_ntfs">parse_ntfs</a></li>
     <li><a href="#parse_ntfs_i30">parse_ntfs_i30</a></li>
+    <li><a href="#parse_ntfs_ranges">parse_ntfs_ranges</a></li>
     <li><a href="#parse_pe">parse_pe</a></li>
     <li><a href="#parse_records_with_regex">parse_records_with_regex</a>
       <ul>
@@ -610,6 +647,7 @@
     </li>
     <li><a href="#parse_string_with_regex">parse_string_with_regex</a></li>
     <li><a href="#parse_xml">parse_xml</a></li>
+    <li><a href="#patch">patch</a></li>
     <li><a href="#plist">plist</a></li>
     <li><a href="#prefetch">prefetch</a></li>
     <li><a href="#regex_replace">regex_replace</a></li>
@@ -961,7 +999,7 @@ contains common data for all events - including the Event ID.</p>
 <tr>
 <td>string</td>
 <td>A string to convert to int</td>
-<td>string (required)</td>
+<td>Any (required)</td>
 </tr>
 </tbody>
 </table>
@@ -1011,6 +1049,46 @@ instead of an object.</p>
 <h2 id="parse_json_array-1">parse_json_array</h2>
 <p><span class='vql_type pull-right'>Plugin</span></p>
 <p>Parses events from a line oriented json file.</p>
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>data</td>
+<td>Json encoded string.</td>
+<td>string (required)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="parse_jsonl">parse_jsonl</h2>
+<p><span class='vql_type pull-right'>Plugin</span></p>
+<p>Parses a line oriented json file.</p>
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>filename</td>
+<td>JSON file to open</td>
+<td>string (required)</td>
+</tr>
+<tr>
+<td>accessor</td>
+<td>The accessor to use</td>
+<td>string</td>
+</tr>
+</tbody>
+</table>
 <h2 id="parse_lines">parse_lines</h2>
 <p><span class='vql_type pull-right'>Plugin</span></p>
 <p>Parse a file separated into lines.</p>
@@ -1096,6 +1174,40 @@ instead of an object.</p>
 <h2 id="parse_ntfs_i30">parse_ntfs_i30</h2>
 <p><span class='vql_type pull-right'>Plugin</span></p>
 <p>Scan the $I30 stream from an NTFS MFT entry.</p>
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>device</td>
+<td>The device file to open. This may be a full path - we will figure out the device automatically.</td>
+<td>string (required)</td>
+</tr>
+<tr>
+<td>inode</td>
+<td>The MFT entry to parse in inode notation (5-144-1).</td>
+<td>string</td>
+</tr>
+<tr>
+<td>mft</td>
+<td>The MFT entry to parse.</td>
+<td>int64</td>
+</tr>
+<tr>
+<td>mft_offset</td>
+<td>The offset to the MFT entry to parse.</td>
+<td>int64</td>
+</tr>
+</tbody>
+</table>
+<h2 id="parse_ntfs_ranges">parse_ntfs_ranges</h2>
+<p><span class='vql_type pull-right'>Plugin</span></p>
+<p>Show the run ranges for an NTFS stream.</p>
 <table>
 <thead>
 <tr>
@@ -1277,6 +1389,59 @@ fields.</p>
 <td>accessor</td>
 <td>The accessor to use</td>
 <td>string</td>
+</tr>
+</tbody>
+</table>
+<h2 id="patch">patch</h2>
+<p><span class='vql_type pull-right'>Function</span></p>
+<p>Patch a JSON object with a json patch or merge.</p>
+<p>The function allows for modifications of objects by way of
+applying a json patch. You can read more about JSON patching here
+<a href="https://github.com/evanphx/json-patch">https://github.com/evanphx/json-patch</a>.</p>
+<p>I practice you can use this to update server settings - for
+example, consider the client event monitoring state.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">SELECT get_client_monitoring() FROM scope()
+
+ [
+  {
+   &#34;get_client_monitoring&#34;: {
+    &#34;artifacts&#34;: [
+     &#34;Generic.Client.Stats&#34;
+    ]
+   }
+  }
+ ]
+</code></pre></div><p>Suppose we wish to add a new artifact, we can patch it with the json:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">[{<span style="color:#f92672">&#34;op&#34;</span>: <span style="color:#e6db74">&#34;add&#34;</span>, <span style="color:#f92672">&#34;path&#34;</span>: <span style="color:#e6db74">&#34;/artifacts/0&#34;</span>, <span style="color:#f92672">&#34;value&#34;</span>: <span style="color:#e6db74">&#34;Windows.Events.DNSQueries&#34;</span>}]
+</code></pre></div><p>This can then be immediately pushed to <code>set_client_monitoring()</code>
+to update the monitoring state.</p>
+<pre><code>SELECT set_client_monitoring(value=patch(
+       item=get_client_monitoring(),
+       patch=[dict(op=&quot;add&quot;, path=&quot;/artifacts/0&quot;, value=&quot;Windows.Events.DNSQueries&quot;)]))
+FROM scope()
+</code></pre><table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>item</td>
+<td>The item to path</td>
+<td>Any (required)</td>
+</tr>
+<tr>
+<td>patch</td>
+<td>A JSON Patch to apply</td>
+<td>Any</td>
+</tr>
+<tr>
+<td>merge</td>
+<td>A merge-patch to apply</td>
+<td>Any</td>
 </tr>
 </tbody>
 </table>

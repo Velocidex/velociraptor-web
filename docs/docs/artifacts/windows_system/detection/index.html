@@ -294,60 +294,6 @@
             <i class="fa fa-angle-down fa-lg category-icon"></i>
       </div>
         <ul>
-    <li data-nav-id="/docs/artifacts/windows_system/events/" class="dd-item
-        ">
-      <div>
-      <a href="/docs/artifacts/windows_system/events/">Event Logs</a>
-      </div>
-    </li>
-    <li data-nav-id="/docs/artifacts/windows_system/system/" class="dd-item
-        ">
-      <div>
-      <a href="/docs/artifacts/windows_system/system/">System</a>
-      </div>
-    </li>
-    <li data-nav-id="/docs/artifacts/windows_system/registry/" class="dd-item
-        ">
-      <div>
-      <a href="/docs/artifacts/windows_system/registry/">Registry</a>
-      </div>
-    </li>
-    <li data-nav-id="/docs/artifacts/windows_system/network/" class="dd-item
-        ">
-      <div>
-      <a href="/docs/artifacts/windows_system/network/">Network</a>
-      </div>
-    </li>
-    <li data-nav-id="/docs/artifacts/windows_system/applications/" class="dd-item
-        ">
-      <div>
-      <a href="/docs/artifacts/windows_system/applications/">Applications</a>
-      </div>
-    </li>
-    <li data-nav-id="/docs/artifacts/windows_system/detection/" class="dd-item parent active
-        ">
-      <div>
-      <a href="/docs/artifacts/windows_system/detection/">Malware Detection</a>
-      </div>
-    </li>
-    <li data-nav-id="/docs/artifacts/windows_system/triage/" class="dd-item
-        ">
-      <div>
-      <a href="/docs/artifacts/windows_system/triage/">Triage Artifacts</a>
-      </div>
-    </li>
-    <li data-nav-id="/docs/artifacts/windows_system/remediation/" class="dd-item
-        ">
-      <div>
-      <a href="/docs/artifacts/windows_system/remediation/">Remdiation</a>
-      </div>
-    </li>
-    <li data-nav-id="/docs/artifacts/windows_system/monitoring/" class="dd-item
-        ">
-      <div>
-      <a href="/docs/artifacts/windows_system/monitoring/">Event Monitoring</a>
-      </div>
-    </li>
         </ul>
     </li>
     <li data-nav-id="/docs/artifacts/server/" class="dd-item
@@ -422,6 +368,41 @@
       <a href="/blog/">Velociraptor Blog</a><i class="fa fa-angle-right fa-lg category-icon"></i>
       </div>
         <ul>
+      <li data-nav-id="/blog/medium/2020-08-16-profiling-the-beast-58913437fd16/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-08-16-profiling-the-beast-58913437fd16/">
+            Profiling the beast
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2020-07-14-triage-with-velociraptor-pt-4-cf0e60810d1e/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-07-14-triage-with-velociraptor-pt-4-cf0e60810d1e/">
+            Triage with Velociraptor — Pt 4
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2020-07-13-velociraptor-in-the-tool-age-d896dfe71b9/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-07-13-velociraptor-in-the-tool-age-d896dfe71b9/">
+            Velociraptor in the tool age
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2020-06-19-the-velociraptor-query-language-pt-2-fe92bb7aa150/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-06-19-the-velociraptor-query-language-pt-2-fe92bb7aa150/">
+            The Velociraptor Query Language Pt 2
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2020-06-14-the-velociraptor-query-language-pt-1-d721bff100bf/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-06-14-the-velociraptor-query-language-pt-1-d721bff100bf/">
+            The Velociraptor Query Language Pt 1
+          </a>
+        </div>
+    </li>
       <li data-nav-id="/blog/medium/2020-04-16-velociraptor-e48a47e0317d/" class="dd-item">
         <div>
           <a href="/blog/medium/2020-04-16-velociraptor-e48a47e0317d/">
@@ -1022,6 +1003,11 @@ data.</p>
 </thead>
 <tbody>
 <tr>
+<td>pathWhitelist</td>
+<td>Path\nC:\Program Files\Microsoft Security Client &hellip;</td>
+<td>Process paths to exclude. Default is common\nAntiVirus we have seen cause false positives with\nsignitures in memory.\n</td>
+</tr>
+<tr>
 <td>processRegex</td>
 <td>.</td>
 <td>Process name to scan as regex. Default All.</td>
@@ -1067,7 +1053,7 @@ description: |
   This content also provides the user the option to dump any process with hits,
   and the rule summary information.
 
-  The user is also recommended to add any endpoint agents that may cause a false 
+  The user is also recommended to add any endpoint agents that may cause a false
   positive into the hidden parameters pathWhitelist.
 
   Output of the rule is process information, Yara rule name, metadata and hit
@@ -1081,9 +1067,9 @@ parameters:
   - name: pathWhitelist
     description: |
         Process paths to exclude. Default is common
-        AntiVirus we have seen cause false positives with 
+        AntiVirus we have seen cause false positives with
         signitures in memory.
-    type: hidden
+    type: csv
     default: |
       Path
       C:\Program Files\Microsoft Security Client\MsMpEng.exe
@@ -1586,6 +1572,7 @@ description: |
 
 parameters:
    - name: namespaces
+     type: csv
      default: |
        namespace
        root/subscription

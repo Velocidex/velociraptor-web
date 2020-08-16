@@ -32,6 +32,9 @@ description: |
 
 type: CLIENT
 
+required_permissions:
+  - EXECVE
+
 parameters:
  - name: script
    default: |

@@ -135,13 +135,11 @@ sources:
   - precondition:
       SELECT * from server_config
 
-    queries:
-      - |
-        SELECT HuntId, timestamp(epoch=create_time/1000000) as Created,
-               start_request.Args.artifacts.names  as Artifact,
-               State
-        FROM hunts()
-        WHERE start_request.flow_name = 'ArtifactCollector'
+    query: |
+      SELECT HuntId, timestamp(epoch=create_time/1000000) as Created,
+             join(array=start_request.artifacts, sep=",") as Artifact,
+             State
+      FROM hunts()
 ```
    {{% /expand %}}
 
@@ -243,7 +241,7 @@ never collected it for this machine, there will be no results.
 
 Arg|Default|Description
 ---|------|-----------
-ClientId|None|
+ClientId|C.56a8dfd31eb1fa6f|
 StandardUserAccounts|(-5..$|S-1-5-18|S-1-5-19|S-1-5-20)|Well known SIDs to hide from the output.
 
 {{% expand  "View Artifact Source" %}}
@@ -260,23 +258,23 @@ type: SERVER
 
 parameters:
   - name: ClientId
-    default:
+    default: C.56a8dfd31eb1fa6f
+
   - name: StandardUserAccounts
     description: Well known SIDs to hide from the output.
     default: "(-5..$|S-1-5-18|S-1-5-19|S-1-5-20)"
 
 sources:
-  - queries:
-      - |
+  - query: |
         // Get the most recent collection of our user listing.
-        LET last_user_listing = SELECT flow_id
+        LET last_user_listing = SELECT session_id AS flow_id
            FROM flows(client_id=ClientId)
-           WHERE context.artifacts =~'Windows.Sys.Users'
-           ORDER BY LastActive DESC LIMIT 1
+           WHERE artifacts_with_results =~'Windows.Sys.Users'
+           ORDER BY LastActive
+           DESC LIMIT 1
 
-      - |
         /* For each Windows.Sys.Users collection, extract the user
-           names. Hide standard SIDs.
+           names, but hide standard SIDs.
         */
         SELECT * FROM foreach(
             row=last_user_listing,
@@ -330,15 +328,15 @@ reports:
          </tr>
       </thead>
       <tbody>
-      {{ range $item := $artifact.Parameters }}
-         {{ if not (eq $item.Type "hidden") }}
+      {{- range $item := $artifact.Parameters -}}
+         {{- if not (eq $item.Type "hidden") -}}
            <tr>
                <td> {{ $item.Name }}</td>
                <td>{{ $item.Type }}</td>
                <td><pre>{{ $item.Default }}</pre></td>
            </tr>
-         {{ end }}
-      {{ end }}
+         {{- end -}}
+      {{- end -}}
       </tbody></table>
 
       {{ end }}
@@ -362,6 +360,58 @@ reports:
       {{ end }}
 
       {{ end }}
+```
+   {{% /expand %}}
+
+## Server.Internal.ArtifactModification
+
+This event artifact is an internal event stream over which
+notifications of artifact modifications are sent. Interested parties
+can watch for new artifact modification events and rebuild caches
+etc.
+
+Note: This is an automated system artifact. You do not need to start it.
+
+
+{{% expand  "View Artifact Source" %}}
+
+
+```text
+name: Server.Internal.ArtifactModification
+description: |
+  This event artifact is an internal event stream over which
+  notifications of artifact modifications are sent. Interested parties
+  can watch for new artifact modification events and rebuild caches
+  etc.
+
+  Note: This is an automated system artifact. You do not need to start it.
+
+type: SERVER_EVENT
+```
+   {{% /expand %}}
+
+## Server.Internal.Enrollment
+
+This event artifact is an internal event stream over which client
+enrollments are sent. You can watch this event queue to be notified
+on any new clients enrolling for the first time.
+
+Note: This is an automated system artifact. You do not need to start it.
+
+
+{{% expand  "View Artifact Source" %}}
+
+
+```text
+name: Server.Internal.Enrollment
+description: |
+  This event artifact is an internal event stream over which client
+  enrollments are sent. You can watch this event queue to be notified
+  on any new clients enrolling for the first time.
+
+  Note: This is an automated system artifact. You do not need to start it.
+
+type: SERVER_EVENT
 ```
    {{% /expand %}}
 
@@ -436,15 +486,55 @@ sources:
 ```
    {{% /expand %}}
 
+## Server.Internal.Label
+
+An internal artifact used to track new labeling events.
+
+
+{{% expand  "View Artifact Source" %}}
+
+
+```text
+name: Server.Internal.Label
+description: |
+  An internal artifact used to track new labeling events.
+
+type: SERVER_EVENT
+```
+   {{% /expand %}}
+
+## Server.Internal.Notifications
+
+This event artifact is an internal event stream over which client
+notifications are sent. A frontend will watch for events over this
+stream and if a client is actively connected to this frontend, the
+client will be notified that new work is available to it.
+
+Note: This is an automated system artifact. You do not need to start it.
+
+
+{{% expand  "View Artifact Source" %}}
+
+
+```text
+name: Server.Internal.Notifications
+description: |
+  This event artifact is an internal event stream over which client
+  notifications are sent. A frontend will watch for events over this
+  stream and if a client is actively connected to this frontend, the
+  client will be notified that new work is available to it.
+
+  Note: This is an automated system artifact. You do not need to start it.
+
+type: SERVER_EVENT
+```
+   {{% /expand %}}
+
 ## Server.Monitor.Health
 
 This is the main server health dashboard. It is shown on the
 homescreen and enabled by default on all new installs.
 
-
-Arg|Default|Description
----|------|-----------
-Frequency|15|Return stats every this many seconds.
 
 {{% expand  "View Artifact Source" %}}
 
@@ -457,53 +547,29 @@ description: |
 
 type: SERVER_EVENT
 
-parameters:
-  - name: Frequency
-    description: Return stats every this many seconds.
-    default: "15"
-
 sources:
   - name: Prometheus
-    queries:
-      - |
-        LET metrics_url <= SELECT format(format='http://%s:%d/metrics', args=[
-              server_config.Monitoring.bind_address,
-              server_config.Monitoring.bind_port]) as URL
-        FROM scope()
 
-      - |
-        SELECT int(int=rate(x=process_cpu_seconds_total, y=Timestamp) * 100) As CPUPercent,
-               process_resident_memory_bytes / 1000000 AS MemoryUse,
-               process_cpu_seconds_total,
-               client_comms_current_connections,
-               client_comms_concurrency
-        FROM foreach(
-          row={
-             SELECT UnixNano FROM clock(period=atoi(string=Frequency))
-          },
-          query={
-             SELECT * FROM Artifact.Server.Monitor.VeloMetrics(MetricsURL=metrics_url.URL[0])
-          })
-        WHERE CPUPercent >= 0
-
+    # This artifact is populated by the frontend service using the
+    # total of all frontend metrics.
+    query: SELECT * FROM info() WHERE FALSE
 
 reports:
   - type: SERVER_EVENT
+    # Only allow the report to run for 10 seconds - this is plenty for
+    # the GUI.
+    timeout: 10
     parameters:
       - name: Sample
         default: "4"
 
     template: |
       {{ define "CPU" }}
-           SELECT * FROM sample(
-             n=atoi(string=Sample),
-             query={
-               SELECT _ts as Timestamp,
-                  CPUPercent,
-                  MemoryUse
-               FROM source(source="Prometheus",
-                           artifact="Server.Monitor.Health")
-             })
+          SELECT _ts as Timestamp,
+              CPUPercent,
+              MemoryUse / 1048576 AS MemoryUse
+          FROM source(source="Prometheus",
+                      artifact="Server.Monitor.Health")
       {{ end }}
 
       {{ define "CurrentConnections" }}
@@ -511,18 +577,15 @@ reports:
              n=atoi(string=Sample),
              query={
                SELECT _ts as Timestamp,
-                  client_comms_current_connections,
-                  client_comms_concurrency
+                  client_comms_current_connections
                FROM source(source="Prometheus",
                            artifact="Server.Monitor.Health")
             })
       {{ end }}
 
-      {{ $CurrentMetrics := Query "SELECT * FROM Artifact.Server.Monitor.VeloMetrics()" }}
-
       ## Server status
 
-      Currently there are {{ Get $CurrentMetrics "0.client_comms_current_connections" }} clients connected.
+      The following are total across all frontends.
 
       <span class="container">
         <span class="row">
@@ -541,6 +604,118 @@ reports:
       ## Users
 
       {{ Query "SELECT Name, Permissions FROM gui_users()" | Table }}
+
+      ## Server version
+
+      {{ Query "SELECT Version FROM server_config" | Table }}
+```
+   {{% /expand %}}
+
+## Server.Monitor.Profile
+
+This artifact collects profiling information from the running
+server. This is useful when you notice a high CPU load in the server
+and want to know why.
+
+The following options are most useful:
+
+1. Goroutines: This shows the backtraces of all currently running
+   goroutines. It will generally show most of the code working in the
+   current running set of queries.
+
+2. Heap: This shows all allocations currently in use and where they
+   are allocated from. This is useful if the server is taking too
+   much memory.
+
+3. Profile: This takes a CPU profile of the running process for the
+   number of seconds specified in the Duration parameter. You can
+   read profiles using:
+
+```
+go tool pprof -callgrind -output=profile.grind profile.bin
+kcachegrind profile.grind
+```
+
+
+Arg|Default|Description
+---|------|-----------
+Allocs||A sampling of all past memory allocations
+Block||Stack traces that led to blocking on synchronization primitives
+Goroutine||Stack traces of all current goroutines
+Heap||A sampling of memory allocations of live objects
+Mutex||Stack traces of holders of contended mutexes
+Profile||CPU profile
+Trace||CPU trace
+Verbose||Print more detail
+Duration|30|Duration of sampling for Profile and Trace.
+
+{{% expand  "View Artifact Source" %}}
+
+
+```text
+name: Server.Monitor.Profile
+description: |
+  This artifact collects profiling information from the running
+  server. This is useful when you notice a high CPU load in the server
+  and want to know why.
+
+  The following options are most useful:
+
+  1. Goroutines: This shows the backtraces of all currently running
+     goroutines. It will generally show most of the code working in the
+     current running set of queries.
+
+  2. Heap: This shows all allocations currently in use and where they
+     are allocated from. This is useful if the server is taking too
+     much memory.
+
+  3. Profile: This takes a CPU profile of the running process for the
+     number of seconds specified in the Duration parameter. You can
+     read profiles using:
+
+  ```
+  go tool pprof -callgrind -output=profile.grind profile.bin
+  kcachegrind profile.grind
+  ```
+
+type: SERVER
+
+parameters:
+  - name: Allocs
+    description: A sampling of all past memory allocations
+    type: bool
+  - name: Block
+    description: Stack traces that led to blocking on synchronization primitives
+    type: bool
+  - name: Goroutine
+    description: Stack traces of all current goroutines
+    type: bool
+  - name: Heap
+    description: A sampling of memory allocations of live objects
+    type: bool
+  - name: Mutex
+    description: Stack traces of holders of contended mutexes
+    type: bool
+  - name: Profile
+    description: CPU profile
+    type: bool
+  - name: Trace
+    description: CPU trace
+    type: bool
+  - name: Verbose
+    description: Print more detail
+    type: bool
+  - name: Duration
+    description: Duration of sampling for Profile and Trace.
+    default: "30"
+
+sources:
+  - query: |
+      SELECT Type, upload(name=Type + ".bin", file=FullPath) AS File
+      FROM profile(allocs=Allocs, block=Block, goroutine=Goroutine,
+                   heap=Heap, mutex=Mutex, profile=Profile, trace=Trace,
+                   debug=if(condition=Verbose, then=2, else=1),
+                   duration=atoi(string=Duration))
 ```
    {{% /expand %}}
 
@@ -583,9 +758,27 @@ description: |
 type: SERVER_EVENT
 
 sources:
-  - queries:
-    - |
-      SELECT * FROM watch_monitoring(artifact="Shell")
+  - query: |
+      -- Watch for shell flow completions.
+      LET collections = SELECT Flow
+         FROM watch_monitoring(artifact="System.Flow.Completion")
+         WHERE Flow.artifacts_with_results =~ "Windows.System.PowerShell|Windows.System.CmdShell"
+
+      -- Dump the command and the results.
+      SELECT * FROM foreach(row=collections,
+      query={
+         SELECT Flow.session_id AS FlowId,
+             Flow.client_id AS ClientId,
+             client_info(client_id=Flow.client_id).os_info.fqdn AS Hostname,
+             timestamp(epoch=Flow.create_time / 1000000) AS Created,
+             timestamp(epoch=Flow.active_time / 1000000) AS LastActive,
+             Flow.request.parameters.env[0].value AS Command,
+             Stdout, Stderr FROM source(
+                 client_id=Flow.client_id,
+                 flow_id=Flow.session_id,
+                 artifact=Flow.artifacts_with_results[0])
+      })
+
 
 # Reports can be MONITORING_DAILY, CLIENT
 reports:
@@ -593,15 +786,16 @@ reports:
     template: |
       {{ .Description }}
 
-      {{ $rows := Query "SELECT timestamp(epoch=Timestamp) AS Timestamp, Argv, Stdout FROM source()" }}
+      {{ $rows := Query "SELECT ClientId, Hostname, \
+           timestamp(epoch=LastActive) AS Timestamp, Command, Stdout FROM source()" }}
 
       {{ range $row := $rows }}
 
-         * On {{ Get $row "Timestamp" }} we ran {{ Get $row "Argv" }}
+      * On {{ Get $row "Timestamp" }} we ran {{ Get $row "Command" }} on {{ Get $row "Hostname" }}
 
-         ```text
-         {{ Get $row "Stdout" }}
-         ```
+      ```text
+      {{ Get $row "Stdout" }}
+      ```
 
       {{end}}
 ```
@@ -780,6 +974,363 @@ reports:
 ```
    {{% /expand %}}
 
+## Server.Utils.CreateCollector
+
+A utility artifact to create a stand alone collector.
+
+This artifact is actually invoked by the Offline collector GUI and
+that is the recommended way to launch it. You can find the Offline
+collector builder in the `Server Artifacts` section of the GUI.
+
+
+Arg|Default|Description
+---|------|-----------
+OS|Windows|
+artifacts|["Generic.Client.Info"]\n|A list of artifacts to collect
+template|Reporting.Default|The HTML report template to use.
+Password||If set we encrypt collected zip files with this password.
+parameters|{}\n|A dict containing the parameters to set.
+target|ZIP|Output type
+target_args|{}|Type Dependent args
+FetchBinaryOverride|LET temp_binary <= tempfile(extension=".exe",\n    ...|A replacement for Generic.Utils.FetchBinary which\ngrabs files from the local archive.\n
+
+{{% expand  "View Artifact Source" %}}
+
+
+```text
+name: Server.Utils.CreateCollector
+description: |
+  A utility artifact to create a stand alone collector.
+
+  This artifact is actually invoked by the Offline collector GUI and
+  that is the recommended way to launch it. You can find the Offline
+  collector builder in the `Server Artifacts` section of the GUI.
+
+type: SERVER
+
+tools:
+  - name: VelociraptorWindows
+    github_project: Velocidex/velociraptor
+    github_asset_regex: windows-amd64.exe
+    serve_locally: true
+
+  - name: VelociraptorWindows_x86
+    github_project: Velocidex/velociraptor
+    github_asset_regex: windows-386.exe
+    serve_locally: true
+
+  - name: VelociraptorLinux
+    github_project: Velocidex/velociraptor
+    github_asset_regex: linux-amd64
+    serve_locally: true
+
+  - name: VelociraptorDarwin
+    github_project: Velocidex/velociraptor
+    github_asset_regex: darwin-amd64
+    serve_locally: true
+
+parameters:
+  - name: OS
+    default: Windows
+    type: choices
+    choices:
+      - Windows
+      - Linux
+      - MacOS
+
+  - name: artifacts
+    description: A list of artifacts to collect
+    type: json_array
+    default: |
+      ["Generic.Client.Info"]
+
+  - name: template
+    default: Reporting.Default
+    description: The HTML report template to use.
+
+  - name: Password
+    description: If set we encrypt collected zip files with this password.
+
+  - name: parameters
+    description: A dict containing the parameters to set.
+    type: json
+    default: |
+      {}
+
+  - name: target
+    description: Output type
+    type: choices
+    default: ZIP
+    choices:
+      - ZIP
+      - GCS
+      - S3
+
+  - name: target_args
+    description: Type Dependent args
+    type: json
+    default: "{}"
+
+  - name: StandardCollection
+    type: hidden
+    default: |
+      LET Artifacts <= parse_json_array(data=Artifacts)
+      LET Parameters <= parse_json(data=Parameters)
+      LET baseline <= SELECT Fqdn FROM info()
+
+      // Make the filename safe on windows.
+      LET filename <= regex_replace(
+          source=format(format="Collection-%s-%s",
+                        args=[baseline[0].Fqdn, timestamp(epoch=now())]),
+          re="[^0-9A-Za-z\\-.]", replace="_")
+
+      LET _ <= log(message="Will collect package " + filename)
+
+      SELECT * FROM collect(artifacts=Artifacts, report=filename + ".html",
+          args=Parameters, output=filename + ".zip", template=Template,
+          password=Password)
+
+  - name: S3Collection
+    type: hidden
+    default: |
+      LET Artifacts <= parse_json_array(data=Artifacts)
+      LET Parameters <= parse_json(data=Parameters)
+      LET baseline <= SELECT Fqdn FROM info()
+      LET TargetArgs <= parse_json(data=target_args)
+
+      // Make the filename safe on windows.
+      LET filename <= regex_replace(
+          source=format(format="Collection-%s-%s",
+                        args=[baseline[0].Fqdn, timestamp(epoch=now())]),
+          re="[^0-9A-Za-z\\-.]", replace="_")
+
+      LET _ <= log(message="Will collect package " + filename +
+         " and upload to s3 bucket " + TargetArgs.bucket)
+
+      SELECT upload_s3(file=Container,
+          bucket=TargetArgs.bucket,
+          name=filename + ".zip",
+          credentialskey=TargetArgs.credentialsKey,
+          credentialssecret=TargetArgs.credentialsSecret,
+          region=TargetArgs.region) AS Upload,
+       upload_s3(file=Report,
+          bucket=TargetArgs.bucket,
+          name=filename + ".html",
+          credentialskey=TargetArgs.credentialsKey,
+          credentialssecret=TargetArgs.credentialsSecret,
+          region=TargetArgs.region) AS ReportUpload
+      FROM collect(artifacts=Artifacts, report=tempfile(extension=".html"),
+          args=Parameters, output=tempfile(extension=".zip"), template=Template,
+          password=Password)
+
+  - name: GCSCollection
+    type: hidden
+    default: |
+      LET Artifacts <= parse_json_array(data=Artifacts)
+      LET Parameters <= parse_json(data=Parameters)
+      LET baseline <= SELECT Fqdn FROM info()
+      LET TargetArgs <= parse_json(data=target_args)
+      LET GCSBlob <= parse_json(data=TargetArgs.GCSKey)
+
+      // Make the filename safe on windows.
+      LET filename <= regex_replace(
+          source=format(format="Collection-%s-%s",
+                        args=[baseline[0].Fqdn, timestamp(epoch=now())]),
+          re="[^0-9A-Za-z\\-.]", replace="_")
+
+      LET _ <= log(message="Will collect package " + filename +
+         " and upload to GCS bucket " + TargetArgs.bucket)
+
+      SELECT upload_gcs(file=Container,
+          bucket=TargetArgs.bucket,
+          project=GCSBlob.project_id,
+          name=filename + ".zip",
+          credentials=TargetArgs.GCSKey
+      ) AS Upload,
+      upload_gcs(file=Report,
+          bucket=TargetArgs.bucket,
+          project=GCSBlob.project_id,
+          name=filename + ".html",
+          credentials=TargetArgs.GCSKey
+      ) AS ReportUpload
+      FROM collect(artifacts=Artifacts, report=tempfile(extension=".html"),
+          args=Parameters, output=tempfile(extension=".zip"), template=Template,
+          password=Password)
+
+  - name: PackageToolsArtifact
+    description: Collects and uploads third party binaries.
+    type: hidden
+    default: |
+      name: PackageToolsArtifact
+      parameters:
+       - name: Binaries
+      sources:
+       - query: |
+          LET temp <= tempfile()
+
+          LET uploader = SELECT ToolName,
+                                Upload.Path AS Filename,
+                                Upload.sha256 AS ExpectedHash,
+                                Upload.Size AS Size
+          FROM foreach(row=Binaries,
+            query={
+              SELECT _value AS ToolName, upload(file=FullPath, name=Name) AS Upload
+              FROM Artifact.Generic.Utils.FetchBinary(
+                   ToolName=_value, SleepDuration='0',
+                   ToolInfo=inventory_get(tool=_value))
+            })
+
+          // Flush the entire query into the inventory file.
+          LET _ <= SELECT * FROM write_csv(filename=temp, query=uploader)
+
+          // Now upload it.
+          SELECT upload(file=temp, name="inventory.csv") FROM scope()
+
+  - name: FetchBinaryOverride
+    description: |
+       A replacement for Generic.Utils.FetchBinary which
+       grabs files from the local archive.
+
+    default: |
+       LET temp_binary <= tempfile(extension=".exe",
+                remove_last=TRUE, permissions="x")
+
+       LET matching_tools = SELECT ToolName AS ArchiveTool, Filename
+       FROM parse_csv(filename="/inventory.csv", accessor="me")
+
+       SELECT * FROM foreach(row=matching_tools, query={
+         SELECT copy(filename=Filename, accessor="me", dest=temp_binary) AS FullPath,
+                     Filename AS Name
+         FROM scope()
+         WHERE ToolName = ArchiveTool
+       })
+
+sources:
+  - query: |
+      LET Payload <= tempfile(extension=".zip")
+      LET Artifacts <= parse_json_array(data=artifacts)
+
+      LET Binaries <= SELECT * FROM foreach(
+          row={
+             SELECT tools FROM artifact_definitions(names=Artifacts)
+          }, query={
+             SELECT * FROM foreach(row=tools,
+             query={
+              SELECT name AS Binary FROM scope()
+             })
+          }) GROUP BY Binary
+
+      // Create a zip file with the binaries in it.
+      LET _ <= SELECT * FROM collect(artifacts="PackageToolsArtifact",
+         output=Payload, args=dict(Binaries=Binaries.Binary),
+         artifact_definitions=PackageToolsArtifact)
+
+      LET CollectionArtifact <= SELECT Value FROM switch(
+        a = { SELECT StandardCollection AS Value FROM scope() WHERE target = "ZIP" },
+        b = { SELECT S3Collection AS Value  FROM scope() WHERE target = "S3" },
+        c = { SELECT GCSCollection AS Value  FROM scope() WHERE target = "GCS" },
+        d = { SELECT "" AS Value  FROM scope() WHERE log(message="Unknown collection type " + target) }
+      )
+
+      LET definitions <= SELECT * FROM chain(
+      a = { SELECT name, description, parameters, sources, reports
+            FROM artifact_definitions(names=Artifacts + template)
+            WHERE name =~ "^(Custom|Packs)\\." AND
+              log(message="Adding artifact_definition for " + name) },
+
+      b = { SELECT "Collector" AS name, (
+                    dict(name="Artifacts", default=artifacts),
+                    dict(name="Parameters", default=parameters),
+                    dict(name="Template", default=template),
+                    dict(name="Password", default=Password),
+                    dict(name="target_args", default=target_args),
+                ) AS parameters,
+                (
+                  dict(query=CollectionArtifact[0].Value),
+                ) AS sources
+            FROM scope() },
+      c = { SELECT "Generic.Utils.FetchBinary" AS name,
+            (
+               dict(name="SleepDuration"),
+               dict(name="ToolName"),
+            ) AS parameters,
+            (
+               dict(query=FetchBinaryOverride),
+            ) AS sources FROM scope()  }
+      )
+
+      // Build the autoexec config file depending on the user's
+      // collection type choices.
+      LET autoexec <= dict(autoexec=dict(
+          argv=["artifacts", "collect", "-v", "Collector"],
+          artifact_definitions=definitions)
+      )
+
+      // Get some tempfiles to work with.
+      LET Config <= tempfile()
+      LET Destination <= tempfile()
+
+      // Choose the right target binary depending on the target OS
+      LET tool_name = SELECT * FROM switch(
+       a={ SELECT "VelociraptorWindows" AS Type FROM scope() WHERE OS = "Windows"},
+       b={ SELECT "VelociraptorWindows_x86" AS Type FROM scope() WHERE OS = "Windows_x86"},
+       c={ SELECT "VelociraptorLinux" AS Type FROM scope() WHERE OS = "Linux"},
+       d={ SELECT "VelociraptorDarwin" AS Type FROM scope() WHERE OS = "MacOS"},
+       e={ SELECT "" AS Type FROM scope()
+           WHERE NOT log(message="Unknown target type " + OS) }
+      )
+
+      // Repack this binary.
+      LET target_binary <= SELECT FullPath, Name
+         FROM Artifact.Generic.Utils.FetchBinary(
+            ToolName=tool_name[0].Type, SleepDuration="0",
+            ToolInfo=inventory_get(tool=tool_name[0].Type))
+         WHERE log(message="Target binary " + Name + " is at " + FullPath)
+
+      LET me <= SELECT Exe FROM info()
+
+      // Copy the configuration to a temp file and shell out to our
+      // binary to repack it.
+      LET repack_step = SELECT upload(
+           file=Destination,
+           accessor="file",
+           name=format(format='Collector_%v', args=[target_binary[0].Name, ])) AS Binary,
+           timestamp(epoch=now()) As CreationTime
+      FROM execve(argv=[
+        me[0].Exe, "config", "repack",
+        "--exe", target_binary[0].FullPath,
+        "--append", Payload,
+        copy(dest=Config,
+             accessor='data',
+             filename=serialize(format='json', item=autoexec)),
+        Destination ], length=1000000)
+      WHERE log(message="Creating config on " + Config) AND log(message=Stderr)
+
+      // Only actually run stuff if everything looks right.
+      SELECT * FROM if(condition=autoexec AND target_binary AND me[0].Exe,
+         then=repack_step)
+```
+   {{% /expand %}}
+
+## System.Flow.Archive
+
+An internal artifact that produces events for every flow completion
+in the system.
+
+
+{{% expand  "View Artifact Source" %}}
+
+
+```text
+name: System.Flow.Archive
+description: |
+  An internal artifact that produces events for every flow completion
+  in the system.
+
+type: CLIENT_EVENT
+```
+   {{% /expand %}}
+
 ## System.Flow.Completion
 
 An internal artifact that produces events for every flow completion
@@ -804,7 +1355,7 @@ type: CLIENT_EVENT
 Endpoints may participate in hunts. This artifact collects which hunt
 each system participated in.
 
-Note: This is an automated system hunt. You do not need to start it.
+Note: This is an automated system artifact. You do not need to start it.
 
 
 {{% expand  "View Artifact Source" %}}
@@ -816,7 +1367,7 @@ description: |
      Endpoints may participate in hunts. This artifact collects which hunt
      each system participated in.
 
-     Note: This is an automated system hunt. You do not need to start it.
+     Note: This is an automated system artifact. You do not need to start it.
 
 type: CLIENT_EVENT
 
@@ -832,11 +1383,11 @@ reports:
                        artifact='System.Hunt.Participation') },
              query={
                 SELECT Scheduled,
-                       HuntId,
-                       HuntDescription,
-                       StartRequest.Args.Artifacts.Names
+                       hunt_id,
+                       hunt_description,
+                       start_request.artifacts
                 FROM allhunts
-                WHERE HuntId = ParticipatedHuntId
+                WHERE hunt_id = ParticipatedHuntId
              })
       {{ end }}
 
@@ -854,6 +1405,25 @@ reports:
       ```sql
       {{ template "hunts" }}
       ```
+```
+   {{% /expand %}}
+
+## System.Upload.Completion
+
+An internal artifact that produces events for every file that is
+uploaded to the system.
+
+
+{{% expand  "View Artifact Source" %}}
+
+
+```text
+name: System.Upload.Completion
+description: |
+  An internal artifact that produces events for every file that is
+  uploaded to the system.
+
+type: CLIENT_EVENT
 ```
    {{% /expand %}}
 
@@ -890,7 +1460,7 @@ parameters:
 
 sources:
   - queries:
-      - SELECT Path, Accessor, Size, Error, Sha256, Md5
+      - SELECT Path, Accessor, Size, StoredSize, Error, Sha256, Md5
         FROM upload(files=Path, accessor=Accessor)
 ```
    {{% /expand %}}
@@ -932,17 +1502,36 @@ parameters:
     default: 0
 
 sources:
-  - queries:
-      - SELECT FullPath as _FullPath,
+  - query: |
+      // Old versions do not have the root parameter to glob()
+      // Fixes https://github.com/Velocidex/velociraptor/issues/322
+      LET LegacyQuery = SELECT FullPath as _FullPath,
            Accessor as _Accessor,
            Data as _Data,
            Name, Size, Mode.String AS Mode,
-           timestamp(epoch=Mtime.Sec) as mtime,
-           timestamp(epoch=Atime.Sec) as atime,
-           timestamp(epoch=Ctime.Sec) as ctime
+           Mtime as mtime,
+           Atime as atime,
+           Ctime as ctime
         FROM glob(globs=Path + if(condition=atoi(string=Depth),
              then='/**' + Depth, else='/*'),
              accessor=Accessor)
+
+      LET NewQuery = SELECT FullPath as _FullPath,
+           Accessor as _Accessor,
+           Data as _Data,
+           Name, Size, Mode.String AS Mode,
+           Mtime as mtime,
+           Atime as atime,
+           Ctime as ctime
+        FROM glob(globs=if(condition=atoi(string=Depth),
+             then='/**' + Depth, else='/*'),
+             root=Path,
+             accessor=Accessor)
+
+      SELECT * FROM if(
+       condition=version(plugin="glob") >= 1,
+       then=NewQuery,
+       else=LegacyQuery)
 ```
    {{% /expand %}}
 
@@ -974,6 +1563,9 @@ description: |
   nonce in their path. You may configure the Velociraptor server to
   serve these through the public directory. Simply place the MSI in
   the public directory within the data store and set the URL below.
+
+required_permissions:
+  - EXECVE
 
 parameters:
   - name: clientURL
@@ -1039,6 +1631,9 @@ description: |
   result set.
 
 type: SERVER_EVENT
+
+required_permissions:
+  - EXECVE
 
 parameters:
   - name: uploadPostProcessCommand

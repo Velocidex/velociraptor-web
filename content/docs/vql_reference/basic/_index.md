@@ -44,7 +44,7 @@ Convert a string to an int.
 
 Arg | Description | Type
 ----|-------------|-----
-string|A string to convert to int|string (required)
+string|A string to convert to int|Any (required)
 
 
 ## base64decode
@@ -87,6 +87,7 @@ Arg | Description | Type
 filename|The file to copy from.|string (required)
 accessor|The accessor to use|string
 dest|The destination file to write.|string (required)
+permissions|Required permissions (e.g. 'x').|string
 
 
 ## count
@@ -96,7 +97,7 @@ Counts the items.
 
 Arg | Description | Type
 ----|-------------|-----
-items||Any (required)
+items||Any
 
 
 ## dict
@@ -133,7 +134,7 @@ Collect all the items in each group by bin.
 
 Arg | Description | Type
 ----|-------------|-----
-items||Any (required)
+items||Any
 
 
 ## environ
@@ -255,6 +256,16 @@ then||LazyExpr (required)
 else||LazyExpr
 
 
+## items
+<span class='vql_type pull-right'>Plugin</span>
+
+Enumerate all members of the item (similar to Pythons items() method.
+
+Arg | Description | Type
+----|-------------|-----
+item|The item to enumerate.|Any
+
+
 ## join
 <span class='vql_type pull-right'>Function</span>
 
@@ -318,7 +329,7 @@ SELECT Name, max(items=Pid) as LargestPid from pslist() Where Name =~ 'bash' gro
 
 Arg | Description | Type
 ----|-------------|-----
-items||Any (required)
+items||Any
 
 
 ## min
@@ -340,7 +351,7 @@ SELECT Name, min(items=Pid) as SmallestPid from pslist() Where Name =~ 'bash' gr
 
 Arg | Description | Type
 ----|-------------|-----
-items||Any (required)
+items||Any
 
 
 ## now
@@ -350,7 +361,7 @@ Returns current time in seconds since epoch.
 
 Arg | Description | Type
 ----|-------------|-----
-string|A string to convert to int|string (required)
+string|A string to convert to int|Any (required)
 
 
 ## path_join
@@ -390,9 +401,8 @@ Read a file into a string.
 
 Arg | Description | Type
 ----|-------------|-----
-chunk|length of each chunk to read from the file.|int
-max_length|Max length of the file to read.|int
-filenames|One or more files to open.|list of string (required)
+length|Max length of the file to read.|int
+filename|One or more files to open.|string (required)
 accessor|An accessor to use.|string
 
 
@@ -455,6 +465,19 @@ string|The string to strip|string (required)
 prefix|The prefix to strip|string (required)
 
 
+## tempdir
+<span class='vql_type pull-right'>Function</span>
+
+Create a temporary directory. The directory will be removed when the query ends.
+
+Arg | Description | Type
+----|-------------|-----
+data|Data to write in the tempfile.|list of string
+extension|An extension to place in the tempfile.|string
+permissions|Required permissions (e.g. 'x').|string
+remove_last|If set we delay removal as much as possible.|bool
+
+
 ## timestamp
 <span class='vql_type pull-right'>Function</span>
 
@@ -466,6 +489,12 @@ epoch||Any
 winfiletime||int64
 string|Guess a timestamp from a string|string
 us_style|US Style Month/Day/Year|bool
+
+
+## to_dict
+<span class='vql_type pull-right'>Function</span>
+
+Construct a dict from another object.
 
 
 ## upcase
@@ -532,4 +561,33 @@ Encode a string to utf16 bytes.
 Arg | Description | Type
 ----|-------------|-----
 string|A string to decode|string (required)
+
+
+## uuid
+<span class='vql_type pull-right'>Function</span>
+
+Generate a UUID.
+
+
+## version
+<span class='vql_type pull-right'>Function</span>
+
+
+Gets the version of a VQL plugin or function.
+
+This is useful when writing portable VQL which can work with
+older versions of Velociraptor. When Velociraptor plugins evolve
+in an incompatible way their version is incremented. It is
+possible to cater for multiple versions in the VQL using an if()
+plugin.
+
+For example the following can chose from a legacy query or a
+modern query based on the plugin version:
+```
+ SELECT * FROM if(
+  condition=version(plugin="glob") >= 1,
+  then=NewQuery,
+  else=LegacyQuery)
+```
+
 

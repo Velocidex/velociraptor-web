@@ -421,6 +421,41 @@
       <a href="/blog/">Velociraptor Blog</a><i class="fa fa-angle-right fa-lg category-icon"></i>
       </div>
         <ul>
+      <li data-nav-id="/blog/medium/2020-08-16-profiling-the-beast-58913437fd16/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-08-16-profiling-the-beast-58913437fd16/">
+            Profiling the beast
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2020-07-14-triage-with-velociraptor-pt-4-cf0e60810d1e/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-07-14-triage-with-velociraptor-pt-4-cf0e60810d1e/">
+            Triage with Velociraptor — Pt 4
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2020-07-13-velociraptor-in-the-tool-age-d896dfe71b9/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-07-13-velociraptor-in-the-tool-age-d896dfe71b9/">
+            Velociraptor in the tool age
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2020-06-19-the-velociraptor-query-language-pt-2-fe92bb7aa150/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-06-19-the-velociraptor-query-language-pt-2-fe92bb7aa150/">
+            The Velociraptor Query Language Pt 2
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2020-06-14-the-velociraptor-query-language-pt-1-d721bff100bf/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-06-14-the-velociraptor-query-language-pt-1-d721bff100bf/">
+            The Velociraptor Query Language Pt 1
+          </a>
+        </div>
+    </li>
       <li data-nav-id="/blog/medium/2020-04-16-velociraptor-e48a47e0317d/" class="dd-item">
         <div>
           <a href="/blog/medium/2020-04-16-velociraptor-e48a47e0317d/">
@@ -602,6 +637,7 @@
     <li><a href="#linuxsyscrontab">Linux.Sys.Crontab</a></li>
     <li><a href="#linuxsyslastuserlogin">Linux.Sys.LastUserLogin</a></li>
     <li><a href="#linuxsysmaps">Linux.Sys.Maps</a></li>
+    <li><a href="#linuxsyspslist">Linux.Sys.Pslist</a></li>
     <li><a href="#linuxsyssuid">Linux.Sys.SUID</a></li>
     <li><a href="#references-1">References:</a></li>
     <li><a href="#linuxsysusers">Linux.Sys.Users</a></li>
@@ -1230,6 +1266,9 @@ precondition: SELECT OS From info() where OS = 'linux'
 
 type: CLIENT_EVENT
 
+required_permissions:
+- EXECVE
+
 parameters:
 - name: pathToAuditctl
   default: /sbin/auditctl
@@ -1457,19 +1496,29 @@ sources:
     <div class="expand-content" style="display: none;">
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">name: Linux.Mounts
 description: List mounted filesystems by reading /proc/mounts
+
 parameters:
   - name: ProcMounts
     default: /proc/mounts
+
+precondition: |
+   SELECT OS From info() where OS = &#39;linux&#39;
+
 sources:
-  - precondition: |
-      SELECT OS From info() where OS = &#39;linux&#39;
-    queries:
-      - |
-        SELECT Device, Mount, FSType, split(string=Opts, sep=&#34;,&#34;) As Options
-               FROM parse_records_with_regex(
-                   file=ProcMounts,
-                   regex=&#39;(?m)^(?P&lt;Device&gt;[^ ]+) (?P&lt;Mount&gt;[^ ]+) (?P&lt;FSType&gt;[^ ]+) &#39;+
-                         &#39;(?P&lt;Opts&gt;[^ ]+)&#39;)
+  - query: |
+      SELECT Device, Mount, FSType, split(string=Opts, sep=&#34;,&#34;) As Options
+      FROM parse_records_with_regex(
+         file=ProcMounts,
+         regex=&#39;(?m)^(?P&lt;Device&gt;[^ ]+) (?P&lt;Mount&gt;[^ ]+) (?P&lt;FSType&gt;[^ ]+) &#39;+
+             &#39;(?P&lt;Opts&gt;[^ ]+)&#39;)
+
+
+reports:
+  - type: CLIENT
+    template: |
+      # Mounted filesystems
+
+      {{ Query &#34;SELECT * FROM source()&#34; | Table }}
 </code></pre></div>   </div>
 </div>
 <h2 id="linuxprocarp">Linux.Proc.Arp</h2>
@@ -2386,6 +2435,53 @@ sources:
                accessor=&#39;file&#39;
             )
           })
+</code></pre></div>   </div>
+</div>
+<h2 id="linuxsyspslist">Linux.Sys.Pslist</h2>
+<p>List processes and their running binaries.</p>
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>processRegex</td>
+<td>.</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<div class="expand">
+    <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fa fa-chevron-down' : 'fa fa-chevron-right';});});">
+        <i style="font-size:x-small;" class="fa fa-chevron-right"></i>
+        <span>
+          View Artifact Source
+        </span>
+    </div>
+    <div class="expand-content" style="display: none;">
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">name: Linux.Sys.Pslist
+description: |
+  List processes and their running binaries.
+
+parameters:
+  - name: processRegex
+    default: .
+
+precondition: SELECT OS From info() where OS = &#39;linux&#39;
+
+sources:
+  - query: |
+        SELECT Pid, Ppid, Name, Cmdline, Exe,
+               hash(path=Exe) as Hash,
+               Username, timestamp(epoch=CreateTime/1000) AS CreatedTime,
+               MemoryInfo.RSS AS RSS,
+               Exe =~ &#34;\\(deleted\\)$&#34; AS Deleted
+        FROM pslist()
+        WHERE Name =~ processRegex
 </code></pre></div>   </div>
 </div>
 <h2 id="linuxsyssuid">Linux.Sys.SUID</h2>

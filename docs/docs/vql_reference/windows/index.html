@@ -421,6 +421,41 @@
       <a href="/blog/">Velociraptor Blog</a><i class="fa fa-angle-right fa-lg category-icon"></i>
       </div>
         <ul>
+      <li data-nav-id="/blog/medium/2020-08-16-profiling-the-beast-58913437fd16/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-08-16-profiling-the-beast-58913437fd16/">
+            Profiling the beast
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2020-07-14-triage-with-velociraptor-pt-4-cf0e60810d1e/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-07-14-triage-with-velociraptor-pt-4-cf0e60810d1e/">
+            Triage with Velociraptor — Pt 4
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2020-07-13-velociraptor-in-the-tool-age-d896dfe71b9/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-07-13-velociraptor-in-the-tool-age-d896dfe71b9/">
+            Velociraptor in the tool age
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2020-06-19-the-velociraptor-query-language-pt-2-fe92bb7aa150/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-06-19-the-velociraptor-query-language-pt-2-fe92bb7aa150/">
+            The Velociraptor Query Language Pt 2
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2020-06-14-the-velociraptor-query-language-pt-1-d721bff100bf/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-06-14-the-velociraptor-query-language-pt-1-d721bff100bf/">
+            The Velociraptor Query Language Pt 1
+          </a>
+        </div>
+    </li>
       <li data-nav-id="/blog/medium/2020-04-16-velociraptor-e48a47e0317d/" class="dd-item">
         <div>
           <a href="/blog/medium/2020-04-16-velociraptor-e48a47e0317d/">
@@ -687,6 +722,22 @@ from Windows Defender.</p>
 <h2 id="lookupsid">lookupSID</h2>
 <p><span class='vql_type pull-right'>Function</span></p>
 <p>Get information about the SID.</p>
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>sid</td>
+<td>A SID to lookup using LookupAccountSid</td>
+<td>string (required)</td>
+</tr>
+</tbody>
+</table>
 <h2 id="modules">modules</h2>
 <p><span class='vql_type pull-right'>Plugin</span></p>
 <p>Enumerate Loaded DLLs.</p>
@@ -792,12 +843,12 @@ it.</p>
 <tr>
 <td>start</td>
 <td>The start offset to scan</td>
-<td>int64</td>
+<td>uint64</td>
 </tr>
 <tr>
 <td>end</td>
 <td>End scanning at this offset (100mb)</td>
-<td>int64</td>
+<td>uint64</td>
 </tr>
 <tr>
 <td>number</td>
@@ -896,22 +947,6 @@ content available in the <code>Data</code> field).</p>
 <h2 id="users">users</h2>
 <p><span class='vql_type pull-right'>Plugin</span></p>
 <p>Display information about workstation local users. This is obtained through the NetUserEnum() API.</p>
-<table>
-<thead>
-<tr>
-<th>Arg</th>
-<th>Description</th>
-<th>Type</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>file</td>
-<td>The wtmp file to use</td>
-<td>string</td>
-</tr>
-</tbody>
-</table>
 <h2 id="vad">vad</h2>
 <p><span class='vql_type pull-right'>Plugin</span></p>
 <p>Enumerate process memory regions.</p>

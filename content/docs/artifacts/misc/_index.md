@@ -486,8 +486,7 @@ sources:
     description: |
       This source is used internally to populate agent info. Do not
       remove this query.
-    queries:
-      - |
+    query: |
         SELECT config.Version.Name AS Name,
                config.Version.BuildTime as BuildTime,
                config.Labels AS Labels,
@@ -533,6 +532,121 @@ reports:
 ```
    {{% /expand %}}
 
+## Generic.Client.Profile
+
+This artifact collects profiling information about the running
+client. This is useful when you notice a high CPU load in the client
+and want to know why.
+
+The following options are most useful:
+
+1. Goroutines: This shows the backtraces of all currently running
+   goroutines. It will generally show most of the code working in the
+   current running set of queries.
+
+2. Heap: This shows all allocations currently in use and where they
+   are allocated from. This is useful if the client is taking too
+   much memory.
+
+3. Profile: This takes a CPU profile of the running process for the
+   number of seconds specified in the Duration parameter. You can
+   read profiles using:
+
+```
+go tool pprof -callgrind -output=profile.grind profile.bin
+kcachegrind profile.grind
+```
+
+Note that this really only makes sense when another query is running
+at the same time since this artifacts itself will not be doing very
+much other than just measuring the state of the process.
+
+
+Arg|Default|Description
+---|------|-----------
+Allocs||A sampling of all past memory allocations
+Block||Stack traces that led to blocking on synchronization primitives
+Goroutine||Stack traces of all current goroutines
+Heap||A sampling of memory allocations of live objects
+Mutex||Stack traces of holders of contended mutexes
+Profile||CPU profile
+Trace||CPU trace
+Verbose||Print more detail
+Duration|30|Duration of sampling for Profile and Trace.
+
+{{% expand  "View Artifact Source" %}}
+
+
+```text
+name: Generic.Client.Profile
+description: |
+  This artifact collects profiling information about the running
+  client. This is useful when you notice a high CPU load in the client
+  and want to know why.
+
+  The following options are most useful:
+
+  1. Goroutines: This shows the backtraces of all currently running
+     goroutines. It will generally show most of the code working in the
+     current running set of queries.
+
+  2. Heap: This shows all allocations currently in use and where they
+     are allocated from. This is useful if the client is taking too
+     much memory.
+
+  3. Profile: This takes a CPU profile of the running process for the
+     number of seconds specified in the Duration parameter. You can
+     read profiles using:
+
+  ```
+  go tool pprof -callgrind -output=profile.grind profile.bin
+  kcachegrind profile.grind
+  ```
+
+  Note that this really only makes sense when another query is running
+  at the same time since this artifacts itself will not be doing very
+  much other than just measuring the state of the process.
+
+
+parameters:
+  - name: Allocs
+    description: A sampling of all past memory allocations
+    type: bool
+  - name: Block
+    description: Stack traces that led to blocking on synchronization primitives
+    type: bool
+  - name: Goroutine
+    description: Stack traces of all current goroutines
+    type: bool
+  - name: Heap
+    description: A sampling of memory allocations of live objects
+    type: bool
+  - name: Mutex
+    description: Stack traces of holders of contended mutexes
+    type: bool
+  - name: Profile
+    description: CPU profile
+    type: bool
+  - name: Trace
+    description: CPU trace
+    type: bool
+  - name: Verbose
+    description: Print more detail
+    type: bool
+  - name: Duration
+    description: Duration of sampling for Profile and Trace.
+    default: "30"
+
+sources:
+  - query: |
+      SELECT Type, upload(name=Type + ".bin", file=FullPath) AS File
+      FROM profile(allocs=Allocs, block=Block, goroutine=Goroutine,
+                   heap=Heap, mutex=Mutex, profile=Profile, trace=Trace,
+                   debug=if(condition=Verbose, then=2, else=1),
+                   duration=atoi(string=Duration))
+```
+   {{% /expand %}}
+
 ## Generic.Client.Stats
 
 An Event artifact which generates client's CPU and memory statistics.
@@ -567,7 +681,7 @@ sources:
            FROM pslist(pid=getpid())
          })
 
-  - precondition: SELECT OS From info() where OS = 'linux'
+  - precondition: SELECT OS From info() where OS != 'windows'
     queries:
       - SELECT * from foreach(
          row={
@@ -735,6 +849,148 @@ sources:
                Mode.String AS Mode, Sys.Uid AS Uid, Sys.Gid AS Gid, Size,
                Atime.Sec AS Atime, Mtime.Sec AS Mtime, Ctime.Sec AS Ctime
         FROM glob(globs=timelineGlob, accessor=timelineAccessor)
+```
+   {{% /expand %}}
+
+## Generic.Utils.FetchBinary
+
+A utility artifact which fetches a binary from a URL and caches it on disk.
+We verify the hash of the binary on disk and if it does not match we fetch it again
+from the source URL.
+
+This artifact is designed to be called from other artifacts. The
+binary path will be emitted in the FullPath column.
+
+As a result of launching an artifact with declared "required_tools"
+field, the server will populate the following environment
+variables.
+
+Tool_<ToolName>_HASH     - The hash of the binary
+Tool_<ToolName>_FILENAME - The filename to store it.
+Tool_<ToolName>_URL      - The URL.
+
+
+Arg|Default|Description
+---|------|-----------
+ToolName|Autorun_amd64|
+SleepDuration|20|A time to sleep before fetching the binary.
+
+{{% expand  "View Artifact Source" %}}
+
+
+```text
+name: Generic.Utils.FetchBinary
+description: |
+   A utility artifact which fetches a binary from a URL and caches it on disk.
+   We verify the hash of the binary on disk and if it does not match we fetch it again
+   from the source URL.
+
+   This artifact is designed to be called from other artifacts. The
+   binary path will be emitted in the FullPath column.
+
+   As a result of launching an artifact with declared "required_tools"
+   field, the server will populate the following environment
+   variables.
+
+   Tool_<ToolName>_HASH     - The hash of the binary
+   Tool_<ToolName>_FILENAME - The filename to store it.
+   Tool_<ToolName>_URL      - The URL.
+
+parameters:
+  - name: ToolName
+    default: Autorun_amd64
+
+  - name: SleepDuration
+    default: "20"
+    description: A time to sleep before fetching the binary.
+
+  - name: ToolInfo
+    type: hidden
+    description: A dict containing the tool information.
+
+sources:
+  - query: |
+      -- The following VQL is particularly ancient because it is
+      -- running on the client and it needs to be compatibile with
+      -- clients at least back to 0.3.9
+
+      LET info_cache <= SELECT * FROM info()
+      LET inventory_item <= SELECT inventory_get(tool=ToolName) AS Item FROM scope()
+
+      LET args <= SELECT * FROM switch(
+        // Try to get info from the ToolInfo parameter.
+        a={SELECT get(field="Tool_" + ToolName + "_HASH", item=ToolInfo) AS ToolHash,
+                  get(field="Tool_" + ToolName + "_FILENAME", item=ToolInfo) AS ToolFilename,
+                  get(field="Tool_" + ToolName + "_URL", item=ToolInfo) AS ToolURL
+           FROM scope()  WHERE ToolFilename},
+
+        // Failing this - get it from the scope()
+        b={SELECT get(field="Tool_" + ToolName + "_HASH", item=scope()) AS ToolHash,
+                  get(field="Tool_" + ToolName + "_FILENAME", item=scope()) AS ToolFilename,
+                  get(field="Tool_" + ToolName + "_URL", item=scope()) AS ToolURL
+           FROM scope()  WHERE ToolFilename},
+
+        // Failing this - try to get it from the inventory service directly.
+        c={SELECT get(field="Tool_" + ToolName + "_HASH", item=(inventory_item[0]).Item) AS ToolHash,
+                  get(field="Tool_" + ToolName + "_FILENAME", item=(inventory_item[0]).Item) AS ToolFilename,
+                  get(field="Tool_" + ToolName + "_URL", item=(inventory_item[0]).Item) AS ToolURL
+           FROM scope()  WHERE ToolFilename}
+      )
+
+      // Keep the binaries cached in the temp directory. We verify the
+      // hashes all the time so this should be safe.
+      LET binpath <= SELECT Path FROM switch(
+          a={SELECT dirname(path=tempfile()) AS Path FROM scope() WHERE Path},
+          e={SELECT "/tmp" AS Path FROM info_cache WHERE OS = "linux"}
+        )
+
+      // Where we should save the file.
+      LET ToolPath <= SELECT path_join(components=[(binpath[0]).Path, (args[0]).ToolFilename]) AS Path FROM scope()
+
+      // Download the file from the binary URL and store in the local
+      // binary cache.
+      LET download = SELECT * FROM if(condition=log(
+             message="URL for " + (args[0]).ToolFilename +
+                " is at " + (args[0]).ToolURL + " and has hash of " + (args[0]).ToolHash)
+             AND binpath AND (args[0]).ToolHash AND (args[0]).ToolURL,
+        then={
+          SELECT hash(path=Content) as Hash,
+              (args[0]).ToolFilename AS Name,
+              "Downloaded" AS DownloadStatus,
+              copy(filename=Content, dest=(ToolPath[0]).Path) AS FullPath
+          FROM http_client(url=(args[0]).ToolURL, tempfile_extension=".exe")
+          WHERE log(message=format(format="downloaded hash of %v: %v, expected %v", args=[
+                    Content, Hash.SHA256, (args[0]).ToolHash]))
+                AND Hash.SHA256 = (args[0]).ToolHash
+        }, else={
+           SELECT * FROM scope()
+           WHERE NOT log(message="No valid setup - is tool " + ToolName +
+                        " configured in the server inventory?")
+        })
+
+      // Check if the existing file in the binary file cache matches
+      // the hash.
+      LET existing = SELECT FullPath, hash(path=FullPath) AS Hash, Name,
+                    "Cached" AS DownloadStatus
+        FROM stat(filename=(ToolPath[0]).Path)
+        WHERE Hash.SHA256 = (args[0]).ToolHash AND log(
+            message=format(format="hash of %v: %v, expected %v", args=[
+            FullPath, Hash.SHA256, (args[0]).ToolHash]))
+
+      // Find the required_tool either in the local cache or
+      // download it (and put it in the cache for next time). If we
+      // have to download the file we sleep for a random time to
+      // stagger server bandwidth load.
+      SELECT * FROM switch(
+        a=existing,
+        b={
+           SELECT rand(range=atoi(string=SleepDuration)) AS timeout
+           FROM scope()
+           WHERE args AND (args[0]).ToolURL AND
+              log(message=format(format='Sleeping %v Seconds',
+                 args=[timeout])) AND sleep(time=timeout) AND FALSE
+        },
+        c=download)
 ```
    {{% /expand %}}
 
@@ -988,6 +1244,185 @@ sources:
 ```
    {{% /expand %}}
 
+## Reporting.Default
+
+A default template for HTML export.  This template will be used to
+host html exports such as the notebook and the reporting
+templates. Velociraptor will evaluate this template on the following
+dict:
+
+  - key main: contains a string with all the results of rendering
+              the notebook inside.
+
+## Notes
+
+1. All html elements are allowed in a html template.
+
+2. It is possible to run arbitrary VQL (and therefore arbitrary
+   code) inside HTML templates. Therefore to modify this you will
+   need the SERVER_ARTIFACT_WRITER permission.
+
+
+{{% expand  "View Artifact Source" %}}
+
+
+```text
+name: Reporting.Default
+
+type: SERVER
+
+description: |
+  A default template for HTML export.  This template will be used to
+  host html exports such as the notebook and the reporting
+  templates. Velociraptor will evaluate this template on the following
+  dict:
+
+    - key main: contains a string with all the results of rendering
+                the notebook inside.
+
+  ## Notes
+
+  1. All html elements are allowed in a html template.
+
+  2. It is possible to run arbitrary VQL (and therefore arbitrary
+     code) inside HTML templates. Therefore to modify this you will
+     need the SERVER_ARTIFACT_WRITER permission.
+
+reports:
+  - type: HTML
+    template: |
+          <html>
+            <head>
+              <meta charset="utf-8">
+              <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+              <title>Velociraptor Report</title>
+
+              <!-- Bootstrap core CSS -->
+              <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+              <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+              <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+              <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+              <style>
+          pre {
+              display: block;
+              padding: 8px;
+              margin: 0 0 8.5px;
+              font-size: 12px;
+              line-height: 1.31;
+              word-break: break-all;
+              word-wrap: break-word;
+              color: #333333;
+              background-color: #f5f5f5;
+              border: 1px solid #ccc;
+              border-radius: 4px;
+          }
+
+          .notebook-cell {
+              border-color: transparent;
+              display: flex;
+              flex-direction: column;
+              align-items: stretch;
+              border-radius: 20px;
+              border-width: 3px;
+              border-style: none;
+              border-color: #ababab;
+              padding: 20px;
+              margin: 0px;
+              position: relative;
+              overflow: auto;
+          }
+
+          /* Error */  .chromaerr { color: #a61717; background-color: #e3d2d2 }
+          /* LineTableTD */  .chromalntd { vertical-align: top; padding: 0; margin: 0; border: 0; }
+          /* LineTable */  .chromalntable { border-spacing: 0; padding: 0; margin: 0; border: 0; width: auto; overflow: auto; display: block; }
+          /* LineHighlight */  .chromahl { display: block; width: 100%%; }
+          /* LineNumbersTable */  .chromalnt { margin-right: 0.4em; padding: 0 0.4em 0 0.4em; }
+          /* LineNumbers */  .chromaln { margin-right: 0.4em; padding: 0 0.4em 0 0.4em; }
+          /* Keyword */  .chromak { color: #000000; font-weight: bold }
+          /* KeywordConstant */  .chromakc { color: #000000; font-weight: bold }
+          /* KeywordDeclaration */  .chromakd { color: #000000; font-weight: bold }
+          /* KeywordNamespace */  .chromakn { color: #000000; font-weight: bold }
+          /* KeywordPseudo */  .chromakp { color: #000000; font-weight: bold }
+          /* KeywordReserved */  .chromakr { color: #000000; font-weight: bold }
+          /* KeywordType */  .chromakt { color: #445588; font-weight: bold }
+          /* NameAttribute */  .chromana { color: #008080 }
+          /* NameBuiltin */  .chromanb { color: #0086b3 }
+          /* NameBuiltinPseudo */  .chromabp { color: #999999 }
+          /* NameClass */  .chromanc { color: #445588; font-weight: bold }
+          /* NameConstant */  .chromano { color: #008080 }
+          /* NameDecorator */  .chromand { color: #3c5d5d; font-weight: bold }
+          /* NameEntity */  .chromani { color: #800080 }
+          /* NameException */  .chromane { color: #990000; font-weight: bold }
+          /* NameFunction */  .chromanf { color: #990000; font-weight: bold }
+          /* NameLabel */  .chromanl { color: #990000; font-weight: bold }
+          /* NameNamespace */  .chromann { color: #555555 }
+          /* NameTag */  .chromant { color: #000080 }
+          /* NameVariable */  .chromanv { color: #008080 }
+          /* NameVariableClass */  .chromavc { color: #008080 }
+          /* NameVariableGlobal */  .chromavg { color: #008080 }
+          /* NameVariableInstance */  .chromavi { color: #008080 }
+          /* LiteralString */  .chromas { color: #dd1144 }
+          /* LiteralStringAffix */  .chromasa { color: #dd1144 }
+          /* LiteralStringBacktick */  .chromasb { color: #dd1144 }
+          /* LiteralStringChar */  .chromasc { color: #dd1144 }
+          /* LiteralStringDelimiter */  .chromadl { color: #dd1144 }
+          /* LiteralStringDoc */  .chromasd { color: #dd1144 }
+          /* LiteralStringDouble */  .chromas2 { color: #dd1144 }
+          /* LiteralStringEscape */  .chromase { color: #dd1144 }
+          /* LiteralStringHeredoc */  .chromash { color: #dd1144 }
+          /* LiteralStringInterpol */  .chromasi { color: #dd1144 }
+          /* LiteralStringOther */  .chromasx { color: #dd1144 }
+          /* LiteralStringRegex */  .chromasr { color: #009926 }
+          /* LiteralStringSingle */  .chromas1 { color: #dd1144 }
+          /* LiteralStringSymbol */  .chromass { color: #990073 }
+          /* LiteralNumber */  .chromam { color: #009999 }
+          /* LiteralNumberBin */  .chromamb { color: #009999 }
+          /* LiteralNumberFloat */  .chromamf { color: #009999 }
+          /* LiteralNumberHex */  .chromamh { color: #009999 }
+          /* LiteralNumberInteger */  .chromami { color: #009999 }
+          /* LiteralNumberIntegerLong */  .chromail { color: #009999 }
+          /* LiteralNumberOct */  .chromamo { color: #009999 }
+          /* Operator */  .chromao { color: #000000; font-weight: bold }
+          /* OperatorWord */  .chromaow { color: #000000; font-weight: bold }
+          /* Comment */  .chromac { color: #999988; font-style: italic }
+          /* CommentHashbang */  .chromach { color: #999988; font-style: italic }
+          /* CommentMultiline */  .chromacm { color: #999988; font-style: italic }
+          /* CommentSingle */  .chromac1 { color: #999988; font-style: italic }
+          /* CommentSpecial */  .chromacs { color: #999999; font-weight: bold; font-style: italic }
+          /* CommentPreproc */  .chromacp { color: #999999; font-weight: bold; font-style: italic }
+          /* CommentPreprocFile */  .chromacpf { color: #999999; font-weight: bold; font-style: italic }
+          /* GenericDeleted */  .chromagd { color: #000000; background-color: #ffdddd }
+          /* GenericEmph */  .chromage { color: #000000; font-style: italic }
+          /* GenericError */  .chromagr { color: #aa0000 }
+          /* GenericHeading */  .chromagh { color: #999999 }
+          /* GenericInserted */  .chromagi { color: #000000; background-color: #ddffdd }
+          /* GenericOutput */  .chromago { color: #888888 }
+          /* GenericPrompt */  .chromagp { color: #555555 }
+          /* GenericStrong */  .chromags { font-weight: bold }
+          /* GenericSubheading */  .chromagu { color: #aaaaaa }
+          /* GenericTraceback */  .chromagt { color: #aa0000 }
+          /* TextWhitespace */  .chromaw { color: #bbbbbb }
+          </style>
+            </head>
+            <body>
+              <main role="main" class="container">
+
+              <h1> Collection report. </h1>
+
+              {{ $data := Query "SELECT timestamp(epoch=now()).String AS Time, \
+                     OS, Fqdn \
+                 FROM info()" | Expand }}
+              This report was generated at {{ Get $data "0.Time" }} on host {{ Get $data "0.Fqdn" }}.
+
+              {{ .main }}
+
+              </main>
+             </body>
+          </html>
+```
+   {{% /expand %}}
+
 ## Reporting.Hunts.Details
 
 Report details about which client ran each hunt, how long it took
@@ -1075,6 +1510,137 @@ sources:
 ```
    {{% /expand %}}
 
+## Windows.Application.TeamViewer.Incoming
+
+Parses the TeamViewer Connections_incoming.txt log file.
+
+When inbound logging enabled, this file will show all inbound TeamViewer
+connections.
+
+
+Arg|Default|Description
+---|------|-----------
+FileGlob|C:\\Program Files (x86)\\TeamViewer\\Connections_i ...|
+DateAfter||search for events after this date. YYYY-MM-DDTmm:hh:ss Z
+DateBefore||search for events before this date. YYYY-MM-DDTmm:hh:ss Z
+TeamViewerIDRegex|.|Regex of TeamViewer ID
+SourceHostRegex|.|Regex of source host
+UserRegex|.|Regex of user
+SearchVSS||Add VSS into query.
+
+{{% expand  "View Artifact Source" %}}
+
+
+```text
+name: Windows.Application.TeamViewer.Incoming
+description: |
+   Parses the TeamViewer Connections_incoming.txt log file.
+
+   When inbound logging enabled, this file will show all inbound TeamViewer
+   connections.
+
+author: Matt Green - @mgreen27
+
+reference:
+  - https://attack.mitre.org/techniques/T1219/
+  - https://www.systoolsgroup.com/forensics/teamviewer/
+
+
+type: CLIENT
+parameters:
+  - name: FileGlob
+    default: C:\Program Files (x86)\TeamViewer\Connections_incoming.txt
+  - name: DateAfter
+    description: "search for events after this date. YYYY-MM-DDTmm:hh:ss Z"
+    type: timestamp
+  - name: DateBefore
+    description: "search for events before this date. YYYY-MM-DDTmm:hh:ss Z"
+    type: timestamp
+  - name: TeamViewerIDRegex
+    description: "Regex of TeamViewer ID"
+    default: .
+  - name: SourceHostRegex
+    description: "Regex of source host"
+    default: .
+  - name: UserRegex
+    description: "Regex of user"
+    default: .
+  - name: SearchVSS
+    description: "Add VSS into query."
+    type: bool
+
+sources:
+  - query: |
+        -- Target hostname
+        LET hostname <= SELECT Fqdn FROM info()
+
+        -- Build time bounds
+        LET DateAfterTime <= if(condition=DateAfter,
+            then=timestamp(epoch=DateAfter), else=timestamp(epoch="1600-01-01"))
+        LET DateBeforeTime <= if(condition=DateBefore,
+            then=timestamp(epoch=DateBefore), else=timestamp(epoch="2200-01-01"))
+
+        -- Determine target files
+        LET files = SELECT *,
+                if(condition=Source,
+                    then=Source,
+                    else=FullPath
+                        ) as Source
+          FROM if(condition=SearchVSS,
+            then= {
+              SELECT *
+              FROM Artifact.Windows.Search.VSS(SearchFilesGlob=FileGlob)
+              WHERE not IsDir and Size > 0
+            },
+            else= {
+              SELECT *, FullPath AS Source
+              FROM glob(globs=FileGlob) WHERE not IsDir and Size > 0
+            })
+        LET Items = SELECT * FROM foreach(
+                row=files,
+                query={
+                    SELECT parse_string_with_regex(
+                        string=Line,
+                        regex=[
+                            "^(?P<TeamViewerID>[^\\s]+)\\s+"+
+                            "(?P<SourceHost>[^\\s]+)\\s+"+
+                            "(?P<StartTime>[^\\s]+\\s[^\\s]+)\\s+"+
+                            "(?P<EndTime>[^\\s]+\\s[^\\s]+)\\s+"+
+                            "(?P<User>[^\\s]+)\\s+"+
+                            "(?P<ConnectionType>[^\\s]+)\\s+"+
+                            "(?P<ConnectionID>.+)$"
+                        ]) as Record,
+                        Source
+                    FROM parse_lines(filename=FullPath)
+                    WHERE Line
+                })
+                ORDER BY Source DESC
+
+        -- Group and filter results for deduplication
+        LET grouped = SELECT
+                timestamp(string=Record.StartTime) as StartTime,
+                timestamp(string=Record.EndTime) as EndTime,
+                Record.TeamViewerID as TeamViewerID,
+                hostname.Fqdn[0] as TargetHost,
+                Record.SourceHost as SourceHost,
+                Record.User as User,
+                Record.ConnectionType as ConnectionType,
+                Record.ConnectionID as ConnectionID,
+                Source
+            FROM Items
+            GROUP BY ConnectionID
+
+        -- Output results
+        SELECT * FROM grouped
+        WHERE
+            (( StartTime < DateBeforeTime AND StartTime > DateAfterTime ) OR
+                    ( EndTime < DateBeforeTime AND EndTime > DateAfterTime ))
+            AND TeamViewerID =~ TeamViewerIDRegex
+            AND SourceHost =~ SourceHostRegex
+            AND User =~ UserRegex
+```
+   {{% /expand %}}
+
 ## Windows.Attack.ParentProcess
 
 Maps the Mitre Att&ck framework process executions into artifacts.
@@ -1104,6 +1670,7 @@ precondition: SELECT OS From info() where OS = 'windows'
 
 parameters:
   - name: lookupTable
+    type: csv
     default: |
        ProcessName,ParentRegex
        smss.exe,System
@@ -1180,6 +1747,7 @@ reports:
   - type: CLIENT
     parameters:
       - name: lookupTable
+        type: csv
         default: |
            signature,description
            attrib,Attrib Execute is usually used to modify file attributes - ATT&CK T1158
@@ -1267,19 +1835,21 @@ description: |
   NOTE: This artifact usually takes a long time. You should increase
   the default timeout to allow it to complete.
 
+tools:
+  - name: WinPmem
+    url: https://github.com/Velocidex/c-aff4/releases/download/v3.3.rc3/winpmem_v3.3.rc3.exe
+
 sources:
   - queries:
       - SELECT * FROM foreach(
           row={
             SELECT FullPath, tempfile(data="X", extension=".aff4") AS Tempfile
-            FROM Artifact.Windows.Utils.FetchBinary(
-                ToolName="WinPmem",
-                binaryURL=binaryURL)
+            FROM Artifact.Generic.Utils.FetchBinary(ToolName="WinPmem")
           },
           query={
             SELECT Stdout, Stderr,
                    if(condition=Complete,
-                      then=upload(file=Tempfile)) As Upload
+                      then=upload(file=Tempfile, name="PhysicalMemory.aff4")) As Upload
             FROM execve(
                argv=[FullPath, "-dd", "-o", Tempfile, "-t", "-c", "snappy"],
                sep="\r\n")
@@ -1439,8 +2009,8 @@ This artifact is useful in the following scenarios:
 Arg|Default|Description
 ---|------|-----------
 SearchFilesGlob|C:\\Users\\**|Use a glob to define the files that will be searched.
-Keywords|None|A comma delimited list of strings to search for.
-Use_Raw_NTFS|N|
+Accessor|auto|The accessor to use
+YaraRule|None|A yara rule to search for matching files.
 Upload_File|N|
 Calculate_Hash|N|
 MoreRecentThan||
@@ -1490,13 +2060,13 @@ parameters:
     default: C:\Users\**
     description: Use a glob to define the files that will be searched.
 
-  - name: Keywords
-    default:
-    description: A comma delimited list of strings to search for.
+  - name: Accessor
+    default: auto
+    description: The accessor to use
 
-  - name: Use_Raw_NTFS
-    default: N
-    type: bool
+  - name: YaraRule
+    default:
+    description: A yara rule to search for matching files.
 
   - name: Upload_File
     default: N
@@ -1516,20 +2086,16 @@ parameters:
 
 
 sources:
-  - queries:
-    - |
+  - query: |
       LET file_search = SELECT FullPath,
                Sys.mft as Inode,
                Mode.String AS Mode, Size,
                Mtime.Sec AS Modified,
                timestamp(epoch=Atime.Sec) AS ATime,
-               timestamp(epoch=Mtime.Sec) AS MTime,
+               timestamp(epoch=Mtime.Sec) AS MTime, "" AS Keywords,
                timestamp(epoch=Ctime.Sec) AS CTime, IsDir
-        FROM glob(globs=SearchFilesGlob,
-                  accessor=if(condition=Use_Raw_NTFS = "Y",
-                              then="ntfs", else="file"))
+        FROM glob(globs=SearchFilesGlob, accessor=Accessor)
 
-    - |
       LET more_recent = SELECT * FROM if(
         condition=MoreRecentThan,
         then={
@@ -1537,7 +2103,6 @@ sources:
           WHERE Modified > parse_float(string=MoreRecentThan)
         }, else=file_search)
 
-    - |
       LET modified_before = SELECT * FROM if(
         condition=ModifiedBefore,
         then={
@@ -1545,9 +2110,8 @@ sources:
           WHERE Modified < parse_float(string=ModifiedBefore)
         }, else=more_recent)
 
-    - |
       LET keyword_search = SELECT * FROM if(
-        condition=Keywords,
+        condition=YaraRule,
         then={
           SELECT * FROM foreach(
             row={
@@ -1560,25 +2124,429 @@ sources:
                       str(str=String.Data) As Keywords, IsDir
 
                FROM yara(files=FullPath,
-                         key=Keywords,
-                         rules="wide nocase ascii:"+Keywords,
-                         accessor=if(condition=Use_Raw_NTFS = "Y",
-                                          then="ntfs", else="file"))
+                         key="A",
+                         rules=YaraRule,
+                         accessor=Accessor)
             })
         }, else=modified_before)
 
-    - |
       SELECT FullPath, Inode, Mode, Size, Modified, ATime,
              MTime, CTime, Keywords, IsDir,
                if(condition=(Upload_File = "Y" and NOT IsDir ),
-                  then=upload(file=FullPath,
-                              accessor=if(condition=Use_Raw_NTFS = "Y",
-                                          then="ntfs", else="file"))) AS Upload,
+                  then=upload(file=FullPath, accessor=Accessor)) AS Upload,
                if(condition=(Calculate_Hash = "Y" and NOT IsDir ),
-                  then=hash(path=FullPath,
-                            accessor=if(condition=Use_Raw_NTFS = "Y",
-                                        then="ntfs", else="file"))) AS Hash
+                  then=hash(path=FullPath, accessor=Accessor)) AS Hash
       FROM keyword_search
+```
+   {{% /expand %}}
+
+## Windows.Search.VSS
+
+This artifact will find all relevant files in the VSS. Typically used to
+out deduplicated paths for processing by other artifacts.
+
+Input either search Glob or FullPath.
+Output is standard Glob results with additional fields:
+SHA1 hash for deduplication,
+Type for prioritisation, and
+Deduped to indicate if FullPath has been deduped with another row.
+
+
+Arg|Default|Description
+---|------|-----------
+SearchFilesGlob|C:\\Windows\\System32\\winevt\\Logs\\Security.evtx|Use a glob to define the files that will be searched.
+
+{{% expand  "View Artifact Source" %}}
+
+
+```text
+name: Windows.Search.VSS
+description: |
+  This artifact will find all relevant files in the VSS. Typically used to
+  out deduplicated paths for processing by other artifacts.
+
+  Input either search Glob or FullPath.
+  Output is standard Glob results with additional fields:
+  SHA1 hash for deduplication,
+  Type for prioritisation, and
+  Deduped to indicate if FullPath has been deduped with another row.
+
+author: Matt Green - @mgreen27
+
+precondition: SELECT * FROM info() where OS = 'windows'
+
+parameters:
+  - name: SearchFilesGlob
+    default: C:\Windows\System32\winevt\Logs\Security.evtx
+    description: Use a glob to define the files that will be searched.
+
+sources:
+  - query: |
+      -- Given a path in either device notation or drive notation,
+      -- break it into a drive and path
+      LET extract_path(FullPath) = parse_string_with_regex(string=FullPath,
+         regex="^(?P<Device>\\\\\\\\.\\\\GLOBALROOT\\\\Device\\\\HarddiskVolumeShadowCopy[^\\\\]+\\\\|\\\\\\\\.\\\\.:\\\\|.:\\\\)(?P<Path>.+)$")
+
+      LET extract_vss(FullPath) = parse_string_with_regex(string=FullPath,
+         regex="^(?P<Device>(\\\\\\\\.\\\\GLOBALROOT\\\\Device\\\\HarddiskVolumeShadowCopy[^\\\\]+\\\\|\\\\\\\\.\\\\.:\\\\))")
+
+      -- Build a SearchGlob for all logical disks and VSS
+      LET globs = SELECT
+            FullPath + '/' + extract_path(FullPath=SearchFilesGlob).Path as SearchGlob
+        FROM glob(globs='/*', accessor='ntfs')
+        ORDER BY FullPath  DESC
+
+      -- Glob for all files in SearchGlob and calculate their hash.
+      LET globvss(SearchGlob) = SELECT *,
+            extract_path(FullPath=FullPath).Path AS Path,
+            basename(path=extract_vss(FullPath=FullPath).Device) AS Source,
+            hash(path=FullPath,accessor='ntfs').SHA1 as SHA1
+         FROM glob(globs=SearchGlob, accessor='ntfs')
+         WHERE NOT IsDIr
+
+      -- For each full glob (including VSS device) extract all files
+      -- and hashes.
+      LET results = SELECT * FROM foreach(row=globs,
+      query={
+        -- Prepend VSS with _ to make them sort last.
+        SELECT *, if(condition=Source =~ '^HarddiskVolumeShadowCopy',
+                     then='_' + Source,
+                     else=Source) AS Source
+        FROM globvss(SearchGlob=SearchGlob)
+      })
+
+      -- We want to see natural drives after VSS because group by
+      -- shows the last in the group. VSS Sources look like
+      -- HarddiskVolumeShadowCopy1 and disk sources look like C:
+      ORDER BY Source DESC
+
+      -- Dedup and show results
+      SELECT *, count() > 1 AS Deduped, SHA1 + Path AS Key
+      FROM results
+      GROUP BY Key
+```
+   {{% /expand %}}
+
+## Windows.Search.Yara
+
+Searches for a specific malicious file or set of files by a Yara rule.
+
+You will need to upload your yara file using:
+
+```
+velociraptor tools upload --name YaraRules my_yara_file.yara
+```
+
+
+Arg|Default|Description
+---|------|-----------
+nameRegex|(exe|txt|dll|php)$|Only file names that match this regular expression will be scanned.
+
+{{% expand  "View Artifact Source" %}}
+
+
+```text
+name: Windows.Search.Yara
+description: |
+  Searches for a specific malicious file or set of files by a Yara rule.
+
+  You will need to upload your yara file using:
+
+  ```
+  velociraptor tools upload --name YaraRules my_yara_file.yara
+  ```
+
+tools:
+  - name: YaraRules
+
+parameters:
+    - name: nameRegex
+      description: Only file names that match this regular expression will be scanned.
+      default: "(exe|txt|dll|php)$"
+
+precondition:
+  SELECT * FROM info() WHERE OS =~ "windows"
+
+sources:
+  - query: |
+        LET yara_rules <= SELECT read_file(filename=FullPath) AS Rule
+        FROM Artifact.Generic.Utils.FetchBinary(ToolName="YaraRules")
+
+        LET fileList = SELECT FullPath
+        FROM parse_mft(
+            accessor="ntfs",
+            filename="C:\\$MFT")
+        WHERE InUse
+          AND FileName =~ nameRegex
+          AND NOT FullPath =~ "WinSXS"
+
+        -- These files are typically short - only report a single hit.
+        LET search = SELECT Rule, String.Offset AS HitOffset,
+             str(str=String.Data) AS HitContext,
+             FileName,
+             File.Size AS Size,
+             File.ModTime AS ModTime
+        FROM yara(
+            rules=yara_rules[0].Rule, key="A",
+            files="C:/" + FullPath)
+        LIMIT 1
+
+        -- Only do something when yara rules are available.
+        SELECT * FROM if(condition=yara_rules,
+        then={
+          SELECT *, upload(file=FileName) AS Upload
+          FROM foreach(row=fileList, query=search)
+        })
+```
+   {{% /expand %}}
+
+## Windows.Timeline.MFT
+
+# Output all filtered MFT records.
+
+This Artifact enables querying the MFT with advanced filters 
+such as time, path or other ntfs attributes.
+
+Output is to Timeline field format to enable simple review accross Timeline
+queries. The TimeOutput paramater enables configuring which NTFS attribute 
+timestamps are in focus as event_time. for example: 
+  STANDARD_INFORMATION (4), FILE_NAME (4) or ALL (8)
+
+This artifact also has the same anomaly logic as AnalyzeMFT added to 
+each row to assist analysis.
+
+
+Arg|Default|Description
+---|------|-----------
+MFTFilename|C:/$MFT|
+Accessor|ntfs|
+PathRegex|.|regex search over FullPath.
+NameRegex|.|regex search over File Name
+Inode||search for inode
+DateAfter||search for events after this date. YYYY-MM-DDTmm:hh:ssZ
+DateBefore||search for events before this date. YYYY-MM-DDTmm:hh:ssZ
+SizeMax||Entries in the MFT over this size in bytes.
+SizeMin||Entries in the MFT under this size in bytes.
+EntryType|Both|Type of entry. File, Directory or Both.\n
+AllocatedType|Both|Type of entry. Allocated, Unallocated or Both.\n
+TimeOutput|STANDARD_INFORMATION|Timestamps to output as event_time. SI, FN or both. \nNOTE: both will output 8 rows per MFT entry.\n
+
+{{% expand  "View Artifact Source" %}}
+
+
+```text
+name: Windows.Timeline.MFT
+description: |
+  # Output all filtered MFT records.
+
+  This Artifact enables querying the MFT with advanced filters 
+  such as time, path or other ntfs attributes.
+
+  Output is to Timeline field format to enable simple review accross Timeline
+  queries. The TimeOutput paramater enables configuring which NTFS attribute 
+  timestamps are in focus as event_time. for example: 
+    STANDARD_INFORMATION (4), FILE_NAME (4) or ALL (8)
+
+  This artifact also has the same anomaly logic as AnalyzeMFT added to 
+  each row to assist analysis.
+  
+author: Matt Green - @mgreen27
+
+precondition: SELECT OS From info() where OS = 'windows'
+
+parameters:
+  - name: MFTFilename
+    default: "C:/$MFT"
+  - name: Accessor
+    default: ntfs
+  - name: PathRegex
+    description: "regex search over FullPath."
+    default: .
+  - name: NameRegex
+    default: .
+    description: "regex search over File Name"
+  - name: Inode
+    type: int64
+    description: "search for inode"
+  - name: DateAfter
+    type: timestamp
+    description: "search for events after this date. YYYY-MM-DDTmm:hh:ssZ"
+  - name: DateBefore
+    type: timestamp
+    description: "search for events before this date. YYYY-MM-DDTmm:hh:ssZ"
+  - name: SizeMax
+    type: int64
+    description: "Entries in the MFT over this size in bytes."
+  - name: SizeMin
+    type: int64
+    description: "Entries in the MFT under this size in bytes."
+  - name: EntryType
+    description: |
+        Type of entry. File, Directory or Both.
+    type: choices
+    default: Both
+    choices:
+       - File
+       - Directory
+       - Both
+  - name: AllocatedType
+    description: |
+        Type of entry. Allocated, Unallocated or Both.
+    type: choices
+    default: Both
+    choices:
+       - Allocated
+       - Unallocated
+       - Both
+  - name: TimeOutput
+    description: |
+        Timestamps to output as event_time. SI, FN or both. 
+        NOTE: both will output 8 rows per MFT entry.
+    type: choices
+    default: STANDARD_INFORMATION
+    choices:
+       - STANDARD_INFORMATION
+       - FILE_NAME
+       - ALL
+    
+sources:
+  - queries:
+        - LET hostname <= SELECT Fqdn FROM info()
+        - LET DateAfterTime <= if(condition=DateAfter, then=timestamp(epoch=DateAfter), else=timestamp(epoch="1600-01-01"))
+        - LET DateBeforeTime <= if(condition=DateBefore, then=timestamp(epoch=DateBefore), else=timestamp(epoch="2200-01-01")) 
+        - LET records = SELECT *,
+                if(condition=Created0x10.Unix < Created0x30.Unix, 
+                    then=True, else=False) as FNCreatedShift,
+                if(condition=Created0x10.Unix * 1000000000 = Created0x10.UnixNano, 
+                    then=True, else=False) as USecZero,
+                if(condition=Created0x10.Unix > LastModified0x10.Unix, 
+                    then=True, else=False) as PossibleCopy,
+                if(condition=LastAccess0x10.Unix > LastModified0x10.Unix AND LastAccess0x10.Unix > Created0x10.Unix, 
+                    then=True, else=False) as VolumeCopy
+            FROM parse_mft(filename=MFTFilename, accessor=Accessor)
+            WHERE 
+                FullPath =~ PathRegex AND 
+                FileName =~ NameRegex AND
+                if(condition=Inode, then= EntryNumber=atoi(string=Inode)
+                    OR ParentEntryNumber=atoi(string=Inode), 
+                    else=TRUE) AND                     
+                if(condition=SizeMax, then=FileSize < atoi(string=SizeMax),
+                    else=TRUE) AND 
+                if(condition=SizeMin, then=FileSize > atoi(string=SizeMin),
+                    else=TRUE) AND
+                if(condition= EntryType="Both", then=TRUE,
+                    else= if(condition= EntryType="File", 
+                        then= IsDir=False,
+                    else= if(condition= EntryType="Directory",
+                        then= IsDir=True))) AND
+                if(condition= AllocatedType="Both", then=TRUE,
+                    else= if(condition= AllocatedType="Allocated", 
+                        then= InUse=True,
+                    else= if(condition= AllocatedType="Unallocated",
+                        then= InUse=False))) AND
+                (((Created0x10 > DateAfterTime) AND (Created0x10 < DateBeforeTime)) OR
+                ((Created0x30 > DateAfterTime) AND (Created0x30 < DateBeforeTime)) OR
+                ((LastModified0x10 > DateAfterTime) AND (LastModified0x10 < DateBeforeTime)) OR
+                ((LastModified0x30 > DateAfterTime) AND (LastModified0x30 < DateBeforeTime)) OR
+                ((LastRecordChange0x10 > DateAfterTime) AND (LastRecordChange0x10 < DateBeforeTime)) OR
+                ((LastRecordChange0x30 > DateAfterTime) AND (LastRecordChange0x30 < DateBeforeTime)) OR
+                ((LastAccess0x10 > DateAfterTime) AND (LastAccess0x10 < DateBeforeTime)) OR
+                ((LastAccess0x30 > DateAfterTime) AND (LastAccess0x30 < DateBeforeTime)))
+
+        - LET common_fields = SELECT EntryNumber, ParentEntryNumber,
+                FullPath, FileName, FileSize, IsDir,InUse,
+                Created0x10, Created0x30, 
+                LastModified0x10, LastModified0x30,
+                LastRecordChange0x10, LastRecordChange0x30,
+                LastAccess0x10, LastAccess0x30,
+                FNCreatedShift, USecZero, PossibleCopy, VolumeCopy
+            FROM scope()
+
+        - LET standard_information_rows = SELECT * FROM chain(
+            si_modified = { 
+                SELECT *,
+                    LastModified0x10 as event_time,
+                    format(format="MFTEntry:%v $STANDARD_INFORMATION (0x10) LastModified time", 
+                      args=EntryNumber) as message
+                FROM common_fields
+            },
+            si_access = { 
+                SELECT *,
+                    LastAccess0x10 as event_time,
+                    format(format="MFTEntry:%v $STANDARD_INFORMATION (0x10) LastAccess time", 
+                      args=EntryNumber) as message
+                FROM common_fields
+            },
+            si_created = { 
+                SELECT *,
+                    LastRecordChange0x10 as event_time,
+                    format(format="MFTEntry:%v $STANDARD_INFORMATION (0x10) LastRecordChange time", 
+                      args=EntryNumber) as message
+                FROM common_fields
+            },
+            si_born = { 
+                SELECT *,
+                    Created0x10 as event_time,
+                    format(format="MFTEntry:%v $STANDARD_INFORMATION (0x10) Created time", 
+                      args=EntryNumber) as message
+                FROM common_fields
+            })
+        - LET file_name_rows = SELECT * FROM chain(
+            fn_modified = { 
+                SELECT *,
+                    LastModified0x30 as event_time,
+                    format(format="MFTEntry:%v $FILE_NAME (0x30) LastModified time", 
+                      args=EntryNumber) as message
+                FROM common_fields
+            },
+            fn_access = { 
+                SELECT *,
+                    LastAccess0x30 as event_time,
+                    format(format="MFTEntry:%v $FILE_NAME (0x30) LastAccess time", 
+                      args=EntryNumber) as message
+                FROM common_fields
+            },
+            fn_created = { 
+                SELECT *,
+                    LastRecordChange0x30 as event_time,
+                    format(format="MFTEntry:%v $FILE_NAME (0x30) LastRecordChange time", 
+                      args=EntryNumber) as message
+                FROM common_fields
+            },
+            fn_born = { 
+                SELECT *,
+                    Created0x30 as event_time,
+                      format(format="MFTEntry:%v $FILE_NAME (0x30) Created time", 
+                        args=EntryNumber) as message
+                FROM common_fields
+            })
+        - SELECT
+            event_time,
+            hostname.Fqdn[0] as hostname,
+            "MFT" as parser,
+            MFTFilename as source,
+            message,
+            FullPath as path,
+            { SELECT EntryNumber,ParentEntryNumber,FileSize, IsDir, InUse FROM scope() } as optional_1,
+            { SELECT FNCreatedShift, USecZero, PossibleCopy, VolumeCopy FROM scope() } as optional_2,
+            { SELECT LastModified0x10,LastAccess0x10,LastRecordChange0x10,Created0x10 FROM scope() } as optional_3,
+            { SELECT LastModified0x30,LastAccess0x30,LastRecordChange0x30,Created0x30 FROM scope() } as optional_4
+          FROM foreach(
+            row=records,
+            query={
+                SELECT * FROM chain(
+                    standard_information={
+                        SELECT * FROM if(
+                            condition=TimeOutput="STANDARD_INFORMATION" OR TimeOutput="ALL",
+                            then=standard_information_rows)
+                    },
+                    file_name={
+                        SELECT * FROM if(
+                            condition=TimeOutput="FILE_NAME" OR TimeOutput="ALL",
+                            then=file_name_rows)
+                    })
+            }) 
+            
 ```
    {{% /expand %}}
 
@@ -1730,252 +2698,171 @@ sources:
 ```
    {{% /expand %}}
 
-## Windows.Utils.DownloadBinaries
+## Windows.Timeline.Registry.RunMRU
 
-This server side artifact downloads the external binary blobs we
-require into the server's public directory. We also update the
-inventory and the hashes.
+# Output all available RunMRU registry keys in timeline format.
 
-You need to run this artifact at least once after installation to
-populate the third party binary store. Many client side artifacts
-depend on this.
+RunMRU is when a user enters a command into the START > Run prompt.  
+Entries will be logged in the user hive under:    Software\Microsoft\Windows\CurrentVersion\Explorer\RunMRU
+
+The artifact numbers all entries with the most recent at 
+reg_mtime starting at 0. Second recent 1, Third recent 2 etc. 
+  
+Default output enables a line per MRU entry.  
+A tickbox enables Grouped results with order in a single line.
+
+Note: This artifact will collect RunMRU from ntuser.dat files and 
+may exclude very recent entries in transaction (HKCU).  Future 
+versions of this content will address this gap.
 
 
 Arg|Default|Description
 ---|------|-----------
-binaryList|Tool,Type,URL,Filename\nAutorun,amd64,https://live ...|
+dateAfter||search for events after this date. YYYY-MM-DDTmm:hh:ss Z
+dateBefore||search for events before this date. YYYY-MM-DDTmm:hh:ss Z
+targetUser||target user regex
+regexValue||regex search over RunMRU values.
+groupResults||groups MRU entries to one message line
 
 {{% expand  "View Artifact Source" %}}
 
 
 ```text
-name: Windows.Utils.DownloadBinaries
+name: Windows.Timeline.Registry.RunMRU
 description: |
-  This server side artifact downloads the external binary blobs we
-  require into the server's public directory. We also update the
-  inventory and the hashes.
+    # Output all available RunMRU registry keys in timeline format.
+    
+    RunMRU is when a user enters a command into the START > Run prompt.  
+    Entries will be logged in the user hive under:    Software\Microsoft\Windows\CurrentVersion\Explorer\RunMRU
+    
+    The artifact numbers all entries with the most recent at 
+    reg_mtime starting at 0. Second recent 1, Third recent 2 etc. 
+      
+    Default output enables a line per MRU entry.  
+    A tickbox enables Grouped results with order in a single line.
+    
+    Note: This artifact will collect RunMRU from ntuser.dat files and 
+    may exclude very recent entries in transaction (HKCU).  Future 
+    versions of this content will address this gap.
+    
+author: Matt Green - @mgreen27
 
-  You need to run this artifact at least once after installation to
-  populate the third party binary store. Many client side artifacts
-  depend on this.
-
-type: SERVER
+precondition: SELECT OS From info() where OS = 'windows'
 
 parameters:
-  - name: binaryList
-    default: |
-      Tool,Type,URL,Filename
-      Autorun,amd64,https://live.sysinternals.com/tools/autorunsc64.exe,autorunsc_x64.exe
-      Autorun,x86,https://live.sysinternals.com/tools/autorunsc.exe,autorunsc_x86.exe
-      WinPmem,.,https://github.com/Velocidex/c-aff4/releases/download/v3.3.rc3/winpmem_v3.3.rc3.exe,winpmem_v3.3.rc3.exe
-      Sysmon,amd64,https://live.sysinternals.com/tools/sysmon64.exe,sysmon_x64.exe
-      Sysmon,x86,https://live.sysinternals.com/tools/sysmon.exe,sysmon_x86.exe
-      SysmonConfig,.,https://raw.githubusercontent.com/SwiftOnSecurity/sysmon-config/master/z-AlphaVersion.xml,sysmon_config.xml
-
+  - name: KeyGlob
+    type: hidden
+    default: Software\Microsoft\Windows\CurrentVersion\Explorer\RunMRU\MRUList     
+  - name: dateAfter
+    description: "search for events after this date. YYYY-MM-DDTmm:hh:ss Z"
+    type: timestamp
+  - name: dateBefore
+    description: "search for events before this date. YYYY-MM-DDTmm:hh:ss Z"
+    type: timestamp
+  - name: targetUser
+    description: "target user regex"
+  - name: regexValue
+    description: "regex search over RunMRU values."
+  - name: groupResults
+    description: "groups MRU entries to one message line"
+    type: bool
+    
 sources:
-  - queries:
-      - LET spec = SELECT * FROM parse_csv(filename=binaryList, accessor="data")
+ - query: |
+        LET hostname <= SELECT Fqdn FROM info()
+        
+        // First we need to extract populated RunMRU
+        LET runmru <= SELECT basename(path=FullPath),
+                url(path=url(parse=FullPath).Path,
+                    fragment=dirname(path=url(parse=FullPath).Fragment) 
+                        + "/*").string as mruKeyGlob,
+                FullPath,
+                url(parse=FullPath),
+                Data.value as RunMruOrder,
+                len(list=Data.value) as RunMruLength,
+                Username,
+                UUID
+        FROM Artifact.Windows.Registry.NTUser(KeyGlob=KeyGlob)
+        
+        // Now extract RunMRU entries and order
+        LET results <= SELECT * FROM foreach(
+             row=runmru, 
+             query={
+                SELECT 
+                    url(parse=FullPath).Path as source,
+                    Username,
+                    "HKEY_USERS\\" + UUID + dirname(path=url(parse="ntfs://" + 
+                        FullPath).Fragment) as reg_key,
+                    timestamp(epoch=Mtime.sec) as reg_mtime,
+                    basename(path=url(parse=FullPath).Fragment) as reg_name,
+                    split(string=Data.value, sep="\\\\1$")[0] as reg_value,
+                    Data.type as reg_type,
+                    RunMruLength - 1 - len(list=regex_replace(
+                        source=RunMruOrder, 
+                        re="^.*" + basename(path=url(parse=FullPath).Fragment), 
+                            replace="")) as mru_order,
+                    RunMruOrder
+                FROM glob(globs=mruKeyGlob, accessor="raw_reg")
+                WHERE not reg_name = "MRUList" AND
+                    if(condition=targetUser, then=Username =~ targetUser,
+                        else=TRUE) AND
+                    if(condition=dateAfter, then=reg_mtime > timestamp(string=dateAfter),
+                        else=TRUE) AND
+                    if(condition=dateBefore, then=reg_mtime < timestamp(string=dateBefore),
+                        else=TRUE)  
+                ORDER BY mru_order
+              })
 
-      - LET download = SELECT Tool, Type, Filename,
-            hash(path=Content) as Hash,
-            upload(file=Content, name="/public/" + Filename)
-        FROM http_client(url=URL, tempfile_extension=".exe")
+        // join mru values and order for presentation
+        LET usercommands <= SELECT Username as user, mru_order, 
+                format(format="MRU%v: %v", args=[mru_order,reg_value]) as mru_grouped
+        FROM results
+        
+        // Prepare join use case
+        LET joinOut = SELECT 
+                reg_mtime as event_time,
+                hostname.Fqdn[0] as hostname,
+                "RunMRU" as parser,
+                "RunMRU evidence user: " + Username + ", " + 
+                  join(array=mru_grouped, sep=" | ")  + "'" as message,
+                source,
+                Username as user
+        FROM foreach(row=usercommands,
+            query={
+                SELECT *, Username,
+                    {
+                        SELECT mru_grouped
+                        FROM usercommands
+                        WHERE user = Username
+                        ORDER BY mru_order
+                    } as mru_grouped
+                FROM results
+                ORDER BY mru_grouped
+            })
+        GROUP BY source
 
-      # Write the inventory file.
-      - SELECT * FROM write_csv(
-          filename="/public/inventory.csv",
-          accessor="fs",
-          query={
-            SELECT Tool, Type,
-                   Filename, Hash.SHA256 AS ExpectedHash
-            FROM foreach(
-                   row=spec,
-                   query=download)
-          })
-```
-   {{% /expand %}}
+        // Prepare split use case
+        LET splitOut = SELECT 
+                    reg_mtime as event_time,
+                    hostname.Fqdn[0] as hostname,
+                    "RunMRU" as parser,
+                    "RunMRU evidence user: " + Username + 
+                        format(format=", order: %v, command: %v", args=[mru_order,reg_value]) 
+                            + "'" as message,
+                    source,
+                    Username as user,
+                    reg_key,
+                    reg_mtime,
+                    reg_name,
+                    reg_value,
+                    reg_type
+            FROM results
 
-## Windows.Utils.FetchBinary
-
-A utility artifact which fetches a binary from a URL and caches it on disk. We verify the hash of the binary on disk and if it does not match we fetch it again from the source URL.
-This artifact is designed to be called from other artifacts. The binary path will be emitted in the FullPath column.
-
-Arg|Default|Description
----|------|-----------
-binaryURL||Specify this as the base of the binary store (if empty we use\nthe server's public directory).\n
-ToolName|Autorun|
-
-{{% expand  "View Artifact Source" %}}
-
-
-```text
-name: Windows.Utils.FetchBinary
-description: A utility artifact which fetches a binary from a URL and caches it on disk.
-   We verify the hash of the binary on disk and if it does not match we fetch it again
-   from the source URL.
-
-   This artifact is designed to be called from other artifacts. The binary path will be
-   emitted in the FullPath column.
-
-parameters:
-  - name: binaryURL
-    description: |
-      Specify this as the base of the binary store (if empty we use
-      the server's public directory).
-  - name: ToolName
-    default: Autorun
-
-sources:
-  - queries:
-      - LET info_cache <= SELECT * FROM info()
-
-      # Figure out our binary cache path based on arch. Fallback to
-      # the temp directory.
-      - LET binpath <= SELECT dirname(path=expand(path=Path)) AS Path FROM switch(
-          a={SELECT config.WritebackWindows AS Path FROM info_cache
-             WHERE OS="windows" AND Path},
-          b={SELECT config.WritebacLinux AS Path FROM info_cache
-             WHERE OS="linux" AND Path},
-          c={SELECT config.WritebackDarwin AS Path FROM info_cache
-             WHERE OS="darwin" AND Path},
-          d={SELECT expand(path="$Temp") AS Path FROM scope() WHERE Path},
-          e={SELECT "/tmp/XXX" AS Path FROM info_cache WHERE OS = "linux"}
-        )
-
-      # Where should we download binaries from? Allow this to be
-      # overriden by the user.
-      - LET inventory_url <= SELECT URL from switch(
-         a={SELECT binaryURL AS URL FROM scope() WHERE URL},
-         b={SELECT config.ServerUrls[0] + "public/" AS URL FROM scope() WHERE URL},
-         c={SELECT log(message="binaryURL not set and no server config."),
-            NULL AS URL FROM info_cache})
-
-      # Fetch the inventory from the repository.
-      - LET inventory_data = SELECT * FROM http_client(
-           chunk_size=1000000,
-           url=(inventory_url[0]).URL + "inventory.csv")
-           WHERE inventory_url
-
-      # Parse the inventory: Tool,Type,Filename,ExpectedHash
-      - LET inventory = SELECT * FROM parse_csv(
-           filename=inventory_data.Content, accessor="data")
-
-      # Figure out which tool we need based on the Architecture and
-      # the required tool.
-      - LET required_tool = SELECT * FROM foreach(
-         row=inventory,
-         query={
-           SELECT Tool, ExpectedHash, Filename FROM info_cache
-           WHERE Architecture =~ Type AND Tool = ToolName
-         }) LIMIT 1
-
-      # Download the file from the binary URL and store in the local
-      # binary cache.
-      - LET download = SELECT hash(path=Content) as Hash,
-            "Downloaded" AS DownloadStatus,
-            copy(filename=Content,
-                 dest=path_join(components=[(binpath[0]).Path, Filename])) AS FullPath
-        FROM http_client(
-            url=(inventory_url[0]).URL + Filename,
-            tempfile_extension=".exe")
-        WHERE Hash.SHA256 = ExpectedHash
-
-      # Check if the existing file in the binary file cache matches
-      # the hash.
-      - LET existing = SELECT FullPath, hash(path=FullPath) AS Hash,
-                    "Cached" AS DownloadStatus
-        FROM stat(filename=path_join(components=[(binpath[0]).Path, Filename]))
-        WHERE Hash.SHA256 = ExpectedHash
-
-      # Find the required_tool either if in the local cache or
-      # download it (and put it in the cache for next time). If we
-      # have to download the file we sleep for a random time to
-      # stagger server bandwidth load.
-      - SELECT * from foreach(row=required_tool, query={
-          SELECT * FROM switch(
-            a=existing,
-            b={
-               SELECT rand(range=20) AS timeout
-               FROM scope()
-               WHERE log(message=format(format='Sleeping %v Seconds',
-                   args=[timeout])) AND sleep(time=timeout) AND FALSE
-            },
-            c=download)
-        })
-```
-   {{% /expand %}}
-
-## Windows.Utils.UpdatePublicHashes
-
-The server maintains a public directory which can be served to all
-endpoints. The public directory should be initially populated by
-running the Windows.Utils.DownloadBinaries artifact. It is possible
-to manually edit the content of this directory but you will need to
-update the hashes.
-
-Clients maintain their local cache of the files and they use the
-hash to tell if their local copy is out of date.
-
-This artifact will regenerate the inventory file by re-calculating
-the hashes of all files in the public directory.
-
-You need to run this artifact on the server if you manually edit the
-content of the public directory.
-
-
-{{% expand  "View Artifact Source" %}}
-
-
-```text
-name: Windows.Utils.UpdatePublicHashes
-description: |
-  The server maintains a public directory which can be served to all
-  endpoints. The public directory should be initially populated by
-  running the Windows.Utils.DownloadBinaries artifact. It is possible
-  to manually edit the content of this directory but you will need to
-  update the hashes.
-
-  Clients maintain their local cache of the files and they use the
-  hash to tell if their local copy is out of date.
-
-  This artifact will regenerate the inventory file by re-calculating
-  the hashes of all files in the public directory.
-
-  You need to run this artifact on the server if you manually edit the
-  content of the public directory.
-
-type: SERVER
-
-sources:
-  - queries:
-      - LET binpath <= SELECT server_config.Frontend.public_path AS Path
-        FROM scope()
-
-      # Get the old inventory.
-      - LET inventory <= SELECT * FROM parse_csv(
-            filename=path_join(components=[
-                (binpath[0]).Path, "inventory.csv"]))
-
-      # Calculate all the hashes of the files on disk and update the
-      # hash in the new inventory.
-      - LET hashes = SELECT Name,
-           hash(path=FullPath) as Hash,
-           { SELECT * FROM inventory
-             WHERE Filename = Name LIMIT 1 } AS OldData
-        FROM glob(globs=(binpath[0]).Path + "/*")
-        WHERE OldData.Tool
-
-      # Reconstruct a new inventory file.
-      - LET new_inventory = SELECT OldData.Tool AS Tool,
-               OldData.Type AS Type, Name AS Filename,
-               Hash.SHA256 AS ExpectedHash
-        FROM hashes
-
-      # Write the new inventory file.
-      - SELECT * FROM write_csv(
-          filename=path_join(components=[
-                (binpath[0]).Path, "inventory.csv"]),
-          query=new_inventory)
+        // Print out chosen usecase
+        SELECT *
+        FROM if(condition=groupResults,
+            then=joinOut, else=splitOut)
+        WHERE if(condition=regexValue, then=reg_runmru =~ regexValue, else=TRUE)
 ```
    {{% /expand %}}
 

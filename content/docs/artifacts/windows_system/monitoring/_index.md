@@ -324,7 +324,6 @@ Collect all process creation events.
 
 Arg|Default|Description
 ---|------|-----------
-wmiQuery|SELECT * FROM __InstanceCreationEvent WITHIN 1 WHE ...|
 eventQuery|SELECT * FROM Win32_ProcessStartTrace|
 
 {{% expand  "View Artifact Source" %}}
@@ -338,12 +337,7 @@ description: |
 type: CLIENT_EVENT
 
 parameters:
-  # This query will not see processes that complete within 1 second.
-  - name: wmiQuery
-    default: SELECT * FROM __InstanceCreationEvent WITHIN 1 WHERE
-      TargetInstance ISA 'Win32_Process'
-
-  # This query is faster but contains less data. If the process
+  # This query is fast but contains less data. If the process
   # terminates too quickly we miss its commandline.
   - name: eventQuery
     default: SELECT * FROM Win32_ProcessStartTrace
@@ -358,18 +352,10 @@ sources:
                Parse.ParentProcessID as PPID,
                Parse.ProcessID as PID,
                Parse.ProcessName as Name, {
-                 SELECT CommandLine
-                 FROM wmi(
-                   query="SELECT * FROM Win32_Process WHERE ProcessID = " +
-                    format(format="%v", args=Parse.ProcessID),
-                   namespace="ROOT/CIMV2")
+                 SELECT CommandLine FROM pslist(pid=Parse.ProcessID)
                } AS CommandLine,
                {
-                 SELECT CommandLine
-                 FROM wmi(
-                   query="SELECT * FROM Win32_Process WHERE ProcessID = " +
-                    format(format="%v", args=Parse.ParentProcessID),
-                   namespace="ROOT/CIMV2")
+                 SELECT CommandLine FROM pslist(pid=Parse.ParentProcessID)
                } AS ParentInfo
         FROM wmi_events(
            query=eventQuery,

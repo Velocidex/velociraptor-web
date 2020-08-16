@@ -422,6 +422,41 @@
       <a href="/blog/">Velociraptor Blog</a><i class="fa fa-angle-right fa-lg category-icon"></i>
       </div>
         <ul>
+      <li data-nav-id="/blog/medium/2020-08-16-profiling-the-beast-58913437fd16/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-08-16-profiling-the-beast-58913437fd16/">
+            Profiling the beast
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2020-07-14-triage-with-velociraptor-pt-4-cf0e60810d1e/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-07-14-triage-with-velociraptor-pt-4-cf0e60810d1e/">
+            Triage with Velociraptor — Pt 4
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2020-07-13-velociraptor-in-the-tool-age-d896dfe71b9/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-07-13-velociraptor-in-the-tool-age-d896dfe71b9/">
+            Velociraptor in the tool age
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2020-06-19-the-velociraptor-query-language-pt-2-fe92bb7aa150/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-06-19-the-velociraptor-query-language-pt-2-fe92bb7aa150/">
+            The Velociraptor Query Language Pt 2
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2020-06-14-the-velociraptor-query-language-pt-1-d721bff100bf/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-06-14-the-velociraptor-query-language-pt-1-d721bff100bf/">
+            The Velociraptor Query Language Pt 1
+          </a>
+        </div>
+    </li>
       <li data-nav-id="/blog/medium/2020-04-16-velociraptor-e48a47e0317d/" class="dd-item">
         <div>
           <a href="/blog/medium/2020-04-16-velociraptor-e48a47e0317d/">
@@ -967,11 +1002,6 @@ sources:
 </thead>
 <tbody>
 <tr>
-<td>wmiQuery</td>
-<td>SELECT * FROM __InstanceCreationEvent WITHIN 1 WHE &hellip;</td>
-<td></td>
-</tr>
-<tr>
 <td>eventQuery</td>
 <td>SELECT * FROM Win32_ProcessStartTrace</td>
 <td></td>
@@ -993,12 +1023,7 @@ description: |
 type: CLIENT_EVENT
 
 parameters:
-  # This query will not see processes that complete within 1 second.
-  - name: wmiQuery
-    default: SELECT * FROM __InstanceCreationEvent WITHIN 1 WHERE
-      TargetInstance ISA &#39;Win32_Process&#39;
-
-  # This query is faster but contains less data. If the process
+  # This query is fast but contains less data. If the process
   # terminates too quickly we miss its commandline.
   - name: eventQuery
     default: SELECT * FROM Win32_ProcessStartTrace
@@ -1013,18 +1038,10 @@ sources:
                Parse.ParentProcessID as PPID,
                Parse.ProcessID as PID,
                Parse.ProcessName as Name, {
-                 SELECT CommandLine
-                 FROM wmi(
-                   query=&#34;SELECT * FROM Win32_Process WHERE ProcessID = &#34; +
-                    format(format=&#34;%v&#34;, args=Parse.ProcessID),
-                   namespace=&#34;ROOT/CIMV2&#34;)
+                 SELECT CommandLine FROM pslist(pid=Parse.ProcessID)
                } AS CommandLine,
                {
-                 SELECT CommandLine
-                 FROM wmi(
-                   query=&#34;SELECT * FROM Win32_Process WHERE ProcessID = &#34; +
-                    format(format=&#34;%v&#34;, args=Parse.ParentProcessID),
-                   namespace=&#34;ROOT/CIMV2&#34;)
+                 SELECT CommandLine FROM pslist(pid=Parse.ParentProcessID)
                } AS ParentInfo
         FROM wmi_events(
            query=eventQuery,

@@ -421,6 +421,41 @@
       <a href="/blog/">Velociraptor Blog</a><i class="fa fa-angle-right fa-lg category-icon"></i>
       </div>
         <ul>
+      <li data-nav-id="/blog/medium/2020-08-16-profiling-the-beast-58913437fd16/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-08-16-profiling-the-beast-58913437fd16/">
+            Profiling the beast
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2020-07-14-triage-with-velociraptor-pt-4-cf0e60810d1e/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-07-14-triage-with-velociraptor-pt-4-cf0e60810d1e/">
+            Triage with Velociraptor — Pt 4
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2020-07-13-velociraptor-in-the-tool-age-d896dfe71b9/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-07-13-velociraptor-in-the-tool-age-d896dfe71b9/">
+            Velociraptor in the tool age
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2020-06-19-the-velociraptor-query-language-pt-2-fe92bb7aa150/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-06-19-the-velociraptor-query-language-pt-2-fe92bb7aa150/">
+            The Velociraptor Query Language Pt 2
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2020-06-14-the-velociraptor-query-language-pt-1-d721bff100bf/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-06-14-the-velociraptor-query-language-pt-1-d721bff100bf/">
+            The Velociraptor Query Language Pt 1
+          </a>
+        </div>
+    </li>
       <li data-nav-id="/blog/medium/2020-04-16-velociraptor-e48a47e0317d/" class="dd-item">
         <div>
           <a href="/blog/medium/2020-04-16-velociraptor-e48a47e0317d/">
@@ -601,6 +636,7 @@
     <li><a href="#getpid">getpid</a></li>
     <li><a href="#humanize">humanize</a></li>
     <li><a href="#if">if</a></li>
+    <li><a href="#items">items</a></li>
     <li><a href="#join">join</a></li>
     <li><a href="#len">len</a></li>
     <li><a href="#log">log</a></li>
@@ -626,11 +662,15 @@
     <li><a href="#split">split</a></li>
     <li><a href="#str">str</a></li>
     <li><a href="#strip">strip</a></li>
+    <li><a href="#tempdir">tempdir</a></li>
     <li><a href="#timestamp">timestamp</a></li>
+    <li><a href="#to_dict">to_dict</a></li>
     <li><a href="#upcase">upcase</a></li>
     <li><a href="#url">url</a></li>
     <li><a href="#utf16">utf16</a></li>
     <li><a href="#utf16_encode">utf16_encode</a></li>
+    <li><a href="#uuid">uuid</a></li>
+    <li><a href="#version">version</a></li>
   </ul>
 </nav>
         </div>
@@ -687,7 +727,7 @@ flattening the arguments. For example <code>array(a=1, b=2)</code> will return
 <tr>
 <td>string</td>
 <td>A string to convert to int</td>
-<td>string (required)</td>
+<td>Any (required)</td>
 </tr>
 </tbody>
 </table>
@@ -775,6 +815,11 @@ flattening the arguments. For example <code>array(a=1, b=2)</code> will return
 <td>The destination file to write.</td>
 <td>string (required)</td>
 </tr>
+<tr>
+<td>permissions</td>
+<td>Required permissions (e.g. &lsquo;x&rsquo;).</td>
+<td>string</td>
+</tr>
 </tbody>
 </table>
 <h2 id="count">count</h2>
@@ -792,7 +837,7 @@ flattening the arguments. For example <code>array(a=1, b=2)</code> will return
 <tr>
 <td>items</td>
 <td></td>
-<td>Any (required)</td>
+<td>Any</td>
 </tr>
 </tbody>
 </table>
@@ -857,7 +902,7 @@ flattening the arguments. For example <code>array(a=1, b=2)</code> will return
 <tr>
 <td>items</td>
 <td></td>
-<td>Any (required)</td>
+<td>Any</td>
 </tr>
 </tbody>
 </table>
@@ -1054,6 +1099,25 @@ given, then perform hash or upload to the server. See the</p>
 </tr>
 </tbody>
 </table>
+<h2 id="items">items</h2>
+<p><span class='vql_type pull-right'>Plugin</span></p>
+<p>Enumerate all members of the item (similar to Pythons items() method.</p>
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>item</td>
+<td>The item to enumerate.</td>
+<td>Any</td>
+</tr>
+</tbody>
+</table>
 <h2 id="join">join</h2>
 <p><span class='vql_type pull-right'>Function</span></p>
 <p>Join all the args on a separator.</p>
@@ -1155,7 +1219,7 @@ bash pid of all bash processes.</p>
 <tr>
 <td>items</td>
 <td></td>
-<td>Any (required)</td>
+<td>Any</td>
 </tr>
 </tbody>
 </table>
@@ -1179,7 +1243,7 @@ bash pid of all bash processes.</p>
 <tr>
 <td>items</td>
 <td></td>
-<td>Any (required)</td>
+<td>Any</td>
 </tr>
 </tbody>
 </table>
@@ -1198,7 +1262,7 @@ bash pid of all bash processes.</p>
 <tr>
 <td>string</td>
 <td>A string to convert to int</td>
-<td>string (required)</td>
+<td>Any (required)</td>
 </tr>
 </tbody>
 </table>
@@ -1272,19 +1336,14 @@ bash pid of all bash processes.</p>
 </thead>
 <tbody>
 <tr>
-<td>chunk</td>
-<td>length of each chunk to read from the file.</td>
-<td>int</td>
-</tr>
-<tr>
-<td>max_length</td>
+<td>length</td>
 <td>Max length of the file to read.</td>
 <td>int</td>
 </tr>
 <tr>
-<td>filenames</td>
+<td>filename</td>
 <td>One or more files to open.</td>
-<td>list of string (required)</td>
+<td>string (required)</td>
 </tr>
 <tr>
 <td>accessor</td>
@@ -1406,6 +1465,40 @@ bash pid of all bash processes.</p>
 </tr>
 </tbody>
 </table>
+<h2 id="tempdir">tempdir</h2>
+<p><span class='vql_type pull-right'>Function</span></p>
+<p>Create a temporary directory. The directory will be removed when the query ends.</p>
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>data</td>
+<td>Data to write in the tempfile.</td>
+<td>list of string</td>
+</tr>
+<tr>
+<td>extension</td>
+<td>An extension to place in the tempfile.</td>
+<td>string</td>
+</tr>
+<tr>
+<td>permissions</td>
+<td>Required permissions (e.g. &lsquo;x&rsquo;).</td>
+<td>string</td>
+</tr>
+<tr>
+<td>remove_last</td>
+<td>If set we delay removal as much as possible.</td>
+<td>bool</td>
+</tr>
+</tbody>
+</table>
 <h2 id="timestamp">timestamp</h2>
 <p><span class='vql_type pull-right'>Function</span></p>
 <p>Convert from different types to a time.Time.</p>
@@ -1440,6 +1533,9 @@ bash pid of all bash processes.</p>
 </tr>
 </tbody>
 </table>
+<h2 id="to_dict">to_dict</h2>
+<p><span class='vql_type pull-right'>Function</span></p>
+<p>Construct a dict from another object.</p>
 <h2 id="upcase">upcase</h2>
 <p><span class='vql_type pull-right'>Function</span></p>
 <table>
@@ -1553,7 +1649,24 @@ the <code>url()</code> function to build the proper url.</p>
 </tr>
 </tbody>
 </table>
-
+<h2 id="uuid">uuid</h2>
+<p><span class='vql_type pull-right'>Function</span></p>
+<p>Generate a UUID.</p>
+<h2 id="version">version</h2>
+<p><span class='vql_type pull-right'>Function</span></p>
+<p>Gets the version of a VQL plugin or function.</p>
+<p>This is useful when writing portable VQL which can work with
+older versions of Velociraptor. When Velociraptor plugins evolve
+in an incompatible way their version is incremented. It is
+possible to cater for multiple versions in the VQL using an if()
+plugin.</p>
+<p>For example the following can chose from a legacy query or a
+modern query based on the plugin version:</p>
+<pre><code> SELECT * FROM if(
+  condition=version(plugin=&quot;glob&quot;) &gt;= 1,
+  then=NewQuery,
+  else=LegacyQuery)
+</code></pre>
 
 
     

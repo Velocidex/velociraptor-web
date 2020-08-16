@@ -23,7 +23,11 @@ def load_artifacts(paths):
 
                 with open(os.path.join(root, name), "r") as fd:
                     raw_data = fd.read()
-                    data = yaml.safe_load(raw_data)
+                    try:
+                        data = yaml.safe_load(raw_data)
+                    except yaml.scanner.ScannerError:
+                        continue
+
                     data['raw'] = raw_data
                     result[data['name']] = data
 

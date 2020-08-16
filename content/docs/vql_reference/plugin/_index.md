@@ -57,9 +57,12 @@ Arg | Description | Type
 ----|-------------|-----
 artifacts|A list of artifacts to collect.|list of string (required)
 output|A path to write the output file on.|string (required)
+report|A path to write the report on.|string
 args|Optional parameters.|Any
 password|An optional password to encrypt the collection zip.|string
 format|Output format (csv, jsonl).|string
+artifact_definitions|Optional additional custom artifacts.|Any
+template|The name of a template artifact (i.e. one which has report of type HTML).|string
 
 
 ## environ
@@ -263,6 +266,16 @@ endpoints). Using the parameters with a POST method we may actually
 invoke actions from within VQL (e.g. send an SMS via an SMS gateway
 when a VQL event is received).So this is a very powerful plugin.
 
+When the `tempfile_extension` parameter is provided, the HTTP
+request body will be written to a tempfile with that
+extension. The name of this tempfile will be emitted as the
+Content column.
+
+This plugin will emit rows with the following columns:
+* Url      string: The url we fetched.
+* Content  string: The body content for this chunk
+* Response int: The HTTP response code (200=success)
+
 ### Example
 
 The following VQL returns the client's external IP as seen by the
@@ -282,6 +295,7 @@ method|HTTP method to use (GET, POST)|string
 chunk_size|Read input with this chunk size and send each chunk as a row|int
 disable_ssl_security|Disable ssl certificate verifications.|bool
 tempfile_extension|If specified we write to a tempfile. The content field will contain the full path to the tempfile.|string
+remove_last|If set we delay removal as much as possible.|bool
 
 
 ## if
@@ -367,7 +381,7 @@ row.
 
 Arg | Description | Type
 ----|-------------|-----
-pid|A pid to list. If this is provided we are able to operate much faster by only opening a single process.|int64
+pid|A process ID to list. If not provided list all processes.|int64
 
 
 ## read_file
@@ -436,6 +450,8 @@ Arg | Description | Type
 ----|-------------|-----
 data|Data to write in the tempfile.|list of string
 extension|An extension to place in the tempfile.|string
+permissions|Required permissions (e.g. 'x').|string
+remove_last|If set we delay removal as much as possible.|bool
 
 
 ## upload
@@ -575,8 +591,8 @@ rules|Yara rules in the yara DSL.|string (required)
 files|The list of files to scan.|list of string (required)
 accessor|Accessor (e.g. NTFS)|string
 context|How many bytes to include around each hit|int
-start|The start offset to scan|int64
-end|End scanning at this offset (100mb)|int64
+start|The start offset to scan|uint64
+end|End scanning at this offset (100mb)|uint64
 number|Stop after this many hits (1).|int64
 blocksize|Blocksize for scanning (1mb).|int64
 key|If set use this key to cache the  yara rules.|string

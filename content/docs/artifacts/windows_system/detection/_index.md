@@ -350,7 +350,7 @@ https://\<server\>/public/remote.yar
 This content also provides the user the option to dump any process with hits,
 and the rule summary information.
 
-The user is also recommended to add any endpoint agents that may cause a false 
+The user is also recommended to add any endpoint agents that may cause a false
 positive into the hidden parameters pathWhitelist.
 
 Output of the rule is process information, Yara rule name, metadata and hit
@@ -359,6 +359,7 @@ data.
 
 Arg|Default|Description
 ---|------|-----------
+pathWhitelist|Path\nC:\\Program Files\\Microsoft Security Client ...|Process paths to exclude. Default is common\nAntiVirus we have seen cause false positives with\nsignitures in memory.\n
 processRegex|.|Process name to scan as regex. Default All.
 pidRegex|.|Process PID to scan as regex. Default All.
 yaraURL||URL of yara rule to scan with. If empty we use\nthe server's public directory/remote.yar"\n
@@ -380,7 +381,7 @@ description: |
   This content also provides the user the option to dump any process with hits,
   and the rule summary information.
 
-  The user is also recommended to add any endpoint agents that may cause a false 
+  The user is also recommended to add any endpoint agents that may cause a false
   positive into the hidden parameters pathWhitelist.
 
   Output of the rule is process information, Yara rule name, metadata and hit
@@ -394,9 +395,9 @@ parameters:
   - name: pathWhitelist
     description: |
         Process paths to exclude. Default is common
-        AntiVirus we have seen cause false positives with 
+        AntiVirus we have seen cause false positives with
         signitures in memory.
-    type: hidden
+    type: csv
     default: |
       Path
       C:\Program Files\Microsoft Security Client\MsMpEng.exe
@@ -847,6 +848,7 @@ description: |
 
 parameters:
    - name: namespaces
+     type: csv
      default: |
        namespace
        root/subscription

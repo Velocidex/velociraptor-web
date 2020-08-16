@@ -280,3 +280,7 @@ h4.subtitle {
     text-align: center;
     font-style: italic;
 }
+
+blockquote h1 {
+    font-size: 2rem;
+}

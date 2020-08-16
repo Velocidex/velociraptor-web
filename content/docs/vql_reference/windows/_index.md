@@ -79,6 +79,10 @@ List all active interfaces.
 
 Get information about the SID.
 
+Arg | Description | Type
+----|-------------|-----
+sid|A SID to lookup using LookupAccountSid |string (required)
+
 
 ## modules
 <span class='vql_type pull-right'>Plugin</span>
@@ -144,8 +148,8 @@ rules|Yara rules in the yara DSL.|string (required)
 files|The list of files to scan.|list of string (required)
 accessor|Accessor (e.g. NTFS)|string
 context|How many bytes to include around each hit|int
-start|The start offset to scan|int64
-end|End scanning at this offset (100mb)|int64
+start|The start offset to scan|uint64
+end|End scanning at this offset (100mb)|uint64
 number|Stop after this many hits (1).|int64
 blocksize|Blocksize for scanning (1mb).|int64
 key|If set use this key to cache the  yara rules.|string
@@ -195,10 +199,6 @@ pid|The PID to get the token for.|int64 (required)
 <span class='vql_type pull-right'>Plugin</span>
 
 Display information about workstation local users. This is obtained through the NetUserEnum() API.
-
-Arg | Description | Type
-----|-------------|-----
-file|The wtmp file to use|string
 
 
 ## vad
