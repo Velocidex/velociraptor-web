@@ -57,7 +57,7 @@ Simply schedule a new collection of the **Generic.Client.Profile** artifact, sel
 
 ![](../img/16SDwrh4quetvE_emHQnfmg.png)
 
-When launching this collection, the profiles will be acquired concurrently (note that Velociraptor can collect multiple artifacts at the same time). So actually collecting the **Generic.Client.Profile **artifact will result in collecting information on whatever else is happening within the Velociraptor process at the same time — Collecting this artifact essentially starts recording traces for 30 seconds, then stops recording traces and sends those traces back.
+When launching this collection, the profiles will be acquired concurrently (note that Velociraptor can collect multiple artifacts at the same time). So actually collecting the **Generic.Client.Profile** artifact will result in collecting information on whatever else is happening within the Velociraptor process at the same time — Collecting this artifact essentially starts recording traces for 30 seconds, then stops recording traces and sends those traces back.
 
 ![](../img/1Ypb_iKi_s9ypRzexekYAAw.png)
 
@@ -71,7 +71,7 @@ $ kcachegrind profile.grind
 
 ![](../img/1GFekz4L0I4hm-LzR6EZbCQ.png)
 
-The [**kcachegrind](https://kcachegrind.github.io/html/Home.html)** tool allows me to interactively inspect the relative CPU time spent on each function. In the screenshot above we can see the left pane showing the relative amount of time taken by each function. The bottom right pane shows an interactive call graph visualizing how each function spends its time. In this case we can see the *HashFunction.Call()* function is responsible for 65% of the time spent. In turn it spends about 5% of CPU time reading the file, 4% calculating the sha1, 10% the sha256 and 3.5% the md5 hashes. (The exact numbers will depend on the actual set of files present on the endpoint)
+The [kcachegrind](https://kcachegrind.github.io/html/Home.html) tool allows me to interactively inspect the relative CPU time spent on each function. In the screenshot above we can see the left pane showing the relative amount of time taken by each function. The bottom right pane shows an interactive call graph visualizing how each function spends its time. In this case we can see the *HashFunction.Call()* function is responsible for 65% of the time spent. In turn it spends about 5% of CPU time reading the file, 4% calculating the sha1, 10% the sha256 and 3.5% the md5 hashes. (The exact numbers will depend on the actual set of files present on the endpoint)
 
 ![](../img/1VV4GJRhUlO2rnN8zG1ahKA.png)
 

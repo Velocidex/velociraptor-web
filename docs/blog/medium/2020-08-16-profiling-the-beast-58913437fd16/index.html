@@ -420,6 +420,13 @@
             <i class="fa fa-angle-down fa-lg category-icon"></i>
       </div>
         <ul>
+      <li data-nav-id="/blog/medium/2020-08-17-velociraptor-sso-authentication-6dd68d46dccf/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-08-17-velociraptor-sso-authentication-6dd68d46dccf/">
+            Velociraptor SSO Authentication
+          </a>
+        </div>
+    </li>
       <li data-nav-id="/blog/medium/2020-08-16-profiling-the-beast-58913437fd16/" class="dd-item active">
         <div>
           <a href="/blog/medium/2020-08-16-profiling-the-beast-58913437fd16/">
@@ -681,7 +688,7 @@
 <p>For the sake of this discussion, assume that I am not 100% sure what is going on with this collection and why it is taking so long (although I have a theory!). I can remotely acquire profiling information from the client, <strong>while the collection is taking place!</strong></p>
 <p>Simply schedule a new collection of the <strong>Generic.Client.Profile</strong> artifact, selecting the CPU profile checkbox (There are a number of other debugging data and traces that can be acquired at the same time but I won’t go into these here).</p>
 <p><img src="../img/16SDwrh4quetvE_emHQnfmg.png" alt=""></p>
-<p>When launching this collection, the profiles will be acquired concurrently (note that Velociraptor can collect multiple artifacts at the same time). So actually collecting the **Generic.Client.Profile **artifact will result in collecting information on whatever else is happening within the Velociraptor process at the same time — Collecting this artifact essentially starts recording traces for 30 seconds, then stops recording traces and sends those traces back.</p>
+<p>When launching this collection, the profiles will be acquired concurrently (note that Velociraptor can collect multiple artifacts at the same time). So actually collecting the <strong>Generic.Client.Profile</strong> artifact will result in collecting information on whatever else is happening within the Velociraptor process at the same time — Collecting this artifact essentially starts recording traces for 30 seconds, then stops recording traces and sends those traces back.</p>
 <p><img src="../img/1Ypb_iKi_s9ypRzexekYAAw.png" alt=""></p>
 <p>By default the profile is taken over 30 seconds, after which it is uploaded to the server like any uploaded file. I can simply download the profile from the <strong>Uploaded Files</strong> tab by clicking the link.</p>
 <p><img src="../img/17ZeuBYe5dIV_LATRLZkUaw.png" alt=""></p>
@@ -691,7 +698,7 @@
 $ kcachegrind profile.grind</p>
 </blockquote>
 <p><img src="../img/1GFekz4L0I4hm-LzR6EZbCQ.png" alt=""></p>
-<p>The <a href="https://kcachegrind.github.io/html/Home.html">**kcachegrind</a>** tool allows me to interactively inspect the relative CPU time spent on each function. In the screenshot above we can see the left pane showing the relative amount of time taken by each function. The bottom right pane shows an interactive call graph visualizing how each function spends its time. In this case we can see the *HashFunction.Call()* function is responsible for 65% of the time spent. In turn it spends about 5% of CPU time reading the file, 4% calculating the sha1, 10% the sha256 and 3.5% the md5 hashes. (The exact numbers will depend on the actual set of files present on the endpoint)</p>
+<p>The <a href="https://kcachegrind.github.io/html/Home.html">kcachegrind</a> tool allows me to interactively inspect the relative CPU time spent on each function. In the screenshot above we can see the left pane showing the relative amount of time taken by each function. The bottom right pane shows an interactive call graph visualizing how each function spends its time. In this case we can see the <em>HashFunction.Call()</em> function is responsible for 65% of the time spent. In turn it spends about 5% of CPU time reading the file, 4% calculating the sha1, 10% the sha256 and 3.5% the md5 hashes. (The exact numbers will depend on the actual set of files present on the endpoint)</p>
 <p><img src="../img/1VV4GJRhUlO2rnN8zG1ahKA.png" alt=""></p>
 <p>Scrolling the call graph in this case shows that the os.Open() function spends about 35% of the time. Since os.Open() is not a part of our own code, it shows we end up spending most of our time in the operating system. In fact 35% of our time is spent waiting for Windows Defender’s real time scanner (which blocks os.Open for us as it scans the files on demand — Windows defender is a huge performance killer.).</p>
 <blockquote>
@@ -720,7 +727,7 @@ $ kcachegrind profile.grind</p>
 </div>
 
 <div id="navigation">
-<a class="nav nav-prev" href="/blog/" title="Velociraptor Blog"> <i class="fa fa-chevron-left"></i><label>Velociraptor Blog</label></a>
+<a class="nav nav-prev" href="/blog/medium/2020-08-17-velociraptor-sso-authentication-6dd68d46dccf/" title="Velociraptor SSO Authentication"> <i class="fa fa-chevron-left"></i><label>Velociraptor SSO Authentication</label></a>
     <a class="nav nav-next" href="/blog/medium/2020-07-14-triage-with-velociraptor-pt-4-cf0e60810d1e/" title="Triage with Velociraptor — Pt 4" style="margin-right: 0px;"><label>Triage with Velociraptor — Pt 4</label><i class="fa fa-chevron-right"></i></a></div>
 
 </section>
