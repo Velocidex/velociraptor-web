@@ -8,7 +8,7 @@ slider:
   subtitle: Digging deeper with Velociraptor!
   buttons:
    - title: Book now!
-     url: https://www.eventbrite.com.au/e/enterprise-hunting-and-incident-response-online-edition-eu-times-tickets-104925049648
+     url: https://www.eventbrite.com.au/e/enterprise-hunting-and-incident-response-online-edition-tickets-117360453275
 ---
 
 The life of an information security professional is a hectic one. It
@@ -39,26 +39,17 @@ We will cover one module per day. Modules are hands on and take about
 2 hours. After the workshop we will stay on the Zoom for open
 discussions.
 
-Topic: 01 - Velociraptor Installation and Overview
-Time: Jun 22, 2020 18:00 PM Brisbane
+[Click Here for times in your region](https://www.timeanddate.com/worldclock/converter.html?iso=20201027T130000&p1=47&p2=136&p3=179&p4=166)
 
-Topic: 02 - VQL Fundamentals
-Time: Jun 23, 2020 18:00 PM Brisbane
-
-Topic: 03 - Forensic Analysis Pt 1
-Time: Jun 24, 2020 18:00 PM Brisbane
-
-Topic: 04 - Forensic Analysis Pt 2
-Time: Jun 25, 2020 18:00 PM Brisbane
-
-Topic: 05 - Interactive triage
-Time: Jun 29, 2020 18:00 PM Brisbane
-
-Topic: 06 - Proactive Hunting
-Time: Jun 30, 2020 18:00 PM Brisbane
-
-Topic: 07 - Extending VQL and API
-Time: July 1, 2020 18:00 PM Brisbane
+Topic | Time
+------| ----
+Topic: 01 - Velociraptor Installation and Overview | Time: Oct 27, 2020 23:00 PM Brisbane
+Topic: 02 - VQL Fundamentals | Time: Oct 28, 2020 23:00 PM Brisbane
+Topic: 03 - Forensic Analysis Pt 1 | Time: Oct 29, 2020 23:00 PM Brisbane
+Topic: 04 - Forensic Analysis Pt 2 |  Time: Oct 30, 2020 23:00 PM Brisbane
+Topic: 05 - Interactive triage | Time: Nov 2, 2020 23:00 PM Brisbane
+Topic: 06 - Proactive Hunting | Time: Nov 3, 2020 23:00 PM Brisbane
+Topic: 07 - Extending VQL and API | Time: Nov 4, 2020 23:00 PM Brisbane
 
 # Overview
 

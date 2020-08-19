@@ -15,16 +15,6 @@ schedule:
   picture: auscert_2020/we_can_be_heros.png
   outline: https://conference.auscert.org.au/program/
   description: |
-      The life of an information security professional is a hectic
-      one. It seems like you are fighting fires every day and always
-      behind the eight ball. You know you should be proactively
-      hunting for emerging threats in your network but the tools at
-      your disposal simply do not scale.
-
-      You can check each machine individually for hardening and policy
-      compliance but you have many thousands of endpoints deployed, it
-      is hard enough to keep up with the alerts.
-
       This workshop is an introduction to forensic analysis and
       incident response for information security professionals. We
       cover the basics of modern DFIR techniques exposing artifacts
@@ -40,73 +30,51 @@ schedule:
       easily demonstrate many of the techniques we will learn in the
       limited time.
 
-      Some of the scenarios we cover include:
+- title: Velociraptor training (Online edition - US/APAC)
+  date: 6th Oct 2020
+  description: |
+      The life of an information security professional is a hectic one. It
+      seems like you are fighting fires every day and always behind the
+      eight ball. You know you should be proactively hunting for emerging
+      threats in your network but the tools at your disposal simply do not
+      scale. You can check each machine individually for hardening and
+      policy compliance but you have many thousands of endpoints deployed,
+      it is hard enough to keep up with the alerts.
 
-      * A domain account was compromised. Where did the attacker
-        laterally move to?
+      This online course will be split into 7 sessions over 2 weeks with 2-3
+      hours per day. We will deliver the course live over Zoom in an
+      interactive, hands on format. There will be time for questions and
+      free discussions.
 
-      * Malware was delivered via a phishing email. Where other user
-        in the domain had executed the same malware?
+      Time slots are ideal for EMEA and APAC based participants.
 
-      * Uncovering common malware persistence mechanisms.
+  outline: /training/online_oct_6_2020
+  buyurl: https://www.eventbrite.com.au/e/enterprise-hunting-and-incident-response-online-edition-tickets-117356375077
+  picture: online_oct_6_2020/blue-and-white-earth-globe.jpg
 
-      * We will begin by reviewing the common forensic artifacts left
-        behind on modern Windows systems. We then consider how these
-        may be used in practice to address common DFIR scenarios.
+- title: Velociraptor training (Online edition - US/APAC)
+  date: 27th Oct 2020
+  description: |
+      The life of an information security professional is a hectic one. It
+      seems like you are fighting fires every day and always behind the
+      eight ball. You know you should be proactively hunting for emerging
+      threats in your network but the tools at your disposal simply do not
+      scale. You can check each machine individually for hardening and
+      policy compliance but you have many thousands of endpoints deployed,
+      it is hard enough to keep up with the alerts.
 
-      * Finally we consider how to proactively hunt for attackers
-        using low level forensic analysis. Using Velociraptor’s
-        endpoint monitoring feature we will develop effective endpoint
-        monitoring rules to detect future compromise quickly and
-        efficiently.
+      This online course will be split into 7 sessions over 2 weeks with 2-3
+      hours per day. We will deliver the course live over Zoom in an
+      interactive, hands on format. There will be time for questions and
+      free discussions.
+
+      Time slots are ideal for US and APAC based participants.
+
+  outline: /training/online_oct_27_2020
+  buyurl: https://www.eventbrite.com.au/e/enterprise-hunting-and-incident-response-online-edition-tickets-117360453275
+  picture: online_oct_27_2020/globe.jpg
 
 
-#schedule:
-#- title: Velociraptor training (Online edition - US/APAC)
-#  date: 2nd June 2020
-#  description: |
-#      The life of an information security professional is a hectic one. It
-#      seems like you are fighting fires every day and always behind the
-#      eight ball. You know you should be proactively hunting for emerging
-#      threats in your network but the tools at your disposal simply do not
-#      scale. You can check each machine individually for hardening and
-#      policy compliance but you have many thousands of endpoints deployed,
-#      it is hard enough to keep up with the alerts.
-#
-#      This online course will be split into 7 sessions over 2 weeks with 2-3
-#      hours per day. We will deliver the course live over Zoom in an
-#      interactive, hands on format. There will be time for questions and
-#      free discussions.
-#
-#      Time slots are ideal for US and APAC based participants.
-#
-#  outline: /training/online_june_2020
-#  buyurl: https://www.eventbrite.com.au/e/enterprise-hunting-and-incident-response-online-edition-tickets-104227479196
-#  picture: online_june_2020/blue-and-white-earth-globe.jpg
-#
-#- title: Velociraptor training (Online edition - EMEA/APAC)
-#  date: 22nd June 2020
-#  description: |
-#      The life of an information security professional is a hectic one. It
-#      seems like you are fighting fires every day and always behind the
-#      eight ball. You know you should be proactively hunting for emerging
-#      threats in your network but the tools at your disposal simply do not
-#      scale. You can check each machine individually for hardening and
-#      policy compliance but you have many thousands of endpoints deployed,
-#      it is hard enough to keep up with the alerts.
-#
-#      This online course will be split into 7 sessions over 2 weeks with 2-3
-#      hours per day. We will deliver the course live over Zoom in an
-#      interactive, hands on format. There will be time for questions and
-#      free discussions.
-#
-#      Time slots are ideal for EMEA and APAC based participants.
-#
-#  outline: /training/online_june_eu_2020
-#  buyurl: https://www.eventbrite.com.au/e/enterprise-hunting-and-incident-response-online-edition-eu-times-tickets-104925049648
-#  picture: online_june_eu_2020/globe.jpg
-#
-#
 #- title: Enterprise Hunting and Incident Response with Velociraptor (Hack Sydney 2020)
 #  date: 2 Nov 2020
 #  description: |

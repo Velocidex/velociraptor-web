@@ -8,7 +8,7 @@ slider:
   subtitle: Digging deeper with Velociraptor!
   buttons:
    - title: Book now!
-     url: https://www.eventbrite.com.au/e/enterprise-hunting-and-incident-response-online-edition-tickets-104227479196
+     url: https://www.eventbrite.com.au/e/enterprise-hunting-and-incident-response-online-edition-tickets-117356375077
 ---
 
 The life of an information security professional is a hectic one. It
@@ -39,26 +39,19 @@ We will cover one module per day. Modules are hands on and take about
 2 hours. After the workshop we will stay on the Zoom for open
 discussions.
 
-Topic: 01 - Velociraptor Installation and Overview
-Time: Jun 2, 2020 09:00 AM Brisbane
+[Click Here for times in your region](https://www.timeanddate.com/worldclock/converter.html?iso=20201005T230000&p1=47&p2=179&p3=104&p4=224)
 
-Topic: 02 - VQL Fundamentals
-Time: Jun 3, 2020 09:00 AM Brisbane
+|Topic| Time|
+|------| ----|
+|Topic: 01 - Velociraptor Installation and Overview | Time: Oct 6, 2020 09:00 AM Brisbane|
+|Topic: 02 - VQL Fundamentals | Time: Oct 7, 2020 09:00 AM Brisbane|
+|Topic: 03 - Forensic Analysis Pt 1 | Time: Oct 8, 2020 09:00 AM Brisbane|
+|Topic: 04 - Forensic Analysis Pt 2 | Time: Oct 9, 2020 09:00 AM Brisbane|
+|Topic: 05 - Interactive triage | Time: Oct 13, 2020 09:00 AM Brisbane|
+|Topic: 06 - Proactive Hunting | Time: Oct 14, 2020 09:00 AM Brisbane|
+|Topic: 07 - Extending VQL and API | Time: Oct 15, 2020 09:00 AM Brisbane|
 
-Topic: 03 - Forensic Analysis Pt 1
-Time: Jun 4, 2020 09:00 AM Brisbane
-
-Topic: 04 - Forensic Analysis Pt 2
-Time: Jun 5, 2020 09:00 AM Brisbane
-
-Topic: 05 - Interactive triage
-Time: Jun 9, 2020 09:00 AM Brisbane
-
-Topic: 06 - Proactive Hunting
-Time: Jun 10, 2020 09:00 AM Brisbane
-
-Topic: 07 - Extending VQL and API
-Time: Jun 11, 2020 09:00 AM Brisbane
+***********************************************************************
 
 # Overview
 
@@ -226,6 +219,7 @@ with speed and precision.
 
 A sample module from the full course is now available! [Click here to view](/docs/presentations/training_2020/)
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/l1_sKDmNWS4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/c-XOeuT4qg8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
