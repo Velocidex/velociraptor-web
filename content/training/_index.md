@@ -46,13 +46,13 @@ schedule:
       interactive, hands on format. There will be time for questions and
       free discussions.
 
-      Time slots are ideal for EMEA and APAC based participants.
+      Time slots are ideal for USA and APAC based participants.
 
   outline: /training/online_oct_6_2020
   buyurl: https://www.eventbrite.com.au/e/enterprise-hunting-and-incident-response-online-edition-tickets-117356375077
   picture: online_oct_6_2020/blue-and-white-earth-globe.jpg
 
-- title: Velociraptor training (Online edition - US/APAC)
+- title: Velociraptor training (Online edition - US/EMEA)
   date: 27th Oct 2020
   description: |
       The life of an information security professional is a hectic one. It
@@ -68,7 +68,7 @@ schedule:
       interactive, hands on format. There will be time for questions and
       free discussions.
 
-      Time slots are ideal for US and APAC based participants.
+      Time slots are ideal for US and EMEA based participants.
 
   outline: /training/online_oct_27_2020
   buyurl: https://www.eventbrite.com.au/e/enterprise-hunting-and-incident-response-online-edition-tickets-117360453275

@@ -39,8 +39,6 @@ We will cover one module per day. Modules are hands on and take about
 2 hours. After the workshop we will stay on the Zoom for open
 discussions.
 
-[Click Here for times in your region](https://www.timeanddate.com/worldclock/converter.html?iso=20201027T130000&p1=47&p2=136&p3=179&p4=166)
-
 Topic | Time
 ------| ----
 Topic: 01 - Velociraptor Installation and Overview | Time: Oct 27, 2020 23:00 PM Brisbane
@@ -50,6 +48,11 @@ Topic: 04 - Forensic Analysis Pt 2 |  Time: Oct 30, 2020 23:00 PM Brisbane
 Topic: 05 - Interactive triage | Time: Nov 2, 2020 23:00 PM Brisbane
 Topic: 06 - Proactive Hunting | Time: Nov 3, 2020 23:00 PM Brisbane
 Topic: 07 - Extending VQL and API | Time: Nov 4, 2020 23:00 PM Brisbane
+
+
+## Times in your region
+
+<a href="https://www.timeanddate.com/worldclock/converter.html?iso=20201027T130000&p1=47&p2=136&p3=179&p4=166"><img src="Oct_27_times.png" width="600" /></a>
 
 # Overview
 
