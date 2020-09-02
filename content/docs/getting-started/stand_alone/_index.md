@@ -23,7 +23,7 @@ SSL. The administrator can query endpoints to collect forensic
 artifacts or for continual real-time monitoring.
 
 The Velociraptor binary distributed through our [Github
-releases](https://github.com/velocidex/velociraptor) page contains all
+releases](https://github.com/Velocidex/velociraptor/releases) page contains all
 Velociraptor functionality in one binary, without any libraries or
 external dependencies. The same executable can act as a server or a
 client depending on command line options, making it easy to deploy and
@@ -81,7 +81,7 @@ network. Here are some considerations:
 
 #### Inside the network, with external accessibility
 
-Another possibility is setting up the Velociraptor server outside the
+Another possibility is setting up the Velociraptor server inside the
 network, but allowing clients to connect from the Internet. This
 provides most of the benefits of both deployment options described
 above, however will require allowing ingress access and possibly NAT
