@@ -53,7 +53,7 @@ footprint, only writing the configuration, state and history files it
 needs, all of which can easily be deleted after testing, along with
 the executable.
 
-However when setting up a longer-term deployment, the main decision is
+However, when setting up a longer-term deployment, the main decision is
 whether the Velociraptor server should be inside or outside your
 network. Here are some considerations:
 
@@ -126,7 +126,7 @@ and endpoints. These define settings such as the location of the
 server, the communication ports and the encryption keys used to secure
 client-server comms.
 
-Therefore our next step is to generate configuration files for our new
+Therefore, our next step is to generate configuration files for our new
 deployment. The easiest way to get started is using the interactive
 config generator, which will build a pre-configured deployment
 type. These files are plain-text and you can easily edit them later to
@@ -267,14 +267,14 @@ no security relationship, unless you choose to implement SSO.
 
 You can always add new users to the GUI using the command
 `velociraptor --config server.config.yaml user add MyUserName --role
-admininistrator`. User credentials are usually stored in the data
+administrator`. User credentials are usually stored in the data
 store and not in the config file (except for the root users created
 with the wizard). If you need to change a user's password simply add
 them again with the new password.
 
 Each user account can have a different role attached to it. Currently
 some of the more useful roles are "reader", "analyst", "investigator",
-"artifact_writer" and "admininistrator".
+"artifact_writer" and "administrator".
 
 ## 4. Start the server
 
