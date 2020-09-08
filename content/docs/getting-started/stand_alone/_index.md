@@ -4,13 +4,14 @@ weight: 10
 ---
 
 The simplest way to deploy Velociraptor is via a self-signed,
-stand-alone deployment. Later we'll see how to deploy Velociraptor in
-production, but this page will help you deploy a stand-alone test
-environment.
+stand-alone deployment. This page will help you configure such a
+deployment for use as a stand-alone test environment, or even a
+production environment up to about 10,000 clients.  Later we'll
+see how to deploy Velociraptor for other scenarios.
 
 ## Overview
 
-Before we start, it's useful to see how a Velociraptor deployment
+Before we start, it's useful to see how a typical Velociraptor deployment
 looks at a high level:
 
 ![Architecture Overview](../overview.png)
@@ -52,7 +53,7 @@ footprint, only writing the configuration, state and history files it
 needs, all of which can easily be deleted after testing, along with
 the executable.
 
-However when setting up a longer-term deployment, the main decision is
+However, when setting up a longer-term deployment, the main decision is
 whether the Velociraptor server should be inside or outside your
 network. Here are some considerations:
 
@@ -125,7 +126,7 @@ and endpoints. These define settings such as the location of the
 server, the communication ports and the encryption keys used to secure
 client-server comms.
 
-Therefore our next step is to generate configuration files for our new
+Therefore, our next step is to generate configuration files for our new
 deployment. The easiest way to get started is using the interactive
 config generator, which will build a pre-configured deployment
 type. These files are plain-text and you can easily edit them later to
@@ -140,7 +141,32 @@ differ.
 
 ```text
 $ velociraptor config generate -i
-?
+? What OS will the server be deployed on? [Use arrows to move, type to filter]
+> linux
+  windows
+  darwin
+```
+
+The config generator will ask whether the datastore should be implemented as
+a file store or database store using MySQL. For this stand-alone deployment,
+choose FileBaseDataStore. The database store is used for multiple frontend
+server deployments, which is typically only necessary for environments with
+more than 10,000 clients.
+
+```text
+? Please select the datastore implementation
+  [Use arrows to move, type to filter]
+> FileBaseDataStore
+  MySQL
+
+? Path to the datastore directory. /opt/velociraptor
+```
+
+After choosing the FileBaseDataStore option and then the directory location
+to store the files, the generator prompts for the type of certificate to be
+used for accessing the frontend web server.
+
+```text
 Welcome to the Velociraptor configuration generator
 ---------------------------------------------------
 
@@ -150,7 +176,7 @@ begin by identifying what type of deployment you need.
   [Use arrows to move, space to select, type to filter]
   > Self Signed SSL
     Automatically provision certificates with Lets Encrypt
-    Authenticate users with Google OAuth SSO
+    Authenticate users with SSO
 ```
 
 #### Self-signed SSL certificates
@@ -171,20 +197,21 @@ i.e. https://localhost:8889/
 Selecting `Self Signed SSL` proceeds to ask the following questions
 and suggests default options.
 
-Continue below for details about the options presented in this
+Continue below for details about the remaining options presented in this
 interactive configuration wizard.
 
 ```text
  Self Signed SSL
- Generating keys please wait....
- ? Enter the frontend port to listen on. 8000
- ? What is the public DNS name of the Frontend (e.g. www.example.com): www.example.com
- ? Path to the datastore directory. /data/velo/
- ? Path to the logs directory. /data/logs/
- ? Where should i write the server config file? server.config.yaml
- ? Where should i write the client config file? client.config.yaml
- ? GUI Username or email address to authorize (empty to end): mic
- ? Password *********
+? Enter the frontend port to listen on. 8000
+? What is the public DNS name of the Frontend (e.g. www.example.com): www.example.com
+? Enter the port for the GUI to listen on. 8889
+? Are you using Google Domains DynDNS? No
+? GUI Username or email address to authorize (empty to end): mic
+? GUI Username or email address to authorize (empty to end):
+
+? Path to the logs directory. /opt/velociraptor/logs
+? Where should i write the server config file? server.config.yaml
+? Where should i write the client config file? client.config.yaml
 ```
 
 #### Configuring the data store
@@ -215,7 +242,7 @@ files with a scheduled or automated task, or a cron job.
 
 #### Configuration files generated
 
-The interactive config generator will now create both a client and
+The interactive config generator will create both a client and
 server configuration file, which by default are stored in the local
 folder and named as follows:
 
@@ -227,28 +254,27 @@ just plain text files.
 
 #### Creating GUI users
 
-The configuration process will now create some GUI users, who will be
+The configuration process will create some GUI users, who will be
 allowed to log into the admin GUI.
 
 {{% notice note %}}
 
 Note that the accounts you create here are not related to any
 operating system user accounts. They are completely separate and have
-no security relationship, unless you choose to implement SSO via
-Google OAuth.
+no security relationship, unless you choose to implement SSO.
 
 {{% /notice %}}
 
 You can always add new users to the GUI using the command
 `velociraptor --config server.config.yaml user add MyUserName --role
-admininistrator`. User credentials are usually stored in the data
+administrator`. User credentials are usually stored in the data
 store and not in the config file (except for the root users created
 with the wizard). If you need to change a user's password simply add
 them again with the new password.
 
 Each user account can have a different role attached to it. Currently
 some of the more useful roles are "reader", "analyst", "investigator",
-"artifact_writer" and "admininistrator".
+"artifact_writer" and "administrator".
 
 ## 4. Start the server
 
@@ -260,31 +286,54 @@ flag causes verbose output to be shown in the terminal):
 
 ```text
 # velociraptor --config server.config.yaml frontend -v
-[INFO] 2019-04-01T14:44:40+10:00 Starting Frontend. {"build_time":"2019-04-01T00:25:49+10:00","commit":"503b1cf","version":"0.2.8"}
-[INFO] 2019-04-01T14:44:40+10:00 Loaded 99 built in artifacts
-[INFO] 2019-04-01T14:44:40+10:00 Loaded artifact_definitions/custom/Test.Yara.Scan.yaml
-[INFO] 2019-04-01T14:44:40+10:00 Launched Prometheus monitoring server on 127.0.0.1:8003
-[INFO] 2019-04-01T14:44:40+10:00 Frontend is ready to handle client TLS requests at 0.0.0.0:8000
-[INFO] 2019-04-01T14:44:40+10:00 Starting hunt manager.
-[INFO] 2019-04-01T14:44:40+10:00 Launched gRPC API server on 127.0.0.1:8001
-[INFO] 2019-04-01T14:44:40+10:00 GUI is ready to handle TLS requests {"listenAddr":"127.0.0.1:8889"}
-[INFO] 2019-04-01T14:44:40+10:00 Starting hunt dispatcher.
-[INFO] 2019-04-01T14:44:40+10:00 Starting stats collector.
+[INFO] 2020-09-07T17:46:01Z  _    __     __           _                  __ 
+[INFO] 2020-09-07T17:46:01Z | |  / /__  / /___  _____(_)________ _____  / /_____  _____ 
+[INFO] 2020-09-07T17:46:01Z | | / / _ \/ / __ \/ ___/ / ___/ __ `/ __ \/ __/ __ \/ ___/ 
+[INFO] 2020-09-07T17:46:01Z | |/ /  __/ / /_/ / /__/ / /  / /_/ / /_/ / /_/ /_/ / / 
+[INFO] 2020-09-07T17:46:01Z |___/\___/_/\____/\___/_/_/   \__,_/ .___/\__/\____/_/ 
+[INFO] 2020-09-07T17:46:01Z                                   /_/ 
+[INFO] 2020-09-07T17:46:01Z Digging deeper!                  https://www.velocidex.com 
+[INFO] 2020-09-07T17:46:01Z This is Velociraptor 0.4.9 built on 2020-09-05T00:08:32+10:00 (6e3b235) 
+[INFO] 2020-09-07T17:46:01Z Loading config from file server.config.yaml 
+[INFO] 2020-09-07T17:46:01Z Starting Frontend. {"build_time":"2020-09-05T00:08:32+10:00","commit":"6e3b235","version":"0.4.9"}
+[INFO] 2020-09-07T17:46:01Z Increased open file limit to 999999 
+[INFO] 2020-09-07T17:46:01Z Starting Journal service. 
+[INFO] 2020-09-07T17:46:01Z Starting the notification service. 
+[INFO] 2020-09-07T17:46:01Z Starting Inventory Service 
+[INFO] 2020-09-07T17:46:01Z Loaded 185 built in artifacts in 55.823848ms 
+[INFO] 2020-09-07T17:46:01Z Starting Label service. 
+[INFO] 2020-09-07T17:46:01Z Starting Hunt Dispatcher Service. 
+[INFO] 2020-09-07T17:46:01Z Selected frontend configuration www.example.com:8000 
+[INFO] 2020-09-07T17:46:01Z Starting Client Monitoring Service 
+[INFO] 2020-09-07T17:46:01Z Creating default Client Monitoring Service 
+[INFO] 2020-09-07T17:46:01Z Initial user mic not present, creating 
+[INFO] 2020-09-07T17:46:01Z Server upgrade detected  -> 0.4.9... running upgrades. 
+[INFO] 2020-09-07T17:46:01Z Upgrading tool OSQueryLinux {"Tool":{"name":"OSQueryLinux","github_project":"Velocidex/OSQuery-Releases","github_asset_regex":"linux-amd64"}}
+[INFO] 2020-09-07T17:46:01Z Upgrading tool OSQueryDarwin {"Tool":{"name":"OSQueryDarwin","github_project":"Velocidex/OSQuery-Releases","github_asset_regex":"darwin-amd64"}}
+[INFO] 2020-09-07T17:46:01Z Upgrading tool VelociraptorWindows {"Tool":{"name":"VelociraptorWindows","github_project":"Velocidex/velociraptor","github_asset_regex":"windows-amd64.exe","serve_locally":true}}
+[INFO] 2020-09-07T17:46:01Z Upgrading tool VelociraptorWindows_x86 {"Tool":{"name":"VelociraptorWindows_x86","github_project":"Velocidex/velociraptor","github_asset_regex":"windows-386.exe","serve_locally":true}}
+[INFO] 2020-09-07T17:46:01Z Upgrading tool VelociraptorLinux {"Tool":{"name":"VelociraptorLinux","github_project":"Velocidex/velociraptor","github_asset_regex":"linux-amd64","serve_locally":true}}
+[INFO] 2020-09-07T17:46:01Z Upgrading tool VelociraptorDarwin {"Tool":{"name":"VelociraptorDarwin","github_project":"Velocidex/velociraptor","github_asset_regex":"darwin-amd64","serve_locally":true}}
+[INFO] 2020-09-07T17:46:01Z Upgrading tool Bulk_Extractor {"Tool":{"name":"Bulk_Extractor","url":"https://github.com/4n6ist/bulk_extractor-rec/releases/download/rec03/bulk_extractor-rec03_x64.zip"}}
+[INFO] 2020-09-07T17:46:01Z Upgrading tool WinPmem {"Tool":{"name":"WinPmem","url":"https://github.com/Velocidex/c-aff4/releases/download/v3.3.rc3/winpmem_v3.3.rc3.exe"}}
+[INFO] 2020-09-07T17:46:01Z Upgrading tool OSQueryWindows {"Tool":{"name":"OSQueryWindows","github_project":"Velocidex/OSQuery-Releases","github_asset_regex":"windows-amd64.exe"}}
+[INFO] 2020-09-07T17:46:02Z Upgrading tool Autorun_x86 {"Tool":{"name":"Autorun_x86","url":"https://live.sysinternals.com/tools/autorunsc.exe"}}
+[INFO] 2020-09-07T17:46:02Z Upgrading tool Autorun_amd64 {"Tool":{"name":"Autorun_amd64","url":"https://live.sysinternals.com/tools/autorunsc64.exe"}}
+[INFO] 2020-09-07T17:46:02Z Compiled all artifacts. 
+[INFO] 2020-09-07T17:46:02Z Starting the hunt manager service. 
+[INFO] 2020-09-07T17:46:02Z Starting Server Monitoring Service 
+[INFO] 2020-09-07T17:46:02Z Starting Enrollment service. 
+[INFO] 2020-09-07T17:46:02Z Starting VFS writing service. 
+[INFO] 2020-09-07T17:46:02Z Collecting Server Event Artifact: Server.Monitor.Health/Prometheus 
+[INFO] 2020-09-07T17:46:02Z Starting Server Artifact Runner Service 
+[INFO] 2020-09-07T17:46:02Z Starting gRPC API server on 127.0.0.1:8001  
+[INFO] 2020-09-07T17:46:02Z Launched Prometheus monitoring server on 127.0.0.1:8003  
+[INFO] 2020-09-07T17:46:02Z GUI is ready to handle TLS requests on https://127.0.0.1:8889/
+[INFO] 2020-09-07T17:46:02Z Frontend is ready to handle client TLS requests at https://www.example.com:8000/ 
 ```
 
 The info messages will indicate which port the GUI will listen on,
 i.e. `https://127.0.0.1:8889`
-
-{{% notice note %}}
-
-Velociraptor currently does not support multiple frontends - all
-clients connect to the same frontend which performs all roles
-(client-server connections, serving the GUI and running the API
-server). We have used Velociraptor with deployments of around 5,000
-endpoints and it performs quite well. Eventually we plan to support
-horizontal scaling to multiple frontends.
-
-{{% /notice %}}
 
 ## 5. Verify the GUI works
 
