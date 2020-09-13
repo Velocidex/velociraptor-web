@@ -621,10 +621,18 @@
     <nav id="TableOfContents">
   <ul>
     <li><a href="#running-clients-interactively">Running clients interactively</a></li>
-    <li><a href="#installing-an-msi">Installing an MSI</a></li>
-    <li><a href="#official-release-msi">Official release MSI</a></li>
-    <li><a href="#installing-using-custom-msi-package">Installing using custom MSI package</a></li>
-    <li><a href="#installing-the-client-as-a-service">Installing the client as a service</a></li>
+    <li><a href="#installing-an-msi">Installing an MSI</a>
+      <ul>
+        <li><a href="#official-release-msi">Official release MSI</a></li>
+        <li><a href="#installing-using-custom-msi-package">Installing using custom MSI package</a></li>
+      </ul>
+    </li>
+    <li><a href="#installing-the-client-as-a-service">Installing the client as a service</a>
+      <ul>
+        <li><a href="#windows">Windows</a></li>
+        <li><a href="#mac">Mac</a></li>
+      </ul>
+    </li>
     <li><a href="#agentless-deployment">Agentless deployment</a>
       <ul>
         <li></li>
@@ -673,6 +681,10 @@ shell, simply run the client using the client configuration.</p>
 </code></pre></div><p>The first time the client connects it will <code>enroll</code>. The enrolment
 process requires the client to reveal basic information about itself
 to the server.</p>
+<p>Note that this type of interactive execution will work effectively the
+same way for all versions of the client (Windows, Linux, or Mac). In
+the sections that follow, we show options for more scalable and/or
+permanent use.</p>
 <h2 id="installing-an-msi">Installing an MSI</h2>
 <p>An MSI is a standard Windows installer package. The advantages are
 that most enterprise system administration tools are used to deploying
@@ -681,19 +693,20 @@ to add the MSI to the assigned software group.</p>
 <p>For more information, see <a href="https://support.microsoft.com/en-us/help/816102/how-to-use-group-policy-to-remotely-install-software-in-windows-server">How to use Group Policy to remotely install
 software in Windows Server 2008 and in Windows Server
 2003</a></p>
-<h2 id="official-release-msi">Official release MSI</h2>
+<h3 id="official-release-msi">Official release MSI</h3>
 <p>The recommended way to install Velociraptor as a client on Windows is
-via the release MSI on the Github release page.</p>
+via the release MSI on the <a href="https://github.com/Velocidex/velociraptor/releases">Github
+releases</a> page.</p>
 <div class="notices note" ><p>One of the main benefits in using the official Velociraptor MSI is
 that the MSI and the executable are signed. Windows Defender
 aggressively quarantines unsigned binaries, so it is highly
 recommended that Velociraptor be signed.</p>
 </div>
 
-<p>Since the Velociraptor client requires a configuration file to
+<p>Since the Velociraptor client requires a unique configuration file to
 identify the location of the server, we can&rsquo;t package the
-configuration file in the official release. Therefore the official MSI
-does not include a configuration file.</p>
+configuration file in the official release. Therefore, the official MSI
+does not include a configuration file.  It must be provided separately.</p>
 <p>The official release installs the Velociraptor executable into
 <code>C:\Program Files\Velociraptor\</code> then creates a new Windows service
 that points to this executable and starts automatically at boot
@@ -713,30 +726,50 @@ the client will be started.</p>
 need to:</p>
 <ol>
 <li>
-<p>Assign the MSI via Group Policy.</p>
+<p>Assign the MSI via Group Policy, or use some other method to deploy
+the official MSI installer.</p>
 </li>
 <li>
 <p>Copy the configuration file from a share to the Velociraptor
 program directory. This can be done via Group Policy Scheduled
 tasks or another way (see the <strong>Group Policy</strong> procedure outlined
-below).</p>
+below). As soon as the configuration file is copied, Velociraptor will begin communicating with the server.</p>
 </li>
 </ol>
-<p>As soon as the configuration file is copied, Velociraptor will begin
-communicating with the server.</p>
-<h2 id="installing-using-custom-msi-package">Installing using custom MSI package</h2>
+<h3 id="installing-using-custom-msi-package">Installing using custom MSI package</h3>
 <p>The official Velociraptor MSI package installs a Windows service with
 a predictable name. If you want to obfuscate Velociraptor, you might
 want to build your own MSI package with different binary names,
-service name, etc.</p>
+service name, etc. It also has the advantage of being able to include
+the custom client configuration file in the MSI package.</p>
 <p>To do so, follow follow the instructions
 <a href="https://github.com/Velocidex/velociraptor/tree/master/docs/wix">here</a></p>
-<p>If building your own MSI, you might as well just package your own
-configuration file in it. Then you simply assign your MSI to the Group
-Policy and have it installed everywhere. You may also want to sign the
-MSI.</p>
+<p>To summarise the process, you will need to:</p>
+<ol>
+<li>
+<p>Download the Velociraptor repository to a Windows host. Specifically,
+you need to copy the appropriate custom XML file and build batch file
+from the <code>docs/wix</code> directory into a new working directory on your host.</p>
+</li>
+<li>
+<p>Update the custom XML for your installation. The README file from
+<code>docs/wix</code> steps you through the typical settings to customize.</p>
+</li>
+<li>
+<p>Install the <a href="http://wixtoolset.org/releases/">WiX application</a> on your
+Windows host.</p>
+</li>
+<li>
+<p>Add your custom client.config.xml file and the appropriate Velociraptor
+executable to a subdirectory of your build directory called <code>output</code>.</p>
+</li>
+<li>
+<p>Execute the build batch file to create the new MSI file.</p>
+</li>
+</ol>
 <h2 id="installing-the-client-as-a-service">Installing the client as a service</h2>
-<p>It&rsquo;s also possible to tell the executable to install itself as a
+<h3 id="windows">Windows</h3>
+<p>It&rsquo;s also possible to tell the executable to install itself as a Windows
 service. This option is not recommended because it does not use a
 proper package manager, and therefore Velociraptor can not be easily
 uninstalled.</p>
@@ -747,6 +780,15 @@ command:</p>
 </code></pre></div><p>This will copy the binary to the location specified in the
 configuration file under <code>Client.windows_installer</code>. You can also
 change the name of the binary and the service name if you wish.</p>
+<h3 id="mac">Mac</h3>
+<p>The <code>service install</code> directive can be used to install Velociraptor on
+Mac client. The following command installs binary &amp; config to /usr/local/sbin.
+Persistence is via launchd (check with <code>ps -eaf | grep velo</code> and
+<code>sudo launchctl list | grep velo</code>)</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># velociraptor --config client.config.yaml service install</span>
+</code></pre></div><p>The service can be uninstalled with the following command:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># /usr/local/sbin/velociraptor service remove --config=/usr/local/sbin/velociraptor.config.yaml</span>
+</code></pre></div><p>Confirm with <code>ps -eaf | grep velo</code> and <code>sudo launchctl list | grep velo</code>.</p>
 <h2 id="agentless-deployment">Agentless deployment</h2>
 <p>There has been a lot of interest in &ldquo;agentless hunting&rdquo; especially
 using PowerShell.</p>

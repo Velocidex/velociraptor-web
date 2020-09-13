@@ -13,7 +13,7 @@ schedule:
   date: 16th Sept 2020
   buyurl: https://conference.auscert.org.au/
   picture: auscert_2020/we_can_be_heros.png
-  outline: https://conference.auscert.org.au/program/
+  outline: /training/auscert_2020/
   description: |
       This workshop is an introduction to forensic analysis and
       incident response for information security professionals. We
