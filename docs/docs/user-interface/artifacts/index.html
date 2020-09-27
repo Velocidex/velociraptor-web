@@ -660,45 +660,45 @@ Velociraptor.</p>
 user. Therefore they are defined using YAML in a simple human readable
 file format.</p>
 <p>Below is an example of a typical artifact definition.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#66d9ef">name</span>: Windows.Sys.Users
-<span style="color:#66d9ef">description</span>: <span style="color:#e6db74">|
-</span><span style="color:#e6db74">  List User accounts that were logged into the machine in the past by</span>
-  searching for registry artifacts.
-
-  What local or domain users have previously logged into an endpoint?
-
-<span style="color:#66d9ef">parameters</span>:
-  - <span style="color:#66d9ef">name</span>: remoteRegKey
-    <span style="color:#66d9ef">default</span>: HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\ProfileList\*
-
-<span style="color:#66d9ef">sources</span>:
-  - <span style="color:#66d9ef">precondition</span>:
-      SELECT OS From info() where OS = <span style="color:#e6db74">&#39;windows&#39;</span>
-    <span style="color:#66d9ef">queries</span>:
-        - SELECT <span style="color:#e6db74">&#34;&#34;</span> as Uid, <span style="color:#e6db74">&#34;&#34;</span> as Gid,
-               lookupSID(
-                 sid=basename(path=Key.FullPath)
-               ) as Name,
-               Key.FullPath as Description,
-               ProfileImagePath as Directory,
-               basename(path=Key.FullPath) as UUID,
-               Key.Mtime.Sec as Mtime,
-               <span style="color:#e6db74">&#34;roaming&#34;</span> as Type
-           FROM read_reg_key(globs=remoteRegKey, accessor=<span style="color:#e6db74">&#34;reg&#34;</span>)
-
-<span style="color:#66d9ef">reports</span>:
-  - <span style="color:#66d9ef">type</span>: CLIENT
-    <span style="color:#66d9ef">template</span>: <span style="color:#e6db74">|
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">name</span>: <span style="color:#ae81ff">Windows.Sys.Users</span>
+<span style="color:#f92672">description</span>: <span style="color:#e6db74">|
+</span><span style="color:#e6db74">  List User accounts that were logged into the machine in the past by
+</span><span style="color:#e6db74">  searching for registry artifacts.
 </span><span style="color:#e6db74">
-</span><span style="color:#e6db74">      Users that logged in previously.</span>
-      ===============================
-
-      {{ .Description }}
-
-      The following table shows basic information about the users on this system.
-
-      {{ Query <span style="color:#e6db74">&#34;users&#34;</span> <span style="color:#e6db74">&#34;SELECT Name, UUID, Type, Mtime FROM source()&#34;</span> | Table }}
-</code></pre></div><p>We can see the main sections:</p>
+</span><span style="color:#e6db74">  What local or domain users have previously logged into an endpoint?
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">parameters:
+</span><span style="color:#e6db74">  - name: remoteRegKey
+</span><span style="color:#e6db74">    default: HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\ProfileList\*
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">sources:
+</span><span style="color:#e6db74">  - precondition:
+</span><span style="color:#e6db74">      SELECT OS From info() where OS = &#39;windows&#39;
+</span><span style="color:#e6db74">    queries:
+</span><span style="color:#e6db74">        - SELECT &#34;&#34; as Uid, &#34;&#34; as Gid,
+</span><span style="color:#e6db74">               lookupSID(
+</span><span style="color:#e6db74">                 sid=basename(path=Key.FullPath)
+</span><span style="color:#e6db74">               ) as Name,
+</span><span style="color:#e6db74">               Key.FullPath as Description,
+</span><span style="color:#e6db74">               ProfileImagePath as Directory,
+</span><span style="color:#e6db74">               basename(path=Key.FullPath) as UUID,
+</span><span style="color:#e6db74">               Key.Mtime.Sec as Mtime,
+</span><span style="color:#e6db74">               &#34;roaming&#34; as Type
+</span><span style="color:#e6db74">           FROM read_reg_key(globs=remoteRegKey, accessor=&#34;reg&#34;)
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">reports:
+</span><span style="color:#e6db74">  - type: CLIENT
+</span><span style="color:#e6db74">    template: |
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">      Users that logged in previously.
+</span><span style="color:#e6db74">      ===============================
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">      {{ .Description }}
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">      The following table shows basic information about the users on this system.
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">      {{ Query &#34;users&#34; &#34;SELECT Name, UUID, Type, Mtime FROM source()&#34; | Table }}
+</span></code></pre></div><p>We can see the main sections:</p>
 <ol>
 <li>
 <p>The <code>name</code> of the artifact is a dot separated string used to
@@ -834,7 +834,7 @@ suspicious occurrences.</p>
 </div>
 
 <div id="navigation">
-<a class="nav nav-prev" href="/docs/user-interface/investigating_clients/virtual_filesystem/" title="The Virtual File System"> <i class="fa fa-chevron-left"></i><label>The Virtual File System</label></a>
+<a class="nav nav-prev" href="/docs/user-interface/artifacts/add_artifacts/" title="Customizing Artifacts"> <i class="fa fa-chevron-left"></i><label>Customizing Artifacts</label></a>
     <a class="nav nav-next" href="/docs/user-interface/artifacts/client_artifacts/" title="Client Artifacts" style="margin-right: 0px;"><label>Client Artifacts</label><i class="fa fa-chevron-right"></i></a></div>
 
 </section>

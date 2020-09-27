@@ -5,10 +5,6 @@
     <link>/docs/artifacts/linux/</link>
     <description>Recent content in Linux Artifacts on Velociraptor / Dig deeper</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    
-	<atom:link href="/docs/artifacts/linux/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <language>en-us</language><atom:link href="/docs/artifacts/linux/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>

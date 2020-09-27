@@ -6,10 +6,6 @@
     <description>Recent content in The Velociraptor API on Velociraptor / Dig deeper</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 09 Feb 2019 04:10:06 +0000</lastBuildDate>
-    
-	<atom:link href="/docs/user-interface/api/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Sat, 09 Feb 2019 04:10:06 +0000</lastBuildDate><atom:link href="/docs/user-interface/api/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>

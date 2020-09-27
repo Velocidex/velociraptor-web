@@ -1081,7 +1081,7 @@ data.</p>
 <tr>
 <td>yaraURL</td>
 <td></td>
-<td>URL of yara rule to scan with. If empty we use\nthe server&rsquo;s public directory/remote.yar&rdquo;\n</td>
+<td>URL of yara rule to scan with. If empty we use\nthe server&rsquo;s public directory/remote.yar&quot;\n</td>
 </tr>
 <tr>
 <td>collectProcess</td>
@@ -1534,8 +1534,8 @@ description: |
 <ul>
 <li>|
 SELECT Parse from wmi_events(
-query=&quot;SELECT * FROM MSFT_WmiProvider_ExecMethodAsyncEvent_Pre WHERE ObjectPath=&quot;Win32_Process&quot; AND MethodName=&quot;Create&quot;&quot;,
-namespace=&quot;ROOT/CIMV2&rdquo;,
+query=&ldquo;SELECT * FROM MSFT_WmiProvider_ExecMethodAsyncEvent_Pre WHERE ObjectPath=&quot;Win32_Process&quot; AND MethodName=&quot;Create&quot;&rdquo;,
+namespace=&ldquo;ROOT/CIMV2&rdquo;,
 wait=50000000)</li>
 </ul>
 </li>

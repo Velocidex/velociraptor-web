@@ -5,10 +5,6 @@
     <link>/docs/user-interface/investigating_clients/virtual_filesystem/</link>
     <description>Recent content in The Virtual File System on Velociraptor / Dig deeper</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    
-	<atom:link href="/docs/user-interface/investigating_clients/virtual_filesystem/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <language>en-us</language><atom:link href="/docs/user-interface/investigating_clients/virtual_filesystem/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>

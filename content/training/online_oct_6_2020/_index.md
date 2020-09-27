@@ -194,7 +194,7 @@ Velociraptor is a complete endpoint monitoring and response tool!
 * Windows Event Log forwarding and classification. Event log enrichment and prioritization.
 * Monitoring for changes in system state: New file executions and High
   risk files such as office macros and remote PowerShell
-
+* Interfacing Velociraptor with Elastic and Kibana
 
 # This course should not be missed!
 

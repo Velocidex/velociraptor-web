@@ -6,11 +6,7 @@
     <description>Recent content in Velociraptor Blog on Velociraptor / Dig deeper</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 16 Aug 2020 01:38:44 +0000</lastBuildDate>
-    
-	<atom:link href="/blog/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Sun, 16 Aug 2020 01:38:44 +0000</lastBuildDate><atom:link href="/blog/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Browsing around the filesystem.</title>
       <link>/blog/html/2018/08/10/browsing_around_the_filesystem.html</link>

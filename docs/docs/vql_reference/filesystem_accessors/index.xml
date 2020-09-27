@@ -5,10 +5,6 @@
     <link>/docs/vql_reference/filesystem_accessors/</link>
     <description>Recent content in Filesystem Accessors on Velociraptor / Dig deeper</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    
-	<atom:link href="/docs/vql_reference/filesystem_accessors/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <language>en-us</language><atom:link href="/docs/vql_reference/filesystem_accessors/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>

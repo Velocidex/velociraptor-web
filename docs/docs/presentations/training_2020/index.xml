@@ -5,10 +5,6 @@
     <link>/docs/presentations/training_2020/</link>
     <description>Recent content in Enterprise Hunting and Incident Response with Velociraptor 2020 on Velociraptor / Dig deeper</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    
-	<atom:link href="/docs/presentations/training_2020/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <language>en-us</language><atom:link href="/docs/presentations/training_2020/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>

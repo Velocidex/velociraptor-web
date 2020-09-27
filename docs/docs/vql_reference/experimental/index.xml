@@ -5,10 +5,6 @@
     <link>/docs/vql_reference/experimental/</link>
     <description>Recent content in Experimental Functionality on Velociraptor / Dig deeper</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    
-	<atom:link href="/docs/vql_reference/experimental/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <language>en-us</language><atom:link href="/docs/vql_reference/experimental/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>
