@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Velociraptor / Dig deeper</title>
+    
+      <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>Velociraptor Communications :: Velociraptor / Dig deeper</title>
+<link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon" />
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<link href="/css/nucleus.css" rel="stylesheet">
+<link href="/css/font-awesome.min.css" rel="stylesheet">
+<link href="/css/hybrid.css" rel="stylesheet">
+<link href="/css/featherlight.min.css" rel="stylesheet">
+<link href="/css/auto-complete.css" rel="stylesheet">
+<link href="/theme-original/style.css" rel="stylesheet">
+
+  <link href="/theme-original/variant-mine.css" rel="stylesheet">
+
+
+<script src="/js/jquery-2.x.min.js"></script>
+<style type="text/css">
+  :root #header + #content > #left > #rlblock_left {
+    display:none !important;
+  }
+</style>
+<link rel="stylesheet" href="/css/theme-mine.css">
+<script src="/js/custom.js"></script>
+
+
+    
+  </head>
+  <body data-url="/blog/medium/2020-09-28-velociraptor-network-communications-30568624043a/">
+    
+      <div id="headermain"></div>
+<nav id="sidebar" class="">
+
+
+
+<div class="highlightable">
+  <div id="header-wrapper">
+    <div id="header">
+      
+	
+  
+    <a href="/">
+  <img src="/images/logo.svg">
+</a>
+
+  
+
+
+    </div>
+        <div class="searchbox">
+                    <label for="search-by"><i class="fa fa-search"></i></label>
+                    <input data-search-input id="search-by" type="text" placeholder="Search...">
+                    <span data-search-clear=""><i class="fa fa-close"></i></span>
+                </div>
+                <script type="text/javascript" src="/js/lunr.min.js"></script>
+                <script type="text/javascript" src="/js/auto-complete.js"></script>
+                <script type="text/javascript">
+        
+            var baseurl = "\/";
+        
+                </script>
+                <script type="text/javascript" src="/js/search.js"></script>
+  </div>
+
+      <ul class="topics">
+    <li data-nav-id="/about/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/about/">About Velociraptor</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/about/features/" class="dd-item">
+        <div>
+          <a href="/about/features/">
+            Velociraptor Features
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/about/license/" class="dd-item">
+        <div>
+          <a href="/about/license/">
+            License
+          </a>
+        </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/docs/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/docs/">Velociraptor Documentation</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+    <li data-nav-id="/docs/getting-started/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/docs/getting-started/">Getting Started</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+    <li data-nav-id="/docs/getting-started/stand_alone/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/getting-started/stand_alone/">Standalone Deployment</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/getting-started/deploying_clients/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/getting-started/deploying_clients/">Deploying Clients</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/getting-started/cloud/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/getting-started/cloud/">Deploying in the cloud</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/getting-started/performance/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/getting-started/performance/">Performance</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/getting-started/triaging/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/getting-started/triaging/">Triaging</a>
+      </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/docs/user-interface/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/docs/user-interface/">User Interface</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+    <li data-nav-id="/docs/user-interface/investigating_clients/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/docs/user-interface/investigating_clients/">Investigating Clients</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+    <li data-nav-id="/docs/user-interface/investigating_clients/searching_clients/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/user-interface/investigating_clients/searching_clients/">Searching for clients</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/user-interface/investigating_clients/virtual_filesystem/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/user-interface/investigating_clients/virtual_filesystem/">The Virtual File System</a>
+      </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/docs/user-interface/artifacts/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/docs/user-interface/artifacts/">Velociraptor Artifacts</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+    <li data-nav-id="/docs/user-interface/artifacts/client_artifacts/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/user-interface/artifacts/client_artifacts/">Client Artifacts</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/user-interface/artifacts/client_events/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/user-interface/artifacts/client_events/">Client Event Artifacts</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/user-interface/artifacts/server_artifacts/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/user-interface/artifacts/server_artifacts/">Server Artifacts</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/user-interface/artifacts/server_events/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/user-interface/artifacts/server_events/">Server Event Artifacts</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/user-interface/artifacts/add_artifacts/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/user-interface/artifacts/add_artifacts/">Customizing Artifacts</a>
+      </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/docs/user-interface/api/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/user-interface/api/">The Velociraptor API</a>
+      </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/docs/vql_reference/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/docs/vql_reference/">VQL Reference</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+    <li data-nav-id="/docs/vql_reference/basic/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/vql_reference/basic/">Basic VQL functions and plugins</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/vql_reference/windows/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/vql_reference/windows/">Windows Specific Functionality</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/vql_reference/parsers/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/vql_reference/parsers/">Parsers and data extractors</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/vql_reference/server/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/vql_reference/server/">Server Side Functionality</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/vql_reference/plugin/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/vql_reference/plugin/">Client Side Functionality</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/vql_reference/event/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/vql_reference/event/">Event Plugins</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/vql_reference/experimental/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/vql_reference/experimental/">Experimental Functionality</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/vql_reference/filesystem_accessors/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/vql_reference/filesystem_accessors/">Filesystem Accessors</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/vql_reference/templates/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/vql_reference/templates/">Report Templates</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/vql_reference/tips/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/vql_reference/tips/">Artifact Tips</a>
+      </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/docs/artifacts/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/docs/artifacts/">Artifact Reference</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+    <li data-nav-id="/docs/artifacts/linux/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/artifacts/linux/">Linux Artifacts</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/artifacts/windows_system/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/docs/artifacts/windows_system/">Windows</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+    <li data-nav-id="/docs/artifacts/windows_system/events/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/artifacts/windows_system/events/">Event Logs</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/artifacts/windows_system/system/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/artifacts/windows_system/system/">System</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/artifacts/windows_system/registry/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/artifacts/windows_system/registry/">Registry</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/artifacts/windows_system/network/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/artifacts/windows_system/network/">Network</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/artifacts/windows_system/applications/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/artifacts/windows_system/applications/">Applications</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/artifacts/windows_system/detection/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/artifacts/windows_system/detection/">Malware Detection</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/artifacts/windows_system/triage/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/artifacts/windows_system/triage/">Triage Artifacts</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/artifacts/windows_system/remediation/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/artifacts/windows_system/remediation/">Remdiation</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/artifacts/windows_system/monitoring/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/artifacts/windows_system/monitoring/">Event Monitoring</a>
+      </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/docs/artifacts/server/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/artifacts/server/">Server Artifacts</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/artifacts/misc/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/artifacts/misc/">Miscelaneous Artifacts</a>
+      </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/docs/presentations/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/docs/presentations/">Presentations and Workshops</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+    <li data-nav-id="/docs/presentations/comfycon.2020/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/presentations/comfycon.2020/">Comfycon 2020</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/presentations/training_2020/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/presentations/training_2020/">Enterprise Hunting and Incident Response with Velociraptor 2020</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/presentations/linux.conf.au.2020/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/presentations/linux.conf.au.2020/">Linux.Conf.Au 2020</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/presentations/sans_dfir_summit2019/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/presentations/sans_dfir_summit2019/">SANS Summit 2019</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/presentations/rsa/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/presentations/rsa/">RSA Asia Pacific and Japan 2019</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/presentations/crikeycon2019/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/presentations/crikeycon2019/">Crikeycon 2019 Training Workshop</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/presentations/nzitf2018/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/presentations/nzitf2018/">New Zealand Internet Task Force Conference 2018</a>
+      </div>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/blog/" class="dd-item parent haschildren
+        ">
+      <div>
+      <a href="/blog/">Velociraptor Blog</a>
+            <i class="fa fa-angle-down fa-lg category-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/blog/medium/2020-09-28-velociraptor-network-communications-30568624043a/" class="dd-item active">
+        <div>
+          <a href="/blog/medium/2020-09-28-velociraptor-network-communications-30568624043a/">
+            Velociraptor Communications
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2020-08-17-velociraptor-sso-authentication-6dd68d46dccf/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-08-17-velociraptor-sso-authentication-6dd68d46dccf/">
+            Velociraptor SSO Authentication
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2020-08-16-profiling-the-beast-58913437fd16/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-08-16-profiling-the-beast-58913437fd16/">
+            Profiling the beast
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2020-07-14-triage-with-velociraptor-pt-4-cf0e60810d1e/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-07-14-triage-with-velociraptor-pt-4-cf0e60810d1e/">
+            Triage with Velociraptor — Pt 4
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2020-07-13-velociraptor-in-the-tool-age-d896dfe71b9/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-07-13-velociraptor-in-the-tool-age-d896dfe71b9/">
+            Velociraptor in the tool age
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2020-06-19-the-velociraptor-query-language-pt-2-fe92bb7aa150/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-06-19-the-velociraptor-query-language-pt-2-fe92bb7aa150/">
+            The Velociraptor Query Language Pt 2
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2020-06-14-the-velociraptor-query-language-pt-1-d721bff100bf/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-06-14-the-velociraptor-query-language-pt-1-d721bff100bf/">
+            The Velociraptor Query Language Pt 1
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2020-04-16-velociraptor-e48a47e0317d/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-04-16-velociraptor-e48a47e0317d/">
+            Velociraptor
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2020-03-29-velociraptors-acl-model-7f497575daee/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-03-29-velociraptors-acl-model-7f497575daee/">
+            Velociraptor’s ACL model
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2020-03-28-velociraptor-notebooks-d02e0bd11230/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-03-28-velociraptor-notebooks-d02e0bd11230/">
+            Velociraptor notebooks
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2020-03-07-extending-vql-plugins-7fb004cb6ec4/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-03-07-extending-vql-plugins-7fb004cb6ec4/">
+            Extending VQL plugins
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2020-03-06-velociraptor-post-processing-with-jupyter-notebook-and-pandas-8a344d05ee8c/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-03-06-velociraptor-post-processing-with-jupyter-notebook-and-pandas-8a344d05ee8c/">
+            Velociraptor Post-processing with Jupyter Notebook and Pandas
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2020-01-12_hunting-malware-using-mutants-ea08e86dfc19/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-01-12_hunting-malware-using-mutants-ea08e86dfc19/">
+            Hunting Malware using Mutants
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-12-31_digging-into-the-system-resource-usage-monitor-srum-afbadb1a375/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-12-31_digging-into-the-system-resource-usage-monitor-srum-afbadb1a375/">
+            Digging into the System Resource Usage Monitor (SRUM)
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-12-08-velociraptor-to-elasticsearch-3a9fc02c6568/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-12-08-velociraptor-to-elasticsearch-3a9fc02c6568/">
+            Velociraptor to Elasticsearch
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-11-15_recovering-deleted-ntfs-files-with-velociraptor-1fcf09855311/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-11-15_recovering-deleted-ntfs-files-with-velociraptor-1fcf09855311/">
+            Recovering deleted NTFS Files with Velociraptor
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-11-12_windows-event-logs-d8d8e615c9ca/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-11-12_windows-event-logs-d8d8e615c9ca/">
+            Windows Event Logs
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-10-08_triage-with-velociraptor-pt-3-d6f63215f579/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-10-08_triage-with-velociraptor-pt-3-d6f63215f579/">
+            Triage with Velociraptor — Pt 3
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-10-04_triage-with-velociraptor-pt-2-d0f79066ca0e/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-10-04_triage-with-velociraptor-pt-2-d0f79066ca0e/">
+            Triage with Velociraptor — Pt 2
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-10-02_triage-with-velociraptor-pt-1-253f57ce96c0/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-10-02_triage-with-velociraptor-pt-1-253f57ce96c0/">
+            Triage with Velociraptor — Pt 1
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-09-11_velociraptor-s-client-side-buffer-3ce03697a4e6/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-09-11_velociraptor-s-client-side-buffer-3ce03697a4e6/">
+            Velociraptor’s client side buffer
+          </a>
+        </div>
+    </li>
+        </ul>
+    </li>
+
+
+
+
+    <hr />
+    <li></li>
+
+    </ul>
+
+ <section id="footer">
+    </section>
+  </div>
+</nav>
+
+
+
+<section id="body">
+<div id="overlay"></div>
+<div class="padding highlightable">
+
+  <div id="top-bar">
+    <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+        <span id="sidebar-toggle-span">
+          <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+            <i class="fa fa-bars"></i>
+          </a>
+        </span>
+        <span id="toc-menu"><i class="fa fa-list-alt"></i></span>
+        <span class="links">
+        
+
+
+
+
+
+
+
+ <a href='/'>Velociraptor / Dig deeper</a> > <a href='/blog/'>Velociraptor Blog</a> > Velociraptor Communications
+
+
+
+
+
+
+        </span>
+    </div>
+
+    
+    <div class="progress">
+        <div class="wrapper">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#velociraptors-config-file">Velociraptor’s config file</a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#communication-overview">Communication overview</a></li>
+        <li><a href="#velociraptors-internal-pki">Velociraptor’s internal PKI</a></li>
+        <li><a href="#messages">Messages</a></li>
+        <li><a href="#key-caching">Key caching</a></li>
+      </ul>
+    </li>
+    <li><a href="#http-protocol">HTTP protocol</a>
+      <ul>
+        <li><a href="#tls-verification">TLS verification</a></li>
+        <li><a href="#debugging-client-communications">Debugging client communications</a></li>
+      </ul>
+    </li>
+    <li><a href="#ssl-offloading">SSL Offloading</a></li>
+    <li><a href="#conclusions">Conclusions</a></li>
+  </ul>
+</nav>
+        </div>
+    </div>
+    
+
+  </div>
+
+
+<div id="body-inner">
+  
+      <h1>Velociraptor Communications</h1>
+      
+        <h4 class="subtitle"> Listen to the beast </h4>
+      
+  
+
+
+
+    
+    
+    
+    <p><img src="../img/0qkAnwMlxrKGQR6ke" alt=""></p>
+<p>You might have heard that Velociraptor allows you to quickly query endpoint state for rapid response and monitoring of many thousands of devices across the internet. Unlike some other tools, Velociraptor’s communication is scalable, secure and instantaneous.</p>
+<p>Many people ask me about the client/server communication protocol. The <a href="https://www.velocidex.com/docs/getting-started/stand_alone/">Velociraptor documentation</a> simply states that communications is encrypted over a TLS connection but there is more to it than that.</p>
+<p>In this post I would like to delve into the low level details of how clients securely communicate with the server and cover some common deployment scenarios. By understanding exactly how this works we will gain insight into debugging communication problems and enabling more sophisticated deployment scenarios.</p>
+<h3 id="velociraptors-config-file">Velociraptor’s config file</h3>
+<p>In the following discussion we will refer to a typical Velociraptor configuration file as generated by the command</p>
+<blockquote>
+<h1 id="velociraptor-config-generate--i">velociraptor config generate -i</h1>
+</blockquote>
+<p>For this example we select a typical self signed deployment.</p>
+<script src="https://gist.github.com/scudette/b0e80d3d039a74bfa2e41130f0c4955d.js" charset="utf-8"></script>
+<h3 id="communication-overview">Communication overview</h3>
+<p>Clients (Velociraptor instances running on endpoints) connect to the server over the http protocol, typically embedded within a TLS connection. Although Velociraptor shares the same communication protocol as was used in the GRR project, it was enhanced for Velociraptor’s use to be more secure and efficient.</p>
+<h3 id="velociraptors-internal-pki">Velociraptor’s internal PKI</h3>
+<p>Every Velociraptor deployments creates an internal PKI which underpins it. The configuration wizard create an internal CA with an X509 certificate and a private key. This CA is used to</p>
+<ol>
+<li>
+<p>Create initial server certificates and any additional certificates for key rotation.</p>
+</li>
+<li>
+<p>CA public certificate is embedded in the client’s configuration and is used to verify server communications.</p>
+</li>
+<li>
+<p>The CA is used to create API keys for programmatic access. The server is then able to verify API clients.</p>
+</li>
+</ol>
+<p>The configuration file contains the CA’s X509 certificate in the <strong>Client.ca_certificate</strong> parameter (it is therefore embedded in the client configuration). The private key is contained in the <strong>CA.private_key</strong> parameter.</p>
+<blockquote>
+<p>In a secure installation you should remove the <strong>CA.private_key</strong> section from the server config and keep it offline. You only need it to create new API keys using the <em>velociraptor config api_client</em> command, and the server does not need it in normal operations.</p>
+</blockquote>
+<h3 id="messages">Messages</h3>
+<p>Clients and servers communicate by sending each other messages (which are simply protocol buffers), for example, a message may contain VQL queries or result sets. Messages are collected into a list and sent in a single POST operation in a <strong>MessageList</strong> protobuf. This protobuf is encrypted using a session key with a symmetric cipher (aes_128_cbc). The session key is chosen by the sending party and is written into an encrypted <strong>Cipher</strong> protobuf and sent along with each message.</p>
+<p><img src="../img/1ntQkR2sRm8mIg5vkYjngEg.png" alt=""></p>
+<p>This symmetric key is encoded in a <strong>Cipher Properties</strong> protobuf which is encrypted in turn using the receiving party’s public key and signed using the sending party’s private key.</p>
+<h3 id="key-caching">Key caching</h3>
+<p>The encrypted cipher is sent with each message and contains an encrypted version of the same session key. This means that it is always possible to derive the session key from each post message by performing RSA decrypt/verify operations, but having decoded the symmetric key once — it is possible to cache it for the remainder of the session. This avoids expensive RSA operations — as long as the server communicated with the client recently, the symmetric key will be cached and can be reused.</p>
+<p>On a loaded server you might notice CPU utilization spikes for a few seconds after the system starts up, as the server unlocks the session keys from incoming clients, but after that the server should not need to perform many RSA operations and CPU load should be low since most session keys are cached in memory.</p>
+<p>The <strong>Frontend.expected_clients</strong> setting controls the size of the memory cache of session keys. If this is too small, keys will be evicted from cache and cpu load will rapidly rise as the server is forced to do more RSA operations to decrypt client messages. You should increase this value to reflect how many clients you expect to be active at the same time.</p>
+<h2 id="http-protocol">HTTP protocol</h2>
+<p>In the last section we saw that Velociraptor messages are both signed and encrypted by the internal deployment CA. But how are these messages exchanged over the internet?</p>
+<p>Velociraptor uses HTTPS POST messages to deliver message sets to the server. The server in turn sends messages to the client in the body of the POST request. The client connects to one of the server URLs provided in the <strong>Client.server_urls</strong> setting in its config file.</p>
+<p>Before the client communicates with the server, the client must verify it is actually talking with the correct server. This happens at two levels:</p>
+<ul>
+<li>
+<p>If the URL is a HTTPS URL then the TLS connection needs to be verified</p>
+</li>
+<li>
+<p>The client will fetch the url /server.pem to receive the server’s internal certificate. This certificate must be verified by the embedded CA.</p>
+</li>
+</ul>
+<p>Note that this verification is essential in order to prevent the client from accidentally talking with captive portals or MITM proxies.</p>
+<h3 id="tls-verification">TLS verification</h3>
+<p>Velociraptor currently supports 2 modes for deployment via the config wizard:</p>
+<ul>
+<li>
+<p>Self signed mode uses internal CAs for the TLS certificates. The client knows it is in self signed mode if the <strong>Client.use_self_signed_ssl</strong> flag is true.</p>
+</li>
+<li>
+<p>Proper certificates minted by Let’s encrypt.</p>
+</li>
+</ul>
+<p>Velociraptor verifies self signed TLS certificates using its built in CA. This essentially pins the server’s certificate inside the client — even if a MITM was able to mint another certificate (even if it was trusted by the global roots!) it would not be valid since it was not issued by Velociraptor’s internal CA which is the only CA we trust in this mode! In this way self signed mode is more secure than use a public CA.</p>
+<p>The <strong>Client.pinned_server_name</strong> specifies the common name of the server (or DNS name in the Server Alternate Name (SAN) field). The client verifies that the certificate is correct <strong>AND</strong> that the name is the same as the pinned name. You typically do not need to change this setting.</p>
+<p>If the client is not in self signed mode (i.e. <strong>Client.use_self_signed_ssl</strong> is false or not present), it expects to verify TLS connections using the system’s root certificate store. In this configuration, Velociraptor is susceptible to a MITM SSL inspection proxy, and we must rely on the internal encryption mechanism as described in the previous section to protect communications.</p>
+<p><strong>NOTE</strong>: In practice we find that often customer networks do contain SSL inspection proxies and using self signed certificates breaks communications altogether. We typically prefer to deploy Let’s Encrypt certificates for reliability and better interoperability.</p>
+<h3 id="debugging-client-communications">Debugging client communications</h3>
+<p>Now that we have an understanding on the low level communication mechanism, let’s try to apply our understanding to debugging common deployment issues.</p>
+<p>If the client does not appear to properly connect to the server, the first thing is to run it manually (using the <em>velociraptor client -v</em> command):</p>
+<p><img src="../img/1TOeyrCcX69mtUdO8E4ZK9g.png" alt=""></p>
+<p>In the above example, I ran the client manually with the -v switch. I see the client starting up and immediately trying to connect to its URL (in this case <a href="https://test.velocidex-training.com/">https://test.velocidex-training.com/</a> ) However this fails and the client will wait for a short time before retrying to connect again.</p>
+<p><img src="../img/1IzCgKdN28sjntuxd9mUJew.png" alt=""></p>
+<p>A common problem here is network filtering making it impossible to reach the server. You can test this by simply running curl with the server’s URL.</p>
+<p>Once you enable connectivity, you might encounter another problem</p>
+<p><img src="../img/1p3MPNfTbXBzNMs-X4yv4SA.png" alt=""></p>
+<p>The <strong>Unable to parse PEM</strong> message indicates that the client is trying to fetch the <strong>server.pem</strong> file but it is not able to validate it. This often happens with captive portal type of proxies which interfere with the data transferred. It can also happen if your DNS setting point to a completely different server.</p>
+<p>We can verify the <strong>server.pem</strong> manually by using curl (note that when using self signed mode you might need to provide curl with the -k flag to ignore the certificate errors):</p>
+<p><img src="../img/1P9W4CnX9qNLGiRgnHGyLAw.png" alt=""></p>
+<p>Note that the <strong>server.pem</strong> is always signed by the velociraptor internal CA in all deployment modes (even with lets encrypt). You can view the certificate details by using openssl:</p>
+<blockquote>
+<p>curl h<a href="https://127.0.0.1:8000/server.pem">ttps://test.velocidex-training.comom/server.pem</a> | openssl x509 -text</p>
+</blockquote>
+<h2 id="ssl-offloading">SSL Offloading</h2>
+<p>The Velociraptor server is very fast and can typically handle many thousands of clients connected at the same time. One of the largest limitations though is SSL processing. Typically SSL operations can take a significant amount of CPU resources in performing cryptography (we noted previously that Velociraptor’s own cryptography can be cached and therefore usually does not use much CPU).</p>
+<p>Once approach to help scalability is to offload SSL processing to special reverse proxies. Typically these can use hardware cryptography acceleration to offload crypto from the CPU.</p>
+<p><img src="../img/1ppLjm2qy0pRt3RsDVKDDWA.png" alt=""></p>
+<p>In this example, we will show how nginx can be used to terminate the TLS connections and then forward plain HTTP connections to the Velociraptor server (Many cloud provides also offer a cloud version of an SSL load balancer). This setup is also suitable if you want to use standard certificates (i.e. not Let’s Encrypt ones).</p>
+<p>First I will install nginx according to any number of tutorials on the net (for <a href="https://www.digitalocean.com/community/tutorials/how-to-secure-nginx-with-let-s-encrypt-on-ubuntu-18-04">this</a> or <a href="https://www.nginx.com/blog/using-free-ssltls-certificates-from-lets-encrypt-with-nginx/">this</a>). My config file is as follows:</p>
+<script src="https://gist.github.com/scudette/03bf73f2430e4bb6e7923d69a232e77f.js" charset="utf-8"></script>
+<p>I am using certbot to manage the lets encrypt certificates and I have two main routes:</p>
+<ol>
+<li>
+<p>URLs starting with <strong>/gui/</strong> will be redirected to the Velociraptor GUI port (by default port 8889) using plain HTTP.</p>
+</li>
+<li>
+<p>All other URLs will be redirected to the frontend port (port 8000) using plain http.</p>
+</li>
+</ol>
+<p>Now I need to make Velociraptor listen on plain http instead of the default TLS. I do this simply by adding the <strong>use_plain_http: true</strong> flag both to the GUI and Frontend sections.</p>
+<p><img src="../img/19YhBBqOhnLVanACm3Vdbog.png" alt=""></p>
+<p>I also specify the GUI to listen on the path starting with “/gui” instead of the root — this allows nginx to proxy the GUI at a different URL to the default.</p>
+<p>On the client’s side, the server appears to be a proper SSL server. The client needs to connect to nginx which will present a valid certificate. Therefore the client needs to specify <strong>use_self_signed_ssl: false</strong> (or omit it) and also specify a https URL as the server’s location (i.e. <strong>Client.server_urls: [“<a href="https://test.velocidex-training.com/">https://test.velocidex-training.com/</a>”]</strong>).</p>
+<h2 id="conclusions">Conclusions</h2>
+<p>We have seen that Velociraptor utilizes its own PKI to secure client/server communication. This PKI is used both to prevent interception of messages as well as preventing messages from being forged. The server verifies the client the message came from and the client verifies the server before it connects to it.</p>
+<p>In addition, Velociraptor uses standard TLS communications to deliver messages using POST requests. TLS connections can either be self signed (but pinned) or use public CA PKI. Using a standard network protocol allows Velociraptor to easily fit into any modern corporate network (which might include SSL interception proxies etc).</p>
+<p>By understanding how the communication takes place, we saw how we can debug network problems and even configure a reverse proxy for TLS offloading — an important feature to be able to scale even higher.</p>
+<p>If you are interested in learning more about Velociraptor, check out our courses on <a href="https://www.velocidex.com/training/">https://www.velocidex.com/training/</a> or join us on discord <a href="https://www.velocidex.com/discord">https://www.velocidex.com/discord</a>.</p>
+
+
+    
+    
+          <footer class=" footline" >
+	
+</footer>
+  </div>
+</div>
+
+<div id="navigation">
+<a class="nav nav-prev" href="/blog/" title="Velociraptor Blog"> <i class="fa fa-chevron-left"></i><label>Velociraptor Blog</label></a>
+    <a class="nav nav-next" href="/blog/medium/2020-08-17-velociraptor-sso-authentication-6dd68d46dccf/" title="Velociraptor SSO Authentication" style="margin-right: 0px;"><label>Velociraptor SSO Authentication</label><i class="fa fa-chevron-right"></i></a></div>
+
+</section>
+<div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+  <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+</div>    
+
+<script src="/js/clipboard.min.js"></script>
+<script src="/js/featherlight.min.js"></script>
+<script src="/js/html5shiv-printshiv.min.js"></script>
+
+<script src="/js/modernizr.custom.71422.js"></script>
+<script src="/js/docdock.js"></script>
+<script src="/theme-original/script.js"></script>
+
+
+    
+
+    
+    
+
+    
+  </body>
+</html>
