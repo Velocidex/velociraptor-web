@@ -421,6 +421,13 @@
       <a href="/blog/">Velociraptor Blog</a><i class="fa fa-angle-right fa-lg category-icon"></i>
       </div>
         <ul>
+      <li data-nav-id="/blog/medium/2020-11-13-the-windows-usn-journal-f0c55c9010e/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-11-13-the-windows-usn-journal-f0c55c9010e/">
+            The Windows USN Journal
+          </a>
+        </div>
+    </li>
       <li data-nav-id="/blog/medium/2020-09-28-velociraptor-network-communications-30568624043a/" class="dd-item">
         <div>
           <a href="/blog/medium/2020-09-28-velociraptor-network-communications-30568624043a/">
@@ -650,7 +657,6 @@
     <li><a href="#getpid">getpid</a></li>
     <li><a href="#humanize">humanize</a></li>
     <li><a href="#if">if</a></li>
-    <li><a href="#items">items</a></li>
     <li><a href="#join">join</a></li>
     <li><a href="#len">len</a></li>
     <li><a href="#log">log</a></li>
@@ -676,15 +682,11 @@
     <li><a href="#split">split</a></li>
     <li><a href="#str">str</a></li>
     <li><a href="#strip">strip</a></li>
-    <li><a href="#tempdir">tempdir</a></li>
     <li><a href="#timestamp">timestamp</a></li>
-    <li><a href="#to_dict">to_dict</a></li>
     <li><a href="#upcase">upcase</a></li>
     <li><a href="#url">url</a></li>
     <li><a href="#utf16">utf16</a></li>
     <li><a href="#utf16_encode">utf16_encode</a></li>
-    <li><a href="#uuid">uuid</a></li>
-    <li><a href="#version">version</a></li>
   </ul>
 </nav>
         </div>
@@ -978,7 +980,7 @@ depend on the specific user account which reads the registry value
 <tbody>
 <tr>
 <td>list</td>
-<td>A list of items too filter</td>
+<td>A list of items to filter</td>
 <td>list of string (required)</td>
 </tr>
 <tr>
@@ -1046,7 +1048,7 @@ depend on the specific user account which reads the registry value
 <tr>
 <td>field</td>
 <td></td>
-<td>string</td>
+<td>Any</td>
 </tr>
 <tr>
 <td>default</td>
@@ -1110,25 +1112,6 @@ given, then perform hash or upload to the server. See the</p>
 <td>else</td>
 <td></td>
 <td>LazyExpr</td>
-</tr>
-</tbody>
-</table>
-<h2 id="items">items</h2>
-<p><span class='vql_type pull-right'>Plugin</span></p>
-<p>Enumerate all members of the item (similar to Pythons items() method.</p>
-<table>
-<thead>
-<tr>
-<th>Arg</th>
-<th>Description</th>
-<th>Type</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>item</td>
-<td>The item to enumerate.</td>
-<td>Any</td>
 </tr>
 </tbody>
 </table>
@@ -1475,41 +1458,7 @@ bash pid of all bash processes.</p>
 <tr>
 <td>prefix</td>
 <td>The prefix to strip</td>
-<td>string (required)</td>
-</tr>
-</tbody>
-</table>
-<h2 id="tempdir">tempdir</h2>
-<p><span class='vql_type pull-right'>Function</span></p>
-<p>Create a temporary directory. The directory will be removed when the query ends.</p>
-<table>
-<thead>
-<tr>
-<th>Arg</th>
-<th>Description</th>
-<th>Type</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>data</td>
-<td>Data to write in the tempfile.</td>
-<td>list of string</td>
-</tr>
-<tr>
-<td>extension</td>
-<td>An extension to place in the tempfile.</td>
 <td>string</td>
-</tr>
-<tr>
-<td>permissions</td>
-<td>Required permissions (e.g. &lsquo;x&rsquo;).</td>
-<td>string</td>
-</tr>
-<tr>
-<td>remove_last</td>
-<td>If set we delay removal as much as possible.</td>
-<td>bool</td>
 </tr>
 </tbody>
 </table>
@@ -1547,9 +1496,6 @@ bash pid of all bash processes.</p>
 </tr>
 </tbody>
 </table>
-<h2 id="to_dict">to_dict</h2>
-<p><span class='vql_type pull-right'>Function</span></p>
-<p>Construct a dict from another object.</p>
 <h2 id="upcase">upcase</h2>
 <p><span class='vql_type pull-right'>Function</span></p>
 <table>
@@ -1663,24 +1609,7 @@ the <code>url()</code> function to build the proper url.</p>
 </tr>
 </tbody>
 </table>
-<h2 id="uuid">uuid</h2>
-<p><span class='vql_type pull-right'>Function</span></p>
-<p>Generate a UUID.</p>
-<h2 id="version">version</h2>
-<p><span class='vql_type pull-right'>Function</span></p>
-<p>Gets the version of a VQL plugin or function.</p>
-<p>This is useful when writing portable VQL which can work with
-older versions of Velociraptor. When Velociraptor plugins evolve
-in an incompatible way their version is incremented. It is
-possible to cater for multiple versions in the VQL using an if()
-plugin.</p>
-<p>For example the following can chose from a legacy query or a
-modern query based on the plugin version:</p>
-<pre><code> SELECT * FROM if(
-  condition=version(plugin=&quot;glob&quot;) &gt;= 1,
-  then=NewQuery,
-  else=LegacyQuery)
-</code></pre>
+
 
 
     

@@ -421,6 +421,13 @@
       <a href="/blog/">Velociraptor Blog</a><i class="fa fa-angle-right fa-lg category-icon"></i>
       </div>
         <ul>
+      <li data-nav-id="/blog/medium/2020-11-13-the-windows-usn-journal-f0c55c9010e/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-11-13-the-windows-usn-journal-f0c55c9010e/">
+            The Windows USN Journal
+          </a>
+        </div>
+    </li>
       <li data-nav-id="/blog/medium/2020-09-28-velociraptor-network-communications-30568624043a/" class="dd-item">
         <div>
           <a href="/blog/medium/2020-09-28-velociraptor-network-communications-30568624043a/">
@@ -625,7 +632,12 @@
     
     <div class="progress">
         <div class="wrapper">
-    <nav id="TableOfContents"></nav>
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#js">js</a></li>
+    <li><a href="#js_call">js_call</a></li>
+  </ul>
+</nav>
         </div>
     </div>
     
@@ -649,6 +661,59 @@
 functionality which may not remain in Velociraptor. This page
 documents some of the experimental features. If you find them
 useful, please let us know!</p>
+<h2 id="js">js</h2>
+<p><span class='vql_type pull-right'>Function</span></p>
+<p>Compile and run javascript code.</p>
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>js</td>
+<td>The body of the javascript code.</td>
+<td>string (required)</td>
+</tr>
+<tr>
+<td>key</td>
+<td>If set use this key to cache the JS VM.</td>
+<td>string</td>
+</tr>
+</tbody>
+</table>
+<h2 id="js_call">js_call</h2>
+<p><span class='vql_type pull-right'>Function</span></p>
+<p>Compile and run javascript code.</p>
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>func</td>
+<td>JS function to call.</td>
+<td>string (required)</td>
+</tr>
+<tr>
+<td>args</td>
+<td>Positional args for the function.</td>
+<td>Any</td>
+</tr>
+<tr>
+<td>key</td>
+<td>If set use this key to cache the JS VM.</td>
+<td>string</td>
+</tr>
+</tbody>
+</table>
 
 
 

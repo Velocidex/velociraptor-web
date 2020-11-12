@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Velociraptor / Dig deeper</title>
+    
+      <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>The Windows USN Journal :: Velociraptor / Dig deeper</title>
+<link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon" />
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<link href="/css/nucleus.css" rel="stylesheet">
+<link href="/css/font-awesome.min.css" rel="stylesheet">
+<link href="/css/hybrid.css" rel="stylesheet">
+<link href="/css/featherlight.min.css" rel="stylesheet">
+<link href="/css/auto-complete.css" rel="stylesheet">
+<link href="/theme-original/style.css" rel="stylesheet">
+
+  <link href="/theme-original/variant-mine.css" rel="stylesheet">
+
+
+<script src="/js/jquery-2.x.min.js"></script>
+<style type="text/css">
+  :root #header + #content > #left > #rlblock_left {
+    display:none !important;
+  }
+</style>
+<link rel="stylesheet" href="/css/theme-mine.css">
+<script src="/js/custom.js"></script>
+
+
+    
+  </head>
+  <body data-url="/blog/medium/2020-11-13-the-windows-usn-journal-f0c55c9010e/">
+    
+      <div id="headermain"></div>
+<nav id="sidebar" class="">
+
+
+
+<div class="highlightable">
+  <div id="header-wrapper">
+    <div id="header">
+      
+	
+  
+    <a href="/">
+  <img src="/images/logo.svg">
+</a>
+
+  
+
+
+    </div>
+        <div class="searchbox">
+                    <label for="search-by"><i class="fa fa-search"></i></label>
+                    <input data-search-input id="search-by" type="text" placeholder="Search...">
+                    <span data-search-clear=""><i class="fa fa-close"></i></span>
+                </div>
+                <script type="text/javascript" src="/js/lunr.min.js"></script>
+                <script type="text/javascript" src="/js/auto-complete.js"></script>
+                <script type="text/javascript">
+        
+            var baseurl = "\/";
+        
+                </script>
+                <script type="text/javascript" src="/js/search.js"></script>
+  </div>
+
+      <ul class="topics">
+    <li data-nav-id="/about/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/about/">About Velociraptor</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/about/features/" class="dd-item">
+        <div>
+          <a href="/about/features/">
+            Velociraptor Features
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/about/license/" class="dd-item">
+        <div>
+          <a href="/about/license/">
+            License
+          </a>
+        </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/docs/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/docs/">Velociraptor Documentation</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+    <li data-nav-id="/docs/getting-started/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/docs/getting-started/">Getting Started</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+    <li data-nav-id="/docs/getting-started/stand_alone/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/getting-started/stand_alone/">Standalone Deployment</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/getting-started/deploying_clients/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/getting-started/deploying_clients/">Deploying Clients</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/getting-started/cloud/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/getting-started/cloud/">Deploying in the cloud</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/getting-started/performance/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/getting-started/performance/">Performance</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/getting-started/triaging/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/getting-started/triaging/">Triaging</a>
+      </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/docs/user-interface/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/docs/user-interface/">User Interface</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+    <li data-nav-id="/docs/user-interface/investigating_clients/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/docs/user-interface/investigating_clients/">Investigating Clients</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+    <li data-nav-id="/docs/user-interface/investigating_clients/searching_clients/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/user-interface/investigating_clients/searching_clients/">Searching for clients</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/user-interface/investigating_clients/virtual_filesystem/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/user-interface/investigating_clients/virtual_filesystem/">The Virtual File System</a>
+      </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/docs/user-interface/artifacts/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/docs/user-interface/artifacts/">Velociraptor Artifacts</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+    <li data-nav-id="/docs/user-interface/artifacts/client_artifacts/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/user-interface/artifacts/client_artifacts/">Client Artifacts</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/user-interface/artifacts/client_events/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/user-interface/artifacts/client_events/">Client Event Artifacts</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/user-interface/artifacts/server_artifacts/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/user-interface/artifacts/server_artifacts/">Server Artifacts</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/user-interface/artifacts/server_events/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/user-interface/artifacts/server_events/">Server Event Artifacts</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/user-interface/artifacts/add_artifacts/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/user-interface/artifacts/add_artifacts/">Customizing Artifacts</a>
+      </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/docs/user-interface/api/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/user-interface/api/">The Velociraptor API</a>
+      </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/docs/vql_reference/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/docs/vql_reference/">VQL Reference</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+    <li data-nav-id="/docs/vql_reference/basic/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/vql_reference/basic/">Basic VQL functions and plugins</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/vql_reference/windows/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/vql_reference/windows/">Windows Specific Functionality</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/vql_reference/parsers/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/vql_reference/parsers/">Parsers and data extractors</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/vql_reference/server/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/vql_reference/server/">Server Side Functionality</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/vql_reference/plugin/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/vql_reference/plugin/">Client Side Functionality</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/vql_reference/event/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/vql_reference/event/">Event Plugins</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/vql_reference/experimental/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/vql_reference/experimental/">Experimental Functionality</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/vql_reference/filesystem_accessors/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/vql_reference/filesystem_accessors/">Filesystem Accessors</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/vql_reference/templates/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/vql_reference/templates/">Report Templates</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/vql_reference/tips/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/vql_reference/tips/">Artifact Tips</a>
+      </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/docs/artifacts/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/docs/artifacts/">Artifact Reference</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+    <li data-nav-id="/docs/artifacts/linux/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/artifacts/linux/">Linux Artifacts</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/artifacts/windows_system/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/docs/artifacts/windows_system/">Windows</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+    <li data-nav-id="/docs/artifacts/windows_system/events/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/artifacts/windows_system/events/">Event Logs</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/artifacts/windows_system/system/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/artifacts/windows_system/system/">System</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/artifacts/windows_system/registry/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/artifacts/windows_system/registry/">Registry</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/artifacts/windows_system/network/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/artifacts/windows_system/network/">Network</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/artifacts/windows_system/applications/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/artifacts/windows_system/applications/">Applications</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/artifacts/windows_system/detection/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/artifacts/windows_system/detection/">Malware Detection</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/artifacts/windows_system/triage/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/artifacts/windows_system/triage/">Triage Artifacts</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/artifacts/windows_system/remediation/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/artifacts/windows_system/remediation/">Remdiation</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/artifacts/windows_system/monitoring/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/artifacts/windows_system/monitoring/">Event Monitoring</a>
+      </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/docs/artifacts/server/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/artifacts/server/">Server Artifacts</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/artifacts/misc/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/artifacts/misc/">Miscelaneous Artifacts</a>
+      </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/docs/presentations/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/docs/presentations/">Presentations and Workshops</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+    <li data-nav-id="/docs/presentations/comfycon.2020/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/presentations/comfycon.2020/">Comfycon 2020</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/presentations/training_2020/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/presentations/training_2020/">Enterprise Hunting and Incident Response with Velociraptor 2020</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/presentations/linux.conf.au.2020/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/presentations/linux.conf.au.2020/">Linux.Conf.Au 2020</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/presentations/sans_dfir_summit2019/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/presentations/sans_dfir_summit2019/">SANS Summit 2019</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/presentations/rsa/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/presentations/rsa/">RSA Asia Pacific and Japan 2019</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/presentations/crikeycon2019/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/presentations/crikeycon2019/">Crikeycon 2019 Training Workshop</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/presentations/nzitf2018/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/presentations/nzitf2018/">New Zealand Internet Task Force Conference 2018</a>
+      </div>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/blog/" class="dd-item parent haschildren
+        ">
+      <div>
+      <a href="/blog/">Velociraptor Blog</a>
+            <i class="fa fa-angle-down fa-lg category-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/blog/medium/2020-11-13-the-windows-usn-journal-f0c55c9010e/" class="dd-item active">
+        <div>
+          <a href="/blog/medium/2020-11-13-the-windows-usn-journal-f0c55c9010e/">
+            The Windows USN Journal
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2020-09-28-velociraptor-network-communications-30568624043a/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-09-28-velociraptor-network-communications-30568624043a/">
+            Velociraptor Communications
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2020-08-17-velociraptor-sso-authentication-6dd68d46dccf/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-08-17-velociraptor-sso-authentication-6dd68d46dccf/">
+            Velociraptor SSO Authentication
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2020-08-16-profiling-the-beast-58913437fd16/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-08-16-profiling-the-beast-58913437fd16/">
+            Profiling the beast
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2020-07-14-triage-with-velociraptor-pt-4-cf0e60810d1e/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-07-14-triage-with-velociraptor-pt-4-cf0e60810d1e/">
+            Triage with Velociraptor — Pt 4
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2020-07-13-velociraptor-in-the-tool-age-d896dfe71b9/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-07-13-velociraptor-in-the-tool-age-d896dfe71b9/">
+            Velociraptor in the tool age
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2020-06-19-the-velociraptor-query-language-pt-2-fe92bb7aa150/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-06-19-the-velociraptor-query-language-pt-2-fe92bb7aa150/">
+            The Velociraptor Query Language Pt 2
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2020-06-14-the-velociraptor-query-language-pt-1-d721bff100bf/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-06-14-the-velociraptor-query-language-pt-1-d721bff100bf/">
+            The Velociraptor Query Language Pt 1
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2020-04-16-velociraptor-e48a47e0317d/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-04-16-velociraptor-e48a47e0317d/">
+            Velociraptor
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2020-03-29-velociraptors-acl-model-7f497575daee/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-03-29-velociraptors-acl-model-7f497575daee/">
+            Velociraptor’s ACL model
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2020-03-28-velociraptor-notebooks-d02e0bd11230/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-03-28-velociraptor-notebooks-d02e0bd11230/">
+            Velociraptor notebooks
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2020-03-07-extending-vql-plugins-7fb004cb6ec4/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-03-07-extending-vql-plugins-7fb004cb6ec4/">
+            Extending VQL plugins
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2020-03-06-velociraptor-post-processing-with-jupyter-notebook-and-pandas-8a344d05ee8c/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-03-06-velociraptor-post-processing-with-jupyter-notebook-and-pandas-8a344d05ee8c/">
+            Velociraptor Post-processing with Jupyter Notebook and Pandas
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2020-01-12_hunting-malware-using-mutants-ea08e86dfc19/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-01-12_hunting-malware-using-mutants-ea08e86dfc19/">
+            Hunting Malware using Mutants
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-12-31_digging-into-the-system-resource-usage-monitor-srum-afbadb1a375/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-12-31_digging-into-the-system-resource-usage-monitor-srum-afbadb1a375/">
+            Digging into the System Resource Usage Monitor (SRUM)
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-12-08-velociraptor-to-elasticsearch-3a9fc02c6568/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-12-08-velociraptor-to-elasticsearch-3a9fc02c6568/">
+            Velociraptor to Elasticsearch
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-11-15_recovering-deleted-ntfs-files-with-velociraptor-1fcf09855311/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-11-15_recovering-deleted-ntfs-files-with-velociraptor-1fcf09855311/">
+            Recovering deleted NTFS Files with Velociraptor
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-11-12_windows-event-logs-d8d8e615c9ca/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-11-12_windows-event-logs-d8d8e615c9ca/">
+            Windows Event Logs
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-10-08_triage-with-velociraptor-pt-3-d6f63215f579/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-10-08_triage-with-velociraptor-pt-3-d6f63215f579/">
+            Triage with Velociraptor — Pt 3
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-10-04_triage-with-velociraptor-pt-2-d0f79066ca0e/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-10-04_triage-with-velociraptor-pt-2-d0f79066ca0e/">
+            Triage with Velociraptor — Pt 2
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-10-02_triage-with-velociraptor-pt-1-253f57ce96c0/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-10-02_triage-with-velociraptor-pt-1-253f57ce96c0/">
+            Triage with Velociraptor — Pt 1
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-09-11_velociraptor-s-client-side-buffer-3ce03697a4e6/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-09-11_velociraptor-s-client-side-buffer-3ce03697a4e6/">
+            Velociraptor’s client side buffer
+          </a>
+        </div>
+    </li>
+        </ul>
+    </li>
+
+
+
+
+    <hr />
+    <li></li>
+
+    </ul>
+
+ <section id="footer">
+    </section>
+  </div>
+</nav>
+
+
+
+<section id="body">
+<div id="overlay"></div>
+<div class="padding highlightable">
+
+  <div id="top-bar">
+    <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+        <span id="sidebar-toggle-span">
+          <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+            <i class="fa fa-bars"></i>
+          </a>
+        </span>
+        <span id="toc-menu"><i class="fa fa-list-alt"></i></span>
+        <span class="links">
+        
+
+
+
+
+
+
+
+ <a href='/'>Velociraptor / Dig deeper</a> > <a href='/blog/'>Velociraptor Blog</a> > The Windows USN Journal
+
+
+
+
+
+
+        </span>
+    </div>
+
+    
+    <div class="progress">
+        <div class="wrapper">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#what-is-the-usn-journal">What is the USN Journal?</a></li>
+        <li><a href="#velociraptors-usn-parser">Velociraptor’s USN Parser</a></li>
+        <li><a href="#when-to-use-the-usn-journal">When to use the USN Journal?</a></li>
+        <li><a href="#watching-the-usn-journal">Watching the USN journal</a></li>
+        <li><a href="#event-monitoring-example-hash-database">Event monitoring example: Hash database</a></li>
+        <li><a href="#conclusion">Conclusion</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+        </div>
+    </div>
+    
+
+  </div>
+
+
+<div id="body-inner">
+  
+      <h1>The Windows USN Journal</h1>
+      
+        <h4 class="subtitle"> Digging up Window’s juicy secrets… </h4>
+      
+  
+
+
+
+    
+    
+    
+    <p><img src="../img/1Nv0e89B_XOhBSxpY2v9Z8g.png" alt=""></p>
+<p><em>Thanks to <a href="https://twitter.com/mgreen27">Matt Green </a>for discussions, ideas and code….</em></p>
+<p>NTFS is the default filesystem on Windows systems, so it is important for DFIR tools to support extracting as much system state information as possible from it. Velociraptor already has a full featured <a href="https://www.velocidex.com/blog/medium/2019-11-15_recovering-deleted-ntfs-files-with-velociraptor-1fcf09855311/">NTFS parser</a>, and in a recent release (0.5.2) also added a parser for the <strong>USN Journal</strong> (Update Sequence Number Journal), or <a href="https://en.wikipedia.org/wiki/USN_Journal">Change Journal</a>.</p>
+<h3 id="what-is-the-usn-journal">What is the USN Journal?</h3>
+<p>By default Windows maintains a journal of filesystem activities is a file called <strong>$Extend$UsnJrnl</strong> in a special data stream called** $J**. This stream contains records of filesystem operations, primarily to allow backup applications visibility into the files that have been changed since the last time a backup was run.</p>
+<p>The **$Extend$UsnJrnl:$J **file begins life when the volume is created as an empty file. As files are modified on the volume, the $J file is extended with additional USN records.</p>
+<p>In order to preserve space, the NTFS creators use an ingenious trick: The beginning of the file is erased and made into a sparse run. Since NTFS can handle sparse files (i.e. files with large runs containing no data) efficiently, the file effectively does not consume any more disk space than needed but does not need to be rotated or truncated and can just seem to grow infinitely.</p>
+<p>This means that in practice we find the <strong>$J</strong> file on a live system reporting a huge size (sometimes many hundreds of gigabytes!), however usually the start of the file is sparse and takes no disk space, so the $J file typically only consumes around 30–40mb of actual disk space. This is illustrated in the diagram below.</p>
+<p><img src="../img/1oh4ARro_MayRRUZAJHqhaw.png" alt=""></p>
+<p>USN Records are written back to back within the file. The USN records contain<a href="https://docs.microsoft.com/en-us/windows/win32/api/winioctl/ns-winioctl-usn_record_v2"> valuable information</a>:</p>
+<ul>
+<li>
+<p>The USN ID is actually the offset of the record within the file. This is a unique ID of the USN record (since the file is never truncated).</p>
+</li>
+<li>
+<p>A Timestamp — This is a timestamp for the file modification</p>
+</li>
+<li>
+<p>Reason — is the reason of this modification for example DATA_TRUNCATION, DATA_EXTEND, FILE_CREATE, FILE_DELETE etc.</p>
+</li>
+<li>
+<p>Filename is the name of the file that is being affected.</p>
+</li>
+<li>
+<p>Parent MFT ID points to the parent record within the MFT (the changed file’s containing directory).</p>
+</li>
+</ul>
+<p>Using the Filename and Parent MFT ID allows Velociraptor to resolve the full path of the file from the root of the filesystem.</p>
+<h3 id="velociraptors-usn-parser">Velociraptor’s USN Parser</h3>
+<p>Velociraptor provides access to the USN parser via the <strong>parse_usn()</strong> plugin. Let’s see what kind of data this plugin provides by running a simple query in the notebook</p>
+<p><img src="../img/1JkUkNsAJWFjP9uzwf56Jig.png" alt=""></p>
+<p>In the above I hid some of the less interesting fields, but we can immediately see the USN records are shown with their USN ID (which is the offset in the $J file), the timestamp, the full path to the modified file and the reasons for modifications.</p>
+<p>When a program interacts with a file, we typically see a bunch of related filesystem events. For example, I can create a new file called <strong>test.txt</strong> using notepad and write some data into it. I can then query the USN journal for modifications to that file (The <strong>=~</strong> operator is VQL’s regex match)…</p>
+<p><img src="../img/1gB2SCYCpK5xLceNH_OhhZg.png" alt=""></p>
+<p>Notepad seems to interact with the file using a number of separate operations and this adds several events into the USN journal file for the same interaction.</p>
+<p>Previously, Velociraptor was able to only collect the USN journal file and users had to rely on other third party tools to parse it (e.g. <a href="https://tzworks.net/prototype_page.php?proto_id=5">this</a> or <a href="https://github.com/PoorBillionaire/USN-Journal-Parser">this</a>). The problem with that approach is that external tools usually have no access to the original $MFT and therefore were unable to resolve the parent MFT id in the USN record to a full path. Parsing the USN records directly on the endpoint allows Velociraptor to immediately resolve the files into a full path making analysis much easier later.</p>
+<h3 id="when-to-use-the-usn-journal">When to use the USN Journal?</h3>
+<p>The USN journal can provide visibility into filesystem activity going back quite a long time. It seems that Windows aims to keep the maximum actual size of the log file around 30–40mb (remember, the file is sparse) so if the machine is not used too heavily, we sometimes find the log goes back a week or two. This gives us visibility on past system activity.</p>
+<p>Practically this can be useful:</p>
+<ul>
+<li>
+<p>When a program is run, typically we can see the prefetch files modified which gives us a timestamp on execution (in the case where the prefetch files themselves were deleted).</p>
+</li>
+<li>
+<p>One can see file modification or creation of a particular file extension (e.g. executables) or within specific directories (e.g. Windows\System32) which might indicate system compromise took place.</p>
+</li>
+<li>
+<p>Many compromises occur after an initial file based malware was run (e.g. office macros, or PDF). The USN journal can provide a time of initial infection.</p>
+</li>
+<li>
+<p>The USN journal can provide evidence of deleted files. With Velociraptor it is possible to efficiently hunt for all machines that had the particular file in the recent past — even if the file was subsequently deleted. This is useful to find evidence of attacker toolkit installation, or initial vectors of compromise.</p>
+</li>
+</ul>
+<h3 id="watching-the-usn-journal">Watching the USN journal</h3>
+<p>In the previous section we saw how Velociraptor can parse the USN journal on a running system, enabling hunting and analysis of past filesystem activity.</p>
+<p>However, Velociraptor is built around VQL — a unique query language allowing for asynchronous and event driven queries. Therefore, Velociraptor also has the unique ability to create event queries — queries that never terminate, but process data as it occurs.</p>
+<p>As such, Velociraptor offers many event driven versions of the standard plugins. For USN Journals, Velociraptor offers the <strong>watch_usn()</strong> plugin as an event driven alternative to the <strong>parse_usn()</strong> plugin. When a query uses <strong>watch_usn()</strong>, Velociraptor will watch the USN log for new entries, and as they appear, the plugin will release the event into the rest of the query.</p>
+<p>This allows Velociraptor to watch for file changes in near real time on the running system. You can easily see this effect by running an event query from the command line:</p>
+<p><img src="../img/1kVFXU7krriNv2m1srYsTWg.png" alt=""></p>
+<p>As filesystem changes occur they are picked up by the <strong>watch_usn()</strong> plugin and reported a short time later. This allows us to write queries that respond to filesystem events in near real time.</p>
+<h3 id="event-monitoring-example-hash-database">Event monitoring example: Hash database</h3>
+<p>Having the ability for Velociraptor to actively watch for filesystem events in near real time opens the door for many potential applications. One very useful application is maintaining a local hash database on endpoints.</p>
+<p>Hunting for a file hash on endpoints can be a very useful technique. While attackers can and do change their tools trivially to make hunting for file hash ineffective, once a specific compromise is detected, being able to rapidly hunt for the same hash across the entire fleet can reveal other compromised hosts.</p>
+<p>Up until now, hunting for hashes on a machine was difficult and resource intensive. This is because trying to determine if any files exist on an endpoint having a given hash requires hashing all the files and comparing their hash to the required hash — so essentially hashing every file on the system!</p>
+<p>Even after reasonable optimizations around file size, modification time ranges, file extensions etc, a hunt for hashes is quite resource intensive, and therefore used sparingly.</p>
+<p>The ability to follow the USN journal changes all that. We can simply watch the filesystem for changes, and when a file is modified, we can hash it immediately and store the hash locally in a database on the endpoint itself. Then later we can simply query that database rapidly for the presence of the hash.</p>
+<p><img src="../img/1v8WrntHsWl3XbrDZ1yFuDw.png" alt=""></p>
+<p>As mentioned in the previous section, a single change typically involves several USN log entries. We therefore need to deduplicate these changes. We simply need to know that a particular file may have changed recently (say in the last few minutes) and we can then rehash it and update the database accordingly.</p>
+<p>All this can easily be implemented using a VQL query, which we can store in a VQL artifact. You can see the <strong>Windows.Forensics.LocalHashes.Usn</strong> <a href="https://github.com/Velocidex/velociraptor/blob/master/artifacts/definitions/Windows/Forensics/LocalHashes/Usn.yaml">full artifact source here</a>.</p>
+<p>In order to get this query to run on the endpoints, we assign the artifact as a client event detection artifact, by clicking the “Client Events” screen and then the “Update Client monitoring table” button. After selecting the label group to apply to (All will apply this to all machines in your deployment), simply add the <strong>Windows.Forensics.LocalHashes.Usn</strong> artifact by searching for it.</p>
+<p><img src="../img/1ebbAwSff_9QqhbQqfMThnA.png" alt=""></p>
+<p>The most important configuration parameter is the PathRegex specifying which files we should be watching. For example, you might only be interested in hashes of executables or word documents. Leaving the setting at “.” will match any file, including very frequently used files like event logs and databases — this setting can potentially affect performance. Finally you can suppress the artifact output if you like — this just means that hashes will not be additionally reported to the Velociraptor server. They will just be updating the local database instead.</p>
+<p>Once the query is deployed it will run on all endpoints and start feeding hash information to the server (if required). You can see this information in the client monitoring screen by simply selecting the artifact and choosing a day of interest</p>
+<p><img src="../img/1CIoyTKKFshUGoHFlS4zx5A.png" alt=""></p>
+<p>You can now easily page through the data viewing the hashes and files that were added since the query started. You can also download the entire SQLite database file from the endpoint, or watch the events on the server for specific file types or hashes found across the entire deployment.</p>
+<p><img src="../img/17fRC-jlP_4VxarLtqfhtMQ.png" alt=""></p>
+<p>Let’s test querying this local database. I will just pick a random hash and see if my endpoint has this hash. I will simply collect the Windows.Forensics.LocalHashes.Query artifact on my endpoint and configure it to search for the hash f4065c7516d47e6cb5b5f58e1ddd1312. This hash can be entered as a table in the GUI or simply as a comma delimited text field.</p>
+<p><img src="../img/17SU9muB1xlvOuwZ-AGxkPQ.png" alt=""></p>
+<p>The artifact returns almost instantly with the file that this hash belongs to</p>
+<p><img src="../img/1Wprj9Wic03bIg-86ClDBtg.png" alt=""></p>
+<p>The local hash database is simply a SQLite file maintained by the VQL query. As such I can easily collect this file with a hunt if I wanted to archive the hash database periodically from all my endpoints.</p>
+<p>Collecting the** Windows.Forensics.LocalHashes.Glob** artifact will populate the local hash database by simply crawling a directory, hashing all files inside it and populated the database — this is useful to pre-populate the database with hashes of files created before Velociraptor was installed.</p>
+<h3 id="conclusion">Conclusion</h3>
+<p>Velociraptor brings unprecedented visibility to endpoint machine states using state of the art forensic capabilities. In this post we saw how parsing the USN Journal allows Velociraptor to gather information about past filesystem activity. We also saw how detection and monitoring queries can be used to respond to file modification or creation in near real time.</p>
+<p>Finally we saw this capability put into practice by maintaining a local hash database which can be queried on demand to quickly answer questions like <em>which machine in my fleet contain this hash?</em></p>
+<p>To play with this new feature yourself, take Velociraptor for a spin! It is a available on <a href="https://github.com/Velocidex/velociraptor">GitHub</a> under an open source license. As always please file issues on the bug tracker or ask questions on our mailing list <a href="mailto:velociraptor-discuss@googlegroups.com">velociraptor-discuss@googlegroups.com</a> . You can also chat with us directly on discord <a href="https://www.velocidex.com/discord">https://www.velocidex.com/discord</a></p>
+
+
+    
+    
+          <footer class=" footline" >
+	
+</footer>
+  </div>
+</div>
+
+<div id="navigation">
+<a class="nav nav-prev" href="/blog/" title="Velociraptor Blog"> <i class="fa fa-chevron-left"></i><label>Velociraptor Blog</label></a>
+    <a class="nav nav-next" href="/blog/medium/2020-09-28-velociraptor-network-communications-30568624043a/" title="Velociraptor Communications" style="margin-right: 0px;"><label>Velociraptor Communications</label><i class="fa fa-chevron-right"></i></a></div>
+
+</section>
+<div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+  <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+</div>    
+
+<script src="/js/clipboard.min.js"></script>
+<script src="/js/featherlight.min.js"></script>
+<script src="/js/html5shiv-printshiv.min.js"></script>
+
+<script src="/js/modernizr.custom.71422.js"></script>
+<script src="/js/docdock.js"></script>
+<script src="/theme-original/script.js"></script>
+
+
+    
+
+    
+    
+
+    
+  </body>
+</html>

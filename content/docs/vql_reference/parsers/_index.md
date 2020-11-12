@@ -240,17 +240,6 @@ Arg | Description | Type
 data|Json encoded string.|string (required)
 
 
-## parse_jsonl
-<span class='vql_type pull-right'>Plugin</span>
-
-Parses a line oriented json file.
-
-Arg | Description | Type
-----|-------------|-----
-filename|JSON file to open|string (required)
-accessor|The accessor to use|string
-
-
 ## parse_lines
 <span class='vql_type pull-right'>Plugin</span>
 
@@ -290,19 +279,6 @@ mft_offset|The offset to the MFT entry to parse.|int64
 <span class='vql_type pull-right'>Plugin</span>
 
 Scan the $I30 stream from an NTFS MFT entry.
-
-Arg | Description | Type
-----|-------------|-----
-device|The device file to open. This may be a full path - we will figure out the device automatically.|string (required)
-inode|The MFT entry to parse in inode notation (5-144-1).|string
-mft|The MFT entry to parse.|int64
-mft_offset|The offset to the MFT entry to parse.|int64
-
-
-## parse_ntfs_ranges
-<span class='vql_type pull-right'>Plugin</span>
-
-Show the run ranges for an NTFS stream.
 
 Arg | Description | Type
 ----|-------------|-----
@@ -426,55 +402,6 @@ Arg | Description | Type
 ----|-------------|-----
 file|XML file to open.|string (required)
 accessor|The accessor to use|string
-
-
-## patch
-<span class='vql_type pull-right'>Function</span>
-
-Patch a JSON object with a json patch or merge.
-
-The function allows for modifications of objects by way of
-applying a json patch. You can read more about JSON patching here
-https://github.com/evanphx/json-patch.
-
-I practice you can use this to update server settings - for
-example, consider the client event monitoring state.
-
-```text
-SELECT get_client_monitoring() FROM scope()
-
- [
-  {
-   "get_client_monitoring": {
-    "artifacts": [
-     "Generic.Client.Stats"
-    ]
-   }
-  }
- ]
-```
-
-Suppose we wish to add a new artifact, we can patch it with the json:
-```json
-[{"op": "add", "path": "/artifacts/0", "value": "Windows.Events.DNSQueries"}]
-```
-
-This can then be immediately pushed to `set_client_monitoring()`
-to update the monitoring state.
-
-```
-SELECT set_client_monitoring(value=patch(
-       item=get_client_monitoring(),
-       patch=[dict(op="add", path="/artifacts/0", value="Windows.Events.DNSQueries")]))
-FROM scope()
-```
-
-
-Arg | Description | Type
-----|-------------|-----
-item|The item to path|Any (required)
-patch|A JSON Patch to apply|Any
-merge|A merge-patch to apply|Any
 
 
 ## plist

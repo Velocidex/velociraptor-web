@@ -141,8 +141,9 @@ Executes 'query' once for each row in the 'row' query.
 Arg | Description | Type
 ----|-------------|-----
 row|A query or slice which generates rows.|LazyExpr (required)
-query|Run this query for each row.|StoredQuery (required)
+query|Run this query for each row.|StoredQuery
 async|If set we run all queries asyncronously.|bool
+column|If set we only extract the column from row.|string
 
 
 ## glob
@@ -292,6 +293,7 @@ url|The URL to fetch|string (required)
 params|Parameters to encode as POST or GET query strings|Any
 headers|A dict of headers to send.|Any
 method|HTTP method to use (GET, POST)|string
+data|If specified we write this raw data into a POST request instead of encoding the params above.|string
 chunk_size|Read input with this chunk size and send each chunk as a row|int
 disable_ssl_security|Disable ssl certificate verifications.|bool
 tempfile_extension|If specified we write to a tempfile. The content field will contain the full path to the tempfile.|string
@@ -519,6 +521,8 @@ bucket|The bucket to upload to|string (required)
 region|The region the bucket is in|string (required)
 credentialskey|The AWS key credentials to use|string (required)
 credentialssecret|The AWS secret credentials to use|string (required)
+endpoint|The Endpoint to use|string
+noverifycert|Skip TLS Verification|bool
 
 
 ## write_csv

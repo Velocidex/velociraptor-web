@@ -155,6 +155,7 @@ Arg | Description | Type
 query|Source for cached rows.|StoredQuery (required)
 max_age|Maximum number of seconds to hold rows in the fifo.|int64
 max_rows|Maximum number of rows to hold in the fifo.|int64
+flush|If specified we flush all rows from cache after the call.|bool
 
 
 ## watch_auditd

@@ -14,18 +14,6 @@ To reuse server side artifacts, simply create an artifact with
 `type: SERVER` and launch it from the "Server Artifacts" screen in
 the GUI.
 
-## artifact_definitions
-<span class='vql_type pull-right'>Plugin</span>
-
-Dump artifact definitions.
-
-Arg | Description | Type
-----|-------------|-----
-names|Artifact definitions to dump|list of string
-deps|If true includes all dependencies as well.|bool
-sanitize|If true we remove extra metadata.|bool
-
-
 ## cancel_flow
 <span class='vql_type pull-right'>Function</span>
 
@@ -37,27 +25,6 @@ client_id||string (required)
 flow_id||string
 
 
-## client_delete
-<span class='vql_type pull-right'>Plugin</span>
-
-Delete all information related to a client. 
-
-Arg | Description | Type
-----|-------------|-----
-client_id||string (required)
-really_do_it||bool
-
-
-## client_info
-<span class='vql_type pull-right'>Function</span>
-
-Returns client info (like the fqdn) from the datastore.
-
-Arg | Description | Type
-----|-------------|-----
-client_id||string (required)
-
-
 ## clients
 <span class='vql_type pull-right'>Plugin</span>
 
@@ -66,6 +33,8 @@ Retrieve the list of clients.
 Arg | Description | Type
 ----|-------------|-----
 search|Client search string. Can have the following prefixes: 'lable:', 'host:'|string
+start|First client to fetch (0)'|uint64
+limit|First client to fetch (1000)'|uint64
 client_id||string
 
 
@@ -95,30 +64,6 @@ the file and read it but not to seek within it.
 Arg | Description | Type
 ----|-------------|-----
 path|A VFS path to compress|list of string (required)
-
-
-## create_flow_download
-<span class='vql_type pull-right'>Function</span>
-
-Creates a download pack for the flow.
-
-Arg | Description | Type
-----|-------------|-----
-client_id|Client ID to export.|string (required)
-flow_id|The flow id to export.|string (required)
-wait|If set we wait for the download to complete before returning.|bool
-
-
-## create_hunt_download
-<span class='vql_type pull-right'>Function</span>
-
-Creates a download pack for a hunt.
-
-Arg | Description | Type
-----|-------------|-----
-hunt_id|Hunt ID to export.|string (required)
-only_combined|If set we only export combined results.|bool
-wait|If set we wait for the download to complete before returning.|bool
 
 
 ## elastic_upload
@@ -191,19 +136,6 @@ Arg | Description | Type
 path|A VFS path to remove|string (required)
 
 
-## flow_results
-<span class='vql_type pull-right'>Plugin</span>
-
-Retrieve the results of a flow.
-
-Arg | Description | Type
-----|-------------|-----
-artifact|The artifact to retrieve|string
-source|An optional source within the artifact.|string
-flow_id|The hunt id to read.|string (required)
-client_id|The client id to extract|string (required)
-
-
 ## flows
 <span class='vql_type pull-right'>Plugin</span>
 
@@ -213,18 +145,6 @@ Arg | Description | Type
 ----|-------------|-----
 client_id||string (required)
 flow_id||string
-
-
-## get_client_monitoring
-<span class='vql_type pull-right'>Function</span>
-
-Retrieve the current client monitoring state.
-
-
-## get_server_monitoring
-<span class='vql_type pull-right'>Function</span>
-
-Retrieve the current client monitoring state.
 
 
 ## gui_users
@@ -253,6 +173,8 @@ Retrieve the flows launched by a hunt.
 Arg | Description | Type
 ----|-------------|-----
 hunt_id|The hunt id to inspect.|string (required)
+start_row|The first row to show (used for paging).|int64
+limit|Number of rows to show (used for paging).|int64
 
 
 ## hunt_results
@@ -272,36 +194,6 @@ brief|If set we return less columns.|bool
 <span class='vql_type pull-right'>Plugin</span>
 
 Retrieve the list of hunts.
-
-
-## inventory
-<span class='vql_type pull-right'>Plugin</span>
-
-Retrieve the tools inventory.
-
-
-## inventory_add
-<span class='vql_type pull-right'>Function</span>
-
-Add tool to ThirdParty inventory.
-
-Arg | Description | Type
-----|-------------|-----
-tool||string (required)
-serve_locally||bool
-url||string
-hash||string
-filename||string
-
-
-## inventory_get
-<span class='vql_type pull-right'>Function</span>
-
-Get tool info from inventory service.
-
-Arg | Description | Type
-----|-------------|-----
-tool||string (required)
 
 
 ## label
@@ -388,26 +280,6 @@ limit|Only return limited results|uint64
 type|The type of search (e.g. 'key')|string
 
 
-## set_client_monitoring
-<span class='vql_type pull-right'>Function</span>
-
-Sets the current client monitoring state.
-
-Arg | Description | Type
-----|-------------|-----
-value|The Value to set|Any (required)
-
-
-## set_server_monitoring
-<span class='vql_type pull-right'>Function</span>
-
-Sets the current server monitoring state.
-
-Arg | Description | Type
-----|-------------|-----
-value|The Value to set|Any (required)
-
-
 ## source
 <span class='vql_type pull-right'>Plugin</span>
 
@@ -434,25 +306,6 @@ hunt_id|Retrieve sources from this hunt (combines all results from all clients)|
 artifact|The name of the artifact collection to fetch|string
 source|An optional named source within the artifact|string
 mode|HUNT or CLIENT mode can be empty|string
-
-
-## splunk_upload
-<span class='vql_type pull-right'>Plugin</span>
-
-Upload rows to splunk.
-
-Arg | Description | Type
-----|-------------|-----
-query|Source for rows to upload.|StoredQuery (required)
-threads|How many threads to use.|int64
-url|The Splunk Event Collector URL.|string
-token|Splunk HEC Token.|string
-index|The name of the index to upload to.|string (required)
-source|The source field for splunk. If not specified this will be 'velociraptor'.|string
-sourcetype|The sourcetype field for splunk. If not specified this will 'vql'|string
-chunk_size|The number of rows to send at the time.|int64
-skip_verify|Skip SSL verification(default: False).|bool
-wait_time|Batch splunk upload this long (2 sec).|int64
 
 
 ## uploads

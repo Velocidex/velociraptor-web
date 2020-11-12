@@ -173,7 +173,7 @@ Filters a strings array by regex.
 
 Arg | Description | Type
 ----|-------------|-----
-list|A list of items too filter|list of string (required)
+list|A list of items to filter|list of string (required)
 regex|A regex to test each item|list of string (required)
 
 
@@ -212,7 +212,7 @@ Arg | Description | Type
 ----|-------------|-----
 item||Any
 member||string
-field||string
+field||Any
 default||Any
 
 
@@ -254,16 +254,6 @@ Arg | Description | Type
 condition||Any (required)
 then||LazyExpr (required)
 else||LazyExpr
-
-
-## items
-<span class='vql_type pull-right'>Plugin</span>
-
-Enumerate all members of the item (similar to Pythons items() method.
-
-Arg | Description | Type
-----|-------------|-----
-item|The item to enumerate.|Any
 
 
 ## join
@@ -462,20 +452,7 @@ Strip a prefix from a string.
 Arg | Description | Type
 ----|-------------|-----
 string|The string to strip|string (required)
-prefix|The prefix to strip|string (required)
-
-
-## tempdir
-<span class='vql_type pull-right'>Function</span>
-
-Create a temporary directory. The directory will be removed when the query ends.
-
-Arg | Description | Type
-----|-------------|-----
-data|Data to write in the tempfile.|list of string
-extension|An extension to place in the tempfile.|string
-permissions|Required permissions (e.g. 'x').|string
-remove_last|If set we delay removal as much as possible.|bool
+prefix|The prefix to strip|string
 
 
 ## timestamp
@@ -489,12 +466,6 @@ epoch||Any
 winfiletime||int64
 string|Guess a timestamp from a string|string
 us_style|US Style Month/Day/Year|bool
-
-
-## to_dict
-<span class='vql_type pull-right'>Function</span>
-
-Construct a dict from another object.
 
 
 ## upcase
@@ -561,33 +532,4 @@ Encode a string to utf16 bytes.
 Arg | Description | Type
 ----|-------------|-----
 string|A string to decode|string (required)
-
-
-## uuid
-<span class='vql_type pull-right'>Function</span>
-
-Generate a UUID.
-
-
-## version
-<span class='vql_type pull-right'>Function</span>
-
-
-Gets the version of a VQL plugin or function.
-
-This is useful when writing portable VQL which can work with
-older versions of Velociraptor. When Velociraptor plugins evolve
-in an incompatible way their version is incremented. It is
-possible to cater for multiple versions in the VQL using an if()
-plugin.
-
-For example the following can chose from a legacy query or a
-modern query based on the plugin version:
-```
- SELECT * FROM if(
-  condition=version(plugin="glob") >= 1,
-  then=NewQuery,
-  else=LegacyQuery)
-```
-
 

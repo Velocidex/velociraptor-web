@@ -421,6 +421,13 @@
       <a href="/blog/">Velociraptor Blog</a><i class="fa fa-angle-right fa-lg category-icon"></i>
       </div>
         <ul>
+      <li data-nav-id="/blog/medium/2020-11-13-the-windows-usn-journal-f0c55c9010e/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-11-13-the-windows-usn-journal-f0c55c9010e/">
+            The Windows USN Journal
+          </a>
+        </div>
+    </li>
       <li data-nav-id="/blog/medium/2020-09-28-velociraptor-network-communications-30568624043a/" class="dd-item">
         <div>
           <a href="/blog/medium/2020-09-28-velociraptor-network-communications-30568624043a/">
@@ -910,12 +917,17 @@ them using the <code>http_client()</code> plugin.</p>
 <tr>
 <td>query</td>
 <td>Run this query for each row.</td>
-<td>StoredQuery (required)</td>
+<td>StoredQuery</td>
 </tr>
 <tr>
 <td>async</td>
 <td>If set we run all queries asyncronously.</td>
 <td>bool</td>
+</tr>
+<tr>
+<td>column</td>
+<td>If set we only extract the column from row.</td>
+<td>string</td>
 </tr>
 </tbody>
 </table>
@@ -1105,6 +1117,11 @@ externalip service.</p>
 <tr>
 <td>method</td>
 <td>HTTP method to use (GET, POST)</td>
+<td>string</td>
+</tr>
+<tr>
+<td>data</td>
+<td>If specified we write this raw data into a POST request instead of encoding the params above.</td>
 <td>string</td>
 </tr>
 <tr>
@@ -1504,6 +1521,16 @@ might be somewhat easier to use.</p>
 <td>credentialssecret</td>
 <td>The AWS secret credentials to use</td>
 <td>string (required)</td>
+</tr>
+<tr>
+<td>endpoint</td>
+<td>The Endpoint to use</td>
+<td>string</td>
+</tr>
+<tr>
+<td>noverifycert</td>
+<td>Skip TLS Verification</td>
+<td>bool</td>
 </tr>
 </tbody>
 </table>

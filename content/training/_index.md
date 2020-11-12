@@ -10,50 +10,6 @@ slider:
 
 schedule:
 - title: Velociraptor training (Online edition - US/APAC)
-  date: 6th Oct 2020
-  description: |
-      The life of an information security professional is a hectic one. It
-      seems like you are fighting fires every day and always behind the
-      eight ball. You know you should be proactively hunting for emerging
-      threats in your network but the tools at your disposal simply do not
-      scale. You can check each machine individually for hardening and
-      policy compliance but you have many thousands of endpoints deployed,
-      it is hard enough to keep up with the alerts.
-
-      This online course will be split into 7 sessions over 2 weeks with 2-3
-      hours per day. We will deliver the course live over Zoom in an
-      interactive, hands on format. There will be time for questions and
-      free discussions.
-
-      Time slots are ideal for USA and APAC based participants.
-
-  outline: /training/online_oct_6_2020
-  buyurl: https://www.eventbrite.com.au/e/enterprise-hunting-and-incident-response-online-edition-tickets-117356375077
-  picture: online_oct_6_2020/blue-and-white-earth-globe.jpg
-
-- title: Velociraptor training (Online edition - US/EMEA)
-  date: 27th Oct 2020
-  description: |
-      The life of an information security professional is a hectic one. It
-      seems like you are fighting fires every day and always behind the
-      eight ball. You know you should be proactively hunting for emerging
-      threats in your network but the tools at your disposal simply do not
-      scale. You can check each machine individually for hardening and
-      policy compliance but you have many thousands of endpoints deployed,
-      it is hard enough to keep up with the alerts.
-
-      This online course will be split into 7 sessions over 2 weeks with 2-3
-      hours per day. We will deliver the course live over Zoom in an
-      interactive, hands on format. There will be time for questions and
-      free discussions.
-
-      Time slots are ideal for US and EMEA based participants.
-
-  outline: /training/online_oct_27_2020
-  buyurl: https://www.eventbrite.com.au/e/enterprise-hunting-and-incident-response-online-edition-tickets-117360453275
-  picture: online_oct_27_2020/globe.jpg
-
-- title: Velociraptor training (Online edition - US/APAC)
   date: 2th March 2021
   description: |
       The life of an information security professional is a hectic one. It
