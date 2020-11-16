@@ -46,3 +46,13 @@ Velociraptor training events are designed to give you the hands on
 experience needed to make the most from Velociraptor.
 
 A sample chapter from the training course is <a href='/docs/presentations/training_2020/'>now available!</a>
+
+## Expressions of interest
+
+If you are interested in doing a course, but there is no suitable
+time, please do not hesitate to email us at info@velocidex.com with a
+prefered start date, timezone and number of participants. When we have
+sufficient interest to run a course, we may be able to schedule a
+suitable time.
+
+## Currently scheduled times

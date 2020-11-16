@@ -170,7 +170,7 @@ scale. You can check each machine individually for hardening and
 policy compliance but you have many thousands of endpoints deployed,
 it is hard enough to keep up with the alerts.</p>
 <p>You try to keep across the latest malware trends and threat Intel
-feeds. You might even receive a tipoff that your network is
+feeds. You might even receive a tip-off that your network is
 compromised by a specific variant of malware of an APT group. You wish
 there was a way for you to easily inspect all your endpoints for the
 indicators, digging deeper into any machines which might be
@@ -264,7 +264,14 @@ tool.</p>
 workhorse behind the tool and mastering VQL will provide you with
 the flexibility you need to adapt to rapidly changing challenges.</li>
 </ul>
-<h2 id="interactive-forensic-investigation">Interactive forensic investigation</h2>
+<h2 id="vql-fundamentals">VQL Fundamentals</h2>
+<p>Velociraptor&rsquo;s secret source is really its powerful query
+language. Using this you can flexibly query all your endpoints in
+minutes to collect files, perform remote analysis and surgically
+extract forensic artifacts. This module is a VQL deep dive, full of
+practical exercises and low level information, we introduce VQL and
+apply it to real life collections.</p>
+<h2 id="windows-forensic-analysis">Windows Forensic Analysis</h2>
 <p>Velociraptor puts the power of experienced digital forensic
 investigators at your finger tips! This module will cover at a high
 level the basics of modern forensic analysis techniques. You will now
@@ -284,6 +291,9 @@ ex-filtration of proprietary data.</p>
 </li>
 <li>
 <p>Recovering evidence of deleted files from $MFT and $I30 carving</p>
+</li>
+<li>
+<p>Evidence of execution: Prefetch, SRUM, USN Journal</p>
 </li>
 <li>
 <p>Registry</p>
@@ -329,28 +339,29 @@ executions, connected networks, bytes sent/received and much more.</p>
 <p>Some examples of common event log messages: lateral movement, powershell abuse etc.</p>
 </li>
 <li>
-<p>Interactive investigation – collecting artifacts</p>
+<p>Machine state and process forensics.</p>
 </li>
 <li>
-<p>Throughout this module we will use Velociraptor to gain experience
-in analysis and searching for the discussed artifacts.</p>
+<p>Process listing, VADs, Mutants, DLLs loaded: Determine powershell script is connecting over HTTP by inspecting its VAD</p>
+</li>
+<li>
+<p>Detect a Yara signature in process memory, dump the process memory and upload to server for further analysis.</p>
 </li>
 </ul>
 <h2 id="triage-and-data-collection--collecting-data-without-an-agent">Triage and data collection – collecting data without an agent</h2>
-<p>A remote user is suspected of being compromised. The user is on the
-NBN and therefore due to limited bandwidth, can not upload vast
-amounts of data quickly. You need to triage their system to determine
-if they are comprised. You would like to acquire memory, critical
-files and capture as much of system state as possible. Unfortunately,
-the user is not command line savvy – but luckily they are really good
-at double clicking a binary!</p>
+<p>A remote user is suspected of being compromised. The user is on a slow
+network with limited bandwidth, and can not upload vast amounts of
+data quickly. You need to triage their system to determine if they are
+compromised. You would like to acquire memory, critical files and
+capture as much of system state as possible. Unfortunately, the user
+is not command line savvy – but luckily they are really good at double
+clicking a binary!</p>
 <p>In this module we learn how to perform offline collection with
 Velociraptor. We prepare an automatic collection package which simply
 acquires system state when double clicked.</p>
 <h3 id="exercises-1">Exercises</h3>
 <ul>
-<li>Process listing, VADs, Mutants, DLLs loaded</li>
-<li>Full memory capture</li>
+<li>Full memory capture for later analysis with e.g. Volatility.</li>
 <li>Collect file sets – registry, $MFT etc.</li>
 <li>Configuring autoexec Velociraptor for simple double click execution.</li>
 </ul>
@@ -358,10 +369,15 @@ acquires system state when double clicked.</p>
 <p>You have discovered evidence of compromise on some of your
 systems. Your boss wants to know if the attackers have laterally moved
 through your network and the extent of compromise. You would like to
-hunt for the indicators.</p>
+hunt for the indicators. You refer to the Mitre Att&amp;ck framework for
+typical Tools Technique and Procedures (TTPs) used by your adversary,
+and want to hunt for these across your network.</p>
+<p>In this module we also use Elastic and Kibana to demonstrate how
+events and collections can be forwarded by Velociraptor to those
+platform for scalable and efficient post processing/dashboarding.</p>
 <h3 id="exercises-2">Exercises</h3>
 <ul>
-<li>Hashes and file pattern based searches (Using $MFT analysis and directory walking).</li>
+<li>Use the Mitre Att&amp;ck framework to develop a targeted VQL query for detecting a form of persistence. Hunt for it and identify the compromised hosts.</li>
 <li>Yara and Signature based searching. Searching both files and memory for patterns</li>
 <li>Performance management of endpoints</li>
 </ul>
@@ -377,6 +393,23 @@ Velociraptor is a complete endpoint monitoring and response tool!</p>
 <li>Windows Event Log forwarding and classification. Event log enrichment and prioritization.</li>
 <li>Monitoring for changes in system state: New file executions and High
 risk files such as office macros and remote PowerShell</li>
+</ul>
+<h1 id="extending-vql-and-api">Extending VQL and API</h1>
+<p>Velociraptor is a great platform, but in a real deployment it is only
+a small part of a wider solutions. In this module we explore how to
+seamlessly extend VQL using Powershell or an external binary. This
+opens a wide range of possibilities including automated remediation at
+scale!</p>
+<p>We then move onto Velociraptor system administration (Using VQL of
+course!) and learn how to safely expose the Velociraptor API to
+external programs so Velociraptor can be completely controlled by an
+automated pipeline.</p>
+<h3 id="exercises-3">Exercises:</h3>
+<ul>
+<li>Adapt a Powershell script to VQL, write an artifact, hunt for it everywhere.</li>
+<li>Remediate a Cryptominer infection using scheduled tasks for persistence from the entire fleet in seconds.</li>
+<li>Automatically decode encoded powershell command lines on the server.</li>
+<li>Write a python script to connect to the server, collect and artifact from a client, wait for it to complete then retrieve the results.</li>
 </ul>
 <h1 id="this-course-should-not-be-missed">This course should not be missed!</h1>
 <p>You have heard about Velociraptor and how it makes DFIR easy and

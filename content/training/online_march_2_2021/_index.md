@@ -20,7 +20,7 @@ policy compliance but you have many thousands of endpoints deployed,
 it is hard enough to keep up with the alerts.
 
 You try to keep across the latest malware trends and threat Intel
-feeds. You might even receive a tipoff that your network is
+feeds. You might even receive a tip-off that your network is
 compromised by a specific variant of malware of an APT group. You wish
 there was a way for you to easily inspect all your endpoints for the
 indicators, digging deeper into any machines which might be
@@ -106,7 +106,16 @@ tool.
   workhorse behind the tool and mastering VQL will provide you with
   the flexibility you need to adapt to rapidly changing challenges.
 
-## Interactive forensic investigation
+## VQL Fundamentals
+
+Velociraptor's secret source is really its powerful query
+language. Using this you can flexibly query all your endpoints in
+minutes to collect files, perform remote analysis and surgically
+extract forensic artifacts. This module is a VQL deep dive, full of
+practical exercises and low level information, we introduce VQL and
+apply it to real life collections.
+
+## Windows Forensic Analysis
 
 Velociraptor puts the power of experienced digital forensic
 investigators at your finger tips! This module will cover at a high
@@ -120,6 +129,7 @@ ex-filtration of proprietary data.
  * NTFS Overview
  * Data Streams and the $MFT
  * Recovering evidence of deleted files from $MFT and $I30 carving
+ * Evidence of execution: Prefetch, SRUM, USN Journal
 
 * Registry
  * What is the windows Registry?
@@ -131,7 +141,6 @@ ex-filtration of proprietary data.
  * Lateral movement and privilege escalation using WMI – an attacker’s favorite!
  * WMI persistence mechanisms (Filter/consumer bindings)
 
-
 * System Resource Usage Monitor (SRUM)
  * The SRUM database can help us determine evidence of past
    executions, connected networks, bytes sent/received and much more.
@@ -141,20 +150,19 @@ ex-filtration of proprietary data.
  * What are event Ids and how do they relate to messages?
  * Some examples of common event log messages: lateral movement, powershell abuse etc.
 
-* Interactive investigation – collecting artifacts
- * Throughout this module we will use Velociraptor to gain experience
-   in analysis and searching for the discussed artifacts.
-
+* Machine state and process forensics.
+ * Process listing, VADs, Mutants, DLLs loaded: Determine powershell script is connecting over HTTP by inspecting its VAD
+ * Detect a Yara signature in process memory, dump the process memory and upload to server for further analysis.
 
 ## Triage and data collection – collecting data without an agent
 
-A remote user is suspected of being compromised. The user is on the
-NBN and therefore due to limited bandwidth, can not upload vast
-amounts of data quickly. You need to triage their system to determine
-if they are comprised. You would like to acquire memory, critical
-files and capture as much of system state as possible. Unfortunately,
-the user is not command line savvy – but luckily they are really good
-at double clicking a binary!
+A remote user is suspected of being compromised. The user is on a slow
+network with limited bandwidth, and can not upload vast amounts of
+data quickly. You need to triage their system to determine if they are
+compromised. You would like to acquire memory, critical files and
+capture as much of system state as possible. Unfortunately, the user
+is not command line savvy – but luckily they are really good at double
+clicking a binary!
 
 In this module we learn how to perform offline collection with
 Velociraptor. We prepare an automatic collection package which simply
@@ -162,22 +170,26 @@ acquires system state when double clicked.
 
 ### Exercises
 
-* Process listing, VADs, Mutants, DLLs loaded
-* Full memory capture
+* Full memory capture for later analysis with e.g. Volatility.
 * Collect file sets – registry, $MFT etc.
 * Configuring autoexec Velociraptor for simple double click execution.
-
 
 ## Lateral movement and hunting
 
 You have discovered evidence of compromise on some of your
 systems. Your boss wants to know if the attackers have laterally moved
 through your network and the extent of compromise. You would like to
-hunt for the indicators.
+hunt for the indicators. You refer to the Mitre Att&ck framework for
+typical Tools Technique and Procedures (TTPs) used by your adversary,
+and want to hunt for these across your network.
+
+In this module we also use Elastic and Kibana to demonstrate how
+events and collections can be forwarded by Velociraptor to those
+platform for scalable and efficient post processing/dashboarding.
 
 ### Exercises
 
-* Hashes and file pattern based searches (Using $MFT analysis and directory walking).
+* Use the Mitre Att&ck framework to develop a targeted VQL query for detecting a form of persistence. Hunt for it and identify the compromised hosts.
 * Yara and Signature based searching. Searching both files and memory for patterns
 * Performance management of endpoints
 
@@ -195,6 +207,25 @@ Velociraptor is a complete endpoint monitoring and response tool!
 * Monitoring for changes in system state: New file executions and High
   risk files such as office macros and remote PowerShell
 
+# Extending VQL and API
+
+Velociraptor is a great platform, but in a real deployment it is only
+a small part of a wider solutions. In this module we explore how to
+seamlessly extend VQL using Powershell or an external binary. This
+opens a wide range of possibilities including automated remediation at
+scale!
+
+We then move onto Velociraptor system administration (Using VQL of
+course!) and learn how to safely expose the Velociraptor API to
+external programs so Velociraptor can be completely controlled by an
+automated pipeline.
+
+### Exercises:
+
+* Adapt a Powershell script to VQL, write an artifact, hunt for it everywhere.
+* Remediate a Cryptominer infection using scheduled tasks for persistence from the entire fleet in seconds.
+* Automatically decode encoded powershell command lines on the server.
+* Write a python script to connect to the server, collect and artifact from a client, wait for it to complete then retrieve the results.
 
 # This course should not be missed!
 
