@@ -7,17 +7,18 @@
 
     <!-- Blog details page start -->
     <section id="main-container">
-      <div class="container">
-        <div class="row">
+      <div class="">
+        <div class="container">
 
           <!-- Blog start -->
           {{ if .Page.Params.full_width }}
             {{ .Content }}
           {{ else }}
-            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2"> </div>
+            <div class="col-lg-2 col-md-2 col-sm-0 col-xs-0"> </div>
             <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
               {{ .Content }}
             </div>
+            <div class="col-lg-2 col-md-2 col-sm-0 col-xs-0"> </div>
           {{ end }}
         </div>
       </div>
@@ -26,7 +27,7 @@
     <!-- Footer start -->
     <section id="copyright" class="copyright angle">
       <div class="container">
-        <div class="row">
+        <div class="">
           <div class="col-md-12 text-center">
             <div class="copyright-info">
               &copy; Copyright 2020 Velocidex Enterprises.
