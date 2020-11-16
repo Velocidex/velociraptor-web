@@ -12,4 +12,4 @@ gave. It can be used as reference material. Note the dates of
 presentation as some material may be outdated.
 
 
-{{% children %}}
+{{% children "sort" "weight" %}}

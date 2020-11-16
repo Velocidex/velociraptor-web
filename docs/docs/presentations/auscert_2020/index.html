@@ -5,7 +5,7 @@
     
       <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<title>Applications :: Velociraptor / Dig deeper</title>
+<title>Auscert 2020 Tutorial :: Velociraptor / Dig deeper</title>
 <link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon" />
 <link rel="stylesheet" href="/css/bootstrap.min.css">
 <link href="/css/nucleus.css" rel="stylesheet">
@@ -30,7 +30,7 @@
 
     
   </head>
-  <body data-url="/docs/artifacts/windows_system/applications/">
+  <body data-url="/docs/presentations/auscert_2020/">
     
       <div id="headermain"></div>
 <nav id="sidebar" class="">
@@ -274,11 +274,10 @@
     </li>
         </ul>
     </li>
-    <li data-nav-id="/docs/artifacts/" class="dd-item parent haschildren
+    <li data-nav-id="/docs/artifacts/" class="dd-item haschildren
         ">
       <div>
-      <a href="/docs/artifacts/">Artifact Reference</a>
-            <i class="fa fa-angle-down fa-lg category-icon"></i>
+      <a href="/docs/artifacts/">Artifact Reference</a><i class="fa fa-angle-right fa-lg category-icon"></i>
       </div>
         <ul>
     <li data-nav-id="/docs/artifacts/linux/" class="dd-item
@@ -287,11 +286,10 @@
       <a href="/docs/artifacts/linux/">Linux Artifacts</a>
       </div>
     </li>
-    <li data-nav-id="/docs/artifacts/windows_system/" class="dd-item parent haschildren
+    <li data-nav-id="/docs/artifacts/windows_system/" class="dd-item haschildren
         ">
       <div>
-      <a href="/docs/artifacts/windows_system/">Windows</a>
-            <i class="fa fa-angle-down fa-lg category-icon"></i>
+      <a href="/docs/artifacts/windows_system/">Windows</a><i class="fa fa-angle-right fa-lg category-icon"></i>
       </div>
         <ul>
     <li data-nav-id="/docs/artifacts/windows_system/events/" class="dd-item
@@ -318,7 +316,7 @@
       <a href="/docs/artifacts/windows_system/network/">Network</a>
       </div>
     </li>
-    <li data-nav-id="/docs/artifacts/windows_system/applications/" class="dd-item parent active
+    <li data-nav-id="/docs/artifacts/windows_system/applications/" class="dd-item
         ">
       <div>
       <a href="/docs/artifacts/windows_system/applications/">Applications</a>
@@ -364,13 +362,14 @@
     </li>
         </ul>
     </li>
-    <li data-nav-id="/docs/presentations/" class="dd-item haschildren
+    <li data-nav-id="/docs/presentations/" class="dd-item parent haschildren
         ">
       <div>
-      <a href="/docs/presentations/">Presentations and Workshops</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      <a href="/docs/presentations/">Presentations and Workshops</a>
+            <i class="fa fa-angle-down fa-lg category-icon"></i>
       </div>
         <ul>
-    <li data-nav-id="/docs/presentations/auscert_2020/" class="dd-item
+    <li data-nav-id="/docs/presentations/auscert_2020/" class="dd-item parent active
         ">
       <div>
       <a href="/docs/presentations/auscert_2020/">Auscert 2020 Tutorial</a>
@@ -624,12 +623,7 @@
 
 
 
-
-
-
- <a href='/'>Velociraptor / Dig deeper</a> > <a href='/docs/'>Velociraptor Documentation</a> > <a href='/docs/artifacts/'>Artifact Reference</a> > <a href='/docs/artifacts/windows_system/'>Windows</a> > Applications
-
-
+ <a href='/'>Velociraptor / Dig deeper</a> > <a href='/docs/'>Velociraptor Documentation</a> > <a href='/docs/presentations/'>Presentations and Workshops</a> > Auscert 2020 Tutorial
 
 
 
@@ -646,11 +640,8 @@
         <div class="wrapper">
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#windowsapplicationschocolateypackages">Windows.Applications.ChocolateyPackages</a></li>
-    <li><a href="#windowsapplicationschromecookies">Windows.Applications.Chrome.Cookies</a></li>
-    <li><a href="#windowsapplicationschromeextensions">Windows.Applications.Chrome.Extensions</a></li>
-    <li><a href="#windowsapplicationschromehistory">Windows.Applications.Chrome.History</a></li>
-    <li><a href="#windowsapplicationsofficemacros">Windows.Applications.OfficeMacros</a></li>
+    <li><a href="#requirements">Requirements</a></li>
+    <li><a href="#the-slides-are-available-a-hrefhttpsdocsgooglecompresentationde2pacx-1vt9yvbso06lsbaqnytmmjakrabqn5d2jioxe4niykopqv49df9dqg3xe0fhndvfflpdpt6t2uf5jcpqpubstartfalseloopfalsedelayms3000herea">The slides are available <a href='https://docs.google.com/presentation/d/e/2PACX-1vT9yVbsO06LSbaQnYTmMJaKRAbQN5D2jIoxe4niYkopqV49Df9DQg3XE0FHNDvfFlpdpT6T2Uf5jcPQ/pub?start=false&loop=false&delayms=3000'>here</a></a></li>
   </ul>
 </nav>
         </div>
@@ -662,9 +653,7 @@
 
 <div id="body-inner">
   
-      <h1>Applications</h1>
-      
-        <h4 class="subtitle"> These artifacts collect information related to the windows applications. </h4>
+      <h1>Auscert 2020 Tutorial</h1>
       
   
 
@@ -674,487 +663,20 @@
     
     
 
-<h2 id="windowsapplicationschocolateypackages">Windows.Applications.ChocolateyPackages</h2>
-<p>Chocolatey packages installed in a system.</p>
-<table>
-<thead>
-<tr>
-<th>Arg</th>
-<th>Default</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>ChocolateyInstall</td>
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table>
-<div class="expand">
-    <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fa fa-chevron-down' : 'fa fa-chevron-right';});});">
-        <i style="font-size:x-small;" class="fa fa-chevron-right"></i>
-        <span>
-          View Artifact Source
-        </span>
-    </div>
-    <div class="expand-content" style="display: none;">
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">name: Windows.Applications.ChocolateyPackages
-description: Chocolatey packages installed in a system.
-parameters:
-  - name: ChocolateyInstall
-    default: &#34;&#34;
-
-sources:
-  - precondition:
-      SELECT OS From info() where OS = &#39;windows&#39;
-    queries:
-      - LET files = SELECT FullPath,
-              parse_xml(file=FullPath) AS Metadata
-              -- Use the ChocolateyInstall parameter if it is set.
-
-          FROM glob(globs=if(
-             condition=ChocolateyInstall,
-             then=ChocolateyInstall,
-
-             -- Otherwise just use the environment.
-             else=environ(var=&#39;ChocolateyInstall&#39;)) + &#39;/lib/*/*.nuspec&#39;)
-
-      - SELECT * FROM if(
-        condition=if(condition=ChocolateyInstall,
-                     then=ChocolateyInstall,
-                     else=environ(var=&#34;ChocolateyInstall&#34;)),
-        then={
-            SELECT FullPath,
-                   Metadata.package.metadata.id as Name,
-                   Metadata.package.metadata.version as Version,
-                   Metadata.package.metadata.summary as Summary,
-                   Metadata.package.metadata.authors as Authors,
-                   Metadata.package.metadata.licenseUrl as License
-            FROM files
-        })
-</code></pre></div>   </div>
-</div>
-<h2 id="windowsapplicationschromecookies">Windows.Applications.Chrome.Cookies</h2>
-<p>Enumerate the users chrome cookies.</p>
-<p>The cookies are typically encrypted by the DPAPI using the user&rsquo;s
-credentials. Since Velociraptor is typically not running in the user
-context we can not decrypt these. It may be possible to decrypt the
-cookies off line.</p>
-<p>The pertinant information from a forensic point of view is the
-user&rsquo;s Created and LastAccess timestamp and the fact that the user
-has actually visited the site and obtained a cookie.</p>
-<table>
-<thead>
-<tr>
-<th>Arg</th>
-<th>Default</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>cookieGlobs</td>
-<td>\AppData\Local\Google\Chrome\User Data\*\Co &hellip;</td>
-<td></td>
-</tr>
-<tr>
-<td>cookieSQLQuery</td>
-<td>SELECT creation_utc, host_key, name, value, path,  &hellip;</td>
-<td></td>
-</tr>
-<tr>
-<td>userRegex</td>
-<td>.</td>
-<td></td>
-</tr>
-</tbody>
-</table>
-<div class="expand">
-    <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fa fa-chevron-down' : 'fa fa-chevron-right';});});">
-        <i style="font-size:x-small;" class="fa fa-chevron-right"></i>
-        <span>
-          View Artifact Source
-        </span>
-    </div>
-    <div class="expand-content" style="display: none;">
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">name: Windows.Applications.Chrome.Cookies
-description: |
-  Enumerate the users chrome cookies.
-
-  The cookies are typically encrypted by the DPAPI using the user&#39;s
-  credentials. Since Velociraptor is typically not running in the user
-  context we can not decrypt these. It may be possible to decrypt the
-  cookies off line.
-
-  The pertinant information from a forensic point of view is the
-  user&#39;s Created and LastAccess timestamp and the fact that the user
-  has actually visited the site and obtained a cookie.
-
-parameters:
-  - name: cookieGlobs
-    default: \AppData\Local\Google\Chrome\User Data\*\Cookies
-  - name: cookieSQLQuery
-    default: |
-      SELECT creation_utc, host_key, name, value, path, expires_utc,
-             last_access_utc, encrypted_value
-      FROM cookies
-  - name: userRegex
-    default: .
-
-precondition: SELECT OS From info() where OS = &#39;windows&#39;
-
-sources:
-  - queries:
-      - |
-        LET cookie_files = SELECT * from foreach(
-          row={
-             SELECT Uid, Name AS User, Directory
-             FROM Artifact.Windows.Sys.Users()
-             WHERE Name =~ userRegex
-          },
-          query={
-             SELECT User, FullPath, Mtime from glob(
-               globs=Directory + cookieGlobs)
-          })
-
-      - |
-        SELECT * FROM foreach(row=cookie_files,
-          query={
-            SELECT timestamp(winfiletime=creation_utc * 10) as Created,
-                   timestamp(winfiletime=last_access_utc * 10) as LastAccess,
-                   timestamp(winfiletime=expires_utc * 10) as Expires,
-                   host_key, name, path, value,
-                   base64encode(string=encrypted_value) as EncryptedValue
-            FROM sqlite(
-              file=FullPath,
-              query=cookieSQLQuery)
-          })
-</code></pre></div>   </div>
-</div>
-<h2 id="windowsapplicationschromeextensions">Windows.Applications.Chrome.Extensions</h2>
-<p>Fetch Chrome extensions.</p>
-<p>Chrome extensions are installed into the user&rsquo;s home directory.  We
-search for manifest.json files in a known path within each system
-user&rsquo;s home directory. We then parse the manifest file as JSON.</p>
-<p>Many extensions use locale packs to resolve strings like name and
-description. In this case we detect the default locale and load
-those locale files. We then resolve the extension&rsquo;s name and
-description from there.</p>
-<table>
-<thead>
-<tr>
-<th>Arg</th>
-<th>Default</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>extensionGlobs</td>
-<td>\AppData\Local\Google\Chrome\User Data\*\Ex &hellip;</td>
-<td></td>
-</tr>
-<tr>
-<td>userRegex</td>
-<td>.</td>
-<td></td>
-</tr>
-</tbody>
-</table>
-<div class="expand">
-    <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fa fa-chevron-down' : 'fa fa-chevron-right';});});">
-        <i style="font-size:x-small;" class="fa fa-chevron-right"></i>
-        <span>
-          View Artifact Source
-        </span>
-    </div>
-    <div class="expand-content" style="display: none;">
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">name: Windows.Applications.Chrome.Extensions
-description: |
-  Fetch Chrome extensions.
-
-  Chrome extensions are installed into the user&#39;s home directory.  We
-  search for manifest.json files in a known path within each system
-  user&#39;s home directory. We then parse the manifest file as JSON.
-
-  Many extensions use locale packs to resolve strings like name and
-  description. In this case we detect the default locale and load
-  those locale files. We then resolve the extension&#39;s name and
-  description from there.
-
-parameters:
-  - name: extensionGlobs
-    default: \AppData\Local\Google\Chrome\User Data\*\Extensions\*\*\manifest.json
-  - name: userRegex
-    default: .
-
-sources:
-  - precondition: |
-      SELECT OS From info() where OS = &#39;windows&#39;
-    queries:
-      - |
-        /* For each user on the system, search for extension manifests
-           in their home directory. */
-        LET extension_manifests = SELECT * from foreach(
-          row={
-             SELECT Uid, Name AS User, Directory
-             FROM Artifact.Windows.Sys.Users()
-             WHERE Name =~ userRegex
-          },
-          query={
-             SELECT FullPath, Mtime, Ctime, User, Uid from glob(
-               globs=Directory + extensionGlobs)
-          })
-
-      - |
-        /* If the Manifest declares a default_locale then we
-           load and parse the messages file. In this case the
-           messages are actually stored in the locale file
-           instead of the main manifest.json file.
-        */
-        LET maybe_read_locale_file =
-           SELECT * from if(
-              condition={
-                 select * from scope() where Manifest.default_locale
-              },
-              then={
-                 SELECT Manifest,
-                        Uid, User,
-                        Filename as LocaleFilename,
-                        ManifestFilename,
-                        parse_json(data=Data) AS LocaleManifest
-                 FROM read_file(
-                         -- Munge the filename to get the messages.json path.
-                         filenames=regex_replace(
-                           source=ManifestFilename,
-                           replace=&#34;\\_locales\\&#34; + Manifest.default_locale +
-                                   &#34;\\messages.json&#34;,
-                           re=&#34;\\\\manifest.json$&#34;))
-              },
-              else={
-                  -- Just fill in empty Locale results.
-                  SELECT Manifest,
-                         Uid, User,
-                         &#34;&#34; AS LocaleFilename,
-                         &#34;&#34; AS ManifestFilename,
-                         &#34;&#34; AS LocaleManifest
-                  FROM scope()
-              })
-
-      - |
-        LET parse_json_files = SELECT * from foreach(
-           row={
-             SELECT Filename as ManifestFilename,
-                    Uid, User,
-                    parse_json(data=Data) as Manifest
-             FROM read_file(filenames=FullPath)
-           },
-           query=maybe_read_locale_file)
-
-      - |
-        LET parsed_manifest_files = SELECT * from foreach(
-          row=extension_manifests,
-          query=parse_json_files)
-
-      - |
-        SELECT Uid, User,
-
-               /* If the manifest name contains __MSG_ then the real
-                  name is stored in the locale manifest. This condition
-                  resolves the Name column either to the main manifest or
-                  the locale manifest.
-               */
-               if(condition=&#34;__MSG_&#34; in Manifest.name,
-                  then=get(item=LocaleManifest,
-                     member=regex_replace(
-                        source=Manifest.name,
-                        replace=&#34;$1&#34;,
-                        re=&#34;(?:__MSG_(.+)__)&#34;)).message,
-                  else=Manifest.name) as Name,
-
-               if(condition=&#34;__MSG_&#34; in Manifest.description,
-                  then=get(item=LocaleManifest,
-                     member=regex_replace(
-                        source=Manifest.description,
-                        replace=&#34;$1&#34;,
-                        re=&#34;(?:__MSG_(.+)__)&#34;)).message,
-                  else=Manifest.description) as Description,
-
-               /* Get the Identifier and Version from the manifest filename */
-               regex_replace(
-                 source=ManifestFilename,
-                 replace=&#34;$1&#34;,
-                 re=&#34;(?:.+Extensions\\\\([^\\\\]+)\\\\([^\\\\]+)\\\\manifest.json)$&#34;) AS Identifier,
-               regex_replace(
-                 source=ManifestFilename,
-                 replace=&#34;$2&#34;,
-                 re=&#34;(?:.+Extensions\\\\([^\\\\]+)\\\\([^\\\\]+)\\\\manifest.json)$&#34;) AS Version,
-
-               Manifest.author as Author,
-               Manifest.background.persistent AS Persistent,
-               regex_replace(
-                 source=ManifestFilename,
-                 replace=&#34;$1&#34;,
-                 re=&#34;(.+Extensions\\\\.+\\\\)manifest.json$&#34;) AS Path,
-
-               Manifest.oauth2.scopes as Scopes,
-               Manifest.permissions as Permissions,
-               Manifest.key as Key
-
-        FROM parsed_manifest_files
-</code></pre></div>   </div>
-</div>
-<h2 id="windowsapplicationschromehistory">Windows.Applications.Chrome.History</h2>
-<p>Enumerate the users chrome history.</p>
-<table>
-<thead>
-<tr>
-<th>Arg</th>
-<th>Default</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>historyGlobs</td>
-<td>\AppData\Local\Google\Chrome\User Data\*\Hi &hellip;</td>
-<td></td>
-</tr>
-<tr>
-<td>urlSQLQuery</td>
-<td>SELECT url as visited_url, title, visit_count,\n   &hellip;</td>
-<td></td>
-</tr>
-<tr>
-<td>userRegex</td>
-<td>.</td>
-<td></td>
-</tr>
-</tbody>
-</table>
-<div class="expand">
-    <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fa fa-chevron-down' : 'fa fa-chevron-right';});});">
-        <i style="font-size:x-small;" class="fa fa-chevron-right"></i>
-        <span>
-          View Artifact Source
-        </span>
-    </div>
-    <div class="expand-content" style="display: none;">
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">name: Windows.Applications.Chrome.History
-description: |
-  Enumerate the users chrome history.
-
-parameters:
-  - name: historyGlobs
-    default: \AppData\Local\Google\Chrome\User Data\*\History
-  - name: urlSQLQuery
-    default: |
-      SELECT url as visited_url, title, visit_count,
-             typed_count, last_visit_time
-      FROM urls
-  - name: userRegex
-    default: .
-
-precondition: SELECT OS From info() where OS = &#39;windows&#39;
-
-sources:
-  - queries:
-      - |
-        LET history_files = SELECT * from foreach(
-          row={
-             SELECT Uid, Name AS User, Directory
-             FROM Artifact.Windows.Sys.Users()
-             WHERE Name =~ userRegex
-          },
-          query={
-             SELECT User, FullPath, Mtime from glob(
-               globs=Directory + historyGlobs)
-          })
-
-      - |
-        SELECT * FROM foreach(row=history_files,
-          query={
-            SELECT User, FullPath,
-                   timestamp(epoch=Mtime.Sec) as Mtime,
-                   visited_url,
-                   title, visit_count, typed_count,
-                   timestamp(winfiletime=last_visit_time * 10) as last_visit_time
-            FROM sqlite(
-              file=FullPath,
-              query=urlSQLQuery)
-          })
-</code></pre></div>   </div>
-</div>
-<h2 id="windowsapplicationsofficemacros">Windows.Applications.OfficeMacros</h2>
-<p>Office macros are a favourite initial infection vector. Many users
-click through the warning dialogs.</p>
-<p>This artifact scans through the given directory glob for common
-office files. We then try to extract any embedded macros by parsing
-the OLE file structure.</p>
-<p>If a macro calls an external program (e.g. Powershell) this is very
-suspicious!</p>
-<table>
-<thead>
-<tr>
-<th>Arg</th>
-<th>Default</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>officeExtensions</td>
-<td>*.{xls,xlsm,doc,docx,ppt,pptm}</td>
-<td></td>
-</tr>
-<tr>
-<td>officeFileSearchGlob</td>
-<td>C:\Users\**\</td>
-<td>The directory to search for office documents.</td>
-</tr>
-</tbody>
-</table>
-<div class="expand">
-    <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fa fa-chevron-down' : 'fa fa-chevron-right';});});">
-        <i style="font-size:x-small;" class="fa fa-chevron-right"></i>
-        <span>
-          View Artifact Source
-        </span>
-    </div>
-    <div class="expand-content" style="display: none;">
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">name: Windows.Applications.OfficeMacros
-description: |
-  Office macros are a favourite initial infection vector. Many users
-  click through the warning dialogs.
-
-  This artifact scans through the given directory glob for common
-  office files. We then try to extract any embedded macros by parsing
-  the OLE file structure.
-
-  If a macro calls an external program (e.g. Powershell) this is very
-  suspicious!
-
-parameters:
-  - name: officeExtensions
-    default: &#34;*.{xls,xlsm,doc,docx,ppt,pptm}&#34;
-  - name: officeFileSearchGlob
-    default: C:\Users\**\
-    description: The directory to search for office documents.
-
-sources:
-  - queries:
-      - |
-        SELECT * FROM foreach(
-           row={
-              SELECT FullPath FROM glob(globs=officeFileSearchGlob + officeExtensions)
-           },
-           query={
-               SELECT * from olevba(file=FullPath)
-           })
-</code></pre></div>   </div>
-</div>
+<p>This workshop will be hosted on Tuesday 16th Sept. 2020 from 9am
+AEST. It will be delivered using the Auscert conference digital
+platform, so you can attend from the comfort of you preferred place.</p>
+<p>This tutorial is an abridged version of our full 2 day workshop, so we
+wont be able to cover all aspects of the tool, but there is a lot of
+content. It is intended that you follow along and do all the exercises
+yourself.</p>
+<h2 id="requirements">Requirements</h2>
+<p>To follow along, all you will need is a Windows system or Virtual
+Machine (for example Windows 10, or Windows server edition) with
+administrator level access. You can obtain a suitable VM from your
+favorite cloud provider or run the VM locally.</p>
+<h2 id="the-slides-are-available-a-hrefhttpsdocsgooglecompresentationde2pacx-1vt9yvbso06lsbaqnytmmjakrabqn5d2jioxe4niykopqv49df9dqg3xe0fhndvfflpdpt6t2uf5jcpqpubstartfalseloopfalsedelayms3000herea">The slides are available <a href='https://docs.google.com/presentation/d/e/2PACX-1vT9yVbsO06LSbaQnYTmMJaKRAbQN5D2jIoxe4niYkopqV49Df9DQg3XE0FHNDvfFlpdpT6T2Uf5jcPQ/pub?start=false&loop=false&delayms=3000'>here</a></h2>
+<iframe src="https://docs.google.com/presentation/d/e/2PACX-1vT9yVbsO06LSbaQnYTmMJaKRAbQN5D2jIoxe4niYkopqV49Df9DQg3XE0FHNDvfFlpdpT6T2Uf5jcPQ/embed?start=true&loop=false&delayms=10000" frameborder="0" width="960" height="600" class="col-lg-12 col-md-12 col-sm-12 col-xs-12" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
 
 
 
@@ -1167,8 +689,8 @@ sources:
 </div>
 
 <div id="navigation">
-<a class="nav nav-prev" href="/docs/artifacts/windows_system/network/" title="Network"> <i class="fa fa-chevron-left"></i><label>Network</label></a>
-    <a class="nav nav-next" href="/docs/artifacts/windows_system/detection/" title="Malware Detection" style="margin-right: 0px;"><label>Malware Detection</label><i class="fa fa-chevron-right"></i></a></div>
+<a class="nav nav-prev" href="/docs/presentations/" title="Presentations and Workshops"> <i class="fa fa-chevron-left"></i><label>Presentations and Workshops</label></a>
+    <a class="nav nav-next" href="/docs/presentations/comfycon.2020/" title="Comfycon 2020" style="margin-right: 0px;"><label>Comfycon 2020</label><i class="fa fa-chevron-right"></i></a></div>
 
 </section>
 <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
