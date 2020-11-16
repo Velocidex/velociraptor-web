@@ -14,3 +14,7 @@ img.xmas {
     width: 150%;
     height: 100%;
 }
+
+body {
+    position: absolute;
+}
