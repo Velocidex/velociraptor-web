@@ -234,6 +234,20 @@ accessible. Learn what all the buzz is about from the people who wrote
 it! This is a rare opportunity to become involved and support this
 open source tool.
 
+## Testomonials
+
+What did you most like about the workshop?
+
+* Hands on labs using various scenarios
+* understanding the potential of the tool
+* Good balance of theory and hands on lab
+* The structure of the course covered a lot of the theoretical basis and practical applications of the tool. Mike was happy to alter the flow of the course to better suit the participants which was much appreciated.
+* I didn't know much about the product before attending so it was a great overview of everything Velociraptor.
+* Filled in some of the gaps in my knowledge about how Velociraptor works.
+* Everything! The course content was already inclusive, but extra thanks for considering my on_the_fly arbitrary requests and demo'ing via `quiz method` :)
+* Mike's methodology for teaching process, the slides, the notes, i loved this course!!!
+
+
 ### About Velocidex
 
 Velocidex Enterprises was founded by well established industry
