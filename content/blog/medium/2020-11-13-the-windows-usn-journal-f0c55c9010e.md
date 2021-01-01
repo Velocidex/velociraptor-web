@@ -14,9 +14,9 @@ NTFS is the default filesystem on Windows systems, so it is important for DFIR t
 
 ### What is the USN Journal?
 
-By default Windows maintains a journal of filesystem activities is a file called **$Extend\$UsnJrnl** in a special data stream called** $J**. This stream contains records of filesystem operations, primarily to allow backup applications visibility into the files that have been changed since the last time a backup was run.
+By default Windows maintains a journal of filesystem activities is a file called **$Extend\$UsnJrnl** in a special data stream called **$J**. This stream contains records of filesystem operations, primarily to allow backup applications visibility into the files that have been changed since the last time a backup was run.
 
-The **$Extend\$UsnJrnl:$J **file begins life when the volume is created as an empty file. As files are modified on the volume, the $J file is extended with additional USN records.
+The **$Extend\$UsnJrnl:$J** file begins life when the volume is created as an empty file. As files are modified on the volume, the $J file is extended with additional USN records.
 
 In order to preserve space, the NTFS creators use an ingenious trick: The beginning of the file is erased and made into a sparse run. Since NTFS can handle sparse files (i.e. files with large runs containing no data) efficiently, the file effectively does not consume any more disk space than needed but does not need to be rotated or truncated and can just seem to grow infinitely.
 
@@ -124,7 +124,7 @@ The artifact returns almost instantly with the file that this hash belongs to
 
 The local hash database is simply a SQLite file maintained by the VQL query. As such I can easily collect this file with a hunt if I wanted to archive the hash database periodically from all my endpoints.
 
-Collecting the** Windows.Forensics.LocalHashes.Glob** artifact will populate the local hash database by simply crawling a directory, hashing all files inside it and populated the database — this is useful to pre-populate the database with hashes of files created before Velociraptor was installed.
+Collecting the **Windows.Forensics.LocalHashes.Glob** artifact will populate the local hash database by simply crawling a directory, hashing all files inside it and populated the database — this is useful to pre-populate the database with hashes of files created before Velociraptor was installed.
 
 ### Conclusion
 

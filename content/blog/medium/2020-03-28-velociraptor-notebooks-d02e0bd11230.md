@@ -74,7 +74,7 @@ Clicking “Save” will calculate the query and show us the columns available.
 
 ![](../img/1fYx33fAnUlegODORnrRW0A.png)
 
-We can now refine the columns we see by specifying them in the VQL query. In our case we only wish to see **FullPath, Command, Arguments **and** Fqdn **(The hostname of the endpoint). We know that our alert was for executing “cmd.exe” so we narrow our query to only see scheduled tasks with the **cmd.exe** command *(WHERE Command =~ “cmd.exe”)*.
+We can now refine the columns we see by specifying them in the VQL query. In our case we only wish to see **FullPath, Command, Arguments** and **Fqdn** (The hostname of the endpoint). We know that our alert was for executing “cmd.exe” so we narrow our query to only see scheduled tasks with the **cmd.exe** command *(WHERE Command =~ “cmd.exe”)*.
 
 ![](../img/1GxMuBrebyHtxHh0wLUmflw.png)
 
@@ -96,7 +96,7 @@ In practice we can now add more markdown cells to explain our findings, implemen
 
 ### Exporting the notebook
 
-It is great to have a notebook inside Velociraptor, but we really need to be able to print it or share it with others. Additionally, DFIR cases are typically very fluid and the notebook will evolve through multiple revisions. As new data becomes available, perhaps conclusions reached in previous versions need to be revised. This is why we say a notebook is a** living** document
+It is great to have a notebook inside Velociraptor, but we really need to be able to print it or share it with others. Additionally, DFIR cases are typically very fluid and the notebook will evolve through multiple revisions. As new data becomes available, perhaps conclusions reached in previous versions need to be revised. This is why we say a notebook is a **living** document
 
 For these reasons, Velociraptor allows users to export the notebook into plain HTML. The HTML export is a point-in-time export, as the investigation proceeds and new information becomes available, the same notebook may be exported again and again, each version revealing new findings.
 

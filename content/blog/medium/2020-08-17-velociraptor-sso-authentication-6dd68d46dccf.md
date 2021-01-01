@@ -82,7 +82,7 @@ The GitHub OAuth2 flow is excellent! I received an email immediately when my use
 
 Many Velociraptor users are using Office 365 and Azure to manage their organizations. I can set up the Microsoft OAuth2 flow in a very similar way to the previous flow. The only main difference with O365 is the concept of tenants — Azure provides each organization with a tenancy which is normally their domain name.
 
-First I will navigate to the Azure Active Directory application and select **App Registrations**. Click on** New registration** to add a new App.
+First I will navigate to the Azure Active Directory application and select **App Registrations**. Click on **New registration** to add a new App.
 
 ![](../img/1enBaYt9G2zve-8l6zIbmjw.png)
 

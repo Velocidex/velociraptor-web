@@ -80,7 +80,7 @@ In our case the **info()** plugin generated a single row with information about 
 
 ### Lazy VQL
 
-One interesting aspect of VQL is lazy evaluation. Since VQL functions can be expensive or have side effects it is important to understand how they are evaluated. In the following discussion we will illustrate this by use of the** log() **VQL function — this function simply emits a logging message (you can think of it as the VQL equivalent of **print**).
+One interesting aspect of VQL is lazy evaluation. Since VQL functions can be expensive or have side effects it is important to understand how they are evaluated. In the following discussion we will illustrate this by use of the **log()** VQL function — this function simply emits a logging message (you can think of it as the VQL equivalent of **print**).
 
 Let us modify the above query to simply log a simple message “I ran!”
 
@@ -118,7 +118,7 @@ This time the row is eliminated by the left hand condition (OS = “Windows”) 
 
 The previous discussion was rather theoretical but how would you use this behavior in reality? When we write VQL it is important to bear in mind how expensive we believe each operation would be.
 
-For example consider the** hash() **function which calculates a hash of a file when evaluated. Suppose we were looking for a particular file with a known hash in the** /usr/bin** directory.
+For example consider the **hash()** function which calculates a hash of a file when evaluated. Suppose we were looking for a particular file with a known hash in the **/usr/bin** directory.
 
 ![](../img/1V-alj2p3P3hr5HPYYxM1wg.png)
 
@@ -134,6 +134,6 @@ We can now encode this VQL query in an artifact, and launch it as a hunt on our 
 
 ## Conclusion
 
-VQL is a very powerful way of searching for specific indicators on the end point. A good working knowledge of VQL pays dividends to the DFIR hunter. This first part in our series of articles about VQL internals hopes to provide you with the tools and confidence to forge your own VQL queries. In the next article we explore VQL’s control structures such as** if()**, **foreach()** and **switch()**.
+VQL is a very powerful way of searching for specific indicators on the end point. A good working knowledge of VQL pays dividends to the DFIR hunter. This first part in our series of articles about VQL internals hopes to provide you with the tools and confidence to forge your own VQL queries. In the next article we explore VQL’s control structures such as **if()**, **foreach()** and **switch()**.
 
 If you want to know more about Velociraptor, VQL and how to use it effectively to hunt across the enterprise, consider enrolling for the next available training course at [https://www.velocidex.com/training/](https://www.velocidex.com/training/).

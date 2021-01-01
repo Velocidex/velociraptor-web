@@ -6,7 +6,7 @@
     <description>Recent content in Velociraptor Blog on Velociraptor / Dig deeper</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 12 Nov 2020 00:38:44 +0000</lastBuildDate><atom:link href="/blog/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 26 Dec 2020 00:00:00 +0000</lastBuildDate><atom:link href="/blog/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Browsing around the filesystem.</title>
       <link>/blog/html/2018/08/10/browsing_around_the_filesystem.html</link>
@@ -18,6 +18,27 @@ Velociraptor models the client&#39;s VFS as a per-directory VQL query.</descript
     </item>
     
     <item>
+      <title>Slack and Velociraptor</title>
+      <link>/blog/medium/2020-12-26-slack-and-velociraptor-b63803ba4b16/</link>
+      <pubDate>Sat, 26 Dec 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/blog/medium/2020-12-26-slack-and-velociraptor-b63803ba4b16/</guid>
+      <description>Photo by Joan Gamell on Unsplash
+You might have heard of Slack — a chatting app that has grown in popularity over the past few years. Slack allows for API access to the the workspaces, which opens the door to novel applications and automation.
+In this blog post I will demonstrate how to connect Slack to Velociraptor, and be notified within a Slack channel of various events that happen on your Velociraptor deployment.</description>
+    </item>
+    
+    <item>
+      <title>Velociraptor and OSQuery</title>
+      <link>/blog/medium/2020-12-13-velociraptor-and-osquery-2a4306dd23c/</link>
+      <pubDate>Sun, 13 Dec 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/blog/medium/2020-12-13-velociraptor-and-osquery-2a4306dd23c/</guid>
+      <description>One of our favorite tools for endpoint visibility is OSQuery. OSQuery has really transformed the state of endpoint visibility and DFIR by allowing analysts to flexibly issue queries to introspect endpoint state, just like a database. This flexibility has always been the inspiration for Velociraptor, and the development of the Velociraptor Query Language (VQL) followed the footsteps of OSQuery to provide a powerful and flexible query language.
+However, while OSQuery provides a query engine with many plugins exposing machine state, it is not typically enough on its own.</description>
+    </item>
+    
+    <item>
       <title>The Windows USN Journal</title>
       <link>/blog/medium/2020-11-13-the-windows-usn-journal-f0c55c9010e/</link>
       <pubDate>Thu, 12 Nov 2020 00:38:44 +0000</pubDate>
@@ -25,7 +46,7 @@ Velociraptor models the client&#39;s VFS as a per-directory VQL query.</descript
       <guid>/blog/medium/2020-11-13-the-windows-usn-journal-f0c55c9010e/</guid>
       <description>Thanks to Matt Green for discussions, ideas and code….
 NTFS is the default filesystem on Windows systems, so it is important for DFIR tools to support extracting as much system state information as possible from it. Velociraptor already has a full featured NTFS parser, and in a recent release (0.5.2) also added a parser for the USN Journal (Update Sequence Number Journal), or Change Journal.
-What is the USN Journal? By default Windows maintains a journal of filesystem activities is a file called $Extend$UsnJrnl in a special data stream called** $J**.</description>
+What is the USN Journal? By default Windows maintains a journal of filesystem activities is a file called $Extend$UsnJrnl in a special data stream called $J.</description>
     </item>
     
     <item>

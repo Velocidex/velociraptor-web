@@ -88,7 +88,7 @@ Note that once the binary is cached on the endpoint, the Velociraptor client wil
 
 In the above example, from the point of view of the artifact writer, the hollows hunter binary just magically appeared on the endpoint when it was required by an artifact that used it. How does this actually work?
 
-Velociraptor has integrated support for external tools since 0.4.6. The tools are managed by the velociraptor tools command. You can see what tools Velociraptor knows about using the** velociraptor tools show** command:
+Velociraptor has integrated support for external tools since 0.4.6. The tools are managed by the velociraptor tools command. You can see what tools Velociraptor knows about using the **velociraptor tools show** command:
 
 ![](../img/1y0ApRgFzYELr7A2Ko4AHNQ.png)
 

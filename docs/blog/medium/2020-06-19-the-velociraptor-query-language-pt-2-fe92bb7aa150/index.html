@@ -426,6 +426,20 @@
             <i class="fa fa-angle-down fa-lg category-icon"></i>
       </div>
         <ul>
+      <li data-nav-id="/blog/medium/2020-12-26-slack-and-velociraptor-b63803ba4b16/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-12-26-slack-and-velociraptor-b63803ba4b16/">
+            Slack and Velociraptor
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2020-12-13-velociraptor-and-osquery-2a4306dd23c/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-12-13-velociraptor-and-osquery-2a4306dd23c/">
+            Velociraptor and OSQuery
+          </a>
+        </div>
+    </li>
       <li data-nav-id="/blog/medium/2020-11-13-the-windows-usn-journal-f0c55c9010e/" class="dd-item">
         <div>
           <a href="/blog/medium/2020-11-13-the-windows-usn-journal-f0c55c9010e/">
@@ -764,7 +778,7 @@
 <p><img src="../img/1h8EgsM6ji2Vv1ewQLx5ikQ.png" alt=""></p>
 <h3 id="conclusions">Conclusions</h3>
 <p>This second installment in our series of articles about VQL internals I introduced the idea of scope in VQL. We saw how scope lookups are central to controlling data flow within the query, with some plugins creating nested sub scope in which to evaluate subqueries.</p>
-<p>We saw how this principle is applied in the **foreach() **plugin to implement a looping control flow — apply a query over each row produced by another query. This construct allows us to iterate over rows and act on each one with a second dedicated query. Although functionally equivalent to an SQL join operation, it is arguably easier to read and understand VQL queries.</p>
+<p>We saw how this principle is applied in the <strong>foreach()</strong> plugin to implement a looping control flow — apply a query over each row produced by another query. This construct allows us to iterate over rows and act on each one with a second dedicated query. Although functionally equivalent to an SQL join operation, it is arguably easier to read and understand VQL queries.</p>
 <p>In the next part we see how VQL queries themselves may be stored in the scope and reused. We go back to the concept of lazy evaluation we encountered in the first part and see how this applies to sub queries. We then introduce event queries as a way to run fully asynchronous and event driven VQL.</p>
 <p>If you want to know more about Velociraptor, VQL and how to use it effectively to hunt across the enterprise, consider enrolling for the next available training course at <a href="https://www.velocidex.com/training/">https://www.velocidex.com/training/</a>.</p>
 

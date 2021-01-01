@@ -20,7 +20,7 @@ Velociraptor is essentially a query engine. All its operations are controlled by
 F:> velociraptor.exe -v artifacts collect Windows.KapeFiles.Targets --output test.zip --args RegistryHives=Y
 ```
 
-Invoking Velociraptor with the “**artifacts collect**” command specifies that we should collect the artifact interactively. If we also specify the “ **— output**” flag we will collect the result into the zip file. We can then specify any argument to the artifact using the “**— args**” flag (which may be specified more than once). If you can not remember which args the artifact takes then simple provide and incorrect arg for Velociraptor to tell you.
+Invoking Velociraptor with the **artifacts collect** command specifies that we should collect the artifact interactively. If we also specify the “ **—-output** ” flag we will collect the result into the zip file. We can then specify any argument to the artifact using the “**—-args**” flag (which may be specified more than once). If you can not remember which args the artifact takes then simple provide and incorrect arg for Velociraptor to tell you.
 
 The example above simply collects all registry hives on the system (Registry hives are typically locked but Velociraptor uses raw NTFS parsing to extract the files from the filesystem — thus bypassing all locks).
 
@@ -33,7 +33,7 @@ Sometimes in our DFIR work we need to rely on other’s help — sometimes a
 
 Velociraptor features a method for packing a configuration file within the binary itself. We can use this feature to have Velociraptor automatically execute the correct artifact collection when started without any parameters (or double clicked).
 
-Simply create a configuration file with an autoexec field containing all the command line args (let’s call it **myconfig.yaml**):
+Simply create a configuration file with an autoexec field containing all the command line args (let’s call it **myconfig.yaml** ):
 
 ```
 autoexec:

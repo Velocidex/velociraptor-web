@@ -426,6 +426,20 @@
             <i class="fa fa-angle-down fa-lg category-icon"></i>
       </div>
         <ul>
+      <li data-nav-id="/blog/medium/2020-12-26-slack-and-velociraptor-b63803ba4b16/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-12-26-slack-and-velociraptor-b63803ba4b16/">
+            Slack and Velociraptor
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2020-12-13-velociraptor-and-osquery-2a4306dd23c/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-12-13-velociraptor-and-osquery-2a4306dd23c/">
+            Velociraptor and OSQuery
+          </a>
+        </div>
+    </li>
       <li data-nav-id="/blog/medium/2020-11-13-the-windows-usn-journal-f0c55c9010e/" class="dd-item">
         <div>
           <a href="/blog/medium/2020-11-13-the-windows-usn-journal-f0c55c9010e/">
@@ -765,7 +779,7 @@
 <p><img src="../img/1qCKk06PkMDt79-X9Vu8K8Q.png" alt=""></p>
 <p>In our case the <strong>info()</strong> plugin generated a single row with information about the running platform. The raw data consists of a list of JSON objects — each object represents a single row. Rows have column names and each column may contain different data.</p>
 <h3 id="lazy-vql">Lazy VQL</h3>
-<p>One interesting aspect of VQL is lazy evaluation. Since VQL functions can be expensive or have side effects it is important to understand how they are evaluated. In the following discussion we will illustrate this by use of the** log() **VQL function — this function simply emits a logging message (you can think of it as the VQL equivalent of **print**).</p>
+<p>One interesting aspect of VQL is lazy evaluation. Since VQL functions can be expensive or have side effects it is important to understand how they are evaluated. In the following discussion we will illustrate this by use of the <strong>log()</strong> VQL function — this function simply emits a logging message (you can think of it as the VQL equivalent of <strong>print</strong>).</p>
 <p>Let us modify the above query to simply log a simple message “I ran!”</p>
 <p><img src="../img/1-k1KllnlrUkKBgiLO3FvvQ.png" alt=""></p>
 <p>The GUI renders query logs in red under the table. As we can see the log() function evaluated to <strong>true</strong> and a side effect was logging a message.</p>
@@ -784,7 +798,7 @@
 <p>This time the row is eliminated by the left hand condition (OS = “Windows”) and VQL does not need to evaluate the Log column at all! Hence we get no logging message.</p>
 <h3 id="using-laziness-in-practice">Using laziness in practice</h3>
 <p>The previous discussion was rather theoretical but how would you use this behavior in reality? When we write VQL it is important to bear in mind how expensive we believe each operation would be.</p>
-<p>For example consider the** hash() **function which calculates a hash of a file when evaluated. Suppose we were looking for a particular file with a known hash in the** /usr/bin** directory.</p>
+<p>For example consider the <strong>hash()</strong> function which calculates a hash of a file when evaluated. Suppose we were looking for a particular file with a known hash in the <strong>/usr/bin</strong> directory.</p>
 <p><img src="../img/1V-alj2p3P3hr5HPYYxM1wg.png" alt=""></p>
 <p>This query is rather expensive — we have to hash every single file in the directory and compare that to our malicious hash (In VQL <strong>=~</strong> is the regex match operator). If the directory is large, or we search through many directories, this can take many minutes!</p>
 <p>Instead we can leverage the lazy evaluation property to make the query far more efficient by considering other attributes of the file which are quicker to calculate</p>
@@ -792,7 +806,7 @@
 <p>This revised query is almost instant! We only really hash those files whose size is exactly 499 bytes and never hash any of the other files which are not the ones we are looking for!</p>
 <p>We can now encode this VQL query in an artifact, and launch it as a hunt on our entire deployment. This low cost, almost instant hunt is well suited for very wide deployment without fear of adverse effects on endpoint performance.</p>
 <h2 id="conclusion">Conclusion</h2>
-<p>VQL is a very powerful way of searching for specific indicators on the end point. A good working knowledge of VQL pays dividends to the DFIR hunter. This first part in our series of articles about VQL internals hopes to provide you with the tools and confidence to forge your own VQL queries. In the next article we explore VQL’s control structures such as** if()**, **foreach()** and **switch()**.</p>
+<p>VQL is a very powerful way of searching for specific indicators on the end point. A good working knowledge of VQL pays dividends to the DFIR hunter. This first part in our series of articles about VQL internals hopes to provide you with the tools and confidence to forge your own VQL queries. In the next article we explore VQL’s control structures such as <strong>if()</strong>, <strong>foreach()</strong> and <strong>switch()</strong>.</p>
 <p>If you want to know more about Velociraptor, VQL and how to use it effectively to hunt across the enterprise, consider enrolling for the next available training course at <a href="https://www.velocidex.com/training/">https://www.velocidex.com/training/</a>.</p>
 
 

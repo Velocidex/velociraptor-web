@@ -426,6 +426,20 @@
             <i class="fa fa-angle-down fa-lg category-icon"></i>
       </div>
         <ul>
+      <li data-nav-id="/blog/medium/2020-12-26-slack-and-velociraptor-b63803ba4b16/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-12-26-slack-and-velociraptor-b63803ba4b16/">
+            Slack and Velociraptor
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2020-12-13-velociraptor-and-osquery-2a4306dd23c/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-12-13-velociraptor-and-osquery-2a4306dd23c/">
+            Velociraptor and OSQuery
+          </a>
+        </div>
+    </li>
       <li data-nav-id="/blog/medium/2020-11-13-the-windows-usn-journal-f0c55c9010e/" class="dd-item">
         <div>
           <a href="/blog/medium/2020-11-13-the-windows-usn-journal-f0c55c9010e/">
@@ -717,14 +731,14 @@
 <h4 id="interactive-collection">Interactive collection</h4>
 <p>Velociraptor is essentially a query engine. All its operations are controlled by VQL queries normally encapsulated in a YAML files called artifacts. As such it does not really need a server to operate. It is possible to collect those same artifacts interactively on the command line (In this example we collect the KapeFiles artifact as we did in the last part but you can collect any Velociraptor artifact this way):</p>
 <pre><code>F:&gt; velociraptor.exe -v artifacts collect Windows.KapeFiles.Targets --output test.zip --args RegistryHives=Y
-</code></pre><p>Invoking Velociraptor with the “<strong>artifacts collect</strong>” command specifies that we should collect the artifact interactively. If we also specify the “ <strong>— output</strong>” flag we will collect the result into the zip file. We can then specify any argument to the artifact using the “<strong>— args</strong>” flag (which may be specified more than once). If you can not remember which args the artifact takes then simple provide and incorrect arg for Velociraptor to tell you.</p>
+</code></pre><p>Invoking Velociraptor with the <strong>artifacts collect</strong> command specifies that we should collect the artifact interactively. If we also specify the “ <strong>—-output</strong> ” flag we will collect the result into the zip file. We can then specify any argument to the artifact using the “<strong>—-args</strong>” flag (which may be specified more than once). If you can not remember which args the artifact takes then simple provide and incorrect arg for Velociraptor to tell you.</p>
 <p>The example above simply collects all registry hives on the system (Registry hives are typically locked but Velociraptor uses raw NTFS parsing to extract the files from the filesystem — thus bypassing all locks).</p>
 <p><img src="../img/1__80qDOPpgzzmmBOo8Pf4sFQ.png" alt="">
 <img src="../img/1__A37UEKRaWFP297xls0iEJw.png" alt=""></p>
 <h4 id="help-someone-else-collectfiles">Help someone else collect files</h4>
 <p>Sometimes in our DFIR work we need to rely on other’s help — sometimes a system administrator or even an end user with limited command line skills. It is unreasonable to expect all our helpers to be able to type the above command line. We need to make it as easy as possible for our accomplices.</p>
 <p>Velociraptor features a method for packing a configuration file within the binary itself. We can use this feature to have Velociraptor automatically execute the correct artifact collection when started without any parameters (or double clicked).</p>
-<p>Simply create a configuration file with an autoexec field containing all the command line args (let’s call it <strong>myconfig.yaml</strong>):</p>
+<p>Simply create a configuration file with an autoexec field containing all the command line args (let’s call it <strong>myconfig.yaml</strong> ):</p>
 <pre><code>autoexec:
   argv: \[&quot;artifacts&quot;, &quot;collect&quot;, &quot;-v&quot;, &quot;Windows.KapeFiles.Targets&quot;,
          &quot;--output&quot;, &quot;collection\_$COMPUTERNAME.zip&quot;,

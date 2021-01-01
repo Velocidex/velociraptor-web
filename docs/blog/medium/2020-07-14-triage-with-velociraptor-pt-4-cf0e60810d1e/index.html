@@ -426,6 +426,20 @@
             <i class="fa fa-angle-down fa-lg category-icon"></i>
       </div>
         <ul>
+      <li data-nav-id="/blog/medium/2020-12-26-slack-and-velociraptor-b63803ba4b16/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-12-26-slack-and-velociraptor-b63803ba4b16/">
+            Slack and Velociraptor
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2020-12-13-velociraptor-and-osquery-2a4306dd23c/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-12-13-velociraptor-and-osquery-2a4306dd23c/">
+            Velociraptor and OSQuery
+          </a>
+        </div>
+    </li>
       <li data-nav-id="/blog/medium/2020-11-13-the-windows-usn-journal-f0c55c9010e/" class="dd-item">
         <div>
           <a href="/blog/medium/2020-11-13-the-windows-usn-journal-f0c55c9010e/">
@@ -731,13 +745,13 @@
 <p>Therefore, in recent releases, Velociraptor has grown a GUI to make this process much easier and more robust. This article will introduce this GUI and discuss how you can build a custom offline collector that collects a bunch of artifacts, then uploads them into a cloud bucket.</p>
 <h3 id="installing-a-local-server">Installing a local server</h3>
 <p>Before we can create a new custom collector, we need to access the GUI — this means running a minimal Velociraptor server. If you already have a proper Velociraptor server deployed you could just use that. For this article I will work on windows by spinning up a local temporary server.</p>
-<p>First I have downloaded and installed the official MSI package from the <a href="https://github.com/Velocidex/velociraptor/releases">Velociraptor releases page</a>. This will unpack the executable in the **C:\Program Files\Velociraptor\ **directory.</p>
+<p>First I have downloaded and installed the official MSI package from the <a href="https://github.com/Velocidex/velociraptor/releases">Velociraptor releases page</a>. This will unpack the executable in the **C:\Program Files\Velociraptor\ ** directory.</p>
 <p>In order to start a Velociraptor server I will create new server configuration file by running the interactive wizard using</p>
 <blockquote>
 <h1 id="velociraptorexe-config-generate--i"><strong>velociraptor.exe config generate -i</strong></h1>
 </blockquote>
 <p><img src="../img/15wHG_tix0ZpeXIJuYScWKg.png" alt=""></p>
-<p>We will be running the server on <strong>Windows</strong>, Using the <strong>FileBaseDataStore</strong> with a** Self Signed SSL** configuration. I will also add a user called “**mic**” to the server (basically I pressed enter on each question to accept the default).</p>
+<p>We will be running the server on <strong>Windows</strong>, Using the <strong>FileBaseDataStore</strong> with a <strong>Self Signed SSL</strong> configuration. I will also add a user called “<strong>mic</strong>” to the server (basically I pressed enter on each question to accept the default).</p>
 <p>Now I can start the frontend using:</p>
 <blockquote>
 <h1 id="velociraptorexe--c-serverconfigyaml-frontend--v">Velociraptor.exe -c server.config.yaml frontend -v</h1>
@@ -767,7 +781,7 @@
 <p><img src="../img/18Dv9vI8lZ8FYm1MxbUAR1w.png" alt=""></p>
 <h3 id="including-external-tools">Including external tools</h3>
 <p>Since release 0.4.6, Velociraptor has built in support for external tools. This means that artifacts that declare tools that they need will receive those binaries on the endpoint when they are being collected. We previously described<a href="https://medium.com/velociraptor-ir/velociraptor-in-the-tool-age-d896dfe71b9?source=friends_link&amp;sk=20178bda3d9accc46d343b1c825c75a6"> this process</a> using the client/server model.</p>
-<p>When building an Offline collector, Velociraptor will also embed the external tools directly into the binary without needing to do anything different with the artifact. Note that the offline collector **does not download **the tool from an external URL — the tool is already packaged in the collector binary itself.</p>
+<p>When building an Offline collector, Velociraptor will also embed the external tools directly into the binary without needing to do anything different with the artifact. Note that the offline collector <strong>does not download</strong> the tool from an external URL — the tool is already packaged in the collector binary itself.</p>
 <blockquote>
 <p>The artifact will run the same way when used in client/server mode or in offline collector mode. This makes it easier to use the same reusable VQL in different contexts.</p>
 </blockquote>

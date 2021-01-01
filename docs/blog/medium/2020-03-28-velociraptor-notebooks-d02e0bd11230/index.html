@@ -426,6 +426,20 @@
             <i class="fa fa-angle-down fa-lg category-icon"></i>
       </div>
         <ul>
+      <li data-nav-id="/blog/medium/2020-12-26-slack-and-velociraptor-b63803ba4b16/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-12-26-slack-and-velociraptor-b63803ba4b16/">
+            Slack and Velociraptor
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2020-12-13-velociraptor-and-osquery-2a4306dd23c/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-12-13-velociraptor-and-osquery-2a4306dd23c/">
+            Velociraptor and OSQuery
+          </a>
+        </div>
+    </li>
       <li data-nav-id="/blog/medium/2020-11-13-the-windows-usn-journal-f0c55c9010e/" class="dd-item">
         <div>
           <a href="/blog/medium/2020-11-13-the-windows-usn-journal-f0c55c9010e/">
@@ -749,7 +763,7 @@
 <p><img src="../img/1ek3xccxhmfontfCA-Fdcyg.png" alt=""></p>
 <p>Clicking “Save” will calculate the query and show us the columns available.</p>
 <p><img src="../img/1fYx33fAnUlegODORnrRW0A.png" alt=""></p>
-<p>We can now refine the columns we see by specifying them in the VQL query. In our case we only wish to see **FullPath, Command, Arguments <strong>and</strong> Fqdn **(The hostname of the endpoint). We know that our alert was for executing “cmd.exe” so we narrow our query to only see scheduled tasks with the <strong>cmd.exe</strong> command <em>(WHERE Command =~ “cmd.exe”)</em>.</p>
+<p>We can now refine the columns we see by specifying them in the VQL query. In our case we only wish to see <strong>FullPath, Command, Arguments</strong> and <strong>Fqdn</strong> (The hostname of the endpoint). We know that our alert was for executing “cmd.exe” so we narrow our query to only see scheduled tasks with the <strong>cmd.exe</strong> command <em>(WHERE Command =~ “cmd.exe”)</em>.</p>
 <p><img src="../img/1GxMuBrebyHtxHh0wLUmflw.png" alt=""></p>
 <p><img src="../img/1v7Q9nmHRzfbtydgggYRBWA.png" alt=""></p>
 <p>After more investigation we determine that the “silcollector” and “dsregcmd” tasks are not malicious so we can exclude them.</p>
@@ -760,7 +774,7 @@
 <p><img src="../img/1iaO11t4Zbn63dQQhkcEDrw.png" alt=""></p>
 <p><img src="../img/1LyQdC_lK079EUYwwSDT70w.png" alt=""></p>
 <h3 id="exporting-the-notebook">Exporting the notebook</h3>
-<p>It is great to have a notebook inside Velociraptor, but we really need to be able to print it or share it with others. Additionally, DFIR cases are typically very fluid and the notebook will evolve through multiple revisions. As new data becomes available, perhaps conclusions reached in previous versions need to be revised. This is why we say a notebook is a** living** document</p>
+<p>It is great to have a notebook inside Velociraptor, but we really need to be able to print it or share it with others. Additionally, DFIR cases are typically very fluid and the notebook will evolve through multiple revisions. As new data becomes available, perhaps conclusions reached in previous versions need to be revised. This is why we say a notebook is a <strong>living</strong> document</p>
 <p>For these reasons, Velociraptor allows users to export the notebook into plain HTML. The HTML export is a point-in-time export, as the investigation proceeds and new information becomes available, the same notebook may be exported again and again, each version revealing new findings.</p>
 <p>To export our notebook we select it in the top pane then click on “Export Notebook” button in the toolbar. The dialog box shows us all the existing exports from previous times and also allows us to create a new export.</p>
 <p><img src="../img/1-iyUl49fvYJUvwohI5SZNA.png" alt=""></p>

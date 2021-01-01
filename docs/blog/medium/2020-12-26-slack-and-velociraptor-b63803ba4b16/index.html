@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Velociraptor / Dig deeper</title>
+    
+      <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>Slack and Velociraptor :: Velociraptor / Dig deeper</title>
+<link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon" />
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<link href="/css/nucleus.css" rel="stylesheet">
+<link href="/css/font-awesome.min.css" rel="stylesheet">
+<link href="/css/hybrid.css" rel="stylesheet">
+<link href="/css/featherlight.min.css" rel="stylesheet">
+<link href="/css/auto-complete.css" rel="stylesheet">
+<link href="/theme-original/style.css" rel="stylesheet">
+
+  <link href="/theme-original/variant-mine.css" rel="stylesheet">
+
+
+<script src="/js/jquery-2.x.min.js"></script>
+<style type="text/css">
+  :root #header + #content > #left > #rlblock_left {
+    display:none !important;
+  }
+</style>
+<link rel="stylesheet" href="/css/theme-mine.css">
+<script src="/js/custom.js"></script>
+
+
+    
+  </head>
+  <body data-url="/blog/medium/2020-12-26-slack-and-velociraptor-b63803ba4b16/">
+    
+      <div id="headermain"></div>
+<nav id="sidebar" class="">
+
+
+
+<div class="highlightable">
+  <div id="header-wrapper">
+    <div id="header">
+      
+	
+  
+    <a href="/">
+  <img src="/images/logo.svg">
+</a>
+
+  
+
+
+    </div>
+        <div class="searchbox">
+                    <label for="search-by"><i class="fa fa-search"></i></label>
+                    <input data-search-input id="search-by" type="text" placeholder="Search...">
+                    <span data-search-clear=""><i class="fa fa-close"></i></span>
+                </div>
+                <script type="text/javascript" src="/js/lunr.min.js"></script>
+                <script type="text/javascript" src="/js/auto-complete.js"></script>
+                <script type="text/javascript">
+        
+            var baseurl = "\/";
+        
+                </script>
+                <script type="text/javascript" src="/js/search.js"></script>
+  </div>
+
+      <ul class="topics">
+    <li data-nav-id="/about/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/about/">About Velociraptor</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/about/features/" class="dd-item">
+        <div>
+          <a href="/about/features/">
+            Velociraptor Features
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/about/license/" class="dd-item">
+        <div>
+          <a href="/about/license/">
+            License
+          </a>
+        </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/docs/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/docs/">Velociraptor Documentation</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+    <li data-nav-id="/docs/getting-started/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/docs/getting-started/">Getting Started</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+    <li data-nav-id="/docs/getting-started/stand_alone/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/getting-started/stand_alone/">Standalone Deployment</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/getting-started/deploying_clients/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/getting-started/deploying_clients/">Deploying Clients</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/getting-started/cloud/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/getting-started/cloud/">Deploying in the cloud</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/getting-started/performance/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/getting-started/performance/">Performance</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/getting-started/triaging/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/getting-started/triaging/">Triaging</a>
+      </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/docs/user-interface/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/docs/user-interface/">User Interface</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+    <li data-nav-id="/docs/user-interface/investigating_clients/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/docs/user-interface/investigating_clients/">Investigating Clients</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+    <li data-nav-id="/docs/user-interface/investigating_clients/searching_clients/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/user-interface/investigating_clients/searching_clients/">Searching for clients</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/user-interface/investigating_clients/virtual_filesystem/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/user-interface/investigating_clients/virtual_filesystem/">The Virtual File System</a>
+      </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/docs/user-interface/artifacts/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/docs/user-interface/artifacts/">Velociraptor Artifacts</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+    <li data-nav-id="/docs/user-interface/artifacts/client_artifacts/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/user-interface/artifacts/client_artifacts/">Client Artifacts</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/user-interface/artifacts/client_events/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/user-interface/artifacts/client_events/">Client Event Artifacts</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/user-interface/artifacts/server_artifacts/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/user-interface/artifacts/server_artifacts/">Server Artifacts</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/user-interface/artifacts/server_events/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/user-interface/artifacts/server_events/">Server Event Artifacts</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/user-interface/artifacts/add_artifacts/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/user-interface/artifacts/add_artifacts/">Customizing Artifacts</a>
+      </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/docs/user-interface/api/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/user-interface/api/">The Velociraptor API</a>
+      </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/docs/vql_reference/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/docs/vql_reference/">VQL Reference</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+    <li data-nav-id="/docs/vql_reference/basic/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/vql_reference/basic/">Basic VQL functions and plugins</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/vql_reference/windows/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/vql_reference/windows/">Windows Specific Functionality</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/vql_reference/parsers/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/vql_reference/parsers/">Parsers and data extractors</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/vql_reference/server/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/vql_reference/server/">Server Side Functionality</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/vql_reference/plugin/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/vql_reference/plugin/">Client Side Functionality</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/vql_reference/event/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/vql_reference/event/">Event Plugins</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/vql_reference/experimental/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/vql_reference/experimental/">Experimental Functionality</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/vql_reference/filesystem_accessors/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/vql_reference/filesystem_accessors/">Filesystem Accessors</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/vql_reference/templates/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/vql_reference/templates/">Report Templates</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/vql_reference/tips/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/vql_reference/tips/">Artifact Tips</a>
+      </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/docs/artifacts/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/docs/artifacts/">Artifact Reference</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+    <li data-nav-id="/docs/artifacts/linux/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/artifacts/linux/">Linux Artifacts</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/artifacts/windows_system/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/docs/artifacts/windows_system/">Windows</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+    <li data-nav-id="/docs/artifacts/windows_system/events/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/artifacts/windows_system/events/">Event Logs</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/artifacts/windows_system/system/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/artifacts/windows_system/system/">System</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/artifacts/windows_system/registry/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/artifacts/windows_system/registry/">Registry</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/artifacts/windows_system/network/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/artifacts/windows_system/network/">Network</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/artifacts/windows_system/applications/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/artifacts/windows_system/applications/">Applications</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/artifacts/windows_system/detection/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/artifacts/windows_system/detection/">Malware Detection</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/artifacts/windows_system/triage/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/artifacts/windows_system/triage/">Triage Artifacts</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/artifacts/windows_system/remediation/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/artifacts/windows_system/remediation/">Remdiation</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/artifacts/windows_system/monitoring/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/artifacts/windows_system/monitoring/">Event Monitoring</a>
+      </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/docs/artifacts/server/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/artifacts/server/">Server Artifacts</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/artifacts/misc/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/artifacts/misc/">Miscelaneous Artifacts</a>
+      </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/docs/presentations/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/docs/presentations/">Presentations and Workshops</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+    <li data-nav-id="/docs/presentations/auscert_2020/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/presentations/auscert_2020/">Auscert 2020 Tutorial</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/presentations/comfycon.2020/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/presentations/comfycon.2020/">Comfycon 2020</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/presentations/training_2020/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/presentations/training_2020/">Enterprise Hunting and Incident Response with Velociraptor 2020</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/presentations/linux.conf.au.2020/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/presentations/linux.conf.au.2020/">Linux.Conf.Au 2020</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/presentations/sans_dfir_summit2019/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/presentations/sans_dfir_summit2019/">SANS Summit 2019</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/presentations/rsa/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/presentations/rsa/">RSA Asia Pacific and Japan 2019</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/presentations/crikeycon2019/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/presentations/crikeycon2019/">Crikeycon 2019 Training Workshop</a>
+      </div>
+    </li>
+    <li data-nav-id="/docs/presentations/nzitf2018/" class="dd-item
+        ">
+      <div>
+      <a href="/docs/presentations/nzitf2018/">New Zealand Internet Task Force Conference 2018</a>
+      </div>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/blog/" class="dd-item parent haschildren
+        ">
+      <div>
+      <a href="/blog/">Velociraptor Blog</a>
+            <i class="fa fa-angle-down fa-lg category-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/blog/medium/2020-12-26-slack-and-velociraptor-b63803ba4b16/" class="dd-item active">
+        <div>
+          <a href="/blog/medium/2020-12-26-slack-and-velociraptor-b63803ba4b16/">
+            Slack and Velociraptor
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2020-12-13-velociraptor-and-osquery-2a4306dd23c/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-12-13-velociraptor-and-osquery-2a4306dd23c/">
+            Velociraptor and OSQuery
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2020-11-13-the-windows-usn-journal-f0c55c9010e/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-11-13-the-windows-usn-journal-f0c55c9010e/">
+            The Windows USN Journal
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2020-09-28-velociraptor-network-communications-30568624043a/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-09-28-velociraptor-network-communications-30568624043a/">
+            Velociraptor Communications
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2020-08-17-velociraptor-sso-authentication-6dd68d46dccf/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-08-17-velociraptor-sso-authentication-6dd68d46dccf/">
+            Velociraptor SSO Authentication
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2020-08-16-profiling-the-beast-58913437fd16/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-08-16-profiling-the-beast-58913437fd16/">
+            Profiling the beast
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2020-07-14-triage-with-velociraptor-pt-4-cf0e60810d1e/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-07-14-triage-with-velociraptor-pt-4-cf0e60810d1e/">
+            Triage with Velociraptor — Pt 4
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2020-07-13-velociraptor-in-the-tool-age-d896dfe71b9/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-07-13-velociraptor-in-the-tool-age-d896dfe71b9/">
+            Velociraptor in the tool age
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2020-06-19-the-velociraptor-query-language-pt-2-fe92bb7aa150/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-06-19-the-velociraptor-query-language-pt-2-fe92bb7aa150/">
+            The Velociraptor Query Language Pt 2
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2020-06-14-the-velociraptor-query-language-pt-1-d721bff100bf/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-06-14-the-velociraptor-query-language-pt-1-d721bff100bf/">
+            The Velociraptor Query Language Pt 1
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2020-04-16-velociraptor-e48a47e0317d/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-04-16-velociraptor-e48a47e0317d/">
+            Velociraptor
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2020-03-29-velociraptors-acl-model-7f497575daee/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-03-29-velociraptors-acl-model-7f497575daee/">
+            Velociraptor’s ACL model
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2020-03-28-velociraptor-notebooks-d02e0bd11230/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-03-28-velociraptor-notebooks-d02e0bd11230/">
+            Velociraptor notebooks
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2020-03-07-extending-vql-plugins-7fb004cb6ec4/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-03-07-extending-vql-plugins-7fb004cb6ec4/">
+            Extending VQL plugins
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2020-03-06-velociraptor-post-processing-with-jupyter-notebook-and-pandas-8a344d05ee8c/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-03-06-velociraptor-post-processing-with-jupyter-notebook-and-pandas-8a344d05ee8c/">
+            Velociraptor Post-processing with Jupyter Notebook and Pandas
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2020-01-12_hunting-malware-using-mutants-ea08e86dfc19/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-01-12_hunting-malware-using-mutants-ea08e86dfc19/">
+            Hunting Malware using Mutants
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-12-31_digging-into-the-system-resource-usage-monitor-srum-afbadb1a375/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-12-31_digging-into-the-system-resource-usage-monitor-srum-afbadb1a375/">
+            Digging into the System Resource Usage Monitor (SRUM)
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-12-08-velociraptor-to-elasticsearch-3a9fc02c6568/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-12-08-velociraptor-to-elasticsearch-3a9fc02c6568/">
+            Velociraptor to Elasticsearch
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-11-15_recovering-deleted-ntfs-files-with-velociraptor-1fcf09855311/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-11-15_recovering-deleted-ntfs-files-with-velociraptor-1fcf09855311/">
+            Recovering deleted NTFS Files with Velociraptor
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-11-12_windows-event-logs-d8d8e615c9ca/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-11-12_windows-event-logs-d8d8e615c9ca/">
+            Windows Event Logs
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-10-08_triage-with-velociraptor-pt-3-d6f63215f579/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-10-08_triage-with-velociraptor-pt-3-d6f63215f579/">
+            Triage with Velociraptor — Pt 3
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-10-04_triage-with-velociraptor-pt-2-d0f79066ca0e/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-10-04_triage-with-velociraptor-pt-2-d0f79066ca0e/">
+            Triage with Velociraptor — Pt 2
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-10-02_triage-with-velociraptor-pt-1-253f57ce96c0/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-10-02_triage-with-velociraptor-pt-1-253f57ce96c0/">
+            Triage with Velociraptor — Pt 1
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2019-09-11_velociraptor-s-client-side-buffer-3ce03697a4e6/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2019-09-11_velociraptor-s-client-side-buffer-3ce03697a4e6/">
+            Velociraptor’s client side buffer
+          </a>
+        </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/training/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/training/">Training Schedule</a><i class="fa fa-angle-right fa-lg category-icon"></i>
+      </div>
+        <ul>
+    <li data-nav-id="/training/gold_coast_jan_20_2020/" class="dd-item
+        ">
+      <div>
+      <a href="/training/gold_coast_jan_20_2020/">Gold Coast Velociraptor Training</a>
+      </div>
+    </li>
+    <li data-nav-id="/training/online_oct_27_2020/" class="dd-item
+        ">
+      <div>
+      <a href="/training/online_oct_27_2020/">Velociraptor training (Online Edition EMEA times)</a>
+      </div>
+    </li>
+    <li data-nav-id="/training/online_february_2021/" class="dd-item
+        ">
+      <div>
+      <a href="/training/online_february_2021/">Velociraptor training (Online Edition)</a>
+      </div>
+    </li>
+    <li data-nav-id="/training/online_march_2_2021/" class="dd-item
+        ">
+      <div>
+      <a href="/training/online_march_2_2021/">Velociraptor training (Online Edition)</a>
+      </div>
+    </li>
+    <li data-nav-id="/training/online_oct_6_2020/" class="dd-item
+        ">
+      <div>
+      <a href="/training/online_oct_6_2020/">Velociraptor training (Online Edition)</a>
+      </div>
+    </li>
+    <li data-nav-id="/training/melbourne_march_2020/" class="dd-item
+        ">
+      <div>
+      <a href="/training/melbourne_march_2020/">Velociraptor training in Melbourne, Australia</a>
+      </div>
+    </li>
+    <li data-nav-id="/training/sydney_feb_2020/" class="dd-item
+        ">
+      <div>
+      <a href="/training/sydney_feb_2020/">Velociraptor training in Sydney, Australia</a>
+      </div>
+    </li>
+        </ul>
+    </li>
+
+
+
+
+    <hr />
+    <li></li>
+
+    </ul>
+
+ <section id="footer">
+    </section>
+  </div>
+</nav>
+
+
+
+<section id="body">
+<div id="overlay"></div>
+<div class="padding highlightable">
+
+  <div id="top-bar">
+    <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+        <span id="sidebar-toggle-span">
+          <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+            <i class="fa fa-bars"></i>
+          </a>
+        </span>
+        <span id="toc-menu"><i class="fa fa-list-alt"></i></span>
+        <span class="links">
+        
+
+
+
+
+
+
+
+ <a href='/'>Velociraptor / Dig deeper</a> > <a href='/blog/'>Velociraptor Blog</a> > Slack and Velociraptor
+
+
+
+
+
+
+        </span>
+    </div>
+
+    
+    <div class="progress">
+        <div class="wrapper">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#creating-a-slack-app">Creating a Slack App</a></li>
+        <li><a href="#posting-a-message-from-velociraptor">Posting a message from Velociraptor</a></li>
+        <li><a href="#alerting-on-events">Alerting on events</a></li>
+        <li><a href="#step-1-is-the-client-online-now">Step 1: Is the client online now?</a></li>
+        <li><a href="#step-2-alert-for-recently-seen-clients">Step 2: Alert for recently seen clients</a></li>
+        <li><a href="#step-3-removing-the-client-from-the-watchlist">Step 3: Removing the client from the watchlist</a></li>
+        <li><a href="#step-4-creating-a-monitoring-artifact">Step 4: Creating a monitoring artifact</a></li>
+        <li><a href="#step-5-install-the-artifact">Step 5: Install the artifact</a></li>
+        <li><a href="#conclusions">Conclusions</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+        </div>
+    </div>
+    
+
+  </div>
+
+
+<div id="body-inner">
+  
+      <h1>Slack and Velociraptor</h1>
+      
+        <h4 class="subtitle"> Digging together… </h4>
+      
+  
+
+
+
+    
+    
+    
+    <p><img src="https://cdn-images-1.medium.com/max/12030/0*bkglpXK2FLycHuia" alt="Photo by Joan Gamell on Unsplash"><em>Photo by <a href="https://unsplash.com/@gamell?utm_source=medium&amp;utm_medium=referral">Joan Gamell</a> on <a href="https://unsplash.com?utm_source=medium&amp;utm_medium=referral">Unsplash</a></em></p>
+<p>You might have heard of <a href="https://slack.com/">Slack</a> — a chatting app that has grown in popularity over the past few years. Slack allows for API access to the the workspaces, which opens the door to novel applications and automation.</p>
+<p>In this blog post I will demonstrate how to connect Slack to Velociraptor, and be notified within a Slack channel of various events that happen on your Velociraptor deployment.</p>
+<h3 id="creating-a-slack-app">Creating a Slack App</h3>
+<p>The first thing I will do is create a Slack channel to receives messages from Velociraptor. This keeps Velociraptor messages separate and I can subscribe a small number of users within my Slack workspace to that channel.</p>
+<p>I will create a new channel called “alerts”</p>
+<p>Next I will create an App which will communicate with the workspace and be able to post messages to the alerts channel. (This <a href="https://api.slack.com/start/overview#creating">reference </a>has a lot of details on this step, which I will just skip but you should consult it for your own use). First I visit the slack API page at <a href="../img/apps">https://api.slack.com/apps</a></p>
+<p><img src="../img/14J5S4V0jlkVLvFKI3SaeUA.png" alt=""></p>
+<p>Next I will create an app called “Velociraptor” that will be able to push messages to my workspace.</p>
+<p><img src="../img/19RCHElLgfXOSdioPqfE28g.png" alt=""></p>
+<p>Since I just want Velociraptor to inform me about events, it really only needs to push messages. I will therefore select the “Incoming Webhooks” app type.</p>
+<p><img src="../img/1hzeftjwj-ItD5h_H_eE62g.png" alt=""></p>
+<p>Enable the webhook by sliding the option to on</p>
+<p><img src="../img/1EVMLGulrWcrmJfhHb9hRUA.png" alt=""></p>
+<p>Webhooks are simply HTTP REST APIs which can be used by any software to post to the channel providing they have a special secret called a “Token”. I can add a new webhook to my workspace on this page</p>
+<p><img src="../img/1WWBAXXo9zmQ4WFkeSvuhLQ.png" alt=""></p>
+<p>I now allow the webhook to post to the alerts channel</p>
+<p><img src="../img/1uAS5ZvGflIp_-zl2STlYpg.png" alt=""></p>
+<p>Posting the message is a very simple HTTP request — Slack even shows an example using curl</p>
+<p><img src="../img/1mubZvdsnaLV-fB_tfQpQNw.png" alt=""></p>
+<p>The curl command line indicates that the request:</p>
+<ol>
+<li>
+<p>Needs to be using the POST method</p>
+</li>
+<li>
+<p>Needs to have a content type of <em>application/json</em></p>
+</li>
+<li>
+<p>Needs to POST a JSON encoded object with a key called “text” which contains the message text.</p>
+</li>
+</ol>
+<h3 id="posting-a-message-from-velociraptor">Posting a message from Velociraptor</h3>
+<p>Next I will test my new webhook by writing a quick VQL query in a Velociraptor notebook. I like to develop my VQL in a notebook, since that allows me to easily iterate over my query. Going to my Velociraptor console, I add a new notebook and add a VQL cell.</p>
+<p><img src="../img/1GBkeEP6PTZnNttmw1B_Q1A.png" alt=""></p>
+<p>Here I am just replicating the curl command line above using VQL’s http_client plugin. Once I save the cell, Velociraptor will make an API request to the slack servers and my message will appear in the alerts channel.</p>
+<p><img src="../img/12QiKAIh7vZ0A9Xe9y3rtOg.png" alt=""></p>
+<h3 id="alerting-on-events">Alerting on events</h3>
+<p>Sending messages to Slack is pretty cool, but we really want to know when interesting stuff happens in response to events. One interesting use case that people always ask me about is to alert when a particular machine comes back online so it can be interactively investigated.</p>
+<p>From a usability perspective, I want to tell the server to monitor a number of endpoints, and then when each comes back online, send a Slack message and stop monitoring that system.</p>
+<p>Whenever I have a set of machines that we want to operate on, I think of client labels. In Velociraptor, we can attach any number of labels to a client, and then search for all machines that have the label efficiently (this effectively creates a group of machines).</p>
+<p>I will add the label “Slack” to my test machine by simply selecting it in the client search page and clicking the “Add Label” button.</p>
+<p><img src="../img/1uKNwvvn723Ygr_STiMwsNg.png" alt=""></p>
+<p>Going back to my notebook, I am ready to develop this VQL query step by step.</p>
+<h3 id="step-1-is-the-client-online-now">Step 1: Is the client online now?</h3>
+<p>The first query I will write will return all the clients in the <strong>“Slack”</strong> label group, and show how many seconds ago they were online.</p>
+<p><img src="../img/1wCX-kCRmOvkUZcgHYj3_ug.png" alt=""></p>
+<p>I am using the now() VQL function to return the number of seconds since the epoch. The client’s <strong>last_seen_at</strong> time is given as microseconds since the epoch so I quickly convert it to seconds.</p>
+<p>I can quickly retrieve the clients in the <strong>“Slack”</strong> label group by using the clients() plugin and applying a search expression “label:Slack”. Note that searching the clients by label in this way is much more efficient since it uses the label index rather than a row scan over all clients.</p>
+<h3 id="step-2-alert-for-recently-seen-clients">Step 2: Alert for recently seen clients</h3>
+<p>The next step is to send a Slack message for all clients which have been seen recently (say in the last 5 minutes).</p>
+<p><img src="../img/124ZL5EICiE_pZYKfTlPj7w.png" alt=""></p>
+<p>I add a WHERE Condition to the previous query, then for each client, I re-use my earlier Slack query to post a message informing me which client is online.</p>
+<p><img src="../img/1eKxlzgJgqGbbpIBDCYgTLQ.png" alt=""></p>
+<h3 id="step-3-removing-the-client-from-the-watchlist">Step 3: Removing the client from the watchlist</h3>
+<p>Once I sent a slack alert for this client, I do not want to check it again. Let’s modify the above query to remove the label as well.</p>
+<p><img src="../img/19a5wyFGxAik1oa1I8Qe4Uw.png" alt=""></p>
+<h3 id="step-4-creating-a-monitoring-artifact">Step 4: Creating a monitoring artifact</h3>
+<p>We previously saw how I can check for clients and send slack messages in the notebook. While this is fun and helps to develop VQL, in order to actually run this, we need to have the server monitoring for new clients all the time — in other words we need a Monitoring (Or Events) Artifact.</p>
+<p>The previous query just ran once and stopped, but I really want to run it continuously every minute say. I do this by running the previous query periodically using the <strong>clock()</strong> plugin.</p>
+<p>I go to the “View Artifacts” sidebar and then click the “Add an artifact” button.</p>
+<p><img src="../img/1ZKfuzpZHTGCd3b2mOEcGPg.png" alt=""></p>
+<p>The two main differences here are that this is a SERVER_EVENT artifact — i.e. it is running on the server continuously. I then use the clock() plugin to trigger the previous query to run every minute and scan for new clients coming online (line 27: <strong>foreach</strong> <strong>clock</strong> event, run the <strong>send_message</strong> query).</p>
+<h3 id="step-5-install-the-artifact">Step 5: Install the artifact</h3>
+<p>To install the artifact on the server, I will go to the Server Monitoring screen, and add it in the search view by clicking the “update server monitoring table” toolbar button.</p>
+<p><img src="../img/1nsoI3t2io_Ww8gbCxptniw.png" alt=""></p>
+<p>Now I can add the label to any client I am interested in and within a minute of it coming back online I will receive an alert in my slack channel</p>
+<p><img src="../img/1_RuYRGYKlwA7VeMkExYcyA.png" alt=""></p>
+<h3 id="conclusions">Conclusions</h3>
+<p>In this post we saw how to make outbound REST API calls from the Velociraptor server using VQL. The example of Slack integration is a great use case for such an artifact, but there are many systems using HTTP style APIs (RESTfull or not) to be able to receive information from Velociraptor.</p>
+<p>We saw how VQL can be written to run a continuous monitoring query on the server, checking for a condition that we are interested in. You could probably think of many examples of events that you will want to be notified of in a similar way (e.g. psexec used on any endpoint can be detected in near real time and escalated automatically to a Slack channel, or getting notified when a critical domain account is used anywhere on the network).</p>
+<p>Escalating to Slack is suitable for fairly low frequency but high value events. If there are too many events, the channel will be too noisy and not useful (people will just mute it), so consider how frequently the alert will be fired, and how you intend to deal with it.</p>
+<p>To play with this feature yourself, take<a href="https://github.com/Velocidex/velociraptor"> Velociraptor for a spin</a>! It is a available on GitHub under an open source license. If you want to learn more about VQL and Velociraptor consider joining us on one of our <a href="https://www.velocidex.com/training/">upcoming training sessions</a>.</p>
+<p>As always please file issues on the bug tracker or ask questions on our mailing list <a href="mailto:velociraptor-discuss@googlegroups.com">velociraptor-discuss@googlegroups.com</a> . You can also chat with us directly on discord <a href="https://www.velocidex.com/discord">https://www.velocidex.com/discord</a></p>
+
+
+    
+    
+          <footer class=" footline" >
+	
+</footer>
+  </div>
+</div>
+
+<div id="navigation">
+<a class="nav nav-prev" href="/blog/" title="Velociraptor Blog"> <i class="fa fa-chevron-left"></i><label>Velociraptor Blog</label></a>
+    <a class="nav nav-next" href="/blog/medium/2020-12-13-velociraptor-and-osquery-2a4306dd23c/" title="Velociraptor and OSQuery" style="margin-right: 0px;"><label>Velociraptor and OSQuery</label><i class="fa fa-chevron-right"></i></a></div>
+
+</section>
+<div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+  <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+</div>    
+
+<script src="/js/clipboard.min.js"></script>
+<script src="/js/featherlight.min.js"></script>
+<script src="/js/html5shiv-printshiv.min.js"></script>
+
+<script src="/js/modernizr.custom.71422.js"></script>
+<script src="/js/docdock.js"></script>
+<script src="/theme-original/script.js"></script>
+
+
+    
+
+    
+    
+
+    
+  </body>
+</html>

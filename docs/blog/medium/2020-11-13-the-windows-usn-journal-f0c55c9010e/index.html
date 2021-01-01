@@ -426,6 +426,20 @@
             <i class="fa fa-angle-down fa-lg category-icon"></i>
       </div>
         <ul>
+      <li data-nav-id="/blog/medium/2020-12-26-slack-and-velociraptor-b63803ba4b16/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-12-26-slack-and-velociraptor-b63803ba4b16/">
+            Slack and Velociraptor
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2020-12-13-velociraptor-and-osquery-2a4306dd23c/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-12-13-velociraptor-and-osquery-2a4306dd23c/">
+            Velociraptor and OSQuery
+          </a>
+        </div>
+    </li>
       <li data-nav-id="/blog/medium/2020-11-13-the-windows-usn-journal-f0c55c9010e/" class="dd-item active">
         <div>
           <a href="/blog/medium/2020-11-13-the-windows-usn-journal-f0c55c9010e/">
@@ -720,8 +734,8 @@
 <p><em>Thanks to <a href="https://twitter.com/mgreen27">Matt Green </a>for discussions, ideas and code….</em></p>
 <p>NTFS is the default filesystem on Windows systems, so it is important for DFIR tools to support extracting as much system state information as possible from it. Velociraptor already has a full featured <a href="https://www.velocidex.com/blog/medium/2019-11-15_recovering-deleted-ntfs-files-with-velociraptor-1fcf09855311/">NTFS parser</a>, and in a recent release (0.5.2) also added a parser for the <strong>USN Journal</strong> (Update Sequence Number Journal), or <a href="https://en.wikipedia.org/wiki/USN_Journal">Change Journal</a>.</p>
 <h3 id="what-is-the-usn-journal">What is the USN Journal?</h3>
-<p>By default Windows maintains a journal of filesystem activities is a file called <strong>$Extend$UsnJrnl</strong> in a special data stream called** $J**. This stream contains records of filesystem operations, primarily to allow backup applications visibility into the files that have been changed since the last time a backup was run.</p>
-<p>The **$Extend$UsnJrnl:$J **file begins life when the volume is created as an empty file. As files are modified on the volume, the $J file is extended with additional USN records.</p>
+<p>By default Windows maintains a journal of filesystem activities is a file called <strong>$Extend$UsnJrnl</strong> in a special data stream called <strong>$J</strong>. This stream contains records of filesystem operations, primarily to allow backup applications visibility into the files that have been changed since the last time a backup was run.</p>
+<p>The <strong>$Extend$UsnJrnl:$J</strong> file begins life when the volume is created as an empty file. As files are modified on the volume, the $J file is extended with additional USN records.</p>
 <p>In order to preserve space, the NTFS creators use an ingenious trick: The beginning of the file is erased and made into a sparse run. Since NTFS can handle sparse files (i.e. files with large runs containing no data) efficiently, the file effectively does not consume any more disk space than needed but does not need to be rotated or truncated and can just seem to grow infinitely.</p>
 <p>This means that in practice we find the <strong>$J</strong> file on a live system reporting a huge size (sometimes many hundreds of gigabytes!), however usually the start of the file is sparse and takes no disk space, so the $J file typically only consumes around 30–40mb of actual disk space. This is illustrated in the diagram below.</p>
 <p><img src="../img/1oh4ARro_MayRRUZAJHqhaw.png" alt=""></p>
@@ -797,7 +811,7 @@
 <p>The artifact returns almost instantly with the file that this hash belongs to</p>
 <p><img src="../img/1Wprj9Wic03bIg-86ClDBtg.png" alt=""></p>
 <p>The local hash database is simply a SQLite file maintained by the VQL query. As such I can easily collect this file with a hunt if I wanted to archive the hash database periodically from all my endpoints.</p>
-<p>Collecting the** Windows.Forensics.LocalHashes.Glob** artifact will populate the local hash database by simply crawling a directory, hashing all files inside it and populated the database — this is useful to pre-populate the database with hashes of files created before Velociraptor was installed.</p>
+<p>Collecting the <strong>Windows.Forensics.LocalHashes.Glob</strong> artifact will populate the local hash database by simply crawling a directory, hashing all files inside it and populated the database — this is useful to pre-populate the database with hashes of files created before Velociraptor was installed.</p>
 <h3 id="conclusion">Conclusion</h3>
 <p>Velociraptor brings unprecedented visibility to endpoint machine states using state of the art forensic capabilities. In this post we saw how parsing the USN Journal allows Velociraptor to gather information about past filesystem activity. We also saw how detection and monitoring queries can be used to respond to file modification or creation in near real time.</p>
 <p>Finally we saw this capability put into practice by maintaining a local hash database which can be queried on demand to quickly answer questions like <em>which machine in my fleet contain this hash?</em></p>
@@ -813,7 +827,7 @@
 </div>
 
 <div id="navigation">
-<a class="nav nav-prev" href="/blog/" title="Velociraptor Blog"> <i class="fa fa-chevron-left"></i><label>Velociraptor Blog</label></a>
+<a class="nav nav-prev" href="/blog/medium/2020-12-13-velociraptor-and-osquery-2a4306dd23c/" title="Velociraptor and OSQuery"> <i class="fa fa-chevron-left"></i><label>Velociraptor and OSQuery</label></a>
     <a class="nav nav-next" href="/blog/medium/2020-09-28-velociraptor-network-communications-30568624043a/" title="Velociraptor Communications" style="margin-right: 0px;"><label>Velociraptor Communications</label><i class="fa fa-chevron-right"></i></a></div>
 
 </section>

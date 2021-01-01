@@ -426,6 +426,20 @@
             <i class="fa fa-angle-down fa-lg category-icon"></i>
       </div>
         <ul>
+      <li data-nav-id="/blog/medium/2020-12-26-slack-and-velociraptor-b63803ba4b16/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-12-26-slack-and-velociraptor-b63803ba4b16/">
+            Slack and Velociraptor
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/blog/medium/2020-12-13-velociraptor-and-osquery-2a4306dd23c/" class="dd-item">
+        <div>
+          <a href="/blog/medium/2020-12-13-velociraptor-and-osquery-2a4306dd23c/">
+            Velociraptor and OSQuery
+          </a>
+        </div>
+    </li>
       <li data-nav-id="/blog/medium/2020-11-13-the-windows-usn-journal-f0c55c9010e/" class="dd-item">
         <div>
           <a href="/blog/medium/2020-11-13-the-windows-usn-journal-f0c55c9010e/">
@@ -757,7 +771,7 @@
 <p>Note that once the binary is cached on the endpoint, the Velociraptor client will not need to download it again, as long as the cached hash matches the expected hash.</p>
 <h3 id="tool-support--deep-dive">Tool support — deep dive</h3>
 <p>In the above example, from the point of view of the artifact writer, the hollows hunter binary just magically appeared on the endpoint when it was required by an artifact that used it. How does this actually work?</p>
-<p>Velociraptor has integrated support for external tools since 0.4.6. The tools are managed by the velociraptor tools command. You can see what tools Velociraptor knows about using the** velociraptor tools show** command:</p>
+<p>Velociraptor has integrated support for external tools since 0.4.6. The tools are managed by the velociraptor tools command. You can see what tools Velociraptor knows about using the <strong>velociraptor tools show</strong> command:</p>
 <p><img src="../img/1y0ApRgFzYELr7A2Ko4AHNQ.png" alt=""></p>
 <p>We can see that Velociraptor knows the hash of the hollows hunter tool and it also keeps a copy of the binary in the filestore under a special obfuscated name.</p>
 <h3 id="using-a-custom-tool">Using a custom tool</h3>
